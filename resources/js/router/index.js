@@ -3,21 +3,33 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
+import users from './modules/user';
+import dashboard from './modules/dashborad';
+
+export const constantRouterMap = [
+    users,
+    dashboard,
+    { path: '/login', name: 'login', hidden: true, component: () => import('@/pages/auth/login' )},
+    { path: '/404', hidden: true,component: () => import('@/pages/errors/404') },
+    { path: '*', redirect: '/404', hidden: true },
+    { path: '/', redirect: '/login', hidden: true },
+    {
+        path: '/redirect',
+        component: () => import('@/layouts/AppMain'),
+        hidden: true,
+        children: [
+            {
+                path: '/redirect/:path*',
+                component: () => import('@/pages/redirect/index')
+            }
+        ]
+    },
+];
+
 export default new VueRouter({
     linkActiveClass: 'active',
     mode: 'history',
-    routes: [
-        {
-            path: '/login',
-            name: 'login',
-            components: {
-                login: () => import('@/pages/auth/login')
-            }
-        },
-        { path: '/404',components: {page404: () => import('@/pages/errors/404')} },
-        { path: '*', redirect: '/404' }
-    ],
-
+    routes: constantRouterMap,
     scrollBehavior: to => {
         if(to.hash) {
             return {selector: to.hash}
@@ -26,3 +38,7 @@ export default new VueRouter({
         }
     }
 });
+
+export const asyncRouterMap = [
+
+];

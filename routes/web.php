@@ -12,7 +12,7 @@
 */
 
 Route::get('{path}', function () {
-    return view('index');
+    return view('spa');
 })->where('path', '(.*)');
 
 //Route::group(['prefix' => 'be'], function () {

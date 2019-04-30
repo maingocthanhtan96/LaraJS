@@ -1,39 +1,17 @@
-
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
-// require('./bootstrap');
-
-// window.Vue = require('vue');
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+import App from './layouts/App';
 import Vue from 'vue';
 import router from './router';
 import store from './store/index';
-import VueI18n from 'vue-i18n';
+import i18n from './lang';
 import pluginMixin from './plugins/mixins/index';
-import pluginAxios from './plugins/axios';
-import enMessage from './lang/en.json';
-import vnMessage from './lang/vn.json';
-import config from './config.json';
+import ElementUI from 'element-ui';
+import Vuetify from 'vuetify';
+import '../stylus/main.styl';
+import 'element-ui/lib/theme-chalk/index.css';
+
+import './permission';
+
+import * as filters from './filters';
 
 // start third party
 import axios from 'axios';
@@ -41,16 +19,33 @@ import moment from 'moment';
 import lodash from 'lodash';
 import {ServerTable} from 'vue-tables-2';
 
-Vue.use(ServerTable, {perPage: 25,sortIcon: { base:'mdi', up:'mdi-sort-ascending', down:'mdi-sort-descending', is:'mdi-sort' }}, false, 'bootstrap4');
+Vue.use(ServerTable, {
+    perPage: 25, // page limit
+    sortIcon: { base:'mdi', up:'mdi-sort-ascending', down:'mdi-sort-descending', is:'mdi-sort' }, // change icon sortable
+    debounce: 700, //debounce query search
+    saveState: true, // save cache
+    pagination: {
+        edge: true // disabled button fist/last
+    },
+    texts:{
+        count: i18n.t('table.texts.count'),
+        first: i18n.t('table.texts.first'),
+        last: i18n.t('table.texts.last'),
+        filter: i18n.t('table.texts.filter'),
+        filterPlaceholder: i18n.t('table.texts.filterPlaceholder'),
+        limit: i18n.t('table.texts.limit'),
+        page: i18n.t('table.texts.page'),
+        noResults: i18n.t('table.texts.noResults'),
+        filterBy: i18n.t('table.texts.filterBy'),
+        loading: i18n.t('table.texts.loading'),
+        defaultOption: i18n.t('table.texts.defaultOption'),
+        columns:  i18n.t('table.texts.columns')
+    },
+    }, false, 'bootstrap4');
 
 // end third party
 
-
-Object.defineProperty(Vue.prototype, '$axios', {
-    get() {
-        return axios;
-    }
-});
+window.axios = axios;
 
 Object.defineProperty(Vue.prototype, '$moment', {
    get() {
@@ -64,29 +59,31 @@ Object.defineProperty(Vue.prototype, '$_', {
     }
 });
 
-Vue.use(VueI18n);
 Vue.use(pluginMixin);
-Vue.use(pluginAxios);
+Vue.use(Vuetify);
 
-Vue.component('app-main', require('./layouts/AppMain').default);
-
-const messages = {
-    en: enMessage,
-    vn: vnMessage
-};
-
-const i18n = new VueI18n({
-    locale: 'en',
-    messages,
-    fallbackLocale: 'en'
+Vue.use(ElementUI, {
+    size: localStorage.getItem('size') || 'medium',
+    i18n: (key, value) => i18n.t(key, value)
 });
 
-axios.defaults.baseURL = config.dev.api;
+// register global utility filters.
+Object.keys(filters).forEach(key => {
+    Vue.filter(key, filters[key])
+});
 
-Vue.config.productionTip = false;
-const app = new Vue({
+// disable show warning async validator
+const warn = console.warn;
+console.warn = (...args) => {
+    if(typeof args[0] === 'string' && args[0].startsWith('async-validator:')) return;
+
+    warn(...args);
+};
+
+export const app = new Vue({
     el: '#app',
     i18n,
     router,
-    store
+    store,
+    render: h => h(App)
 });

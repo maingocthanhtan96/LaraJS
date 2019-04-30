@@ -176,7 +176,8 @@ return [
         App\Providers\RouteServiceProvider::class,
 
 		Barryvdh\Cors\ServiceProvider::class,
-
+		MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class,
+        Laravel\Passport\PassportServiceProvider::class,
     ],
 
     /*

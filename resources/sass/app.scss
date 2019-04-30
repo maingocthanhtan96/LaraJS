@@ -3,12 +3,16 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
 // Variables
-@import 'variables';
+//@import 'variables';
 
 // Bootstrap
+//@import '~bootstrap/scss/functions';
+//@import '~bootstrap/scss/variables';
+//@import '~bootstrap/scss/mixins';
+//@import '~bootstrap/scss/tables';
+//@import '~bootstrap/scss/forms';
+//@import '~bootstrap/scss/pagination';
 @import '~bootstrap/scss/bootstrap';
-
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-}
+@tailwind preflight;
+@tailwind components;
+@tailwind utilities;

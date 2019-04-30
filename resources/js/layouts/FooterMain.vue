@@ -1,13 +1,16 @@
 <template>
-    <div class="footer-wrapper">
-        <footer class="footer">
-            <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                <span class="text-center text-sm-left d-block d-sm-inline-block">Copyright © 2019. All rights reserved. </span>
-                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Designed by: <a href="#" target="_blank">Mai Ngọc Thanh Tân</a>. </span>
+    <el-footer class="main-footer">
+        <el-card>
+            <div class="d-flex justify-between">
+                <div>
+                    Copyright © 2019. All rights reserved.
+                </div>
+                <div class="text-right">
+                    Designed by: <a href="#" class="no-underline">Mai Ngọc Thanh Tân</a>
+                </div>
             </div>
-        </footer>
-    </div>
-
+        </el-card>
+    </el-footer>
 </template>
 
 <script>
@@ -17,5 +20,7 @@
 </script>
 
 <style lang="scss">
-
+.main-footer {
+    padding: 0 !important;
+}
 </style>
