@@ -1,5 +1,12 @@
 export default {
     "en": {
+        "passwords": {
+            "password": "Passwords must be at least eight characters and match the confirmation.",
+            "reset": "Your password has been reset!",
+            "sent": "We have e-mailed your password reset link!",
+            "token": "This password reset token is invalid.",
+            "user": "We can't find a user with that e-mail address."
+        },
         "auth": {
             "failed": "These credentials do not match our records.",
             "throttle": "Too many login attempts. Please try again in {seconds} seconds.",
@@ -20,76 +27,29 @@ export default {
             },
             "logout": "Logout"
         },
-        "button": {
-            "ok": "OK",
-            "cancel": "Cancel"
-        },
-        "date": {
-            "created_at": "Create date"
-        },
-        "error": [],
-        "field": {
-            "password": "Password",
-            "password_confirm": "Password confirm",
-            "email": "Email"
-        },
-        "messages": {
-            "create": "Created successfully!",
-            "update": "Update successfully!",
-            "delete": "Delete successfully!",
-            "delete_confirm": "This will permanently delete the {attribute}. Continue?",
-            "warning": "Warning",
-            "success": "Success",
-            "error": "Error",
-            "info": "Info"
-        },
         "pagination": {
             "previous": "&laquo; Previous",
             "next": "Next &raquo;"
-        },
-        "passwords": {
-            "password": "Passwords must be at least eight characters and match the confirmation.",
-            "reset": "Your password has been reset!",
-            "sent": "We have e-mailed your password reset link!",
-            "token": "This password reset token is invalid.",
-            "user": "We can't find a user with that e-mail address."
-        },
-        "route": {
-            "users": "Users",
-            "userList": "User List",
-            "userList2": "User List 2"
-        },
-        "table": {
-            "users": {
-                "form_create": "Create user",
-                "form_edit": "Edit user",
-                "id": "No.",
-                "name": "Name",
-                "email": "Email",
-                "role": "Role",
-                "password": "Password",
-                "password_confirm": "Confrim password"
-            },
-            "texts": {
-                "count": "Showing {from} to {to} of {count} records|{count} records|One record",
-                "first": "First",
-                "last": "Last",
-                "filter": "Filter:",
-                "filterPlaceholder": "Search...",
-                "limit": "Records:",
-                "page": "Page:",
-                "noResults": "No matching records",
-                "filterBy": "Filter by {column}",
-                "loading": "Loading...",
-                "defaultOption": "Select {column}",
-                "columns": "Columns"
-            }
         },
         "tagsView": {
             "refresh": "Refresh",
             "close": "Close",
             "closeOthers": "Close Others",
             "closeAll": "Close All"
+        },
+        "field": {
+            "password": "Password",
+            "password_confirm": "Password confirm",
+            "email": "Email"
+        },
+        "error": [],
+        "date": {
+            "created_at": "Create date"
+        },
+        "route": {
+            "users": "Users",
+            "userList": "User List",
+            "userList2": "User List 2"
         },
         "validation": {
             "accepted": "The {attribute} must be accepted.",
@@ -200,6 +160,46 @@ export default {
                 }
             },
             "attributes": []
+        },
+        "table": {
+            "users": {
+                "form_create": "Create user",
+                "form_edit": "Edit user",
+                "id": "No.",
+                "name": "Name",
+                "email": "Email",
+                "role": "Role",
+                "password": "Password",
+                "password_confirm": "Confrim password"
+            },
+            "texts": {
+                "count": "Showing {from} to {to} of {count} records|{count} records|One record",
+                "first": "First",
+                "last": "Last",
+                "filter": "Filter:",
+                "filterPlaceholder": "Search...",
+                "limit": "Records:",
+                "page": "Page:",
+                "noResults": "No matching records",
+                "filterBy": "Filter by {column}",
+                "loading": "Loading...",
+                "defaultOption": "Select {column}",
+                "columns": "Columns"
+            }
+        },
+        "messages": {
+            "create": "Created successfully!",
+            "update": "Update successfully!",
+            "delete": "Delete successfully!",
+            "delete_confirm": "This will permanently delete the {attribute}. Continue?",
+            "warning": "Warning",
+            "success": "Success",
+            "error": "Error",
+            "info": "Info"
+        },
+        "button": {
+            "ok": "OK",
+            "cancel": "Cancel"
         }
     },
     "vn": {
@@ -223,64 +223,24 @@ export default {
             },
             "logout": "Đăng xuất"
         },
-        "button": {
-            "ok": "Xác nhận",
-            "cancel": "Bỏ qua"
-        },
-        "date": {
-            "created_at": "Ngày tạo"
-        },
-        "error": [],
-        "field": {
-            "password": "Mật khẩu",
-            "password_confirm": "Xác nhận mật khẩu"
-        },
-        "messages": {
-            "create": "Tạo thành công!",
-            "update": "Cập nhật thành công!",
-            "delete": "Xóa thành công!",
-            "delete_confirm": "Điều này sẽ xóa vĩnh viễn {attribute}. Tiếp tục?",
-            "warning": "Cảnh báo",
-            "success": "Thành công",
-            "error": "Lỗi",
-            "info": "Thông báo"
-        },
-        "route": {
-            "users": "Nhân viên",
-            "userList": "Danh sách nhân viên",
-            "userList2": "Danh sách nhân viên 2"
-        },
-        "table": {
-            "users": {
-                "form_create": "Tạo nhân viên",
-                "form_edit": "Sửa nhân viên",
-                "id": "STT",
-                "name": "Tên",
-                "email": "Email",
-                "role": "Quyền",
-                "password": "Mật khẩu",
-                "password_confirm": "Xác nhận mật khẩu"
-            },
-            "texts": {
-                "count": "Hiển thị {from} đến {to} trong số {count} dữ liệu|{count} dữ liệu|Một dữ liệu",
-                "first": "Đầu",
-                "last": "Cuối",
-                "filter": "Bộ lọc:",
-                "filterPlaceholder": "Tìm kiếm...",
-                "limit": "Giới hạn:",
-                "page": "Trang:",
-                "noResults": "Không có dữ liệu phù hợp",
-                "filterBy": "Lọc bởi {column}",
-                "loading": "Chờ đợi...",
-                "defaultOption": "Chọn {column}",
-                "columns": "Cột"
-            }
-        },
         "tagsView": {
             "refresh": "Refresh",
             "close": "Close",
             "closeOthers": "Close Others",
             "closeAll": "Close All"
+        },
+        "field": {
+            "password": "Mật khẩu",
+            "password_confirm": "Xác nhận mật khẩu"
+        },
+        "error": [],
+        "date": {
+            "created_at": "Ngày tạo"
+        },
+        "route": {
+            "users": "Nhân viên",
+            "userList": "Danh sách nhân viên",
+            "userList2": "Danh sách nhân viên 2"
         },
         "validation": {
             "accepted": "The {attribute} must be accepted.",
@@ -391,6 +351,46 @@ export default {
                 }
             },
             "attributes": []
+        },
+        "table": {
+            "users": {
+                "form_create": "Tạo nhân viên",
+                "form_edit": "Sửa nhân viên",
+                "id": "STT",
+                "name": "Tên",
+                "email": "Email",
+                "role": "Quyền",
+                "password": "Mật khẩu",
+                "password_confirm": "Xác nhận mật khẩu"
+            },
+            "texts": {
+                "count": "Hiển thị {from} đến {to} trong số {count} dữ liệu|{count} dữ liệu|Một dữ liệu",
+                "first": "Đầu",
+                "last": "Cuối",
+                "filter": "Bộ lọc:",
+                "filterPlaceholder": "Tìm kiếm...",
+                "limit": "Giới hạn:",
+                "page": "Trang:",
+                "noResults": "Không có dữ liệu phù hợp",
+                "filterBy": "Lọc bởi {column}",
+                "loading": "Chờ đợi...",
+                "defaultOption": "Chọn {column}",
+                "columns": "Cột"
+            }
+        },
+        "messages": {
+            "create": "Tạo thành công!",
+            "update": "Cập nhật thành công!",
+            "delete": "Xóa thành công!",
+            "delete_confirm": "Điều này sẽ xóa vĩnh viễn {attribute}. Tiếp tục?",
+            "warning": "Cảnh báo",
+            "success": "Thành công",
+            "error": "Lỗi",
+            "info": "Thông báo"
+        },
+        "button": {
+            "ok": "Xác nhận",
+            "cancel": "Bỏ qua"
         }
     }
 }

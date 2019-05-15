@@ -19,7 +19,7 @@ class UsersTableSeeder extends Seeder
 			'name' => 'Thanh Tan',
 			'email' => 'admin@gmail.com',
 			'role_id' => 1,
-			'password' => \Illuminate\Support\Facades\Hash::make('admin123'),
+			'password' => 'admin123',
 			'remember_token' => \Illuminate\Support\Str::random(10)
 		]);
 
