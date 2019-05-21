@@ -1,0 +1,120 @@
+.pagination,
+.pagination {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.pagination-previous,
+.pagination-next,
+.page-link,
+.pagination-ellipsis {
+  font-size: 1em !important;
+  justify-content: center !important;
+  margin: 0.25rem !important;
+  padding-left: 0.5em !important;
+  padding-right: 0.5em !important;
+  text-align: center !important;
+  border-radius: 4px;
+}
+
+.pagination-previous,
+.pagination-next,
+.page-link {
+  border-color: #dbdbdb !important;
+  color: #363636 !important;
+  min-width: 2.25em !important;
+}
+
+.pagination-previous:hover,
+.pagination-next:hover,
+.page-link:hover {
+  border-color: #b5b5b5 !important;
+  color: #000 !important;
+}
+
+.pagination-previous:focus,
+.pagination-next:focus,
+.page-link:focus {
+  border-color: #3273dc !important;
+}
+
+.pagination-previous:active,
+.pagination-next:active,
+.page-link:active {
+  box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.2) !important;
+}
+
+.pagination-previous[disabled],
+.pagination-next[disabled],
+.page-link[disabled] {
+  background-color: #dbdbdb !important;
+  border-color: #dbdbdb !important;
+  box-shadow: none !important;
+  color: #7a7a7a !important;
+  opacity: 0.5 !important;
+}
+
+.page-link.active {
+  background-color: #3273dc !important;
+  border-color: #3273dc !important;
+  color: #fff !important;
+}
+
+.pagination {
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 768px) {
+  .pagination {
+	flex-wrap: wrap;
+  }
+  .pagination-previous,
+  .pagination-next {
+	flex-grow: 1;
+	flex-shrink: 1;
+  }
+  .pagination li {
+	flex-grow: 1;
+	flex-shrink: 1;
+  }
+}
+
+@media screen and (min-width: 769px), print {
+  .pagination {
+	flex-grow: 1;
+	flex-shrink: 1;
+	justify-content: flex-start;
+	order: 1;
+  }
+  .pagination-previous {
+	order: 2;
+  }
+  .pagination-next {
+	order: 3;
+  }
+  .pagination {
+	justify-content: space-between;
+  }
+  .pagination.is-centered .pagination-previous {
+	order: 1;
+  }
+  .pagination.is-centered .pagination {
+	justify-content: center;
+	order: 2;
+  }
+  .pagination.is-centered .pagination-next {
+	order: 3;
+  }
+  .pagination.is-right .pagination-previous {
+	order: 1;
+  }
+  .pagination.is-right .pagination-next {
+	order: 2;
+  }
+  .pagination.is-right .pagination {
+	justify-content: flex-end;
+	order: 3;
+  }
+}

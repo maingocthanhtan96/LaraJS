@@ -28,7 +28,7 @@
 					<el-form-item v-if="!$route.params.id" required :label="$t('table.users.password_confirm')" prop="password_confirm">
 						<el-input show-password type="password" v-model="form.password_confirm"/>
 					</el-form-item>
-					<el-form-item class="ljs-d-flex justify-center">
+					<el-form-item class="flex justify-center">
 							<template v-if="$route.params.id">
 								<el-button @click="update('users')" :loading="loading" plain type="primary" icon="fa fa-edit mr-2">
 									{{$t('table.users.form_edit')}}

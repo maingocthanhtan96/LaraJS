@@ -2,7 +2,7 @@
     <el-row>
         <el-col :span="24">
             <el-card>
-                <div class="ljs-d-flex justify-end items-center" slot="header">
+                <div class="flex justify-end items-center" slot="header">
                     <router-link :to="{name: 'user_form'}" class="hover:bg-purple-dark hover:text-white font-bold border rounded border-purple-dark text-purple-dark bg-transparent py-2 px-3" tag="button">
                         <i class="fa fa-plus mr-2"></i>Create
                     </router-link>
@@ -14,7 +14,7 @@
                     :options="table.options"
                 >
                     <template slot="id" slot-scope="props">{{props.index}}</template>
-                    <div slot="actions" slot-scope="{row}" class="ljs-d-flex justify-center items-center">
+                    <div slot="actions" slot-scope="{row}" class="flex justify-center items-center">
                         <router-link :to="{name: 'user_form_edit', params: {id: row.id}}"><i class="fa fa-edit text-primary mr-2"></i></router-link>
                         <a class="cursor-pointer" @click="remove(row.id, row.name)"><i class="fa fa-trash-o text-danger"></i></a>
                     </div>

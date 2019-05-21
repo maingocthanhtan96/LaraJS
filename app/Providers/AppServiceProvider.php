@@ -3,7 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 
@@ -16,7 +19,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->_whereLike();
+        $this->_paginate();
     }
 
     /**
@@ -26,6 +30,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+    }
+
+    private function _whereLike()
+    {
+        // whereLike
         Builder::macro('whereLike', function ($attributes, string $searchTerm) {
             $this->where(function (Builder $query) use ($attributes, $searchTerm) {
                 foreach (Arr::wrap($attributes) as $attribute) {
@@ -46,5 +56,21 @@ class AppServiceProvider extends ServiceProvider
             });
             return $this;
         });
+    }
+
+    private function _paginate()
+    {
+        // Enable pagination
+        if (!Collection::hasMacro('paginate')) {
+            $pathInfo = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '';
+            $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$pathInfo";
+            Collection::macro('paginate',
+                function ($perPage = 15, $page = null, $options = []) use($actual_link) {
+                    $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+                    return (new LengthAwarePaginator(
+                        $this->forPage($page, $perPage)->values()->all(), $this->count(), $perPage, $page, $options))
+                        ->withPath($actual_link);
+                });
+        }
     }
 }

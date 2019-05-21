@@ -70,6 +70,7 @@
 			this.getBreadcrumb();
 		},
         mounted() {
+			this.scrollFunction();
 			window.onresize = this.scrollFunction;
         },
 		methods: {
