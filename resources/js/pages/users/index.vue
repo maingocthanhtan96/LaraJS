@@ -3,7 +3,7 @@
         <el-col :span="24">
             <el-card>
                 <div class="flex justify-end items-center" slot="header">
-                    <router-link :to="{name: 'user_form'}" class="hover:bg-purple-dark hover:text-white font-bold border rounded border-purple-dark text-purple-dark bg-transparent py-2 px-3" tag="button">
+                    <router-link :to="{name: 'user_form'}" class="hover:bg-indigo-600 hover:text-white font-bold border rounded border-indigo-600 text-indigo-600 bg-transparent py-2 px-3" tag="button">
                         <i class="fa fa-plus mr-2"></i>Create
                     </router-link>
                 </div>

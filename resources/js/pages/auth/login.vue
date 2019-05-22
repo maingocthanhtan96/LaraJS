@@ -15,7 +15,7 @@
                                     :lazy-src="require('@/public/images/logo/logo-tanmnt.png')"
                                 ></v-img>
                             </div>
-                            <div class="absolute pin-t pin-r">
+                            <div class="absolute top-0 right-0">
                                 <v-menu
                                     offset-y
                                     transition="slide-y-transition"
@@ -30,7 +30,7 @@
                                             v-for="(item, index) in languages"
                                             :key="index"
                                             @click="changeLanguage(item.value)"
-                                            :class="{'bg-blue-light text-white font-bold': $store.getters['lang/lang'] === item.value}"
+                                            :class="{'bg-blue-400 text-white font-bold': $store.getters['lang/lang'] === item.value}"
                                         >
                                             <v-list-tile-title>
                                                 <i v-if="index === 0 " class="flag-icon flag-icon-vn"></i>

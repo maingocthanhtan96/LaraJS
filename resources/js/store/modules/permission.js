@@ -71,4 +71,4 @@ const permission = {
 	}
 };
 
-export {permission};
+export default permission;

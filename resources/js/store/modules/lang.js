@@ -27,4 +27,4 @@ const lang = {
     }
 };
 
-export {lang}
+export default lang

@@ -7,7 +7,7 @@
             <div class="navbar-main">
                 <navbar-main/>
             </div>
-            <el-main class="bg-grey-light p-20 main w-full">
+            <el-main class="bg-gray-300 p-20 main w-full">
                 <div class="tags-view">
                     <tags-view/>
                 </div>

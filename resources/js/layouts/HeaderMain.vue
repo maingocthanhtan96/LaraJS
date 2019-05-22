@@ -5,7 +5,7 @@
 				<img src="@/public/images/logo/logo-tanmnt-mini.png" class="" width="90px">
 			</div>
 			<div class="text-right p-5">
-				<i class="mdi mdi-menu text-3xl text-grey-light cursor-pointer"
+				<i class="mdi mdi-menu text-3xl text-white cursor-pointer"
 				   @click="$store.state.isCollapse = !$store.state.isCollapse; $store.state.collapse = $store.state.collapse === '63px' ? '199px' : '63px' "></i>
 			</div>
 		</div>
@@ -30,8 +30,8 @@
 						<i class="fa fa-language text-3xl"></i>
 					</span>
 					<el-dropdown-menu slot="dropdown">
-						<el-dropdown-item :class="{'bg-blue-light text-white font-bold': $store.getters['lang/lang'] === 'vn'}" icon="flag-icon flag-icon-vn" command="vn">Việt Nam</el-dropdown-item>
-						<el-dropdown-item :class="{'bg-blue-light text-white font-bold': $store.getters['lang/lang'] === 'en'}" icon="flag-icon flag-icon-my" command="en">English</el-dropdown-item>
+						<el-dropdown-item :class="{'bg-blue-400 text-white font-bold': $store.getters['lang/lang'] === 'vn'}" icon="flag-icon flag-icon-vn" command="vn">Việt Nam</el-dropdown-item>
+						<el-dropdown-item :class="{'bg-blue-400 text-white font-bold': $store.getters['lang/lang'] === 'en'}" icon="flag-icon flag-icon-my" command="en">English</el-dropdown-item>
 					</el-dropdown-menu>
 				</el-dropdown>
 				</div>
@@ -141,6 +141,18 @@
 			display: flex;
 			justify-content: flex-end;
 			align-items: center;
+		}
+	}
+</style>
+<style lang="scss">
+	.profile {
+		.el-dropdown {
+			.el-dropdown-link{
+				width: 4rem;
+				display: flex;
+				justify-content: flex-end;
+				align-items: center;
+			}
 		}
 	}
 </style>

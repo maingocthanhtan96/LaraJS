@@ -16,17 +16,17 @@ const dashboard = {
 				title: 'dashboard1',
 				icon: 'dashboard1'
 			},
-			// children: [
-			// 	{
-			// 		path: 'dashboard2',
-			// 		name: 'dashboard2',
-			// 		component: () => import('@/pages/users/index'),
-			// 		meta: {
-			// 			title: 'Users List 2',
-			// 			icon: 'chart 2'
-			// 		},
-			// 	}
-			// ]
+			children: [
+				{
+					path: 'dashboard2',
+					name: 'dashboard2',
+					component: () => import('@/pages/users/index'),
+					meta: {
+						title: 'Users List 2',
+						icon: 'chart 2'
+					},
+				}
+			]
 		}
 	]
 };

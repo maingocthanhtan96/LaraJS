@@ -166,6 +166,4 @@ const tagsView = {
 	}
 };
 
-export {
-	tagsView
-}
+export default tagsView
