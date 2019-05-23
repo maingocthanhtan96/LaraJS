@@ -99,9 +99,9 @@
 <style lang="scss">
 	.navbar-menu {
 		height: 100%;
-		padding-top: 60px;
 		transition: all 0.45s ease 0s;
 		.el-menu-vertical-demo {
+			position: fixed;
 			min-height: calc(100vh - 60px);
 			&:not(.el-menu--collapse) {
 				width: 200px;
@@ -125,6 +125,7 @@
 	        }
 	    }
 	    .is-active {
+			color: #fff !important;
 	        font-weight: bold;
 	    }
 	    .el-menu {
