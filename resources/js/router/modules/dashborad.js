@@ -1,32 +1,21 @@
 const dashboard = {
 	path: '/dashboard',
 	name: 'dashboard',
-	component: () => import('@/layouts/AppMain'),
+	component: () => import('@/layout'),
 	redirect: '/dashboard/index',
 	meta: {
-		title: 'dashboard',
-		icon: 'mdi mdi-shield-check',
+		title: 'Permission',
+		icon: 'lock',
 	},
 	children: [
 		{
 			path: 'index',
-			name: 'dashboard1',
+			name: 'dashboard2',
 			component: () => import('@/pages/dashboards/index'),
 			meta: {
-				title: 'dashboard1',
-				icon: 'dashboard1'
+				title: 'Dashboard',
+				icon: 'lock'
 			},
-			children: [
-				{
-					path: 'dashboard2',
-					name: 'dashboard2',
-					component: () => import('@/pages/users/index'),
-					meta: {
-						title: 'Users List 2',
-						icon: 'chart 2'
-					},
-				}
-			]
 		}
 	]
 };

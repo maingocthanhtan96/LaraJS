@@ -35,7 +35,7 @@ class UserController extends Controller
 		$query = $request->get('query', '');
 
 		$columns = ['id' => 'id' ,'role.name' => 'role_id', 'email' => 'email', 'created_at' => 'created_at'];
-		$columnSearch = ['name', 'email'];
+		$columnSearch = ['name', 'email', 'role.name'];
 		$with = ['role'];
 
 		$qs = new QueryService(new User);

@@ -6,7 +6,7 @@
                     Copyright © 2019. All rights reserved.
                 </div>
                 <div class="text-right">
-                    Designed by: <a href="#" class="no-underline">Mai Ngọc Thanh Tân</a>
+                    Designed by: <a href="#" class="no-underline font-bold">Mai Ngọc Thanh Tân</a>
                 </div>
             </div>
         </el-card>
@@ -22,5 +22,6 @@
 <style lang="scss">
 .main-footer {
     padding: 0 !important;
+    margin: 20px 0 0 0 !important;
 }
 </style>

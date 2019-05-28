@@ -2,8 +2,11 @@ const users = {
 	path: '/users',
 	name: 'users',
 	redirect: '/users/index',
-	component: () => import('@/layouts/AppMain'),
-	hasOne: true, // no submenu
+	component: () => import('@/layout'),
+	meta: {
+		title: 'users',
+		icon: 'user',
+	},
 	children: [
 		{
 			path: 'index',
@@ -11,9 +14,10 @@ const users = {
 			component: () => import('@/pages/users/index'),
 			meta: {
 				title: 'users',
-				icon: 'mdi mdi-account-circle',
+				icon: 'user',
+				activeMenu: '/users'
 			},
-			hidden: true,
+			hidden: true
 		},
 		{
 			path: 'form',
@@ -22,8 +26,8 @@ const users = {
 			component: () => import('@/pages/users/form'),
 			meta: {
 				tagsView: true,
-				activeMenu: '/users/index',
-				title: 'users',
+				activeMenu: '/users',
+				title: 'User Create',
 			}
 		},
 		{
@@ -33,8 +37,8 @@ const users = {
 			component: () => import('@/pages/users/form'),
 			meta: {
 				tagsView: true,
-				activeMenu: '/users/index',
-				title: 'users',
+				activeMenu: '/users',
+				title: 'User Edit',
 			},
 			props: route => {
 				return {
