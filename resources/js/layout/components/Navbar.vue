@@ -23,7 +23,7 @@
 				@command="handleCommand"
 			>
 				<span class="el-dropdown-link">
-					<i class="fa fa-language text-3xl"></i>
+					<svg-icon icon-class="language" class="text-4xl" />
 				</span>
 				<el-dropdown-menu slot="dropdown">
 					<el-dropdown-item :class="{'bg-blue-400 text-white font-bold': $store.getters['lang/lang'] === 'vn'}" icon="flag-icon flag-icon-vn" command="vn">Việt Nam</el-dropdown-item>
@@ -75,7 +75,6 @@
 				if (command === 'logout') {
 					this.logout();
 				}else if (command === 'vn' || command === 'en') {
-					localStorage.setItem('lang', command);
 					this.$store.dispatch(`lang/${SET_LANG}`, command);
 				}
 
@@ -120,6 +119,7 @@
 
 		.breadcrumb-container {
 			float: left;
+			height: 50px;
 		}
 
 		.errLog-container {

@@ -48,6 +48,8 @@
 
 <script>
 	import {store, roles, edit, update} from '@/api/users';
+	import {validEmail} from "@/utils/validate";
+
 	export default {
 		data() {
 			const password = (rule, value, cb) => {
@@ -81,14 +83,34 @@
 				},
 				rules: {
 					name: [
-						{required: true, message: this.$t('validation.required', {attribute: this.$t('table.users.name')}), trigger: 'blur'}
+						{
+							validator: (rule, value, cb) => {
+								!!value ? cb() : cb(new Error(this.$t('validation.required', {attribute: this.$t('table.users.name')})))
+							},
+							trigger: 'blur'
+						}
 					],
 					email: [
-						{required: true, message: this.$t('validation.required', {attribute: this.$t('table.users.email')}), trigger: 'blur'},
-						{type: 'email', message: this.$t('validation.email', {attribute: this.$t('table.users.email')}), trigger: ['blur', 'change']}
+						{
+							validator: (rule, value, cb) => {
+								if(!value) {
+									cb(new Error(this.$t('validation.required', {attribute: this.$t('table.users.email')})))
+								} else if(!validEmail(value)) {
+									cb(new Error(this.$t('validation.email', {attribute: this.$t('table.users.email')})))
+								} else {
+									cb();
+								}
+							},
+							trigger: ['blur', 'change']
+						},
 					],
 					role_id: [
-						{required: true, message: this.$t('validation.required', {attribute: this.$t('table.users.role')}), trigger: 'change'},
+						{
+							validator: (rule, value, cb) => {
+								!!value ? cb() : cb(new Error(this.$t('validation.required', {attribute: this.$t('table.users.role')})))
+							},
+							trigger: 'change'
+						}
 					],
 					password: [
 						{validator: password, trigger: ['change', 'blur']}

@@ -5,9 +5,9 @@ import store from './store/index';
 import i18n from './lang';
 import pluginMixin from './plugins/mixins/index';
 import ElementUI from 'element-ui';
-import Vuetify from 'vuetify';
+// import Vuetify from 'vuetify';
 import 'normalize.css/normalize.css'
-import '../stylus/main.styl';
+// import '../stylus/main.styl';
 import 'element-ui/lib/theme-chalk/index.css';
 
 import './icons';
@@ -43,7 +43,7 @@ Vue.use(ServerTable, {
         defaultOption: i18n.t('table.texts.defaultOption'),
         columns:  i18n.t('table.texts.columns')
     },
-    }, false, 'bootstrap4');
+    }, false, 'bulma', require('./template/'));
 
 // end third party
 
@@ -62,7 +62,7 @@ Object.defineProperty(Vue.prototype, '$_', {
 });
 
 Vue.use(pluginMixin);
-Vue.use(Vuetify);
+// Vue.use(Vuetify);
 
 Vue.use(ElementUI, {
     size: localStorage.getItem('size') || 'medium',

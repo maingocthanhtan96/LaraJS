@@ -54,6 +54,8 @@ const mutations = {
 		state.sidebar.withoutAnimation = withoutAnimation
 	},
 	TOGGLE_DEVICE: (state, device) => {
+		console.log(!!+Cookies.get('sidebarStatus'));
+
 		state.device = device
 	},
 	SET_SIZE: (state, size) => {

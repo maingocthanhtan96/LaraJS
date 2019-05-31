@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="{{asset('css/materialdesignicons.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/flag-icon.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
 
     <link rel="shortcut icon" href="{{asset('images/logo/logo-tanmnt.png')}}" />

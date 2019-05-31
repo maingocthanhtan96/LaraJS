@@ -8,16 +8,6 @@ export default {
     install(Vue) {
         Vue.mixin({
             mounted() {
-                if(this.$refs.table) {
-                    // this.$refs.table.setLimit(this.limitPagination);
-                    // this.$refs.table.setPage(this.pagePagination);
-                    // this.$refs.table.refresh();
-
-                    if(this.setUpdateMessage) {
-                        this.notifi('index', this.$t('messages.update'));
-                        this.updateMessage(false);
-                    }
-                }
             },
             methods: {
                 //toastr

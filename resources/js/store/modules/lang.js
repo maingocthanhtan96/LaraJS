@@ -22,7 +22,9 @@ const lang = {
     },
     actions: {
         [SET_LANG] ({commit}, lang) {
+            localStorage.setItem('lang', lang);
             commit(SET_LANG, lang);
+            fetch(`api/v1/language/${lang}`);
         }
     }
 };

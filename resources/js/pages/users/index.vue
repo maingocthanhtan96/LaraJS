@@ -3,7 +3,7 @@
         <el-col :span="24">
             <el-card>
                 <div class="flex justify-end items-center" slot="header">
-                    <router-link :to="{name: 'user_form'}" class="hover:bg-indigo-600 hover:text-white font-bold border rounded border-indigo-600 text-indigo-600 bg-transparent py-2 px-3" tag="button">
+                    <router-link :to="{name: 'user_form'}" class="hover:bg-indigo-600 hover:text-white font-bold border rounded border-indigo-600 text-indigo-600 bg-transparent py-3 px-4" tag="button">
                         <i class="fa fa-plus mr-2"></i>Create
                     </router-link>
                 </div>
@@ -15,8 +15,8 @@
                 >
                     <template slot="id" slot-scope="props">{{props.index}}</template>
                     <div slot="actions" slot-scope="{row}" class="flex justify-center items-center">
-                        <router-link :to="{name: 'user_form_edit', params: {id: row.id}}"><i class="fa fa-edit text-primary mr-2"></i></router-link>
-                        <a class="cursor-pointer" @click="remove(row.id, row.name)"><i class="fa fa-trash-o text-danger"></i></a>
+                        <router-link :to="{name: 'user_form_edit', params: {id: row.id}}"><i class="fa fa-edit has-text-info mr-2"></i></router-link>
+                        <a class="cursor-pointer" @click="remove(row.id, row.name)"><i class="fa fa-trash-o has-text-danger"></i></a>
                     </div>
                 </v-server-table>
             </el-card>
@@ -41,9 +41,9 @@
 							created_at: () => this.$t('date.created_at')
 						},
 						columnsClasses: {
-							id: 'text-center',
-							created_at: 'text-center',
-							'role.name': 'text-center'
+							id: 'has-text-centered',
+							created_at: 'has-text-centered',
+							'role.name': 'has-text-centered'
 						},
 						templates: {
 							created_at: (h, row) => {
@@ -59,7 +59,7 @@
 		},
         methods: {
             remove(id, name) {
-                this.$confirm(this.$t('messages.delete_confirm', {arrtribute: name}), this.$t('message.warning'), {
+                this.$confirm(this.$t('messages.delete_confirm', {attribute: name}), this.$t('messages.warning'), {
                     confirmButtonClass: 'outline-none',
                     confirmButtonText: this.$t('button.ok'),
                     cancelButtonClass: this.$t('button.cancel'),

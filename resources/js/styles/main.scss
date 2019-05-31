@@ -1,16 +1,19 @@
 @import "transition";
 @import "table";
-@import "pagination";
+//@import "pagination";
 @import 'variables.scss';
 @import 'mixin.scss';
 @import 'element-ui.scss';
 @import 'sidebar.scss';
 //@import 'btn.scss';
 
+html {
+  font-size: 62.5% !important;
+}
 #app {
   height: 100%;
   background: #edeef2;
-  font-size: 1rem;
+  font-size: 1.4rem;
   font-family: "Poppins", sans-serif;
   font-weight: initial;
   line-height: normal;

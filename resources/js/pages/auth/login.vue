@@ -1,99 +1,59 @@
 <template>
-    <v-app class="blue-grey lighten-5">
-        <v-content class="items-center">
-            <v-container fluid grid-list-md>
-                <v-flex class="m-auto" xs12 sm5 md4 lg4>
-                    <v-form
-                        lazy-validation
-                        ref="form"
-                    >
-                        <v-card>
-                            <div class="justify-center relative lar-img">
-                                <v-img
-                                    :src="require('@/public/images/logo/logo-tanmnt.png')"
-                                    width="200"
-                                    :lazy-src="require('@/public/images/logo/logo-tanmnt.png')"
-                                ></v-img>
-                            </div>
-                            <div class="absolute top-0 right-0">
-                                <v-menu
-                                    offset-y
-                                    transition="slide-y-transition"
-                                >
-                                    <template v-slot:activator="{ on }">
-                                        <div class="h-16 w-16 items-center justify-center display-1 flex">
-                                            <i v-on="on" class="fa fa-language text-5xl"></i>
-                                        </div>
-                                    </template>
-                                    <v-list>
-                                        <v-list-tile
-                                            v-for="(item, index) in languages"
-                                            :key="index"
-                                            @click="changeLanguage(item.value)"
-                                            :class="{'bg-blue-400 text-white font-bold': $store.getters['lang/lang'] === item.value}"
-                                        >
-                                            <v-list-tile-title>
-                                                <i v-if="index === 0 " class="flag-icon flag-icon-vn"></i>
-                                                <i v-if="index === 1 " class="flag-icon flag-icon-my"></i>
-                                                {{ item.title }}
-                                            </v-list-tile-title>
-                                        </v-list-tile>
-                                    </v-list>
-                                </v-menu>
-                            </div>
-                            <!--                        <v-img :src="logo"></v-img>-->
-                            <v-card-title>
-                                <v-flex xs12>
-                                    <v-text-field
-                                        :label="$t('auth.login.email')"
-                                        v-model="form.email"
-                                        counter="255"
-                                        :autofocus="true"
-                                        :rules="rules.email"
-                                        :error-messages="errors.email ? errors.email[0] : ''"
-                                        @input="errors.email = ''"
-                                    ></v-text-field>
-                                </v-flex>
-                                <v-flex xs12>
-                                    <v-text-field
-                                        :label="$t('auth.login.password')"
-                                        type="password"
-                                        counter="255"
-                                        v-model="form.password"
-                                        :rules="rules.password"
-                                        :error-messages="errors.password ? errors.password[0] : ''"
-                                        @input="errors.password = ''"
-                                        @keyup.enter.prevent="login"
-                                    ></v-text-field>
-                                </v-flex>
-                                <v-flex xs12 class="justify-center">
-                                    <v-btn
-                                        large
-                                        class="white--text font-bold rounded-sm"
-                                        color="indigo darken-4"
-                                        :block="true"
-                                        :loading="loading"
-                                        @click.prevent="login"
-                                    >{{$t('auth.login.login')}}
-                                    </v-btn>
-                                </v-flex>
-                                <v-flex xs6>
-                                    <v-checkbox
-                                        :label="$t('auth.login.remember')"
-                                        class="ljs-checkbox"
-                                    ></v-checkbox>
-                                </v-flex>
-                                <v-flex xs6 class="justify-end">
-                                    <a class="text-black">{{$t('auth.login.forgot_password')}}</a>
-                                </v-flex>
-                            </v-card-title>
-                        </v-card>
-                    </v-form>
-                </v-flex>
-            </v-container>
-        </v-content>
-<!--        <v-footer app></v-footer>-->
-    </v-app>
+    <el-container class="blue-grey lighten-5 h-screen justify-center items-center">
+        <el-row>
+            <el-col :span="24">
+                <el-card class="box-card">
+                    <div slot="header" class="clearfix">
+                        <div class="flex justify-center items-center relative">
+							<img :src="require('@/public/images/logo/logo-tanmnt.png')" width="200" />
+                            <el-dropdown
+                                    class="language absolute right-0 top-0"
+                                    trigger="click"
+                                    @command="handleCommand"
+                            >
+                                <span class="el-dropdown-link">
+                                    <svg-icon icon-class="language" class="text-4xl" />
+                                </span>
+                                <el-dropdown-menu slot="dropdown">
+                                    <el-dropdown-item :class="{'bg-blue-400 text-white font-bold': $store.getters['lang/lang'] === 'vn'}" icon="flag-icon flag-icon-vn" command="vn">Việt Nam</el-dropdown-item>
+                                    <el-dropdown-item :class="{'bg-blue-400 text-white font-bold': $store.getters['lang/lang'] === 'en'}" icon="flag-icon flag-icon-my" command="en">English</el-dropdown-item>
+                                </el-dropdown-menu>
+                            </el-dropdown>
+                        </div>
+                    </div>
+					<el-form :model="form" status-icon :rules="rules" ref="login" label-width="120px" label-position="left" class="demo-ruleForm">
+						<el-form-item :label="$t('auth.login.email')" prop="email" :rules="[
+						{ required: true, message: $t('auth.error.email'), trigger: ['change', 'blur'] },
+						{ type: 'email', message: $t('auth.error.email_valid'), trigger: ['change', 'blur']}
+                    ]">
+							<el-input type="text" v-model="form.email" autocomplete="on"></el-input>
+						</el-form-item>
+						<el-form-item :label="$t('auth.login.password')" prop="password" :rules="[
+						{ required: true, message: $t('auth.error.password'), trigger: ['change', 'blur'] },
+                    ]">
+							<el-input type="password" @keyup.enter.native="login" v-model="form.password" show-password autocomplete="off"></el-input>
+						</el-form-item>
+					</el-form>
+                    <el-row>
+						<el-col :span="24" class="mb-5">
+							<el-button
+									type="primary"
+									:loading="loading"
+									@click.prevent="login"
+									class="w-full"
+							>{{$t('auth.login.login')}}</el-button>
+						</el-col>
+                        <el-col :span="12">
+                            <el-checkbox>{{$t('auth.login.remember')}}</el-checkbox>
+                        </el-col>
+                        <el-col :span="12" class="text-right">
+                            <a class="text-black">{{$t('auth.login.forgot_password')}}</a>
+                        </el-col>
+                    </el-row>
+                </el-card>
+            </el-col>
+        </el-row>
+    </el-container>
 </template>
 
 <script>
@@ -101,11 +61,8 @@
         SET_LANG,
         LOGIN
     } from '@/store/muation-types';
-    import {
-        isEmailValid
-    } from '@/utils/validate';
 
-    export default {
+	export default {
         data() {
             return {
                 logo: require('@/public/images/logo/logo-tanmnt.png'),
@@ -114,13 +71,8 @@
                     password: ''
                 },
                 rules: {
-                    email: [
-                        v => !!v || this.$t('auth.error.email'),
-                        v => isEmailValid(v) || this.$t('auth.error.email_valid')
-                    ],
-                    password: [
-                        v => !!v || this.$t('auth.error.password'),
-                    ]
+                    // email: ,
+                    // password:
                 },
                 loading: false,
                 languages: [
@@ -137,23 +89,28 @@
             }
         },
         methods: {
-            changeLanguage(lang) {
-                localStorage.setItem('lang', lang);
-                this.$store.dispatch(`lang/${SET_LANG}`, lang);
-                fetch(`api/v1/language/${lang}`);
+            handleCommand(command) {
+                if (command === 'vn' || command === 'en') {
+                    this.$store.dispatch(`lang/${SET_LANG}`, command);
+                }
             },
             login() {
                 this.loading = true;
-                this.$refs.form.validate();
-                this.$store.dispatch(`auth/${LOGIN}`, this.form)
-                    .then(res => {
-                        this.loading = false;
-                        this.$router.push({ path: this.redirect || '/users' })
-                    })
-                    .catch(err => {
-                        console.log(err);
-                        this.loading = false;
-                    });
+				this.$refs['login'].validate(valid => {
+					if(valid) {
+						this.$store.dispatch(`auth/${LOGIN}`, this.form)
+							.then(res => {
+								this.loading = false;
+								this.$router.push({ path: this.redirect || '/users' })
+							})
+							.catch(err => {
+								this.loading = false;
+							});
+					} else {
+						this.loading = false;
+						return false;
+					}
+				});
             }
         },
         watch: {
@@ -168,14 +125,5 @@
 </script>
 
 <style lang="scss">
-    .lar-img {
-        .v-image {
-            margin: 0 auto;
-        }
-    }
-    .ljs-checkbox {
-        .v-label {
-            margin: 0 !important;
-        }
-    }
+
 </style>
