@@ -19,7 +19,7 @@ import * as filters from './filters';
 import axios from 'axios';
 import moment from 'moment';
 import lodash from 'lodash';
-import {ServerTable} from 'vue-tables-2';
+import {ServerTable, Event} from 'vue-tables-2';
 
 Vue.use(ServerTable, {
     perPage: 25, // page limit
@@ -43,11 +43,12 @@ Vue.use(ServerTable, {
         defaultOption: i18n.t('table.texts.defaultOption'),
         columns:  i18n.t('table.texts.columns')
     },
-    }, false, 'bulma', require('./template/'));
+    }, true, 'bulma', require('./template/'));
 
 // end third party
 
 window.axios = axios;
+window.Event = Event;
 
 Object.defineProperty(Vue.prototype, '$moment', {
    get() {

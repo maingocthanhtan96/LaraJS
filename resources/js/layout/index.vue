@@ -9,15 +9,15 @@
       </div>
       <app-main />
       <footer-main/>
-<!--      <right-panel v-if="showSettings">-->
-<!--        <settings />-->
-<!--      </right-panel>-->
+      <right-panel v-if="showSettings">
+        <settings />
+      </right-panel>
     </div>
   </div>
 </template>
 
 <script>
-// import RightPanel from '@/components/RightPanel'
+import RightPanel from '@/components/RightPanel'
 import { AppMain, Navbar, Settings, Sidebar } from './components'
 import TagViews from './components/TagsView.vue';
 import FooterMain from './components/FooterMain';
@@ -29,7 +29,7 @@ export default {
   components: {
     AppMain,
     Navbar,
-    // RightPanel,
+    RightPanel,
     Settings,
     Sidebar,
     TagViews,

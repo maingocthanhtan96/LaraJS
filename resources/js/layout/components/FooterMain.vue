@@ -1,11 +1,11 @@
 <template>
     <el-footer class="main-footer">
         <el-card>
-            <div class="d-flex justify-between">
+            <div class="flex justify-between items-center">
                 <div>
                     Copyright © 2019. All rights reserved.
                 </div>
-                <div class="text-right">
+                <div >
                     Designed by: <a href="#" class="no-underline font-bold">Mai Ngọc Thanh Tân</a>
                 </div>
             </div>
@@ -23,5 +23,8 @@
 .main-footer {
     padding: 0 !important;
     margin: 20px 0 0 0 !important;
+    > .el-card {
+        height: 60px;
+    }
 }
 </style>

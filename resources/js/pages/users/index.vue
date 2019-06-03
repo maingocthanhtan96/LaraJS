@@ -13,6 +13,9 @@
                     :columns="table.columns"
                     :options="table.options"
                 >
+                    <template v-if="isLoading" slot="afterBody">
+                        <div class="overlay-loader" v-loading="isLoading"></div>
+                    </template>
                     <template slot="id" slot-scope="props">{{props.index}}</template>
                     <div slot="actions" slot-scope="{row}" class="flex justify-center items-center">
                         <router-link :to="{name: 'user_form_edit', params: {id: row.id}}"><i class="fa fa-edit has-text-info mr-2"></i></router-link>
@@ -34,7 +37,7 @@
 						requestFunction: function (data) {
 							return list(data);
 						},
-						headings: {
+                        headings: {
 							id: () => this.$t('table.users.id'),
 							name: () => this.$t('table.users.name'),
 							'role.name': () => this.$t('table.users.role'),
@@ -50,12 +53,19 @@
 								return this.$options.filters.formatDate(row.created_at);
 							},
 						},
-						sortable: ['id', 'created_at', 'role.name'],
+                        sortable: ['id', 'created_at', 'role.name'],
                     }
-                }
+                },
+                isLoading: false
             }
         },
 		mounted() {
+            Event.$on('vue-tables.loading', () => {
+                this.isLoading = true;
+            });
+            Event.$on('vue-tables.loaded', () => {
+                this.isLoading = false;
+            });
 		},
         methods: {
             remove(id, name) {

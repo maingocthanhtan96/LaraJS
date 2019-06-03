@@ -22,15 +22,10 @@
                         </div>
                     </div>
 					<el-form :model="form" status-icon :rules="rules" ref="login" label-width="120px" label-position="left" class="demo-ruleForm">
-						<el-form-item :label="$t('auth.login.email')" prop="email" :rules="[
-						{ required: true, message: $t('auth.error.email'), trigger: ['change', 'blur'] },
-						{ type: 'email', message: $t('auth.error.email_valid'), trigger: ['change', 'blur']}
-                    ]">
+						<el-form-item :label="$t('auth.login.email')" prop="email">
 							<el-input type="text" v-model="form.email" autocomplete="on"></el-input>
 						</el-form-item>
-						<el-form-item :label="$t('auth.login.password')" prop="password" :rules="[
-						{ required: true, message: $t('auth.error.password'), trigger: ['change', 'blur'] },
-                    ]">
+						<el-form-item :label="$t('auth.login.password')" prop="password">
 							<el-input type="password" @keyup.enter.native="login" v-model="form.password" show-password autocomplete="off"></el-input>
 						</el-form-item>
 					</el-form>
@@ -70,10 +65,6 @@
                     email: '',
                     password: ''
                 },
-                rules: {
-                    // email: ,
-                    // password:
-                },
                 loading: false,
                 languages: [
                     {
@@ -88,6 +79,19 @@
                 redirect: undefined
             }
         },
+		computed: {
+        	rules() {
+        		return {
+					email: [
+						{ required: true, message: this.$t('auth.error.email'), trigger: ['change', 'blur'] },
+						{ type: 'email', message: this.$t('auth.error.email_valid'), trigger: ['change', 'blur']}
+					],
+					password:[
+						{ required: true, message: this.$t('auth.error.password'), trigger: ['change', 'blur'] },
+					]
+				}
+			}
+		},
         methods: {
             handleCommand(command) {
                 if (command === 'vn' || command === 'en') {

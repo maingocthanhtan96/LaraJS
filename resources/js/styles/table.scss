@@ -1,12 +1,15 @@
-.VueTables__table {
-  thead {
-    tr {
-      th {
-        text-align: center !important;
+table {
+  position: relative;
+  .VueTables__table {
+    thead {
+      tr {
+        th {
+          text-align: center !important;
+        }
       }
     }
   }
-}
-.VuePagination {
-  margin-top: 0.5rem !important;
+  .VuePagination {
+    margin-top: 0.5rem !important;
+  }
 }
