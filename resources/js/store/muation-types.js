@@ -2,7 +2,6 @@ export const SET_ERRORS = 'setErrors';
 export const CLEAR_ERRORS = 'clearERRORS';
 export const UPDATE_MESSAGE = 'updateMessage';
 
-
 // lang.js
 export const SET_LANG = 'setLang';
 

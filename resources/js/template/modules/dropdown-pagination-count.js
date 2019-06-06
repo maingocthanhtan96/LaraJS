@@ -1,11 +1,10 @@
 'use strict';
 
-module.exports = function (h) {
+module.exports = function(h) {
   var _this = this;
 
-  return function () {
+  return function() {
     if (_this.count > 0 && _this.opts.pagination.dropdown) {
-
       var perPage = parseInt(_this.limit);
 
       var from = (_this.Page - 1) * perPage + 1;

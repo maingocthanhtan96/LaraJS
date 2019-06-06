@@ -6,7 +6,7 @@ import i18n from './lang';
 import pluginMixin from './plugins/mixins/index';
 import ElementUI from 'element-ui';
 // import Vuetify from 'vuetify';
-import 'normalize.css/normalize.css'
+import 'normalize.css/normalize.css';
 // import '../stylus/main.styl';
 import 'element-ui/lib/theme-chalk/index.css';
 
@@ -19,31 +19,31 @@ import * as filters from './filters';
 import axios from 'axios';
 import moment from 'moment';
 import lodash from 'lodash';
-import {ServerTable, Event} from 'vue-tables-2';
+import { ServerTable, Event } from 'vue-tables-2';
 
 Vue.use(ServerTable, {
-    perPage: 25, // page limit
-    sortIcon: { base:'mdi', up:'mdi-sort-ascending', down:'mdi-sort-descending', is:'mdi-sort' }, // change icon sortable
-    debounce: 700, //debounce query search
-    saveState: true, // save cache
-    pagination: {
-        edge: true // disabled button fist/last
-    },
-    texts:{
-        count: i18n.t('table.texts.count'),
-        first: i18n.t('table.texts.first'),
-        last: i18n.t('table.texts.last'),
-        filter: i18n.t('table.texts.filter'),
-        filterPlaceholder: i18n.t('table.texts.filterPlaceholder'),
-        limit: i18n.t('table.texts.limit'),
-        page: i18n.t('table.texts.page'),
-        noResults: i18n.t('table.texts.noResults'),
-        filterBy: i18n.t('table.texts.filterBy'),
-        loading: i18n.t('table.texts.loading'),
-        defaultOption: i18n.t('table.texts.defaultOption'),
-        columns:  i18n.t('table.texts.columns')
-    },
-    }, true, 'bulma', require('./template/'));
+  perPage: 25, // page limit
+  sortIcon: { base: 'mdi', up: 'mdi-sort-ascending', down: 'mdi-sort-descending', is: 'mdi-sort' }, // change icon sortable
+  debounce: 700, // debounce query search
+  saveState: true, // save cache
+  pagination: {
+    edge: true, // disabled button fist/last
+  },
+  texts: {
+    count: i18n.t('table.texts.count'),
+    first: i18n.t('table.texts.first'),
+    last: i18n.t('table.texts.last'),
+    filter: i18n.t('table.texts.filter'),
+    filterPlaceholder: i18n.t('table.texts.filterPlaceholder'),
+    limit: i18n.t('table.texts.limit'),
+    page: i18n.t('table.texts.page'),
+    noResults: i18n.t('table.texts.noResults'),
+    filterBy: i18n.t('table.texts.filterBy'),
+    loading: i18n.t('table.texts.loading'),
+    defaultOption: i18n.t('table.texts.defaultOption'),
+    columns: i18n.t('table.texts.columns'),
+  },
+}, false, 'bulma', require('./template/'));
 
 // end third party
 
@@ -51,42 +51,44 @@ window.axios = axios;
 window.Event = Event;
 
 Object.defineProperty(Vue.prototype, '$moment', {
-   get() {
-       return moment;
-   }
+  get() {
+    return moment;
+  },
 });
 
 Object.defineProperty(Vue.prototype, '$_', {
-    get() {
-        return lodash;
-    }
+  get() {
+    return lodash;
+  },
 });
 
 Vue.use(pluginMixin);
 // Vue.use(Vuetify);
 
 Vue.use(ElementUI, {
-    size: localStorage.getItem('size') || 'medium',
-    i18n: (key, value) => i18n.t(key, value)
+  size: localStorage.getItem('size') || 'medium',
+  i18n: (key, value) => i18n.t(key, value),
 });
 
 // register global utility filters.
 Object.keys(filters).forEach(key => {
-    Vue.filter(key, filters[key])
+  Vue.filter(key, filters[key]);
 });
 
 // disable show warning async validator
 const warn = console.warn;
 console.warn = (...args) => {
-    if(typeof args[0] === 'string' && args[0].startsWith('async-validator:')) return;
+  if (typeof args[0] === 'string' && args[0].startsWith('async-validator:')) {
+    return;
+  }
 
-    warn(...args);
+  warn(...args);
 };
 
 export const app = new Vue({
-    el: '#app',
-    i18n,
-    router,
-    store,
-    render: h => h(App)
+  el: '#app',
+  i18n,
+  router,
+  store,
+  render: h => h(App),
 });

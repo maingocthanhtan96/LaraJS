@@ -19,16 +19,16 @@ export default {
   props: {
     collapse: {
       type: Boolean,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
       title: 'Tanmnt',
-      logo: true
-    }
-  }
-}
+      logo: true,
+    };
+  },
+};
 </script>
 
 <style lang="scss" scoped>

@@ -51,15 +51,15 @@
   position: absolute;
 }
 
-table {
+.VueTables {
   position: relative;
 }
 
-table .VueTables__table thead tr th {
+.VueTables .VueTables__table thead tr th {
   text-align: center !important;
 }
 
-table .VuePagination {
+.VueTables .VuePagination {
   margin-top: 0.5rem !important;
 }
 

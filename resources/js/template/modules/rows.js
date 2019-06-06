@@ -1,10 +1,9 @@
 'use strict';
 
-module.exports = function (h) {
+module.exports = function(h) {
   var _this = this;
 
-  return function (classes) {
-
+  return function(classes) {
     var data;
 
     if (_this.source === 'client') {
@@ -19,9 +18,10 @@ module.exports = function (h) {
     }
 
     if (_this.count === 0) {
-
-      var colspan = _this.allColumns.length;
-      if (_this.hasChildRow) colspan++;
+      // var colspan = _this.allColumns.length;
+      // if (_this.hasChildRow) {
+      //   colspan += 1;
+      // }
 
       return h(
         'tr',
@@ -29,7 +29,7 @@ module.exports = function (h) {
         [h(
           'td',
           { 'class': 'text-center',
-            attrs: { colspan: _this.colspan }
+            attrs: { colspan: _this.colspan },
           },
           [_this.display(_this.loading ? 'loading' : 'noResults')]
         )]
@@ -47,8 +47,7 @@ module.exports = function (h) {
     var groupValue;
     var groupByContent;
 
-    data.map(function (row, index) {
-
+    data.map(function(row, index) {
       if (_this.opts.groupBy && _this.source === 'client' && row[_this.opts.groupBy] !== currentGroup) {
         groupSlot = _this.getGroupSlot(row[_this.opts.groupBy]);
         groupValue = row[_this.opts.groupBy];
@@ -56,8 +55,8 @@ module.exports = function (h) {
         groupByContent = _this.opts.toggleGroups ? h(
           'button',
           { 'class': classes.button, on: {
-              'click': _this.toggleGroup.bind(_this, groupValue)
-            }
+            'click': _this.toggleGroup.bind(_this, groupValue),
+          },
           },
           [groupValue, h('span', { 'class': _this.groupToggleIcon(groupValue) })]
         ) : groupValue;
@@ -65,13 +64,13 @@ module.exports = function (h) {
         rows.push(h(
           'tr',
           { 'class': classes.groupTr, on: {
-              'click': _this._toggleGroupDirection.bind(_this)
-            }
+            'click': _this._toggleGroupDirection.bind(_this),
+          },
           },
           [h(
             'td',
             {
-              attrs: { colspan: _this.colspan }
+              attrs: { colspan: _this.colspan },
             },
             [groupByContent, groupSlot]
           )]
@@ -90,13 +89,15 @@ module.exports = function (h) {
       if (_this.hasChildRow) {
         var childRowToggler = h('td', [h('span', {
           on: {
-            'click': _this.toggleChildRow.bind(_this, row[rowKey])
+            'click': _this.toggleChildRow.bind(_this, row[rowKey]),
           },
           'class': 'VueTables__child-row-toggler ' + _this.childRowTogglerClass(row[rowKey]) })]);
-        if (_this.opts.childRowTogglerFirst) columns.push(childRowToggler);
+        if (_this.opts.childRowTogglerFirst) {
+          columns.push(childRowToggler);
+        }
       }
 
-      _this.allColumns.map(function (column) {
+      _this.allColumns.map(function(column) {
         var rowTemplate = _this.$scopedSlots && _this.$scopedSlots[column];
 
         columns.push(h(
@@ -106,16 +107,18 @@ module.exports = function (h) {
         ));
       });
 
-      if (_this.hasChildRow && !_this.opts.childRowTogglerFirst) columns.push(childRowToggler);
+      if (_this.hasChildRow && !_this.opts.childRowTogglerFirst) {
+        columns.push(childRowToggler);
+      }
 
       rowClass = _this.opts.rowClassCallback ? _this.opts.rowClassCallback(row) : '';
 
       rows.push(h(
         'tr',
         { 'class': rowClass, on: {
-            'click': _this.rowWasClicked.bind(_this, row),
-            'dblclick': _this.rowWasClicked.bind(_this, row)
-          }
+          'click': _this.rowWasClicked.bind(_this, row),
+          'dblclick': _this.rowWasClicked.bind(_this, row),
+        },
         },
         [columns, ' ']
       ));
@@ -126,7 +129,7 @@ module.exports = function (h) {
         [h(
           'td',
           {
-            attrs: { colspan: _this.colspan }
+            attrs: { colspan: _this.colspan },
           },
           [_this._getChildRowTemplate(h, row)]
         )]

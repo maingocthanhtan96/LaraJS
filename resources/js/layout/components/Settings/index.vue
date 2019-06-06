@@ -28,57 +28,57 @@
 </template>
 
 <script>
-import ThemePicker from '@/components/ThemePicker'
+import ThemePicker from '@/components/ThemePicker';
 
 export default {
   components: { ThemePicker },
   data() {
-    return {}
+    return {};
   },
   computed: {
     fixedHeader: {
       get() {
-        return this.$store.state.settings.fixedHeader
+        return this.$store.state.settings.fixedHeader;
       },
       set(val) {
         this.$store.dispatch('settings/changeSetting', {
           key: 'fixedHeader',
-          value: val
-        })
-      }
+          value: val,
+        });
+      },
     },
     tagsView: {
       get() {
-        return this.$store.state.settings.tagsView
+        return this.$store.state.settings.tagsView;
       },
       set(val) {
         this.$store.dispatch('settings/changeSetting', {
           key: 'tagsView',
-          value: val
-        })
-      }
+          value: val,
+        });
+      },
     },
     sidebarLogo: {
       get() {
-        return this.$store.state.settings.sidebarLogo
+        return this.$store.state.settings.sidebarLogo;
       },
       set(val) {
         this.$store.dispatch('settings/changeSetting', {
           key: 'sidebarLogo',
-          value: val
-        })
-      }
-    }
+          value: val,
+        });
+      },
+    },
   },
   methods: {
     themeChange(val) {
       this.$store.dispatch('settings/changeSetting', {
         key: 'theme',
-        value: val
-      })
-    }
-  }
-}
+        value: val,
+      });
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

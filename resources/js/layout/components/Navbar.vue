@@ -1,95 +1,94 @@
 <template>
-	<div class="navbar">
-		<hamburger id="hamburger-container" :is-active="sidebar.opened" class="hamburger-container d-flex items-center" @toggleClick="toggleSideBar" />
+  <div class="navbar">
+    <hamburger id="hamburger-container" :is-active="sidebar.opened" class="hamburger-container d-flex items-center" @toggleClick="toggleSideBar" />
 
-		<breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+    <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
 
-		<div class="right-menu">
-<!--			<template v-if="device!=='mobile'">-->
-<!--				<search id="header-search" class="right-menu-item" />-->
+    <div class="right-menu">
+      <!--			<template v-if="device!=='mobile'">-->
+      <!--				<search id="header-search" class="right-menu-item" />-->
 
-<!--				<error-log class="errLog-container right-menu-item hover-effect" />-->
+      <!--				<error-log class="errLog-container right-menu-item hover-effect" />-->
 
-<!--				<screenfull id="screenfull" class="right-menu-item hover-effect" />-->
+      <!--				<screenfull id="screenfull" class="right-menu-item hover-effect" />-->
 
-<!--				<el-tooltip content="Global Size" effect="dark" placement="bottom">-->
-<!--					<size-select id="size-select" class="right-menu-item hover-effect" />-->
-<!--				</el-tooltip>-->
+      <!--				<el-tooltip content="Global Size" effect="dark" placement="bottom">-->
+      <!--					<size-select id="size-select" class="right-menu-item hover-effect" />-->
+      <!--				</el-tooltip>-->
 
-<!--			</template>-->
-			<el-dropdown
-				class="language pr-2"
-				trigger="click"
-				@command="handleCommand"
-			>
-				<span class="el-dropdown-link">
-					<svg-icon icon-class="language" class="text-4xl" />
-				</span>
-				<el-dropdown-menu slot="dropdown">
-					<el-dropdown-item :class="{'bg-blue-400 text-white font-bold': $store.getters['lang/lang'] === 'vn'}" icon="flag-icon flag-icon-vn" command="vn">Việt Nam</el-dropdown-item>
-					<el-dropdown-item :class="{'bg-blue-400 text-white font-bold': $store.getters['lang/lang'] === 'en'}" icon="flag-icon flag-icon-my" command="en">English</el-dropdown-item>
-				</el-dropdown-menu>
-			</el-dropdown>
-			<el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
-				<div class="avatar-wrapper">
-					<img src="@/public/images/logo/logo-tanmnt.png?imageView2/1/w/80/h/80" class="user-avatar">
-					<i class="el-icon-caret-bottom" />
-				</div>
-				<el-dropdown-menu slot="dropdown">
-					<el-dropdown-item>
-						<span style="display:block;" @click="logout">Log Out</span>
-					</el-dropdown-item>
-				</el-dropdown-menu>
-			</el-dropdown>
-		</div>
-	</div>
+      <!--			</template>-->
+      <el-dropdown
+        class="language pr-2"
+        trigger="click"
+        @command="handleCommand"
+      >
+        <span class="el-dropdown-link">
+          <svg-icon icon-class="language" class="text-4xl" />
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item :class="{'bg-blue-400 text-white font-bold': $store.getters['lang/lang'] === 'vn'}" icon="flag-icon flag-icon-vn" command="vn">Việt Nam</el-dropdown-item>
+          <el-dropdown-item :class="{'bg-blue-400 text-white font-bold': $store.getters['lang/lang'] === 'en'}" icon="flag-icon flag-icon-my" command="en">English</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+      <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
+        <div class="avatar-wrapper">
+          <img src="@/public/images/logo/logo-tanmnt.png?imageView2/1/w/80/h/80" class="user-avatar">
+          <i class="el-icon-caret-bottom" />
+        </div>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item>
+            <span style="display:block;" @click="logout">Log Out</span>
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+    </div>
+  </div>
 </template>
 
 <script>
-	import { mapGetters } from 'vuex'
-	import Breadcrumb from '@/components/Breadcrumb'
-	import Hamburger from '@/components/Hamburger'
-	import {LOGOUT, SET_LANG} from "@/store/muation-types";
-	// import ErrorLog from '@/components/ErrorLog'
-	// import Screenfull from '@/components/Screenfull'
-	// import SizeSelect from '@/components/SizeSelect'
-	// import Search from '@/components/HeaderSearch'
+import { mapGetters } from 'vuex';
+import Breadcrumb from '@/components/Breadcrumb';
+import Hamburger from '@/components/Hamburger';
+import { LOGOUT, SET_LANG } from '@/store/muation-types';
+// import ErrorLog from '@/components/ErrorLog'
+// import Screenfull from '@/components/Screenfull'
+// import SizeSelect from '@/components/SizeSelect'
+// import Search from '@/components/HeaderSearch'
 
-	export default {
-		components: {
-			Breadcrumb,
-			Hamburger,
-			// ErrorLog,
-			// Screenfull,
-			// SizeSelect,
-			// Search
-		},
-		computed: {
-			...mapGetters({
-				sidebar: 'app/sidebar',
-				device: 'app/device'
-			})
-		},
-		methods: {
-			handleCommand(command) {
-				if (command === 'logout') {
-					this.logout();
-				}else if (command === 'vn' || command === 'en') {
-					this.$store.dispatch(`lang/${SET_LANG}`, command);
-				}
-
-			},
-			logout() {
-				this.$store.dispatch(`auth/${LOGOUT}`)
-					.then(() => {
-						this.$router.push({name: 'login'});
-					});
-			},
-			toggleSideBar() {
-				this.$store.dispatch('app/toggleSideBar')
-			},
-		}
-	}
+export default {
+  components: {
+    Breadcrumb,
+    Hamburger,
+    // ErrorLog,
+    // Screenfull,
+    // SizeSelect,
+    // Search
+  },
+  computed: {
+    ...mapGetters({
+      sidebar: 'app/sidebar',
+      device: 'app/device',
+    }),
+  },
+  methods: {
+    handleCommand(command) {
+      if (command === 'logout') {
+        this.logout();
+      } else if (command === 'vn' || command === 'en') {
+        this.$store.dispatch(`lang/${SET_LANG}`, command);
+      }
+    },
+    logout() {
+      this.$store.dispatch(`auth/${LOGOUT}`)
+        .then(() => {
+          this.$router.push({ name: 'login' });
+        });
+    },
+    toggleSideBar() {
+      this.$store.dispatch('app/toggleSideBar');
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

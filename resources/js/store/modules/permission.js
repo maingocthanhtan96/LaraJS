@@ -1,5 +1,5 @@
 import { asyncRouterMap, constantRouterMap } from '@/router';
-import {GENERATE_ROUTES, SET_ROUTERS} from "../muation-types";
+import { GENERATE_ROUTES, SET_ROUTERS } from '../muation-types';
 
 /**
  * Check if it matches the current user right by meta.roles
@@ -7,11 +7,11 @@ import {GENERATE_ROUTES, SET_ROUTERS} from "../muation-types";
  * @param route
  */
 function hasPermission(roles, route) {
-	if (route.meta && route.meta.roles) {
-		return roles.some(role => route.meta.roles.includes(role));
-	} else {
-		return true;
-	}
+  if (route.meta && route.meta.roles) {
+    return roles.some(role => route.meta.roles.includes(role));
+  } else {
+    return true;
+  }
 }
 
 /**
@@ -20,55 +20,55 @@ function hasPermission(roles, route) {
  * @param roles
  */
 function filterAsyncRouter(routes, roles) {
-	const res = [];
-	routes.forEach(route => {
-		const tmp = { ...route };
-		if (hasPermission(roles, tmp)) {
-			if (tmp.children) {
-				tmp.children = filterAsyncRouter(tmp.children, roles)
-			}
-			res.push(tmp)
-		}
-	});
+  const res = [];
+  routes.forEach(route => {
+    const tmp = { ...route };
+    if (hasPermission(roles, tmp)) {
+      if (tmp.children) {
+        tmp.children = filterAsyncRouter(tmp.children, roles);
+      }
+      res.push(tmp);
+    }
+  });
 
-	return res;
+  return res;
 }
 
 const permission = {
-	namespaced: true,
-	state: {
-		routers: [],
-		addRouters: []
-	},
-	getters: {
-		addRouters(state) {
-			return state.addRouters;
-		},
-		routers(state) {
-			return state.routers;
-		}
- 	},
-	mutations: {
-		[SET_ROUTERS]: (state, routers) => {
-			state.addRouters = routers;
-			state.routers = constantRouterMap.concat(routers);
-		}
-	},
-	actions: {
-		[GENERATE_ROUTES]({ commit }, data) {
-			return new Promise(resolve => {
-				const { roles } = data;
-				let accessedRouters;
-				if (roles.includes('Admin')) {
-					accessedRouters = asyncRouterMap
-				} else {
-					accessedRouters = filterAsyncRouter(asyncRouterMap, roles)
-				}
-				commit(SET_ROUTERS, accessedRouters);
-				resolve()
-			})
-		}
-	}
+  namespaced: true,
+  state: {
+    routers: [],
+    addRouters: [],
+  },
+  getters: {
+    addRouters(state) {
+      return state.addRouters;
+    },
+    routers(state) {
+      return state.routers;
+    },
+  },
+  mutations: {
+    [SET_ROUTERS]: (state, routers) => {
+      state.addRouters = routers;
+      state.routers = constantRouterMap.concat(routers);
+    },
+  },
+  actions: {
+    [GENERATE_ROUTES]({ commit }, data) {
+      return new Promise(resolve => {
+        const { roles } = data;
+        let accessedRouters;
+        if (roles.includes('Admin')) {
+          accessedRouters = asyncRouterMap;
+        } else {
+          accessedRouters = filterAsyncRouter(asyncRouterMap, roles);
+        }
+        commit(SET_ROUTERS, accessedRouters);
+        resolve();
+      });
+    },
+  },
 };
 
 export default permission;

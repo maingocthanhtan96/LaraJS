@@ -4,15 +4,25 @@ var _merge = require('merge');
 
 var _merge2 = _interopRequireDefault(_merge);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
+  } else {
+    obj[key] = value;
+  } return obj;
+}
 
-module.exports = function (h) {
+module.exports = function(h) {
   var _this = this;
 
-  return function (classes) {
-    if (!_this.opts.filterByColumn || !_this.opts.filterable) return '';
+  return function(classes) {
+    if (!_this.opts.filterByColumn || !_this.opts.filterable) {
+      return '';
+    }
 
     var textFilter = require('./text-filter').call(_this, h, classes.input);
     var dateFilter = require('./date-filter').call(_this, h);
@@ -21,20 +31,21 @@ module.exports = function (h) {
     var filters = [];
     var filter;
 
-    if (_this.hasChildRow && _this.opts.childRowTogglerFirst) filters.push(h('th'));
+    if (_this.hasChildRow && _this.opts.childRowTogglerFirst) {
+      filters.push(h('th'));
+    }
 
-    _this.allColumns.map(function (column) {
-
+    _this.allColumns.map(function(column) {
       var filter = '';
 
       if (_this.filterable(column)) {
         switch (true) {
           case _this.isTextFilter(column):
-            filter = textFilter(column);break;
+            filter = textFilter(column); break;
           case _this.isDateFilter(column):
-            filter = dateFilter(column);break;
+            filter = dateFilter(column); break;
           case _this.isListFilter(column):
-            filter = listFilter(column);break;
+            filter = listFilter(column); break;
         }
       }
 
@@ -53,7 +64,9 @@ module.exports = function (h) {
       ));
     });
 
-    if (_this.hasChildRow && !_this.opts.childRowTogglerFirst) filters.push(h('th'));
+    if (_this.hasChildRow && !_this.opts.childRowTogglerFirst) {
+      filters.push(h('th'));
+    }
 
     return h(
       'tr',

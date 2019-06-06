@@ -47,15 +47,15 @@ export default {
   name: 'ErrorLog',
   data() {
     return {
-      dialogTableVisible: false
-    }
+      dialogTableVisible: false,
+    };
   },
   computed: {
     errorLogs() {
-      return this.$store.getters.errorLogs
-    }
-  }
-}
+      return this.$store.getters.errorLogs;
+    },
+  },
+};
 </script>
 
 <style scoped>

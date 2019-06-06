@@ -1,5 +1,6 @@
 const mix = require('laravel-mix');
 const config = require('./webpack.config');
+require('laravel-mix-eslint');
 
 function publicPath(dir) {
     return path.join(__dirname, '/public', dir);
@@ -29,7 +30,11 @@ mix.js('resources/js/app.js', 'public/js')
         ]
     })
    .sass('resources/js/styles/main.scss', 'public/css')
-   .sass('resources/sass/app.scss', 'public/css');
+   .sass('resources/sass/app.scss', 'public/css')
+   .eslint({
+     fix: true,
+     cache: false,
+   });
 mix.webpackConfig(config);
 
 if (mix.inProduction()) {

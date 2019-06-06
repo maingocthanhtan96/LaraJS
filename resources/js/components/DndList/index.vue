@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import draggable from 'vuedraggable'
+import draggable from 'vuedraggable';
 
 export default {
   name: 'DndList',
@@ -38,70 +38,70 @@ export default {
     list1: {
       type: Array,
       default() {
-        return []
-      }
+        return [];
+      },
     },
     list2: {
       type: Array,
       default() {
-        return []
-      }
+        return [];
+      },
     },
     list1Title: {
       type: String,
-      default: 'list1'
+      default: 'list1',
     },
     list2Title: {
       type: String,
-      default: 'list2'
+      default: 'list2',
     },
     width1: {
       type: String,
-      default: '48%'
+      default: '48%',
     },
     width2: {
       type: String,
-      default: '48%'
-    }
+      default: '48%',
+    },
   },
   methods: {
     isNotInList1(v) {
-      return this.list1.every(k => v.id !== k.id)
+      return this.list1.every(k => v.id !== k.id);
     },
     isNotInList2(v) {
-      return this.list2.every(k => v.id !== k.id)
+      return this.list2.every(k => v.id !== k.id);
     },
     deleteEle(ele) {
       for (const item of this.list1) {
         if (item.id === ele.id) {
-          const index = this.list1.indexOf(item)
-          this.list1.splice(index, 1)
-          break
+          const index = this.list1.indexOf(item);
+          this.list1.splice(index, 1);
+          break;
         }
       }
       if (this.isNotInList2(ele)) {
-        this.list2.unshift(ele)
+        this.list2.unshift(ele);
       }
     },
     pushEle(ele) {
       for (const item of this.list2) {
         if (item.id === ele.id) {
-          const index = this.list2.indexOf(item)
-          this.list2.splice(index, 1)
-          break
+          const index = this.list2.indexOf(item);
+          this.list2.splice(index, 1);
+          break;
         }
       }
       if (this.isNotInList1(ele)) {
-        this.list1.push(ele)
+        this.list1.push(ele);
       }
     },
     setData(dataTransfer) {
       // to avoid Firefox bug
       // Detail see : https://github.com/RubaXa/Sortable/issues/1012
-      dataTransfer.setData('Text', '')
-    }
-  }
-}
+      dataTransfer.setData('Text', '');
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

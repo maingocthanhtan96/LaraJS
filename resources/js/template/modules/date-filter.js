@@ -1,13 +1,13 @@
 'use strict';
 
-module.exports = function (h) {
+module.exports = function(h) {
   var _this = this;
 
-  return function (column) {
+  return function(column) {
     return h(
       'div',
       { 'class': 'VueTables__date-filter',
-        attrs: { id: 'VueTables__' + column + '-filter' }
+        attrs: { id: 'VueTables__' + column + '-filter' },
       },
       [h(
         'span',

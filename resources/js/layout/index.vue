@@ -8,7 +8,7 @@
         <tag-views v-if="needTagsView" />
       </div>
       <app-main />
-      <footer-main/>
+      <footer-main />
       <right-panel v-if="showSettings">
         <settings />
       </right-panel>
@@ -17,12 +17,12 @@
 </template>
 
 <script>
-import RightPanel from '@/components/RightPanel'
-import { AppMain, Navbar, Settings, Sidebar } from './components'
+import RightPanel from '@/components/RightPanel';
+import { AppMain, Navbar, Settings, Sidebar } from './components';
 import TagViews from './components/TagsView.vue';
 import FooterMain from './components/FooterMain';
-import ResizeMixin from './mixin/ResizeHandler'
-import { mapState } from 'vuex'
+import ResizeMixin from './mixin/ResizeHandler';
+import { mapState } from 'vuex';
 
 export default {
   name: 'Layout',
@@ -33,7 +33,7 @@ export default {
     Settings,
     Sidebar,
     TagViews,
-    FooterMain
+    FooterMain,
   },
   mixins: [ResizeMixin],
   computed: {
@@ -42,23 +42,23 @@ export default {
       device: state => state.app.device,
       showSettings: state => state.settings.showSettings,
       needTagsView: state => state.settings.tagsView,
-      fixedHeader: state => state.settings.fixedHeader
+      fixedHeader: state => state.settings.fixedHeader,
     }),
     classObj() {
       return {
         hideSidebar: !this.sidebar.opened,
         openSidebar: this.sidebar.opened,
         withoutAnimation: this.sidebar.withoutAnimation,
-        mobile: this.device === 'mobile'
-      }
-    }
+        mobile: this.device === 'mobile',
+      };
+    },
   },
   methods: {
     handleClickOutside() {
-      this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
-    }
-  }
-}
+      this.$store.dispatch('app/closeSideBar', { withoutAnimation: false });
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

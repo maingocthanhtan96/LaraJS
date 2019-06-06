@@ -7,20 +7,20 @@ import Locale from './vue-i18n-locales.generated';
 
 Vue.use(VueI18n);
 const messages = {
-    en: {
-        ...Locale.en,
-        ...enLocale
-    },
-    vn: {
-        ...Locale.vn,
-        ...vnLocale
-    }
+  en: {
+    ...Locale.en,
+    ...enLocale,
+  },
+  vn: {
+    ...Locale.vn,
+    ...vnLocale,
+  },
 };
 
 const i18n = new VueI18n({
-    locale: localStorage.getItem('lang') || 'en',
-    messages,
-    fallbackLocale: 'en'
+  locale: localStorage.getItem('lang') || 'en',
+  messages,
+  fallbackLocale: 'en',
 });
 
 // ElementLocale.i18n((key, value) => i18n.t(key, value));
