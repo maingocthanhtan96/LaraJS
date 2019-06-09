@@ -29,10 +29,8 @@ import dashboard from './modules/dashborad';
 
 export const constantRouterMap = [
   dashboard,
-  users,
   { path: '/login', name: 'login', hidden: true, component: () => import('@/pages/auth/login') },
   { path: '/404', hidden: true, component: () => import('@/pages/errors/404') },
-  { path: '*', redirect: '/404', hidden: true },
   { path: '/', redirect: '/login', hidden: true },
   {
     path: '/redirect',
@@ -47,7 +45,12 @@ export const constantRouterMap = [
   },
 ];
 
-export default new VueRouter({
+export const asyncRouterMap = [
+  users,
+  { path: '*', redirect: '/404', hidden: true },
+];
+
+const createRouter = () => new VueRouter({
   linkActiveClass: 'active',
   mode: 'history',
   routes: constantRouterMap,
@@ -60,6 +63,12 @@ export default new VueRouter({
   },
 });
 
-export const asyncRouterMap = [
+const router = createRouter();
 
-];
+// Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
+export function resetRouter() {
+  const newRouter = createRouter();
+  router.matcher = newRouter.matcher; // reset router
+}
+
+export default router;

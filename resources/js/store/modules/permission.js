@@ -55,17 +55,16 @@ const permission = {
     },
   },
   actions: {
-    [GENERATE_ROUTES]({ commit }, data) {
+    [GENERATE_ROUTES]({ commit }, { roles }) {
       return new Promise(resolve => {
-        const { roles } = data;
         let accessedRouters;
-        if (roles.includes('Admin')) {
+        if (roles.includes('admin')) {
           accessedRouters = asyncRouterMap;
         } else {
           accessedRouters = filterAsyncRouter(asyncRouterMap, roles);
         }
         commit(SET_ROUTERS, accessedRouters);
-        resolve();
+        resolve(accessedRouters);
       });
     },
   },

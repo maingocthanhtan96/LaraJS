@@ -113,7 +113,7 @@ export default {
           this.$store.dispatch(`auth/${LOGIN}`, this.form)
             .then(res => {
               this.loading = false;
-              this.$router.push({ path: this.redirect || '/users' });
+              this.$router.push({ path: this.redirect || this.$store.state.settings.redirect });
             })
             .catch(err => {
               this.loading = false;

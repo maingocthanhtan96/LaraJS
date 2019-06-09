@@ -13,13 +13,18 @@ class UsersTableSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
 
-        $limit = 1000;
+        $limit = 10;
 
 		\App\Models\User::create([
 			'name' => 'Thanh Tan',
-			'email' => 'admin@gmail.com',
-			'role_id' => 1,
+			'email' => 'admin@larajs.com',
 			'password' => 'admin123',
+			'remember_token' => \Illuminate\Support\Str::random(10)
+		]);
+		\App\Models\User::create([
+			'name' => 'Thanh Tan',
+			'email' => 'user@larajs.com',
+			'password' => 'user123',
 			'remember_token' => \Illuminate\Support\Str::random(10)
 		]);
 
@@ -27,8 +32,7 @@ class UsersTableSeeder extends Seeder
         	\App\Models\User::create([
         		'name' => $faker->name,
 				'email' => $faker->email,
-				'role_id' => 2,
-				'password' => \Illuminate\Support\Facades\Hash::make('secret'),
+				'password' => 'secret',
 				'remember_token' => \Illuminate\Support\Str::random(10)
 			]);
 		}

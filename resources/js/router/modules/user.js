@@ -6,6 +6,7 @@ const users = {
   meta: {
     title: 'users',
     icon: 'user',
+    roles: ['admin'],
   },
   children: [
     {
@@ -15,6 +16,7 @@ const users = {
       meta: {
         title: 'users',
         icon: 'user',
+        roles: ['admin'],
         activeMenu: '/users',
       },
       hidden: true,
@@ -27,6 +29,7 @@ const users = {
       meta: {
         activeMenu: '/users',
         title: 'User Create',
+        roles: ['admin'],
       },
     },
     {
@@ -38,6 +41,7 @@ const users = {
         tagsView: true,
         activeMenu: '/users',
         title: 'User Edit',
+        roles: ['admin'],
       },
       props: route => {
         return {

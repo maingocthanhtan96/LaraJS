@@ -2,6 +2,11 @@ module.exports = {
   title: 'Larajs',
 
   /**
+   * @type {string} url pages
+   * @description Redirect before login
+   */
+  redirect: '/dashboard',
+  /**
    * @type {boolean} true | false
    * @description Whether show the settings right-panel
    */

@@ -15,7 +15,8 @@
         "laravel/framework": "5.8.*",
         "laravel/passport": "^7.2",
         "laravel/tinker": "^1.0",
-        "martinlindhe/laravel-vue-i18n-generator": "^0.1.37"
+        "martinlindhe/laravel-vue-i18n-generator": "^0.1.37",
+        "spatie/laravel-permission": "^2.37"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

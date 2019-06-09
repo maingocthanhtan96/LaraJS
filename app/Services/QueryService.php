@@ -21,7 +21,7 @@ class QueryService extends BaseService
 
         $query = $this->_model::query();
         if(count(Arr::wrap($with)) > 0){
-            $query->with($with);
+			$query = $query->with(Arr::wrap($with));
         }
 
         foreach(Arr::wrap($columns) as $value => $col) {

@@ -178,6 +178,7 @@ return [
 		Barryvdh\Cors\ServiceProvider::class,
 		MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
+		Spatie\Permission\PermissionServiceProvider::class,
     ],
 
     /*

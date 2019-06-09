@@ -9,6 +9,7 @@ use App\Repositories\Users\UserRepository;
 use App\Service\QueryService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResrouce;
 use Auth;
 
 class UserController extends Controller
@@ -22,9 +23,9 @@ class UserController extends Controller
 
 	public function userInfo()
 	{
-		$user = Auth::user()->with('role')->first();
+		$user = Auth::user();
 
-		return $this->jsonOk($user);
+		return new UserResrouce($user);
 	}
 
 	public function list(Request $request)
@@ -34,10 +35,9 @@ class UserController extends Controller
 		$orderBy = $request->get('orderBy', '');
 		$query = $request->get('query', '');
 
-		$columns = ['id' => 'id' ,'role.name' => 'role_id', 'email' => 'email', 'created_at' => 'created_at'];
-		$columnSearch = ['name', 'email', 'role.name'];
-		$with = ['role'];
-
+		$columns = ['id' => 'id', 'email' => 'email','created_at' => 'created_at'];
+		$columnSearch = ['name', 'email'];
+		$with = ['roles'];
 		$qs = new QueryService(new User);
 		$users = $qs->queryTable($columns, $query, $columnSearch, $with, $limit, $ascending, $orderBy);
 

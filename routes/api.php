@@ -23,13 +23,22 @@ Route::group(['prefix' => 'v1'], function () {
 		Route::get('/user', 'UserController@userInfo');
 		Route::get('/logout', 'AuthController@logout')->name('logout');
 
+		// permission Admin
+		Route::group(['middleware' => 'permission:'. \App\Larajs\Permission::PERMISSION_PERMISSION_MANAGE], function () {
+			Route::group(['prefix' => 'users'], function () {
+				Route::get('/list', 'UserController@list');
+				Route::get('/roles', 'UserController@roles');
+				Route::match(['post','put'], '/storeOrUpdate/{id?}', 'UserController@storeOrUpdate');
+				Route::get('/edit/{id}', 'UserController@edit');
+				Route::delete('/delete/{id}', 'UserController@delete');
+			});
+		});
 
-		Route::group(['prefix' => 'users'], function () {
-			Route::get('/list', 'UserController@list');
-			Route::get('/roles', 'UserController@roles');
-			Route::match(['post','put'], '/storeOrUpdate/{id?}', 'UserController@storeOrUpdate');
-			Route::get('/edit/{id}', 'UserController@edit');
-			Route::delete('/delete/{id}', 'UserController@delete');
+		// permision User
+		Route::group(['middleware' => 'permission:'. \App\Larajs\Permission::PERMISSION_USER_MANAGE], function () {
+			Route::get('/test-permission', function() {
+				return 'test';
+			});
 		});
 	});
 });

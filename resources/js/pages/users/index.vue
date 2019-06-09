@@ -32,7 +32,7 @@ export default {
   data() {
     return {
       table: {
-        columns: ['id', 'name', 'email', 'role.name', 'created_at', 'actions'],
+        columns: ['id', 'name', 'email', 'roles', 'created_at', 'actions'],
         options: {
           requestFunction: function(data) {
             return list(data);
@@ -46,14 +46,19 @@ export default {
           columnsClasses: {
             id: 'has-text-centered',
             created_at: 'has-text-centered',
-            'role.name': 'has-text-centered',
+            roles: 'has-text-centered',
           },
           templates: {
             created_at: (h, row) => {
               return this.$options.filters.formatDate(row.created_at);
             },
+            roles: (h, row) => {
+              return row.roles.map((value) => {
+                return value.name;
+              });
+            },
           },
-          sortable: ['id', 'created_at', 'role.name'],
+          sortable: ['id', 'created_at', 'roles'],
         },
       },
       isLoading: false,

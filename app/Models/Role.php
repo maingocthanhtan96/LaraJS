@@ -2,9 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use \App\Larajs\Permission as LarajsPermission;
 
-class Role extends Model
+class Role extends \Spatie\Permission\Models\Role
 {
-    protected $fillable = ['name'];
+	/**
+	 * Check whether current role is admin
+	 * @return bool
+	 */
+	public function isAdmin(): bool
+	{
+		return $this->name === LarajsPermission::ROLE_ADMIN;
+	}
 }

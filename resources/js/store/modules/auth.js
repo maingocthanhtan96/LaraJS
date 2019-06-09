@@ -17,6 +17,7 @@ import {
 import {
   getToken, removeToken, setToken,
 } from '../../utils/auth';
+import { resetRouter } from '@/router';
 
 const auth = {
   namespaced: true,
@@ -70,13 +71,18 @@ const auth = {
         userInfo(state.token)
           .then(res => {
             const { data } = res.data;
-            if (data.role) {
-              commit(SET_ROLES, [data.role.name]);
-              commit(SET_USER, data);
-            } else {
-              reject('SET_ROLES error!');
+            if (!data) {
+              reject('Verification failed, please Login again.');
             }
-            resolve(res);
+            const { roles } = data;
+            // roles must be a non-empty array
+            if (!roles || roles.length <= 0) {
+              reject('getInfo: roles must be a non-null array!');
+            }
+            console.log(roles);
+            commit(SET_ROLES, roles);
+            commit(SET_USER, data);
+            resolve(data);
           })
           .catch(err => {
             reject(err);
@@ -87,6 +93,8 @@ const auth = {
       return new Promise(resolve => {
         removeToken();
         commit(SET_TOKEN, '');
+        commit(SET_ROLES, []);
+        removeToken();
         resolve();
       });
     },
@@ -97,6 +105,7 @@ const auth = {
             removeToken();
             commit(SET_TOKEN, '');
             commit(SET_ROLES, []);
+            resetRouter();
             resolve();
           })
           .catch(err => {
