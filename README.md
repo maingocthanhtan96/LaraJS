@@ -70,8 +70,12 @@ php artisan vue-i18n:generate
 npm run dev # or npm run watch
 
 # username, password
-username: admin@gmail.com
+- Amin
+username: admin@larajs.com
 password: admin123
+- User 
+username: user@larajs.com
+password: user123
 
 # Build on production
 npm run production
