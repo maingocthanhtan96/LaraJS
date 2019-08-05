@@ -2,5 +2,7 @@
 
 return [
     'ok' => 'Xác nhận',
-    'cancel' => 'Bỏ qua'
+    'cancel' => 'Bỏ qua',
+	'create' => 'Tạo',
+	'edit' => 'Sửa',
 ];

@@ -9,6 +9,8 @@ import axios from 'axios';
 
 import store from '../store/index';
 
+import router from '@/router/index';
+
 import {
   getToken, setToken,
 } from './auth';
@@ -40,7 +42,6 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     if (response.headers.authorization) {
-      console.log(response.headers.authorization);
       setToken(response.headers.authorization);
       response.data.token = response.headers.authorization;
     }
@@ -48,17 +49,21 @@ service.interceptors.response.use(
     return response;
   },
   error => {
-    if (error.response) {
-      if (error.response.data.errors) {
-        store.dispatch(SET_ERRORS, error.response.data.errors);
+    const res = error.response;
+    if (res) {
+      if (res.status === 404) {
+        router.replace({ path: '/404' });
+      }
+      if (res.data.errors) {
+        store.dispatch(SET_ERRORS, res.data.errors);
       } else {
         Message({
-          message: error.response.data,
+          message: res.data.message || 'Error',
           type: 'error',
           duration: 5 * 1000,
         });
       }
-      console.log('Error response: ' + error); // for debug
+      console.log('Error response: ' + res); // for debug
 
       return Promise.reject(error);
     }

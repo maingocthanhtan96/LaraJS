@@ -1,0 +1,4 @@
+protected $casts = [
+        {{FIELD}}
+        //{{CATS_NOT_DELETE_THIS_LINE}}
+    ];

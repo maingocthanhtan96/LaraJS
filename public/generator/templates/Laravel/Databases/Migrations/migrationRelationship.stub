@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * Created by: Tanmnt
+ * Email: maingocthanhan96@gmail.com
+ * Date Time: {{DATE_TIME}}
+ */
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class Relationship{{TABLE_NAME_TITLE}}Table extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('{{TABLE_NAME}}', function (Blueprint $table) {
+            $table->unsignedBigInteger('{{FOREIGN_KEY}}')->after('id');
+
+            $table->index('{{FOREIGN_KEY}}');
+            $table->foreign('{{FOREIGN_KEY}}')
+                ->references('id')->on('{{TABLE_FOREIGN_KEY}}')
+                ->onDelete('cascade');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('{{TABLE_NAME}}', function (Blueprint $table) {
+            $table->dropColumn('{{FOREIGN_KEY}}');
+            $table->dropForeign('{{FOREIGN_KEY}}');
+        });
+    }
+}

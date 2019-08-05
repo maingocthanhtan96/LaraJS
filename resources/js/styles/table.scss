@@ -1,4 +1,8 @@
 .VueTables {
+  .table-responsive {
+    overflow: auto;
+    width: 100%;
+  }
   position: relative;
   .VueTables__table {
     thead {

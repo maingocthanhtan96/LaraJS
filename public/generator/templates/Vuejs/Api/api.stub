@@ -1,0 +1,15 @@
+/**
+ * Created by: Tanmnt
+ * Email: maingocthanhan96@gmail.com
+ * Date Time: {{$DATE$}}
+ * File: {{$MODEL_CLASS$}}.js
+ */
+
+import Resource from '@/api/resource';
+
+export default class {{$MODEL_CLASS$}}Resource extends Resource {
+  constructor() {
+    super('{{$MODEL_CLASS_URI$}}');
+  }
+  // {{$API_NOT_DELETE_THIS_LINE$}}
+}

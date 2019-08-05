@@ -8,11 +8,9 @@
     <meta name="locale" content="{{ \App::getLocale() }}"/>
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <link href="{{ mix('css/main.css') }}" rel="stylesheet">
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
     <link rel="stylesheet" href="{{asset('css/materialdesignicons.min.css')}}">
-    <link rel="stylesheet" href="{{asset('css/flag-icon.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
 
@@ -25,6 +23,7 @@
    <app />
 </div>
 
+<script src={{asset('static/tinymce4.7.5/tinymce.min.js')}}></script>
 <script src="{{mix('js/app.js')}}"></script>
 @yield('js')
 </body>

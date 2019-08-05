@@ -4,39 +4,39 @@
       <el-card>
         <div slot="header">
           <template v-if="$route.params.id">
-            {{ $t('table.users.form_edit') }}
+            {{ $t('route.user_edit') }}
           </template>
           <template v-else>
-            {{ $t('table.users.form_create') }}
+            {{ $t('route.user_edit') }}
           </template>
         </div>
         <el-form ref="users" :model="form" :rules="rules" status-icon>
-          <el-form-item :label="$t('table.users.name')" prop="name">
+          <el-form-item :label="$t('table.user.name')" prop="name">
             <el-input v-model="form.name" autofocus />
           </el-form-item>
-          <el-form-item :error="errors.email ? errors.email[0] + '' : ''" :label="$t('table.users.email')" prop="email">
+          <el-form-item :error="errors.email ? errors.email[0] + '' : ''" :label="$t('table.user.email')" prop="email">
             <el-input v-model="form.email" />
           </el-form-item>
-          <el-form-item :label="$t('table.users.role')" prop="role_id">
+          <el-form-item :label="$t('table.user.role')" prop="role_id">
             <el-select v-model="form.role_id" placeholder="Role" class="w-full">
               <el-option v-for="role in rolesList" :key="'role_' + role.id" :label="role.name" :value="role.id" />
             </el-select>
           </el-form-item>
-          <el-form-item v-if="!$route.params.id" required :label="$t('table.users.password')" prop="password">
+          <el-form-item v-if="!$route.params.id" required :label="$t('table.user.password')" prop="password">
             <el-input v-model="form.password" show-password type="password" />
           </el-form-item>
-          <el-form-item v-if="!$route.params.id" required :label="$t('table.users.password_confirm')" prop="password_confirm">
+          <el-form-item v-if="!$route.params.id" required :label="$t('table.user.password_confirm')" prop="password_confirm">
             <el-input v-model="form.password_confirm" show-password type="password" />
           </el-form-item>
           <el-form-item class="flex justify-center">
             <template v-if="$route.params.id">
               <el-button :loading="loading" plain type="primary" icon="fa fa-edit mr-2" @click="update('users')">
-                {{ $t('table.users.form_edit') }}
+                {{ $t('route.user_edit') }}
               </el-button>
             </template>
             <template v-else>
               <el-button :loading="loading" plain type="success" icon="fa fa-plus mr-2" @click="store('users')">
-                {{ $t('table.users.form_create') }}
+                {{ $t('route.user_create') }}
               </el-button>
             </template>
           </el-form-item>
@@ -47,14 +47,16 @@
 </template>
 
 <script>
-import { store, roles, edit, update } from '@/api/users';
+import UserResource from '@/api/user';
 import { validEmail } from '@/utils/validate';
+
+const userResource = new UserResource();
 
 export default {
   data() {
     const password = (rule, value, cb) => {
       if (value === '') {
-        cb(new Error(this.$t('validation.required', { attribute: this.$t('table.users.password') })));
+        cb(new Error(this.$t('validation.required', { attribute: this.$t('table.user.password') })));
       } else {
         if (this.form.password_confirm !== '') {
           this.$refs.users.validateField('password_confirm');
@@ -64,9 +66,9 @@ export default {
     };
     const passwordConfirm = (rule, value, cb) => {
       if (value === '') {
-        cb(new Error(this.$t('validation.required', { attribute: this.$t('table.users.password_confirm') })));
+        cb(new Error(this.$t('validation.required', { attribute: this.$t('table.user.password_confirm') })));
       } else if (value !== this.form.password) {
-        cb(new Error(this.$t('validation.confirmed', { attribute: this.$t('table.users.password_confirm') })));
+        cb(new Error(this.$t('validation.confirmed', { attribute: this.$t('table.user.password_confirm') })));
       } else {
         cb();
       }
@@ -85,7 +87,7 @@ export default {
         name: [
           {
             validator: (rule, value, cb) => {
-              value ? cb() : cb(new Error(this.$t('validation.required', { attribute: this.$t('table.users.name') })));
+              value ? cb() : cb(new Error(this.$t('validation.required', { attribute: this.$t('table.user.name') })));
             },
             trigger: 'blur',
           },
@@ -94,9 +96,9 @@ export default {
           {
             validator: (rule, value, cb) => {
               if (!value) {
-                cb(new Error(this.$t('validation.required', { attribute: this.$t('table.users.email') })));
+                cb(new Error(this.$t('validation.required', { attribute: this.$t('table.user.email') })));
               } else if (!validEmail(value)) {
-                cb(new Error(this.$t('validation.email', { attribute: this.$t('table.users.email') })));
+                cb(new Error(this.$t('validation.email', { attribute: this.$t('table.user.email') })));
               } else {
                 cb();
               }
@@ -107,7 +109,7 @@ export default {
         role_id: [
           {
             validator: (rule, value, cb) => {
-              value ? cb() : cb(new Error(this.$t('validation.required', { attribute: this.$t('table.users.role') })));
+              value ? cb() : cb(new Error(this.$t('validation.required', { attribute: this.$t('table.user.role') })));
             },
             trigger: 'change',
           },
@@ -128,9 +130,10 @@ export default {
 
     const { id } = this.$route.params;
     if (id) {
-      edit(id)
+      userResource.get(id)
         .then(res => {
-          this.form = res.data.data;
+          const { data } = res.data;
+          this.form = data;
         });
     }
   },
@@ -139,7 +142,7 @@ export default {
       this.loading = true;
       this.$refs[users].validate(valid => {
         if (valid) {
-          store(this.form)
+          userResource.store(this.form)
             .then(res => {
               this.$message({
                 showClose: true,
@@ -149,39 +152,43 @@ export default {
               this.$refs[users].resetFields();
             })
             .catch(err => {
+              this.loading = false;
               console.log(err);
             });
         } else {
+          this.loading = false;
           return false;
         }
       });
-      this.loading = false;
     },
     roles() {
-      roles().then(err => {
-        this.rolesList = err.data.data;
+      userResource.roles().then(res => {
+        this.rolesList = res.data.data;
       });
     },
     update(users) {
+      this.loading = true;
       this.$refs[users].validate(valid => {
         if (valid) {
           delete this.form.password;
-          update(this.form, this.$route.params.id)
+          userResource.update(this.$route.params.id, this.form)
             .then(res => {
               this.$message({
                 showClose: true,
                 message: this.$t('messages.update'),
                 type: 'success',
               });
-              this.$router.push({ name: 'users' });
+              this.loading = false;
+              this.$router.push({ name: 'user' });
             }).catch(err => {
+              this.loading = false;
               console.log(err);
             });
         } else {
+          this.loading = false;
           return false;
         }
       });
-      this.loading = false;
     },
   },
 };

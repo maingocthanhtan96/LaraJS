@@ -5,72 +5,144 @@ namespace App\Http\Controllers\Api\v1;
 use App\Http\Requests\StoreUserRequest;
 use App\Models\Role;
 use App\Models\User;
-use App\Repositories\Users\UserRepository;
 use App\Service\QueryService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResrouce;
-use Auth;
 
 class UserController extends Controller
 {
-	protected $userRepository;
 
-	public function __construct(UserRepository $userRepository)
-	{
-		$this->userRepository = $userRepository;
-	}
-
+	/** get user information
+	 * @return UserResrouce|\Illuminate\Http\JsonResponse
+	 * @author tanmnt
+	 */
 	public function userInfo()
 	{
-		$user = Auth::user();
+		try {
+			$user = \Auth::user();
 
-		return new UserResrouce($user);
+			return new UserResrouce($user);
+		} catch (\Exception $e) {
+			return $this->jsonError($e->getMessage());
+		}
 	}
 
-	public function list(Request $request)
+	/**
+	 * lists
+	 * @param Request $request
+	 * @return \Illuminate\Http\JsonResponse
+	 * @author tanmnt
+	 */
+	public function index(Request $request)
 	{
-		$limit = $request->get('limit', 25);
-		$ascending = $request->get('ascending', 0);
-		$orderBy = $request->get('orderBy', '');
-		$query = $request->get('query', '');
+		try {
+			$limit = $request->get('limit', 25);
+			$ascending = $request->get('ascending', 0);
+			$orderBy = $request->get('orderBy', '');
+			$query = $request->get('query', '');
 
-		$columns = ['id' => 'id', 'email' => 'email','created_at' => 'created_at'];
-		$columnSearch = ['name', 'email'];
-		$with = ['roles'];
-		$qs = new QueryService(new User);
-		$users = $qs->queryTable($columns, $query, $columnSearch, $with, $limit, $ascending, $orderBy);
+			$columns = ['id' => 'id', 'email' => 'email','created_at' => 'created_at'];
+			$columnsWith = [];
+			$columnSearch = ['name', 'email'];
+			$with = ['roles'];
+			$qs = new QueryService(new User);
+			$users = $qs->queryTable($columns, $columnsWith,$query, $columnSearch, $with, $limit, $ascending, $orderBy);
 
-		return $this->jsonTable($users);
+			return $this->jsonTable($users);
+		} catch (\Exception $e) {
+			return $this->jsonError($e->getMessage());
+		}
 	}
 
-	public function roles()
+	/**
+	 * create
+	 * @param StoreUserRequest $request
+	 * @return \Illuminate\Http\JsonResponse
+	 * @author
+	 */
+	public function store(StoreUserRequest $request)
 	{
-		$roles = Role::all();
-
-		return $this->jsonOk($roles);
+		try {
+			$user = User::create($request->all());
+			$user->assignRole($request->get('role_id'));
+			return $this->jsonOk($user);
+		} catch (\Exception $e) {
+			return $this->jsonError($e->getMessage());
+		}
 	}
 
-	public function storeOrUpdate(StoreUserRequest $request, $id = null)
+	/**
+	 * get once by id
+	 * @param User $user
+	 * @return \Illuminate\Http\JsonResponse
+	 * @author tanmnt
+	 */
+	public function show(User $user)
 	{
-		$user = User::updateOrCreate(
-			['id' => $id],
-			$request->all()
-		);
-		return $this->jsonOk($user);
+		try {
+			$userShow = $user->toArray();
+			$userShow['role_id'] = $user->roles->toArray()[0] ? $user->roles->toArray()[0]['id'] : '';
+
+			return $this->jsonOk($userShow);
+		} catch (\Exception $e) {
+			return $this->jsonError($e->getMessage(), 404);
+		}
 	}
 
-	public function edit($id)
+	/**
+	 * update once by id
+	 * @param StoreUserRequest $request
+	 * @param User $user
+	 * @return \Illuminate\Http\JsonResponse
+	 * @author tanmnt
+	 */
+	public function update(StoreUserRequest $request, User $user)
+	{
+		try {
+			$user->update($request->all());
+			\DB::table('model_has_roles')->where('model_id',$user->id)->delete();
+			$user->assignRole($request->get('role_id'));
+
+			return $this->jsonOk($user);
+		} catch (\Exception $e) {
+			return $this->jsonError($e->getMessage());
+		}
+	}
+
+	/**
+	 * delete once by id
+	 * @param User $user
+	 * @return \Illuminate\Http\JsonResponse
+	 * @author tanmnt
+	 */
+    public function destroy(User $user)
     {
-        $user = $this->userRepository->find($id);
+	    try {
+		    if($user->isAdmin()) {
+			    return $this->jsonError(trans('error.is_admin'), 403);
+		    }
+		    $user = $user->delete();
 
-        return $this->jsonOk($user);
+		    return $this->jsonOk($user);
+	    } catch (\Exception $e) {
+	    	return $this->jsonError($e->getMessage());
+	    }
     }
 
-    public function delete($id)
-    {
-        $user = $this->userRepository->delete($id);
+	/**
+	 * get all Roles
+	 * @return \Illuminate\Http\JsonResponse
+	 * @author tanmnt
+	 */
+    public function getRoles()
+	{
+		try {
+			$roles = Role::all();
 
-        return $this->jsonOk($user);
-    }
+			return $this->jsonOk($roles);
+		} catch (\Exception $e) {
+			return $this->jsonError($e->getMessage());
+		}
+	}
 }

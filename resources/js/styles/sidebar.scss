@@ -21,7 +21,7 @@
     top: 0;
     bottom: 0;
     left: 0;
-    z-index: 1001;
+    z-index: 1002;
     overflow: hidden;
     background: $bgSidebar;
     .el-scrollbar {
@@ -39,6 +39,11 @@
         .menu-wrapper {
           &:hover {
             background-color: $menuHover !important;
+          }
+          .is-active {
+            margin-top: 0;
+            border-radius: 1.313rem 0rem 0rem 1.313rem;
+            background: $menuHover !important;
           }
           .active {
             .is-active {

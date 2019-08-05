@@ -1,9 +1,7 @@
 <?php
 
 return [
-	'users' => [
-        'form_create' => 'Tạo nhân viên',
-        'form_edit' => 'Sửa nhân viên',
+	'user' => [
         'id' => "STT",
         'name' => 'Tên',
         'email' => 'Email',
@@ -11,6 +9,7 @@ return [
         'password' => 'Mật khẩu',
         'password_confirm' => 'Xác nhận mật khẩu'
 	],
+	//{{LANG_TABLE_NOT_DELETE_THIS_LINE}}
 	'texts' => [
 		'count' => 'Hiển thị {from} đến {to} trong số {count} dữ liệu|{count} dữ liệu|Một dữ liệu',
 		'first' => 'Đầu',

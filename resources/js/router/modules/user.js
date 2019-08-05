@@ -1,10 +1,10 @@
-const users = {
+const user = {
   path: '/users',
-  name: 'users',
+  name: 'user',
   redirect: '/users/index',
   component: () => import('@/layout'),
   meta: {
-    title: 'users',
+    title: 'user',
     icon: 'user',
     roles: ['admin'],
   },
@@ -14,7 +14,7 @@ const users = {
       name: 'user_index',
       component: () => import('@/pages/users/index'),
       meta: {
-        title: 'users',
+        title: 'user',
         icon: 'user',
         roles: ['admin'],
         activeMenu: '/users',
@@ -23,24 +23,24 @@ const users = {
     },
     {
       path: 'form',
-      name: 'user_form',
+      name: 'user_create',
       hidden: true,
       component: () => import('@/pages/users/form'),
       meta: {
         activeMenu: '/users',
-        title: 'User Create',
+        title: 'user_create',
         roles: ['admin'],
       },
     },
     {
       path: 'form/:id(\\d+)',
-      name: 'user_form_edit',
+      name: 'user_edit',
       hidden: true,
       component: () => import('@/pages/users/form'),
       meta: {
         tagsView: true,
         activeMenu: '/users',
-        title: 'User Edit',
+        title: 'user_edit',
         roles: ['admin'],
       },
       props: route => {
@@ -53,4 +53,4 @@ const users = {
   ],
 };
 
-export default users;
+export default user;

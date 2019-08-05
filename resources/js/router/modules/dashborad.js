@@ -4,8 +4,8 @@ const dashboard = {
   component: () => import('@/layout'),
   redirect: '/dashboard/index',
   meta: {
-    title: 'Permission',
-    icon: 'lock',
+    title: 'dashboard',
+    icon: 'dashboard',
   },
   children: [
     {
@@ -13,8 +13,8 @@ const dashboard = {
       name: 'dashboard2',
       component: () => import('@/pages/dashboards/index'),
       meta: {
-        title: 'Dashboard',
-        icon: 'lock',
+        title: 'dashboard',
+        icon: 'dashboard',
       },
     },
   ],

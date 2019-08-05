@@ -1,0 +1,9 @@
+<el-form-item data-generator="{{$FORM_FIELD$}}" :label="{{$LABEL_NAME_INPUT$}}" {{$PROP_NAME$}} >
+							<el-date-picker
+					      v-model="form.{{$FORM_FIELD$}}"
+					      type="datetime"
+					      :placeholder="{{$LABEL_NAME_INPUT$}}"
+					      value-format="yyyy-MM-dd HH:mm:ss"
+					      >
+					    </el-date-picker>
+          </el-form-item>

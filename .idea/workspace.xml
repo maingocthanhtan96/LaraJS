@@ -2,37 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="48ec4041-b065-41c7-b197-b99331b3987d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/larajs.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/larajs.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/generator/templates/Laravel/Controllers/deleteRelationship.stub" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/generator/templates/Vuejs/Handler/tagRelationshipMTM.stub" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.rnd" beforeDir="false" afterPath="$PROJECT_DIR$/.rnd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Role.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Role.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Services/QueryService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/QueryService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/auth.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2014_04_11_071316_create_roles_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/UsersTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/UsersTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Generators/Backend/RelationshipGenerator.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Generators/Backend/RelationshipGenerator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Generators/Frontend/PageGenerator.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Generators/Frontend/PageGenerator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/generator/templates/Vuejs/Pages/index.stub" beforeDir="false" afterPath="$PROJECT_DIR$/public/generator/templates/Vuejs/Pages/index.stub" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/layout/components/Navbar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layout/components/Navbar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/pages/auth/login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/auth/login.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/pages/users/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/users/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/permission.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/permission.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/lang/vue-i18n-locales.generated.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/lang/vue-i18n-locales.generated.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/router/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/router/modules/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/router/modules/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/settings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/auth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/permission.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/permission.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/settings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/route.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/route.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/table.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/vn/route.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/vn/route.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/vn/table.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/vn/table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/node_modules/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,118 +25,41 @@
   </component>
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+    <execution>
+      <executable />
+    </execution>
   </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>ROW_CLICK</find>
-      <find>affix</find>
-      <find>VuePagination</find>
-      <find>visitedViews</find>
-      <find>mix</find>
-      <find>resources/js</find>
-      <find>Acl::</find>
-      <find>Permission::</find>
-      <find>User</find>
-      <find>permissions</find>
-      <find>SET_ROLES</find>
-      <find>USER_INFO</find>
-      <find>Admin</find>
-      <find>Log</find>
-      <find>role_id</find>
-      <find>hasPermission</find>
-      <find>.roles</find>
-      <find>inclu</find>
-      <find>addRouters</find>
-      <find>accessedRouters</find>
-      <find>router</find>
-      <find>removeToken</find>
-      <find>alwaysShow</find>
-      <find>await</find>
-      <find>deb</find>
-      <find>resetRouter</find>
-      <find>filterAsyncRouter</find>
-      <find>asyncRouterMap</find>
-      <find>constantRouterMap</find>
-      <find>roles</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>page-link</replace>
-      <replace>active</replace>
-      <replace>pagination</replace>
-      <replace>$store.state.app.collapse</replace>
-      <replace>classes1</replace>
-      <replace>classesCs</replace>
-      <replace>Permission::</replace>
-      <replace>LarajsPermission::</replace>
-    </replaceStrings>
-    <dirStrings>
-      <dir>$PROJECT_DIR$/node_modules/bulma/sass/utilities</dir>
-      <dir>$PROJECT_DIR$/resources/js</dir>
-      <dir>$PROJECT_DIR$/node_modules/vue-tables-2/compiled</dir>
-    </dirStrings>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/resources/js/layout/index.vue" />
-        <option value="$PROJECT_DIR$/resources/js/styles/sidebar.scss" />
-        <option value="$PROJECT_DIR$/resources/js/components/ScrollPane/index.vue" />
-        <option value="$PROJECT_DIR$/resources/js/utils/validate.js" />
-        <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/resources/js/template/modules/text-filter.js" />
-        <option value="$PROJECT_DIR$/resources/js/utils/index.js" />
-        <option value="$PROJECT_DIR$/resources/js/template/modules/rows.js" />
-        <option value="$PROJECT_DIR$/resources/js/template/modules/per-page-values.js" />
-        <option value="$PROJECT_DIR$/.eslintignore" />
-        <option value="$PROJECT_DIR$/resources/js/plugins/mixins/index.js" />
-        <option value="$PROJECT_DIR$/resources/js/pages/users/form.vue" />
-        <option value="$PROJECT_DIR$/.eslintrc.js" />
-        <option value="$PROJECT_DIR$/resources/js/components/ImageCropper/utils/effectRipple.js" />
-        <option value="$PROJECT_DIR$/resources/js/components/TreeTable/index.vue" />
-        <option value="$PROJECT_DIR$/resources/js/components/TreeTable/eval.js" />
-        <option value="$PROJECT_DIR$/resources/js/app.js" />
-        <option value="$PROJECT_DIR$/resources/js/styles/table.scss" />
-        <option value="$PROJECT_DIR$/resources/js/layout/components/TagsView.vue" />
-        <option value="$PROJECT_DIR$/webpack.mix.js" />
-        <option value="$PROJECT_DIR$/resources/js/store/modules/app.js" />
-        <option value="$PROJECT_DIR$/resources/js/store/modules/lang.js" />
-        <option value="$PROJECT_DIR$/resources/js/layout/components/Navbar.vue" />
-        <option value="$PROJECT_DIR$/resources/views/spa.blade.php" />
-        <option value="$PROJECT_DIR$/config/app.php" />
-        <option value="$PROJECT_DIR$/config/permission.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" />
-        <option value="$PROJECT_DIR$/database/seeds/UsersTableSeeder.php" />
-        <option value="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" />
-        <option value="$PROJECT_DIR$/config/auth.php" />
-        <option value="$PROJECT_DIR$/app/Larajs/Permission.php" />
-        <option value="$PROJECT_DIR$/app/Models/Role.php" />
-        <option value="$PROJECT_DIR$/app/Models/Permission.php" />
-        <option value="$PROJECT_DIR$/database/seeds/SetupRolePermissionSeeder.php" />
-        <option value="$PROJECT_DIR$/app/Http/Resources/UserResrouce.php" />
-        <option value="$PROJECT_DIR$/.env" />
-        <option value="$PROJECT_DIR$/resources/js/router/modules/dashborad.js" />
-        <option value="$PROJECT_DIR$/resources/js/router/modules/user.js" />
-        <option value="$PROJECT_DIR$/resources/js/store/modules/settings.js" />
-        <option value="$PROJECT_DIR$/resources/js/settings.js" />
-        <option value="$PROJECT_DIR$/resources/js/pages/auth/login.vue" />
-        <option value="$PROJECT_DIR$/app/Http/Kernel.php" />
-        <option value="$PROJECT_DIR$/routes/api.php" />
-        <option value="$PROJECT_DIR$/resources/js/store/modules/auth.js" />
-        <option value="$PROJECT_DIR$/resources/js/store/modules/permission.js" />
-        <option value="$PROJECT_DIR$/resources/js/permission.js" />
-        <option value="$PROJECT_DIR$/resources/js/router/index.js" />
-        <option value="$PROJECT_DIR$/resources/js/pages/users/index.vue" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Api/v1/UserController.php" />
-        <option value="$PROJECT_DIR$/app/Services/QueryService.php" />
-        <option value="$PROJECT_DIR$/app/Models/User.php" />
-      </list>
-    </option>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="PhpServers">
+    <servers>
+      <server host="local.larajs.com" id="402438f8-be96-458b-86b1-2b62023519c9" name="Unnamed" use_path_mappings="true">
+        <path_mappings>
+          <mapping local-root="$PROJECT_DIR$" remote-root="D:/laragon/www/tanmnt/larajs" />
+        </path_mappings>
+      </server>
+    </servers>
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -252,52 +159,49 @@
       <path value="$PROJECT_DIR$/vendor/zendframework/zend-diactoros" />
       <path value="$PROJECT_DIR$/vendor/martinlindhe/laravel-vue-i18n-generator" />
       <path value="$PROJECT_DIR$/vendor/spatie/laravel-permission" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/cache" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/dbal" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/event-manager" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="744" />
-  </component>
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="larajs" type="b2602c69:ProjectViewProjectNode" />
-              <item name="larajs" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-    </panes>
-  </component>
+  <component name="ProjectId" id="1OpAgufvPtc7jYHPj004onakmlp" />
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Projects/demo-autogentcode" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Other File Types" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2018.3.5\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/resources/js/template" />
-      <recent name="$PROJECT_DIR$/resources/js/layout/components" />
-      <recent name="$PROJECT_DIR$/resources/js" />
       <recent name="$PROJECT_DIR$" />
+      <recent name="D:\laragon\www\tanmnt\larajs\public\generator\templates\LaravelUpdate\Databases\Migtations" />
+      <recent name="D:\laragon\www\tanmnt\larajs\public\builder\templates\Laravel\Langs\en" />
+      <recent name="D:\laragon\www\tanmnt\larajs\resources\lang\vn" />
+      <recent name="D:\laragon\www\tanmnt\larajs\resources\lang\en" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/resources/js/template" />
-      <recent name="$PROJECT_DIR$/public/js" />
+      <recent name="D:\laragon\www\tanmnt\larajs\public\generator\templates\Laravel\Databases\Migrations" />
+      <recent name="D:\laragon\www\tanmnt\larajs\public\generator\templates" />
+      <recent name="D:\laragon\www\tanmnt\larajs\app\Generators\Backend" />
+      <recent name="D:\laragon\www\tanmnt\larajs\public\builder\templates\Laravel\Langs\vn" />
+      <recent name="D:\laragon\www\tanmnt\larajs\public\builder\templates\Laravel\Databases" />
     </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="npm run watch" />
+    </option>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -311,11 +215,33 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JavaScript Debug.form.vue">
+    <configuration name="form.vue" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/larajs/resources/js/pages/testGenerator/form.vue" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="Unnamed" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" nameIsGenerated="true">
+      <TestRunner directory="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner scope="XML" />
       <method v="2" />
     </configuration>
+    <configuration name="FormUpdateGenerator.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/app/Generators/FrontendUpdate/FormUpdateGenerator.php">
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="JavaScript Debug.form.vue" />
+      <item itemvalue="PHP Script.FormUpdateGenerator.php" />
+      <item itemvalue="PHPUnit.Unnamed" />
+      <item itemvalue="PHPUnit.phpunit.xml" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.form.vue" />
+        <item itemvalue="PHP Script.FormUpdateGenerator.php" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -359,439 +285,126 @@
       <workItem from="1559870703782" duration="142000" />
       <workItem from="1559895537415" duration="1294000" />
       <workItem from="1559897937741" duration="4668000" />
-      <workItem from="1559957745727" duration="34931000" />
+      <workItem from="1559957745727" duration="59514000" />
+      <workItem from="1560123020006" duration="33775000" />
+      <workItem from="1560216379950" duration="1372000" />
+      <workItem from="1560220513970" duration="713000" />
+      <workItem from="1560224152709" duration="298000" />
+      <workItem from="1560225113743" duration="617000" />
+      <workItem from="1560227363273" duration="589000" />
+      <workItem from="1560232997143" duration="18894000" />
+      <workItem from="1560298482935" duration="37121000" />
+      <workItem from="1560383126539" duration="30882000" />
+      <workItem from="1560495821400" duration="12784000" />
+      <workItem from="1560611665059" duration="992000" />
+      <workItem from="1560657495530" duration="26581000" />
+      <workItem from="1560733671799" duration="809000" />
+      <workItem from="1560814560578" duration="2382000" />
+      <workItem from="1560820468238" duration="6510000" />
+      <workItem from="1560857033754" duration="9000" />
+      <workItem from="1560857090650" duration="14949000" />
+      <workItem from="1560906616094" duration="22335000" />
+      <workItem from="1561079690128" duration="9180000" />
+      <workItem from="1561166882221" duration="1593000" />
+      <workItem from="1561513022101" duration="5943000" />
+      <workItem from="1561530617342" duration="2697000" />
+      <workItem from="1561540195466" duration="378000" />
+      <workItem from="1561551805349" duration="192000" />
+      <workItem from="1561552110134" duration="46746000" />
+      <workItem from="1561684224501" duration="8990000" />
+      <workItem from="1561713477125" duration="35783000" />
+      <workItem from="1561876637231" duration="7384000" />
+      <workItem from="1561943392912" duration="11126000" />
+      <workItem from="1562030186484" duration="12464000" />
+      <workItem from="1562059250650" duration="7455000" />
+      <workItem from="1562117436850" duration="10309000" />
+      <workItem from="1562202758459" duration="25825000" />
+      <workItem from="1562592995655" duration="5237000" />
+      <workItem from="1562634612514" duration="8573000" />
+      <workItem from="1562721315016" duration="14798000" />
+      <workItem from="1562807850566" duration="11344000" />
+      <workItem from="1562894205541" duration="9391000" />
+      <workItem from="1562923911730" duration="598000" />
+      <workItem from="1562941871593" duration="25612000" />
+      <workItem from="1563164183273" duration="260000" />
+      <workItem from="1563277661998" duration="6778000" />
+      <workItem from="1563290470939" duration="684000" />
+      <workItem from="1563291587885" duration="479000" />
+      <workItem from="1563326234485" duration="1099000" />
+      <workItem from="1563412756789" duration="31827000" />
+      <workItem from="1563499547821" duration="905000" />
+      <workItem from="1563504915344" duration="122000" />
+      <workItem from="1563519212737" duration="23992000" />
+      <workItem from="1563669331519" duration="9810000" />
+      <workItem from="1563689806898" duration="3672000" />
+      <workItem from="1563757769805" duration="3720000" />
+      <workItem from="1563807548859" duration="1881000" />
+      <workItem from="1563843713250" duration="2172000" />
+      <workItem from="1563882768907" duration="907000" />
+      <workItem from="1563885955398" duration="3359000" />
+      <workItem from="1563929990317" duration="4135000" />
+      <workItem from="1564017840191" duration="38000" />
+      <workItem from="1564059292285" duration="6440000" />
+      <workItem from="1564065930747" duration="3022000" />
+      <workItem from="1564103177866" duration="93000" />
+      <workItem from="1564190773242" duration="35139000" />
+      <workItem from="1564320888959" duration="2997000" />
+      <workItem from="1564324278792" duration="1572000" />
+      <workItem from="1564362110442" duration="18784000" />
+      <workItem from="1564448781564" duration="2882000" />
+      <workItem from="1564494860757" duration="615000" />
+      <workItem from="1564535472973" duration="22000" />
+      <workItem from="1564574943066" duration="2351000" />
+      <workItem from="1564590083766" duration="2164000" />
+      <workItem from="1564623310153" duration="2000" />
+      <workItem from="1564624347648" duration="1437000" />
+      <workItem from="1564627275135" duration="708000" />
+      <workItem from="1564628435808" duration="1592000" />
+      <workItem from="1564631252283" duration="1246000" />
+      <workItem from="1564637604622" duration="1509000" />
+      <workItem from="1564639514006" duration="492000" />
+      <workItem from="1564664289608" duration="133000" />
+      <workItem from="1564664485777" duration="5566000" />
+      <workItem from="1564670915588" duration="111000" />
+      <workItem from="1564673093454" duration="4656000" />
+      <workItem from="1564708598776" duration="6382000" />
+      <workItem from="1564716907028" duration="3847000" />
+      <workItem from="1564720803715" duration="274000" />
+      <workItem from="1564721112212" duration="1217000" />
+      <workItem from="1564837399033" duration="7661000" />
+      <workItem from="1564880555876" duration="3117000" />
+      <workItem from="1564884984976" duration="13505000" />
+      <workItem from="1564917160492" duration="8977000" />
+      <workItem from="1564928850908" duration="7653000" />
+      <workItem from="1564967114543" duration="7805000" />
+      <workItem from="1564976645849" duration="552000" />
+      <workItem from="1565003936360" duration="633000" />
     </task>
     <servers />
   </component>
-  <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="201525000" />
-  </component>
-  <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14925373" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="npm" order="2" side_tool="true" />
-      <window_info id="Favorites" order="3" side_tool="true" />
-      <window_info anchor="bottom" id="TypeScript" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" weight="0.35953757" />
-      <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.09587514" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Database" order="3" />
-    </layout>
-    <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14163615" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="npm" order="2" side_tool="true" />
-      <window_info id="Favorites" order="3" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" weight="0.35953757" />
-      <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.13526012" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Database" order="3" />
-    </layout-to-restore>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/webpack.mix.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="22" column="20" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/directive/permission/index.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/directive/permission/permission.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="10" column="33" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webpack.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="11" column="18" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2014_10_12_100000_create_password_resets_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="7" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/app.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="180" column="59" selection-start-line="180" selection-start-column="59" selection-end-line="180" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/Reflection/Reflection.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="893" column="20" selection-start-line="893" selection-start-column="20" selection-end-line="893" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/date/date_c.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1789">
-          <caret line="585" column="6" selection-start-line="585" selection-start-column="6" selection-end-line="585" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/composer.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="4" column="17" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_06_08_020207_create_permission_tables.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/seeds/UsersTableSeeder.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="18" column="34" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/seeds/RolesTableSeeder.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="4" column="6" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/auth.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/api/users.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/storage/logs/laravel-2019-06-08.log">
-      <provider selected="true" editor-type-id="LogFileEditorProvider">
-        <state relative-caret-position="-22469">
-          <caret column="23" selection-start-column="23" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/seeds/DatabaseSeeder.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="15" column="45" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Resources/UserResrouce.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="22" column="27" selection-start-line="22" selection-start-column="27" selection-end-line="22" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/seeds/SetupRolePermissionSeeder.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="18" column="36" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="36" />
-          <folding>
-            <element signature="e#7#38#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.env">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="526">
-          <caret line="49" column="64" selection-start-line="49" selection-start-column="64" selection-end-line="49" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/v1/AuthController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/vue-router/types/router.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="33" column="2" selection-start-line="33" selection-start-column="2" selection-end-line="33" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/utils/auth.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="12" column="16" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/layout/components/Sidebar/SidebarItem.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1152" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/layout/components/Navbar.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1659">
-          <caret line="89" column="4" selection-start-line="89" selection-start-column="4" selection-end-line="89" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/layout/components/TagsView.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-168">
-          <caret line="2" column="59" selection-start-line="2" selection-start-column="59" selection-end-line="2" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/layout/index.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-264">
-          <caret line="7" column="37" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/store/modules/settings.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="11" column="10" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/settings.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="4" column="29" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/pages/auth/login.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="115" column="62" selection-start-line="115" selection-start-column="62" selection-end-line="115" selection-end-column="92" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/api.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="625">
-          <caret line="39" column="30" selection-start-line="39" selection-start-column="30" selection-end-line="39" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Kernel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="60" column="62" lean-forward="true" selection-start-line="60" selection-start-column="62" selection-end-line="60" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Larajs/Permission.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="18" column="12" selection-start-line="18" selection-start-column="12" selection-end-line="18" selection-end-column="12" />
-          <folding>
-            <element signature="e#6#123#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/router/modules/dashborad.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="1" column="19" selection-start-line="1" selection-start-column="10" selection-end-line="1" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/store/modules/auth.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1557">
-          <caret line="107" column="23" selection-start-line="107" selection-start-column="12" selection-end-line="107" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#119#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/store/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#82#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/store/modules/permission.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1176">
-          <caret line="61" column="42" selection-start-line="61" selection-start-column="28" selection-end-line="61" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#61#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/router/modules/user.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="772">
-          <caret line="43" column="13" selection-start-line="43" selection-start-column="13" selection-end-line="43" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/permission.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
-          <folding>
-            <element signature="e#0#30#0" expanded="true" />
-            <element signature="e#271#321#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/v1/LangController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/router/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="49" column="48" selection-start-line="49" selection-start-column="48" selection-end-line="49" selection-end-column="48" />
-          <folding>
-            <element signature="e#0#22#0" expanded="true" />
-            <element signature="e#81#116#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/pages/users/index.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="549">
-          <caret line="60" column="47" selection-start-line="60" selection-start-column="47" selection-end-line="60" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Providers/AppServiceProvider.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="46" column="46" selection-start-line="46" selection-start-column="36" selection-end-line="46" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/v1/UserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="38" column="40" selection-start-line="38" selection-start-column="40" selection-end-line="38" selection-end-column="40" />
-          <folding>
-            <element signature="e#47#86#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Services/QueryService.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="551">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/Permission.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/Role.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/User.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="14" />
-          <folding>
-            <element signature="e#30#70#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/spatie/laravel-permission/src/Traits/HasRoles.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="39" column="40" selection-start-line="39" selection-start-column="29" selection-end-line="39" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/filesystems.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="47" column="39" selection-start-line="47" selection-start-column="36" selection-end-line="47" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/permission.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1734">
-          <caret line="104" column="55" lean-forward="true" selection-start-line="104" selection-start-column="55" selection-end-line="104" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

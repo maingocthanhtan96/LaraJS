@@ -15,9 +15,9 @@
       </el-row>
       <el-row type="flex" justify="center" class="text-center pt-10">
         <el-col :span="24">
-          <a href="/" class="cursor-pointer bg-blue hover:underline hover:bg-blue-light text-white font-bold py-2 px-4 border-b-4 border-blue-dark hover:border-blue rounded">
+          <router-link :to="{path: $store.state.settings.redirect}" class="cursor-pointer bg-blue hover:underline hover:bg-blue-light text-white font-bold py-2 px-4 border-b-4 border-blue-dark hover:border-blue rounded">
             Back to home
-          </a>
+          </router-link>
         </el-col>
       </el-row>
       <el-row type="flex" justify="center" class="text-center text-white pt-24">

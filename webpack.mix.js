@@ -29,7 +29,7 @@ mix.js('resources/js/app.js', 'public/js')
             require('autoprefixer'),
         ]
     })
-   .sass('resources/js/styles/main.scss', 'public/css')
+   // .sass('resources/js/styles/main.scss', 'public/css')
    .sass('resources/sass/app.scss', 'public/css')
    .eslint({
      fix: true,
@@ -41,6 +41,10 @@ if (mix.inProduction()) {
     mix.version();
 } else {
     // Development settings
+    mix.browserSync({
+      proxy: process.env.APP_URL,
+      files: ['resources/js/**/*']
+    });
     mix.sourceMaps();
     mix.webpackConfig({
             output: {

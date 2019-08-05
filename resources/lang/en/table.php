@@ -1,9 +1,7 @@
 <?php
 
 return [
-	'users' => [
-	    'form_create' => 'Create user',
-	    'form_edit' => 'Edit user',
+	'user' => [
 		'id' => "No.",
 		'name' => 'Name',
         'email' => 'Email',
@@ -11,6 +9,7 @@ return [
         'password' => 'Password',
         'password_confirm' => 'Confrim password'
 	],
+	//{{LANG_TABLE_NOT_DELETE_THIS_LINE}}
 	'texts' => [
 		'count' => 'Showing {from} to {to} of {count} records|{count} records|One record',
 		'first' => 'First',

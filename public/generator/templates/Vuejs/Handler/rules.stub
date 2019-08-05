@@ -1,0 +1,3 @@
+{{$FIELD$}}: [
+          { required: true, message: this.$t('validation.required', { attribute: {{$ATTRIBUTE_FIELD$}} }), trigger: ['change', 'blur'] },
+        ],

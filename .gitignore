@@ -10,3 +10,5 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+resources/js/router/modules/post.js
+resources/js/router/modules/category.js

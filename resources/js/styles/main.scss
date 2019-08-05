@@ -6,11 +6,13 @@
 @import 'element-ui.scss';
 @import 'sidebar.scss';
 //@import 'btn.scss';
+@import 'flag.scss';
 
 html {
   font-size: 62.5% !important;
 }
 #app {
+  width: 100vw;
   height: 100%;
   background: #edeef2;
   font-size: 1.4rem;

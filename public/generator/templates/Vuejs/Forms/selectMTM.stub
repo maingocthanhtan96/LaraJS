@@ -1,0 +1,5 @@
+<el-form-item data-generator="{{$FORM_FIELD$}}" :label="{{$LABEL_NAME_INPUT$}}" {{$PROP_NAME$}}>
+	            <el-select v-model="form.{{$FORM_FIELD$}}" multiple filterable :placeholder="{{$LABEL_NAME_INPUT$}}" class="w-full">
+	              <el-option v-for="(item, index) in {{$LIST_SELECT$}}List" :key="'{{$LIST_SELECT$}}_' + index" :label="{{$LABEL_OPTION$}}" :value="{{$VALUE_OPTION$}}" />
+	            </el-select>
+            </el-form-item>

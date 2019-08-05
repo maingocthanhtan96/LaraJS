@@ -6,7 +6,7 @@
  * @return string
  * @author tanmnt
  */
-function setActive($path, $active = 'active') {
+function set_active($path, $active = 'active') {
     return call_user_func_array('Request::is', (array)$path) ? $active : '';
 }
 /**
@@ -26,4 +26,21 @@ function str_slug_uppercase($title, $separator = '')
     $string = preg_replace('/&([a-z])(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig|quot|rsquo);/i', '\\1', $string);
     $string = preg_replace(array('/[^a-z0-9]/i', '/[-]+/'), $separator, $string);
     return trim($string, '-');
+}
+
+/**
+ * Find the position of the Xth occurrence of a substring in a string
+ * @param $haystack
+ * @param $needle
+ * @param $number integer > 0
+ * @return int
+ */
+function strpos_x($haystack, $needle, $number){
+	if($number == '1'){
+		return strpos($haystack, $needle);
+	}elseif($number > '1'){
+		return strpos($haystack, $needle, strpos_x($haystack, $needle, $number - 1) + strlen($needle));
+	}else{
+		return error_log('Error: Value for parameter $number is out of range');
+	}
 }

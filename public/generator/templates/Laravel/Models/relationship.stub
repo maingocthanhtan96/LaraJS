@@ -1,0 +1,7 @@
+/**
+     * @return \Illuminate\Database\Eloquent\Relations\{{RELATION}}
+     **/
+    public function {{FUNCTION_NAME}}()
+    {
+        return $this->{{RELATION}}({{RELATION_MODEL_CLASS}}::class, {{FIELD_RELATIONSHIP}}, 'id');
+    }

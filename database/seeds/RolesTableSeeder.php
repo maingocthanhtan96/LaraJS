@@ -13,7 +13,7 @@ class RolesTableSeeder extends Seeder
     {
 		\App\Models\Role::create(
 			[
-				'name' => 'Admin'
+				'name' => 'admin'
 			]
 		);
 		\App\Models\Role::create(

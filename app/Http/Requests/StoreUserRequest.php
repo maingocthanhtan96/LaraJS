@@ -23,7 +23,8 @@ class StoreUserRequest extends FormRequest
      */
     public function rules()
     {
-        $id = $this->route('id', NULL);
+        $user = $this->route('user', NULL);
+        $id = $user ? $user->id : NULL;
         return [
 //			'name' => 'required|string|max:255',
 			'email' => "required|string|email|max:255|unique:users,email,$id,id,deleted_at,NULL",

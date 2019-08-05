@@ -1,0 +1,4 @@
+//{{LANG_MODEL_CLASS}}
+	'{{LANG_MODEL_CLASS}}' => '{{LANG_MODEL_TRANS_CLASS}}',
+	'{{LANG_MODEL_CLASS}}_create' => 'Create {{LANG_MODEL_TRANS_CLASS}}',
+	'{{LANG_MODEL_CLASS}}_edit' => 'Edit {{LANG_MODEL_TRANS_CLASS}}',

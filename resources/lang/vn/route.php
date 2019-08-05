@@ -1,7 +1,13 @@
 <?php
 
 return [
-	'users' => 'Nhân viên',
-	'userList' => 'Danh sách nhân viên',
-	'userList2' => 'Danh sách nhân viên 2',
+	'user' => 'Nhân viên',
+	'user_create' => 'Tạo Nhân viên',
+	'user_edit' => 'Sửa Nhân viên',
+	//{{LANG_ROUTE_NOT_DELETE_THIS_LINE}}
+	'generator' => 'Generator',
+	'generator_create' => 'Generator Create',
+	'generator_edit' => 'Generator Edit',
+    'generator_relationship' => 'Relationship',
+	'dashboard' => 'Bảng điều khiển',
 ];

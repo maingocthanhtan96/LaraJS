@@ -15,7 +15,7 @@ class QueryService extends BaseService
         $this->_model = $model;
     }
 
-    public function queryTable($columns = [], $search = '', $columnSearch = [] , $with = [], $limit = 25, $ascending = 0, $orderBy = 'created_at', $defaultOrderBy = 'created_at', $defaultDecending = 'desc')
+    public function queryTable($columns = [], $columnsWith = [], $search = '', $columnSearch = [], $with = [], $limit = 25, $ascending = 0, $orderBy = 'created_at', $defaultOrderBy = 'created_at', $defaultDescending = 'desc')
     {
         $ascending = $ascending == 0 ? 'asc' : 'desc';
 
@@ -24,7 +24,13 @@ class QueryService extends BaseService
 			$query = $query->with(Arr::wrap($with));
         }
 
-        foreach(Arr::wrap($columns) as $value => $col) {
+        foreach(Arr::wrap($columns) as $col) {
+            $query->when($col === $orderBy, function($q) use ($col, $ascending) {
+                $q->orderBy($col, $ascending);
+            });
+        }
+
+        foreach(Arr::wrap($columnsWith) as $value => $col) {
             $query->when($value === $orderBy, function($q) use ($col, $ascending) {
                 $q->orderBy($col, $ascending);
             });
@@ -34,7 +40,7 @@ class QueryService extends BaseService
             $q->whereLike($columnSearch, $search);
         });
 
-        $query = $query->orderBy($defaultOrderBy, $defaultDecending);
+        $query = $query->orderBy($defaultOrderBy, $defaultDescending);
 
         return $query->paginate($limit)->toArray();
     }

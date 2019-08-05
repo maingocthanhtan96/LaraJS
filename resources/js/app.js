@@ -63,7 +63,6 @@ Object.defineProperty(Vue.prototype, '$_', {
 });
 
 Vue.use(pluginMixin);
-// Vue.use(Vuetify);
 
 Vue.use(ElementUI, {
   size: localStorage.getItem('size') || 'medium',
@@ -84,6 +83,7 @@ console.warn = (...args) => {
 
   warn(...args);
 };
+Vue.config.productionTip = false;
 
 export const app = new Vue({
   el: '#app',

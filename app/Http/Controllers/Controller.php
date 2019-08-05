@@ -29,11 +29,27 @@ class Controller extends BaseController
 		]);
 	}
 
-	public function jsonError($message)
+	public function jsonError($message, $status = 500)
 	{
 		return response()->json([
 			'success' => false,
 			'message' => $message
-		], 500);
+		], $status);
 	}
+
+	public function jsonSuccess($message, $status = 200)
+	{
+		return response()->json([
+			'success' => true,
+			'message' => $message
+		], $status);
+	}
+
+    public function jsonString(string $string, $status = 200)
+    {
+        return response()->json([
+            'success' => true,
+            'name' => $string
+        ], $status);
+    }
 }

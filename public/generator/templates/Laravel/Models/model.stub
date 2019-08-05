@@ -1,0 +1,26 @@
+<?php
+/**
+ * Created by: Tanmnt
+ * Email: maingocthanhtan96@gmail.com
+ * Date Time: {{DATE}}
+ * File: {{MODEL_CLASS}}.php
+ */
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+//{{USE_CLASS_NOT_DELETE_THIS_LINE}}
+
+class {{MODEL_CLASS}} extends Model
+{
+	//{{USE_NOT_DELETE_THIS_LINE}}
+
+    //Declare table name
+    public $table = '{{TABLE_NAME}}';
+    protected $fillable = [
+    	{{FIELDS}}
+    ];
+
+    {{CATS}}
+
+	//{{RELATIONS_NOT_DELETE_THIS_LINE}}
+}

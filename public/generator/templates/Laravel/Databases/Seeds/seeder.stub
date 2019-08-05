@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * Created by: Tanmnt
+ * Email: maingocthanhan96@gmail.com
+ * Date Time: {{DATE_TIME}}
+ */
+
+
+use Illuminate\Database\Seeder;
+
+class {{TABLE_NAME_TITLE}}TableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        $faker = Faker\Factory::create();
+
+        $limit = 100;
+
+        for ($i = 0; $i < $limit; $i++){
+        	\App\Models\{{MODEL_CLASS}}::create([
+                {{FIELDS}}
+                //{{SEEDER_NOT_DELETE_THIS_LINE}}
+			]);
+		}
+    }
+}

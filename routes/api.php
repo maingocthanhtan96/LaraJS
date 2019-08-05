@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use \App\Larajs\Permission as LarajsPermission;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,29 +17,35 @@ use Illuminate\Http\Request;
 
 Route::group(['prefix' => 'v1'], function () {
 	Route::get('/language/{language}', 'Api\v1\LangController@setLanguage');
-	Route::post('/login', 'Api\v1\AuthController@login')->name('login');
-	Route::post('/register', 'Api\v1\AuthController@register')->name('register');
+	Route::group(['namespace' => 'Api\v1'], function () {
+		Route::post('/login', 'AuthController@login')->name('login');
+		Route::post('/register', 'AuthController@register')->name('register');
+	});
 
 	Route::group(['middleware' => 'auth:api', 'namespace' => 'Api\v1'], function () {
 		Route::get('/user', 'UserController@userInfo');
 		Route::get('/logout', 'AuthController@logout')->name('logout');
+		// FILE
+		Route::post('upload-file/store', 'FileController@store');
+		Route::get('upload-file/remove', 'FileController@remove');
 
 		// permission Admin
-		Route::group(['middleware' => 'permission:'. \App\Larajs\Permission::PERMISSION_PERMISSION_MANAGE], function () {
-			Route::group(['prefix' => 'users'], function () {
-				Route::get('/list', 'UserController@list');
-				Route::get('/roles', 'UserController@roles');
-				Route::match(['post','put'], '/storeOrUpdate/{id?}', 'UserController@storeOrUpdate');
-				Route::get('/edit/{id}', 'UserController@edit');
-				Route::delete('/delete/{id}', 'UserController@delete');
-			});
+		Route::group(['middleware' => 'permission:'. LarajsPermission::PERMISSION_PERMISSION_MANAGE], function () {
+			Route::get('/users/roles/list', 'UserController@getRoles');
+			Route::get('/generators/check-model', 'GeneratorController@checkModel');
+			Route::get('/generators/check-column', 'GeneratorController@checkColumn');
+			Route::get('/generators/get-models', 'GeneratorController@getModels');
+			Route::get('/generators/get-columns', 'GeneratorController@getColumns');
+			Route::post('/generators/relationship', 'GeneratorController@generateRelationship');
+			Route::apiResource('generators', 'GeneratorController');
+			Route::apiResource('users', 'UserController');
+
+            //{{ROUTE_ADMIN_NOT_DELETE_THIS_LINE}}
 		});
 
-		// permision User
-		Route::group(['middleware' => 'permission:'. \App\Larajs\Permission::PERMISSION_USER_MANAGE], function () {
-			Route::get('/test-permission', function() {
-				return 'test';
-			});
+		// permission User
+		Route::group(['middleware' => 'permission:'. LarajsPermission::PERMISSION_USER_MANAGE], function () {
+            //{{ROUTE_USER_NOT_DELETE_THIS_LINE}}
 		});
 	});
 });

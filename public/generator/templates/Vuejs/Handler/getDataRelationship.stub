@@ -1,0 +1,4 @@
+{{$MODEL$}}Resource.get{{$MODEL_UPPERCASE$}}()
+      .then(res => {
+        this.{{$MODEL_RELATIONSHIP$}}List = res.data.data;
+      });

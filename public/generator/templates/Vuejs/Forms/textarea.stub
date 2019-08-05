@@ -1,0 +1,10 @@
+<el-form-item data-generator="{{$FORM_FIELD$}}" :label="{{$LABEL_NAME_INPUT$}}" {{$PROP_NAME$}} >
+							<el-input
+							  type="textarea"
+							  autosize
+							  :placeholder="{{$LABEL_NAME_INPUT$}}"
+							  v-model="form.{{$FORM_FIELD$}}"
+							  {{$AUTO_FOCUS_INPUT$}}
+							  >
+							</el-input>
+            </el-form-item>

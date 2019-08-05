@@ -1,0 +1,3 @@
+if (Array.isArray(this.form.{{$FIELD$}})) {
+        this.form.{{$FIELD$}} = JSON.stringify(this.form.{{$FIELD$}});
+      }

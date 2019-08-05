@@ -1,0 +1,3 @@
+<el-form-item data-generator="{{$FORM_FIELD$}}" :label="{{$LABEL_NAME_INPUT$}}" {{$PROP_NAME$}} >
+							<vue-dropzone id="{{$NAME_FUNC$}}VueDropzone" :defaultImg="$route.params.id ? form.{{$NAME_FUNC$}} : ''" @success="{{$NAME_FUNC$}}DropzoneS" @removedFile="{{$NAME_FUNC$}}DropzoneR" />
+          </el-form-item>

@@ -3,8 +3,10 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
-import users from './modules/user';
+import user from './modules/user';
 import dashboard from './modules/dashborad';
+import generator from './modules/generator';
+// {{$IMPORT_ROUTE_NOT_DELETE_THIS_LINE$}}
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -29,6 +31,7 @@ import dashboard from './modules/dashborad';
 
 export const constantRouterMap = [
   dashboard,
+  // {{$ROUTE_CONSTANT_NOT_DELETE_THIS_LINE$}},
   { path: '/login', name: 'login', hidden: true, component: () => import('@/pages/auth/login') },
   { path: '/404', hidden: true, component: () => import('@/pages/errors/404') },
   { path: '/', redirect: '/login', hidden: true },
@@ -46,7 +49,9 @@ export const constantRouterMap = [
 ];
 
 export const asyncRouterMap = [
-  users,
+  user,
+  generator,
+  // {{$ROUTE_ASYNC_NOT_DELETE_THIS_LINE$}},
   { path: '*', redirect: '/404', hidden: true },
 ];
 

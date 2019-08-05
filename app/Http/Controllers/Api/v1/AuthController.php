@@ -26,11 +26,11 @@ class AuthController extends Controller
 			return $response->getBody();
 		} catch (\GuzzleHttp\Exception\BadResponseException $e) {
 			if ($e->getCode() === 400) {
-				return response()->json(trans('auth.login_fail'), $e->getCode());
+				return $this->jsonError(trans('auth.login_fail'), $e->getCode());
 			} else if ($e->getCode() === 401) {
-				return response()->json(trans('auth.credentials_incorrect'), $e->getCode());
+				return $this->jsonError(trans('auth.credentials_incorrect'), $e->getCode());
 			}
-			return response()->json(trans('auth.server_error'), $e->getCode());
+			return $this->jsonError(trans('auth.server_error'), $e->getCode());
 		}
 	}
 

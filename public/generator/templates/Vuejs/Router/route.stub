@@ -1,0 +1,63 @@
+/**
+ * Created by: Tanmnt
+ * Email: maingocthanhan96@gmail.com
+ * Date Time: {{$DATE$}}
+ * File: {{$NAME_ROUTE_MODEL_CLASS$}}.js
+ */
+
+const {{$NAME_ROUTE_MODEL_CLASS$}} = {
+  path: '/{{$PATH_ROUTE_MODEL_CLASS$}}',
+  name: '{{$NAME_ROUTE_MODEL_CLASS$}}',
+  redirect: '/{{$PATH_ROUTE_MODEL_CLASS$}}/index',
+  component: () => import('@/layout'),
+  meta: {
+    title: '{{$TITLE_ROUTE_MODEL_CLASS$}}',
+    icon: 'list',
+    {{$ADMIN_ROLE$}}
+  },
+  children: [
+    {
+      path: 'index',
+      name: '{{$NAME_ROUTE_MODEL_CLASS$}}_index',
+      component: () => import('@/pages/{{$NAME_ROUTE_MODEL_CLASS$}}/index'),
+      meta: {
+        title: '{{$TITLE_ROUTE_MODEL_CLASS$}}',
+        icon: 'list',
+        activeMenu: '/{{$PATH_ROUTE_MODEL_CLASS$}}',
+        {{$ADMIN_ROLE$}}
+      },
+      hidden: true,
+    },
+    {
+      path: 'form',
+      name: '{{$NAME_ROUTE_MODEL_CLASS$}}_create',
+      hidden: true,
+      component: () => import('@/pages/{{$NAME_ROUTE_MODEL_CLASS$}}/form'),
+      meta: {
+        activeMenu: '/{{$PATH_ROUTE_MODEL_CLASS$}}',
+        title: '{{$TITLE_ROUTE_MODEL_CLASS$}}_create',
+        {{$ADMIN_ROLE$}}
+      },
+    },
+    {
+      path: 'form/:id(\\d+)',
+      name: '{{$NAME_ROUTE_MODEL_CLASS$}}_edit',
+      hidden: true,
+      component: () => import('@/pages/{{$NAME_ROUTE_MODEL_CLASS$}}/form'),
+      meta: {
+        tagsView: true,
+        activeMenu: '/{{$PATH_ROUTE_MODEL_CLASS$}}',
+        title: '{{$TITLE_ROUTE_MODEL_CLASS$}}_edit',
+        {{$ADMIN_ROLE$}}
+      },
+      props: route => {
+        return {
+          ...route,
+          props: true,
+        };
+      },
+    },
+  ],
+};
+
+export default {{$NAME_ROUTE_MODEL_CLASS$}};

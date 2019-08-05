@@ -13,11 +13,16 @@
         <settings />
       </right-panel>
     </div>
+    <!--<el-tooltip> to show the helptext -->
+    <el-tooltip placement="top" :content="$t('common.back_to_top')">
+      <back-to-top :custom-style="myBackToTopStyle" :visibility-height="200" :back-position="0" transition-name="fade" />
+    </el-tooltip>
   </div>
 </template>
 
 <script>
 import RightPanel from '@/components/RightPanel';
+import BackToTop from '@/components/BackToTop';
 import { AppMain, Navbar, Settings, Sidebar } from './components';
 import TagViews from './components/TagsView.vue';
 import FooterMain from './components/FooterMain';
@@ -34,6 +39,23 @@ export default {
     Sidebar,
     TagViews,
     FooterMain,
+    BackToTop,
+  },
+  data() {
+    return {
+      myBackToTopStyle: {
+        right: '10px',
+        bottom: '50px',
+        width: '40px',
+        height: '40px',
+        'border-radius': '4px',
+        'line-height': '45px', // Please keep consistent with height to center vertically
+        background: '#e7eaf1', // The background color of the button,
+        display: 'flex',
+        'justify-content': 'center',
+        'align-items': 'center',
+      },
+    };
   },
   mixins: [ResizeMixin],
   computed: {
@@ -91,7 +113,7 @@ export default {
     position: fixed;
     top: 0;
     right: 0;
-    z-index: 9;
+    z-index: 1001;
     width: calc(100% - #{$sideBarWidth});
     transition: width 0.28s;
   }
