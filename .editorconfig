@@ -8,7 +8,7 @@ indent_style = space
 indent_size = 4
 trim_trailing_whitespace = true
 
-[*.{vue,js}]
+[*.{vue,js,scss}]
 indent_size = 2
 
 [*.md]

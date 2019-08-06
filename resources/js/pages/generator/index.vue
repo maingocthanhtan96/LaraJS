@@ -2,7 +2,9 @@
   <el-row>
     <el-col :span="24">
       <el-card>
-        <div slot="header" class="flex justify-end items-center">
+        <div slot="header" class="flex justify-between items-center">
+          <div></div>
+          <button @click="dialogVisible = true" class="hover:bg-green-600 hover:text-white font-bold border rounded border-green-600 text-green-600 bg-transparent py-3 px-4"><svg-icon icon-class="tree" /></button>
           <router-link :to="{name: 'generator_create'}" class="hover:bg-indigo-600 hover:text-white font-bold border rounded border-indigo-600 text-indigo-600 bg-transparent py-3 px-4" tag="button">
             <i class="fa fa-plus mr-2" />Create
           </router-link>
@@ -33,6 +35,19 @@
         </v-server-table>
       </el-card>
     </el-col>
+    <div class="container is-fullhd">
+      <el-dialog
+        :visible.sync="dialogVisible"
+        :fullscreen="true"
+      >
+        <div slot="title" class="text-center">
+          <h3 class="title">Diagram {{$t('route.generator_relationship')}}</h3>
+        </div>
+        <div>
+          <div class="tree text-center"><ul style="display: inline-block;"><li><a href="#">Banner</a> <ul><li><a href="#">hasMany</a> <ul><li><a href="#">Page</a> <ul><li><a href="#">page_id</a></li> <li><a href="#">id</a></li></ul></li></ul></li> <li><a href="#">hasMany</a> <ul><li><a href="#">JobFair</a> <ul><li><a href="#">job_fair_id</a></li> <li><a href="#">id</a></li></ul></li></ul></li></ul></li></ul></div>
+        </div>
+      </el-dialog>
+    </div>
   </el-row>
 </template>
 <script>
@@ -43,6 +58,7 @@ const generatorResource = new GeneratorResource();
 export default {
   data() {
     return {
+      dialogVisible: false,
       table: {
         columns: ['id', 'table', 'created_at', 'actions'],
         options: {
