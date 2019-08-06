@@ -428,4 +428,70 @@ Class GeneratorService extends BaseService
             return false;
         }
 	}
+
+    /**
+     * get relationship on model
+     *
+     * @param string $model
+     * @return array
+     */
+    public function getRelations ($model) {
+        $fileData = file(config('generator.path.laravel.model') . $model . '.php');
+        $modelData = [];
+        if(!in_array($model, config('generator.relationship.ignore_model'))) {
+            $modelData[] = ['model' => $model, 'data' => $this->extractRelations($fileData)];
+        }
+        return $modelData;
+    }
+
+    /**
+     * search relationship
+     *
+     * @param string $data
+     * @return array
+     */
+    public function extractRelations ($data) {
+        $relationshipIdentifiers = config('generator.relationship.relationship');
+        $relationshipData = [];
+        $matchPattern = '#\((.*?)\)#';
+
+        foreach ($data as $line) {
+            foreach ($relationshipIdentifiers as $id) {
+                if (strpos($line, $id)) {
+                    if(preg_match_all($matchPattern, $line, $matches)) {
+                        if (isset($matches)) {
+                            $modelData = explode(',', $matches[1][0]);
+                            $modelName = $this->stripString($modelData[0]);
+                            $foreignKey = $this->stripString(isset($modelData[1]) ? $modelData[1] : snake_case($modelName).'_id');
+                            $localKey = $this->stripString(isset($modelData[2]) ? $modelData[2] : 'id');
+                        }
+                        // May contain relationship table fields
+                        $relationshipData[] = [
+                            'type' => $id,
+                            'model' => $modelName,
+                            'foreign_key' => $foreignKey,
+                            'local_key' => $localKey
+                        ];
+                    }
+                }
+            }
+        }
+        return collect($relationshipData);
+    }
+
+    /**
+     * trip strings from slashes, App, class and ::
+     *
+     * @param string $string
+     * @return string
+     */
+    public function stripString ($string) {
+        $string = str_replace('App', '', $string);
+        $string = str_replace("'", '', $string);
+        $string = str_replace("\\", '', $string);
+        $string = str_replace("Models", '', $string);
+        $string = str_replace("::", '', $string);
+        $string = str_replace("class", '', $string);
+        return $string;
+    }
 }

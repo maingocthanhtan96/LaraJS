@@ -37,8 +37,9 @@ Route::group(['prefix' => 'v1'], function () {
 			Route::get('/generators/get-models', 'GeneratorController@getModels');
 			Route::get('/generators/get-columns', 'GeneratorController@getColumns');
 			Route::post('/generators/relationship', 'GeneratorController@generateRelationship');
-			Route::apiResource('generators', 'GeneratorController');
-			Route::apiResource('users', 'UserController');
+            Route::get('/generators/diagram', 'GeneratorController@generateDiagram');
+            Route::apiResource('generators', 'GeneratorController');
+            Route::apiResource('users', 'UserController');
 
             //{{ROUTE_ADMIN_NOT_DELETE_THIS_LINE}}
 		});

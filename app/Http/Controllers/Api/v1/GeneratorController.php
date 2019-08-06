@@ -10,7 +10,7 @@ use App\Generators\BackendUpdate\{ControllerUpdateGenerator,
 	SeederUpdateGenerator};
 use App\Generators\Frontend\{ApiGenerator, FormGenerator, FormHandlerGenerator, PageGenerator, RouteGenerator as RouteGeneratorFe};
 use App\Generators\FrontendUpdate\{FormUpdateGenerator, PageUpdateGenerator};
-use App\Http\Requests\StoreGeneratorRelationship;
+use App\Http\Requests\StoreGeneratorRelationshipRequest;
 use App\Service\{GeneratorService, QueryService};
 use App\Models\Generator;
 use Illuminate\Http\Request;
@@ -123,7 +123,7 @@ class GeneratorController extends Controller
 	    }
     }
 
-    public function generateRelationship(StoreGeneratorRelationship $request)
+    public function generateRelationship(StoreGeneratorRelationshipRequest $request)
     {
         try {
             $relationship = $request->get('relationship');
@@ -140,7 +140,19 @@ class GeneratorController extends Controller
         }
     }
 
-    public function getModels (Request $request)
+    public function generateDiagram(Request $request)
+    {
+        try {
+            $model = $request->get('model');
+            $diagram = $this->serviceGenerator->getRelations($model);
+
+            return $this->jsonOk($diagram);
+        } catch (\Exception $e) {
+            return $this->jsonError($e->getMessage());
+        }
+    }
+
+    public function getModels(Request $request)
     {
         try {
             $table = $request->get('model', []);

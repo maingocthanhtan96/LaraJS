@@ -11,6 +11,8 @@
 
 html {
   font-size: 62.5% !important;
+  box-sizing: border-box;
+  overflow-y: auto !important;
 }
 #app {
   width: 100vw;

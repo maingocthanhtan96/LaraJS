@@ -72,9 +72,33 @@
             <el-dialog
             :visible.sync="dialogVisible"
             :fullscreen="true"
+            @open="diagram"
             >
               <div slot="title" class="text-center">
                 <h3 class="title">Diagram {{$t('route.generator_relationship')}}</h3>
+              </div>
+              <div>
+                <div class="tree text-center">
+                  <ul class="inline-block">
+                    <li v-for="(diagram, index) in drawDiagram" :key="'diagram_' + index">
+                      <a>{{ diagram.model }}</a>
+                      <ul class="flex">
+                        <li v-for="(item, index) in diagram.data" :key="'itemDiagram_' + index">
+                          <a>{{ item.type }}</a>
+                          <ul>
+                            <li>
+                              <a class="w-64">{{ item.model }}</a>
+                              <ul>
+                                <li><a>{{ item.foreign_key }}</a></li>
+                                <li><a>{{ item.local_key }}</a></li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </el-dialog>
           </div>
@@ -113,6 +137,7 @@ export default {
         column2: '',
         options: ['Search', 'Sort', 'Show'],
       },
+      drawDiagram: [],
     };
   },
   mounted() {
@@ -137,6 +162,13 @@ export default {
     }
   },
   methods: {
+    diagram() {
+      generatorResource.generateDiagram(this.form.model_current)
+        .then(res => {
+          const { data } = res.data;
+          this.drawDiagram = data;
+        });
+    },
     changeOptions(options) {
       if (!options.includes('Show')) {
         this.form.options = [];

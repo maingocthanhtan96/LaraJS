@@ -2,12 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="48ec4041-b065-41c7-b197-b99331b3987d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/.editorconfig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/GeneratorController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/GeneratorController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/StoreGeneratorRelationship.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/StoreGeneratorRelationshipRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Services/GeneratorService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/GeneratorService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/api/generator.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/api/generator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/lang/vue-i18n-locales.generated.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/lang/vue-i18n-locales.generated.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/layout/components/AppMain.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layout/components/AppMain.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/pages/generator/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/generator/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/pages/generator/relationship.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/generator/relationship.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/router/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/styles/main.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/styles/main.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/route.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/route.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/table.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/vn/route.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/vn/route.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/vn/table.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/vn/table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/stylus/main.styl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -34,6 +48,9 @@
     </option>
     <expand />
     <select />
+  </component>
+  <component name="EditorConfigPreviewManager">
+    <editorConfig file="$PROJECT_DIR$/.editorconfig" previewFile="$PROJECT_DIR$/resources/js/pages/generator/index.vue" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -159,10 +176,9 @@
   <component name="ProjectId" id="1OpAgufvPtc7jYHPj004onakmlp" />
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
-    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../OT_old/project/demo-autogentcode" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -171,7 +187,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Other File Types" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.JavaScript" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2018.3.5\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
@@ -372,7 +388,7 @@
       <workItem from="1564976645849" duration="552000" />
       <workItem from="1565003936360" duration="633000" />
       <workItem from="1565053787076" duration="5438000" />
-      <workItem from="1565082089938" duration="259000" />
+      <workItem from="1565082089938" duration="18046000" />
     </task>
     <servers />
   </component>

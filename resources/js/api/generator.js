@@ -45,4 +45,12 @@ export default class GeneratorResource extends Resource {
       data: relationship,
     });
   }
+
+  generateDiagram(model) {
+    return request({
+      url: '/generators/diagram',
+      method: 'get',
+      params: { model },
+    });
+  }
 }

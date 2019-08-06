@@ -14,10 +14,3 @@
 Route::get('{path}', function () {
     return view('spa');
 })->where('path', '(.*)');
-
-//Route::group(['prefix' => 'be'], function () {
-//	Route::get('/logout', 'Auth\LoginController@logout');
-//	Auth::routes();
-//});
-
-//Route::get('/home', 'HomeController@index')->name('home');
