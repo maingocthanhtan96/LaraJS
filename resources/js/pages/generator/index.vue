@@ -39,9 +39,13 @@
       <el-dialog
         :visible.sync="dialogVisible"
         :fullscreen="true"
+        @open="openDiagram"
       >
         <div slot="title" class="text-center">
           <h3 class="title">Diagram {{$t('route.generator_relationship')}}</h3>
+        </div>
+        <div>
+          <svg-icon icon-class="diagram-erd" class="w-screen h-screen" />
         </div>
       </el-dialog>
     </div>
@@ -91,6 +95,9 @@ export default {
     });
   },
   methods: {
+    openDiagram() {
+
+    },
     remove(id, name) {
       this.$confirm(this.$t('messages.delete_confirm', { attribute: name }), this.$t('messages.warning'), {
         confirmButtonClass: 'outline-none',

@@ -228,6 +228,7 @@ class GeneratorController extends Controller
 	{
 		Artisan::call('migrate');
 		Artisan::call('vue-i18n:generate');
+		Artisan::call('generate:erd resources/js/icons/svg/diagram-erd.svg --format=svg');
 		exec('npm run dev');
 	}
 }
