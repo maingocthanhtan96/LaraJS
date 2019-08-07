@@ -403,7 +403,6 @@ export default {
             });
             this.loading = false;
             window.location.href = '/generator/index';
-            console.log(res);
           })
           .catch(err => {
             this.loading = false;

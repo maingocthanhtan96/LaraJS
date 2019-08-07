@@ -189,11 +189,11 @@ export default {
       generatorResource.generateRelationship(this.form)
         .then(res => {
           this.loading = false;
-          // location.reload();
+          location.reload();
         })
         .catch(() => {
           this.loading = false;
-          // location.reload();
+          location.reload();
         });
     },
     replaceTemplate(model) {

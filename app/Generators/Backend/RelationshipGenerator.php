@@ -174,9 +174,13 @@ Class RelationshipGenerator extends BaseGenerator
 
     private function _generateApi($model)
     {
+        $checkFuncName = 'get' . $model;
         $notDelete = config('generator.not_delete.vuejs.form');
         $fileName = $this->serviceGenerator->modelNameNotPluralFe($model) . '.js';
         $templateDataReal = $this->serviceGenerator->getFile('api', 'vuejs', $fileName);
+        if(strpos($templateDataReal, $checkFuncName)) {
+            return $templateDataReal;
+        }
         $stubAPI = $this->serviceGenerator->get_template("apiRelationship", 'Api/', 'vuejs');
         $templateAPI = str_replace('{{$FUNCTION$}}', $model, $stubAPI);
         $templateAPI = str_replace('{{$MODEL$}}', $this->serviceGenerator->urlResource($model), $templateAPI);
@@ -395,8 +399,10 @@ Class RelationshipGenerator extends BaseGenerator
         $path = config('generator.path.laravel.api_controller');
         $fileName = $path . $fileName;
         $this->serviceFile->createFileReal($fileName, $templateDataReal);
-        $fileNameFunc = $path . $fileNameFunc;
-        $this->serviceFile->createFileReal($fileNameFunc, $templateDataRealFunc);
+        if(!strpos($templateDataRealFunc, 'get'.$modelRelationship)) {
+            $fileNameFunc = $path . $fileNameFunc;
+            $this->serviceFile->createFileReal($fileNameFunc, $templateDataRealFunc);
+        }
     }
 
     private function _generateRoute($modelRelationship)

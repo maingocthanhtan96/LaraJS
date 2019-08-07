@@ -39,13 +39,18 @@
       <el-dialog
         :visible.sync="dialogVisible"
         :fullscreen="true"
-        @open="openDiagram"
       >
         <div slot="title" class="text-center">
           <h3 class="title">Diagram {{$t('route.generator_relationship')}}</h3>
         </div>
         <div>
-          <svg-icon icon-class="diagram-erd" class="w-screen h-screen" />
+          <div class="demo-image__preview">
+            <el-image
+              :src="this.diagram"
+              :preview-src-list="[this.diagram]">
+            </el-image>
+          </div>
+          <svg-icon icon-class="diagram-erd"  />
         </div>
       </el-dialog>
     </div>
@@ -59,6 +64,7 @@ const generatorResource = new GeneratorResource();
 export default {
   data() {
     return {
+      diagram: require('@/public/diagram-erd.png'),
       dialogVisible: false,
       table: {
         columns: ['id', 'table', 'created_at', 'actions'],
@@ -95,9 +101,6 @@ export default {
     });
   },
   methods: {
-    openDiagram() {
-
-    },
     remove(id, name) {
       this.$confirm(this.$t('messages.delete_confirm', { attribute: name }), this.$t('messages.warning'), {
         confirmButtonClass: 'outline-none',
