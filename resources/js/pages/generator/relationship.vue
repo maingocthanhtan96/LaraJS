@@ -88,12 +88,12 @@
                           <ul>
                             <li>
                               <a class="w-64">{{ item.model }}</a>
-                              <ul v-if="item.table">
+                              <ul v-if="item.table" :class="{'has-mtm-parent': item.table}">
                                 <a class="w-64">{{ item.table }}</a>
                               </ul>
                               <ul>
-                                <li><a>{{ item.foreign_key }}</a></li>
-                                <li><a>{{ item.local_key }}</a></li>
+                                <li><a :class="{'has-mtm': item.table}">{{ item.foreign_key }}</a></li>
+                                <li><a :class="{'has-mtm': item.table}">{{ item.local_key }}</a></li>
                               </ul>
                             </li>
                           </ul>

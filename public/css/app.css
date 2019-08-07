@@ -11429,7 +11429,7 @@ label.panel-block:hover {
   -moz-transition: all 0.5s;
 }
 
-.tree li a:hover, .tree li a:hover + ul li a {
+.tree li a:hover, .tree li a:hover + ul li a, .tree li a:hover ~ ul a {
   background: #c8e4f8;
   color: #000;
   border: 1px solid #94a0b4;
@@ -11437,6 +11437,12 @@ label.panel-block:hover {
 
 .tree li a:hover + ul li:after, .tree li a:hover + ul li:before, .tree li a:hover + ul:before, .tree li a:hover + ul ul::before {
   border-color: #94a0b4;
+}
+
+.tree li .has-mtm-parent:hover ~ ul a.has-mtm {
+  background: #c8e4f8;
+  color: #000;
+  border: 1px solid #94a0b4;
 }
 
 html {
