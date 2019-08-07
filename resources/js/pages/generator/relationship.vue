@@ -88,6 +88,9 @@
                           <ul>
                             <li>
                               <a class="w-64">{{ item.model }}</a>
+                              <ul v-if="item.table">
+                                <a class="w-64">{{ item.table }}</a>
+                              </ul>
                               <ul>
                                 <li><a>{{ item.foreign_key }}</a></li>
                                 <li><a>{{ item.local_key }}</a></li>

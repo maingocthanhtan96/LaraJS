@@ -43,9 +43,6 @@
         <div slot="title" class="text-center">
           <h3 class="title">Diagram {{$t('route.generator_relationship')}}</h3>
         </div>
-        <div>
-          <div class="tree text-center"><ul style="display: inline-block;"><li><a href="#">Banner</a> <ul><li><a href="#">hasMany</a> <ul><li><a href="#">Page</a> <ul><li><a href="#">page_id</a></li> <li><a href="#">id</a></li></ul></li></ul></li> <li><a href="#">hasMany</a> <ul><li><a href="#">JobFair</a> <ul><li><a href="#">job_fair_id</a></li> <li><a href="#">id</a></li></ul></li></ul></li></ul></li></ul></div>
-        </div>
       </el-dialog>
     </div>
   </el-row>

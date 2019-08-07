@@ -453,24 +453,31 @@ Class GeneratorService extends BaseService
     public function extractRelations ($data) {
         $relationshipIdentifiers = config('generator.relationship.relationship');
         $relationshipData = [];
-        $matchPattern = '#\((.*?)\)#';
-
+//        $matchPattern = '#\((.*?)\)#';
+        $matchPattern = '#(hasOne|belongsTo|hasMany|belongsToMany)\((.*?)\)#';
         foreach ($data as $line) {
-            foreach ($relationshipIdentifiers as $id) {
-                if (strpos($line, $id)) {
-                    if(preg_match_all($matchPattern, $line, $matches)) {
-                        if (isset($matches)) {
-                            $modelData = explode(',', $matches[1][0]);
-                            $modelName = $this->stripString($modelData[0]);
-                            $foreignKey = $this->stripString(isset($modelData[1]) ? $modelData[1] : snake_case($modelName).'_id');
-                            $localKey = $this->stripString(isset($modelData[2]) ? $modelData[2] : 'id');
-                        }
-                        // May contain relationship table fields
+            foreach ($relationshipIdentifiers as $relationship) {
+                $nameRelationship = $relationship . '(';
+                $searchRelationship = $this->searchTemplateX($nameRelationship, 1, ');', -strlen($nameRelationship), strlen($nameRelationship), $line);
+                if($searchRelationship) {
+                    $modelData = explode(',', $searchRelationship);
+                    $modelName = $this->stripString($modelData[0], $relationship);
+                    if($relationship === 'belongsToMany') {
+                        $tableName = $this->modelNameNotPlural($this->stripString($modelData[1], $relationship));
+                        $subModel = substr($tableName, strlen($modelName));
                         $relationshipData[] = [
-                            'type' => $id,
+                            'type' => $relationship,
                             'model' => $modelName,
-                            'foreign_key' => $foreignKey,
-                            'local_key' => $localKey
+                            'table' => $tableName,
+                            'foreign_key' => $this->stripString(isset($modelData[2]) ? $modelData[2] : \Str::snake($subModel) . '_id'),
+                            'local_key' => $this->stripString(isset($modelData[3]) ? $modelData[3] : \Str::snake($modelName) . '_id')
+                        ];
+                    } else {
+                        $relationshipData[] = [
+                            'type' => $relationship,
+                            'model' => $modelName,
+                            'foreign_key' => $this->stripString(isset($modelData[1]) ? $modelData[1] : \Str::snake($modelName) . '_id'),
+                            'local_key' => $this->stripString(isset($modelData[2]) ? $modelData[2] : 'id')
                         ];
                     }
                 }
@@ -483,15 +490,20 @@ Class GeneratorService extends BaseService
      * trip strings from slashes, App, class and ::
      *
      * @param string $string
+     * @param string $relationship
      * @return string
      */
-    public function stripString ($string) {
+    public function stripString ($string, $relationship = '') {
         $string = str_replace('App', '', $string);
         $string = str_replace("'", '', $string);
         $string = str_replace("\\", '', $string);
         $string = str_replace("Models", '', $string);
         $string = str_replace("::", '', $string);
         $string = str_replace("class", '', $string);
+        $string = str_replace($relationship, '', $string);
+        $string = str_replace('(', '', $string);
+        $string = str_replace(')', '', $string);
+        $string = str_replace(' ', '', $string);
         return $string;
     }
 }

@@ -211,7 +211,8 @@ return [
         'relationship' => [
             'has_one' => 'hasOne',
             'has_many' => 'hasMany',
-            'belongs_to_many' => 'belongsToMany'
+            'belongs_to_many' => 'belongsToMany',
+            'belongs_to' => 'belongsTo',
         ],
         'options' => [
             'search' => 'Search',
