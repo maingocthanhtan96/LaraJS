@@ -41,10 +41,10 @@ if (mix.inProduction()) {
     mix.version();
 } else {
     // Development settings
-    mix.browserSync({
-      proxy: process.env.APP_URL,
-      files: ['resources/js/**/*']
-    });
+    // mix.browserSync({
+    //   proxy: process.env.APP_URL,
+    //   files: ['resources/js/**/*']
+    // });
     mix.sourceMaps();
     mix.webpackConfig({
             output: {

@@ -64,7 +64,7 @@ const generatorResource = new GeneratorResource();
 export default {
   data() {
     return {
-      diagram: require('@/public/diagram-erd.png'),
+      diagram: require('@/public/images/diagram-erd.png'),
       dialogVisible: false,
       table: {
         columns: ['id', 'table', 'created_at', 'actions'],
