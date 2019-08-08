@@ -39,6 +39,8 @@ This project is built on top of fresh latest version Laravel (5.8). You should c
 ```bash
 # Clone the project and run composer
 git clone https://github.com/laudaikinhdi/larajs.git
+# https://github.com/beyondcode/laravel-er-diagram-generator#requirements
+sudo apt-get install graphviz #(For ubuntu)
 cd larajs
 composer install
 

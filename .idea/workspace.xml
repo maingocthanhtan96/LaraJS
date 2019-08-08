@@ -2,20 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="48ec4041-b065-41c7-b197-b99331b3987d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Services/GeneratorService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/GeneratorService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/generator.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/generator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/GeneratorController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/GeneratorController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/diagram-erd.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/diagram-erd.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/lang/vue-i18n-locales.generated.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/lang/vue-i18n-locales.generated.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/pages/generator/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/generator/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/pages/generator/relationship.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/generator/relationship.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/router/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/styles/diagramRelationship.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/styles/diagramRelationship.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/en/route.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/route.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/en/table.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/vn/route.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/vn/route.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/vn/table.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/vn/table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.mix.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -165,6 +158,8 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/cache" />
       <path value="$PROJECT_DIR$/vendor/doctrine/dbal" />
       <path value="$PROJECT_DIR$/vendor/doctrine/event-manager" />
+      <path value="$PROJECT_DIR$/vendor/beyondcode/laravel-er-diagram-generator" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/graphviz" />
     </include_path>
   </component>
   <component name="ProjectId" id="1OpAgufvPtc7jYHPj004onakmlp" />
@@ -172,7 +167,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../JAVAC/council-dev" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -193,11 +188,11 @@
       <recent name="D:\laragon\www\tanmnt\larajs\resources\lang\en" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/js/public/images" />
+      <recent name="$PROJECT_DIR$/resources/js/icons/svg" />
       <recent name="D:\laragon\www\tanmnt\larajs\public\generator\templates\Laravel\Databases\Migrations" />
       <recent name="D:\laragon\www\tanmnt\larajs\public\generator\templates" />
       <recent name="D:\laragon\www\tanmnt\larajs\app\Generators\Backend" />
-      <recent name="D:\laragon\www\tanmnt\larajs\public\builder\templates\Laravel\Langs\vn" />
-      <recent name="D:\laragon\www\tanmnt\larajs\public\builder\templates\Laravel\Databases" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -234,9 +229,9 @@
     </configuration>
     <list>
       <item itemvalue="JavaScript Debug.form.vue" />
-      <item itemvalue="PHP Script.FormUpdateGenerator.php" />
       <item itemvalue="PHPUnit.Unnamed" />
       <item itemvalue="PHPUnit.phpunit.xml" />
+      <item itemvalue="PHP Script.FormUpdateGenerator.php" />
     </list>
     <recent_temporary>
       <list>
@@ -384,7 +379,12 @@
       <workItem from="1565053787076" duration="5438000" />
       <workItem from="1565082089938" duration="18046000" />
       <workItem from="1565108853591" duration="241000" />
-      <workItem from="1565139899358" duration="6089000" />
+      <workItem from="1565139899358" duration="6211000" />
+      <workItem from="1565151795487" duration="4376000" />
+      <workItem from="1565179662467" duration="13813000" />
+      <workItem from="1565226890131" duration="487000" />
+      <workItem from="1565272067802" duration="25000" />
+      <workItem from="1565276520163" duration="599000" />
     </task>
     <servers />
   </component>

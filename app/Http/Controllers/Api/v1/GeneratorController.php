@@ -228,6 +228,9 @@ class GeneratorController extends Controller
 	{
 		Artisan::call('migrate');
 		Artisan::call('vue-i18n:generate');
-		exec('npm run dev');
+        $resourcePath = resource_path('js/public/images/diagram-erd.png');
+        Artisan::call('generate:erd ' . $resourcePath);
+        $basePath = base_path();
+		exec("cd $basePath && npm run dev");
 	}
 }

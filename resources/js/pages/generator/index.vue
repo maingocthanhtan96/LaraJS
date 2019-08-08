@@ -43,6 +43,15 @@
         <div slot="title" class="text-center">
           <h3 class="title">Diagram {{$t('route.generator_relationship')}}</h3>
         </div>
+        <div>
+          <div class="demo-image__preview">
+            <el-image
+              :src="this.diagram"
+              :preview-src-list="[this.diagram]">
+            </el-image>
+          </div>
+          <svg-icon icon-class="diagram-erd"  />
+        </div>
       </el-dialog>
     </div>
   </el-row>
@@ -55,6 +64,7 @@ const generatorResource = new GeneratorResource();
 export default {
   data() {
     return {
+      diagram: require('@/public/images/diagram-erd.png'),
       dialogVisible: false,
       table: {
         columns: ['id', 'table', 'created_at', 'actions'],
