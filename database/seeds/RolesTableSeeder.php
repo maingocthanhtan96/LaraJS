@@ -13,13 +13,21 @@ class RolesTableSeeder extends Seeder
     {
 		\App\Models\Role::create(
 			[
-				'name' => 'admin'
+				'name' => 'admin',
+                'description' => 'Super Administrator. Have access and full permission to all pages.'
 			]
 		);
 		\App\Models\Role::create(
 			[
-				'name' => 'user'
+				'name' => 'user',
+                'description' => 'Normal user. Have access to some pages',
 			]
 		);
+        \App\Models\Role::create(
+            [
+                'name' => 'user',
+                'description' => 'Just a visitor. Can only see the home page and the document page',
+            ]
+        );
     }
 }

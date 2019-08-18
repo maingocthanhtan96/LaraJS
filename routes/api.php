@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use \App\Larajs\Permission as LarajsPermission;
 
 /*
@@ -31,15 +30,18 @@ Route::group(['prefix' => 'v1'], function () {
 
 		// permission Admin
 		Route::group(['middleware' => 'permission:'. LarajsPermission::PERMISSION_PERMISSION_MANAGE], function () {
-			Route::get('/users/roles/list', 'UserController@getRoles');
-			Route::get('/generators/check-model', 'GeneratorController@checkModel');
-			Route::get('/generators/check-column', 'GeneratorController@checkColumn');
-			Route::get('/generators/get-models', 'GeneratorController@getModels');
-			Route::get('/generators/get-columns', 'GeneratorController@getColumns');
-			Route::post('/generators/relationship', 'GeneratorController@generateRelationship');
-            Route::get('/generators/diagram', 'GeneratorController@generateDiagram');
+            Route::group(['prefix' => 'generators'], function () {
+                Route::get('check-model', 'GeneratorController@checkModel');
+                Route::get('check-column', 'GeneratorController@checkColumn');
+                Route::get('get-models', 'GeneratorController@getModels');
+                Route::get('get-columns', 'GeneratorController@getColumns');
+                Route::post('relationship', 'GeneratorController@generateRelationship');
+                Route::get('diagram', 'GeneratorController@generateDiagram');
+		    });
             Route::apiResource('generators', 'GeneratorController');
             Route::apiResource('users', 'UserController');
+            Route::apiResource('roles', 'RoleController');
+            Route::apiResource('permissions', 'PermissionController');
 
             //{{ROUTE_ADMIN_NOT_DELETE_THIS_LINE}}
 		});
@@ -49,4 +51,10 @@ Route::group(['prefix' => 'v1'], function () {
             //{{ROUTE_USER_NOT_DELETE_THIS_LINE}}
 		});
 	});
+});
+
+Route::fallback(function() {
+   return response()->json([
+       'message' => trans('error.404')
+   ], 404);
 });

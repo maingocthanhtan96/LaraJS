@@ -48,9 +48,11 @@
 
 <script>
 import UserResource from '@/api/user';
+import RoleResource from '@/api/role';
 import { validEmail } from '@/utils/validate';
 
 const userResource = new UserResource();
+const roleResource = new RoleResource();
 
 export default {
   data() {
@@ -162,7 +164,7 @@ export default {
       });
     },
     roles() {
-      userResource.roles().then(res => {
+      roleResource.list().then(res => {
         this.rolesList = res.data.data;
       });
     },
@@ -179,7 +181,7 @@ export default {
                 type: 'success',
               });
               this.loading = false;
-              this.$router.push({ name: 'user' });
+              this.$router.push({ name: 'user_index' });
             }).catch(err => {
               this.loading = false;
               console.log(err);

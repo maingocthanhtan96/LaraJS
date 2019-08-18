@@ -9,6 +9,7 @@ export const SET_LANG = 'setLang';
 export const LOGIN = 'login';
 export const USER_INFO = 'userInfo';
 export const SET_ROLES = 'setRoles';
+export const SET_PERMISSIONS = 'setPermissions';
 export const SET_USER = 'setUser';
 export const FED_LOGOUT = 'fedLogOut';
 export const SET_TOKEN = 'setToken';

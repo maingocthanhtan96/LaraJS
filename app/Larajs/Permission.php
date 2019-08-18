@@ -22,8 +22,8 @@ final class Permission
 	const ROLE_USER = 'user';
 	const ROLE_VISITOR = 'visitor';
 
-	const PERMISSION_USER_MANAGE = 'manage user';
-	const PERMISSION_PERMISSION_MANAGE = 'manage permission';
+    const PERMISSION_PERMISSION_MANAGE = 'manage permission';
+    const PERMISSION_USER_MANAGE = 'manage user';
 
 	/**
 	 * @param array $exclusives Exclude some permissions from the list

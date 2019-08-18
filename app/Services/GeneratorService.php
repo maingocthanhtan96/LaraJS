@@ -311,6 +311,18 @@ Class GeneratorService extends BaseService
 		return lcfirst(\Str::kebab(\Str::plural($tableName)));
 	}
 
+    /**
+     * generates folder name from model name.
+     *
+     * @param string $tableName
+     *
+     * @return string
+     */
+    public function folderPages($tableName)
+    {
+        return lcfirst(\Str::kebab($tableName));
+    }
+
 	/**
 	 * generates model name from table name.
 	 *

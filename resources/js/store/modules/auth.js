@@ -2,6 +2,7 @@ import {
   LOGIN,
   USER_INFO,
   SET_ROLES,
+  SET_PERMISSIONS,
   SET_USER,
   FED_LOGOUT,
   SET_TOKEN,
@@ -24,6 +25,7 @@ const auth = {
   state: {
     token: getToken() || null,
     roles: [],
+    permissions: [],
     user: {},
   },
   getters: {
@@ -32,6 +34,9 @@ const auth = {
     },
     roles(state) {
       return state.roles;
+    },
+    permissions(state) {
+      return state.permissions;
     },
     user(state) {
       return state.user;
@@ -43,6 +48,9 @@ const auth = {
     },
     [SET_ROLES](state, roles) {
       state.roles = roles;
+    },
+    [SET_PERMISSIONS](state, permissions) {
+      state.permissions = permissions;
     },
     [SET_USER](state, user) {
       state.user = user;
@@ -74,12 +82,13 @@ const auth = {
             if (!data) {
               reject('Verification failed, please Login again.');
             }
-            const { roles } = data;
+            const { roles, permissions } = data;
             // roles must be a non-empty array
             if (!roles || roles.length <= 0) {
               reject('getInfo: roles must be a non-null array!');
             }
             commit(SET_ROLES, roles);
+            commit(SET_PERMISSIONS, permissions);
             commit(SET_USER, data);
             resolve(data);
           })
