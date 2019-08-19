@@ -97,7 +97,7 @@
     .is-active>.el-submenu__title {
       color: $subMenuActiveText !important;
       font-weight: bold;
-      background: $bgSidebar !important;
+      background: $activeSidebar !important;
     }
 
     & .nest-menu .el-submenu>.el-submenu__title,

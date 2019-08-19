@@ -3,47 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="48ec4041-b065-41c7-b197-b99331b3987d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/UserResrouce.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/UserResource.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Larajs/Permission.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Larajs/Permission.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Services/GeneratorService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/GeneratorService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/auth.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_06_08_020207_create_permission_tables.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_06_08_020207_create_permission_tables.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/RolesTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/RolesTableSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/mix-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/mix-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/api/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/api/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/directive/permission/permission.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/directive/permission/permission.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/directive/randomColor/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/directive/randomColor/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/filters/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/filters/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/lang/vue-i18n-locales.generated.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/lang/vue-i18n-locales.generated.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/layout/components/Sidebar/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layout/components/Sidebar/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/pages/generator/form.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/generator/form.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/pages/users/form.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/users/form.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/permission.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/permission.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/router/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/router/modules/generator.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/router/modules/administrator.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/router/modules/user.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/auth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/permission.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/permission.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/muation-types.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/muation-types.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/styles/main.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/styles/main.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/styles/sidebar.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/styles/sidebar.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/utils/permission.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/utils/permission.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/en/button.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/button.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/en/error.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/error.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/en/route.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/route.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/en/table.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/vn/button.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/vn/button.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/vn/error.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/vn/error.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/vn/route.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/vn/route.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/vn/table.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/vn/table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/spa.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/spa.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.mix.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -433,7 +395,9 @@
       <workItem from="1565928382875" duration="256000" />
       <workItem from="1565965897679" duration="4991000" />
       <workItem from="1566008437936" duration="25811000" />
-      <workItem from="1566090070133" duration="29311000" />
+      <workItem from="1566090070133" duration="29780000" />
+      <workItem from="1566177025416" duration="911000" />
+      <workItem from="1566178683067" duration="741000" />
     </task>
     <servers />
   </component>

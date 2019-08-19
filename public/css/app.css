@@ -11188,7 +11188,7 @@ label.panel-block:hover {
 #app .sidebar-container .is-active > .el-submenu__title {
   color: #f4f4f5 !important;
   font-weight: bold;
-  background: #242635 !important;
+  background: #1a1c29 !important;
 }
 
 #app .sidebar-container .nest-menu .el-submenu > .el-submenu__title, #app .sidebar-container .el-submenu .el-menu-item {
