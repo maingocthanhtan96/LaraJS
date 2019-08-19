@@ -5,14 +5,17 @@
   <a href="https://github.com/vuejs/vue">
     <img src="https://img.shields.io/badge/laravel-5.8-red.svg" alt="laravel-5.8">
   </a>
-  <a href="https://github.com/vuejs/vue">
-    <img src="https://img.shields.io/badge/vue-2.6.6-brightgreen.svg" alt="vue">
+  <a href="https://laravel.com/docs/5.8">
+    <img src="https://img.shields.io/badge/vue-2.5.17-brightgreen.svg" alt="vue">
   </a>
   <a href="https://github.com/ElemeFE/element">
     <img src="https://img.shields.io/badge/element--ui-2.7.2-brightgreen.svg" alt="element-ui">
   </a>
-  <a href="https://vuetifyjs.com/en">
-    <img src="https://img.shields.io/badge/vuetify-1.5.12-brightgreen.svg" alt="vuetify">
+  <a href="https://bulma.io/documentation/">
+    <img src="https://img.shields.io/badge/bulma-0.7.5-brightgreen.svg" alt="element-ui">
+  </a>
+  <a href="https://tailwindcss.com/docs/installation">
+    <img src="https://img.shields.io/badge/tailwindcss-1.0.1-brightgreen.svg" alt="element-ui">
   </a>
   <a href="https://github.com/PanJiaChen/vue-element-admin/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-brightgreen.svg" alt="license">

@@ -9,6 +9,11 @@ return [
         'password' => 'Password',
         'password_confirm' => 'Confrim password'
 	],
+    'rolePermission' => [
+        'id' => 'No.',
+        'name' => 'Name',
+        'description' => 'Description',
+    ],
 	//{{LANG_TABLE_NOT_DELETE_THIS_LINE}}
 	'texts' => [
 		'count' => 'Showing {from} to {to} of {count} records|{count} records|One record',

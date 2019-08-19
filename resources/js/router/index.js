@@ -3,9 +3,9 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
-import user from './modules/user';
+// import user from './modules/user';
 import dashboard from './modules/dashborad';
-import generator from './modules/generator';
+import administrator from './modules/administrator';
 // {{$IMPORT_ROUTE_NOT_DELETE_THIS_LINE$}}
 
 /**
@@ -19,6 +19,7 @@ import generator from './modules/generator';
  * name:'router-name'             the name is used by <keep-alive> (must set!!!)
  * meta : {
     roles: ['admin','editor']    control the page roles (you can set multiple roles)
+    permissions: ['view menu zip', 'manage user'] Visible for these permissions only
     title: 'title'               the name show in sidebar and breadcrumb (recommend set)
     icon: 'svg-name'             the icon show in the sidebar
     noCache: true                if set true, the page will no be cached(default is false)
@@ -49,8 +50,8 @@ export const constantRouterMap = [
 ];
 
 export const asyncRouterMap = [
-  user,
-  generator,
+  // user,
+  administrator,
   // {{$ROUTE_ASYNC_NOT_DELETE_THIS_LINE$}},
   { path: '*', redirect: '/404', hidden: true },
 ];

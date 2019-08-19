@@ -72,6 +72,7 @@
 
     .svg-icon {
       margin-right: 16px;
+      display: inline-block;
     }
 
     .el-menu {
@@ -96,14 +97,11 @@
     .is-active>.el-submenu__title {
       color: $subMenuActiveText !important;
       font-weight: bold;
-      background: $bgSidebar !important;
+      background: $activeSidebar !important;
     }
 
     & .nest-menu .el-submenu>.el-submenu__title,
     & .el-submenu .el-menu-item {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
       min-width: $sideBarWidth !important;
       background-color: $bgSidebar !important;
 

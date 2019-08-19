@@ -25,6 +25,7 @@ export default {
       'cancel': 'Cancel',
       'create': 'Create',
       'edit': 'Edit',
+      'update': 'Update',
     },
     'common': {
       'back_to_top': 'Back to top',
@@ -35,6 +36,7 @@ export default {
     'error': {
       'is_admin': 'Can not delete admin user',
       'file_not_found': 'File not found!',
+      '404': 'Page Not Found. Check if you entered an invalid link!',
     },
     'field': {
       'password': 'Password',
@@ -94,6 +96,8 @@ export default {
       'generator_edit': 'Generator Edit',
       'generator_relationship': 'Relationship',
       'dashboard': 'Dashboard',
+      'administrator': 'Administrator',
+      'role_permission': 'Role Permission',
     },
     'table': {
       'user': {
@@ -103,6 +107,11 @@ export default {
         'role': 'Role',
         'password': 'Password',
         'password_confirm': 'Confrim password',
+      },
+      'rolePermission': {
+        'id': 'No.',
+        'name': 'Name',
+        'description': 'Description',
       },
       'texts': {
         'count': 'Showing {from} to {to} of {count} records|{count} records|One record',
@@ -262,6 +271,7 @@ export default {
       'cancel': 'Bỏ qua',
       'create': 'Tạo',
       'edit': 'Sửa',
+      'update': 'Cập nhật',
     },
     'common': {
       'back_to_top': 'Trở lại đầu trang',
@@ -272,6 +282,7 @@ export default {
     'error': {
       'is_admin': 'Không thể xóa Admin',
       'file_not_found': 'File không tồn tại!',
+      '404': 'Không tìm thấy trang. Kiểm tra nếu bạn nhập một liên kết không hợp lệ!',
     },
     'field': {
       'password': 'Mật khẩu',
@@ -318,6 +329,8 @@ export default {
       'generator_edit': 'Generator Edit',
       'generator_relationship': 'Relationship',
       'dashboard': 'Bảng điều khiển',
+      'administrator': 'Administrator',
+      'role_permission': 'Role Permission',
     },
     'table': {
       'user': {
@@ -327,6 +340,11 @@ export default {
         'role': 'Quyền',
         'password': 'Mật khẩu',
         'password_confirm': 'Xác nhận mật khẩu',
+      },
+      'rolePermission': {
+        'id': 'No.',
+        'name': 'Tên',
+        'description': 'Miêu tả',
       },
       'texts': {
         'count': 'Hiển thị {from} đến {to} trong số {count} dữ liệu|{count} dữ liệu|Một dữ liệu',

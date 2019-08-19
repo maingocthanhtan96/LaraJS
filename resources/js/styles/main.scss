@@ -12,10 +12,10 @@
 html {
   font-size: 62.5% !important;
   box-sizing: border-box;
-  overflow-y: auto !important;
+  overflow: inherit !important;
 }
 #app {
-  width: 100vw;
+  width: 100%;
   height: 100%;
   background: #edeef2;
   font-size: 1.4rem;

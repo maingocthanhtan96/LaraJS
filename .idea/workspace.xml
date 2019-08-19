@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="48ec4041-b065-41c7-b197-b99331b3987d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/GeneratorController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/GeneratorController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/diagram-erd.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/diagram-erd.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/pages/generator/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/generator/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.mix.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/styles/sidebar.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/styles/sidebar.scss" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -229,9 +226,9 @@
     </configuration>
     <list>
       <item itemvalue="JavaScript Debug.form.vue" />
+      <item itemvalue="PHP Script.FormUpdateGenerator.php" />
       <item itemvalue="PHPUnit.Unnamed" />
       <item itemvalue="PHPUnit.phpunit.xml" />
-      <item itemvalue="PHP Script.FormUpdateGenerator.php" />
     </list>
     <recent_temporary>
       <list>
@@ -385,6 +382,22 @@
       <workItem from="1565226890131" duration="487000" />
       <workItem from="1565272067802" duration="25000" />
       <workItem from="1565276520163" duration="599000" />
+      <workItem from="1565314389329" duration="2605000" />
+      <workItem from="1565356256832" duration="2255000" />
+      <workItem from="1565572167658" duration="252000" />
+      <workItem from="1565572444162" duration="293000" />
+      <workItem from="1565660853985" duration="3378000" />
+      <workItem from="1565689338267" duration="5378000" />
+      <workItem from="1565784859076" duration="8107000" />
+      <workItem from="1565857390472" duration="1691000" />
+      <workItem from="1565877989610" duration="4830000" />
+      <workItem from="1565918319953" duration="1444000" />
+      <workItem from="1565928382875" duration="256000" />
+      <workItem from="1565965897679" duration="4991000" />
+      <workItem from="1566008437936" duration="25811000" />
+      <workItem from="1566090070133" duration="29780000" />
+      <workItem from="1566177025416" duration="911000" />
+      <workItem from="1566178683067" duration="741000" />
     </task>
     <servers />
   </component>

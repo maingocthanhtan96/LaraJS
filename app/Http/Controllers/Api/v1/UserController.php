@@ -8,13 +8,13 @@ use App\Models\User;
 use App\Service\QueryService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UserResrouce;
+use App\Http\Resources\UserResource;
 
 class UserController extends Controller
 {
 
 	/** get user information
-	 * @return UserResrouce|\Illuminate\Http\JsonResponse
+	 * @return UserResource|\Illuminate\Http\JsonResponse
 	 * @author tanmnt
 	 */
 	public function userInfo()
@@ -22,7 +22,7 @@ class UserController extends Controller
 		try {
 			$user = \Auth::user();
 
-			return new UserResrouce($user);
+			return new UserResource($user);
 		} catch (\Exception $e) {
 			return $this->jsonError($e->getMessage());
 		}
@@ -129,20 +129,4 @@ class UserController extends Controller
 	    	return $this->jsonError($e->getMessage());
 	    }
     }
-
-	/**
-	 * get all Roles
-	 * @return \Illuminate\Http\JsonResponse
-	 * @author tanmnt
-	 */
-    public function getRoles()
-	{
-		try {
-			$roles = Role::all();
-
-			return $this->jsonOk($roles);
-		} catch (\Exception $e) {
-			return $this->jsonError($e->getMessage());
-		}
-	}
 }

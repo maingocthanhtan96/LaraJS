@@ -402,11 +402,11 @@ export default {
               type: 'success',
             });
             this.loading = false;
-            window.location.href = '/generator/index';
+            window.location.href = '/administrator/generator/index';
           })
           .catch(err => {
             this.loading = false;
-            window.location.href = '/generator/index';
+            window.location.href = '/administrator/generator/index';
             console.log(err);
           });
       } else {
@@ -443,12 +443,11 @@ export default {
               message: this.$t('messages.update'),
               type: 'success',
             });
-            window.location.href = '/generator/index';
-            console.log(res);
+            window.location.href = '/administrator/generator/index';
           })
           .catch(err => {
             this.loading = false;
-            window.location.href = '/generator/index';
+            window.location.href = '/administrator/generator/index';
             console.log(err);
           });
       } else {

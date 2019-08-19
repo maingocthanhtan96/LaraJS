@@ -10,4 +10,6 @@ return [
 	'generator_edit' => 'Generator Edit',
     'generator_relationship' => 'Relationship',
 	'dashboard' => 'Bảng điều khiển',
+    'administrator' => 'Administrator',
+    'role_permission' => 'Role Permission'
 ];
