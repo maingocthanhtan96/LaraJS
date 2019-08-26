@@ -14,9 +14,16 @@ class PermissionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return PermissionResource::collection(Permission::all());
+        $limit = $request->get('limit', 25);
+        $keyword = $request->get('keyword', '');
+        $permissionQuery = Permission::query();
+        $permissionQuery->when($keyword, function($q) use($keyword) {
+            return $q->where('name', 'LIKE', "%$keyword%");
+        });
+
+        return PermissionResource::collection($permissionQuery->paginate($limit));
     }
 
     /**
