@@ -161,7 +161,7 @@ Class RelationshipGenerator extends BaseGenerator
         $templateDataReal = str_replace($mountedStub, $mountedStub. $this->serviceGenerator->infy_nl_tab(1, 2, 2) . $stubGetData, $templateDataReal);
         $templateDataReal = $this->serviceGenerator->replaceNotDelete($notDelete['data'], \Str::camel($model) . 'List: [],', 3, $templateDataReal, 2);
         $importStub = "import ".$this->serviceGenerator->modelNameNotPlural($model)."Resource"." from '@/api/".\Str::camel($model)."';";
-        if(!strpos($templateDataReal, $importStub)) {
+        if(!stripos($templateDataReal, $importStub)) {
             $templateDataReal = $this->serviceGenerator->replaceNotDelete($notDelete['import_component'], $importStub, 0, $templateDataReal, 2);
             //relationship
             $stubRelationship = "const ".\Str::camel($model)."Resource"." = new ".$this->serviceGenerator->modelNameNotPlural($model)."Resource();";
@@ -388,18 +388,17 @@ Class RelationshipGenerator extends BaseGenerator
         }
         //generate options
         $templateDataReal = $this->_generateOptions($modelRelationship, $options, $templateDataReal, $column,  $relationship);
-        //generate controller
-        $fileNameFunc = $modelRelationship . 'Controller.php';
-        $templateDataRealFunc = $this->serviceGenerator->getFile('api_controller', 'laravel', $fileNameFunc);
-        $templateDataFunc = $this->serviceGenerator->get_template("relationship", $pathTemplate);
-        $templateDataFunc = str_replace('{{MODEL_RELATIONSHIP}}', $modelRelationship, $templateDataFunc);
-        $templateDataFunc = str_replace('{{PARAM_MODEL_RELATIONSHIP}}', $this->serviceGenerator->modelNamePluralFe($modelRelationship), $templateDataFunc);
-        $templateDataRealFunc = $this->serviceGenerator->replaceNotDelete($notDelete['relationship'], $templateDataFunc, 1, $templateDataRealFunc);
-
         $path = config('generator.path.laravel.api_controller');
         $fileName = $path . $fileName;
         $this->serviceFile->createFileReal($fileName, $templateDataReal);
-        if(!strpos($templateDataRealFunc, 'get'.$modelRelationship)) {
+        //generate controller
+        $fileNameFunc = $modelRelationship . 'Controller.php';
+        $templateDataRealFunc = $this->serviceGenerator->getFile('api_controller', 'laravel', $fileNameFunc);
+        if(!stripos($templateDataRealFunc, 'get'.$modelRelationship)) {
+            $templateDataFunc = $this->serviceGenerator->get_template("relationship", $pathTemplate);
+            $templateDataFunc = str_replace('{{MODEL_RELATIONSHIP}}', $modelRelationship, $templateDataFunc);
+            $templateDataFunc = str_replace('{{PARAM_MODEL_RELATIONSHIP}}', $this->serviceGenerator->modelNamePluralFe($modelRelationship), $templateDataFunc);
+            $templateDataRealFunc = $this->serviceGenerator->replaceNotDelete($notDelete['relationship'], $templateDataFunc, 1, $templateDataRealFunc);
             $fileNameFunc = $path . $fileNameFunc;
             $this->serviceFile->createFileReal($fileNameFunc, $templateDataRealFunc);
         }
@@ -408,17 +407,20 @@ Class RelationshipGenerator extends BaseGenerator
     private function _generateRoute($modelRelationship)
     {
         $templateDataReal = $this->serviceGenerator->getFile('api_routes', 'laravel');
-        $stubResource = "Route::apiResource('{{RESOURCE}}', '{{MODEL_CLASS}}Controller');";
-        $stubRoute = "Route::get('/{{MODEL}}/get-{{MODEL_RELATIONSHIP}}', '{{CONTROLLER}}Controller@get{{ACTION}}');";
-        $templateResource = str_replace('{{RESOURCE}}', $this->serviceGenerator->urlResource($modelRelationship), $stubResource);
-        $templateResource = str_replace('{{MODEL_CLASS}}', $modelRelationship, $templateResource);
-        $templateRoute = str_replace('{{MODEL}}', $this->serviceGenerator->urlResource($modelRelationship), $stubRoute);
-        $templateRoute = str_replace('{{MODEL_RELATIONSHIP}}', $this->serviceGenerator->urlResource($modelRelationship), $templateRoute);
-        $templateRoute = str_replace('{{CONTROLLER}}', $modelRelationship, $templateRoute);
-        $templateRoute = str_replace('{{ACTION}}', $modelRelationship, $templateRoute);
-        $templateDataReal = str_replace($templateResource, $templateRoute . $this->serviceGenerator->infy_nl_tab(1, 3) . $templateResource, $templateDataReal);
-        $path = config('generator.path.laravel.api_routes');
-        $this->serviceFile->createFileReal($path, $templateDataReal);
+        if(!stripos($templateDataReal, 'get'.$modelRelationship)) {
+            $stubResource = "Route::apiResource('{{RESOURCE}}', '{{MODEL_CLASS}}Controller');";
+            $stubRoute = "Route::get('/{{MODEL}}/get-{{MODEL_RELATIONSHIP}}', '{{CONTROLLER}}Controller@get{{ACTION}}');";
+            $templateResource = str_replace('{{RESOURCE}}', $this->serviceGenerator->urlResource($modelRelationship), $stubResource);
+            $templateResource = str_replace('{{MODEL_CLASS}}', $modelRelationship, $templateResource);
+            $templateRoute = str_replace('{{MODEL}}', $this->serviceGenerator->urlResource($modelRelationship), $stubRoute);
+            $templateRoute = str_replace('{{MODEL_RELATIONSHIP}}', $this->serviceGenerator->urlResource($modelRelationship), $templateRoute);
+            $templateRoute = str_replace('{{CONTROLLER}}', $modelRelationship, $templateRoute);
+            $templateRoute = str_replace('{{ACTION}}', $modelRelationship, $templateRoute);
+            $templateDataReal = str_replace($templateResource, $templateRoute . $this->serviceGenerator->infy_nl_tab(1, 3) . $templateResource, $templateDataReal);
+            $path = config('generator.path.laravel.api_routes');
+            $this->serviceFile->createFileReal($path, $templateDataReal);
+
+        }
     }
 
     private function _replaceFile($model, $templateModel, $templateReal)

@@ -227,9 +227,9 @@
     </configuration>
     <list>
       <item itemvalue="JavaScript Debug.form.vue" />
-      <item itemvalue="PHP Script.FormUpdateGenerator.php" />
       <item itemvalue="PHPUnit.Unnamed" />
       <item itemvalue="PHPUnit.phpunit.xml" />
+      <item itemvalue="PHP Script.FormUpdateGenerator.php" />
     </list>
     <recent_temporary>
       <list>
