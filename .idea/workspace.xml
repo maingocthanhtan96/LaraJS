@@ -3,9 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="48ec4041-b065-41c7-b197-b99331b3987d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/styles/sidebar.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/styles/sidebar.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/PermissionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/PermissionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Pagination/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Pagination/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/pages/rolePermission/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/rolePermission/index.vue" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -398,6 +399,10 @@
       <workItem from="1566090070133" duration="29780000" />
       <workItem from="1566177025416" duration="911000" />
       <workItem from="1566178683067" duration="741000" />
+      <workItem from="1566222257220" duration="2236000" />
+      <workItem from="1566386796610" duration="824000" />
+      <workItem from="1566393846592" duration="183000" />
+      <workItem from="1566568651865" duration="5845000" />
     </task>
     <servers />
   </component>

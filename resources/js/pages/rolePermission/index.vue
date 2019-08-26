@@ -41,6 +41,7 @@
           <div class="my-8 text-right">
             <el-button type="primary" @click="dialogCreatePermissionVisible = true; resetFormPermission();" icon="el-icon-plus">Permission</el-button>
           </div>
+          <el-input v-model="query.keyword" :placeholder="$t('table.rolePermission.name')" class="filter-item w-64 mb-4" @keyup.enter.native="getPermissions" />
           <el-table
             highlight-current-row
             fit
@@ -66,6 +67,7 @@
               </template>
             </el-table-column>
           </el-table>
+          <pagination v-show="total > 0" :total="total" :page.sync="query.page" :limit.sync="query.limit" @pagination="getPermissions" />
           <!-- end table permission -->
           <!--update role by permission-->
           <el-dialog
@@ -159,12 +161,14 @@ import Resource from '@/api/resource';
 import RoleResource from '@/api/role';
 import permission from '@/directive/permission';
 import checkPermission from '@/utils/permission'; // Permission checking
+import Pagination from '@/components/Pagination'; // Secondary package based on el-pagination
 import { asyncRouterMap, constantRouterMap } from '@/router';
 
 const permissionResource = new Resource('permissions');
 const roleResource = new RoleResource();
 
 export default {
+  components: { Pagination },
   directives: { permission },
   data() {
     return {
@@ -193,6 +197,12 @@ export default {
         name: '',
         description: '',
       },
+      query: {
+        page: 1,
+        limit: 25,
+        keyword: '',
+      },
+      total: 0,
     };
   },
   created() {
@@ -296,9 +306,11 @@ export default {
     },
     getPermissions() {
       this.loading = true;
-      permissionResource.list().then(res => {
+      permissionResource.list(this.query).then(res => {
         const { data } = res.data;
         const { all, menu, other } = this.classifyPermissions(data);
+        this.total = res.data.meta.total;
+        // console.log(data);
         this.permissions = all;
         this.menuPermissions = menu;
         this.otherPermissions = other;
