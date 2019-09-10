@@ -3,10 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="48ec4041-b065-41c7-b197-b99331b3987d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/PermissionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/PermissionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Pagination/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Pagination/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/layout/components/Sidebar/SidebarItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layout/components/Sidebar/SidebarItem.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/layout/components/TagsView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layout/components/TagsView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/pages/redirect/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/redirect/index.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/pages/rolePermission/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/rolePermission/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/permission.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/permission.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/styles/table.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/styles/table.scss" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -51,6 +56,11 @@
       <server host="local.larajs.com" id="402438f8-be96-458b-86b1-2b62023519c9" name="Unnamed" use_path_mappings="true">
         <path_mappings>
           <mapping local-root="$PROJECT_DIR$" remote-root="D:/laragon/www/tanmnt/larajs" />
+        </path_mappings>
+      </server>
+      <server host="localhost" id="8e82b8ab-35f1-4c3f-b131-b47f851f3a19" name="localhost" port="8000" use_path_mappings="true">
+        <path_mappings>
+          <mapping local-root="$PROJECT_DIR$" remote-root="/media/tan/Program/laragon/www/JAVAC/leadlogic-dev" />
         </path_mappings>
       </server>
     </servers>
@@ -174,23 +184,23 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.JavaScript" />
+    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2018.3.5\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
-      <recent name="D:\laragon\www\tanmnt\larajs\public\generator\templates\LaravelUpdate\Databases\Migtations" />
-      <recent name="D:\laragon\www\tanmnt\larajs\public\builder\templates\Laravel\Langs\en" />
-      <recent name="D:\laragon\www\tanmnt\larajs\resources\lang\vn" />
-      <recent name="D:\laragon\www\tanmnt\larajs\resources\lang\en" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/resources/js/public/images" />
       <recent name="$PROJECT_DIR$/resources/js/icons/svg" />
       <recent name="D:\laragon\www\tanmnt\larajs\public\generator\templates\Laravel\Databases\Migrations" />
       <recent name="D:\laragon\www\tanmnt\larajs\public\generator\templates" />
       <recent name="D:\laragon\www\tanmnt\larajs\app\Generators\Backend" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="D:\laragon\www\tanmnt\larajs\public\generator\templates\LaravelUpdate\Databases\Migtations" />
+      <recent name="D:\laragon\www\tanmnt\larajs\public\builder\templates\Laravel\Langs\en" />
+      <recent name="D:\laragon\www\tanmnt\larajs\resources\lang\vn" />
+      <recent name="D:\laragon\www\tanmnt\larajs\resources\lang\en" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -227,9 +237,9 @@
     </configuration>
     <list>
       <item itemvalue="JavaScript Debug.form.vue" />
+      <item itemvalue="PHP Script.FormUpdateGenerator.php" />
       <item itemvalue="PHPUnit.Unnamed" />
       <item itemvalue="PHPUnit.phpunit.xml" />
-      <item itemvalue="PHP Script.FormUpdateGenerator.php" />
     </list>
     <recent_temporary>
       <list>
@@ -403,6 +413,13 @@
       <workItem from="1566386796610" duration="824000" />
       <workItem from="1566393846592" duration="183000" />
       <workItem from="1566568651865" duration="5845000" />
+      <workItem from="1566966309597" duration="126000" />
+      <workItem from="1566966525233" duration="138000" />
+      <workItem from="1566976461601" duration="5036000" />
+      <workItem from="1567431972735" duration="1833000" />
+      <workItem from="1567583749101" duration="7228000" />
+      <workItem from="1567990962304" duration="441000" />
+      <workItem from="1568117936422" duration="2728000" />
     </task>
     <servers />
   </component>

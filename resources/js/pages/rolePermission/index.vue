@@ -131,16 +131,14 @@
             :visible.sync="dialogCreatePermissionVisible"
             center>
             <div>
-              <el-tabs type="border-card" v-model="tabActive">
-                <el-form ref="formPermission" :model="formPermission" :rules="permissionRules" label-width="110px" label-position="left">
-                  <el-form-item required label="Permission" prop="name">
-                    <el-input autofocus v-model="formPermission.name"></el-input>
-                  </el-form-item>
-                  <el-form-item label="Description" prop="description">
-                    <el-input type="textarea" v-model="formPermission.description"></el-input>
-                  </el-form-item>
-                </el-form>
-              </el-tabs>
+              <el-form ref="formPermission" :model="formPermission" :rules="permissionRules" label-width="110px" label-position="left">
+                <el-form-item required label="Permission" prop="name">
+                  <el-input autofocus v-model="formPermission.name"></el-input>
+                </el-form-item>
+                <el-form-item label="Description" prop="description">
+                  <el-input type="textarea" v-model="formPermission.description"></el-input>
+                </el-form-item>
+              </el-form>
             </div>
             <span slot="footer" class="dialog-footer">
               <el-button @click="dialogCreatePermissionVisible = false">Cancel</el-button>
@@ -178,7 +176,6 @@ export default {
       dialogUpdateRoleVisible: false,
       dialogCreateRoleVisible: false,
       dialogCreatePermissionVisible: false,
-      tabActive: 'tab-permission',
       routes: [],
       roles: [],
       permissions: [],
@@ -277,7 +274,7 @@ export default {
     generateRoutes(routes, basePath = '/') {
       const res = [];
       for (let route of routes) {
-        // skip some route
+        // skip some routez
         if (route.hidden) {
           continue;
         }

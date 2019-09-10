@@ -19,6 +19,12 @@ router.beforeEach(async (to, from, next) => {
 
   // determine whether the user has logged in
   const hasToken = getToken();
+  // remove localstorage vue-table-2
+  Object.keys(localStorage).forEach(val => {
+    if (!val.endsWith('_local')) {
+      localStorage.removeItem(val);
+    }
+  });
   if (hasToken) {
     if (to.path === '/login') {
       // if is logged in, redirect to the home page

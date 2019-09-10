@@ -17,3 +17,94 @@
     margin-top: 0.5rem !important;
   }
 }
+
+// Table responsive in mobile
+.table-mobile {
+
+  table {
+    border-collapse: collapse;
+  }
+
+  table thead {
+    background-color: blue;
+    color: white;
+  }
+
+  table thead tr {}
+
+  table thead tr th {
+    padding: 0.5em 1em;
+    text-align: center;
+  }
+
+  table tbody {}
+
+  table tbody tr {
+    border-bottom: 1px solid grey;
+  }
+
+  table tbody tr:nth-of-type(2n) {
+    background-color: lightgrey;
+  }
+
+  table tbody tr:hover {
+    background-color: yellow;
+  }
+
+  table tbody tr td {
+    padding: 0.4em 1em;
+    text-align: left;
+  }
+
+  table tbody tr td.numeric {
+    text-align: right;
+  }
+
+  table tbody tr td ul.actions li {
+    list-style: none;
+    display: inline;
+  }
+
+  table tbody tr td ul.actions {}
+
+  table tbody tr td ul.actions {}
+}
+@media screen and (max-width: 768px) {
+  .table-mobile {
+    table {
+      width: 100%;
+    }
+
+    table thead,colgroup {
+      display: none;
+    }
+
+    table tbody tr {
+      box-shadow: 0 0 0.5em #666666;
+      border: none;
+      display: block;
+      margin: 1em;
+    }
+
+    table tbody tr td {
+      padding: 0.4em 1em;
+      text-align: right;
+      display: block;
+    }
+
+    table tbody tr td[data-label="#"] {
+      display: none;
+    }
+
+    table tbody tr td[data-label]:before {
+      content: attr(data-label);
+      float: left;
+      //text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    table tbody tr td.numeric {
+      text-align: left;
+    }
+  }
+}

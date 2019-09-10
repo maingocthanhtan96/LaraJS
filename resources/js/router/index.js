@@ -3,7 +3,6 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
-// import user from './modules/user';
 import dashboard from './modules/dashborad';
 import administrator from './modules/administrator';
 // {{$IMPORT_ROUTE_NOT_DELETE_THIS_LINE$}}
@@ -42,15 +41,14 @@ export const constantRouterMap = [
     hidden: true,
     children: [
       {
-        path: '/redirect/:path*',
-        component: () => import('@/pages/redirect/index'),
+        path: ':path*',
+        component: () => import('@/pages/redirect'),
       },
     ],
   },
 ];
 
 export const asyncRouterMap = [
-  // user,
   administrator,
   // {{$ROUTE_ASYNC_NOT_DELETE_THIS_LINE$}},
   { path: '*', redirect: '/404', hidden: true },

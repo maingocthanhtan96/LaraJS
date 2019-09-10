@@ -11012,6 +11012,83 @@ label.panel-block:hover {
   margin-top: 0.5rem !important;
 }
 
+.table-mobile table {
+  border-collapse: collapse;
+}
+
+.table-mobile table thead {
+  background-color: blue;
+  color: white;
+}
+
+.table-mobile table thead tr th {
+  padding: 0.5em 1em;
+  text-align: center;
+}
+
+.table-mobile table tbody tr {
+  border-bottom: 1px solid grey;
+}
+
+.table-mobile table tbody tr:nth-of-type(2n) {
+  background-color: lightgrey;
+}
+
+.table-mobile table tbody tr:hover {
+  background-color: yellow;
+}
+
+.table-mobile table tbody tr td {
+  padding: 0.4em 1em;
+  text-align: left;
+}
+
+.table-mobile table tbody tr td.numeric {
+  text-align: right;
+}
+
+.table-mobile table tbody tr td ul.actions li {
+  list-style: none;
+  display: inline;
+}
+
+@media screen and (max-width: 768px) {
+  .table-mobile table {
+    width: 100%;
+  }
+
+  .table-mobile table thead, .table-mobile colgroup {
+    display: none;
+  }
+
+  .table-mobile table tbody tr {
+    box-shadow: 0 0 0.5em #666666;
+    border: none;
+    display: block;
+    margin: 1em;
+  }
+
+  .table-mobile table tbody tr td {
+    padding: 0.4em 1em;
+    text-align: right;
+    display: block;
+  }
+
+  .table-mobile table tbody tr td[data-label="#"] {
+    display: none;
+  }
+
+  .table-mobile table tbody tr td[data-label]:before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+  }
+
+  .table-mobile table tbody tr td.numeric {
+    text-align: left;
+  }
+}
+
 .el-breadcrumb__inner,
 .el-breadcrumb__inner a {
   font-weight: 400 !important;
