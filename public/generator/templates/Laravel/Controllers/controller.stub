@@ -13,6 +13,7 @@ use App\Models\{{MODAL_CLASS}};
 use App\Service\QueryService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Store{{MODAL_CLASS}}Request;
 
 class {{CONTROLLER_CLASS}}Controller extends Controller
 {
@@ -51,7 +52,7 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 	 * @return \Illuminate\Http\JsonResponse
 	 * @author tanmnt
 	 */
-	public function store(Request $request)
+	public function store(Store{{MODAL_CLASS}}Request $request)
 	{
 		try {
 			${{MODAL_CLASS_PARAM}} = {{MODAL_CLASS}}::create($request->all());
@@ -87,7 +88,7 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 	 * @return \Illuminate\Http\JsonResponse
 	 * @author tanmnt
 	 */
-	public function update(Request $request, {{MODAL_CLASS}} ${{MODAL_CLASS_PARAM}})
+	public function update(Store{{MODAL_CLASS}}Request $request, {{MODAL_CLASS}} ${{MODAL_CLASS_PARAM}})
 	{
 		try {
 			${{MODAL_CLASS_PARAM}}->update($request->all());

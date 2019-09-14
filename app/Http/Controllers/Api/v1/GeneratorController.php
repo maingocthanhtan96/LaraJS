@@ -2,12 +2,22 @@
 
 namespace App\Http\Controllers\Api\v1;
 
-use App\Generators\Backend\{ControllerGenerator, LangGenerator, MigrationGenerator, ModelGenerator,RepositoryGenerator, RouteGenerator, SeederGenerator, RelationshipGenerator};
+use App\Generators\Backend\{ControllerGenerator,
+    LangGenerator,
+    MigrationGenerator,
+    ModelGenerator,
+    RepositoryGenerator,
+    RequestGenerator,
+    RouteGenerator,
+    SeederGenerator,
+    RelationshipGenerator};
 use App\Generators\BackendUpdate\{ControllerUpdateGenerator,
 	LangUpdateGenerator,
 	MigrationUpdateGenerator,
 	ModelUpdateGenerator,
-	SeederUpdateGenerator};
+	SeederUpdateGenerator,
+    RequestUpdateGenerator
+};
 use App\Generators\Frontend\{ApiGenerator, FormGenerator, FormHandlerGenerator, PageGenerator, RouteGenerator as RouteGeneratorFe};
 use App\Generators\FrontendUpdate\{FormUpdateGenerator, PageUpdateGenerator};
 use App\Http\Requests\StoreGeneratorRelationshipRequest;
@@ -198,6 +208,7 @@ class GeneratorController extends Controller
 		new RepositoryGenerator($fields, $model);
 		new LangGenerator($fields, $model);
 		new RouteGenerator($model);
+        new RequestGenerator($fields, $model);
 	}
 
 	private function _generateFrontend($fields, $model)
@@ -216,6 +227,7 @@ class GeneratorController extends Controller
 		new SeederUpdateGenerator($generator, $model, $updateFields);
 		new ControllerUpdateGenerator($model, $updateFields);
 		new LangUpdateGenerator($model, $updateFields);
+        new RequestUpdateGenerator($generator, $model, $updateFields);
 	}
 
 	private function _generateFrontendUpdate($generator, $model, $updateFields)
