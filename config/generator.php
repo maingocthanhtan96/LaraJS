@@ -27,6 +27,7 @@ return [
 			'api_routes'        => base_path('routes/api.php'),
 			'api_controller'    => app_path('Http/Controllers/Api/v1/'),
 			'lang'              => base_path('resources/lang/'),
+            'request'           => app_path('Http/Requests/'),
 		],
 		'vuejs' => [
 			'api'               => base_path('resources/js/api/'),
@@ -143,7 +144,10 @@ return [
 			],
 			'db' => [
 				'seeder' => '//{{SEEDER_NOT_DELETE_THIS_LINE}}'
-			]
+			],
+            'request' => [
+                'rule' => '//{{REQUEST_RULES_NOT_DELETE_THIS_LINE}}'
+            ]
 		],
 		'vuejs' => [
 			'route' => [

@@ -10,7 +10,7 @@ use Laravel\Passport\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Permission\Traits\HasRoles;
 
-class   User extends Authenticatable
+class User extends Authenticatable
 {
     use HasRoles, HasApiTokens, Notifiable, SoftDeletes;
 
