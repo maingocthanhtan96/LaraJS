@@ -40,7 +40,7 @@ Class RelationshipGenerator extends BaseGenerator
         $pathTemplate = 'Models/';
         $template = $this->serviceGenerator->get_template("relationship", $pathTemplate);
         // Model Relationship
-        if($relationship === $this->relationship['has_one']) {
+        if($relationship === $this->relationship['has_one'] || $relationship === $this->relationship['has_many']) {
             $templateModel = str_replace('{{FUNCTION_NAME}}', \Str::camel($model), $template);
             $templateInverse = str_replace('{{FUNCTION_NAME}}', \Str::camel($modelCurrent), $template);
         } else {
@@ -327,7 +327,7 @@ Class RelationshipGenerator extends BaseGenerator
                 if(\Str::endsWith($templateColumnWith, ',') || strlen($templateColumnWith) === strlen($columnsWith)) {
                     $commaColumnWith = '';
                 }
-				if($relationship === $this->relationship['has_one']) {
+				if($relationship === $this->relationship['has_one'] || $relationship === $this->relationship['has_many']) {
 					$withRelationship = '"'.$this->serviceGenerator->modelNameNotPluralFe($modelRelationship).'"';
 				} else {
 					$withRelationship = "'".$this->serviceGenerator->modelNamePluralFe($modelRelationship)."'";
