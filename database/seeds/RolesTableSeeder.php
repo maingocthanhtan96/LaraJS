@@ -25,7 +25,7 @@ class RolesTableSeeder extends Seeder
 		);
         \App\Models\Role::create(
             [
-                'name' => 'user',
+                'name' => 'visitor',
                 'description' => 'Just a visitor. Can only see the home page and the document page',
             ]
         );

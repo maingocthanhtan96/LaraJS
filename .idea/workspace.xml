@@ -3,15 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="48ec4041-b065-41c7-b197-b99331b3987d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/layout/components/Sidebar/SidebarItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layout/components/Sidebar/SidebarItem.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/layout/components/TagsView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layout/components/TagsView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/pages/redirect/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/redirect/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/pages/rolePermission/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/rolePermission/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/permission.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/permission.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/router/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/styles/table.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/styles/table.scss" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -420,6 +411,9 @@
       <workItem from="1567583749101" duration="7228000" />
       <workItem from="1567990962304" duration="441000" />
       <workItem from="1568117936422" duration="2728000" />
+      <workItem from="1568975916240" duration="2017000" />
+      <workItem from="1569022003084" duration="22000" />
+      <workItem from="1569223821068" duration="638000" />
     </task>
     <servers />
   </component>
