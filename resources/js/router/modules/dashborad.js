@@ -2,15 +2,15 @@ const dashboard = {
   path: '/dashboard',
   name: 'dashboard',
   component: () => import('@/layout'),
-  redirect: '/dashboard/index',
+  redirect: '/dashboard/list',
   meta: {
     title: 'dashboard',
     icon: 'dashboard',
   },
   children: [
     {
-      path: 'index',
-      name: 'dashboard_index',
+      path: 'list',
+      name: 'dashboard_list',
       component: () => import('@/views/dashboards/index'),
       meta: {
         title: 'dashboard',

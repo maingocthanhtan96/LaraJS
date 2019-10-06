@@ -134,6 +134,6 @@ class UserController extends Controller
 	    	return $this->jsonError($e->getMessage());
 	    }
     }
-    
+
     //{{CONTROLLER_RELATIONSHIP_NOT_DELETE_THIS_LINE}}
 }

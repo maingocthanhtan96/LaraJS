@@ -19,8 +19,8 @@ const administrator = {
       },
     },
     {
-      path: 'generator/index',
-      name: 'generator_index',
+      path: 'generator/list',
+      name: 'generator_list',
       component: () => import('@/views/generator'),
       meta: {
         title: 'generator',
@@ -34,7 +34,7 @@ const administrator = {
       meta: {
         title: 'generator_create',
         icon: 'skill',
-        activeMenu: '/administrator/generator/index',
+        activeMenu: '/administrator/generator/list',
       },
       hidden: true,
     },
@@ -45,7 +45,7 @@ const administrator = {
       component: () => import('@/views/generator/form'),
       meta: {
         title: 'generator_edit',
-        activeMenu: '/administrator/generator/index',
+        activeMenu: '/administrator/generator/list',
       },
       props: route => {
         return {
@@ -61,7 +61,7 @@ const administrator = {
       component: () => import('@/views/generator/relationship'),
       meta: {
         title: 'generator_relationship',
-        activeMenu: '/administrator/generator/index',
+        activeMenu: '/administrator/generator/list',
       },
       props: route => {
         return {
@@ -71,8 +71,8 @@ const administrator = {
       },
     },
     {
-      path: 'user/index',
-      name: 'user_index',
+      path: 'user/list',
+      name: 'user_list',
       component: () => import('@/views/user/index'),
       meta: {
         title: 'user',
@@ -86,7 +86,7 @@ const administrator = {
       component: () => import('@/views/user/form'),
       meta: {
         title: 'user_create',
-        activeMenu: '/administrator/user/index',
+        activeMenu: '/administrator/user/list',
       },
     },
     {
@@ -96,7 +96,7 @@ const administrator = {
       component: () => import('@/views/user/form'),
       meta: {
         title: 'user_edit',
-        activeMenu: '/administrator/user/index',
+        activeMenu: '/administrator/user/list',
       },
       props: route => {
         return {

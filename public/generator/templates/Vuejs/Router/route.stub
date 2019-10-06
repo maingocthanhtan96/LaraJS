@@ -8,7 +8,7 @@
 const {{$NAME_ROUTE_MODEL_CLASS$}} = {
   path: '/{{$PATH_ROUTE_MODEL_CLASS$}}',
   name: '{{$NAME_ROUTE_MODEL_CLASS$}}',
-  redirect: '/{{$PATH_ROUTE_MODEL_CLASS$}}/index',
+  redirect: '/{{$PATH_ROUTE_MODEL_CLASS$}}/list',
   component: () => import('@/layout'),
   meta: {
     title: '{{$TITLE_ROUTE_MODEL_CLASS$}}',
@@ -17,8 +17,8 @@ const {{$NAME_ROUTE_MODEL_CLASS$}} = {
   },
   children: [
     {
-      path: 'index',
-      name: '{{$NAME_ROUTE_MODEL_CLASS$}}_index',
+      path: 'list',
+      name: '{{$NAME_ROUTE_MODEL_CLASS$}}_list',
       component: () => import('@/views/{{$NAME_ROUTE_MODEL_CLASS$}}/index'),
       meta: {
         title: '{{$TITLE_ROUTE_MODEL_CLASS$}}',
