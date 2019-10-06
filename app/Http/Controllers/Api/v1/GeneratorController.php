@@ -18,8 +18,8 @@ use App\Generators\BackendUpdate\{ControllerUpdateGenerator,
 	SeederUpdateGenerator,
     RequestUpdateGenerator
 };
-use App\Generators\Frontend\{ApiGenerator, FormGenerator, FormHandlerGenerator, PageGenerator, RouteGenerator as RouteGeneratorFe};
-use App\Generators\FrontendUpdate\{FormUpdateGenerator, PageUpdateGenerator};
+use App\Generators\Frontend\{ApiGenerator, FormGenerator, FormHandlerGenerator, ViewGenerator, RouteGenerator as RouteGeneratorFe};
+use App\Generators\FrontendUpdate\{FormUpdateGenerator, ViewUpdateGenerator};
 use App\Http\Requests\StoreGeneratorRelationshipRequest;
 use App\Service\{GeneratorService, QueryService};
 use App\Models\Generator;
@@ -214,11 +214,11 @@ class GeneratorController extends Controller
 	private function _generateFrontend($fields, $model)
 	{
 		new RouteGeneratorFe($model);
-		new ApiGenerator($model);
-		new PageGenerator($fields, $model);
-		new FormGenerator($fields, $model);
-		new FormHandlerGenerator($fields, $model);
-	}
+        new ApiGenerator($model);
+        new ViewGenerator($fields, $model);
+        new FormGenerator($fields, $model);
+        new FormHandlerGenerator($fields, $model);
+    }
 
 	private function _generateBackendUpdate($generator, $model, $updateFields)
 	{
@@ -232,7 +232,7 @@ class GeneratorController extends Controller
 
 	private function _generateFrontendUpdate($generator, $model, $updateFields)
 	{
-		new PageUpdateGenerator($model, $updateFields);
+		new ViewUpdateGenerator($model, $updateFields);
 		new FormUpdateGenerator($generator, $model, $updateFields);
 	}
 
@@ -240,7 +240,7 @@ class GeneratorController extends Controller
 	{
 		Artisan::call('migrate');
 		Artisan::call('vue-i18n:generate');
-        $resourcePath = resource_path('js/public/images/diagram-erd.png');
+        $resourcePath = resource_path('js/assets/images/diagram-erd.png');
         Artisan::call('generate:erd ' . $resourcePath);
         $basePath = base_path();
 		exec("cd $basePath && npm run dev");

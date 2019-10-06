@@ -24,7 +24,7 @@
 import RightPanel from '@/components/RightPanel';
 import BackToTop from '@/components/BackToTop';
 import { AppMain, Navbar, Settings, Sidebar } from './components';
-import TagViews from './components/TagsView.vue';
+import TagViews from './components/TagsView';
 import FooterMain from './components/FooterMain';
 import ResizeMixin from './mixin/ResizeHandler';
 import { mapState } from 'vuex';

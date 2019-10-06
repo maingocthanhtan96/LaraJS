@@ -10,8 +10,8 @@ const dashboard = {
   children: [
     {
       path: 'index',
-      name: 'dashboard2',
-      component: () => import('@/pages/dashboards/index'),
+      name: 'dashboard_index',
+      component: () => import('@/views/dashboards/index'),
       meta: {
         title: 'dashboard',
         icon: 'dashboard',

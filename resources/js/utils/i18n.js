@@ -9,3 +9,19 @@ export function generateTitle(title) {
   }
   return title;
 }
+
+export function generateTitleHaveId(tag) {
+  const title = tag.title;
+  const hasKey = this.$te('route.' + title);
+  if (hasKey) {
+    // $t :this method from vue-i18n, inject in @/lang/index.js
+    let translatedTitle = this.$t('route.' + title);
+    if (tag.params && tag.params.id) {
+      translatedTitle += `-${tag.params.id}`;
+    }
+
+    return translatedTitle;
+  }
+
+  return title;
+}

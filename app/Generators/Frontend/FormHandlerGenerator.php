@@ -24,23 +24,23 @@ class FormHandlerGenerator extends BaseGenerator
 	{
 		$this->serviceGenerator = new GeneratorService();
 		$this->serviceFile = new FileService();
-		$this->path = config('generator.path.vuejs.page');
+		$this->path = config('generator.path.vuejs.views');
 		$this->notDelete = config('generator.not_delete.vuejs.form');
 
 		$this->generate($fields, $model);
 	}
-	
+
 	private function generate($fields, $model)
 	{
 		$dbType = config('generator.db_type');
 		$defaultValue = config('generator.default_value');
 		$folderName = $this->serviceGenerator->modelNameNotPluralFe($model['name']);
-		$fileNameReal = "pages/$folderName/form.vue";
+		$fileNameReal = "views/$folderName/form.vue";
 		$templateDataReal = $this->serviceGenerator->getFileReal($fileNameReal, 'vuejs');
 		$flags = [
 			'long_text' => true,
 			'json' => true,
-			'upload' => true,	
+			'upload' => true,
 		];
 		foreach ($fields as $index => $field) {
 			if($index > 0) {
@@ -58,6 +58,10 @@ class FormHandlerGenerator extends BaseGenerator
 					$templateStringify = $this->getHandlerTemplate('uploadStringify');
 					$templateStringify = str_replace('{{$FIELD$}}', $field['field_name'], $templateStringify);
 					$templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['stringify'], $templateStringify, 3, $templateDataReal);
+                    // create reset field
+                    $templateResetFields = $this->getHandlerTemplate('resetFile');
+                    $templateResetFields = str_replace('{{$FIELD_NAME$}}', $this->serviceGenerator->modelNameNotPluralFe($field['field_name']), $templateResetFields);
+                    $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['reset_field'], $templateResetFields, 3, $templateDataReal);
 				}
 				if($field['db_type'] === $dbType['enum']) {
 					$enum = '';

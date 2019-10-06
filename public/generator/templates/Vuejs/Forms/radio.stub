@@ -1,5 +1,5 @@
 <el-form-item data-generator="{{$FORM_FIELD$}}" :label="{{$LABEL_NAME_INPUT$}}" {{$PROP_NAME$}} >
-			<el-radio-group v-model="form.{{$FORM_FIELD$}}">
+			<el-radio-group name="{{$FORM_FIELD$}}" v-model="form.{{$FORM_FIELD$}}">
 			  <el-radio v-for="(item, index) in {{$LIST_RADIO$}}List" :key="'{{$LIST_SELECT$}}_' + index" :label="{{$LABEL_RADIO$}}" >{{$RADIO_NAME$}}</el-radio>
 			</el-radio-group>
           </el-form-item>

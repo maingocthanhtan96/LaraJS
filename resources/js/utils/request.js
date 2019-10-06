@@ -18,7 +18,7 @@ import {
 // Create axios instance
 const service = axios.create({
   baseURL: process.env.MIX_BASE_API,
-  timeout: 10000, // Request timeout
+  timeout: 60000, // Request timeout
 });
 
 // request
@@ -28,7 +28,7 @@ service.interceptors.request.use(
     if (token) {
       config.headers['Authorization'] = 'Bearer ' + token; // Set JWT token
     }
-    store.dispatch(CLEAR_ERRORS);
+    store.dispatch(`app/${CLEAR_ERRORS}`);
     return config;
   },
   error => {
@@ -45,7 +45,7 @@ service.interceptors.response.use(
       setToken(response.headers.authorization);
       response.data.token = response.headers.authorization;
     }
-    store.dispatch(CLEAR_ERRORS);
+    store.dispatch(`app/${CLEAR_ERRORS}`);
     return response;
   },
   error => {
@@ -53,6 +53,11 @@ service.interceptors.response.use(
     if (res) {
       if (res.status === 404) {
         router.replace({ path: '/404' });
+        return false;
+      }
+      if (res.status === 401) {
+        router.replace({ name: 'login' });
+        return false;
       }
       if (res.data.errors) {
         store.dispatch(SET_ERRORS, res.data.errors);

@@ -90,8 +90,7 @@ Class LangUpdateGenerator extends BaseGenerator
         }
 
 		$fieldsGenerate = [];
-        $modelName = "'".$tableName."'" . ' =>';
-		$template = $this->serviceGenerator->searchTemplate($modelName, '],', strlen($modelName) + 6, -6-strlen($modelName), $templateDataReal);
+        $template = $this->serviceGenerator->searchTemplate($tableName, '],', strlen($tableName) + 6, -6-strlen($tableName), $templateDataReal);
 		$arTemplate = explode(',', trim($template));
 		foreach($arTemplate as $tpl) {
 			if(strlen($tpl) > 0) {
@@ -101,12 +100,12 @@ Class LangUpdateGenerator extends BaseGenerator
 				$fieldsGenerate[] = $fieldName . ' => ' . $fieldNameTrans . ',';
 			}
 		}
-		foreach($updateFields as $update) {
+        foreach($updateFields as $update) {
 			$name = "'".$update['field_name']."'" . ' => ' . "'".$update['field_name_trans']."',";
 			$fieldsGenerate[] = $name;
 		}
-		$replace = implode($this->serviceGenerator->infy_nl_tab(1, 1), $fieldsGenerate);
-		$templateDataReal = $this->replaceTemplate($template, $replace, $templateDataReal);
+        $replace = implode($this->serviceGenerator->infy_nl_tab(1, 2), $fieldsGenerate);
+        $templateDataReal = $this->replaceTemplate($template, $replace, $templateDataReal);
 		return $templateDataReal;
 	}
 
@@ -119,21 +118,21 @@ Class LangUpdateGenerator extends BaseGenerator
 		$fieldsGenerate = [];
 		$template = $this->serviceGenerator->searchTemplate($tableName, '],', strlen($tableName) + 6, -6-strlen($tableName), $templateDataReal);
 		$arTemplate = explode(',', trim($template));
-		foreach ($dropUpdate as $drop) {
-			foreach ($arTemplate as $tpl) {
-				if(strlen($tpl) > 0) {
-					list($fieldName, $fieldNameTrans) = explode('=>', $tpl);
-					$fieldName = trim($fieldName);
-					$fieldNameTrans = trim($fieldNameTrans);
-					$fieldName = trim($fieldName, "''");
-					$fieldNameTrans = trim($fieldNameTrans, "''");
-					$name = "'".$fieldName."'" . ' => ' . "'".$fieldNameTrans."'" . ',';
-					if($drop['field_name'] !== $fieldName && !in_array($name, $fieldsGenerate)) {
-						$fieldsGenerate[] = $name;
-					}
-				}
-			}
-		}
+        $dropUpdate = \Arr::pluck($dropUpdate, 'field_name');
+        foreach ($arTemplate as $tpl) {
+            if(strlen($tpl) > 0) {
+                list($fieldName, $fieldNameTrans) = explode('=>', $tpl);
+                $fieldName = trim($fieldName);
+                $fieldNameTrans = trim($fieldNameTrans);
+                $fieldName = trim($fieldName, "''");
+                $fieldNameTrans = trim($fieldNameTrans, "''");
+                $name = "'".$fieldName."'" . ' => ' . "'".$fieldNameTrans."'" . ',';
+                if(!in_array($fieldName, $dropUpdate) && !in_array($name, $fieldsGenerate)) {
+                    $fieldsGenerate[] = $name;
+                }
+            }
+        }
+
 		$replace = implode($this->serviceGenerator->infy_nl_tab(1, 2), $fieldsGenerate);
 		$templateDataReal = $this->replaceTemplate($template, $replace, $templateDataReal);
 		return $templateDataReal;

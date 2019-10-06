@@ -2,11 +2,11 @@
   <div class="sidebar-logo-container" :class="{'show':collapse}">
     <transition name="sidebarLogoFade">
       <router-link v-if="collapse" key="collapse" class="sidebar-logo-link no-underline" to="/">
-        <img v-if="logo" src="@/public/images/logo/logo-tanmnt.png" class="sidebar-logo">
+        <img v-if="logo" src="@/assets/images/logo/logo-tanmnt.png" class="sidebar-logo">
         <h1 v-else class="sidebar-title">{{ title }} </h1>
       </router-link>
       <router-link v-else key="expand" class="sidebar-logo-link no-underline" to="/">
-        <img v-if="logo" src="@/public/images/logo/logo-tanmnt.png" class="sidebar-logo">
+        <img v-if="logo" src="@/assets/images/logo/logo-tanmnt.png" class="sidebar-logo">
         <h1 class="sidebar-title">{{ title }} </h1>
       </router-link>
     </transition>
@@ -24,7 +24,7 @@ export default {
   },
   data() {
     return {
-      title: 'Tanmnt',
+      title: this.$store.getters.user.name,
       logo: true,
     };
   },

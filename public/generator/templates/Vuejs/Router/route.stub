@@ -19,12 +19,11 @@ const {{$NAME_ROUTE_MODEL_CLASS$}} = {
     {
       path: 'index',
       name: '{{$NAME_ROUTE_MODEL_CLASS$}}_index',
-      component: () => import('@/pages/{{$NAME_ROUTE_MODEL_CLASS$}}/index'),
+      component: () => import('@/views/{{$NAME_ROUTE_MODEL_CLASS$}}/index'),
       meta: {
         title: '{{$TITLE_ROUTE_MODEL_CLASS$}}',
         icon: 'list',
         activeMenu: '/{{$PATH_ROUTE_MODEL_CLASS$}}',
-        {{$ADMIN_ROLE$}}
       },
       hidden: true,
     },
@@ -32,23 +31,20 @@ const {{$NAME_ROUTE_MODEL_CLASS$}} = {
       path: 'form',
       name: '{{$NAME_ROUTE_MODEL_CLASS$}}_create',
       hidden: true,
-      component: () => import('@/pages/{{$NAME_ROUTE_MODEL_CLASS$}}/form'),
+      component: () => import('@/views/{{$NAME_ROUTE_MODEL_CLASS$}}/form'),
       meta: {
         activeMenu: '/{{$PATH_ROUTE_MODEL_CLASS$}}',
         title: '{{$TITLE_ROUTE_MODEL_CLASS$}}_create',
-        {{$ADMIN_ROLE$}}
       },
     },
     {
       path: 'form/:id(\\d+)',
       name: '{{$NAME_ROUTE_MODEL_CLASS$}}_edit',
       hidden: true,
-      component: () => import('@/pages/{{$NAME_ROUTE_MODEL_CLASS$}}/form'),
+      component: () => import('@/views/{{$NAME_ROUTE_MODEL_CLASS$}}/form'),
       meta: {
-        tagsView: true,
         activeMenu: '/{{$PATH_ROUTE_MODEL_CLASS$}}',
         title: '{{$TITLE_ROUTE_MODEL_CLASS$}}_edit',
-        {{$ADMIN_ROLE$}}
       },
       props: route => {
         return {

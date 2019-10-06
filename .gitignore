@@ -1,8 +1,10 @@
 /node_modules
 /public/hot
 /public/storage
+/public/css/*.map
 /storage/*.key
 /vendor
+/public/*.js.map
 /.idea
 /v8-compile-cache-0
 .env

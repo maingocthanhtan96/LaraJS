@@ -19,7 +19,7 @@ Mix.listen('configReady', webpackConfig => {
   );
   imageLoaderConfig.exclude = resolve('icons');
 });
-
+mix.copy('node_modules/element-ui/lib/theme-chalk/fonts/*', 'public/css/fonts/');
 mix.js('resources/js/app.js', 'public/js')
   .extract([
     'vue',
@@ -44,30 +44,30 @@ mix.js('resources/js/app.js', 'public/js')
       require('autoprefixer'),
     ]
   })
-  // .sass('resources/js/styles/main.scss', 'public/css')
-  .sass('resources/sass/app.scss', 'public/css')
-  .eslint({
-    fix: true,
-    cache: false,
-  });
+  .sass('resources/js/styles/index.scss', 'public/css/app.css', {
+    implementation: require('node-sass'),
+  })
 mix.webpackConfig(config);
 
 if (mix.inProduction()) {
   mix.version();
 } else {
+  if (process.env.LARAJS_USE_ESLINT === 'true') {
+    mix.eslint({
+      fix: true,
+      cache: false,
+    });
+  }
   // Development settings
   // mix.browserSync({
   //   proxy: process.env.APP_URL,
   //   files: ['resources/js/**/*']
   // });
-  mix.sourceMaps();
-  mix.webpackConfig({
-    output: {
-      path: publicPath('/'),
-      publicPath: '/',
-    },
-    devtool: 'cheap-eval-source-map' // Fastest for development
-  });
+  mix
+    .sourceMaps()
+    .webpackConfig({
+      devtool: 'cheap-eval-source-map', // Fastest for development
+    });
 }
 
 

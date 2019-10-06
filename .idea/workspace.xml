@@ -3,6 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="48ec4041-b065-41c7-b197-b99331b3987d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Breadcrumb/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Breadcrumb/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/router/modules/administrator.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/router/modules/administrator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/router/modules/dashborad.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/router/modules/dashborad.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/utils/request.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/utils/request.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stupidWarningFixer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tailwind.config.js" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -166,7 +174,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/fonts" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -175,23 +183,23 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
+    <property name="settings.editor.selected.configurable" value="preferences.editor" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2018.3.5\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/resources/js/public/images" />
-      <recent name="$PROJECT_DIR$/resources/js/icons/svg" />
-      <recent name="D:\laragon\www\tanmnt\larajs\public\generator\templates\Laravel\Databases\Migrations" />
-      <recent name="D:\laragon\www\tanmnt\larajs\public\generator\templates" />
-      <recent name="D:\laragon\www\tanmnt\larajs\app\Generators\Backend" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/fonts" />
       <recent name="$PROJECT_DIR$" />
       <recent name="D:\laragon\www\tanmnt\larajs\public\generator\templates\LaravelUpdate\Databases\Migtations" />
       <recent name="D:\laragon\www\tanmnt\larajs\public\builder\templates\Laravel\Langs\en" />
       <recent name="D:\laragon\www\tanmnt\larajs\resources\lang\vn" />
-      <recent name="D:\laragon\www\tanmnt\larajs\resources\lang\en" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/js/assets" />
+      <recent name="$PROJECT_DIR$/resources/js/store" />
+      <recent name="$PROJECT_DIR$/resources/js/layout/components/TagsView" />
+      <recent name="$PROJECT_DIR$/resources/js/public/images" />
+      <recent name="$PROJECT_DIR$/resources/js/icons/svg" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -211,8 +219,11 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.form.vue">
+  <component name="RunManager" selected="Node.js.default.js">
     <configuration name="form.vue" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/larajs/resources/js/pages/testGenerator/form.vue" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="default.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/node_modules/vue-tables-2/compiled/templates/default.js" working-dir="$PROJECT_DIR$/node_modules/vue-tables-2/compiled/templates">
       <method v="2" />
     </configuration>
     <configuration name="Unnamed" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" nameIsGenerated="true">
@@ -228,12 +239,14 @@
     </configuration>
     <list>
       <item itemvalue="JavaScript Debug.form.vue" />
+      <item itemvalue="Node.js.default.js" />
       <item itemvalue="PHP Script.FormUpdateGenerator.php" />
       <item itemvalue="PHPUnit.Unnamed" />
       <item itemvalue="PHPUnit.phpunit.xml" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Node.js.default.js" />
         <item itemvalue="JavaScript Debug.form.vue" />
         <item itemvalue="PHP Script.FormUpdateGenerator.php" />
       </list>
@@ -414,6 +427,23 @@
       <workItem from="1568975916240" duration="2017000" />
       <workItem from="1569022003084" duration="22000" />
       <workItem from="1569223821068" duration="638000" />
+      <workItem from="1569229382146" duration="300000" />
+      <workItem from="1569239140774" duration="2275000" />
+      <workItem from="1569461405907" duration="659000" />
+      <workItem from="1569488463847" duration="347000" />
+      <workItem from="1569489253309" duration="16287000" />
+      <workItem from="1569547174735" duration="40000" />
+      <workItem from="1569547994727" duration="8401000" />
+      <workItem from="1569566667783" duration="1212000" />
+      <workItem from="1569570972413" duration="1308000" />
+      <workItem from="1569575963694" duration="28174000" />
+      <workItem from="1569714806021" duration="13983000" />
+      <workItem from="1569748622844" duration="1466000" />
+      <workItem from="1570065847463" duration="4364000" />
+      <workItem from="1570072849990" duration="43000" />
+      <workItem from="1570194461551" duration="9955000" />
+      <workItem from="1570240699548" duration="7508000" />
+      <workItem from="1570329735841" duration="900000" />
     </task>
     <servers />
   </component>

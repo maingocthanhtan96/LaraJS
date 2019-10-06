@@ -20,18 +20,6 @@ const state = {
   size: Cookies.get('size') || 'medium',
 };
 
-const getters = {
-  errors(state, getters) {
-    return state.errors;
-  },
-  setUpdateMessage(state) {
-    return state.message.update;
-  },
-  sidebar(state) {
-    return state.sidebar;
-  },
-};
-
 const mutations = {
   [SET_ERRORS](state, errors) {
     state.errors = errors;
@@ -89,7 +77,6 @@ const actions = {
 export default {
   namespaced: true,
   state,
-  getters,
   mutations,
   actions,
 };

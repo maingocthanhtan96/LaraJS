@@ -1,20 +1,16 @@
-.VueTables {
-  .table-responsive {
-    overflow: auto;
-    width: 100%;
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+table {
+  th {
+    text-align: center !important;
+    color: #333 !important;
   }
-  position: relative;
-  .VueTables__table {
-    thead {
-      tr {
-        th {
-          text-align: center !important;
-        }
-      }
-    }
-  }
-  .VuePagination {
-    margin-top: 0.5rem !important;
+}
+.VuePagination__pagination-item.cursor-not-allowed {
+  a {
+    cursor: not-allowed !important;
   }
 }
 

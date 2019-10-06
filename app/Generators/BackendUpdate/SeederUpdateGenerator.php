@@ -20,7 +20,7 @@ Class SeederUpdateGenerator extends BaseGenerator
 
 	/** @var string */
 	public $notDelete;
-	
+
 	/** @var string */
 	public $dbType;
 
@@ -39,12 +39,13 @@ Class SeederUpdateGenerator extends BaseGenerator
 	{
 		$fileName = $model['name'] . 'TableSeeder.php';
 		$templateDataReal = $this->serviceGenerator->getFile('seeder', 'laravel', $fileName);
-		$templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['seeder'],  $this->generateFields($updateFields['updateFields']), 3, $templateDataReal);
-		$templateDataReal = $this->generateRenameFields($updateFields['renameFields'],$templateDataReal);
-		$templateDataReal = $this->generateChangeFields($updateFields['changeFields'], $generator,$templateDataReal);
-		$templateDataReal = $this->generateFieldsDrop($updateFields['dropFields'], $templateDataReal);
-        $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['seeder'], $this->generateFieldsUpdate($updateFields['updateFields'], $templateDataReal), 4, $templateDataReal);
-		$this->serviceFile->createFileReal($this->path . $fileName, $templateDataReal);
+        $templateDataReal = $this->generateRenameFields($updateFields['renameFields'],$templateDataReal);
+        $templateDataReal = $this->generateChangeFields($updateFields['changeFields'], $generator,$templateDataReal);
+        $templateDataReal = $this->generateFieldsDrop($updateFields['dropFields'], $templateDataReal);
+        if(!empty($updateFields['updateFields'])) {
+            $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['seeder'], $this->generateFieldsUpdate($updateFields['updateFields'], $templateDataReal), 4, $templateDataReal);
+        }
+        $this->serviceFile->createFileReal($this->path . $fileName, $templateDataReal);
 	}
 
 	private function generateFields($fields)
@@ -87,9 +88,6 @@ Class SeederUpdateGenerator extends BaseGenerator
 
 	private function generateFieldsUpdate($updateFields, $templateDataReal)
     {
-        if(empty($updateFields)) {
-            return $templateDataReal;
-        }
         $fieldsGenerate = [];
         foreach($updateFields as $update) {
             $fieldsGenerate[] = $this->switchDbType($update);

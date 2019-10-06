@@ -40,12 +40,14 @@ class FileController extends Controller
 	 */
 	public function remove(Request $request)
 	{
-		$file = $request->get('file', '');
-		if(file_exists(public_path($file))){
-			unlink(public_path($file));
-		} else {
-			return $this->jsonError(trans('error.file_not_found'));
-		}
+        $file = $request->get('file', '');
+        if($file) {
+            if(file_exists(public_path($file))){
+                unlink(public_path($file));
+            } else {
+                return $this->jsonError(trans('error.file_not_found'));
+            }
+        }
 
 		return $this->jsonSuccess(trans('messages.delete'));
 	}

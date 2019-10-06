@@ -68,7 +68,9 @@ export default {
         val = JSON.parse(val);
       }
       val.map((value, index) => {
-        this.$refs[ref].manuallyAddFile({ size: 12345, name: 'Image ' + (index + 1), nameRemove: value }, value);
+        if (value) {
+          this.$refs[ref].manuallyAddFile({ size: 12345, name: 'Image ' + (index + 1), nameRemove: value }, value);
+        }
         return true;
       });
     },

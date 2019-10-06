@@ -48,6 +48,10 @@ Route::group(['prefix' => 'v1'], function () {
 
 		// permission User
 		Route::group(['middleware' => 'permission:'. LarajsPermission::PERMISSION_USER_MANAGE], function () {
+            /*<==> TestGenerator Route - 2019-09-26 16:30:14 <==>*/
+			Route::apiResource('test-generators', 'TestGeneratorController');
+
+
             //{{ROUTE_USER_NOT_DELETE_THIS_LINE}}
 		});
 	});

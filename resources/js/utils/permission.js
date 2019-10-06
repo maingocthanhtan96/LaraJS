@@ -7,7 +7,7 @@ import store from '@/store';
  */
 export default function checkPermission(value) {
   if (value && value instanceof Array && value.length > 0) {
-    const permissions = store.getters && store.getters['auth/permissions'];
+    const permissions = store.getters && store.getters.permissions;
     const requiredPermissions = value;
 
     return permissions.some(permission => {

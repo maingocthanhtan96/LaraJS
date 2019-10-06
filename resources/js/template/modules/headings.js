@@ -20,7 +20,7 @@ module.exports = function(h) {
             'click': this.orderByColumn.bind(this, column),
           },
 
-          'class': this.sortableClass(column) },
+          'class': this.sortableClass(column) + ' px-4' },
         [h(
           'span',
           { 'class': 'VueTables__heading', attrs: { title: this.getHeadingTooltip(column, h) },

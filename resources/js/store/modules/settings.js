@@ -12,10 +12,6 @@ const state = {
   redirect: redirect,
 };
 
-const getters = {
-
-};
-
 const mutations = {
   CHANGE_SETTING: (state, { key, value }) => {
     if (state.hasOwnProperty(key)) {
@@ -33,7 +29,6 @@ const actions = {
 export default {
   namespaced: true,
   state,
-  getters,
   mutations,
   actions,
 };

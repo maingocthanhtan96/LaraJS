@@ -26,13 +26,13 @@
           <svg-icon icon-class="language" class="text-4xl" />
         </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item :class="{'bg-blue-400 text-white font-bold': $store.getters['lang/lang'] === 'vn'}" icon="flag-icon flag-icon-vn" command="vn">Việt Nam</el-dropdown-item>
-          <el-dropdown-item :class="{'bg-blue-400 text-white font-bold': $store.getters['lang/lang'] === 'en'}" icon="flag-icon flag-icon-my" command="en">English</el-dropdown-item>
+          <el-dropdown-item :class="{'bg-blue-400 text-white font-bold': $store.getters.lang === 'vn'}" icon="flag-icon flag-icon-vn" command="vn">Việt Nam</el-dropdown-item>
+          <el-dropdown-item :class="{'bg-blue-400 text-white font-bold': $store.getters.lang === 'en'}" icon="flag-icon flag-icon-my" command="en">English</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
-          <img src="@/public/images/logo/logo-tanmnt.png?imageView2/1/w/80/h/80" class="user-avatar">
+          <img src="@/assets/images/logo/logo-tanmnt.png?imageView2/1/w/80/h/80" class="user-avatar">
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown">
@@ -66,8 +66,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      sidebar: 'app/sidebar',
-      device: 'app/device',
+      sidebar: 'sidebar',
+      device: 'device',
     }),
   },
   methods: {

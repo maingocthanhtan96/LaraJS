@@ -56,40 +56,36 @@ function filterAsyncRoutes(routes, roles, permissions) {
   return res;
 }
 
-const permission = {
-  namespaced: true,
-  state: {
-    routers: [],
-    addRouters: [],
-  },
-  getters: {
-    addRouters(state) {
-      return state.addRouters;
-    },
-    routers(state) {
-      return state.routers;
-    },
-  },
-  mutations: {
-    [SET_ROUTERS]: (state, routers) => {
-      state.addRouters = routers;
-      state.routers = constantRouterMap.concat(routers);
-    },
-  },
-  actions: {
-    [GENERATE_ROUTES]({ commit }, { roles, permissions }) {
-      return new Promise(resolve => {
-        let accessedRouters;
-        if (roles.includes('admin')) {
-          accessedRouters = asyncRouterMap;
-        } else {
-          accessedRouters = filterAsyncRoutes(asyncRouterMap, roles, permissions);
-        }
-        commit(SET_ROUTERS, accessedRouters);
-        resolve(accessedRouters);
-      });
-    },
+const state = {
+  routers: [],
+  addRouters: [],
+};
+
+const mutations = {
+  [SET_ROUTERS]: (state, routers) => {
+    state.addRouters = routers;
+    state.routers = constantRouterMap.concat(routers);
   },
 };
 
-export default permission;
+const actions = {
+  [GENERATE_ROUTES]({ commit }, { roles, permissions }) {
+    return new Promise(resolve => {
+      let accessedRouters;
+      if (roles.includes('admin')) {
+        accessedRouters = asyncRouterMap;
+      } else {
+        accessedRouters = filterAsyncRoutes(asyncRouterMap, roles, permissions);
+      }
+      commit(SET_ROUTERS, accessedRouters);
+      resolve(accessedRouters);
+    });
+  },
+};
+
+export default {
+  namespaced: true,
+  state,
+  mutations,
+  actions,
+};

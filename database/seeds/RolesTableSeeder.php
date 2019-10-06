@@ -29,5 +29,17 @@ class RolesTableSeeder extends Seeder
                 'description' => 'Just a visitor. Can only see the home page and the document page',
             ]
         );
+        \App\Models\Role::create(
+            [
+                'name' => 'editor',
+                'description' => 'Just a editor. Can only edit page',
+            ]
+        );
+        \App\Models\Role::create(
+            [
+                'name' => 'manager',
+                'description' => 'Just a manager. Can you manage',
+            ]
+        );
     }
 }

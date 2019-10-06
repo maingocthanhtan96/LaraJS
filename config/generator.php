@@ -31,7 +31,7 @@ return [
 		],
 		'vuejs' => [
 			'api'               => base_path('resources/js/api/'),
-			'page'              => base_path('resources/js/pages/'),
+			'views'              => base_path('resources/js/views/'),
 			'router_modules'    => base_path('resources/js/router/modules/'),
 			'router'            => base_path('resources/js/router/'),
 			'resource_js'       => base_path('resources/js/'),
@@ -153,7 +153,6 @@ return [
 			'route' => [
 				'import' => '// {{$IMPORT_ROUTE_NOT_DELETE_THIS_LINE$}}',
 				'async' => '// {{$ROUTE_ASYNC_NOT_DELETE_THIS_LINE$}}',
-				'constant' => '// {{$ROUTE_CONSTANT_NOT_DELETE_THIS_LINE$}}'
 			],
 			'form' => [
 				'item' => '<!--{{$FROM_ITEM_NOT_DELETE_THIS_LINE$}}-->',
@@ -164,9 +163,10 @@ return [
 				'methods' => '// {{$METHODS_NOT_DELETE_THIS_LINE$}}',
 				'data' => '// {{$DATA_NOT_DELETE_THIS_LINE$}}',
 				'stringify' => '// {{$FILE_JSON_STRINGIFY_NOT_DELETE_THIS_LINE$}}',
+                'reset_field' => '// {{$RESET_FIELD_NOT_DELETE_THIS_LINE$}}', // reset file
                 'api' => '// {{$API_NOT_DELETE_THIS_LINE$}}'
 			],
-			'page' => [
+			'views' => [
 				'templates' => '<!--{{$TEMPLATES_NOT_DELETE_THIS_LINE$}}-->',
 				'headings' => '// {{$HEADING_FIELDS_NOT_DELETE_THIS_LINE$}}',
 				'column_classes' => '// {{$COLUMN_CLASSES_FIELDS_NOT_DELETE_THIS_LINE$}}'
@@ -211,7 +211,7 @@ return [
 	|
 	*/
     'relationship' => [
-        'ignore_model' => ['Generator', 'Permission', 'Role', 'User'],
+        'ignore_model' => ['Generator', 'Permission', 'Role'],
         'relationship' => [
             'has_one' => 'hasOne',
             'has_many' => 'hasMany',

@@ -8,7 +8,18 @@ function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
 }
 
-module.exports = function(h, modules, classes, slots) {
+module.exports = function(h, modulesTemp, classes, slots) {
+  const modules = {
+    rows: require('./modules/rows').call(this, h),
+    normalFilter: require('./modules/normal-filter').call(this, h),
+    dropdownPagination: require('./modules/dropdown-pagination').call(this, h),
+    dropdownPaginationCount: require('./modules/dropdown-pagination-count').call(this, h),
+    columnFilters: require('./modules/column-filters').call(this, h),
+    pagination: require('./modules/pagination').call(this, h),
+    headings: require('./modules/headings').call(this, h),
+    perPage: require('./modules/per-page').call(this, h),
+    columnsDropdown: require('./modules/columns-dropdown').call(this, h)
+  };
   const classesCs = bulma;
   const filterId = `VueTables__search_${this.id}`;
   const ddpId = `VueTables__dropdown-pagination_${this.id}`;
@@ -17,7 +28,7 @@ module.exports = function(h, modules, classes, slots) {
 
   const genericFilter = this.hasGenericFilter ? h(
     'div',
-    { class: 'VueTables__search-field' },
+    { class: 'VueTables__search-field el-input--small' },
     [h(
       'label',
       {
@@ -30,7 +41,7 @@ module.exports = function(h, modules, classes, slots) {
 
   const perpage = perpageValues.length > 1 ? h(
 	  'div',
-	  { class: 'VueTables__limit-field' },
+	  { class: 'VueTables__limit-field el-input--small' },
 	  [h(
 	    'label',
 	    { class: classesCs.label, attrs: { for: perpageId }},
@@ -103,8 +114,8 @@ module.exports = function(h, modules, classes, slots) {
       )],
     ), slots.afterTable, modules.pagination((0, _merge2.default)(classesCs.pagination, {
       wrapper: `${classesCs.row} ${classesCs.column} ${classesCs.contentCenter}`,
-      nav: classesCs.center,
-      count: `${classesCs.center} ${classesCs.column}`,
+      nav: classesCs.center + ' el-pagination is-background mt-6 font-hairline',
+      count: `${classesCs.center} ${classesCs.column}` + ' mt-4',
     })), modules.dropdownPaginationCount()],
   );
 };

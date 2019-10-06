@@ -1,0 +1,41 @@
+//@import '~normalize.css/normalize.css';
+@import '~element-ui/lib/theme-chalk/index.css';
+@import "~tailwindcss/base";
+@import "~tailwindcss/components";
+@import "~tailwindcss/utilities";
+@import 'variables.scss';
+@import "transition";
+@import "table";
+@import 'mixin.scss';
+@import 'element-ui.scss';
+@import 'sidebar.scss';
+@import 'btn.scss';
+@import 'flag.scss';
+@import 'diagramRelationship.scss';
+
+html {
+  font-size: 62.5% !important;
+  box-sizing: border-box;
+  overflow: inherit !important;
+}
+#app {
+  width: 100%;
+  height: 100%;
+  background: #edeef2;
+  font-size: 1.4rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: initial;
+  line-height: normal;
+  -webkit-font-smoothing: antialiased;
+}
+.content-wrapper {
+  padding: 2.25rem 2.25rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+  @media(max-width: 767px) {
+    padding: 1rem 1rem;
+  }
+}

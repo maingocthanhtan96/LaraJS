@@ -12,5 +12,5 @@
 */
 
 Route::get('{path}', function () {
-    return view('spa');
+    return view('larajs');
 })->where('path', '(.*)');

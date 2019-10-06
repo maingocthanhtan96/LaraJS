@@ -1,7 +1,7 @@
 const administrator = {
   path: '/administrator',
   name: 'administrator',
-  redirect: 'role-permission/index',
+  redirect: '/administrator/roles',
   component: () => import('@/layout'),
   meta: {
     title: 'administrator',
@@ -12,7 +12,7 @@ const administrator = {
     {
       path: 'roles',
       name: 'roles',
-      component: () => import('@/pages/rolePermission'),
+      component: () => import('@/views/rolePermission'),
       meta: {
         title: 'role_permission',
         icon: 'skill',
@@ -21,7 +21,7 @@ const administrator = {
     {
       path: 'generator/index',
       name: 'generator_index',
-      component: () => import('@/pages/generator'),
+      component: () => import('@/views/generator'),
       meta: {
         title: 'generator',
         icon: 'skill',
@@ -30,7 +30,7 @@ const administrator = {
     {
       path: 'generator/form',
       name: 'generator_create',
-      component: () => import('@/pages/generator/form'),
+      component: () => import('@/views/generator/form'),
       meta: {
         title: 'generator_create',
         icon: 'skill',
@@ -42,9 +42,8 @@ const administrator = {
       path: 'generator/form/:id(\\d+)',
       name: 'generator_edit',
       hidden: true,
-      component: () => import('@/pages/generator/form'),
+      component: () => import('@/views/generator/form'),
       meta: {
-        tagsView: true,
         title: 'generator_edit',
         activeMenu: '/administrator/generator/index',
       },
@@ -59,9 +58,8 @@ const administrator = {
       path: 'generator/relationship/:id(\\d+)',
       name: 'generator_relationship',
       hidden: true,
-      component: () => import('@/pages/generator/relationship'),
+      component: () => import('@/views/generator/relationship'),
       meta: {
-        tagsView: true,
         title: 'generator_relationship',
         activeMenu: '/administrator/generator/index',
       },
@@ -75,7 +73,7 @@ const administrator = {
     {
       path: 'user/index',
       name: 'user_index',
-      component: () => import('@/pages/users/index'),
+      component: () => import('@/views/user/index'),
       meta: {
         title: 'user',
         icon: 'user',
@@ -85,7 +83,7 @@ const administrator = {
       path: 'user/form',
       name: 'user_create',
       hidden: true,
-      component: () => import('@/pages/users/form'),
+      component: () => import('@/views/user/form'),
       meta: {
         title: 'user_create',
         activeMenu: '/administrator/user/index',
@@ -95,9 +93,8 @@ const administrator = {
       path: 'user/form/:id(\\d+)',
       name: 'user_edit',
       hidden: true,
-      component: () => import('@/pages/users/form'),
+      component: () => import('@/views/user/form'),
       meta: {
-        tagsView: true,
         title: 'user_edit',
         activeMenu: '/administrator/user/index',
       },

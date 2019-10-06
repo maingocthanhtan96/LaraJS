@@ -3,7 +3,7 @@ import store from '@/store';
 export default {
   inserted(el, binding, vnode) {
     const { value } = binding;
-    const permissions = store.getters && store.getters['auth/permissions'];
+    const permissions = store.getters && store.getters.permissions;
 
     if (value && value instanceof Array && value.length > 0) {
       const requiredPermissions = value;

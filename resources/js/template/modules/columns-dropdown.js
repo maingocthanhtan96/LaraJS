@@ -10,7 +10,7 @@ module.exports = function(h) {
     var cols = _this.columns.map(function(column) {
       return dropdownItemWrapper(h, classes, h(
         'a',
-        { 'class': classes.dropdown.item,
+        { 'class': classes.dropdown.item + 'sadsadsads',
           attrs: { href: '#',
           },
           on: {

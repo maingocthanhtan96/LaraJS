@@ -32,7 +32,7 @@ Class FormGenerator extends BaseGenerator
 	{
 		$this->serviceGenerator = new GeneratorService();
 		$this->serviceFile = new FileService();
-		$this->path = config('generator.path.vuejs.page');
+		$this->path = config('generator.path.vuejs.views');
         $this->dbType = config('generator.db_type');
 
 		$this->generate($fields, $model);
@@ -40,7 +40,7 @@ Class FormGenerator extends BaseGenerator
 
 	private function generate($fields, $model)
 	{
-		$pathTemplate = 'Pages/';
+		$pathTemplate = 'Views/';
 		$notDelete = config('generator.not_delete.vuejs.form');
 		$templateData = $this->serviceGenerator->get_template("form", $pathTemplate, 'vuejs');
 		$templateData = str_replace('{{$LANG_MODEL_CLASS$}}', $this->serviceGenerator->tableNameNotPlural($model['name']), $templateData);
@@ -49,7 +49,6 @@ Class FormGenerator extends BaseGenerator
 		$templateData = str_replace('{{$MODEL_CLASS$}}', $this->serviceGenerator->modelNameNotPlural($model['name']), $templateData);
 		$templateData = str_replace('{{$CONST_MODEL_CLASS$}}', $this->serviceGenerator->modelNameNotPluralFe($model['name']), $templateData);
 		$templateData = str_replace($notDelete['fields'], $this->generateFields($fields), $templateData);
-//		$templateData = $this->serviceGenerator->replaceNotDelete($notDelete['fields'], $this->generateFields($fields), 2, $templateData);
 
 		$folderName = $this->path . $this->serviceGenerator->modelNameNotPluralFe($model['name']);
 		if(!is_dir($folderName)) {

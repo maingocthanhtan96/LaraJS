@@ -1,16 +1,13 @@
 import {
   UPDATE_MESSAGE,
-} from '../../store/muation-types';
+} from '@/store/muation-types';
 
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
   install(Vue) {
     Vue.mixin({
-      mounted() {
-      },
       methods: {
-        // toastr
         ...mapActions({
           updateMessage: UPDATE_MESSAGE,
         }),
@@ -19,10 +16,8 @@ export default {
         ...mapGetters({
           errors: 'errors',
           setUpdateMessage: 'setUpdateMessage',
-          loggedIn: 'auth/loggedIn',
+          loggedIn: 'loggedIn',
         }),
-      },
-      watch: {
       },
     });
   },

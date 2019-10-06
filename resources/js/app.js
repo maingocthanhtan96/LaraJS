@@ -1,17 +1,13 @@
-import App from './pages/App.vue';
 import Vue from 'vue';
-import router from './router';
-import store from './store/index';
-import i18n from './lang';
-import pluginMixin from './plugins/mixins/index';
 import ElementUI from 'element-ui';
-// import Vuetify from 'vuetify';
-import 'normalize.css/normalize.css';
-// import '../stylus/main.styl';
-import 'element-ui/lib/theme-chalk/index.css';
+import App from '@/views/App.vue';
+import router from '@/router';
+import store from '@/store/index';
+import i18n from '@/lang';
+import pluginMixin from '@/plugins/mixins/index';
 
-import './icons';
-import './permission';
+import '@/icons';
+import '@/permission';
 
 import * as filters from './filters';
 

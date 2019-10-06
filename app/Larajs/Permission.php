@@ -21,6 +21,8 @@ final class Permission
 	const ROLE_ADMIN = 'admin';
 	const ROLE_USER = 'user';
 	const ROLE_VISITOR = 'visitor';
+    const ROLE_EDITOR = 'editor';
+    const ROLE_MANAGER = 'manager';
 
     const PERMISSION_PERMISSION_MANAGE = 'manage permission';
     const PERMISSION_USER_MANAGE = 'manage user';

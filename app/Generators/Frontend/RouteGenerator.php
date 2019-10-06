@@ -45,13 +45,13 @@ Class RouteGenerator extends BaseGenerator
 
 		$templateDataReal = $this->serviceGenerator->getFile('router', 'vuejs', 'index.js');
 		if($this->serviceGenerator->getOptions(config('generator.model.options.role_admin'), $model['options'])) {
-			$templateData = str_replace('{{$ADMIN_ROLE$}}', "roles: ['admin']" , $templateData);
-			$templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['async'], $this->serviceGenerator->modelNameNotPluralFe($model['name']) . ',', 3, $templateDataReal);
+			$templateData = str_replace('{{$ADMIN_ROLE$}}', "roles: ['admin']," , $templateData);
 		} else {
-			$templateData = str_replace('{{$ADMIN_ROLE$}}', '' , $templateData);
-			$templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['constant'], $this->serviceGenerator->modelNameNotPluralFe($model['name']) . ',', 1, $templateDataReal);
+		    $namePermission =  \Str::snake($model['name']);
+			$templateData = str_replace('{{$ADMIN_ROLE$}}', "permissions: ['view menu $namePermission']," , $templateData);
 		}
-		$nameModel = $this->serviceGenerator->modelNameNotPluralFe($model['name']);
+        $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['async'], $this->serviceGenerator->modelNameNotPluralFe($model['name']) . ',', 3, $templateDataReal);
+        $nameModel = $this->serviceGenerator->modelNameNotPluralFe($model['name']);
 		$templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['import'], "import $nameModel from './modules/$nameModel';", 0, $templateDataReal);
 		$fileName = $this->serviceGenerator->modelNameNotPluralFe($model['name']) . '.js';
 		$this->serviceFile->createFile($this->path, $fileName, $templateData);

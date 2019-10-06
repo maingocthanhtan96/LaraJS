@@ -65,4 +65,6 @@ class User extends Authenticatable
 
 		return false;
 	}
+
+    //{{RELATIONS_NOT_DELETE_THIS_LINE}}
 }

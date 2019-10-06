@@ -35,8 +35,8 @@ Class ControllerUpdateGenerator extends BaseGenerator
 		$fileName = $model['name'] . 'Controller.php';
 		$templateDataReal = $this->serviceGenerator->getFile('api_controller', 'laravel', $fileName);
 		$templateDataReal = $this->generateFieldsRename($updateFields['renameFields'], $templateDataReal);
-		$templateDataReal = $this->generateFieldsChange($updateFields['changeFields'], $templateDataReal);
-		$templateDataReal = $this->generateFieldsDrop($updateFields['dropFields'], $templateDataReal);
+        $templateDataReal = $this->generateFieldsChange($updateFields['changeFields'], $templateDataReal);
+        $templateDataReal = $this->generateFieldsDrop($updateFields['dropFields'], $templateDataReal);
 		$templateDataReal = $this->generateFieldsUpdate($updateFields['updateFields'], $templateDataReal);
 		$fileName = $this->path . $fileName;
 		$this->serviceFile->createFileReal($fileName, $templateDataReal);
@@ -45,8 +45,7 @@ Class ControllerUpdateGenerator extends BaseGenerator
 	private function generateFieldsRename($renameFields, $templateDataReal)
 	{
 		foreach ($renameFields as $rename) {
-			$templateDataReal = str_replace( '"'.$rename['field_name_old']['field_name'].'"' , '"'.$rename['field_name_new']['field_name'].'"' , $templateDataReal);
-			$templateDataReal = str_replace( "'".$rename['field_name_old']['field_name']."'", '"'."'".$rename['field_name_new']['field_name']."'" , $templateDataReal);
+			$templateDataReal = str_replace("'".$rename['field_name_old']['field_name']."'", "'".$rename['field_name_new']['field_name']."'", $templateDataReal);
 		}
 		return $templateDataReal;
 	}
@@ -54,9 +53,10 @@ Class ControllerUpdateGenerator extends BaseGenerator
 	private function generateFieldsDrop($dropFields, $templateDataReal)
 	{
 		foreach ($dropFields as $drop) {
-			$name = '"'.$drop['field_name'].'",';
+			$name = "'".$drop['field_name']."',";
 			$templateDataReal = $this->checkComma($name, $drop['field_name'], $templateDataReal);
 		}
+
 		return $templateDataReal;
 	}
 
@@ -68,9 +68,13 @@ Class ControllerUpdateGenerator extends BaseGenerator
 	private function checkComma($name, $drop, $templateDataReal)
 	{
 		if(\Str::contains($templateDataReal, "$name")) {
-			$templateDataReal = str_replace('"'.$drop.'",', "", $templateDataReal);
+		    if(\Str::contains($templateDataReal, "$name ")) {
+                $templateDataReal = str_replace("'".$drop."', ", '', $templateDataReal);
+            } else {
+                $templateDataReal = str_replace("'".$drop."',", '', $templateDataReal);
+            }
 		} else {
-			$templateDataReal = str_replace('"'.$drop.'"', "", $templateDataReal);
+			$templateDataReal = str_replace("'".$drop."'", '', $templateDataReal);
 		}
 
 		return $templateDataReal;
@@ -88,26 +92,27 @@ Class ControllerUpdateGenerator extends BaseGenerator
 		$commaSearch = ',';
 		$columns = '';
 		$columnsSearch = '';
-		if(\Str::endsWith($templateColumns, ',')) {
+		if(\Str::endsWith($templateColumns, ',') || \Str::endsWith($templateColumns, ', ')) {
 			$comma = '';
 		}
 		foreach ($updateFields as $index => $update) {
 			if($update['sort']) {
-                $columns .= $comma . '"'.$update['field_name'].'"';
+                $columns .= $comma . "'".$update['field_name']."'";
 			}
 		}
-		if(\Str::endsWith($templateColumnsSearch, ',')) {
+		if(\Str::endsWith($templateColumnsSearch, ',') || \Str::endsWith($templateColumnsSearch, ', ')) {
 			$commaSearch = '';
 		}
 		foreach ($updateFields as $index => $update) {
 			if($update['search']) {
-                $columnsSearch .= $commaSearch . '"'.$update['field_name'].'"';
+                $columnsSearch .= $commaSearch . "'".$update['field_name']."'";
 			}
 		}
 		$selfColumns = self::COLUMNS;
 		$selfColumnsSearch = self::COLUMNS_SEARCH;
 		$templateDataReal = str_replace("$selfColumns = [".$templateColumns."]", "$selfColumns = [".$templateColumns.$columns."]", $templateDataReal);
 		$templateDataReal = str_replace("$selfColumnsSearch = [".$templateColumnsSearch."]", "$selfColumnsSearch = [".$templateColumnsSearch.$columnsSearch."]", $templateDataReal);
+
 		return $templateDataReal;
 	}
 
@@ -126,34 +131,40 @@ Class ControllerUpdateGenerator extends BaseGenerator
 
 		foreach($changeFields as $change) {
 			foreach($arrayColumns as $sort) {
-				$trimSort = trim($sort, '""');
+                $sort = trim($sort);
+				$trimSort = trim($sort, "''");
 				if($change['field_name'] === $trimSort) {
 					if($change['sort']) {
-						$fieldsGeneratorColumn[] = $change['field_name'];
+						$fieldsGeneratorColumn[] = "'".$change['field_name']."'";
 					}
 				} else {
-					if(!in_array($trimSort, $fieldsGeneratorColumn) && !in_array($trimSort, $arrayChange)) {
-						$fieldsGeneratorColumn[] = $trimSort;
+				    $nameTrimSort = "'".$trimSort."'";
+					if(!in_array($nameTrimSort, $fieldsGeneratorColumn) && !in_array($nameTrimSort, $arrayChange)) {
+						$fieldsGeneratorColumn[] = $nameTrimSort;
 					}
 				}
 			}
 			foreach($arrayColumnsSearch as $search) {
-				$trimSort = trim($search, '""');
+                $search = trim($search);
+				$trimSort = trim($search, "''");
 				if($change['field_name'] === $trimSort) {
 					if($change['search']) {
-						$fieldsGeneratorColumnSearch[] = $change['field_name'];
+						$fieldsGeneratorColumnSearch[] = "'".$change['field_name']."'";
 					}
 				} else {
-					if(!in_array($trimSort, $fieldsGeneratorColumnSearch) && !in_array($trimSort, $arrayChange)) {
-						$fieldsGeneratorColumnSearch[] = $trimSort;
+                    $nameTrimSort = "'".$trimSort."'";
+					if(!in_array($nameTrimSort, $fieldsGeneratorColumnSearch) && !in_array($nameTrimSort, $arrayChange)) {
+						$fieldsGeneratorColumnSearch[] = $nameTrimSort;
 					}
 				}
 			}
 		}
+
 		$selfColumns = self::COLUMNS;
 		$selfColumnsSearch = self::COLUMNS_SEARCH;
-		$templateDataReal = str_replace("$selfColumns = [".$templateColumns."]", "$selfColumns = ".json_encode($fieldsGeneratorColumn), $templateDataReal);
-		$templateDataReal = str_replace("$selfColumnsSearch = [".$templateColumnsSearch."]", "$selfColumnsSearch = ".json_encode($fieldsGeneratorColumnSearch), $templateDataReal);
+		$templateDataReal = str_replace("$selfColumns = [".$templateColumns."]", "$selfColumns = [".implode($this->serviceGenerator->infy_nl_tab(0, 0) . ', ', $fieldsGeneratorColumn) . "]", $templateDataReal);
+		$templateDataReal = str_replace("$selfColumnsSearch = [".$templateColumnsSearch."]", "$selfColumnsSearch = [".implode($this->serviceGenerator->infy_nl_tab(0, 0) . ', ', $fieldsGeneratorColumnSearch) . "]", $templateDataReal);
+
 		return $templateDataReal;
 	}
 }

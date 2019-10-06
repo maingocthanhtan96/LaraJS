@@ -1,3 +1,3 @@
 <el-form-item data-generator="{{$FORM_FIELD$}}" :label="{{$LABEL_NAME_INPUT$}}" {{$PROP_NAME$}} >
-						<el-input-number v-model="form.{{$FORM_FIELD$}}" {{$AUTO_FOCUS_INPUT$}} :placeholder="{{$LABEL_NAME_INPUT$}}" ></el-input-number>
+						<el-input-number name="{{$FORM_FIELD$}}" v-model="form.{{$FORM_FIELD$}}" {{$AUTO_FOCUS_INPUT$}} :placeholder="{{$LABEL_NAME_INPUT$}}" ></el-input-number>
 					</el-form-item>

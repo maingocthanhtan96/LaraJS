@@ -34,7 +34,10 @@ Class ModelUpdateGenerator extends BaseGenerator
 	{
 		$templateDataReal = $this->serviceGenerator->getFile('model', 'laravel', $model['name'] . '.php');
 		$templateDataReal = $this->generateUpdateFields($updateFields['updateFields'], $templateDataReal);
-		$templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['cats'],  $this->generateYear($updateFields), 2, $templateDataReal);
+		$checkGenerateYear = $this->generateYear($updateFields);
+		if($checkGenerateYear) {
+            $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['cats'], $checkGenerateYear, 2, $templateDataReal);
+        }
 		$templateDataReal = $this->generateFieldsRename($updateFields['renameFields'], $templateDataReal);
 		$templateDataReal = $this->generateFieldsDrop($updateFields['dropFields'], $templateDataReal);
 
@@ -54,7 +57,7 @@ Class ModelUpdateGenerator extends BaseGenerator
 
         foreach ($arTemplate as $tpl) {
             if(strlen($tpl) > 0) {
-                $fieldsGenerate[] = $tpl . ',';
+                $fieldsGenerate[] = trim($tpl) . ',';
             }
         }
         foreach($updateFields as $index => $field) {
@@ -100,7 +103,6 @@ Class ModelUpdateGenerator extends BaseGenerator
 				$fieldsGenerate[] = "'$name' => 'string',";
 			}
 		}
-
 		return implode($this->serviceGenerator->infy_nl_tab(1, 2), $fieldsGenerate);
 	}
 }

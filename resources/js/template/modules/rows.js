@@ -102,7 +102,7 @@ module.exports = function(h) {
 
         columns.push(h(
           'td',
-          { 'class': _this.columnClass(column) },
+          { 'class': _this.columnClass(column) + ' px-4' },
           [rowTemplate ? rowTemplate({ row: row, column: column, index: index }) : _this.render(row, column, index, h)]
         ));
       });

@@ -18,7 +18,7 @@ import administrator from './modules/administrator';
  * name:'router-name'             the name is used by <keep-alive> (must set!!!)
  * meta : {
     roles: ['admin','editor']    control the page roles (you can set multiple roles)
-    permissions: ['view menu zip', 'manage user'] Visible for these permissions only
+    permissions: ['view menu administrator', 'manage user'] Visible for these permissions only
     title: 'title'               the name show in sidebar and breadcrumb (recommend set)
     icon: 'svg-name'             the icon show in the sidebar
     noCache: true                if set true, the page will no be cached(default is false)
@@ -32,8 +32,9 @@ import administrator from './modules/administrator';
 export const constantRouterMap = [
   dashboard,
   // {{$ROUTE_CONSTANT_NOT_DELETE_THIS_LINE$}},
-  { path: '/login', name: 'login', hidden: true, component: () => import('@/pages/auth/login') },
-  { path: '/404', hidden: true, component: () => import('@/pages/errors/404') },
+  { path: '/login', name: 'login', hidden: true, component: () => import('@/views/auth/login') },
+  { path: '/404', hidden: true, component: () => import('@/views/errors/404') },
+  { path: '/401', hidden: true, component: () => import('@/views/errors/401') },
   { path: '/', redirect: '/login', hidden: true },
   {
     path: '/redirect',
@@ -42,20 +43,20 @@ export const constantRouterMap = [
     children: [
       {
         path: ':path*',
-        component: () => import('@/pages/redirect'),
+        component: () => import('@/views/redirect'),
       },
     ],
   },
 ];
 
 export const asyncRouterMap = [
-  administrator,
   // {{$ROUTE_ASYNC_NOT_DELETE_THIS_LINE$}},
+  administrator,
   { path: '*', redirect: '/404', hidden: true },
 ];
 
 const createRouter = () => new VueRouter({
-  linkActiveClass: 'active',
+  linkActiveClass: 'active', // active class
   mode: 'history',
   routes: constantRouterMap,
   scrollBehavior: to => {

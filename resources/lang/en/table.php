@@ -14,7 +14,7 @@ return [
         'name' => 'Name',
         'description' => 'Description',
     ],
-	//{{LANG_TABLE_NOT_DELETE_THIS_LINE}}
+    //{{LANG_TABLE_NOT_DELETE_THIS_LINE}}
 	'texts' => [
 		'count' => 'Showing {from} to {to} of {count} records|{count} records|One record',
 		'first' => 'First',

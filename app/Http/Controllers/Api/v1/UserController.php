@@ -66,6 +66,8 @@ class UserController extends Controller
 		try {
 			$user = User::create($request->all());
 			$user->assignRole($request->get('role_id'));
+            //{{CONTROLLER_RELATIONSHIP_MTM_CREATE_NOT_DELETE_THIS_LINE}}
+
 			return $this->jsonOk($user);
 		} catch (\Exception $e) {
 			return $this->jsonError($e->getMessage());
@@ -81,10 +83,11 @@ class UserController extends Controller
 	public function show(User $user)
 	{
 		try {
-			$userShow = $user->toArray();
-			$userShow['role_id'] = $user->roles->toArray()[0] ? $user->roles->toArray()[0]['id'] : '';
+            $user['role_id'] = $user->roles->toArray()[0] ? $user->roles->toArray()[0]['id'] : '';
+            $user = $user->toArray();
+            //{{CONTROLLER_RELATIONSHIP_MTM_SHOW_NOT_DELETE_THIS_LINE}}
 
-			return $this->jsonOk($userShow);
+			return $this->jsonOk($user);
 		} catch (\Exception $e) {
 			return $this->jsonError($e->getMessage(), 404);
 		}
@@ -103,6 +106,7 @@ class UserController extends Controller
 			$user->update($request->all());
 			\DB::table('model_has_roles')->where('model_id',$user->id)->delete();
 			$user->assignRole($request->get('role_id'));
+            //{{CONTROLLER_RELATIONSHIP_MTM_UPDATE_NOT_DELETE_THIS_LINE}}
 
 			return $this->jsonOk($user);
 		} catch (\Exception $e) {
@@ -122,6 +126,7 @@ class UserController extends Controller
 		    if($user->isAdmin()) {
 			    return $this->jsonError(trans('error.is_admin'), 403);
 		    }
+            //{{CONTROLLER_RELATIONSHIP_MTM_DELETE_NOT_DELETE_THIS_LINE}}
 		    $user = $user->delete();
 
 		    return $this->jsonOk($user);
@@ -129,4 +134,6 @@ class UserController extends Controller
 	    	return $this->jsonError($e->getMessage());
 	    }
     }
+    
+    //{{CONTROLLER_RELATIONSHIP_NOT_DELETE_THIS_LINE}}
 }

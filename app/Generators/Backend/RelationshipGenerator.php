@@ -115,7 +115,7 @@ Class RelationshipGenerator extends BaseGenerator
     {
         $notDelete = config('generator.not_delete.vuejs.form');
         $fileName = $this->serviceGenerator->modelNameNotPluralFe($modelRelationship) . '/form.vue';
-        $templateDataReal = $this->serviceGenerator->getFile('page', 'vuejs', $fileName);
+        $templateDataReal = $this->serviceGenerator->getFile('views', 'vuejs', $fileName);
         $dataForm = 'form:';
         //create form
         $templateDataForm = $this->serviceGenerator->searchTemplateX($dataForm, 1,'},', strlen($dataForm) - 1, -strlen($dataForm) + 1, $templateDataReal);
@@ -146,7 +146,7 @@ Class RelationshipGenerator extends BaseGenerator
         $this->_generateApi($model);
         //add generate api
         $templateDataReal = $this->_generateAddApi($model, $modelRelationship, $templateDataReal, $notDelete);
-        $fileName = config('generator.path.vuejs.page') . $fileName;
+        $fileName = config('generator.path.vuejs.views') . $fileName;
         $this->serviceFile->createFileReal($fileName, $templateDataReal);
         return $templateDataReal;
     }
@@ -203,9 +203,9 @@ Class RelationshipGenerator extends BaseGenerator
         $createdAt = 'created_at';
         $actions = 'actions';
         $configOptions = config('generator.relationship.options');
-        $notDelete = config('generator.not_delete.vuejs.page');
+        $notDelete = config('generator.not_delete.vuejs.views');
         $fileName = $this->serviceGenerator->modelNameNotPluralFe($modelRelationship) . '/index.vue';
-        $templateDataReal = $this->serviceGenerator->getFile('page', 'vuejs', $fileName);
+        $templateDataReal = $this->serviceGenerator->getFile('views', 'vuejs', $fileName);
 
         if(in_array($configOptions['show'], $options)) {
             //columns
@@ -287,7 +287,7 @@ Class RelationshipGenerator extends BaseGenerator
                 $templateDataReal = str_replace("$sortable".$templateSortable."]", "$sortable".implode(', ', $fieldsGenerateSort)."]", $templateDataReal);
             }
         }
-        $fileName = config('generator.path.vuejs.page') . $fileName;
+        $fileName = config('generator.path.vuejs.views') . $fileName;
         $this->serviceFile->createFileReal($fileName, $templateDataReal);
     }
 

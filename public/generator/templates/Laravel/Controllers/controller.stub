@@ -32,7 +32,6 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 			$orderBy = $request->get('orderBy', '');
 			$query = $request->get('query', '');
 
-			//NOT RENAME THIS LINE AND ALL PARAMS (columns, columnsWith, columnSearch, with)
 			$columns = {{COLUMN_SORT}};
 			$columnsWith = [];
 			$columnSearch = {{COLUMN_SEARCH}};
