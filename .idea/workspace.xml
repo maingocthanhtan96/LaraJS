@@ -2,44 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="48ec4041-b065-41c7-b197-b99331b3987d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/FileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/FileController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/UserResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/UserResource.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/UserTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/UserTableSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/generator/templates/Vuejs/Views/form.stub" beforeDir="false" afterPath="$PROJECT_DIR$/public/generator/templates/Vuejs/Views/form.stub" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/diagram-erd.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/logo-tanmnt-mini.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/logo-tanmnt.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/logo/logo-tanmnt.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/vendor.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/vendor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Charts/MixChart.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Charts/MixChart.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/dropzone/2019/10/6/1570372541_BCQhls7akKVvY5yWsOHh.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/dropzone/2019/10/6/1570372758_vsfubNQRI6lVXP9UE9jd.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/dropzone/2019/10/6/1570372801_al69Q13kcDG77LZx156O.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/dropzone/2019/10/7/1570433207_GFAWX04EgpPad401WfpW.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/dropzone/2019/10/7/1570434473_ljVpt9SH9D2HtUPOzIbf.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/dropzone/2019/10/7/1570436033_FJp7EwMdsaIBO6MAt5Wv.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/dropzone/2019/10/7/1570436058_0TwB0dB9efDA7clNxYf7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/dropzone/2019/10/7/1570436127_zLBUqu8Zapwkldd3J5ec.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/dropzone/2019/10/7/1570436219_xyUvUHhVQgLnhrSr1tJJ.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/dropzone/2019/10/7/1570436309_EBH5rjPZC3PL8i4KG4lt.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/ImageCropper/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/ImageCropper/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/ImageCropper/utils/data2blob.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/ImageCropper/utils/data2blob.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/ImageCropper/utils/effectRipple.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/ImageCropper/utils/language.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/ImageCropper/utils/language.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/PanThumb/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/PanThumb/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/lang/vue-i18n-locales.generated.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/lang/vue-i18n-locales.generated.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/layout/components/Navbar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layout/components/Navbar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/layout/components/Sidebar/Logo.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layout/components/Sidebar/Logo.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/permission.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/permission.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/router/modules/dashborad.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/router/modules/dashborad.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/getters.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/getters.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/utils/request.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/utils/request.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/auth/login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/auth/login.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/dashboards/index.vue" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/views/user/form.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/user/form.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/user/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/user/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/en/table.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/vn/table.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/vn/table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/larajs.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/larajs.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.mix.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -477,7 +456,7 @@
       <workItem from="1570423802852" duration="3026000" />
       <workItem from="1570434496802" duration="858000" />
       <workItem from="1570436089448" duration="393000" />
-      <workItem from="1570457088561" duration="1533000" />
+      <workItem from="1570457088561" duration="2987000" />
     </task>
     <servers />
   </component>

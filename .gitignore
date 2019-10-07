@@ -5,6 +5,7 @@
 /storage/*.key
 /vendor
 /public/*.js.map
+/public
 /.idea
 /v8-compile-cache-0
 .env

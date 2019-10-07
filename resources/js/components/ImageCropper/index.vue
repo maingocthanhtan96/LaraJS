@@ -134,7 +134,7 @@
       // URL to upload
       url: {
         type: String,
-        'default': `/upload-file/store`,
+        'default': 'upload-file/store-avatar',
       },
       // Other data to be uploaded along with file, as in object format
       params: {

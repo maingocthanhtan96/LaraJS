@@ -53,4 +53,36 @@ class FileController extends Controller
 
 		return $this->jsonSuccess(trans('messages.delete'));
 	}
+
+
+	public function storeAvatar(Request $request)
+    {
+        if($request->file('file'))
+        {
+            $now = Carbon::now();
+            $image = $request->file('file');
+            $name = time() . '_'. \Str::random(20).'.'.$image->getClientOriginalExtension();
+            $folderCreate = "/uploads/avatars/$now->year/$now->month/$now->day";
+            $folder = public_path($folderCreate);
+            if(!is_dir($folder)) {
+                mkdir($folder, 0775, true);
+            }
+
+            $image->move($folder, $name);
+
+            // Remove file old
+            $fileOld = $request->get('fileOld', '');
+            if($fileOld) {
+                if(file_exists(public_path($fileOld))){
+                    unlink(public_path($fileOld));
+                } else {
+                    return $this->jsonError(trans('error.file_not_found'));
+                }
+            }
+
+            return $this->jsonOk("$folderCreate/$name");
+        }
+
+        return $this->jsonError(trans('error.file_not_found'));
+    }
 }

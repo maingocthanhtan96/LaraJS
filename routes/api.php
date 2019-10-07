@@ -26,6 +26,7 @@ Route::group(['prefix' => 'v1'], function () {
 		Route::get('/logout', 'AuthController@logout')->name('logout');
 		// FILE
 		Route::post('upload-file/store', 'FileController@store');
+		Route::post('upload-file/store-avatar', 'FileController@storeAvatar');
 		Route::get('upload-file/remove', 'FileController@remove');
 
 		// permission Admin
