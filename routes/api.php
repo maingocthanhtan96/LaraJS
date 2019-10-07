@@ -39,19 +39,16 @@ Route::group(['prefix' => 'v1'], function () {
                 Route::get('diagram', 'GeneratorController@generateDiagram');
 		    });
             Route::apiResource('generators', 'GeneratorController');
-            Route::apiResource('users', 'UserController');
             Route::apiResource('roles', 'RoleController');
             Route::apiResource('permissions', 'PermissionController');
+
+            Route::apiResource('users', 'UserController');
 
             //{{ROUTE_ADMIN_NOT_DELETE_THIS_LINE}}
 		});
 
 		// permission User
 		Route::group(['middleware' => 'permission:'. LarajsPermission::PERMISSION_USER_MANAGE], function () {
-            /*<==> TestGenerator Route - 2019-09-26 16:30:14 <==>*/
-			Route::apiResource('test-generators', 'TestGeneratorController');
-
-
             //{{ROUTE_USER_NOT_DELETE_THIS_LINE}}
 		});
 	});

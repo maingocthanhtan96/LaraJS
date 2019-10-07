@@ -5,6 +5,7 @@ return [
         'id' => "STT",
         'name' => 'Tên',
         'email' => 'Email',
+        'avatar' => 'Ảnh đại diện',
         'role' => 'Quyền',
         'password' => 'Mật khẩu',
         'password_confirm' => 'Xác nhận mật khẩu'

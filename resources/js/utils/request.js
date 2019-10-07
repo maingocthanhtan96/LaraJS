@@ -53,11 +53,6 @@ service.interceptors.response.use(
     if (res) {
       if (res.status === 404) {
         router.replace({ path: '/404' });
-        return false;
-      }
-      if (res.status === 401) {
-        router.replace({ name: 'login' });
-        return false;
       }
       if (res.data.errors) {
         store.dispatch(SET_ERRORS, res.data.errors);

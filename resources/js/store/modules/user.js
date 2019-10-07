@@ -24,7 +24,7 @@ const state = {
   token: getToken() || null,
   roles: [],
   permissions: [],
-  user: {},
+  userInfo: {},
 };
 
 const mutations = {
@@ -38,7 +38,7 @@ const mutations = {
     state.permissions = permissions;
   },
   [SET_USER](state, user) {
-    state.user = user;
+    state.userInfo = user;
   },
   [SET_TOKEN](state, token) {
     state.token = token;

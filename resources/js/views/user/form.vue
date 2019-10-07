@@ -17,6 +17,22 @@
           <el-form-item data-generator="email" :error="errors.email ? errors.email[0] + '' : ''" :label="$t('table.user.email')" prop="email">
             <el-input v-model="form.email" />
           </el-form-item>
+          <el-form-item data-generator="avatar" :error="errors.avatar ? errors.avatar[0] + '' : ''" :label="$t('table.user.avatar')" prop="avatar">
+            <pan-thumb :image="form.avatar" classImg="bg-white">
+              <el-button type="primary" @click="imageCropperShow = true" icon="el-icon-upload" />
+            </pan-thumb>
+            <image-cropper
+              v-show="imageCropperShow"
+              :key="imageCropperKey"
+              :width="300"
+              :height="300"
+              url="/upload-file/store"
+              field="file"
+              lang-type="en"
+              @close="close"
+              @crop-upload-success="cropSuccess"
+            />
+          </el-form-item>
           <el-form-item data-generator="role_id" :label="$t('table.user.role')" prop="role_id">
             <el-select v-model="form.role_id" placeholder="Role" class="w-full">
               <el-option v-for="role in rolesList" :key="'role_' + role.id" :label="role.name" :value="role.id" />
@@ -50,6 +66,8 @@
 <script>
 import UserResource from '@/api/user';
 import RoleResource from '@/api/role';
+import ImageCropper from '@/components/ImageCropper';
+import PanThumb from '@/components/PanThumb';
 import { validEmail } from '@/utils/validate';
 // {{$IMPORT_COMPONENT_NOT_DELETE_THIS_LINE$}}
 
@@ -58,6 +76,8 @@ const roleResource = new RoleResource();
 
 export default {
   components: {
+    ImageCropper,
+    PanThumb,
     // {{$IMPORT_COMPONENT_NAME_NOT_DELETE_THIS_LINE$}}
   },
   data() {
@@ -67,10 +87,13 @@ export default {
       form: {
         name: '',
         email: '',
+        avatar: require('@/assets/images/avatar-default.png'),
         role_id: '',
         password: '',
         password_confirm: '',
       },
+      imageCropperShow: false,
+      imageCropperKey: 0,
       // {{$DATA_NOT_DELETE_THIS_LINE$}}
     };
   },
@@ -130,6 +153,14 @@ export default {
               }
             },
             trigger: ['blur', 'change'],
+          },
+        ],
+        avatar: [
+          {
+            validator: (rule, value, cb) => {
+              value ? cb() : cb(new Error(this.$t('validation.required', { attribute: this.$t('table.user.avatar') })));
+            },
+            trigger: 'blur',
           },
         ],
         role_id: [
@@ -195,7 +226,7 @@ export default {
                 type: 'success',
               });
               this.loading = false;
-              this.$router.push({ name: 'user_index' });
+              this.$router.push({ name: 'user_list' });
             }).catch(err => {
               this.loading = false;
               console.log(err);
@@ -205,6 +236,15 @@ export default {
           return false;
         }
       });
+    },
+    cropSuccess(resData) {
+      this.imageCropperShow = false;
+      this.imageCropperKey = this.imageCropperKey + 1;
+      this.form.avatar = resData.data;
+      this.$message({ message: this.$t('messages.upload'), type: 'success' });
+    },
+    close() {
+      this.imageCropperShow = false;
     },
   },
 };

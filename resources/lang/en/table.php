@@ -5,6 +5,7 @@ return [
 		'id' => "No.",
 		'name' => 'Name',
         'email' => 'Email',
+        'avatar' => 'Avatar',
 		'role' => 'Role',
         'password' => 'Password',
         'password_confirm' => 'Confrim password'

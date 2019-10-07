@@ -110,7 +110,7 @@ export default {
                 type: 'success',
               });
               this.loading = false;
-              this.$router.push({ name: '{{$REF_MODEL_CLASS$}}' });
+              this.$router.push({ name: '{{$REF_MODEL_CLASS$}}_list' });
             }).catch(err => {
               this.loading = false;
               console.log(err);

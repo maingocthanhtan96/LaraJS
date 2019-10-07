@@ -18,12 +18,14 @@ class UserTableSeeder extends Seeder
 		\App\Models\User::create([
 			'name' => 'Thanh Tan',
 			'email' => 'admin@larajs.com',
+			'avatar' => '/images/avatar/logo-tanmnt.png',
 			'password' => 'admin123',
 			'remember_token' => \Illuminate\Support\Str::random(10)
 		]);
 		\App\Models\User::create([
 			'name' => 'Thanh Tan',
 			'email' => 'user@larajs.com',
+            'avatar' => '/images/avatar/logo-tanmnt.png',
 			'password' => 'user123',
 			'remember_token' => \Illuminate\Support\Str::random(10)
 		]);
@@ -32,6 +34,7 @@ class UserTableSeeder extends Seeder
         	\App\Models\User::create([
         		'name' => $faker->name,
 				'email' => $faker->email,
+				'avatar' => $faker->imageUrl($width = 150, $height = 150),
 				'password' => 'secret',
 				'remember_token' => \Illuminate\Support\Str::random(10),
                 //{{SEEDER_NOT_DELETE_THIS_LINE}}

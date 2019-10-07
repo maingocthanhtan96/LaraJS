@@ -5,7 +5,7 @@
         <slot />
       </div>
     </div>
-    <img :src="image" class="pan-thumb">
+    <img :src="image" class="pan-thumb" :class="classImg">
   </div>
 </template>
 
@@ -28,6 +28,10 @@ export default {
     height: {
       type: String,
       default: '150px',
+    },
+    classImg: {
+      type: String,
+      default: '',
     },
   },
 };

@@ -5,7 +5,7 @@
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <div class="flex justify-center items-center relative">
-              <img :src="require('@/assets/images/logo/logo-tanmnt.png')" width="200">
+              <img :src="user.avatar" width="200">
               <el-dropdown
                 class="language absolute right-0 top-0"
                 trigger="click"
@@ -52,6 +52,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import {
   SET_LANG,
   LOGIN,
@@ -60,7 +61,6 @@ import {
 export default {
   data() {
     return {
-      logo: require('@/assets/images/logo/logo-tanmnt.png'),
       form: {
         email: '',
         password: '',
@@ -91,6 +91,9 @@ export default {
         ],
       };
     },
+    ...mapGetters([
+      'user',
+    ]),
   },
   watch: {
     $route: {
@@ -110,7 +113,7 @@ export default {
       this.loading = true;
       this.$refs['login'].validate(valid => {
         if (valid) {
-          this.$store.dispatch(`auth/${LOGIN}`, this.form)
+          this.$store.dispatch(`user/${LOGIN}`, this.form)
             .then(res => {
               this.loading = false;
               this.$router.push({ path: this.redirect || this.$store.state.settings.redirect });

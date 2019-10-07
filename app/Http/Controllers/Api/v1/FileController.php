@@ -18,18 +18,20 @@ class FileController extends Controller
 	{
 		if($request->file('file'))
 		{
-			$now = Carbon::now();
-			$image = $request->file('file');
-			$name = time() . '_'. \Str::random(20).'.'.$image->getClientOriginalExtension();
+            $now = Carbon::now();
+            $image = $request->file('file');
+            $name = time() . '_'. \Str::random(20).'.'.$image->getClientOriginalExtension();
 			$folderCreate = "/uploads/dropzone/$now->year/$now->month/$now->day";
 			$folder = public_path($folderCreate);
 			if(!is_dir($folder)) {
 				mkdir($folder, 0775, true);
 			}
 			$image->move($folder, $name);
-		}
 
-		return $this->jsonOk("$folderCreate/$name");
+            return $this->jsonOk("$folderCreate/$name");
+        }
+
+        return $this->jsonError(trans('error.file_not_found'));
 	}
 
 	/**

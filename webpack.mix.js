@@ -36,6 +36,8 @@ mix.js('resources/js/app.js', 'public/js')
     'lodash',
     'vue2-dropzone',
     'vuedraggable',
+    'echarts',
+    'vue-count-to'
   ])
   .options({
     processCssUrls: false,

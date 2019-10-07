@@ -11,7 +11,7 @@ const dashboard = {
     {
       path: 'list',
       name: 'dashboard_list',
-      component: () => import('@/views/dashboards/index'),
+      component: () => import('@/views/dashboard/index'),
       meta: {
         title: 'dashboard',
         icon: 'dashboard',
