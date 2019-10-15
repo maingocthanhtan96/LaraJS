@@ -7,10 +7,9 @@
  */
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 //{{USE_CLASS_NOT_DELETE_THIS_LINE}}
 
-class {{MODEL_CLASS}} extends Model
+class {{MODEL_CLASS}} extends BaseModel
 {
 	//{{USE_NOT_DELETE_THIS_LINE}}
 

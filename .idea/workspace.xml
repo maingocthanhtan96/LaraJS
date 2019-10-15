@@ -2,23 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="48ec4041-b065-41c7-b197-b99331b3987d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/FileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/FileController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/TestGeneratorController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/generator/templates/Laravel/Models/model.stub" beforeDir="false" afterPath="$PROJECT_DIR$/public/generator/templates/Laravel/Models/model.stub" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/dropzone/2019/10/6/1570372541_BCQhls7akKVvY5yWsOHh.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/dropzone/2019/10/6/1570372758_vsfubNQRI6lVXP9UE9jd.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/dropzone/2019/10/6/1570372801_al69Q13kcDG77LZx156O.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/dropzone/2019/10/7/1570433207_GFAWX04EgpPad401WfpW.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/dropzone/2019/10/7/1570434473_ljVpt9SH9D2HtUPOzIbf.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/dropzone/2019/10/7/1570436033_FJp7EwMdsaIBO6MAt5Wv.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/dropzone/2019/10/7/1570436058_0TwB0dB9efDA7clNxYf7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/dropzone/2019/10/7/1570436127_zLBUqu8Zapwkldd3J5ec.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/dropzone/2019/10/7/1570436219_xyUvUHhVQgLnhrSr1tJJ.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/dropzone/2019/10/7/1570436309_EBH5rjPZC3PL8i4KG4lt.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/ImageCropper/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/ImageCropper/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/user/form.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/user/form.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/dashboard/admin/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/dashboard/admin/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/dashboard/editor/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/dashboard/editor/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/generator/form.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/generator/form.vue" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -182,7 +173,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../JAVAC/leadlogic-dev" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -456,7 +447,13 @@
       <workItem from="1570423802852" duration="3026000" />
       <workItem from="1570434496802" duration="858000" />
       <workItem from="1570436089448" duration="393000" />
-      <workItem from="1570457088561" duration="2987000" />
+      <workItem from="1570457088561" duration="3080000" />
+      <workItem from="1570496459968" duration="847000" />
+      <workItem from="1570519393571" duration="2203000" />
+      <workItem from="1570521973077" duration="4759000" />
+      <workItem from="1571020517548" duration="1175000" />
+      <workItem from="1571064606957" duration="1009000" />
+      <workItem from="1571102991363" duration="645000" />
     </task>
     <servers />
   </component>

@@ -290,21 +290,20 @@ export default {
               callback(new Error(this.$t('validation.required', { attribute: this.$t('generator.field_name') })));
             } else {
               const arrayIndex = [];
-              this.form.forEach((val, index) => {
+              for (const val of this.form) {
                 if (val.field_name.toLowerCase() === value.toLowerCase()) {
-                  arrayIndex.push(index);
+                  arrayIndex.push(val.id);
                   if (arrayIndex.length > 1) {
                     callback(new Error(this.$t('generator.column_exist')));
-                    return false;
+                    break;
                   }
                 }
-              });
+              }
               if (arrayIndex.length <= 1) {
                 callback();
               }
             }
           }, trigger: ['change', 'blur'] },
-          // { required: true, message: this.$t('validation.required', { attribute: this.$t('generator.field_name') }), trigger: ['change', 'blur'] },
         ],
         field_name_trans: [
           { required: true, message: this.$t('validation.required', { attribute: this.$t('generator.field_name_trans') }), trigger: ['change', 'blur'] },

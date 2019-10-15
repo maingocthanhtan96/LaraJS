@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Requests\StoreUserRequest;
-use App\Models\Role;
 use App\Models\User;
 use App\Service\QueryService;
 use Illuminate\Http\Request;
