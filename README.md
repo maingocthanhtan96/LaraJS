@@ -78,9 +78,18 @@ npm run dev # or npm run watch
 - Amin
 username: admin@larajs.com
 password: admin123
-- User 
-username: user@larajs.com
-password: user123
+- Manager
+username: manager@larajs.com
+password: manage123
+- Visitor 
+username: visitor@larajs.com
+password: larajs
+- Creator 
+username: creator@larajs.com
+password: larajs
+- Editor 
+username: editor@larajs.com
+password: larajs
 
 # Build on production
 npm run production

@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Resources\PermissionResource;
 use App\Models\Permission;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Larajs\Permission as LarajsPermission;
 
 class PermissionController extends Controller
 {
@@ -45,9 +47,11 @@ class PermissionController extends Controller
     public function store(Request $request)
     {
         try {
-            $role = Permission::create($request->all());
+            $permission = Permission::create($request->all());
+            $adminRole = Role::findByName(LarajsPermission::ROLE_ADMIN);
+            $adminRole->givePermissionTo($permission);
 
-            return new PermissionResource($role);
+            return new PermissionResource($permission);
         } catch (\Exception $e) {
             $this->jsonError($e->getMessage());
         }
@@ -102,6 +106,8 @@ class PermissionController extends Controller
     public function destroy(Permission $permission)
     {
         try {
+            $adminRole = Role::findByName(LarajsPermission::ROLE_ADMIN);
+            $adminRole->revokePermissionTo($permission);
             $permission = $permission->delete();
 
             return $this->jsonOk($permission);

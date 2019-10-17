@@ -3,13 +3,23 @@
   <component name="ChangeListManager">
     <list default="true" id="48ec4041-b065-41c7-b197-b99331b3987d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/TestGeneratorController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/generator/templates/Laravel/Models/model.stub" beforeDir="false" afterPath="$PROJECT_DIR$/public/generator/templates/Laravel/Models/model.stub" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/PermissionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/PermissionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/Authenticate.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/Authenticate.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Larajs/Permission.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Larajs/Permission.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/RolesTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/RolesTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/SetupRolePermissionSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/SetupRolePermissionSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/UserTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/UserTableSeeder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/dashboard/admin/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/dashboard/admin/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/dashboard/editor/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/dashboard/editor/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/generator/form.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/generator/form.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/layout/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layout/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/auth/login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/auth/login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/rolePermission/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/rolePermission/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/user/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/user/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -173,7 +183,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../JAVAC/leadlogic-dev" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -454,6 +464,18 @@
       <workItem from="1571020517548" duration="1175000" />
       <workItem from="1571064606957" duration="1009000" />
       <workItem from="1571102991363" duration="645000" />
+      <workItem from="1571114558490" duration="3200000" />
+      <workItem from="1571122199737" duration="3407000" />
+      <workItem from="1571125995878" duration="98000" />
+      <workItem from="1571126592178" duration="128000" />
+      <workItem from="1571132246870" duration="3051000" />
+      <workItem from="1571146333947" duration="705000" />
+      <workItem from="1571150946351" duration="3401000" />
+      <workItem from="1571188892197" duration="9185000" />
+      <workItem from="1571237134614" duration="943000" />
+      <workItem from="1571275311440" duration="627000" />
+      <workItem from="1571283838321" duration="2375000" />
+      <workItem from="1571313651363" duration="1764000" />
     </task>
     <servers />
   </component>

@@ -11,6 +11,4 @@
 |
 */
 
-Route::get('{path}', function () {
-    return view('larajs');
-})->where('path', '(.*)');
+Route::get('{path}', 'LarajsController@viewLarajs')->where('path', '(.*)');

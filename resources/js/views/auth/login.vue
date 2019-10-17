@@ -5,7 +5,7 @@
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <div class="flex justify-center items-center relative">
-              <img :src="user.avatar" width="200">
+              <img src="/images/avatar/logo-tanmnt.png" width="200">
               <el-dropdown
                 class="language absolute right-0 top-0"
                 trigger="click"

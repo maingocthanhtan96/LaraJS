@@ -19,7 +19,7 @@
           <template slot="id" slot-scope="props">{{ props.index }}</template>
           <template slot="avatar" slot-scope="{row}">
             <el-avatar :size="60" :src="row.avatar" @error="true">
-              <img src="/images/logo/avatar-default.png"/>
+              <img src="/images/avatar-default.png"/>
             </el-avatar>
           </template>
           <!--{{$TEMPLATES_NOT_DELETE_THIS_LINE$}}-->

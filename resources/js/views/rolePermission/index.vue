@@ -171,6 +171,7 @@ export default {
   data() {
     return {
       loading: false,
+      loadingPermission: false,
       currentRoleId: 0,
       permissionId: 0,
       dialogUpdateRoleVisible: false,
@@ -302,7 +303,7 @@ export default {
       });
     },
     getPermissions() {
-      this.loading = true;
+      this.loadingPermission = true;
       permissionResource.list(this.query).then(res => {
         const { data } = res.data;
         const { all, menu, other } = this.classifyPermissions(data);
@@ -310,7 +311,7 @@ export default {
         this.permissions = all;
         this.menuPermissions = menu;
         this.otherPermissions = other;
-        this.loading = false;
+        this.loadingPermission = false;
       });
     },
     classifyPermissions(permissions) {

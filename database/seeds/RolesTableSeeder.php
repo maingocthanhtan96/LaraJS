@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Larajs\Permission as LarajsPermission;
 
 class RolesTableSeeder extends Seeder
 {
@@ -13,32 +14,39 @@ class RolesTableSeeder extends Seeder
     {
 		\App\Models\Role::create(
 			[
-				'name' => 'admin',
+				'name' => LarajsPermission::ROLE_ADMIN,
+				'guard_name' => 'api',
                 'description' => 'Super Administrator. Have access and full permission to all pages.'
 			]
 		);
+        \App\Models\Role::create(
+            [
+                'name' => LarajsPermission::ROLE_MANAGER,
+                'description' => 'Just a manager. Can you manage',
+            ]
+        );
 		\App\Models\Role::create(
 			[
-				'name' => 'user',
+				'name' => LarajsPermission::ROLE_USER,
                 'description' => 'Normal user. Have access to some pages',
 			]
 		);
         \App\Models\Role::create(
             [
-                'name' => 'visitor',
+                'name' => LarajsPermission::ROLE_VISITOR,
                 'description' => 'Just a visitor. Can only see the home page and the document page',
             ]
         );
         \App\Models\Role::create(
             [
-                'name' => 'editor',
-                'description' => 'Just a editor. Can only edit page',
+                'name' => LarajsPermission::ROLE_CREATOR,
+                'description' => 'Just a creator. Can only create page',
             ]
         );
         \App\Models\Role::create(
             [
-                'name' => 'manager',
-                'description' => 'Just a manager. Can you manage',
+                'name' => LarajsPermission::ROLE_EDITOR,
+                'description' => 'Just a editor. Can only edit page',
             ]
         );
     }
