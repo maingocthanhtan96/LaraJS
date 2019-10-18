@@ -71,13 +71,23 @@ class UserTableSeeder extends Seeder
         // Setup basic permission
         $adminRole->givePermissionTo(LarajsPermission::permissions());
         $managerRole->givePermissionTo([
-            LarajsPermission::PERMISSION_MANAGE_VISIT,
-            LarajsPermission::PERMISSION_MANAGE_CREATE,
-            LarajsPermission::PERMISSION_MANAGE_EDIT,
+            LarajsPermission::PERMISSION_VISIT,
+            LarajsPermission::PERMISSION_CREATE,
+            LarajsPermission::PERMISSION_EDIT,
+            LarajsPermission::PERMISSION_ROUTE,
         ]);
-        $visitorRole->givePermissionTo(LarajsPermission::PERMISSION_MANAGE_VISIT);
-        $creator->givePermissionTo(LarajsPermission::PERMISSION_MANAGE_CREATE);
-        $editor->givePermissionTo(LarajsPermission::PERMISSION_MANAGE_EDIT);
+        $visitorRole->givePermissionTo([
+            LarajsPermission::PERMISSION_VISIT,
+            LarajsPermission::PERMISSION_ROUTE,
+        ]);
+        $creator->givePermissionTo([
+            LarajsPermission::PERMISSION_CREATE,
+            LarajsPermission::PERMISSION_ROUTE,
+        ]);
+        $editor->givePermissionTo([
+            LarajsPermission::PERMISSION_EDIT,
+            LarajsPermission::PERMISSION_ROUTE,
+        ]);
 
         for ($i = 0; $i < $limit; $i++){
         	$userFaker = \App\Models\User::create([
@@ -89,7 +99,6 @@ class UserTableSeeder extends Seeder
                 //{{SEEDER_NOT_DELETE_THIS_LINE}}
 			]);
             $roleName = $faker->randomElement([
-                LarajsPermission::ROLE_USER,
                 LarajsPermission::ROLE_VISITOR,
                 LarajsPermission::ROLE_CREATOR,
                 LarajsPermission::ROLE_EDITOR,
