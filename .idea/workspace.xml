@@ -2,24 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="48ec4041-b065-41c7-b197-b99331b3987d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/PermissionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/PermissionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/Authenticate.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/Authenticate.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Larajs/Permission.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Larajs/Permission.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/RolesTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/RolesTableSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/SetupRolePermissionSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/SetupRolePermissionSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/UserTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/UserTableSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/layout/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layout/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/auth/login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/auth/login.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/rolePermission/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/rolePermission/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/user/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/user/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -475,7 +459,10 @@
       <workItem from="1571237134614" duration="943000" />
       <workItem from="1571275311440" duration="627000" />
       <workItem from="1571283838321" duration="2375000" />
-      <workItem from="1571313651363" duration="1764000" />
+      <workItem from="1571313651363" duration="2513000" />
+      <workItem from="1571323941731" duration="356000" />
+      <workItem from="1571361818497" duration="1476000" />
+      <workItem from="1571367376219" duration="1317000" />
     </task>
     <servers />
   </component>
