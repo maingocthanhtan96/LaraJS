@@ -28,7 +28,7 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('upload-file/store-avatar', 'FileController@storeAvatar');
             Route::get('upload-file/remove', 'FileController@remove');
 
-            // permission Admin
+            // permission Admin (Super admin)
             Route::group(['middleware' => 'role:'. LarajsPermission::ROLE_ADMIN], function () {
                 Route::group(['prefix' => 'generators'], function () {
                     Route::get('check-model', 'GeneratorController@checkModel');
@@ -48,12 +48,11 @@ Route::group(['prefix' => 'v1'], function () {
             });
 
             // role:admin,editor,manager,visitor
-            Route::group(['middleware' => 'role:'.LarajsPermission::ROLE_ADMIN.'|'.LarajsPermission::ROLE_MANAGER.'|'.LarajsPermission::ROLE_EDITOR.'|'.LarajsPermission::ROLE_VISITOR.'|'.LarajsPermission::ROLE_CREATOR], function () {
+            Route::group(['middleware' => 'permission:'.LarajsPermission::authRoles()], function () {
                 //{{ROUTE_USER_NOT_DELETE_THIS_LINE}}
             });
         });
     });
-
 });
 
 Route::fallback('LarajsController@fallbackApi');

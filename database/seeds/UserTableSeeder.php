@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Larajs\Permission as LarajsPermission;
 use App\Models\Role;
+use \App\Models\User;
 
 class UserTableSeeder extends Seeder
 {
@@ -17,14 +18,14 @@ class UserTableSeeder extends Seeder
 
         $limit = 10;
 
-		$admin = \App\Models\User::create([
+		$admin = User::create([
 			'name' => 'Thanh Tan',
 			'email' => 'admin@larajs.com',
 			'avatar' => '/images/avatar/logo-tanmnt.png',
 			'password' => 'admin123',
 			'remember_token' => \Illuminate\Support\Str::random(10)
 		]);
-        $manager = \App\Models\User::create([
+        $manager = User::create([
             'name' => 'Manager',
             'email' => 'manager@larajs.com',
             'avatar' => '/images/avatar/logo-tanmnt.png',
@@ -32,7 +33,7 @@ class UserTableSeeder extends Seeder
             'remember_token' => \Illuminate\Support\Str::random(10)
         ]);
 
-        $visitor = \App\Models\User::create([
+        $visitor = User::create([
             'name' => 'Visitor',
             'email' => 'visitor@larajs.com',
             'avatar' => '/images/avatar/logo-tanmnt.png',
@@ -40,7 +41,7 @@ class UserTableSeeder extends Seeder
             'remember_token' => \Illuminate\Support\Str::random(10)
         ]);
 
-        $creator = \App\Models\User::create([
+        $creator = User::create([
             'name' => 'Creator',
             'email' => 'creator@larajs.com',
             'avatar' => '/images/avatar/logo-tanmnt.png',
@@ -48,7 +49,7 @@ class UserTableSeeder extends Seeder
             'remember_token' => \Illuminate\Support\Str::random(10)
         ]);
 
-        $editor = \App\Models\User::create([
+        $editor = User::create([
             'name' => 'Editor',
             'email' => 'editor@larajs.com',
             'avatar' => '/images/avatar/logo-tanmnt.png',
@@ -71,16 +72,16 @@ class UserTableSeeder extends Seeder
         // Setup basic permission
         $adminRole->givePermissionTo(LarajsPermission::permissions());
         $managerRole->givePermissionTo([
-            LarajsPermission::PERMISSION_MANAGE_VISIT,
-            LarajsPermission::PERMISSION_MANAGE_CREATE,
-            LarajsPermission::PERMISSION_MANAGE_EDIT,
+            LarajsPermission::PERMISSION_VISIT,
+            LarajsPermission::PERMISSION_CREATE,
+            LarajsPermission::PERMISSION_EDIT,
         ]);
-        $visitorRole->givePermissionTo(LarajsPermission::PERMISSION_MANAGE_VISIT);
-        $creator->givePermissionTo(LarajsPermission::PERMISSION_MANAGE_CREATE);
-        $editor->givePermissionTo(LarajsPermission::PERMISSION_MANAGE_EDIT);
+        $visitorRole->givePermissionTo(LarajsPermission::PERMISSION_VISIT);
+        $creatorRole->givePermissionTo(LarajsPermission::PERMISSION_CREATE);
+        $editorRole->givePermissionTo(LarajsPermission::PERMISSION_EDIT);
 
         for ($i = 0; $i < $limit; $i++){
-        	$userFaker = \App\Models\User::create([
+        	$userFaker = User::create([
         		'name' => $faker->name,
 				'email' => $faker->unique()->email,
 				'avatar' => $faker->imageUrl($width = 150, $height = 150),
@@ -89,7 +90,6 @@ class UserTableSeeder extends Seeder
                 //{{SEEDER_NOT_DELETE_THIS_LINE}}
 			]);
             $roleName = $faker->randomElement([
-                LarajsPermission::ROLE_USER,
                 LarajsPermission::ROLE_VISITOR,
                 LarajsPermission::ROLE_CREATOR,
                 LarajsPermission::ROLE_EDITOR,

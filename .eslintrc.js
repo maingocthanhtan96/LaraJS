@@ -1,13 +1,16 @@
-'use strict'
+'use strict';
 
 module.exports = {
 	root: true,
-	parserOptions: {
-		ecmaVersion: 6,
+  parserOptions: {
+    parser: "babel-eslint",
+    ecmaVersion: 2017,
+    sourceType: "module"
 	},
-	env: {
-		node: true,
-		mocha: true,
+  env: {
+    browser: true,
+    node: true,
+    es6: true,
 	},
 	extends: ['plugin:eslint-plugin/recommended', 'plugin:vue-libs/recommended'],
 	plugins: ['eslint-plugin'],
@@ -53,4 +56,4 @@ module.exports = {
 			},
 		},
 	],
-}
+};

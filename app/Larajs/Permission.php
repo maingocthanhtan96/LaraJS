@@ -19,16 +19,15 @@ use Illuminate\Support\Str;
 final class Permission
 {
 	const ROLE_ADMIN = 'admin';
-	const ROLE_USER = 'user';
-	const ROLE_VISITOR = 'visitor';
+    const ROLE_MANAGER = 'manager';
+    const ROLE_VISITOR = 'visitor';
     const ROLE_EDITOR = 'editor';
     const ROLE_CREATOR = 'creator';
-    const ROLE_MANAGER = 'manager';
 
     const PERMISSION_PERMISSION_MANAGE = 'manage permission';
-    const PERMISSION_MANAGE_VISIT = 'visit';
-    const PERMISSION_MANAGE_CREATE = 'create';
-    const PERMISSION_MANAGE_EDIT = 'edit';
+    const PERMISSION_VISIT = 'visit';
+    const PERMISSION_CREATE = 'create';
+    const PERMISSION_EDIT = 'edit';
 
 	/**
 	 * @param array $exclusives Exclude some permissions from the list
@@ -72,7 +71,7 @@ final class Permission
 		try {
 			$class = new \ReflectionClass(__CLASS__);
 			$constants = $class->getConstants();
-			$roles =  Arr::where($constants, function($value, $key) {
+			$roles = Arr::where($constants, function($value, $key) {
 				return Str::startsWith($key, 'ROLE_');
 			});
 
@@ -81,4 +80,18 @@ final class Permission
 			return [];
 		}
 	}
+
+	public static function authRoles(): string
+    {
+        $roles = self::roles();
+        $str = '';
+        foreach($roles as $key => $role) {
+            if(count($roles) - 1 === $key) {
+                $str .= $role;
+            } else {
+                $str .= $role . '|';
+            }
+        }
+        return $str;
+    }
 }
