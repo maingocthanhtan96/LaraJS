@@ -28,7 +28,6 @@ final class Permission
     const PERMISSION_VISIT = 'visit';
     const PERMISSION_CREATE = 'create';
     const PERMISSION_EDIT = 'edit';
-    const PERMISSION_ROUTE = 'route';
 
 	/**
 	 * @param array $exclusives Exclude some permissions from the list

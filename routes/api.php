@@ -53,7 +53,6 @@ Route::group(['prefix' => 'v1'], function () {
             });
         });
     });
-
 });
 
 Route::fallback('LarajsController@fallbackApi');
