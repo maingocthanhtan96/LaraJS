@@ -27,12 +27,6 @@ class RolesTableSeeder extends Seeder
         );
         \App\Models\Role::create(
             [
-                'name' => LarajsPermission::ROLE_USER,
-                'description' => 'Normal user. Have access to some pages',
-            ]
-        );
-        \App\Models\Role::create(
-            [
                 'name' => LarajsPermission::ROLE_VISITOR,
                 'description' => 'Just a visitor. Can only see the home page and the document page',
             ]
