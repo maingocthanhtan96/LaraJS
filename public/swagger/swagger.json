@@ -10,10 +10,136 @@
     "servers": [
         {
             "url": "http://local.larajs.com/api/v1",
-            "description": "Api of larajs"
+            "description": "Api v1(LARAJS)"
+        },
+        {
+            "url": "http://local.larajs.com/api/v2",
+            "description": "Api v2(LARAJS)"
         }
     ],
     "paths": {
+        "/test-generators": {
+            "get": {
+                "tags": [
+                    "TestGenerator"
+                ],
+                "summary": "List TestGenerator",
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/OK"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/Error"
+                    }
+                },
+                "security": [
+                    {
+                        "authApi": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "TestGenerator"
+                ],
+                "summary": "Create TestGenerator",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TestGenerator"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/OK"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/Error"
+                    }
+                },
+                "security": [
+                    {
+                        "authApi": []
+                    }
+                ]
+            }
+        },
+        "/test-generators/{id}": {
+            "put": {
+                "tags": [
+                    "TestGenerator"
+                ],
+                "summary": "Edit TestGenerator",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TestGenerator"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/OK"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/Error"
+                    }
+                },
+                "security": [
+                    {
+                        "authApi": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "TestGenerator"
+                ],
+                "summary": "Delete TestGenerator",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/OK"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/Error"
+                    }
+                },
+                "security": [
+                    {
+                        "authApi": []
+                    }
+                ]
+            }
+        },
         "/login": {
             "post": {
                 "tags": [
@@ -175,26 +301,66 @@
     },
     "components": {
         "schemas": {
+            "TestGenerator": {
+                "title": "TestGenerator",
+                "properties": {
+                    "varchar_1": {
+                        "title": "Varchar 1",
+                        "description": "Field[varchar_1]",
+                        "type": "string",
+                        "default": "NULL",
+                        "example": "string"
+                    },
+                    "int_1": {
+                        "title": "Int 1",
+                        "description": "Field[int_1]",
+                        "type": "integer",
+                        "default": "1",
+                        "example": "0"
+                    },
+                    "enum_1": {
+                        "title": "Enum 1",
+                        "description": "Field[enum_1]",
+                        "type": "string",
+                        "default": "1",
+                        "enum": [
+                            1,
+                            2,
+                            3
+                        ],
+                        "example": "1"
+                    }
+                },
+                "type": "object"
+            },
             "User": {
                 "title": "User",
                 "properties": {
                     "name": {
                         "title": "Name",
-                        "type": "string"
+                        "description": "Field[name]",
+                        "type": "string",
+                        "default": "None"
                     },
                     "email": {
                         "title": "Email",
+                        "description": "Field[email]",
                         "type": "string",
+                        "default": "None",
                         "example": "example@larajs.com"
                     },
                     "avatar": {
                         "title": "Avatar",
+                        "description": "Field[avatar]",
                         "type": "string",
+                        "default": "None",
                         "example": "https://lorempixel.com/150/150/?57749"
                     },
                     "password": {
                         "title": "Password",
+                        "description": "Field[password]",
                         "type": "string",
+                        "default": "None",
                         "example": "larajs"
                     }
                 },

@@ -2,20 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="48ec4041-b065-41c7-b197-b99331b3987d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/larajs.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/larajs.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Generators/BackendUpdate/SwaggerUpdateGenerator.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/FileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/FileController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/GeneratorController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/GeneratorController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/PermissionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/PermissionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/RoleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/RoleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Controller.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/generator/templates/Laravel/Controllers/controller.stub" beforeDir="false" afterPath="$PROJECT_DIR$/public/generator/templates/Laravel/Controllers/controller.stub" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/generator/templates/Laravel/Controllers/relationship.stub" beforeDir="false" afterPath="$PROJECT_DIR$/public/generator/templates/Laravel/Controllers/relationship.stub" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Larajs/Development/swagger-v1.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Larajs/Development/swagger-v1.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Larajs/Swagger/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Larajs/Swagger/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/generator.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/generator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/swagger/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/swagger/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/swagger/swagger.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/swagger/swagger.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -489,7 +483,7 @@
       <workItem from="1571367376219" duration="1317000" />
       <workItem from="1571389674693" duration="8049000" />
       <workItem from="1571409670801" duration="3868000" />
-      <workItem from="1571474052692" duration="29616000" />
+      <workItem from="1571474052692" duration="50884000" />
     </task>
     <servers />
   </component>

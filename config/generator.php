@@ -28,6 +28,7 @@ return [
 			'api_controller'    => app_path('Http/Controllers/Api/v1/'),
 			'lang'              => base_path('resources/lang/'),
             'request'           => app_path('Http/Requests/'),
+            'swagger'           => app_path('Larajs/Swagger/'),
 		],
 		'vuejs' => [
 			'api'               => base_path('resources/js/api/'),
@@ -147,7 +148,10 @@ return [
 			],
             'request' => [
                 'rule' => '//{{REQUEST_RULES_NOT_DELETE_THIS_LINE}}'
-            ]
+            ],
+            'swagger' => [
+                'property' => '//{{SWAGGER_PROPERTY_NOT_DELETE_THIS_LINE}}'
+            ],
 		],
 		'vuejs' => [
 			'route' => [

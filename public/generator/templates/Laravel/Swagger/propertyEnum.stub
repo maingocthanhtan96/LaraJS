@@ -1,0 +1,11 @@
+/**
+     * Field[{{FIELD}}]
+     * @OA\Property(
+     *     title="{{FIELD_TRANS}}",
+     *     default="{{DEFAULT_VALUE}}",
+     *     example="{{EXAMPLE}}",
+     *     enum={{ENUM}},
+     * )
+     * @var {{DB_TYPE}}
+     */
+    protected ${{FIELD}};
