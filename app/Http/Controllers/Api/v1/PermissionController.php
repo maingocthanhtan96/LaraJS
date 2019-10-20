@@ -110,7 +110,7 @@ class PermissionController extends Controller
             $adminRole->revokePermissionTo($permission);
             $permission = $permission->delete();
 
-            return $this->jsonOk($permission);
+            return $this->jsonData($permission);
         } catch (\Exception $e) {
             return $this->jsonError($e->getMessage());
         }

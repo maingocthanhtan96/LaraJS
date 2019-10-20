@@ -67,7 +67,7 @@ class UserController extends Controller
 			$user->assignRole($request->get('role_id'));
             //{{CONTROLLER_RELATIONSHIP_MTM_CREATE_NOT_DELETE_THIS_LINE}}
 
-			return $this->jsonOk($user);
+			return $this->jsonData($user);
 		} catch (\Exception $e) {
 			return $this->jsonError($e->getMessage());
 		}
@@ -86,7 +86,7 @@ class UserController extends Controller
             $user = $user->toArray();
             //{{CONTROLLER_RELATIONSHIP_MTM_SHOW_NOT_DELETE_THIS_LINE}}
 
-			return $this->jsonOk($user);
+			return $this->jsonData($user);
 		} catch (\Exception $e) {
 			return $this->jsonError($e->getMessage(), 404);
 		}
@@ -107,7 +107,7 @@ class UserController extends Controller
 			$user->assignRole($request->get('role_id'));
             //{{CONTROLLER_RELATIONSHIP_MTM_UPDATE_NOT_DELETE_THIS_LINE}}
 
-			return $this->jsonOk($user);
+			return $this->jsonData($user);
 		} catch (\Exception $e) {
 			return $this->jsonError($e->getMessage());
 		}
@@ -126,9 +126,9 @@ class UserController extends Controller
 			    return $this->jsonError(trans('error.is_admin'), 403);
 		    }
             //{{CONTROLLER_RELATIONSHIP_MTM_DELETE_NOT_DELETE_THIS_LINE}}
-		    $user = $user->delete();
+		    $user->delete();
 
-		    return $this->jsonOk($user);
+		    return $this->jsonSuccess(trans('messages.delete'));
 	    } catch (\Exception $e) {
 	    	return $this->jsonError($e->getMessage());
 	    }

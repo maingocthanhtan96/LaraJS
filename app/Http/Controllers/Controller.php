@@ -13,7 +13,7 @@ class Controller extends BaseController
 
 	protected $limit = 25;
 
-	public function jsonOk($data = [])
+	public function jsonData($data = [])
 	{
 		return response()->json([
 			'success' => true,

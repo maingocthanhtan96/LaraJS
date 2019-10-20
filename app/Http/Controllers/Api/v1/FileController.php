@@ -14,7 +14,7 @@ class FileController extends Controller
 	 * @return \Illuminate\Http\JsonResponse
 	 * @author tanmnt
 	 */
-	public function store(Request $request)
+	public static function store(Request $request)
 	{
 		if($request->file('file'))
 		{
@@ -28,10 +28,10 @@ class FileController extends Controller
 			}
 			$image->move($folder, $name);
 
-            return $this->jsonOk("$folderCreate/$name");
+            return (new self)->jsonData("$folderCreate/$name");
         }
 
-        return $this->jsonError(trans('error.file_not_found'));
+        return (new self)->jsonError(trans('error.file_not_found'));
 	}
 
 	/**
@@ -40,22 +40,22 @@ class FileController extends Controller
 	 * @return \Illuminate\Http\JsonResponse
 	 * @author tanmnt
 	 */
-	public function remove(Request $request)
+	public static function remove(Request $request)
 	{
         $file = $request->get('file', '');
         if($file) {
             if(file_exists(public_path($file))){
                 unlink(public_path($file));
             } else {
-                return $this->jsonError(trans('error.file_not_found'));
+                return (new self)->jsonError(trans('error.file_not_found'));
             }
         }
 
-		return $this->jsonSuccess(trans('messages.delete'));
+		return (new self)->jsonSuccess(trans('messages.delete'));
 	}
 
 
-	public function storeAvatar(Request $request)
+	public static function storeAvatar(Request $request)
     {
         if($request->file('file'))
         {
@@ -76,13 +76,13 @@ class FileController extends Controller
                 if(file_exists(public_path($fileOld))){
                     unlink(public_path($fileOld));
                 } else {
-                    return $this->jsonError(trans('error.file_not_found'));
+                    return (new self)->jsonError(trans('error.file_not_found'));
                 }
             }
 
-            return $this->jsonOk("$folderCreate/$name");
+            return (new self)->jsonData("$folderCreate/$name");
         }
 
-        return $this->jsonError(trans('error.file_not_found'));
+        return (new self)->jsonError(trans('error.file_not_found'));
     }
 }

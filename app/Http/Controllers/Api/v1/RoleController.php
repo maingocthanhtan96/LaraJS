@@ -124,7 +124,7 @@ class RoleController extends Controller
         try {
             $role = $role->delete();
 
-            return $this->jsonOk($role);
+            return $this->jsonData($role);
         } catch (\Exception $e) {
             return $this->jsonError($e->getMessage());
         }

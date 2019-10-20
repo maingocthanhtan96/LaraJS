@@ -62,7 +62,7 @@ class GeneratorController extends Controller
 	public function show(Generator $generator)
     {
 		try {
-			return $this->jsonOk($generator);
+			return $this->jsonData($generator);
 		} catch (\Exception $e) {
 			return $this->jsonError($e->getMessage(), 404);
 		}
@@ -156,7 +156,7 @@ class GeneratorController extends Controller
             $model = $request->get('model');
             $diagram = $this->serviceGenerator->getRelations($model);
 
-            return $this->jsonOk($diagram);
+            return $this->jsonData($diagram);
         } catch (\Exception $e) {
             return $this->jsonError($e->getMessage());
         }
@@ -180,7 +180,7 @@ class GeneratorController extends Controller
                     }
                 }
             }
-            return $this->jsonOk($modelData);
+            return $this->jsonData($modelData);
         } catch (\Exception $e) {
             return $this->jsonError($e->getMessage());
         }
@@ -193,7 +193,7 @@ class GeneratorController extends Controller
             $table = \Str::snake(\Str::plural($table));
             $columns = \Schema::getColumnListing($table);
 
-            return $this->jsonOk($columns);
+            return $this->jsonData($columns);
         } catch (\Exception $e) {
             return $this->jsonError($e->getMessage());
         }
