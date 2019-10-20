@@ -113,9 +113,13 @@ Class SwaggerGenerator extends BaseGenerator
                     case $dbType['string']:
                     case $dbType['text']:
                     case $dbType['longtext']:
-                    case $dbType['file']:
                         $templateProperty = str_replace('{{DB_TYPE}}', self::DB_TYPE_STRING, $templateProperty);
                         $templateProperty = str_replace('{{EXAMPLE}}', 'string', $templateProperty);
+                        $fieldsGenerate[] = $templateProperty;
+                        break;
+                    case $dbType['file']:
+                        $templateProperty = str_replace('{{DB_TYPE}}', self::DB_TYPE_STRING, $templateProperty);
+                        $templateProperty = str_replace('{{EXAMPLE}}', "['https://lorempixel.com/150/150/?77253', 'https://lorempixel.com/150/150/?77253']", $templateProperty);
                         $fieldsGenerate[] = $templateProperty;
                         break;
                     case $dbType['enum']:

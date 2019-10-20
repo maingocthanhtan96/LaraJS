@@ -205,6 +205,8 @@ Class SwaggerUpdateGenerator extends BaseGenerator
             case $this->dbType['string']:
             case $this->dbType['text']:
             case $this->dbType['longtext']:
+                $example = "['https://lorempixel.com/150/150/?77253', 'https://lorempixel.com/150/150/?77253']";
+                break;
             case $this->dbType['file']:
                 $example = 'string';
                 break;
@@ -276,9 +278,13 @@ Class SwaggerUpdateGenerator extends BaseGenerator
                 case $this->dbType['string']:
                 case $this->dbType['text']:
                 case $this->dbType['longtext']:
-                case $this->dbType['file']:
                     $templateProperty = str_replace('{{DB_TYPE}}', self::DB_TYPE_STRING, $templateProperty);
                     $templateProperty = str_replace('{{EXAMPLE}}', 'string', $templateProperty);
+                    $fieldsGenerate[] = $templateProperty;
+                    break;
+                case $this->dbType['file']:
+                    $templateProperty = str_replace('{{DB_TYPE}}', self::DB_TYPE_STRING, $templateProperty);
+                    $templateProperty = str_replace('{{EXAMPLE}}', "['https://lorempixel.com/150/150/?77253', 'https://lorempixel.com/150/150/?77253']", $templateProperty);
                     $fieldsGenerate[] = $templateProperty;
                     break;
                 case $this->dbType['enum']:
