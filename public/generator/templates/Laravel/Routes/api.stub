@@ -1,3 +1,2 @@
 /*<==> {{MODEL_CLASS}} Route - {{DATE}} <==>*/
 			Route::apiResource('{{RESOURCE}}', '{{MODEL_CLASS}}Controller');
-

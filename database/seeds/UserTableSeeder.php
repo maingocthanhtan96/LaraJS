@@ -29,7 +29,7 @@ class UserTableSeeder extends Seeder
             'name' => 'Manager',
             'email' => 'manager@larajs.com',
             'avatar' => '/images/avatar/logo-tanmnt.png',
-            'password' => 'manage123',
+            'password' => 'manager123',
             'remember_token' => \Illuminate\Support\Str::random(10)
         ]);
 
