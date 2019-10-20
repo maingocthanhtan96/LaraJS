@@ -38,7 +38,7 @@ export function parseTime(time, cFormat) {
     let value = formatObj[key];
     // Note: getDay() returns 0 on Sunday
     if (key === 'a') {
-      return ['日', '一', '二', '三', '四', '五', '六'][value ];
+      return ['日', '一', '二', '三', '四', '五', '六'][value];
     }
     if (result.length > 0 && value < 10) {
       value = '0' + value;
@@ -79,14 +79,14 @@ export function formatTime(time, option) {
   } else {
     return (
       d.getMonth() +
-			1 +
-			'月' +
-			d.getDate() +
-			'日' +
-			d.getHours() +
-			'时' +
-			d.getMinutes() +
-			'分'
+      1 +
+      '月' +
+      d.getDate() +
+      '日' +
+      d.getHours() +
+      '时' +
+      d.getMinutes() +
+      '分'
     );
   }
 }
@@ -174,12 +174,12 @@ export function param2Obj(url) {
   }
   return JSON.parse(
     '{"' +
-		decodeURIComponent(search)
-		  .replace(/"/g, '\\"')
-		  .replace(/&/g, '","')
-		  .replace(/=/g, '":"')
-		  .replace(/\+/g, ' ') +
-		'"}'
+    decodeURIComponent(search)
+      .replace(/"/g, '\\"')
+      .replace(/&/g, '","')
+      .replace(/=/g, '":"')
+      .replace(/\+/g, ' ') +
+    '"}'
   );
 }
 
@@ -231,8 +231,8 @@ export function toggleClass(element, className) {
     classString += '' + className;
   } else {
     classString =
-			classString.substr(0, nameIndex) +
-			classString.substr(nameIndex + className.length);
+      classString.substr(0, nameIndex) +
+      classString.substr(nameIndex + className.length);
   }
   element.className = classString;
 }
@@ -258,7 +258,7 @@ export function getTime(type) {
 export function debounce(func, wait, immediate) {
   let timeout, args, context, timestamp, result;
 
-  const later = function() {
+  const later = function () {
     // 据上一次触发时间间隔
     const last = +new Date() - timestamp;
 
@@ -277,7 +277,7 @@ export function debounce(func, wait, immediate) {
     }
   };
 
-  return function(...args) {
+  return function (...args) {
     context = this;
     timestamp = +new Date();
     const callNow = immediate && !timeout;

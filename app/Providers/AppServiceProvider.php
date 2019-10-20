@@ -36,7 +36,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-	    Schema::defaultStringLength(191);
+        Schema::defaultStringLength(191);
     }
 
     private function _whereLike()
@@ -72,7 +72,7 @@ class AppServiceProvider extends ServiceProvider
             $hostInfo = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '';
             $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$hostInfo$pathInfo";
             Collection::macro('paginate',
-                function ($perPage = 15, $page = null, $options = []) use($actual_link) {
+                function ($perPage = 15, $page = null, $options = []) use ($actual_link) {
                     $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
                     return (new LengthAwarePaginator(
                         $this->forPage($page, $perPage)->values()->all(), $this->count(), $perPage, $page, $options))

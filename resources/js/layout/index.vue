@@ -1,21 +1,21 @@
 <template>
   <div :class="classObj" class="app-wrapper">
-    <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
-    <sidebar class="sidebar-container" />
+    <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside"/>
+    <sidebar class="sidebar-container"/>
     <div :class="{hasTagsView:needTagsView}" class="main-container">
       <div :class="{'fixed-header':fixedHeader}">
-        <navbar />
-        <tag-views v-if="needTagsView" />
+        <navbar/>
+        <tag-views v-if="needTagsView"/>
       </div>
-      <app-main />
-      <footer-main />
+      <app-main/>
+      <footer-main/>
       <right-panel v-if="showSettings">
-        <settings />
+        <settings/>
       </right-panel>
     </div>
     <!--<el-tooltip> to show the helptext -->
     <el-tooltip placement="top" :content="$t('common.back_to_top')">
-      <back-to-top :custom-style="myBackToTopStyle" :visibility-height="200" :back-position="0" transition-name="fade" />
+      <back-to-top :custom-style="myBackToTopStyle" :visibility-height="200" :back-position="0" transition-name="fade"/>
     </el-tooltip>
   </div>
 </template>

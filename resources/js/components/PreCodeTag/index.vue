@@ -30,8 +30,9 @@ export default {
     white-space: pre;
     word-wrap: break-word;
     overflow: auto;
-    code{
-      font-family: "Inconsolata","Monaco","Consolas","Andale Mono","Bitstream Vera Sans Mono","Courier New",Courier,monospace;
+
+    code {
+      font-family: "Inconsolata", "Monaco", "Consolas", "Andale Mono", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
       color: #dd6b20;
     }
   }

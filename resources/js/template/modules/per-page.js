@@ -1,13 +1,15 @@
 'use strict';
 
-module.exports = function(h) {
+module.exports = function (h) {
   var _this = this;
 
-  return function(perpageValues, cls, id) {
+  return function (perpageValues, cls, id) {
     return perpageValues.length > 1 ? h(
       'select',
-      { 'class': cls,
-        attrs: { name: 'limit',
+      {
+        'class': cls,
+        attrs: {
+          name: 'limit',
 
           id: id,
         },

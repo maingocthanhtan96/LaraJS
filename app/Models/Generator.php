@@ -9,7 +9,7 @@ class Generator extends Model
     protected $table = 'generators';
     protected $fillable = [
         'field',
-	    'model',
-	    'table',
+        'model',
+        'table',
     ];
 }

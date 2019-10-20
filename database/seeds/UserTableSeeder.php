@@ -18,13 +18,13 @@ class UserTableSeeder extends Seeder
 
         $limit = 10;
 
-		$admin = User::create([
-			'name' => 'Thanh Tan',
-			'email' => 'admin@larajs.com',
-			'avatar' => '/images/avatar/logo-tanmnt.png',
-			'password' => 'admin123',
-			'remember_token' => \Illuminate\Support\Str::random(10)
-		]);
+        $admin = User::create([
+            'name' => 'Thanh Tan',
+            'email' => 'admin@larajs.com',
+            'avatar' => '/images/avatar/logo-tanmnt.png',
+            'password' => 'admin123',
+            'remember_token' => \Illuminate\Support\Str::random(10)
+        ]);
         $manager = User::create([
             'name' => 'Manager',
             'email' => 'manager@larajs.com',
@@ -80,21 +80,21 @@ class UserTableSeeder extends Seeder
         $creatorRole->givePermissionTo(LarajsPermission::PERMISSION_CREATE);
         $editorRole->givePermissionTo(LarajsPermission::PERMISSION_EDIT);
 
-        for ($i = 0; $i < $limit; $i++){
-        	$userFaker = User::create([
-        		'name' => $faker->name,
-				'email' => $faker->unique()->email,
-				'avatar' => $faker->imageUrl($width = 150, $height = 150),
-				'password' => 'secret',
-				'remember_token' => \Illuminate\Support\Str::random(10),
+        for ($i = 0; $i < $limit; $i++) {
+            $userFaker = User::create([
+                'name' => $faker->name,
+                'email' => $faker->unique()->email,
+                'avatar' => $faker->imageUrl($width = 150, $height = 150),
+                'password' => 'secret',
+                'remember_token' => \Illuminate\Support\Str::random(10),
                 //{{SEEDER_NOT_DELETE_THIS_LINE}}
-			]);
+            ]);
             $roleName = $faker->randomElement([
                 LarajsPermission::ROLE_VISITOR,
                 LarajsPermission::ROLE_CREATOR,
                 LarajsPermission::ROLE_EDITOR,
             ]);
             $userFaker->syncRoles($roleName);
-		}
+        }
     }
 }

@@ -15,12 +15,12 @@ class SetupRolePermissionSeeder extends Seeder
      */
     public function run()
     {
-		foreach (LarajsPermission::roles() as $role) {
-			Role::findOrCreate($role, 'api');
-		}
+        foreach (LarajsPermission::roles() as $role) {
+            Role::findOrCreate($role, 'api');
+        }
 
-		foreach (LarajsPermission::permissions() as $permission) {
-			Permission::findOrCreate($permission, 'api');
-		}
+        foreach (LarajsPermission::permissions() as $permission) {
+            Permission::findOrCreate($permission, 'api');
+        }
     }
 }

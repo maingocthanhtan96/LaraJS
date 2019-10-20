@@ -4,7 +4,7 @@
       <el-card>
         <div slot="header" class="flex justify-end items-center">
           <router-link :to="{name: 'user_create'}" class="pan-btn blue-btn" tag="button">
-            <i class="fa fa-plus mr-2" />Create
+            <i class="fa fa-plus mr-2"/>Create
           </router-link>
         </div>
         <v-server-table
@@ -14,7 +14,7 @@
           :options="table.options"
         >
           <template v-if="loading" slot="afterBody">
-            <div v-loading="loading" class="overlay-loader" />
+            <div v-loading="loading" class="overlay-loader"/>
           </template>
           <template slot="id" slot-scope="props">{{ props.index }}</template>
           <template slot="avatar" slot-scope="{row}">
@@ -24,8 +24,10 @@
           </template>
           <!--{{$TEMPLATES_NOT_DELETE_THIS_LINE$}}-->
           <div slot="actions" slot-scope="{row}" class="flex justify-center items-center">
-            <router-link :to="{name: 'user_edit', params: {id: row.id}}"><i class="fa fa-edit el-link el-link--primary mr-2"></i></router-link>
-            <a class="cursor-pointer" @click="remove(row.id, row.name)"><i class="fa fa-trash-o el-link el-link--danger"></i></a>
+            <router-link :to="{name: 'user_edit', params: {id: row.id}}"><i
+              class="fa fa-edit el-link el-link--primary mr-2"></i></router-link>
+            <a class="cursor-pointer" @click="remove(row.id, row.name)"><i
+              class="fa fa-trash-o el-link el-link--danger"></i></a>
           </div>
         </v-server-table>
       </el-card>
@@ -34,6 +36,7 @@
 </template>
 <script>
 import UserResource from '@/api/user';
+
 const userResource = new UserResource();
 export default {
   data() {
@@ -41,7 +44,7 @@ export default {
       table: {
         columns: ['id', 'name', 'email', 'avatar', 'roles', 'created_at', 'actions'],
         options: {
-          requestFunction: function(query) {
+          requestFunction: function (query) {
             return userResource.list(query);
           },
           headings: {

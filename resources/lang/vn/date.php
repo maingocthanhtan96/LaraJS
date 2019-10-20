@@ -1,5 +1,5 @@
 <?php
 
 return [
-	'created_at' => "Ngày tạo"
+    'created_at' => "Ngày tạo"
 ];

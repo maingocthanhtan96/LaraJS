@@ -41,30 +41,30 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-	/**
-	 * Set permissions guard to API by default
-	 * @var string
-	 */
-	protected $guard_name = 'api';
+    /**
+     * Set permissions guard to API by default
+     * @var string
+     */
+    protected $guard_name = 'api';
 
-	public function setPasswordAttribute($password)
-	{
-		$this->attributes['password'] = Hash::make($password);
-	}
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = Hash::make($password);
+    }
 
-	/**
-	 * @return bool
-	 */
-	public function isAdmin(): bool
-	{
-		foreach ($this->roles  as $role) {
-			if ($role->isAdmin()) {
-				return true;
-			}
-		}
+    /**
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        foreach ($this->roles as $role) {
+            if ($role->isAdmin()) {
+                return true;
+            }
+        }
 
-		return false;
-	}
+        return false;
+    }
 
     //{{RELATIONS_NOT_DELETE_THIS_LINE}}
 }

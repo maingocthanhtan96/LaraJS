@@ -2,7 +2,7 @@
 
 var debounce = require('debounce');
 
-module.exports = function(h, inputClass) {
+module.exports = function (h, inputClass) {
   var _this = this;
 
   var search = this.source === 'client' ? this.search.bind(this, this.data) : this.serverSearch.bind(this);
@@ -20,16 +20,17 @@ module.exports = function(h, inputClass) {
     };
   }
 
-  return function(column) {
+  return function (column) {
     return h('input', {
       on: {
         'keyup': _this.opts.debounce ? onKeyUp : search,
       },
 
       'class': inputClass,
-      attrs: { name: _this._getColumnName(column),
+      attrs: {
+        name: _this._getColumnName(column),
         type: 'text',
-        placeholder: _this.display('filterBy', { column: _this.getHeading(column) }),
+        placeholder: _this.display('filterBy', {column: _this.getHeading(column)}),
       },
       domProps: {
         'value': _this.query[column],

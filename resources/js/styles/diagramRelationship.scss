@@ -89,7 +89,7 @@
       -webkit-transition: all 0.5s;
       -moz-transition: all 0.5s;
 
-      &:hover, &:hover + ul li a, &:hover ~ ul a{
+      &:hover, &:hover + ul li a, &:hover ~ ul a {
         background: #c8e4f8;
         color: #000;
         border: 1px solid #94a0b4;
@@ -99,7 +99,8 @@
         border-color: #94a0b4;
       }
     }
-    .has-mtm-parent:hover ~ ul a.has-mtm{
+
+    .has-mtm-parent:hover ~ ul a.has-mtm {
       background: #c8e4f8;
       color: #000;
       border: 1px solid #94a0b4;

@@ -15,7 +15,7 @@ class GeneratorsTableSeeder extends Seeder
             "name" => "User",
             "name_trans" => "User",
             "limit" => 25,
-            "options" => ["Soft Deletes","Datatables"]
+            "options" => ["Soft Deletes", "Datatables"]
         ];
 
         $fields[] = [

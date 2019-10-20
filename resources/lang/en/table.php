@@ -1,24 +1,24 @@
 <?php
 
 return [
-	'user' => [
-		'id' => "No.",
-		'name' => 'Name',
+    'user' => [
+        'id' => "No.",
+        'name' => 'Name',
         'email' => 'Email',
         'avatar' => 'Avatar',
-		'role' => 'Role',
+        'role' => 'Role',
         'password' => 'Password',
         'password_confirm' => 'Confrim password'
-	],
+    ],
     'rolePermission' => [
         'id' => 'No.',
         'name' => 'Name',
         'description' => 'Description',
     ],
     //{{LANG_TABLE_NOT_DELETE_THIS_LINE}}
-	'texts' => [
-		'count' => 'Showing {from} to {to} of {count} records|{count} records|One record',
-		'first' => 'First',
+    'texts' => [
+        'count' => 'Showing {from} to {to} of {count} records|{count} records|One record',
+        'first' => 'First',
         'last' => 'Last',
         'filter' => "Filter:",
         'filterPlaceholder' => "Search...",
@@ -29,5 +29,5 @@ return [
         'loading' => 'Loading...',
         'defaultOption' => 'Select {column}',
         'columns' => 'Columns'
-	]
+    ]
 ];

@@ -12,25 +12,25 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-		\App\Models\Role::create(
-			[
-				'name' => LarajsPermission::ROLE_ADMIN,
-				'guard_name' => 'api',
+        \App\Models\Role::create(
+            [
+                'name' => LarajsPermission::ROLE_ADMIN,
+                'guard_name' => 'api',
                 'description' => 'Super Administrator. Have access and full permission to all pages.'
-			]
-		);
+            ]
+        );
         \App\Models\Role::create(
             [
                 'name' => LarajsPermission::ROLE_MANAGER,
                 'description' => 'Just a manager. Can you manage',
             ]
         );
-		\App\Models\Role::create(
-			[
-				'name' => LarajsPermission::ROLE_USER,
+        \App\Models\Role::create(
+            [
+                'name' => LarajsPermission::ROLE_USER,
                 'description' => 'Normal user. Have access to some pages',
-			]
-		);
+            ]
+        );
         \App\Models\Role::create(
             [
                 'name' => LarajsPermission::ROLE_VISITOR,

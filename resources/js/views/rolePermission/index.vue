@@ -6,7 +6,9 @@
           <h3>{{$t('route.role_permission')}}</h3>
         </div>
         <div class="text-right mb-8">
-          <el-button type="primary" @click="resetFormRole(); dialogCreateRoleVisible = true; " icon="el-icon-plus">Role</el-button>
+          <el-button type="primary" @click="resetFormRole(); dialogCreateRoleVisible = true; " icon="el-icon-plus">
+            Role
+          </el-button>
         </div>
         <div>
           <!-- table role -->
@@ -17,7 +19,8 @@
             :data="roles"
             v-loading="loading"
           >
-            <el-table-column type="index" align="center" :label="$t('table.rolePermission.id')" width="50px"></el-table-column>
+            <el-table-column type="index" align="center" :label="$t('table.rolePermission.id')"
+                             width="50px"></el-table-column>
             <el-table-column align="center" :label="$t('table.rolePermission.name')">
               <template slot-scope="{row}">
                 {{row.name}}
@@ -30,18 +33,23 @@
             </el-table-column>
             <el-table-column v-if="checkPermission(['manage permission'])" align="center" label="Actions">
               <template v-if="row.name !== 'admin'" v-permission="['manage permission']" slot-scope="{row}">
-                <el-button type="primary" icon="el-icon-edit" size="small" @click="handleEditRolePermissions(row.id)">Edit permission
+                <el-button type="primary" icon="el-icon-edit" size="small" @click="handleEditRolePermissions(row.id)">
+                  Edit permission
                 </el-button>
-                <el-button type="danger" icon="el-icon-delete" size="small" @click="handleDeleteRole(row.id, row.name)"></el-button>
+                <el-button type="danger" icon="el-icon-delete" size="small"
+                           @click="handleDeleteRole(row.id, row.name)"></el-button>
               </template>
             </el-table-column>
           </el-table>
           <!-- end table role -->
           <!-- table permission -->
           <div class="my-8 text-right">
-            <el-button type="primary" @click="dialogCreatePermissionVisible = true; resetFormPermission();" icon="el-icon-plus">Permission</el-button>
+            <el-button type="primary" @click="dialogCreatePermissionVisible = true; resetFormPermission();"
+                       icon="el-icon-plus">Permission
+            </el-button>
           </div>
-          <el-input v-model="query.keyword" :placeholder="$t('table.rolePermission.name')" class="filter-item w-64 mb-4" @keyup.enter.native="getPermissions" />
+          <el-input v-model="query.keyword" :placeholder="$t('table.rolePermission.name')" class="filter-item w-64 mb-4"
+                    @keyup.enter.native="getPermissions"/>
           <el-table
             highlight-current-row
             fit
@@ -49,7 +57,8 @@
             :data="permissions"
             v-loading="loading"
           >
-            <el-table-column type="index" align="center" :label="$t('table.rolePermission.id')" width="50px"></el-table-column>
+            <el-table-column type="index" align="center" :label="$t('table.rolePermission.id')"
+                             width="50px"></el-table-column>
             <el-table-column align="center" :label="$t('table.rolePermission.name')">
               <template slot-scope="{row}">
                 {{row.name}}
@@ -62,12 +71,15 @@
             </el-table-column>
             <el-table-column v-if="checkPermission(['manage permission'])" align="center" label="Actions">
               <template v-if="row.name !== 'manage permission'" v-permission="['manage permission']" slot-scope="{row}">
-                <el-button type="primary" icon="el-icon-edit" size="small" @click="handleEditPermissions(row.id)"></el-button>
-                <el-button type="danger" icon="el-icon-delete" size="small" @click="handleDeletePermission(row.id, row.name)"></el-button>
+                <el-button type="primary" icon="el-icon-edit" size="small"
+                           @click="handleEditPermissions(row.id)"></el-button>
+                <el-button type="danger" icon="el-icon-delete" size="small"
+                           @click="handleDeletePermission(row.id, row.name)"></el-button>
               </template>
             </el-table-column>
           </el-table>
-          <pagination v-show="total > 0" :total="total" :page.sync="query.page" :limit.sync="query.limit" @pagination="getPermissions" />
+          <pagination v-show="total > 0" :total="total" :page.sync="query.page" :limit.sync="query.limit"
+                      @pagination="getPermissions"/>
           <!-- end table permission -->
           <!--update role by permission-->
           <el-dialog
@@ -88,19 +100,24 @@
               <el-form class="w-6/12" :model="currentRole" label-width="80px" label-position="top">
                 <el-form-item label="Menus">
                   <el-tree
-                    ref="menuPermissions" :data="routesData" :props="permissionProps" :default-checked-keys="permissionName(roleMenuPermissions)" show-checkbox node-key="name" class="permission-tree"
+                    ref="menuPermissions" :data="routesData" :props="permissionProps"
+                    :default-checked-keys="permissionName(roleMenuPermissions)" show-checkbox node-key="name"
+                    class="permission-tree"
                   />
                 </el-form-item>
               </el-form>
               <el-form class="w-6/12" :model="currentRole" label-width="80px" label-position="top">
                 <el-form-item label="Permissions">
-                  <el-tree ref="otherPermissions" :data="otherPermissions" :default-checked-keys="permissionKeys(roleOtherPermissions)" :props="permissionProps" show-checkbox node-key="id" class="permission-tree" />
+                  <el-tree ref="otherPermissions" :data="otherPermissions"
+                           :default-checked-keys="permissionKeys(roleOtherPermissions)" :props="permissionProps"
+                           show-checkbox node-key="id" class="permission-tree"/>
                 </el-form-item>
               </el-form>
             </div>
             <span slot="footer" class="dialog-footer">
               <el-button @click="dialogUpdateRoleVisible = false">Cancel</el-button>
-              <el-button type="primary" icon="el-icon-check" @click="updateRolePermission">{{$t('button.update')}}</el-button>
+              <el-button type="primary" icon="el-icon-check"
+                         @click="updateRolePermission">{{$t('button.update')}}</el-button>
             </span>
           </el-dialog>
           <!--end update role permission-->
@@ -121,7 +138,8 @@
             </div>
             <span slot="footer" class="dialog-footer">
               <el-button @click="dialogCreateRoleVisible = false">Cancel</el-button>
-              <el-button type="primary" icon="el-icon-plus" @click="createRole('formRole')">{{$t('button.create')}}</el-button>
+              <el-button type="primary" icon="el-icon-plus"
+                         @click="createRole('formRole')">{{$t('button.create')}}</el-button>
             </span>
           </el-dialog>
           <!-- end create role -->
@@ -131,7 +149,8 @@
             :visible.sync="dialogCreatePermissionVisible"
             center>
             <div>
-              <el-form ref="formPermission" :model="formPermission" :rules="permissionRules" label-width="110px" label-position="left">
+              <el-form ref="formPermission" :model="formPermission" :rules="permissionRules" label-width="110px"
+                       label-position="left">
                 <el-form-item required label="Permission" prop="name">
                   <el-input autofocus v-model="formPermission.name" placeholder="Ex: role_permission"></el-input>
                 </el-form-item>
@@ -142,7 +161,8 @@
             </div>
             <span slot="footer" class="dialog-footer">
               <el-button @click="dialogCreatePermissionVisible = false">Cancel</el-button>
-              <el-button  v-if="+permissionId === 0"  type="primary" icon="el-icon-plus" @click="createPermission('formPermission')">{{$t('button.create')}}</el-button>
+              <el-button v-if="+permissionId === 0" type="primary" icon="el-icon-plus"
+                         @click="createPermission('formPermission')">{{$t('button.create')}}</el-button>
               <el-button v-else type="primary" icon="el-icon-check" @click="updatePermission('formRole')">{{$t('button.update')}}</el-button>
             </span>
           </el-dialog>
@@ -231,36 +251,40 @@ export default {
     roleRules() {
       return {
         name: [
-          { validator: (rule, value, callback) => {
-            if (!value) {
-              return callback(new Error(this.$t('validation.required', { attribute: 'Role' })));
-            } else {
-              const checkExist = this.roles.some(val => val.name === value && val.id !== this.currentRoleId);
-              if (checkExist) {
-                return callback(new Error('Role exist!'));
+          {
+            validator: (rule, value, callback) => {
+              if (!value) {
+                return callback(new Error(this.$t('validation.required', { attribute: 'Role' })));
               } else {
-                callback();
+                const checkExist = this.roles.some(val => val.name === value && val.id !== this.currentRoleId);
+                if (checkExist) {
+                  return callback(new Error('Role exist!'));
+                } else {
+                  callback();
+                }
               }
-            }
-          }, trigger: ['blur', 'change'] },
+            }, trigger: ['blur', 'change'],
+          },
         ],
       };
     },
     permissionRules() {
       return {
         name: [
-          { validator: (rule, value, callback) => {
-            if (!value) {
-              return callback(new Error(this.$t('validation.required', { attribute: 'Permission' })));
-            } else {
-              const checkExist = this.permissions.some(val => val.name === value && val.id !== this.permissionId);
-              if (checkExist) {
-                return callback(new Error('Permission exist!'));
+          {
+            validator: (rule, value, callback) => {
+              if (!value) {
+                return callback(new Error(this.$t('validation.required', { attribute: 'Permission' })));
               } else {
-                callback();
+                const checkExist = this.permissions.some(val => val.name === value && val.id !== this.permissionId);
+                if (checkExist) {
+                  return callback(new Error('Permission exist!'));
+                } else {
+                  callback();
+                }
               }
-            }
-          }, trigger: ['blur', 'change'] },
+            }, trigger: ['blur', 'change'],
+          },
         ],
       };
     },
@@ -287,7 +311,7 @@ export default {
           path: path.resolve(basePath, route.path),
           name: route.meta && route.meta.title,
         };
-        // recursive child routes
+          // recursive child routes
         if (route.children) {
           data.children = this.generateRoutes(route.children, data.path);
         }
@@ -315,7 +339,9 @@ export default {
       });
     },
     classifyPermissions(permissions) {
-      const all = []; const menu = []; const other = [];
+      const all = [];
+      const menu = [];
+      const other = [];
       permissions.forEach(permission => {
         const permissionName = permission.name;
         all.push(permission);
@@ -357,7 +383,7 @@ export default {
         'menu': checkedMenu,
         'other': checkedOther,
       };
-      // const checkedPermissions = checkedMenu.concat(checkedOther);
+        // const checkedPermissions = checkedMenu.concat(checkedOther);
       roleResource.update(this.currentRole.id, { permissions, role: this.formRole }).then(res => {
         this.$message({
           message: 'Role ' + this.$t('messages.update'),
@@ -473,7 +499,7 @@ export default {
 
       // Show parent if there are no child route to display
       if (showingChildren.length === 0) {
-        onlyOneChild = { ... parent, path: '', noShowingChildren: true };
+        onlyOneChild = { ...parent, path: '', noShowingChildren: true };
         return onlyOneChild;
       }
 
@@ -485,7 +511,7 @@ export default {
         description: '',
       };
     },
-    resetFormPermission () {
+    resetFormPermission() {
       this.formPermission = {
         name: '',
         description: '',

@@ -175,10 +175,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-		Barryvdh\Cors\ServiceProvider::class,
-		MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class,
+        Barryvdh\Cors\ServiceProvider::class,
+        MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
-		Spatie\Permission\PermissionServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class
     ],
 

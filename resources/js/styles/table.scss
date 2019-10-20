@@ -2,12 +2,14 @@
   width: 100%;
   overflow-x: auto;
 }
+
 table {
   th {
     text-align: center !important;
     color: #333 !important;
   }
 }
+
 .VuePagination__pagination-item.cursor-not-allowed {
   a {
     cursor: not-allowed !important;
@@ -26,14 +28,16 @@ table {
     color: white;
   }
 
-  table thead tr {}
+  table thead tr {
+  }
 
   table thead tr th {
     padding: 0.5em 1em;
     text-align: center;
   }
 
-  table tbody {}
+  table tbody {
+  }
 
   table tbody tr {
     border-bottom: 1px solid grey;
@@ -61,17 +65,20 @@ table {
     display: inline;
   }
 
-  table tbody tr td ul.actions {}
+  table tbody tr td ul.actions {
+  }
 
-  table tbody tr td ul.actions {}
+  table tbody tr td ul.actions {
+  }
 }
+
 @media screen and (max-width: 768px) {
   .table-mobile {
     table {
       width: 100%;
     }
 
-    table thead,colgroup {
+    table thead, colgroup {
       display: none;
     }
 

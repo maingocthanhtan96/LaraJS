@@ -3,15 +3,17 @@
 var dropdownWrapper = require('./dropdown-wrapper');
 var dropdownItemWrapper = require('./dropdown-item-wrapper');
 
-module.exports = function(h) {
+module.exports = function (h) {
   var _this = this;
 
-  return function(classes) {
-    var cols = _this.columns.map(function(column) {
+  return function (classes) {
+    var cols = _this.columns.map(function (column) {
       return dropdownItemWrapper(h, classes, h(
         'a',
-        { 'class': classes.dropdown.item + 'sadsadsads',
-          attrs: { href: '#',
+        {
+          'class': classes.dropdown.item + 'sadsadsads',
+          attrs: {
+            href: '#',
           },
           on: {
             'click': function click() {
@@ -20,7 +22,8 @@ module.exports = function(h) {
           },
         },
         [h('input', {
-          attrs: { type: 'checkbox',
+          attrs: {
+            type: 'checkbox',
             disabled: _this._onlyColumn(column),
           },
           domProps: {
@@ -33,11 +36,14 @@ module.exports = function(h) {
 
     return h(
       'div',
-      { ref: 'columnsdropdown', 'class': classes.dropdown.container + ' ' + classes.right + ' VueTables__columns-dropdown' },
+      {
+        ref: 'columnsdropdown',
+        'class': classes.dropdown.container + ' ' + classes.right + ' VueTables__columns-dropdown'
+      },
       [h(
         'button',
         {
-          attrs: { type: 'button' },
+          attrs: {type: 'button'},
           'class': classes.button + ' ' + classes.dropdown.trigger,
           on: {
             'click': _this._toggleColumnsDropdown.bind(_this),
@@ -45,8 +51,8 @@ module.exports = function(h) {
         },
         [_this.display('columns'), h(
           'span',
-          { 'class': classes.icon + ' ' + classes.small },
-          [h('i', { 'class': classes.dropdown.caret })]
+          {'class': classes.icon + ' ' + classes.small},
+          [h('i', {'class': classes.dropdown.caret})]
         )]
       ), dropdownWrapper.call(_this, h, classes, cols)]
     );

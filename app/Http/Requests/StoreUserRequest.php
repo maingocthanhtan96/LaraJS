@@ -26,7 +26,7 @@ class StoreUserRequest extends FormRequest
         $user = $this->route('user', NULL);
         $id = $user ? $user->id : NULL;
         return [
-			'email' => "required|string|email|max:255|unique:users,email,$id,id,deleted_at,NULL",
+            'email' => "required|string|email|max:255|unique:users,email,$id,id,deleted_at,NULL",
             //{{REQUEST_RULES_NOT_DELETE_THIS_LINE}}
         ];
     }
