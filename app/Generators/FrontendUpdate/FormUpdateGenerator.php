@@ -239,12 +239,12 @@ Class FormUpdateGenerator extends BaseGenerator
                                     $fieldsGenerateDataForm[] = $formDefault;
                                 }
                             } else {
-                                if($valForm === " []" || $valForm === " '[]'" || $valForm === " ''") {
-                                    if($change['db_type'] === $this->dbType['file']) {
+                                if ($valForm === " []" || $valForm === " '[]'" || $valForm === " ''") {
+                                    if ($change['db_type'] === $this->dbType['file']) {
                                         $valForm = " []";
-                                    } else if($change['db_type'] === $this->dbType['json']) {
+                                    } else if ($change['db_type'] === $this->dbType['json']) {
                                         $valForm = " '[]'";
-                                    }else {
+                                    } else {
                                         $valForm = " ''";
                                     }
                                 }

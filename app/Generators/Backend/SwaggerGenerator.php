@@ -44,7 +44,7 @@ Class SwaggerGenerator extends BaseGenerator
         $templateData = str_replace('{{DATE}}', $now->toDateTimeString(), $templateData);
         $templateData = str_replace('{{MODEL_CLASS}}', $model['name'], $templateData);
         $templateData = str_replace('{{RESOURCE}}', $this->serviceGenerator->urlResource($model['name']), $templateData);
-        $templateData = $this->serviceGenerator->replaceNotDelete($this->notDelete['property'],  $this->generateFields($fields), 1, $templateData);
+        $templateData = $this->serviceGenerator->replaceNotDelete($this->notDelete['property'], $this->generateFields($fields), 1, $templateData);
 
         //create sort delete
         $fileName = $model['name'] . '.php';
@@ -60,10 +60,10 @@ Class SwaggerGenerator extends BaseGenerator
         $configDefaultValue = config('generator.default_value');
 
         foreach ($fields as $index => $field) {
-            if($index > 0) {
-                if($field['default_value'] === $configDefaultValue['none']) {
+            if ($index > 0) {
+                if ($field['default_value'] === $configDefaultValue['none']) {
                     $defaultValue = 'NONE';
-                } else if($field['default_value'] === $configDefaultValue['null']) {
+                } else if ($field['default_value'] === $configDefaultValue['null']) {
                     $defaultValue = 'NULL';
                 } else {
                     $defaultValue = $field['as_define'];
@@ -124,8 +124,8 @@ Class SwaggerGenerator extends BaseGenerator
                         break;
                     case $dbType['enum']:
                         $enum = '';
-                        foreach($field['enum'] as $keyEnum => $value) {
-                            if($keyEnum === count($field['enum']) - 1) {
+                        foreach ($field['enum'] as $keyEnum => $value) {
+                            if ($keyEnum === count($field['enum']) - 1) {
                                 $enum .= "$value";
                             } else {
                                 $enum .= "$value" . ',';
@@ -137,7 +137,7 @@ Class SwaggerGenerator extends BaseGenerator
                         $templateProperty = str_replace('{{DEFAULT_VALUE}}', $defaultValue, $templateProperty);
                         $templateProperty = str_replace('{{DB_TYPE}}', self::DB_TYPE_STRING, $templateProperty);
                         $templateProperty = str_replace('{{EXAMPLE}}', \Arr::random($field['enum']), $templateProperty);
-                        $templateProperty = str_replace('{{ENUM}}', "{".$enum."}", $templateProperty);
+                        $templateProperty = str_replace('{{ENUM}}', "{" . $enum . "}", $templateProperty);
                         $fieldsGenerate[] = $templateProperty;
                         break;
                     case $dbType['json']:

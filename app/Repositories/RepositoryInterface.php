@@ -7,6 +7,7 @@ interface RepositoryInterface
     /**
      * Get all
      * @return mixed
+     * @author tanmnt
      */
     public function getAll();
 
@@ -14,6 +15,7 @@ interface RepositoryInterface
      * Get one
      * @param $id
      * @return mixed
+     * @author tanmnt
      */
     public function find($id);
 
@@ -22,6 +24,7 @@ interface RepositoryInterface
      * @param $id
      * @param array $with
      * @return mixed
+     * @author tanmnt
      */
     public function findWith($id, $with);
 
@@ -29,6 +32,7 @@ interface RepositoryInterface
      * Create
      * @param array $attributes
      * @return mixed
+     * @author tanmnt
      */
     public function create(array $attributes);
 
@@ -37,6 +41,7 @@ interface RepositoryInterface
      * @param $id
      * @param array $attributes
      * @return mixed
+     * @author tanmnt
      */
     public function update($id, array $attributes);
 
@@ -44,6 +49,7 @@ interface RepositoryInterface
      * Delete
      * @param $id
      * @return mixed
+     * @author tanmnt
      */
     public function delete($id);
 }

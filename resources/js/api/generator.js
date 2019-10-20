@@ -6,6 +6,12 @@ export default class GeneratorResource extends Resource {
     super('generators');
   }
 
+  /**
+   * check exist model
+   * @param name
+   * @returns {AxiosPromise}
+   * @author tanmnt
+   */
   checkModel(name) {
     return request({
       url: '/generators/check-model',
@@ -14,6 +20,13 @@ export default class GeneratorResource extends Resource {
     });
   }
 
+  /**
+   * check exists column
+   * @param table
+   * @param column
+   * @returns {AxiosPromise}
+   * @author tanmnt
+   */
   checkColumn(table, column) {
     return request({
       url: '/generators/check-column',
@@ -22,6 +35,12 @@ export default class GeneratorResource extends Resource {
     });
   }
 
+  /**
+   * get model
+   * @param model
+   * @returns {AxiosPromise}
+   * @author tanmnt
+   */
   getModels(model) {
     return request({
       url: '/generators/get-models',
@@ -30,6 +49,12 @@ export default class GeneratorResource extends Resource {
     });
   }
 
+  /**
+   * get columns
+   * @param table
+   * @returns {AxiosPromise}
+   * @author tanmnt
+   */
   getColumns(table) {
     return request({
       url: '/generators/get-columns',
@@ -38,6 +63,12 @@ export default class GeneratorResource extends Resource {
     });
   }
 
+  /**
+   * generate relationship
+   * @param relationship
+   * @returns {AxiosPromise}
+   * @author tanmnt
+   */
   generateRelationship(relationship) {
     return request({
       url: '/generators/relationship',
@@ -46,6 +77,12 @@ export default class GeneratorResource extends Resource {
     });
   }
 
+  /**
+   * generate diagram
+   * @param model
+   * @returns {AxiosPromise}
+   * @author tanmnt
+   */
   generateDiagram(model) {
     return request({
       url: '/generators/diagram',

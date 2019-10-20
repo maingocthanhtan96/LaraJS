@@ -39,7 +39,7 @@ class RoleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -56,7 +56,7 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -67,7 +67,7 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -78,8 +78,8 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Role $role)
@@ -88,13 +88,13 @@ class RoleController extends Controller
             $viewMenu = 'view menu ';
             $input = $request->all();
             $viewMenuPermissions = [];
-            if(!$role || $role->isAdmin()) {
+            if (!$role || $role->isAdmin()) {
                 return $this->jsonError('Role not found!', 404);
             }
             $permissions = $request->get('permissions', []);
-            foreach($permissions['menu'] as $menu) {
+            foreach ($permissions['menu'] as $menu) {
                 $name = $viewMenu . $menu;
-                if($name !== $viewMenu) {
+                if ($name !== $viewMenu) {
                     array_push($viewMenuPermissions, $name);
                     Permission::findOrCreate($name, 'api');
                 }
@@ -116,7 +116,7 @@ class RoleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(Role $role)

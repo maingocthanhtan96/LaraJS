@@ -2,7 +2,7 @@
   <div v-if="errorLogs.length>0">
     <el-badge :is-dot="true" style="line-height: 25px;margin-top: -5px;" @click.native="dialogTableVisible=true">
       <el-button style="padding: 8px 10px;" size="small" type="danger">
-        <svg-icon icon-class="bug" />
+        <svg-icon icon-class="bug"/>
       </el-button>
     </el-badge>
 
@@ -43,26 +43,26 @@
 </template>
 
 <script>
-export default {
-  name: 'ErrorLog',
-  data() {
-    return {
-      dialogTableVisible: false,
-    };
-  },
-  computed: {
-    errorLogs() {
-      return this.$store.getters.errorLogs;
+  export default {
+    name: 'ErrorLog',
+    data() {
+      return {
+        dialogTableVisible: false,
+      };
     },
-  },
-};
+    computed: {
+      errorLogs() {
+        return this.$store.getters.errorLogs;
+      },
+    },
+  };
 </script>
 
 <style scoped>
-.message-title {
-  font-size: 16px;
-  color: #333;
-  font-weight: bold;
-  padding-right: 8px;
-}
+  .message-title {
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+    padding-right: 8px;
+  }
 </style>

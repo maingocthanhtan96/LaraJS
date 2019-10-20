@@ -90,7 +90,7 @@ Class SwaggerUpdateGenerator extends BaseGenerator
         }
 
         foreach ($changeFields as $change) {
-            if($dataOld[$change['id']]['id'] === $change['id']) {
+            if ($dataOld[$change['id']]['id'] === $change['id']) {
                 $searchStart = 'Field[' . $change['field_name'] . ']';
                 $searchEnd = 'protected $' . $change['field_name'] . ';';
                 $templateColumns = $this->serviceGenerator->searchTemplate($searchStart, $searchEnd, -strlen($searchStart), strlen($searchEnd) * 2, $templateDataReal);

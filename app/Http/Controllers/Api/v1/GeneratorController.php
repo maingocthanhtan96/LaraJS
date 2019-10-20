@@ -238,8 +238,8 @@ class GeneratorController extends Controller
 
     private function _generateFrontendUpdate($generator, $model, $updateFields)
     {
-		new ViewUpdateGenerator($model, $updateFields);
-		new FormUpdateGenerator($generator, $model, $updateFields);
+        new ViewUpdateGenerator($model, $updateFields);
+        new FormUpdateGenerator($generator, $model, $updateFields);
     }
 
     private function _runCommand()
