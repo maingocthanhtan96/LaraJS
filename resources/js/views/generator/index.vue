@@ -4,9 +4,12 @@
       <el-card>
         <div slot="header" class="flex justify-between items-center">
           <div></div>
-          <button @click="dialogVisible = true" class="hover:bg-green-600 hover:text-white font-bold border rounded border-green-600 text-green-600 bg-transparent py-3 px-4"><svg-icon icon-class="tree" /></button>
+          <button @click="dialogVisible = true"
+                  class="hover:bg-green-600 hover:text-white font-bold border rounded border-green-600 text-green-600 bg-transparent py-3 px-4">
+            <svg-icon icon-class="tree-table"/>
+          </button>
           <router-link :to="{name: 'generator_create'}" class="pan-btn blue-btn" tag="button">
-            <i class="fa fa-plus mr-2" />Create
+            <i class="fa fa-plus mr-2"/>Create
           </router-link>
         </div>
         <v-server-table
@@ -17,7 +20,7 @@
           :options="table.options"
         >
           <template v-if="loading" slot="afterBody">
-            <div v-loading="loading" class="overlay-loader" />
+            <div v-loading="loading" class="overlay-loader"/>
           </template>
           <template slot="id" slot-scope="props">{{ props.index }}</template>
           <div slot="actions" slot-scope="{row}" class="flex justify-center items-center">
@@ -28,7 +31,7 @@
             </router-link>
             <router-link :to="{name: 'generator_relationship', params: {id: row.id}}">
               <el-tooltip effect="dark" content="Relationship" placement="right">
-                <svg-icon class="el-link el-link--success" icon-class="tree" />
+                <svg-icon class="el-link el-link--success" icon-class="tree"/>
               </el-tooltip>
             </router-link>
           </div>
@@ -50,7 +53,7 @@
               :preview-src-list="[this.diagram]">
             </el-image>
           </div>
-          <svg-icon icon-class="diagram-erd"  />
+          <svg-icon icon-class="diagram-erd"/>
         </div>
       </el-dialog>
     </div>
@@ -69,7 +72,7 @@ export default {
       table: {
         columns: ['id', 'table', 'created_at', 'actions'],
         options: {
-          requestFunction: function(query) {
+          requestFunction: function (query) {
             return generatorResource.list(query);
           },
           headings: {
@@ -124,11 +127,11 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
- .generate-table {
-   &::v-deep thead > tr > th{
-     &:nth-child(4) {
-       width: 245px;
-     }
-   }
- }
+  .generate-table {
+    &::v-deep thead > tr > th {
+      &:nth-child(4) {
+        width: 245px;
+      }
+    }
+  }
 </style>

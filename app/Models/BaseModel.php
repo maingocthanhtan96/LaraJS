@@ -29,7 +29,7 @@ class BaseModel extends Model
 
         // make sure column aliases are unique
         $groupAlias = 'group_' . md5(time());
-        $rankAlias  = 'rank_' . md5(time());
+        $rankAlias = 'rank_' . md5(time());
 
         // apply mysql variables
         $query->addSelect(DB::raw(
@@ -37,7 +37,7 @@ class BaseModel extends Model
         ));
 
         // make sure first order clause is the group order
-        $query->getQuery()->orders = (array) $query->getQuery()->orders;
+        $query->getQuery()->orders = (array)$query->getQuery()->orders;
         array_unshift($query->getQuery()->orders, ['column' => $group, 'direction' => 'asc']);
 
         // prepare subquery

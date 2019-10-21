@@ -1,9 +1,9 @@
 'use strict';
 
-module.exports = function(h) {
+module.exports = function (h) {
   var _this = this;
 
-  return function(right) {
+  return function (right) {
     var sortControl = require('./sort-control')(h, right);
 
     var headings = [];
@@ -12,7 +12,7 @@ module.exports = function(h) {
       headings.push(h('th'));
     }
 
-    _this.allColumns.map(function(column) {
+    _this.allColumns.map(function (column) {
       headings.push(h(
         'th',
         {
@@ -20,10 +20,12 @@ module.exports = function(h) {
             'click': this.orderByColumn.bind(this, column),
           },
 
-          'class': this.sortableClass(column) + ' px-4' },
+          'class': this.sortableClass(column) + ' px-4'
+        },
         [h(
           'span',
-          { 'class': 'VueTables__heading', attrs: { title: this.getHeadingTooltip(column, h) },
+          {
+            'class': 'VueTables__heading', attrs: {title: this.getHeadingTooltip(column, h)},
           },
           [this.getHeading(column, h)]
         ), sortControl.call(this, column)]

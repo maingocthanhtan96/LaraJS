@@ -1,9 +1,9 @@
 'use strict';
 
-module.exports = function(h) {
+module.exports = function (h) {
   var _this = this;
 
-  return function(theme) {
+  return function (theme) {
     if (_this.opts.pagination && _this.opts.pagination.dropdown) {
       return '';
     }
@@ -24,7 +24,8 @@ module.exports = function(h) {
 
     return h('pagination', {
       ref: 'pagination',
-      attrs: { options: options,
+      attrs: {
+        options: options,
         'for': name,
         vuex: _this.vuex,
         records: _this.count,

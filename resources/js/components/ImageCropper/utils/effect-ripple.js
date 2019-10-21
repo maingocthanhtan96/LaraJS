@@ -5,7 +5,7 @@
  * @param  {[Object]} argOpts [description]
  * @return {[bollean]}          [description]
  */
-export default function(e, argOpts) {
+export default function (e, argOpts) {
   var opts = Object.assign({
     ele: e.target, // Corrugated element
     type: 'hit', // Hit click position spread center center point expansion

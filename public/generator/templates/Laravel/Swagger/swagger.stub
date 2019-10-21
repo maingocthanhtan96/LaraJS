@@ -1,0 +1,69 @@
+<?php
+/**
+ * Created by: Tanmnt
+ * Email: maingocthanhan96@gmail.com
+ * Date Time: {{DATE}}
+ */
+
+/**
+ * @OA\Get(
+ *     path="/{{RESOURCE}}",
+ *     tags={"{{MODEL_CLASS}}"},
+ *     summary="List {{MODEL_CLASS}}",
+ *     security={{"authApi":{}}},
+ *     @OA\Response(response="200", ref="#/components/responses/OK"),
+ *     @OA\Response(response="404", ref="#/components/responses/NotFound"),
+ *     @OA\Response(response="500", ref="#/components/responses/Error"),
+ * )
+ *
+ * @OA\Post(
+ *     path="/{{RESOURCE}}",
+ *     tags={"{{MODEL_CLASS}}"},
+ *     summary="Create {{MODEL_CLASS}}",
+ *     security={{"authApi":{}}},
+ *     @OA\RequestBody(
+ *          required=true,
+ *          @OA\JsonContent(ref="#/components/schemas/{{MODEL_CLASS}}"),
+ *     ),
+ *     @OA\Response(response="200", ref="#/components/responses/OK"),
+ *     @OA\Response(response="404", ref="#/components/responses/NotFound"),
+ *     @OA\Response(response="500", ref="#/components/responses/Error"),
+ * )
+ *
+ * @OA\Put(
+ *     path="/{{RESOURCE}}/{id}",
+ *     tags={"{{MODEL_CLASS}}"},
+ *     summary="Update {{MODEL_CLASS}}",
+ *     security={{"authApi":{}}},
+ *     @OA\Parameter(ref="#/components/parameters/id"),
+ *     @OA\RequestBody(
+ *          required=true,
+ *          @OA\JsonContent(ref="#/components/schemas/{{MODEL_CLASS}}"),
+ *     ),
+ *     @OA\Response(response="200", ref="#/components/responses/OK"),
+ *     @OA\Response(response="404", ref="#/components/responses/NotFound"),
+ *     @OA\Response(response="500", ref="#/components/responses/Error"),
+ * )
+ *
+ * @OA\Delete(
+ *     path="/{{RESOURCE}}/{id}",
+ *     tags={"{{MODEL_CLASS}}"},
+ *     summary="Delete {{MODEL_CLASS}}",
+ *     security={{"authApi":{}}},
+ *     @OA\Parameter(ref="#/components/parameters/id"),
+ *     @OA\Response(response="200", ref="#/components/responses/OK"),
+ *     @OA\Response(response="404", ref="#/components/responses/NotFound"),
+ *     @OA\Response(response="500", ref="#/components/responses/Error"),
+ * )
+ */
+
+/**
+ * @OA\Schema(
+ *     type="object",
+ *     title="{{MODEL_CLASS}}",
+ * )
+ */
+class {{MODEL_CLASS}}
+{
+    //{{SWAGGER_PROPERTY_NOT_DELETE_THIS_LINE}}
+}

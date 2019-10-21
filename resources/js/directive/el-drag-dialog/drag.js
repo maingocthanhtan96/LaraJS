@@ -5,7 +5,7 @@ export default {
     dialogHeaderEl.style.cssText += ';cursor:move;';
     dragDom.style.cssText += ';top:0px;';
 
-    const getStyle = (function() {
+    const getStyle = (function () {
       if (window.document.currentStyle) {
         return (dom, attr) => dom.currentStyle[attr];
       } else {
@@ -42,7 +42,7 @@ export default {
         styT = +styT.replace(/\px/g, '');
       }
 
-      document.onmousemove = function(e) {
+      document.onmousemove = function (e) {
         // Calculate the distance moved by event delegate
         let left = e.clientX - disX;
         let top = e.clientY - disY;
@@ -67,7 +67,7 @@ export default {
         vnode.child.$emit('dragDialog');
       };
 
-      document.onmouseup = function(e) {
+      document.onmouseup = function (e) {
         document.onmousemove = null;
         document.onmouseup = null;
       };

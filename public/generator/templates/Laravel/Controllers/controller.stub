@@ -17,6 +17,17 @@ use App\Http\Requests\Store{{MODAL_CLASS}}Request;
 
 class {{CONTROLLER_CLASS}}Controller extends Controller
 {
+    /**
+     * {{CONTROLLER_CLASS}} constructor.
+     * @author tanmnt
+     */
+    function __construct()
+    {
+        $this->middleware('permission:visit', ['only' => ['index']]);
+        $this->middleware('permission:create', ['only' => ['store']]);
+        $this->middleware('permission:edit', ['only' => ['show', 'update']]);
+        $this->middleware('permission:delete', ['only' => ['destroy']]);
+    }
 
 	/**
 	 * lists
@@ -57,7 +68,7 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 			${{MODAL_CLASS_PARAM}} = {{MODAL_CLASS}}::create($request->all());
 			//{{CONTROLLER_RELATIONSHIP_MTM_CREATE_NOT_DELETE_THIS_LINE}}
 
-			return $this->jsonOk(${{MODAL_CLASS_PARAM}});
+			return $this->jsonData(${{MODAL_CLASS_PARAM}});
 		} catch (\Exception $e) {
 			return $this->jsonError($e->getMessage());
 		}
@@ -74,7 +85,7 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 		try {
 		    //{{CONTROLLER_RELATIONSHIP_MTM_SHOW_NOT_DELETE_THIS_LINE}}
 
-			return $this->jsonOk(${{MODAL_CLASS_PARAM}});
+			return $this->jsonData(${{MODAL_CLASS_PARAM}});
 		} catch (\Exception $e) {
 			return $this->jsonError($e->getMessage(), 404);
 		}
@@ -93,7 +104,7 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 			${{MODAL_CLASS_PARAM}}->update($request->all());
             //{{CONTROLLER_RELATIONSHIP_MTM_UPDATE_NOT_DELETE_THIS_LINE}}
 
-			return $this->jsonOk(${{MODAL_CLASS_PARAM}});
+			return $this->jsonData(${{MODAL_CLASS_PARAM}});
 		} catch (\Exception $e) {
 			return $this->jsonError($e->getMessage());
 		}
@@ -109,9 +120,9 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
     {
 	    try {
 	        //{{CONTROLLER_RELATIONSHIP_MTM_DELETE_NOT_DELETE_THIS_LINE}}
-			${{MODAL_CLASS_PARAM}} = ${{MODAL_CLASS_PARAM}}->delete();
+			${{MODAL_CLASS_PARAM}}->delete();
 
-		    return $this->jsonOk(${{MODAL_CLASS_PARAM}});
+		    return $this->jsonSuccess(trans('messages.delete'));
 	    } catch (\Exception $e) {
 	    	return $this->jsonError($e->getMessage());
 	    }

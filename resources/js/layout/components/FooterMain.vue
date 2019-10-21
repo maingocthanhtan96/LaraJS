@@ -14,17 +14,16 @@
 </template>
 
 <script>
-export default {
-
-};
+export default {};
 </script>
 
 <style lang="scss">
-.main-footer {
+  .main-footer {
     padding: 0 !important;
     margin: 20px 0 0 0 !important;
+
     > .el-card {
-        height: 60px;
+      height: 60px;
     }
-}
+  }
 </style>

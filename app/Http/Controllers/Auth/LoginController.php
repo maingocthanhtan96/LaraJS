@@ -37,12 +37,13 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-	protected function loggedOut(Request $request) {
-		return redirect()->route('login');
-	}
+    protected function loggedOut(Request $request)
+    {
+        return redirect()->route('login');
+    }
 
-	protected function guard()
-	{
-		return Auth::guard('admin');
-	}
+    protected function guard()
+    {
+        return Auth::guard('admin');
+    }
 }

@@ -25,36 +25,36 @@
 </template>
 
 <script>
-import { fetchList } from '@/api/order';
+  import {fetchList} from '@/api/order';
 
-export default {
-  filters: {
-    statusFilter(status) {
-      const statusMap = {
-        success: 'success',
-        pending: 'danger',
+  export default {
+    filters: {
+      statusFilter(status) {
+        const statusMap = {
+          success: 'success',
+          pending: 'danger',
+        };
+        return statusMap[status];
+      },
+      orderNoFilter(str) {
+        return str;
+      },
+    },
+    data() {
+      return {
+        list: [{order_no: '1', price: '2', status: 'pending'}],
+        loading: true,
       };
-      return statusMap[status];
     },
-    orderNoFilter(str) {
-      return str;
+    created() {
+      this.fetchData();
     },
-  },
-  data() {
-    return {
-      list: [{ order_no: '1', price: '2', status: 'pending' }],
-      loading: true,
-    };
-  },
-  created() {
-    this.fetchData();
-  },
-  methods: {
-    async fetchData() {
-      const { data } = await fetchList();
-      this.list = data.items.slice(0, 8);
-      this.loading = false;
+    methods: {
+      async fetchData() {
+        const {data} = await fetchList();
+        this.list = data.items.slice(0, 8);
+        this.loading = false;
+      },
     },
-  },
-};
+  };
 </script>

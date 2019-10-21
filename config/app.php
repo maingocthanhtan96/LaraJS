@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'local.larajs.com'),
 
     'asset_url' => env('ASSET_URL', null),
 
@@ -175,10 +175,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-		Barryvdh\Cors\ServiceProvider::class,
-		MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class,
+        Barryvdh\Cors\ServiceProvider::class,
+        MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
-		Spatie\Permission\PermissionServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class
     ],
 

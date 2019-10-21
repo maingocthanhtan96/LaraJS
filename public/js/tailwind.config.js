@@ -327,7 +327,7 @@ module.exports = {
       screen: '100vh',
     },
     padding: theme => theme('spacing'),
-    margin: (theme, { negative }) => ({
+    margin: (theme, {negative}) => ({
       auto: 'auto',
       ...theme('spacing'),
       ...negative(theme('spacing')),

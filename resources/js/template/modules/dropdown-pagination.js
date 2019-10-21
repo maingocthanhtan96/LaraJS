@@ -2,10 +2,10 @@
 
 var debounce = require('debounce');
 
-module.exports = function(h) {
+module.exports = function (h) {
   var _this = this;
 
-  return function(selectClass, id) {
+  return function (selectClass, id) {
     var pages = [];
     var selected;
 
@@ -24,7 +24,8 @@ module.exports = function(h) {
     }
     return h(
       'select',
-      { 'class': selectClass + ' dropdown-pagination',
+      {
+        'class': selectClass + ' dropdown-pagination',
         directives: [{
           name: 'show',
           value: _this.totalPages > 1,

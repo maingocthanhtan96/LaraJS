@@ -12,14 +12,16 @@
         </div>
         <el-form ref="users" :model="form" :rules="rules" status-icon>
           <el-form-item data-generator="name" :label="$t('table.user.name')" prop="name">
-            <el-input v-model="form.name" autofocus />
+            <el-input v-model="form.name" autofocus/>
           </el-form-item>
-          <el-form-item data-generator="email" :error="errors.email ? errors.email[0] + '' : ''" :label="$t('table.user.email')" prop="email">
-            <el-input v-model="form.email" />
+          <el-form-item data-generator="email" :error="errors.email ? errors.email[0] + '' : ''"
+                        :label="$t('table.user.email')" prop="email">
+            <el-input v-model="form.email"/>
           </el-form-item>
-          <el-form-item data-generator="avatar" :error="errors.avatar ? errors.avatar[0] + '' : ''" :label="$t('table.user.avatar')" prop="avatar">
+          <el-form-item data-generator="avatar" :error="errors.avatar ? errors.avatar[0] + '' : ''"
+                        :label="$t('table.user.avatar')" prop="avatar">
             <pan-thumb :image="form.avatar" classImg="bg-white">
-              <el-button type="primary" @click="imageCropperShow = true" icon="el-icon-upload" />
+              <el-button type="primary" @click="imageCropperShow = true" icon="el-icon-upload"/>
             </pan-thumb>
             <image-cropper
               v-show="imageCropperShow"
@@ -36,14 +38,16 @@
           </el-form-item>
           <el-form-item data-generator="role_id" :label="$t('table.user.role')" prop="role_id">
             <el-select v-model="form.role_id" placeholder="Role" class="w-full">
-              <el-option v-for="role in rolesList" :key="'role_' + role.id" :label="role.name" :value="role.id" />
+              <el-option v-for="role in rolesList" :key="'role_' + role.id" :label="role.name" :value="role.id"/>
             </el-select>
           </el-form-item>
-          <el-form-item data-generator="password" v-if="!$route.params.id" required :label="$t('table.user.password')" prop="password">
-            <el-input v-model="form.password" show-password type="password" />
+          <el-form-item data-generator="password" v-if="!$route.params.id" required :label="$t('table.user.password')"
+                        prop="password">
+            <el-input v-model="form.password" show-password type="password"/>
           </el-form-item>
-          <el-form-item data-generator="password_confirm" v-if="!$route.params.id" required :label="$t('table.user.password_confirm')" prop="password_confirm">
-            <el-input v-model="form.password_confirm" show-password type="password" />
+          <el-form-item data-generator="password_confirm" v-if="!$route.params.id" required
+                        :label="$t('table.user.password_confirm')" prop="password_confirm">
+            <el-input v-model="form.password_confirm" show-password type="password"/>
           </el-form-item>
           <!--{{$FROM_ITEM_NOT_DELETE_THIS_LINE$}}-->
           <el-form-item class="flex justify-center">
@@ -98,8 +102,7 @@ export default {
       // {{$DATA_NOT_DELETE_THIS_LINE$}}
     };
   },
-  watch: {
-  },
+  watch: {},
   mounted() {
     this.roles();
     const { id } = this.$route.params;

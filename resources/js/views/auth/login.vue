@@ -12,21 +12,27 @@
                 @command="handleCommand"
               >
                 <span class="el-dropdown-link">
-                  <svg-icon icon-class="language" class="text-4xl" />
+                  <svg-icon icon-class="language" class="text-4xl"/>
                 </span>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item :class="{'bg-blue-400 text-white font-bold': $store.getters.lang === 'vn'}" icon="flag-icon flag-icon-vn" command="vn">Việt Nam</el-dropdown-item>
-                  <el-dropdown-item :class="{'bg-blue-400 text-white font-bold': $store.getters.lang === 'en'}" icon="flag-icon flag-icon-my" command="en">English</el-dropdown-item>
+                  <el-dropdown-item :class="{'bg-blue-400 text-white font-bold': $store.getters.lang === 'vn'}"
+                                    icon="flag-icon flag-icon-vn" command="vn">Việt Nam
+                  </el-dropdown-item>
+                  <el-dropdown-item :class="{'bg-blue-400 text-white font-bold': $store.getters.lang === 'en'}"
+                                    icon="flag-icon flag-icon-my" command="en">English
+                  </el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </div>
           </div>
-          <el-form ref="login" :model="form" status-icon :rules="rules" label-width="120px" label-position="left" class="demo-ruleForm">
+          <el-form ref="login" :model="form" status-icon :rules="rules" label-width="120px" label-position="left"
+                   class="demo-ruleForm">
             <el-form-item :label="$t('auth.login.email')" prop="email">
-              <el-input v-model="form.email" type="text" autocomplete="on" />
+              <el-input v-model="form.email" type="text" autocomplete="on"/>
             </el-form-item>
             <el-form-item :label="$t('auth.login.password')" prop="password">
-              <el-input v-model="form.password" type="password" show-password autocomplete="off" @keyup.enter.native="login" />
+              <el-input v-model="form.password" type="password" show-password autocomplete="off"
+                        @keyup.enter.native="login"/>
             </el-form-item>
           </el-form>
           <el-row>
@@ -36,7 +42,8 @@
                 :loading="loading"
                 class="w-full"
                 @click.prevent="login"
-              >{{ $t('auth.login.login') }}</el-button>
+              >{{ $t('auth.login.login') }}
+              </el-button>
             </el-col>
             <el-col :span="12">
               <el-checkbox>{{ $t('auth.login.remember') }}</el-checkbox>
@@ -97,7 +104,7 @@ export default {
   },
   watch: {
     $route: {
-      handler: function(route) {
+      handler: function (route) {
         this.redirect = route.query && route.query.redirect;
       },
       immediate: true,

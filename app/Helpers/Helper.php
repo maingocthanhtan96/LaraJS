@@ -6,15 +6,17 @@
  * @return string
  * @author tanmnt
  */
-function set_active($path, $active = 'active') {
+function set_active($path, $active = 'active')
+{
     return call_user_func_array('Request::is', (array)$path) ? $active : '';
 }
+
 /**
  * slug text uppercase every string
  * @param $title
  * @param string $separator
- * @author tanmnt
  * @return string
+ * @author tanmnt
  */
 function str_slug_uppercase($title, $separator = '')
 {
@@ -35,12 +37,13 @@ function str_slug_uppercase($title, $separator = '')
  * @param $number integer > 0
  * @return int
  */
-function strpos_x($haystack, $needle, $number){
-	if($number == '1'){
-		return strpos($haystack, $needle);
-	}elseif($number > '1'){
-		return strpos($haystack, $needle, strpos_x($haystack, $needle, $number - 1) + strlen($needle));
-	}else{
-		return error_log('Error: Value for parameter $number is out of range');
-	}
+function strpos_x($haystack, $needle, $number)
+{
+    if ($number == '1') {
+        return strpos($haystack, $needle);
+    } elseif ($number > '1') {
+        return strpos($haystack, $needle, strpos_x($haystack, $needle, $number - 1) + strlen($needle));
+    } else {
+        return error_log('Error: Value for parameter $number is out of range');
+    }
 }

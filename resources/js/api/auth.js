@@ -1,5 +1,11 @@
 import request from '@/utils/request';
 
+/**
+ * login
+ * @param form
+ * @returns {AxiosPromise}
+ * @author tanmnt
+ */
 export function login(form) {
   return request({
     url: '/login',
@@ -8,6 +14,11 @@ export function login(form) {
   });
 }
 
+/**
+ * user info
+ * @returns {AxiosPromise}
+ * @author tanmnt
+ */
 export function userInfo() {
   return request({
     url: '/user',
@@ -15,6 +26,11 @@ export function userInfo() {
   });
 }
 
+/**
+ * logout
+ * @returns {AxiosPromise}
+ * @author tanmnt
+ */
 export function logout() {
   return request({
     url: '/logout',

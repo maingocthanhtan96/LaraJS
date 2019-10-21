@@ -3,13 +3,17 @@
     <el-col :span="24">
       <el-card>
         <div slot="header" class="text-center">
-          <button @click="dialogVisible = true" class="hover:bg-green-600 hover:text-white font-bold border rounded border-green-600 text-green-600 bg-transparent py-3 px-4"><svg-icon icon-class="tree" /></button>
+          <button @click="dialogVisible = true"
+                  class="hover:bg-green-600 hover:text-white font-bold border rounded border-green-600 text-green-600 bg-transparent py-3 px-4">
+            <svg-icon icon-class="tree"/>
+          </button>
         </div>
         <section class="section">
           <div class="flex flex-col items-center">
             <el-tag type="success" effect="dark">{{form.model_current}}</el-tag>
             <div class="w-04-rem h-24 bg-indigo-600 draw-arrow-down one"></div>
-            <el-select @change="replaceTemplate('')" :class="{'error-danger': errors.relationship}" v-model="form.relationship" placeholder="Relationship">
+            <el-select @change="replaceTemplate('')" :class="{'error-danger': errors.relationship}"
+                       v-model="form.relationship" placeholder="Relationship">
               <el-option
                 v-for="(relationship, index) in relationshipOptions"
                 :key="'relationship_' + index"
@@ -19,7 +23,8 @@
             </el-select>
             <p class="help is-danger text-lg" v-if="errors.relationship">{{errors.relationship[0]}}</p>
             <div class="w-04-rem h-24 bg-indigo-600 draw-arrow-down two"></div>
-            <el-select @change="replaceTemplate('display')" :class="{'error-danger': errors.model}" :loading="loadingModel" v-model="form.model" filterable placeholder="Model">
+            <el-select @change="replaceTemplate('display')" :class="{'error-danger': errors.model}"
+                       :loading="loadingModel" v-model="form.model" filterable placeholder="Model">
               <el-option
                 v-for="(model, index) in modelOptions"
                 :key="'model_' + index"
@@ -33,7 +38,8 @@
               <pre-code-tag :content="markdown"/>
             </div>
             <div class="w-04-rem h-24 bg-indigo-600 draw-arrow-down four"></div>
-            <el-select v-model="form.column" :class="{'error-danger': errors.column}" :loading="loadingDisplay" filterable placeholder="Display Column" class="z-10">
+            <el-select v-model="form.column" :class="{'error-danger': errors.column}" :loading="loadingDisplay"
+                       filterable placeholder="Display Column" class="z-10">
               <el-option
                 v-for="(col, index) in displayColumns"
                 :key="'col_' + index"
@@ -43,7 +49,8 @@
             </el-select>
             <template v-if="form.relationship === 'belongsToMany'">
               <div class="w-04-rem h-24 bg-indigo-600 draw-arrow-down equivalent"></div>
-              <el-select v-model="form.column2" :class="{'error-danger': errors.column2}" :loading="loadingDisplay" filterable placeholder="Display Column 2">
+              <el-select v-model="form.column2" :class="{'error-danger': errors.column2}" :loading="loadingDisplay"
+                         filterable placeholder="Display Column 2">
                 <el-option
                   v-for="(col, index) in displayColumns2"
                   :key="'col_' + index"
@@ -54,25 +61,27 @@
             </template>
             <p class="help is-danger text-lg" v-if="errors.column">{{errors.column[0]}}</p>
             <div class="w-04-rem h-24 bg-indigo-600 draw-arrow-down five"></div>
-              <el-select @change="changeOptions(form.options)" class="options" v-model="form.options" multiple placeholder="Options">
-                <el-option
-                  v-for="(item, key) in options"
-                  :key="'option_' + key"
-                  :label="item"
-                  :value="item">
-                </el-option>
-              </el-select>
+            <el-select @change="changeOptions(form.options)" class="options" v-model="form.options" multiple
+                       placeholder="Options">
+              <el-option
+                v-for="(item, key) in options"
+                :key="'option_' + key"
+                :label="item"
+                :value="item">
+              </el-option>
+            </el-select>
             <div class="w-04-rem h-24 bg-indigo-600 draw-arrow-down six"></div>
             <el-tooltip effect="dark" :content="$t('route.generator_relationship')" placement="bottom">
-              <el-button class="z-10" type="success" icon="el-icon-check" circle v-loading.fullscreen.lock="loading" @click.prevent="createRelationship()"></el-button>
+              <el-button class="z-10" type="success" icon="el-icon-check" circle v-loading.fullscreen.lock="loading"
+                         @click.prevent="createRelationship()"></el-button>
             </el-tooltip>
           </div>
           <!--dialog-->
           <div class="container is-fullhd">
             <el-dialog
-            :visible.sync="dialogVisible"
-            :fullscreen="true"
-            @open="diagram"
+              :visible.sync="dialogVisible"
+              :fullscreen="true"
+              @open="diagram"
             >
               <div slot="title" class="text-center">
                 <h3 class="title">Diagram {{$t('route.generator_relationship')}}</h3>
@@ -114,6 +123,7 @@
 <script>
 import PreCodeTag from '@/components/PreCodeTag';
 import GeneratorResource from '@/api/generator';
+
 const generatorResource = new GeneratorResource();
 
 export default {
@@ -265,11 +275,14 @@ export default {
       line-height: 20px;
     }
   }
+
   .w-04-rem {
     width: 0.4rem;
   }
+
   .draw-arrow-down {
     position: relative;
+
     &:before {
       content: "";
       position: absolute;
@@ -282,32 +295,41 @@ export default {
       border-top: 1.9rem solid $indigo600;
     }
   }
+
   .error-danger {
     &::v-deep input {
       border-color: #ff3860 !important;
     }
   }
+
   .options {
     width: 260px;
   }
+
   .one {
     @include circleNumber("1")
   }
+
   .two {
     @include circleNumber("2")
   }
+
   .three {
     @include circleNumber("3")
   }
+
   .four {
     @include circleNumber("4")
   }
+
   .five {
     @include circleNumber("5")
   }
+
   .six {
     @include circleNumber("6")
   }
+
   .equivalent {
     &:after {
       content: "";

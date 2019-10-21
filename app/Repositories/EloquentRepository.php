@@ -8,11 +8,13 @@ abstract class EloquentRepository implements RepositoryInterface
 {
     /**
      * @var \Illuminate\Database\Eloquent\Model
+     * @author tanmnt
      */
     protected $_model;
 
     /**
      * EloquentRepository constructor.
+     * @author tanmnt
      */
     public function __construct()
     {
@@ -22,11 +24,13 @@ abstract class EloquentRepository implements RepositoryInterface
     /**
      * get model
      * @return string
+     * @author tanmnt
      */
     abstract public function getModel();
 
     /**
      * Set model
+     * @author tanmnt
      */
     public function setModel()
     {
@@ -38,6 +42,7 @@ abstract class EloquentRepository implements RepositoryInterface
     /**
      * Get All
      * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @author tanmnt
      */
     public function getAll()
     {
@@ -49,6 +54,7 @@ abstract class EloquentRepository implements RepositoryInterface
      * Get one
      * @param $id
      * @return mixed
+     * @author tanmnt
      */
     public function find($id)
     {
@@ -62,6 +68,7 @@ abstract class EloquentRepository implements RepositoryInterface
      * @param $id
      * @param array $with
      * @return mixed
+     * @author tanmnt
      */
     public function findWith($id, $with)
     {
@@ -75,6 +82,7 @@ abstract class EloquentRepository implements RepositoryInterface
      * Create
      * @param array $attributes
      * @return mixed
+     * @author tanmnt
      */
     public function create(array $attributes)
     {
@@ -87,6 +95,7 @@ abstract class EloquentRepository implements RepositoryInterface
      * @param $id
      * @param array $attributes
      * @return bool|mixed
+     * @author tanmnt
      */
     public function update($id, array $attributes)
     {
@@ -104,6 +113,7 @@ abstract class EloquentRepository implements RepositoryInterface
      *
      * @param $id
      * @return bool
+     * @author tanmnt
      */
     public function delete($id)
     {

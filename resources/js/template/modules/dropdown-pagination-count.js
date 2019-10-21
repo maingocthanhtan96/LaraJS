@@ -1,9 +1,9 @@
 'use strict';
 
-module.exports = function(h) {
+module.exports = function (h) {
   var _this = this;
 
-  return function() {
+  return function () {
     if (_this.count > 0 && _this.opts.pagination.dropdown) {
       var perPage = parseInt(_this.limit);
 
@@ -17,10 +17,10 @@ module.exports = function(h) {
 
       return h(
         'div',
-        { 'class': 'VuePagination' },
+        {'class': 'VuePagination'},
         [h(
           'p',
-          { 'class': 'VuePagination__count' },
+          {'class': 'VuePagination__count'},
           [count]
         )]
       );

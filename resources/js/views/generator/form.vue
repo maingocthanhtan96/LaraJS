@@ -3,7 +3,9 @@
     <el-col :span="24">
       <el-card>
         <div slot="header">
-          <h1 class="text-4xl"><mallki class-name="mallki-text" :text="$t('route.generator')" /></h1>
+          <h1 class="text-4xl">
+            <mallki class-name="mallki-text" :text="$t('route.generator')"/>
+          </h1>
         </div>
         <section class="content-wrapper">
           <div class="container is-fullhd">
@@ -11,12 +13,15 @@
               <el-form ref="formModel" :model="formModel" :rules="modalRules" label-position="top" status-icon>
                 <el-col :span="9" class="mr-4">
                   <el-form-item :label="$t('generator.form_model_name')" prop="name">
-                    <el-input v-model="formModel.name" :placeholder="$t('generator.form_model_name') + ' (Ex: CategoryPost)'" :disabled="disabledModel()"/>
+                    <el-input v-model="formModel.name"
+                              :placeholder="$t('generator.form_model_name') + ' (Ex: CategoryPost)'"
+                              :disabled="disabledModel()"/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="9" class="mr-4">
                   <el-form-item :label="$t('generator.form_model_name_trans')" prop="name_trans">
-                    <el-input v-model="formModel.name_trans" :placeholder="$t('generator.form_model_name_trans')" :disabled="disabledModel()"/>
+                    <el-input v-model="formModel.name_trans" :placeholder="$t('generator.form_model_name_trans')"
+                              :disabled="disabledModel()"/>
                   </el-form-item>
                 </el-col>
                 <el-col :span="2">
@@ -51,31 +56,40 @@
                   <div class="divTableCell text-center"><b>{{$t('generator.field_name_trans')}}</b></div>
                   <div class="divTableCell text-center"><b>{{$t('generator.db_type')}}</b></div>
                   <div class="divTableCell text-center"><b>{{$t('generator.default_value')}}</b></div>
-                  <div class="divTableCell text-center" style="max-width: 70px;width: 70px"><b>{{$t('generator.search')}}</b></div>
-                  <div class="divTableCell text-center" style="max-width: 70px;width: 70px"><b>{{$t('generator.sort')}}</b></div>
-                  <div class="divTableCell text-center" style="max-width: 70px;width: 70px"><b>{{$t('generator.show')}}</b></div>
-                  <div class="divTableCell text-center" style="max-width: 70px;width: 70px"><b>{{$t('generator.delete')}}</b></div>
+                  <div class="divTableCell text-center" style="max-width: 70px;width: 70px"><b>{{$t('generator.search')}}</b>
+                  </div>
+                  <div class="divTableCell text-center" style="max-width: 70px;width: 70px">
+                    <b>{{$t('generator.sort')}}</b></div>
+                  <div class="divTableCell text-center" style="max-width: 70px;width: 70px">
+                    <b>{{$t('generator.show')}}</b></div>
+                  <div class="divTableCell text-center" style="max-width: 70px;width: 70px"><b>{{$t('generator.delete')}}</b>
+                  </div>
                 </div>
                 <draggable
                   style="display: contents"
                   v-model="form"
                   :options="{draggable:'.draggable',animation: 400}"
                 >
-                  <el-form  v-for="(data,index) in form" :key="'form_' + data.id" :ref="`dynamicFieldsForm${index}`" :model="data" :rules="dynamicFieldsRules" class="divTableRow hover:bg-gray-200" :class="{'draggable': !disabledMethod(index) && index >= formTemp.length}" status-icon>
+                  <el-form v-for="(data,index) in form" :key="'form_' + data.id" :ref="`dynamicFieldsForm${index}`"
+                           :model="data" :rules="dynamicFieldsRules" class="divTableRow hover:bg-gray-200"
+                           :class="{'draggable': !disabledMethod(index) && index >= formTemp.length}" status-icon>
                     <div class="divTableCell text-center align-middle">{{index + 1}}</div>
                     <div class="divTableCell text-center align-middle pt-8">
                       <el-form-item prop="field_name">
-                        <el-input placeholder="Field Name" v-model="data.field_name" :disabled="disabledMethod(index)"></el-input>
+                        <el-input placeholder="Field Name" v-model="data.field_name"
+                                  :disabled="disabledMethod(index)"></el-input>
                       </el-form-item>
                     </div>
                     <div class="divTableCell text-center align-middle pt-8">
                       <el-form-item prop="field_name_trans">
-                        <el-input placeholder="Field Name Trans" v-model="data.field_name_trans" :disabled="disabledMethod(index)"></el-input>
+                        <el-input placeholder="Field Name Trans" v-model="data.field_name_trans"
+                                  :disabled="disabledMethod(index)"></el-input>
                       </el-form-item>
                     </div>
                     <div class="divTableCell text-center align-middle pt-8">
                       <el-form-item prop="db_type">
-                        <el-select v-model="data.db_type" filterable placeholder="DB Type" :disabled="disabledMethod(index)">
+                        <el-select v-model="data.db_type" filterable placeholder="DB Type"
+                                   :disabled="disabledMethod(index)" @change="changeDBType(index, data.db_type)">
                           <el-option
                             v-for="(type,index) in dbTypeDefault"
                             :key="'dbTypeDefault_' + index"
@@ -110,7 +124,17 @@
                     </div>
                     <div class="divTableCell text-center align-middle pt-8">
                       <el-form-item prop="default_value">
-                        <el-select v-model="data.default_value" placeholder="Default Value" :disabled="disabledMethod(index)">
+                        <el-select v-if="notAs.includes(data.db_type)" v-model="data.default_value"
+                                   placeholder="Default Value" :disabled="disabledMethod(index)">
+                          <el-option
+                            v-for="(item, index) in defaultValueNotAs"
+                            :key="'defaultValue_' + index"
+                            :label="item"
+                            :value="item">
+                          </el-option>
+                        </el-select>
+                        <el-select v-else v-model="data.default_value" placeholder="Default Value"
+                                   :disabled="disabledMethod(index)">
                           <el-option
                             v-for="(item, index) in defaultValue"
                             :key="'defaultValue_' + index"
@@ -121,7 +145,8 @@
                       </el-form-item>
                       <el-form-item prop="as_define" v-if="data.default_value === 'As define'">
                         <template v-if="showInputDefault(data.db_type)">
-                          <el-select v-if="data.db_type === 'ENUM'" v-model="data.as_define" placeholder="Default Value">
+                          <el-select v-if="data.db_type === 'ENUM'" v-model="data.as_define"
+                                     placeholder="Default Value">
                             <el-option
                               v-for="(item, index) in data.enum"
                               :key="'enum_' + index"
@@ -129,7 +154,8 @@
                               :value="item">
                             </el-option>
                           </el-select>
-                          <el-tooltip v-if="data.db_type === 'BOOLEAN'" :content="data.as_define === '0' ? 'false' : 'true'" placement="top">
+                          <el-tooltip v-if="data.db_type === 'BOOLEAN'"
+                                      :content="data.as_define === '0' ? 'false' : 'true'" placement="top">
                             <el-switch
                               v-model="data.as_define"
                               active-value="1"
@@ -165,7 +191,8 @@
                             value-format="yyyy"
                           ></el-date-picker>
                         </template>
-                        <el-input v-else placeholder="Default" v-model="data.as_define" class="max-w-sm pt-5"></el-input>
+                        <el-input v-else placeholder="Default" v-model="data.as_define"
+                                  class="max-w-sm pt-5"></el-input>
                       </el-form-item>
                     </div>
                     <div class="divTableCell text-center align-middle">
@@ -178,18 +205,25 @@
                       <el-checkbox v-model="data.show" @click.native="changeShow(index)"></el-checkbox>
                     </div>
                     <div class="divTableCell text-center align-middle">
-                      <el-button v-if="index > 0 " type="danger" icon="el-icon-delete" circle @click.prevent="removeRow(index)"></el-button>
+                      <el-button v-if="index > 0 " type="danger" icon="el-icon-delete" circle
+                                 @click.prevent="removeRow(index)"></el-button>
                     </div>
                   </el-form>
                 </draggable>
               </div>
             </div>
             <div class="pt-6">
-              <el-button type="success" v-waves round @click.prevent="addField">{{$t('generator.add_field')}}</el-button>
+              <el-button type="success" v-waves round @click.prevent="addField">{{$t('generator.add_field')}}
+              </el-button>
             </div>
             <div class="float-right">
-              <el-button v-if="$route.params.id" v-waves type="primary" round v-loading.fullscreen.lock="loading" @click.prevent="generateUpdate(`dynamicFieldsForm`, 'formModel')">{{$t('generator.generate_update')}}</el-button>
-              <el-button v-else type="primary" v-waves round v-loading.fullscreen.lock="loading" @click.prevent="generate(`dynamicFieldsForm`, 'formModel')">{{$t('generator.generate')}}</el-button>
+              <el-button v-if="$route.params.id" v-waves type="primary" round v-loading.fullscreen.lock="loading"
+                         @click.prevent="generateUpdate(`dynamicFieldsForm`, 'formModel')">
+                {{$t('generator.generate_update')}}
+              </el-button>
+              <el-button v-else type="primary" v-waves round v-loading.fullscreen.lock="loading"
+                         @click.prevent="generate(`dynamicFieldsForm`, 'formModel')">{{$t('generator.generate')}}
+              </el-button>
             </div>
           </div>
         </section>
@@ -266,6 +300,8 @@ export default {
         },
       ],
       defaultValue: ['None', 'NULL', 'As define'],
+      defaultValueNotAs: ['None', 'NULL'],
+      notAs: ['TEXT', 'LONGTEXT', 'FILE'],
       loading: false,
     };
   },
@@ -285,66 +321,96 @@ export default {
     dynamicFieldsRules() {
       return {
         field_name: [
-          { validator: (rule, value, callback) => {
-            if (value === '') {
-              callback(new Error(this.$t('validation.required', { attribute: this.$t('generator.field_name') })));
-            } else {
-              const arrayIndex = [];
-              for (const val of this.form) {
-                if (val.field_name.toLowerCase() === value.toLowerCase()) {
-                  arrayIndex.push(val.id);
-                  if (arrayIndex.length > 1) {
-                    callback(new Error(this.$t('generator.column_exist')));
-                    break;
+          {
+            validator: (rule, value, callback) => {
+              if (value === '') {
+                callback(new Error(this.$t('validation.required', { attribute: this.$t('generator.field_name') })));
+              } else {
+                const arrayIndex = [];
+                for (const val of this.form) {
+                  if (val.field_name.toLowerCase() === value.toLowerCase()) {
+                    arrayIndex.push(val.id);
+                    if (arrayIndex.length > 1) {
+                      callback(new Error(this.$t('generator.column_exist')));
+                      break;
+                    }
                   }
                 }
+                if (arrayIndex.length <= 1) {
+                  callback();
+                }
               }
-              if (arrayIndex.length <= 1) {
-                callback();
-              }
-            }
-          }, trigger: ['change', 'blur'] },
+            }, trigger: ['change', 'blur'],
+          },
         ],
         field_name_trans: [
-          { required: true, message: this.$t('validation.required', { attribute: this.$t('generator.field_name_trans') }), trigger: ['change', 'blur'] },
+          {
+            required: true,
+            message: this.$t('validation.required', { attribute: this.$t('generator.field_name_trans') }),
+            trigger: ['change', 'blur'],
+          },
         ],
         db_type: [
-          { required: true, message: this.$t('validation.required', { attribute: this.$t('generator.db_type') }), trigger: ['change', 'blur'] },
+          {
+            required: true,
+            message: this.$t('validation.required', { attribute: this.$t('generator.db_type') }),
+            trigger: ['change', 'blur'],
+          },
         ],
         enum: [
           { required: true, message: this.$t('validation.required', { attribute: 'Enum' }), trigger: ['change', 'blur'] },
         ],
         default_value: [
-          { required: true, message: this.$t('validation.required', { attribute: this.$t('generator.default_value') }), trigger: ['change', 'blur'] },
+          {
+            required: true,
+            message: this.$t('validation.required', { attribute: this.$t('generator.default_value') }),
+            trigger: ['change', 'blur'],
+          },
         ],
         as_define: [
-          { required: true, message: this.$t('validation.required', { attribute: this.$t('generator.as_define') }), trigger: ['change', 'blur'] },
+          {
+            required: true,
+            message: this.$t('validation.required', { attribute: this.$t('generator.as_define') }),
+            trigger: ['change', 'blur'],
+          },
         ],
       };
     },
     modalRules() {
       return {
         name: [
-          { validator: (rule, value, callback) => {
-            if (value === '') {
-              callback(new Error(this.$t('validation.required', { attribute: this.$t('generator.form_model_name') })));
-            } else {
-              this.checkModelMethod(callback);
-            }
-          }, trigger: ['change'] },
+          {
+            validator: (rule, value, callback) => {
+              if (value === '') {
+                callback(new Error(this.$t('validation.required', { attribute: this.$t('generator.form_model_name') })));
+              } else {
+                this.checkModelMethod(callback);
+              }
+            }, trigger: ['change'],
+          },
         ],
         name_trans: [
-          { required: true, message: this.$t('validation.required', { attribute: this.$t('generator.form_model_name_trans') }), trigger: ['change', 'blur'] },
+          {
+            required: true,
+            message: this.$t('validation.required', { attribute: this.$t('generator.form_model_name_trans') }),
+            trigger: ['change', 'blur'],
+          },
         ],
       };
     },
   },
   methods: {
+    changeDBType(index, dbType) {
+      if (this.notAs.includes(dbType)) {
+        this.form[index].default_value = 'NULL';
+        this.form[index].as_define = '';
+      }
+    },
     showInputDefault(dbType) {
       const arDbType = ['YEAR', 'TIME', 'DATETIME', 'DATE', 'BOOLEAN', 'ENUM'];
       return arDbType.indexOf(dbType) !== -1;
     },
-    checkModelMethod: _.debounce(function(cb) {
+    checkModelMethod: _.debounce(function (cb) {
       generatorResource.checkModel(this.formModel.name)
         .then(res => {
           const { message } = res.data;
@@ -357,7 +423,7 @@ export default {
           }
         });
     }, 500),
-    checkColumnMethod: _.debounce(function(cb, column) {
+    checkColumnMethod: _.debounce(function (cb, column) {
       generatorResource.checkColumn(this.formModel.name, column)
         .then(res => {
           const { message } = res.data;
@@ -544,40 +610,46 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/* DivTable.com */
-.divTable{
-  display: table;
-  width: 100%;
-}
-.divTableRow {
-  display: table-row;
-}
-.divTableHeading {
-  background-color: #EEE;
-  display: table-header-group;
-}
-.divTableCell, .divTableHead {
-  border: 1px solid #999999;
-  display: table-cell;
-  padding: 3px 10px;
-}
-.divTableHeading {
-  background-color: #EEE;
-  display: table-header-group;
-  font-weight: bold;
-}
-.divTableFoot {
-  background-color: #EEE;
-  display: table-footer-group;
-  font-weight: bold;
-}
-.divTableBody {
-  display: table-row-group;
-}
+  /* DivTable.com */
+  .divTable {
+    display: table;
+    width: 100%;
+  }
+
+  .divTableRow {
+    display: table-row;
+  }
+
+  .divTableHeading {
+    background-color: #EEE;
+    display: table-header-group;
+  }
+
+  .divTableCell, .divTableHead {
+    border: 1px solid #999999;
+    display: table-cell;
+    padding: 3px 10px;
+  }
+
+  .divTableHeading {
+    background-color: #EEE;
+    display: table-header-group;
+    font-weight: bold;
+  }
+
+  .divTableFoot {
+    background-color: #EEE;
+    display: table-footer-group;
+    font-weight: bold;
+  }
+
+  .divTableBody {
+    display: table-row-group;
+  }
 </style>
 <style lang="scss">
   .el-message-box {
-    width: 98%!important;
+    width: 98% !important;
     max-width: 420px;
   }
 </style>

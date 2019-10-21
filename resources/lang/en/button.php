@@ -3,7 +3,7 @@
 return [
     'ok' => 'OK',
     'cancel' => 'Cancel',
-	'create' => 'Create',
-	'edit' => 'Edit',
+    'create' => 'Create',
+    'edit' => 'Edit',
     'update' => 'Update'
 ];

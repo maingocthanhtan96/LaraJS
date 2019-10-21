@@ -62,7 +62,7 @@ Class RequestUpdateGenerator extends BaseGenerator
     private function generateFieldsRename($renameFields, $templateDataReal)
     {
         foreach ($renameFields as $rename) {
-            $templateDataReal = str_replace("'".$rename['field_name_old']['field_name']."'", "'".$rename['field_name_new']['field_name']."'", $templateDataReal);
+            $templateDataReal = str_replace("'" . $rename['field_name_old']['field_name'] . "'", "'" . $rename['field_name_new']['field_name'] . "'", $templateDataReal);
         }
 
         return $templateDataReal;
@@ -109,9 +109,9 @@ Class RequestUpdateGenerator extends BaseGenerator
                         }
                         $valField = str_replace($requiredOld, $required, $valField);
                         $valField = str_replace($this->changeDBType($dataOld[$change['id']]['db_type'], $dataOld[$change['id']]['enum']), $this->changeDBType($change['db_type'], $change['enum']), $valField);
-                        $fieldsGenerator[] = "'".$keyField."' => $valField";
+                        $fieldsGenerator[] = "'" . $keyField . "' => $valField";
                     } else {
-                        $value = "'".$keyField."' => $valField";
+                        $value = "'" . $keyField . "' => $valField";
                         if (!in_array($value, $fieldsGenerator) && !in_array($keyField, $arrayChange)) {
                             $fieldsGenerator[] = $value;
                         }
@@ -120,7 +120,7 @@ Class RequestUpdateGenerator extends BaseGenerator
             }
         }
         $fieldsGenerator[] = $this->notDelete['rule'] . $this->serviceGenerator->infy_nl_tab(1, 2);
-        $templateDataReal = str_replace($templateColumns,$this->serviceGenerator->infy_nl_tab(0, 2) .' '. implode($this->serviceGenerator->infy_nl_tab(1, 3), $fieldsGenerator), $templateDataReal);
+        $templateDataReal = str_replace($templateColumns, $this->serviceGenerator->infy_nl_tab(0, 2) . ' ' . implode($this->serviceGenerator->infy_nl_tab(1, 3), $fieldsGenerator), $templateDataReal);
 
         return $templateDataReal;
     }
@@ -143,8 +143,8 @@ Class RequestUpdateGenerator extends BaseGenerator
                     $keyField = trim($keyField);
                     $valField = trim($valField);
                     $keyField = trim($keyField, "'");
-                    $value = "'".$keyField."' => $valField";
-                    if($keyField !== $drop['field_name']) {
+                    $value = "'" . $keyField . "' => $valField";
+                    if ($keyField !== $drop['field_name']) {
                         if (!in_array($value, $fieldsGenerator) && !in_array($keyField, $arrayChange)) {
                             $fieldsGenerator[] = $value;
                         }
@@ -153,7 +153,7 @@ Class RequestUpdateGenerator extends BaseGenerator
             }
         }
         $fieldsGenerator[] = $this->notDelete['rule'] . $this->serviceGenerator->infy_nl_tab(1, 2);
-        $templateDataReal = str_replace($templateColumns, $this->serviceGenerator->infy_nl_tab(0, 2) .' '. implode($this->serviceGenerator->infy_nl_tab(1, 3), $fieldsGenerator), $templateDataReal);
+        $templateDataReal = str_replace($templateColumns, $this->serviceGenerator->infy_nl_tab(0, 2) . ' ' . implode($this->serviceGenerator->infy_nl_tab(1, 3), $fieldsGenerator), $templateDataReal);
 
         return $templateDataReal;
     }
@@ -164,7 +164,7 @@ Class RequestUpdateGenerator extends BaseGenerator
             return $templateDataReal;
         }
 
-        $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['rule'],  $this->generateFields($updateFields), 3, $templateDataReal);
+        $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['rule'], $this->generateFields($updateFields), 3, $templateDataReal);
 
         return $templateDataReal;
     }

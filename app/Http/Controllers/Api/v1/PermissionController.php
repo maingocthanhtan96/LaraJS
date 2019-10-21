@@ -21,7 +21,7 @@ class PermissionController extends Controller
         $limit = $request->get('limit', 25);
         $keyword = $request->get('keyword', '');
         $permissionQuery = Permission::query();
-        $permissionQuery->when($keyword, function($q) use($keyword) {
+        $permissionQuery->when($keyword, function ($q) use ($keyword) {
             return $q->where('name', 'LIKE', "%$keyword%");
         });
 
@@ -41,7 +41,7 @@ class PermissionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -60,7 +60,7 @@ class PermissionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -71,7 +71,7 @@ class PermissionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -82,8 +82,8 @@ class PermissionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Permission $permission)
@@ -100,7 +100,7 @@ class PermissionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(Permission $permission)
@@ -110,7 +110,7 @@ class PermissionController extends Controller
             $adminRole->revokePermissionTo($permission);
             $permission = $permission->delete();
 
-            return $this->jsonOk($permission);
+            return $this->jsonData($permission);
         } catch (\Exception $e) {
             return $this->jsonError($e->getMessage());
         }

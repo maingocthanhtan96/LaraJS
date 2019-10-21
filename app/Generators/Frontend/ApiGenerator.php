@@ -9,34 +9,34 @@ use Carbon\Carbon;
 
 Class ApiGenerator extends BaseGenerator
 {
-	/** @var $service */
-	public $serviceGenerator;
+    /** @var $service */
+    public $serviceGenerator;
 
-	/** @var $service */
-	public $serviceFile;
+    /** @var $service */
+    public $serviceFile;
 
-	/** @var string */
-	public $path;
+    /** @var string */
+    public $path;
 
-	public function __construct($model)
-	{
-		$this->serviceGenerator = new GeneratorService();
-		$this->serviceFile = new FileService();
-		$this->path = config('generator.path.vuejs.api');
+    public function __construct($model)
+    {
+        $this->serviceGenerator = new GeneratorService();
+        $this->serviceFile = new FileService();
+        $this->path = config('generator.path.vuejs.api');
 
-		$this->generate($model);
-	}
+        $this->generate($model);
+    }
 
-	private function generate($model)
-	{
-		$now = Carbon::now();
-		$pathTemplate = 'Api/';
-		$templateData = $this->serviceGenerator->get_template("api", $pathTemplate, 'vuejs');
-		$templateData = str_replace('{{$DATE$}}', $now->toDateTimeString(), $templateData);
-		$templateData = str_replace('{{$MODEL_CLASS$}}', $model['name'], $templateData);
-		$templateData = str_replace('{{$MODEL_CLASS_URI$}}', $this->serviceGenerator->urlResource($model['name']), $templateData);
+    private function generate($model)
+    {
+        $now = Carbon::now();
+        $pathTemplate = 'Api/';
+        $templateData = $this->serviceGenerator->get_template("api", $pathTemplate, 'vuejs');
+        $templateData = str_replace('{{$DATE$}}', $now->toDateTimeString(), $templateData);
+        $templateData = str_replace('{{$MODEL_CLASS$}}', $model['name'], $templateData);
+        $templateData = str_replace('{{$MODEL_CLASS_URI$}}', $this->serviceGenerator->urlResource($model['name']), $templateData);
 
-		$fileName = $this->serviceGenerator->modelNameNotPluralFe($model['name']) . '.js';
-		$this->serviceFile->createFile($this->path, $fileName, $templateData);
-	}
+        $fileName = $this->serviceGenerator->modelNameNotPluralFe($model['name']) . '.js';
+        $this->serviceFile->createFile($this->path, $fileName, $templateData);
+    }
 }

@@ -7,8 +7,8 @@ use App\Repositories\EloquentRepository;
 
 class UserRepository extends EloquentRepository implements UserRepositoryInterface
 {
-	public function getModel()
-	{
-		return User::class;
-	}
+    public function getModel()
+    {
+        return User::class;
+    }
 }
