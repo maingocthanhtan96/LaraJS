@@ -24,11 +24,15 @@ final class Permission
     const ROLE_VISITOR = 'visitor';
     const ROLE_EDITOR = 'editor';
     const ROLE_CREATOR = 'creator';
+    const ROLE_DELETER = 'deleter';
+    const ROLE_DEVELOPER = 'developer';
 
     const PERMISSION_PERMISSION_MANAGE = 'manage permission';
     const PERMISSION_VISIT = 'visit';
     const PERMISSION_CREATE = 'create';
     const PERMISSION_EDIT = 'edit';
+    const PERMISSION_DELETE = 'delete';
+    const PERMISSION_DEVELOP = 'develop';
 
     /**
      * @param array $exclusives Exclude some permissions from the list

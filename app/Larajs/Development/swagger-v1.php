@@ -3,20 +3,19 @@
  * @OA\Info(
  *   title="Manage API",
  *   version="1.0.0",
+ *   description="Documents Api",
+ *   @OA\License(
+ *      name="Go to Larajs",
+ *      url="/"
+ *   ),
  *   @OA\Contact(
- *     email="maingocthanhtan96@gmail.com"
- *   )
+ *      email="maingocthanhtan96@gmail.com"
+ *   ),
  * )
  *
- * @OA\Server(
- *  url="http://local.larajs.com/api/v1",
- *  description="Api v1(LARAJS)"
- * )
+ * @OA\Server(url=API_HOST_V1, description="Api v1")
  *
- * @OA\Server(
- *  url="http://local.larajs.com/api/v2",
- *  description="Api v2(LARAJS)"
- * )
+ * @OA\Server(url=API_HOST_V2, description="Api v2")
  *
  * @OA\SecurityScheme(
  *     type="http",

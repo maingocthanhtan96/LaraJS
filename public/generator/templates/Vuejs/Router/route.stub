@@ -24,6 +24,7 @@ const {{$NAME_ROUTE_MODEL_CLASS$}} = {
         title: '{{$TITLE_ROUTE_MODEL_CLASS$}}',
         icon: 'list',
         activeMenu: '/{{$PATH_ROUTE_MODEL_CLASS$}}',
+        permissions: ['visit'],
       },
       hidden: true,
     },
@@ -35,6 +36,7 @@ const {{$NAME_ROUTE_MODEL_CLASS$}} = {
       meta: {
         activeMenu: '/{{$PATH_ROUTE_MODEL_CLASS$}}',
         title: '{{$TITLE_ROUTE_MODEL_CLASS$}}_create',
+        permissions: ['create'],
       },
     },
     {
@@ -45,6 +47,7 @@ const {{$NAME_ROUTE_MODEL_CLASS$}} = {
       meta: {
         activeMenu: '/{{$PATH_ROUTE_MODEL_CLASS$}}',
         title: '{{$TITLE_ROUTE_MODEL_CLASS$}}_edit',
+        permissions: ['edit'],
       },
       props: route => {
         return {

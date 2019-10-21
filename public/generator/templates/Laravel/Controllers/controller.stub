@@ -17,6 +17,17 @@ use App\Http\Requests\Store{{MODAL_CLASS}}Request;
 
 class {{CONTROLLER_CLASS}}Controller extends Controller
 {
+    /**
+     * {{CONTROLLER_CLASS}} constructor.
+     * @author tanmnt
+     */
+    function __construct()
+    {
+        $this->middleware('permission:visit', ['only' => ['index']]);
+        $this->middleware('permission:create', ['only' => ['store']]);
+        $this->middleware('permission:edit', ['only' => ['show', 'update']]);
+        $this->middleware('permission:delete', ['only' => ['destroy']]);
+    }
 
 	/**
 	 * lists

@@ -11,6 +11,17 @@ use App\Http\Resources\UserResource;
 
 class UserController extends Controller
 {
+    /**
+     * UserController constructor.
+     * @author tanmnt
+     */
+    function __construct()
+    {
+        $this->middleware('permission:visit', ['only' => ['index']]);
+        $this->middleware('permission:create', ['only' => ['store']]);
+        $this->middleware('permission:edit', ['only' => ['show', 'update']]);
+        $this->middleware('permission:delete', ['only' => ['destroy']]);
+    }
 
     /** get user information
      * @return UserResource|\Illuminate\Http\JsonResponse

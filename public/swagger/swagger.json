@@ -2,144 +2,27 @@
     "openapi": "3.0.0",
     "info": {
         "title": "Manage API",
+        "description": "Documents Api",
         "contact": {
             "email": "maingocthanhtan96@gmail.com"
+        },
+        "license": {
+            "name": "Go to Larajs",
+            "url": "/"
         },
         "version": "1.0.0"
     },
     "servers": [
         {
             "url": "http://local.larajs.com/api/v1",
-            "description": "Api v1(LARAJS)"
+            "description": "Api v1"
         },
         {
             "url": "http://local.larajs.com/api/v2",
-            "description": "Api v2(LARAJS)"
+            "description": "Api v2"
         }
     ],
     "paths": {
-        "/test-generators": {
-            "get": {
-                "tags": [
-                    "TestGenerator"
-                ],
-                "summary": "List TestGenerator",
-                "responses": {
-                    "200": {
-                        "$ref": "#/components/responses/OK"
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/NotFound"
-                    },
-                    "500": {
-                        "$ref": "#/components/responses/Error"
-                    }
-                },
-                "security": [
-                    {
-                        "authApi": []
-                    }
-                ]
-            },
-            "post": {
-                "tags": [
-                    "TestGenerator"
-                ],
-                "summary": "Create TestGenerator",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/TestGenerator"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "$ref": "#/components/responses/OK"
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/NotFound"
-                    },
-                    "500": {
-                        "$ref": "#/components/responses/Error"
-                    }
-                },
-                "security": [
-                    {
-                        "authApi": []
-                    }
-                ]
-            }
-        },
-        "/test-generators/{id}": {
-            "put": {
-                "tags": [
-                    "TestGenerator"
-                ],
-                "summary": "Edit TestGenerator",
-                "parameters": [
-                    {
-                        "$ref": "#/components/parameters/id"
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/TestGenerator"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "$ref": "#/components/responses/OK"
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/NotFound"
-                    },
-                    "500": {
-                        "$ref": "#/components/responses/Error"
-                    }
-                },
-                "security": [
-                    {
-                        "authApi": []
-                    }
-                ]
-            },
-            "delete": {
-                "tags": [
-                    "TestGenerator"
-                ],
-                "summary": "Delete TestGenerator",
-                "parameters": [
-                    {
-                        "$ref": "#/components/parameters/id"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "$ref": "#/components/responses/OK"
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/NotFound"
-                    },
-                    "500": {
-                        "$ref": "#/components/responses/Error"
-                    }
-                },
-                "security": [
-                    {
-                        "authApi": []
-                    }
-                ]
-            }
-        },
         "/login": {
             "post": {
                 "tags": [
@@ -237,7 +120,7 @@
                 "tags": [
                     "User"
                 ],
-                "summary": "Edit User",
+                "summary": "Update User",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/id"
@@ -301,38 +184,6 @@
     },
     "components": {
         "schemas": {
-            "TestGenerator": {
-                "title": "TestGenerator",
-                "properties": {
-                    "varchar_1": {
-                        "title": "Varchar 1",
-                        "description": "Field[varchar_1]",
-                        "type": "string",
-                        "default": "NULL",
-                        "example": "string"
-                    },
-                    "int_1": {
-                        "title": "Int 1",
-                        "description": "Field[int_1]",
-                        "type": "integer",
-                        "default": "1",
-                        "example": "0"
-                    },
-                    "enum_1": {
-                        "title": "Enum 1",
-                        "description": "Field[enum_1]",
-                        "type": "string",
-                        "default": "1",
-                        "enum": [
-                            1,
-                            2,
-                            3
-                        ],
-                        "example": "1"
-                    }
-                },
-                "type": "object"
-            },
             "User": {
                 "title": "User",
                 "properties": {

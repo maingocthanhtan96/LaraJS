@@ -47,7 +47,7 @@
  * @OA\Put(
  *     path="/users/{id}",
  *     tags={"User"},
- *     summary="Edit User",
+ *     summary="Update User",
  *     security={{"authApi":{}}},
  *     @OA\Parameter(ref="#/components/parameters/id"),
  *     @OA\RequestBody(

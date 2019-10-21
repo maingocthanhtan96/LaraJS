@@ -47,10 +47,7 @@ Route::group(['prefix' => 'v1'], function () {
                 //{{ROUTE_ADMIN_NOT_DELETE_THIS_LINE}}
             });
 
-            // role:admin, manager, visitor, creator, editor
-            Route::group(['middleware' => 'role:' . LarajsPermission::authRoles()], function () {
-                //{{ROUTE_USER_NOT_DELETE_THIS_LINE}}
-            });
+            //{{ROUTE_USER_NOT_DELETE_THIS_LINE}}
         });
     });
 });

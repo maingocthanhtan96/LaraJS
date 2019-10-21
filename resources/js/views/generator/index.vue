@@ -6,7 +6,7 @@
           <div></div>
           <button @click="dialogVisible = true"
                   class="hover:bg-green-600 hover:text-white font-bold border rounded border-green-600 text-green-600 bg-transparent py-3 px-4">
-            <svg-icon icon-class="tree"/>
+            <svg-icon icon-class="tree-table"/>
           </button>
           <router-link :to="{name: 'generator_create'}" class="pan-btn blue-btn" tag="button">
             <i class="fa fa-plus mr-2"/>Create

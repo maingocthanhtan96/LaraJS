@@ -33,7 +33,7 @@
  * @OA\Put(
  *     path="/{{RESOURCE}}/{id}",
  *     tags={"{{MODEL_CLASS}}"},
- *     summary="Edit {{MODEL_CLASS}}",
+ *     summary="Update {{MODEL_CLASS}}",
  *     security={{"authApi":{}}},
  *     @OA\Parameter(ref="#/components/parameters/id"),
  *     @OA\RequestBody(

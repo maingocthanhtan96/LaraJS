@@ -17,6 +17,8 @@ trim_trailing_whitespace = false
 [*.yml]
 indent_size = 2
 
-[*.stub]
+[public/generator/templates/Laravel/**.stub]
+indent_size = 4
+[public/generator/templates/Vuejs/**.stub]
 indent_size = 2
 

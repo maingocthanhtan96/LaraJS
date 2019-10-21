@@ -2,14 +2,29 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="48ec4041-b065-41c7-b197-b99331b3987d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Generators/BackendUpdate/SwaggerUpdateGenerator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/.editorconfig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/GeneratorController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/GeneratorController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Generators/Backend/RouteGenerator.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Generators/Backend/RouteGenerator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Larajs/Development/swagger-constants.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Larajs/Development/swagger-constants.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Larajs/Development/swagger-v1.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Larajs/Development/swagger-v1.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Larajs/Permission.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Larajs/Permission.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Larajs/Swagger/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Larajs/Swagger/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/generator.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/generator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/UserTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/UserTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/generator/templates/Laravel/Controllers/controller.stub" beforeDir="false" afterPath="$PROJECT_DIR$/public/generator/templates/Laravel/Controllers/controller.stub" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/generator/templates/Laravel/Swagger/swagger.stub" beforeDir="false" afterPath="$PROJECT_DIR$/public/generator/templates/Laravel/Swagger/swagger.stub" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/generator/templates/Vuejs/Router/route.stub" beforeDir="false" afterPath="$PROJECT_DIR$/public/generator/templates/Vuejs/Router/route.stub" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/generator/templates/Vuejs/Views/index.stub" beforeDir="false" afterPath="$PROJECT_DIR$/public/generator/templates/Vuejs/Views/index.stub" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/manifest.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/manifest.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/swagger/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/swagger/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/swagger/swagger.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/swagger/swagger.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/layout/components/Navbar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layout/components/Navbar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/store/getters.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/getters.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/generator/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/generator/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/user/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/user/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -36,6 +51,9 @@
     </option>
     <expand />
     <select />
+  </component>
+  <component name="EditorConfigPreviewManager">
+    <editorConfig file="$PROJECT_DIR$/.editorconfig" previewFile="$PROJECT_DIR$/app/Http/Controllers/Api/v1/UserController.php" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -185,7 +203,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/swagger" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/js/views" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -194,23 +212,23 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.PHP" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2018.3.5\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/js/views" />
+      <recent name="$PROJECT_DIR$/public/swagger" />
+      <recent name="$PROJECT_DIR$/public/images/avatar" />
+      <recent name="$PROJECT_DIR$/public/fonts" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/resources/js/assets/images" />
       <recent name="$PROJECT_DIR$/resources/js/assets" />
       <recent name="$PROJECT_DIR$/resources/js/store" />
       <recent name="$PROJECT_DIR$/resources/js/layout/components/TagsView" />
       <recent name="$PROJECT_DIR$/resources/js/public/images" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/public/swagger" />
-      <recent name="$PROJECT_DIR$/public/images/avatar" />
-      <recent name="$PROJECT_DIR$/public/fonts" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="D:\laragon\www\tanmnt\larajs\public\generator\templates\LaravelUpdate\Databases\Migtations" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -483,7 +501,9 @@
       <workItem from="1571367376219" duration="1317000" />
       <workItem from="1571389674693" duration="8049000" />
       <workItem from="1571409670801" duration="3868000" />
-      <workItem from="1571474052692" duration="50884000" />
+      <workItem from="1571474052692" duration="63601000" />
+      <workItem from="1571620046526" duration="6714000" />
+      <workItem from="1571627127389" duration="9648000" />
     </task>
     <servers />
   </component>

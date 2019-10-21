@@ -3,7 +3,7 @@
     <el-col :span="24">
       <el-card>
         <div slot="header" class="flex justify-end items-center">
-          <router-link :to="{name: 'user_create'}" class="pan-btn blue-btn" tag="button">
+          <router-link v-permission="['create']" :to="{name: 'user_create'}" class="pan-btn blue-btn" tag="button">
             <i class="fa fa-plus mr-2"/>Create
           </router-link>
         </div>
@@ -24,9 +24,9 @@
           </template>
           <!--{{$TEMPLATES_NOT_DELETE_THIS_LINE$}}-->
           <div slot="actions" slot-scope="{row}" class="flex justify-center items-center">
-            <router-link :to="{name: 'user_edit', params: {id: row.id}}"><i
+            <router-link v-permission="['edit']" :to="{name: 'user_edit', params: {id: row.id}}"><i
               class="fa fa-edit el-link el-link--primary mr-2"></i></router-link>
-            <a class="cursor-pointer" @click="remove(row.id, row.name)"><i
+            <a v-permission="['delete']" class="cursor-pointer" @click.stop="remove(row.id, row.name)"><i
               class="fa fa-trash-o el-link el-link--danger"></i></a>
           </div>
         </v-server-table>
@@ -35,10 +35,12 @@
   </el-row>
 </template>
 <script>
+import permission from '@/directive/permission';
 import UserResource from '@/api/user';
 
 const userResource = new UserResource();
 export default {
+  directives: { permission },
   data() {
     return {
       table: {

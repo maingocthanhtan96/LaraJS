@@ -39,9 +39,9 @@ Class RouteGenerator extends BaseGenerator
         $notDelete = config('generator.not_delete.laravel.route.api');
         $templateDataReal = $this->serviceGenerator->getFile('api_routes', 'laravel');
         if ($this->serviceGenerator->getOptions(config('generator.model.options.role_admin'), $model['options'])) {
-            $templateDataReal = $this->serviceGenerator->replaceNotDelete($notDelete['admin'], $templateData, 4, $templateDataReal);
+            $templateDataReal = $this->serviceGenerator->replaceNotDelete($notDelete['admin'], $templateData, 3, $templateDataReal);
         } else {
-            $templateDataReal = $this->serviceGenerator->replaceNotDelete($notDelete['user'], $templateData, 4, $templateDataReal);
+            $templateDataReal = $this->serviceGenerator->replaceNotDelete($notDelete['user'], $templateData, 3, $templateDataReal);
         }
 
         $this->serviceFile->createFileReal($this->path, $templateDataReal);
