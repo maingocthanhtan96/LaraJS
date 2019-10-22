@@ -29,7 +29,8 @@ Class SwaggerUpdateGenerator extends BaseGenerator
     public $configDefaultValue;
 
     CONST DB_TYPE_INTEGER = 'integer';
-    CONST DB_TYPE_NUMBER = 'number';
+    CONST DB_TYPE_FLOAT = 'float';
+    CONST DB_TYPE_DOUBLE = 'double';
     CONST DB_TYPE_BOOLEAN = 'boolean';
     CONST DB_TYPE_STRING = 'string';
 
@@ -141,8 +142,10 @@ Class SwaggerUpdateGenerator extends BaseGenerator
                 $field = self::DB_TYPE_INTEGER;
                 break;
             case $this->dbType['float']:
+                $field = self::DB_TYPE_FLOAT;
+                break;
             case $this->dbType['double']:
-                $field = self::DB_TYPE_NUMBER;
+                $field = self::DB_TYPE_DOUBLE;
                 break;
             case $this->dbType['boolean']:
                 $field = self::DB_TYPE_BOOLEAN;
@@ -245,8 +248,12 @@ Class SwaggerUpdateGenerator extends BaseGenerator
                     $fieldsGenerate[] = $templateProperty;
                     break;
                 case $this->dbType['float']:
+                    $templateProperty = str_replace('{{DB_TYPE}}', self::DB_TYPE_FLOAT, $templateProperty);
+                    $templateProperty = str_replace('{{EXAMPLE}}', 0.1, $templateProperty);
+                    $fieldsGenerate[] = $templateProperty;
+                    break;
                 case $this->dbType['double']:
-                    $templateProperty = str_replace('{{DB_TYPE}}', self::DB_TYPE_NUMBER, $templateProperty);
+                    $templateProperty = str_replace('{{DB_TYPE}}', self::DB_TYPE_DOUBLE, $templateProperty);
                     $templateProperty = str_replace('{{EXAMPLE}}', 0.1, $templateProperty);
                     $fieldsGenerate[] = $templateProperty;
                     break;

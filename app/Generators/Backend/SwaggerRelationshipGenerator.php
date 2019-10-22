@@ -25,9 +25,6 @@ Class SwaggerRelationshipGenerator extends BaseGenerator
     public $relationship;
 
     CONST DB_TYPE_INTEGER = 'integer';
-    CONST DB_TYPE_NUMBER = 'number';
-    CONST DB_TYPE_BOOLEAN = 'boolean';
-    CONST DB_TYPE_STRING = 'string';
 
     public function __construct($relationship, $model, $modelCurrent)
     {
