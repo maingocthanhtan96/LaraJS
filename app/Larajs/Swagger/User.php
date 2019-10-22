@@ -44,6 +44,17 @@
  *     @OA\Response(response="500", ref="#/components/responses/Error"),
  * )
  *
+ *  @OA\Get(
+ *     path="/users/{id}",
+ *     tags={"User"},
+ *     summary="Find User",
+ *     security={{"authApi":{}}},
+ *     @OA\Parameter(ref="#/components/parameters/id"),
+ *     @OA\Response(response="200", ref="#/components/responses/OK"),
+ *     @OA\Response(response="404", ref="#/components/responses/NotFound"),
+ *     @OA\Response(response="500", ref="#/components/responses/Error"),
+ * )
+ *
  * @OA\Put(
  *     path="/users/{id}",
  *     tags={"User"},
@@ -72,9 +83,11 @@
  */
 
 /**
+ * Table[users]
  * @OA\Schema(
  *     type="object",
  *     title="User",
+ *     required={"name", "email", "password", "role_id"},
  * )
  */
 class User
@@ -84,6 +97,7 @@ class User
      * @OA\Property(
      *     title="Name",
      *     default="None",
+     *     description="",
      * )
      * @var string
      */
@@ -95,6 +109,7 @@ class User
      *     title="Email",
      *     default="None",
      *     example="example@larajs.com",
+     *     description="",
      * )
      * @var string
      */
@@ -106,10 +121,23 @@ class User
      *     title="Avatar",
      *     default="None",
      *     example="https://lorempixel.com/150/150/?57749",
+     *     description="",
      * )
      * @var string
      */
     protected $avatar;
+
+    /**
+     * Field[role_id]
+     * @OA\Property(
+     *     title="Role",
+     *     default="None",
+     *     example="2",
+     *     description="You cann't set id as 1(role: admin)",
+     * )
+     * @var integer
+     */
+    protected $role_id;
 
     /**
      * Field[password]
@@ -117,10 +145,47 @@ class User
      *     title="Password",
      *     default="None",
      *     example="larajs",
+     *     description="",
      * )
      * @var string
      */
     protected $password;
+
+    /**
+     * Field[created_at]
+     * @OA\Property(
+     *     title="Create date",
+     *     default="timestamp",
+     *     example="",
+     *     description="",
+     * )
+     * @var dateTime
+     */
+    protected $created_at;
+
+    /**
+     * Field[updated_at]
+     * @OA\Property(
+     *     title="Update date",
+     *     default="timestamp",
+     *     example="",
+     *     description="",
+     * )
+     * @var dateTime
+     */
+    protected $updated_at;
+
+    /**
+     * Field[deleted_at]
+     * @OA\Property(
+     *     title="Delete date",
+     *     default="timestamp",
+     *     example="",
+     *     description="",
+     * )
+     * @var dateTime
+     */
+    protected $deleted_at;
 
     //{{SWAGGER_PROPERTY_NOT_DELETE_THIS_LINE}}
 }

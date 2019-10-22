@@ -5,6 +5,7 @@
      *     default="{{DEFAULT_VALUE}}",
      *     example="{{EXAMPLE}}",
      *     enum={{ENUM}},
+     *     description="",
      * )
      * @var {{DB_TYPE}}
      */

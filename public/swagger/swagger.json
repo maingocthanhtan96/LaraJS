@@ -116,6 +116,33 @@
             }
         },
         "/users/{id}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Find User",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/OK"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/Error"
+                    }
+                },
+                "security": [
+                    {
+                        "authApi": []
+                    }
+                ]
+            },
             "put": {
                 "tags": [
                     "User"
@@ -186,33 +213,70 @@
         "schemas": {
             "User": {
                 "title": "User",
+                "required": [
+                    "name",
+                    "email",
+                    "password",
+                    "role_id"
+                ],
                 "properties": {
                     "name": {
                         "title": "Name",
-                        "description": "Field[name]",
+                        "description": "",
                         "type": "string",
                         "default": "None"
                     },
                     "email": {
                         "title": "Email",
-                        "description": "Field[email]",
+                        "description": "",
                         "type": "string",
                         "default": "None",
                         "example": "example@larajs.com"
                     },
                     "avatar": {
                         "title": "Avatar",
-                        "description": "Field[avatar]",
+                        "description": "",
                         "type": "string",
                         "default": "None",
                         "example": "https://lorempixel.com/150/150/?57749"
                     },
+                    "role_id": {
+                        "title": "Role",
+                        "description": "You cann't set id as 1(role: admin)",
+                        "type": "integer",
+                        "default": "None",
+                        "example": "2"
+                    },
                     "password": {
                         "title": "Password",
-                        "description": "Field[password]",
+                        "description": "",
                         "type": "string",
                         "default": "None",
                         "example": "larajs"
+                    },
+                    "created_at": {
+                        "title": "Create date",
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "default": "timestamp",
+                        "example": ""
+                    },
+                    "updated_at": {
+                        "title": "Update date",
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "default": "timestamp",
+                        "example": ""
+                    },
+                    "deleted_at": {
+                        "title": "Delete date",
+                        "description": "",
+                        "type": "string",
+                        "format": "date-time",
+                        "default": "timestamp",
+                        "example": ""
                     }
                 },
                 "type": "object"

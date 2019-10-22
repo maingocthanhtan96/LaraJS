@@ -4,6 +4,7 @@
      *     title="{{FIELD_TRANS}}",
      *     default="{{DEFAULT_VALUE}}",
      *     example="{{EXAMPLE}}",
+     *     description="",
      * )
      * @var {{DB_TYPE}}
      */

@@ -121,141 +121,141 @@
 </template>
 
 <script>
-import PreCodeTag from '@/components/PreCodeTag';
-import GeneratorResource from '@/api/generator';
+  import PreCodeTag from '@/components/PreCodeTag';
+  import GeneratorResource from '@/api/generator';
 
-const generatorResource = new GeneratorResource();
+  const generatorResource = new GeneratorResource();
 
-export default {
-  components: {
-    PreCodeTag,
-  },
-  data() {
-    return {
-      loading: false,
-      loadingModel: false,
-      loadingDisplay: false,
-      dialogVisible: false,
-      options: ['Search', 'Sort', 'Show'],
-      relationshipOptions: ['hasOne', 'hasMany', 'belongsToMany'],
-      modelOptions: [],
-      markdown: '# Relationship',
-      displayColumns: [],
-      displayColumns2: [],
-      form: {
-        model_current: '',
-        relationship: '',
-        model: '',
-        column: '',
-        column2: '',
-        options: ['Search', 'Sort', 'Show'],
-      },
-      drawDiagram: [],
-    };
-  },
-  mounted() {
-    const { id } = this.$route.params;
-    if (id) {
-      generatorResource.get(id)
-        .then(res => {
-          const { model } = res.data.data;
-          const modelCurrent = JSON.parse(model);
-          this.form.model_current = modelCurrent.name;
-          this.loadingModel = true;
-          generatorResource.getModels(model)
-            .then(res => {
-              this.loadingModel = false;
-              const { data } = res.data;
-              this.modelOptions = data;
-            })
-            .catch(() => {
-              this.loadingModel = false;
-            });
-        });
-    }
-  },
-  methods: {
-    diagram() {
-      generatorResource.generateDiagram(this.form.model_current)
-        .then(res => {
-          const { data } = res.data;
-          this.drawDiagram = data;
-        });
+  export default {
+    components: {
+      PreCodeTag,
     },
-    changeOptions(options) {
-      if (!options.includes('Show')) {
-        this.form.options = [];
-        this.options = ['Show'];
-      } else {
-        if (this.form.relationship === 'belongsToMany') {
-          this.options = ['Show', 'Search'];
-        } else {
-          this.options = ['Search', 'Sort', 'Show'];
-        }
+    data() {
+      return {
+        loading: false,
+        loadingModel: false,
+        loadingDisplay: false,
+        dialogVisible: false,
+        options: ['Search', 'Sort', 'Show'],
+        relationshipOptions: ['hasOne', 'hasMany', 'belongsToMany'],
+        modelOptions: [],
+        markdown: '# Relationship',
+        displayColumns: [],
+        displayColumns2: [],
+        form: {
+          model_current: '',
+          relationship: '',
+          model: '',
+          column: '',
+          column2: '',
+          options: ['Search', 'Sort', 'Show'],
+        },
+        drawDiagram: [],
+      };
+    },
+    mounted() {
+      const {id} = this.$route.params;
+      if (id) {
+        generatorResource.get(id)
+          .then(res => {
+            const {model} = res.data.data;
+            const modelCurrent = JSON.parse(model);
+            this.form.model_current = modelCurrent.name;
+            this.loadingModel = true;
+            generatorResource.getModels(model)
+              .then(res => {
+                this.loadingModel = false;
+                const {data} = res.data;
+                this.modelOptions = data;
+              })
+              .catch(() => {
+                this.loadingModel = false;
+              });
+          });
       }
     },
-    createRelationship() {
-      this.loading = true;
-      generatorResource.generateRelationship(this.form)
-        .then(res => {
-          this.loading = false;
-          location.reload();
-        })
-        .catch(() => {
-          this.loading = false;
-          location.reload();
-        });
-    },
-    replaceTemplate(model) {
-      const template = `# Model ${this.form.model_current}
+    methods: {
+      diagram() {
+        generatorResource.generateDiagram(this.form.model_current)
+          .then(res => {
+            const {data} = res.data;
+            this.drawDiagram = data;
+          });
+      },
+      changeOptions(options) {
+        if (!options.includes('Show')) {
+          this.form.options = [];
+          this.options = ['Show'];
+        } else {
+          if (this.form.relationship === 'belongsToMany') {
+            this.options = ['Show', 'Search'];
+          } else {
+            this.options = ['Search', 'Sort', 'Show'];
+          }
+        }
+      },
+      createRelationship() {
+        this.loading = true;
+        generatorResource.generateRelationship(this.form)
+          .then(res => {
+            this.loading = false;
+            location.reload();
+          })
+          .catch(() => {
+            this.loading = false;
+            location.reload();
+          });
+      },
+      replaceTemplate(model) {
+        const template = `# Model ${this.form.model_current}
       public function ${this.$_.camelCase(this.form.model)}() {
         return $this->${this.form.relationship}(${this.form.model}::class);
       }`;
-      let templateInverse = `<br/>  # Model ${this.form.model}
+        let templateInverse = `<br/>  # Model ${this.form.model}
       public function ${this.$_.camelCase(this.form.model_current)}() {
         return $this->belongsTo(${this.form.model_current}::class);
       }`;
-      if (this.form.relationship === 'belongsToMany') {
-        templateInverse = `<br/>  # Model ${this.form.model}
+        if (this.form.relationship === 'belongsToMany') {
+          templateInverse = `<br/>  # Model ${this.form.model}
       public function ${this.$_.camelCase(this.form.model_current)}() {
         return $this->belongsToMany(${this.form.model_current}::class);
       }`;
-        templateInverse += `<br/>  # I will create a table ${this.$_.snakeCase(this.form.model_current)}_${this.$_.snakeCase(this.form.model)}`;
-      }
-      if (this.form.relationship && this.form.model) {
-        this.markdown = template.concat(templateInverse);
-      }
-      if (this.form.relationship === 'belongsToMany') {
-        this.options = ['Show', 'Search'];
-        this.form.options = ['Show', 'Search'];
-      } else {
-        this.options = ['Search', 'Sort', 'Show'];
-        this.form.options = ['Search', 'Sort', 'Show'];
-      }
-      if (model) {
-        this.loadingDisplay = true;
-        generatorResource.getColumns(this.form.model_current)
-          .then(res => {
-            this.loadingDisplay = false;
-            const { data } = res.data;
-            this.displayColumns = data;
-          })
-          .catch(() => {
-            this.loadingDisplay = false;
-          });
-        generatorResource.getColumns(this.form.model)
-          .then(res => {
-            this.loadingDisplay = false;
-            const { data } = res.data;
-            this.displayColumns2 = data;
-          })
-          .catch(() => {
-            this.loadingDisplay = false;
-          });
-      }
+          templateInverse += `<br/>  # I will create a table ${this.$_.snakeCase(this.form.model_current)}_${this.$_.snakeCase(this.form.model)}`;
+        }
+        if (this.form.relationship && this.form.model) {
+          this.markdown = template.concat(templateInverse);
+        }
+        if (this.form.relationship === 'belongsToMany') {
+          this.options = ['Show', 'Search'];
+          this.form.options = ['Show', 'Search'];
+        } else {
+          this.options = ['Search', 'Sort', 'Show'];
+          this.form.options = ['Search', 'Sort', 'Show'];
+        }
+        if (model) {
+          this.loadingDisplay = true;
+          generatorResource.getColumns(this.form.model_current)
+            .then(res => {
+              this.loadingDisplay = false;
+              const {data} = res.data;
+              this.displayColumns = data;
+            })
+            .catch(() => {
+              this.loadingDisplay = false;
+            });
+          generatorResource.getColumns(this.form.model)
+            .then(res => {
+              this.loadingDisplay = false;
+              const {data} = res.data;
+              this.displayColumns2 = data;
+            })
+            .catch(() => {
+              this.loadingDisplay = false;
+            });
+        }
+      },
     },
-  },
-};
+  };
 </script>
 
 <style lang="scss" scoped>

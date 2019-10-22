@@ -11,7 +11,8 @@ use App\Generators\Backend\{ControllerGenerator,
     RouteGenerator,
     SeederGenerator,
     RelationshipGenerator,
-    SwaggerGenerator};
+    SwaggerGenerator,
+    SwaggerRelationshipGenerator};
 use App\Generators\BackendUpdate\{ControllerUpdateGenerator,
     LangUpdateGenerator,
     MigrationUpdateGenerator,
@@ -147,6 +148,7 @@ class GeneratorController extends Controller
             $column2 = $request->get('column2');
             $options = $request->get('options', []);
             new RelationshipGenerator($relationship, $model, $modelCurrent, $column, $column2, $options);
+            new SwaggerRelationshipGenerator($relationship, $model, $modelCurrent);
             $this->_runCommand();
             return $this->jsonSuccess(trans('messages.success'));
         } catch (\Exception $e) {

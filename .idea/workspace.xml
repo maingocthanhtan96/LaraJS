@@ -2,29 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="48ec4041-b065-41c7-b197-b99331b3987d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/.editorconfig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Generators/Backend/RouteGenerator.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Generators/Backend/RouteGenerator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Larajs/Development/swagger-constants.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Larajs/Development/swagger-constants.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Larajs/Development/swagger-v1.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Larajs/Development/swagger-v1.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Larajs/Permission.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Larajs/Permission.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Generators/Backend/SwaggerGenerator.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Generators/Backend/SwaggerGenerator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/GeneratorController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/GeneratorController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Larajs/Swagger/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Larajs/Swagger/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/UserTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/UserTableSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/generator/templates/Laravel/Controllers/controller.stub" beforeDir="false" afterPath="$PROJECT_DIR$/public/generator/templates/Laravel/Controllers/controller.stub" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/generator.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/generator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/generator/templates/Laravel/Swagger/property.stub" beforeDir="false" afterPath="$PROJECT_DIR$/public/generator/templates/Laravel/Swagger/property.stub" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/generator/templates/Laravel/Swagger/propertyEnum.stub" beforeDir="false" afterPath="$PROJECT_DIR$/public/generator/templates/Laravel/Swagger/propertyEnum.stub" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/generator/templates/Laravel/Swagger/swagger.stub" beforeDir="false" afterPath="$PROJECT_DIR$/public/generator/templates/Laravel/Swagger/swagger.stub" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/generator/templates/Vuejs/Router/route.stub" beforeDir="false" afterPath="$PROJECT_DIR$/public/generator/templates/Vuejs/Router/route.stub" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/generator/templates/Vuejs/Views/index.stub" beforeDir="false" afterPath="$PROJECT_DIR$/public/generator/templates/Vuejs/Views/index.stub" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/manifest.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/manifest.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/swagger/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/swagger/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/swagger/swagger.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/swagger/swagger.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/layout/components/Navbar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layout/components/Navbar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/getters.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/getters.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/generator/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/generator/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/user/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/user/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/generator/relationship.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/generator/relationship.vue" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -504,6 +491,7 @@
       <workItem from="1571474052692" duration="63601000" />
       <workItem from="1571620046526" duration="6714000" />
       <workItem from="1571627127389" duration="9648000" />
+      <workItem from="1571707416027" duration="9017000" />
     </task>
     <servers />
   </component>

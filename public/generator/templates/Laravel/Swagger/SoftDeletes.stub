@@ -1,0 +1,11 @@
+/**
+     * Field[deleted_at]
+     * @OA\Property(
+     *     title="Delete date",
+     *     default="timestamp",
+     *     example="",
+     *     description="",
+     * )
+     * @var dateTime
+     */
+    protected $deleted_at;
