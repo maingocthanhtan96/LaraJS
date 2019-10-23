@@ -216,7 +216,7 @@ return [
 	|
 	*/
     'relationship' => [
-        'ignore_model' => ['Generator', 'Permission', 'Role'],
+        'ignore_model' => ['Generator', 'Permission', 'Role', 'BaseModel'],
         'relationship' => [
             'has_one' => 'hasOne',
             'has_many' => 'hasMany',
