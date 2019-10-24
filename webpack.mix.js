@@ -19,7 +19,7 @@ Mix.listen('configReady', webpackConfig => {
   );
   imageLoaderConfig.exclude = resolve('icons');
 });
-mix.copy('node_modules/element-ui/lib/theme-chalk/fonts/*', 'public/css/fonts/');
+// mix.copy('node_modules/element-ui/lib/theme-chalk/fonts/*', 'public/css/fonts/');
 mix.js('resources/js/app.js', 'public/js')
   .extract([
     'vue',
@@ -37,18 +37,32 @@ mix.js('resources/js/app.js', 'public/js')
     'vue2-dropzone',
     'vuedraggable',
     'echarts',
-    'vue-count-to'
+    'vue-count-to',
   ])
   .options({
     processCssUrls: false,
     postCss: [
       require('tailwindcss')('./public/js/tailwind.config.js'),
       require('autoprefixer'),
-    ]
+      require('@fullhuman/postcss-purgecss')({
+        // Specify the paths to all of the template files in your project
+        content: [
+          './resources/js/**/*.vue',
+          './public/js/*.js',
+        ],
+        css: ['./resources/js/styles/*.scss', './public/css/*.css'],
+        whitelist: ["html", "body", 'app'],
+        whitelistPatterns: [/^el-/, /^fade-/, /^breadcrumb-/, /^vue-/, /^dropzone/, /^json/],
+        whitelistPatternsChildren: [/^el-/, /^fade-/, /^breadcrumb-/, /^vue-/, /^dropzone/, /^json/],
+        // Include any special characters you're using in this regular expression
+        defaultExtractor: content => content.match(/[A-Za-z0-9-_:/]+/g) || []
+      })
+    ],
+    clearConsole: true, // in watch mode, clears console after every build
   })
   .sass('resources/js/styles/index.scss', 'public/css/app.css', {
     implementation: require('node-sass'),
-  })
+  });
 mix.webpackConfig(config);
 
 if (mix.inProduction()) {

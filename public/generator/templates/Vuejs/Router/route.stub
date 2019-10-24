@@ -12,7 +12,7 @@ const {{$NAME_ROUTE_MODEL_CLASS$}} = {
   component: () => import('@/layout'),
   meta: {
     title: '{{$TITLE_ROUTE_MODEL_CLASS$}}',
-    icon: 'list',
+    icon: 'menu',
     {{$ADMIN_ROLE$}}
   },
   children: [
@@ -37,6 +37,7 @@ const {{$NAME_ROUTE_MODEL_CLASS$}} = {
         activeMenu: '/{{$PATH_ROUTE_MODEL_CLASS$}}',
         title: '{{$TITLE_ROUTE_MODEL_CLASS$}}_create',
         permissions: ['create'],
+        icon: 'record_create',
       },
     },
     {
@@ -48,6 +49,7 @@ const {{$NAME_ROUTE_MODEL_CLASS$}} = {
         activeMenu: '/{{$PATH_ROUTE_MODEL_CLASS$}}',
         title: '{{$TITLE_ROUTE_MODEL_CLASS$}}_edit',
         permissions: ['edit'],
+        icon: 'edit',
       },
       props: route => {
         return {

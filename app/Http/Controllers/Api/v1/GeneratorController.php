@@ -11,7 +11,8 @@ use App\Generators\Backend\{ControllerGenerator,
     RouteGenerator,
     SeederGenerator,
     RelationshipGenerator,
-    SwaggerGenerator};
+    SwaggerGenerator,
+    SwaggerRelationshipGenerator};
 use App\Generators\BackendUpdate\{ControllerUpdateGenerator,
     LangUpdateGenerator,
     MigrationUpdateGenerator,
@@ -147,6 +148,7 @@ class GeneratorController extends Controller
             $column2 = $request->get('column2');
             $options = $request->get('options', []);
             new RelationshipGenerator($relationship, $model, $modelCurrent, $column, $column2, $options);
+            new SwaggerRelationshipGenerator($relationship, $model, $modelCurrent);
             $this->_runCommand();
             return $this->jsonSuccess(trans('messages.success'));
         } catch (\Exception $e) {
@@ -249,7 +251,9 @@ class GeneratorController extends Controller
         $resourcePath = resource_path('js/assets/images/diagram-erd.png');
         Artisan::call('generate:erd ' . $resourcePath);
         $basePath = base_path();
-        exec("cd $basePath && npm run dev");
+        if (env('APP_ENV') === 'production') {
+            exec("cd $basePath && npm run prod");
+        }
         exec("cd $basePath/app/Larajs/Development && ./swagger.sh");
     }
 }

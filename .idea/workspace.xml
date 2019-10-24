@@ -2,29 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="48ec4041-b065-41c7-b197-b99331b3987d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/.editorconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/generator/templates/Laravel/Swagger/swaggerMTM.stub" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Generators/Backend/RouteGenerator.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Generators/Backend/RouteGenerator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Larajs/Development/swagger-constants.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Larajs/Development/swagger-constants.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Larajs/Development/swagger-v1.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Larajs/Development/swagger-v1.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Larajs/Permission.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Larajs/Permission.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Larajs/Swagger/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Larajs/Swagger/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/UserTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/UserTableSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/generator/templates/Laravel/Controllers/controller.stub" beforeDir="false" afterPath="$PROJECT_DIR$/public/generator/templates/Laravel/Controllers/controller.stub" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/generator/templates/Laravel/Swagger/swagger.stub" beforeDir="false" afterPath="$PROJECT_DIR$/public/generator/templates/Laravel/Swagger/swagger.stub" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/generator/templates/Vuejs/Router/route.stub" beforeDir="false" afterPath="$PROJECT_DIR$/public/generator/templates/Vuejs/Router/route.stub" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/generator/templates/Vuejs/Views/index.stub" beforeDir="false" afterPath="$PROJECT_DIR$/public/generator/templates/Vuejs/Views/index.stub" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Generators/Backend/SwaggerRelationshipGenerator.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Generators/Backend/SwaggerRelationshipGenerator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Generators/BackendUpdate/SwaggerUpdateGenerator.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Generators/BackendUpdate/SwaggerUpdateGenerator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/manifest.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/manifest.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/swagger/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/swagger/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/swagger/swagger.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/swagger/swagger.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/layout/components/Navbar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layout/components/Navbar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/getters.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/getters.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/generator/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/generator/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/user/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/user/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/VueDropzone/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/VueDropzone/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/generator/form.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/generator/form.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.mix.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -196,6 +182,8 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/annotations" />
       <path value="$PROJECT_DIR$/vendor/zircote/swagger-php" />
       <path value="$PROJECT_DIR$/vendor/symfony/yaml" />
+      <path value="$PROJECT_DIR$/vendor/spatie/laravel-image-optimizer" />
+      <path value="$PROJECT_DIR$/vendor/spatie/image-optimizer" />
     </include_path>
   </component>
   <component name="ProjectId" id="1OpAgufvPtc7jYHPj004onakmlp" />
@@ -203,7 +191,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/js/views" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -216,19 +204,19 @@
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2018.3.5\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/resources/js/views" />
-      <recent name="$PROJECT_DIR$/public/swagger" />
-      <recent name="$PROJECT_DIR$/public/images/avatar" />
-      <recent name="$PROJECT_DIR$/public/fonts" />
-      <recent name="$PROJECT_DIR$" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/resources/js/assets/images" />
       <recent name="$PROJECT_DIR$/resources/js/assets" />
       <recent name="$PROJECT_DIR$/resources/js/store" />
       <recent name="$PROJECT_DIR$/resources/js/layout/components/TagsView" />
       <recent name="$PROJECT_DIR$/resources/js/public/images" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/js/views" />
+      <recent name="$PROJECT_DIR$/public/swagger" />
+      <recent name="$PROJECT_DIR$/public/images/avatar" />
+      <recent name="$PROJECT_DIR$/public/fonts" />
+      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -504,6 +492,15 @@
       <workItem from="1571474052692" duration="63601000" />
       <workItem from="1571620046526" duration="6714000" />
       <workItem from="1571627127389" duration="9648000" />
+      <workItem from="1571707416027" duration="9017000" />
+      <workItem from="1571821085669" duration="2116000" />
+      <workItem from="1571838904429" duration="5256000" />
+      <workItem from="1571879807046" duration="5162000" />
+      <workItem from="1571899218759" duration="30000" />
+      <workItem from="1571902726632" duration="82000" />
+      <workItem from="1571902852919" duration="5169000" />
+      <workItem from="1571910205415" duration="1181000" />
+      <workItem from="1571924328826" duration="1559000" />
     </task>
     <servers />
   </component>

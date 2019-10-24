@@ -34,6 +34,7 @@
               lang-type="en"
               @close="close"
               @crop-upload-success="cropSuccess"
+              @crop-upload-fail="cropError"
             />
           </el-form-item>
           <el-form-item data-generator="role_id" :label="$t('table.user.role')" prop="role_id">
@@ -246,6 +247,10 @@ export default {
       this.imageCropperKey = this.imageCropperKey + 1;
       this.form.avatar = resData.data;
       this.$message({ message: this.$t('messages.upload'), type: 'success' });
+    },
+    cropError(error) {
+      const err = error.response.data.errors.file[0];
+      this.$message({ message: err, type: 'error' });
     },
     close() {
       this.imageCropperShow = false;

@@ -1,0 +1,45 @@
+<?php
+/**
+ * Created by: Tanmnt
+ * Email: maingocthanhan96@gmail.com
+ * Date Time: {{DATE}}
+ */
+
+/**
+ * @OA\Schema(
+ *     type="object",
+ *     title="{{MODEL_CLASS}}",
+ *     required={"{{REQUIRED_FIELD_1}}", "{{REQUIRED_FIELD_2}}"},
+ *     description="{{RELATIONSHIP}}",
+ * )
+ */
+class {{MODEL_CLASS}}
+{
+    //{{SWAGGER_PROPERTY_NOT_DELETE_THIS_LINE}}
+
+    /**
+     * Field[created_at]
+     * @OA\Property(
+     *     title="Create date",
+     *     default="timestamp",
+     *     example="",
+     *     description="",
+     * )
+     * @var dateTime
+     */
+    protected $created_at;
+
+    /**
+     * Field[updated_at]
+     * @OA\Property(
+     *     title="Update date",
+     *     default="timestamp",
+     *     example="",
+     *     description="",
+     * )
+     * @var dateTime
+     */
+    protected $updated_at;
+
+    //{{SWAGGER_SOFT_DELETES_NOT_DELETE_THIS_LINE}}
+}

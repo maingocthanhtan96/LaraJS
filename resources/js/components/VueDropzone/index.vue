@@ -25,7 +25,7 @@ export default {
       type: Object,
       default() {
         return {
-          url: `/api/v1/upload-file/store`,
+          url: `${process.env.MIX_BASE_API}/upload-file/store`,
           maxFilesize: 10,
           addRemoveLinks: true,
           dictDefaultMessage: "<i class='fa fa-cloud-upload'></i>" + '<br>Drop files here to upload',

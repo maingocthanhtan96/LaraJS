@@ -150,7 +150,8 @@ return [
                 'rule' => '//{{REQUEST_RULES_NOT_DELETE_THIS_LINE}}'
             ],
             'swagger' => [
-                'property' => '//{{SWAGGER_PROPERTY_NOT_DELETE_THIS_LINE}}'
+                'property' => '//{{SWAGGER_PROPERTY_NOT_DELETE_THIS_LINE}}',
+                'soft_deletes' => '//{{SWAGGER_SOFT_DELETES_NOT_DELETE_THIS_LINE}}',
             ],
         ],
         'vuejs' => [
@@ -215,7 +216,7 @@ return [
 	|
 	*/
     'relationship' => [
-        'ignore_model' => ['Generator', 'Permission', 'Role'],
+        'ignore_model' => ['Generator', 'Permission', 'Role', 'BaseModel'],
         'relationship' => [
             'has_one' => 'hasOne',
             'has_many' => 'hasMany',
