@@ -59,7 +59,6 @@ Class SwaggerUpdateGenerator extends BaseGenerator
         $templateDataReal = $this->generateFieldsChange($generator, $updateFields['changeFields'], $templateDataReal);
         $templateDataReal = $this->generateFieldsUpdate($updateFields['updateFields'], $templateDataReal);
         $templateDataReal = $this->generateFieldsDrop($updateFields['dropFields'], $templateDataReal);
-        dd($templateDataReal, 11);
         $fileName = $this->path . $fileName;
         $this->serviceFile->createFileReal($fileName, $templateDataReal);
 

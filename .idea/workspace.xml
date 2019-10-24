@@ -2,23 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="48ec4041-b065-41c7-b197-b99331b3987d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/larajs.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/larajs.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/generator/templates/Laravel/Swagger/swaggerMTM.stub" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/FileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/FileController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Generators/Backend/SwaggerRelationshipGenerator.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Generators/Backend/SwaggerRelationshipGenerator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Generators/BackendUpdate/SwaggerUpdateGenerator.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Generators/BackendUpdate/SwaggerUpdateGenerator.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/styles/element-ui.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/styles/element-ui.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/styles/mediaScreen.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/utils/request.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/utils/request.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/dashboard/admin/components/BoxCard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/dashboard/admin/components/BoxCard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/dashboard/admin/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/dashboard/admin/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/user/form.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/user/form.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/larajs.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/larajs.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/VueDropzone/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/VueDropzone/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/generator/form.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/generator/form.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.mix.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -266,9 +257,9 @@
     <list>
       <item itemvalue="JavaScript Debug.form.vue" />
       <item itemvalue="Node.js.default.js" />
-      <item itemvalue="PHP Script.FormUpdateGenerator.php" />
       <item itemvalue="PHPUnit.Unnamed" />
       <item itemvalue="PHPUnit.phpunit.xml" />
+      <item itemvalue="PHP Script.FormUpdateGenerator.php" />
     </list>
     <recent_temporary>
       <list>

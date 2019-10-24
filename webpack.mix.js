@@ -48,16 +48,17 @@ mix.js('resources/js/app.js', 'public/js')
         // Specify the paths to all of the template files in your project
         content: [
           './resources/js/**/*.vue',
+          './public/js/*.js',
         ],
-        css: ['./resources/js/styles/*.scss'],
-        whitelist: ["html", "body", '#app'],
-        whitelistPatterns: [/^el/, /^fade/],
-        whitelistPatternsChildren: [/^el-/, /^fade-/, /^breadcrumb-/],
+        css: ['./resources/js/styles/*.scss', './public/css/*.css'],
+        whitelist: ["html", "body", 'app'],
+        whitelistPatterns: [/^el-/, /^fade-/, /^breadcrumb-/, /^vue-/, /^dropzone/, /^json/],
+        whitelistPatternsChildren: [/^el-/, /^fade-/, /^breadcrumb-/, /^vue-/, /^dropzone/, /^json/],
         // Include any special characters you're using in this regular expression
         defaultExtractor: content => content.match(/[A-Za-z0-9-_:/]+/g) || []
       })
     ],
-    // clearConsole: true, // in watch mode, clears console after every build
+    clearConsole: true, // in watch mode, clears console after every build
   })
   .sass('resources/js/styles/index.scss', 'public/css/app.css', {
     implementation: require('node-sass'),

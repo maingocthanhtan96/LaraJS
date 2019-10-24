@@ -2154,6 +2154,11 @@
   vertical-align:middle
 }
 
+.horizontal-collapse-transition .el-submenu__title .el-submenu__icon-arrow{
+  transition:.2s;
+  opacity:0
+}
+
 .el-radio-group{
   font-size:0
 }
@@ -3674,6 +3679,38 @@
   margin-left:10px
 }
 
+.time-select{
+  margin:5px 0;
+  min-width:0
+}
+
+.time-select .el-picker-panel__content{
+  max-height:200px;
+  margin:0
+}
+
+.time-select-item{
+  padding:8px 10px;
+  font-size:14px;
+  line-height:20px
+}
+
+.time-select-item.selected:not(.disabled){
+  color:#409EFF;
+  font-weight:700
+}
+
+.time-select-item.disabled{
+  color:#E4E7ED;
+  cursor:not-allowed
+}
+
+.time-select-item:hover{
+  background-color:#F5F7FA;
+  font-weight:700;
+  cursor:pointer
+}
+
 .el-date-editor{
   position:relative;
   display:inline-block;
@@ -4231,6 +4268,16 @@
   margin-bottom:12px
 }
 
+.v-modal-enter{
+  -webkit-animation:v-modal-in .2s ease;
+  animation:v-modal-in .2s ease
+}
+
+.v-modal-leave{
+  -webkit-animation:v-modal-out .2s ease forwards;
+  animation:v-modal-out .2s ease forwards
+}
+
 @keyframes v-modal-in{
   0%{
     opacity:0
@@ -4241,6 +4288,16 @@
   100%{
     opacity:0
   }
+}
+
+.v-modal{
+  position:fixed;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+  opacity:.5;
+  background:#000
 }
 
 .el-popup-parent--hidden{
@@ -10619,6 +10676,14 @@
   transform:scale(.45,.45)
 }
 
+.collapse-transition{
+  transition:.3s height ease-in-out,.3s padding-top ease-in-out,.3s padding-bottom ease-in-out
+}
+
+.horizontal-collapse-transition{
+  transition:.3s width ease-in-out,.3s padding-left ease-in-out,.3s padding-right ease-in-out
+}
+
 .el-list-enter-active,.el-list-leave-active{
   transition:all 1s
 }
@@ -14640,6 +14705,12 @@ h1 {
  * 2. Show the overflow in Edge and IE.
  */
 
+hr {
+  box-sizing: content-box; /* 1 */
+  height: 0; /* 1 */
+  overflow: visible; /* 2 */
+}
+
 /**
  * 1. Correct the inheritance and scaling of font size in all browsers.
  * 2. Correct the odd `em` font sizing in all browsers.
@@ -14666,6 +14737,13 @@ a {
  * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
  */
 
+abbr[title] {
+  border-bottom: none; /* 1 */
+  text-decoration: underline; /* 2 */
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted; /* 2 */
+}
+
 /**
  * Add the correct font weight in Chrome, Edge, and Safari.
  */
@@ -14680,7 +14758,9 @@ strong {
  * 2. Correct the odd `em` font sizing in all browsers.
  */
 
-code {
+code,
+kbd,
+samp {
   font-family: monospace, monospace; /* 1 */
   font-size: 1em; /* 2 */
 }
@@ -14697,6 +14777,22 @@ small {
  * Prevent `sub` and `sup` elements from affecting the line height in
  * all browsers.
  */
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
 
 /* Embedded content
    ========================================================================== */
@@ -14719,6 +14815,7 @@ img {
 
 button,
 input,
+optgroup,
 select,
 textarea {
   font-family: inherit; /* 1 */
@@ -14784,6 +14881,10 @@ button:-moz-focusring,
 /**
  * Correct the padding in Firefox.
  */
+
+fieldset {
+  padding: 0.35em 0.75em 0.625em;
+}
 
 /**
  * 1. Correct the text wrapping in Edge and IE.
@@ -14872,9 +14973,17 @@ textarea {
  * Add the correct display in Edge, IE 10+, and Firefox.
  */
 
+details {
+  display: block;
+}
+
 /*
  * Add the correct display in all browsers.
  */
+
+summary {
+  display: list-item;
+}
 
 /* Misc
    ========================================================================== */
@@ -14922,9 +15031,17 @@ html {
  * Removes the default spacing and border for appropriate elements.
  */
 
-
+blockquote,
+dl,
+dd,
 h1,
+h2,
 h3,
+h4,
+h5,
+h6,
+hr,
+figure,
 p,
 pre {
   margin: 0;
@@ -14943,6 +15060,11 @@ button {
 button:focus {
   outline: 1px dotted;
   outline: 5px auto -webkit-focus-ring-color;
+}
+
+fieldset {
+  margin: 0;
+  padding: 0;
 }
 
 ol,
@@ -14995,6 +15117,10 @@ html {
  * Ensure horizontal rules are visible by default
  */
 
+hr {
+  border-top-width: 1px;
+}
+
 /**
  * Undo the `border-style: none` reset that Normalize applies to images so that
  * our `border-{width}` utilities have the expected effect.
@@ -15044,7 +15170,11 @@ table {
 }
 
 h1,
-h3 {
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-size: inherit;
   font-weight: inherit;
 }
@@ -15069,6 +15199,7 @@ a {
 
 button,
 input,
+optgroup,
 select,
 textarea {
   padding: 0;
@@ -15084,7 +15215,9 @@ textarea {
  */
 
 pre,
-code {
+code,
+kbd,
+samp {
   font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
@@ -15098,7 +15231,11 @@ code {
 
 img,
 svg,
+video,
 canvas,
+audio,
+iframe,
+embed,
 object {
   display: block;
   vertical-align: middle;
@@ -15111,7 +15248,8 @@ object {
  * https://github.com/mozdevs/cssremedy/issues/14
  */
 
-img {
+img,
+video {
   max-width: 100%;
   height: auto;
 }
@@ -15168,6 +15306,10 @@ img {
   background-color: #38a169 !important;
 }
 
+.border-collapse{
+  border-collapse: collapse !important;
+}
+
 .border-green-600{
   border-color: #38a169 !important;
 }
@@ -15184,8 +15326,16 @@ img {
   border-bottom-width: 4px !important;
 }
 
+.cursor-default{
+  cursor: default !important;
+}
+
 .cursor-pointer{
   cursor: pointer !important;
+}
+
+.cursor-not-allowed{
+  cursor: not-allowed !important;
 }
 
 .block{
@@ -15194,6 +15344,10 @@ img {
 
 .inline-block{
   display: inline-block !important;
+}
+
+.inline{
+  display: inline !important;
 }
 
 .flex{
@@ -15220,6 +15374,10 @@ img {
   flex-direction: column !important;
 }
 
+.flex-wrap{
+  flex-wrap: wrap !important;
+}
+
 .items-start{
   align-items: flex-start !important;
 }
@@ -15244,14 +15402,30 @@ img {
   flex-grow: 1 !important;
 }
 
+.flex-shrink{
+  flex-shrink: 1 !important;
+}
+
 .float-right{
   float: right !important;
+}
+
+.float-left{
+  float: left !important;
 }
 
 .clearfix:after{
   content: "" !important;
   display: table !important;
   clear: both !important;
+}
+
+.font-hairline{
+  font-weight: 100 !important;
+}
+
+.font-medium{
+  font-weight: 500 !important;
 }
 
 .font-bold{
@@ -15266,6 +15440,14 @@ img {
   height: 100vh !important;
 }
 
+.m-0{
+  margin: 0 !important;
+}
+
+.m-40{
+  margin: 10rem !important;
+}
+
 .my-8{
   margin-top: 2rem !important;
   margin-bottom: 2rem !important;
@@ -15273,6 +15455,10 @@ img {
 
 .mr-2{
   margin-right: 0.5rem !important;
+}
+
+.mt-4{
+  margin-top: 1rem !important;
 }
 
 .mr-4{
@@ -15285,6 +15471,14 @@ img {
 
 .mb-5{
   margin-bottom: 1.25rem !important;
+}
+
+.mt-6{
+  margin-top: 1.5rem !important;
+}
+
+.mb-6{
+  margin-bottom: 1.5rem !important;
 }
 
 .mb-8{
@@ -15336,6 +15530,10 @@ img {
 
 .pt-24{
   padding-top: 6rem !important;
+}
+
+.static{
+  position: static !important;
 }
 
 .fixed{
@@ -15423,8 +15621,20 @@ img {
   text-transform: uppercase !important;
 }
 
+.lowercase{
+  text-transform: lowercase !important;
+}
+
 .capitalize{
   text-transform: capitalize !important;
+}
+
+.underline{
+  text-decoration: underline !important;
+}
+
+.line-through{
+  text-decoration: line-through !important;
 }
 
 .no-underline{
@@ -15435,12 +15645,38 @@ img {
   text-decoration: underline !important;
 }
 
+.antialiased{
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+}
+
+.select-all{
+  -webkit-user-select: all !important;
+     -moz-user-select: all !important;
+      -ms-user-select: all !important;
+          user-select: all !important;
+}
+
 .align-middle{
   vertical-align: middle !important;
 }
 
 .visible{
   visibility: visible !important;
+}
+
+.invisible{
+  visibility: hidden !important;
+}
+
+.break-all{
+  word-break: break-all !important;
+}
+
+.truncate{
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
 }
 
 .w-24{
@@ -15517,9 +15753,18 @@ img {
   position: absolute;
 }
 
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
 table th {
   text-align: center !important;
   color: #333 !important;
+}
+
+.VuePagination__pagination-item.cursor-not-allowed a {
+  cursor: not-allowed !important;
 }
 
 .el-breadcrumb__inner,
@@ -15605,6 +15850,10 @@ table th {
   height: 100%;
 }
 
+#app .sidebar-container .horizontal-collapse-transition {
+  transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
+}
+
 #app .sidebar-container .scrollbar-wrapper {
   overflow-x: hidden !important;
 }
@@ -15631,6 +15880,10 @@ table th {
 
 #app .sidebar-container .el-scrollbar__bar.is-vertical {
   right: 0px;
+}
+
+#app .sidebar-container .is-horizontal {
+  display: none;
 }
 
 #app .sidebar-container a {
