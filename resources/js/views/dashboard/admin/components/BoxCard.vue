@@ -5,9 +5,7 @@
     </div>
     <div style="position:relative;">
       <pan-thumb :image="user.avatar + '?imageView2/1/w/80/h/80'" class="panThumb"/>
-      <div class="mallki-text">
-        Laravue
-      </div>
+      <mallki class-name="mallki-text" text="Larajs" />
       <div style="padding-top:35px;" class="progress-item">
         <span>Laravel</span>
         <el-progress :percentage="90"/>
@@ -31,10 +29,10 @@
 <script>
 import { mapGetters } from 'vuex';
 import PanThumb from '@/components/PanThumb';
+import Mallki from '@/components/TextHoverEffect/Mallki';
 
 export default {
-  components: { PanThumb },
-
+  components: { PanThumb, Mallki },
   filters: {
     statusFilter(status) {
       const statusMap = {

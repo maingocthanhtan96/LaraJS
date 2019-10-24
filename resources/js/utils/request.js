@@ -55,7 +55,7 @@ service.interceptors.response.use(
         router.replace({ path: '/404' });
       }
       if (res.data.errors) {
-        store.dispatch(SET_ERRORS, res.data.errors);
+        store.dispatch(`app/${SET_ERRORS}`, res.data.errors);
       } else {
         Message({
           message: res.data.message || 'Error',

@@ -52,7 +52,7 @@ mix.js('resources/js/app.js', 'public/js')
         css: ['./resources/js/styles/*.scss'],
         whitelist: ["html", "body", '#app'],
         whitelistPatterns: [/^el/, /^fade/],
-        whitelistPatternsChildren: [/^el/, /^fade/],
+        whitelistPatternsChildren: [/^el-/, /^fade-/, /^breadcrumb-/],
         // Include any special characters you're using in this regular expression
         defaultExtractor: content => content.match(/[A-Za-z0-9-_:/]+/g) || []
       })
