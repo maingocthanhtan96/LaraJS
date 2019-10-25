@@ -4,6 +4,7 @@
  * @OA\Post(
  *     path="/login",
  *     tags={"Login"},
+ *     summary="Login",
  *     @OA\RequestBody(
  *          required=true,
  *          @OA\MediaType(
@@ -16,6 +17,15 @@
  *          )
  *     ),
  *     @OA\Response(response="200", description="Login Success!",)
+ * ),
+ * @OA\Get(
+ *     path="/user-info",
+ *     tags={"Login"},
+ *     summary="Info user",
+ *     security={{"authApi":{}}},
+ *     @OA\Response(response="200", ref="#/components/responses/OK"),
+ *     @OA\Response(response="404", ref="#/components/responses/NotFound"),
+ *     @OA\Response(response="500", ref="#/components/responses/Error"),
  * ),
  */
 

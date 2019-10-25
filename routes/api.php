@@ -21,7 +21,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('/register', 'AuthController@register')->name('register');
 
         Route::group(['middleware' => 'auth:api'], function () {
-            Route::get('/user', 'UserController@userInfo');
+            Route::get('/user-info', 'UserController@userInfo');
             Route::get('/logout', 'AuthController@logout')->name('logout');
             // FILE
             Route::middleware('optimizeImages')->group(function () {

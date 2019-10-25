@@ -28,6 +28,7 @@
                 "tags": [
                     "Login"
                 ],
+                "summary": "Login",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -57,6 +58,30 @@
                         "description": "Login Success!"
                     }
                 }
+            }
+        },
+        "/user-info": {
+            "get": {
+                "tags": [
+                    "Login"
+                ],
+                "summary": "Info user",
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/OK"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFound"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/Error"
+                    }
+                },
+                "security": [
+                    {
+                        "authApi": []
+                    }
+                ]
             }
         },
         "/users": {

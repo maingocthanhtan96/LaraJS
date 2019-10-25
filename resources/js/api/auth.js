@@ -21,7 +21,7 @@ export function login(form) {
  */
 export function userInfo() {
   return request({
-    url: '/user',
+    url: '/user-info',
     method: 'get',
   });
 }
