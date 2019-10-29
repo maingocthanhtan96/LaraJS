@@ -18,5 +18,7 @@ return [
         'email_valid' => 'Invalid Email.',
         'password' => 'Password is required.',
     ],
+    'forgot_password' => 'Forgot password',
+    'reset_password' => 'Reset password',
     'logout' => "Logout"
 ];

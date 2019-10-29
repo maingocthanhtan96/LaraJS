@@ -86,9 +86,8 @@ export default {
               this.$refs[{{$REF_MODEL_CLASS$}}].resetFields();
               this.loading = false;
             })
-            .catch(err => {
+            .catch(() => {
               this.loading = false;
-              console.log(err);
             });
         } else {
           this.loading = false;
@@ -111,9 +110,8 @@ export default {
               });
               this.loading = false;
               this.$router.push({ name: '{{$REF_MODEL_CLASS$}}_list' });
-            }).catch(err => {
+            }).catch(() => {
               this.loading = false;
-              console.log(err);
             });
         } else {
           this.loading = false;

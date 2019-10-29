@@ -46,9 +46,9 @@
                         prop="password">
             <el-input v-model="form.password" show-password type="password"/>
           </el-form-item>
-          <el-form-item data-generator="password_confirm" v-if="!$route.params.id" required
-                        :label="$t('table.user.password_confirm')" prop="password_confirm">
-            <el-input v-model="form.password_confirm" show-password type="password"/>
+          <el-form-item data-generator="password_confirmation" v-if="!$route.params.id" required
+                        :label="$t('table.user.password_confirmation')" prop="password_confirmation">
+            <el-input v-model="form.password_confirmation" show-password type="password"/>
           </el-form-item>
           <!--{{$FROM_ITEM_NOT_DELETE_THIS_LINE$}}-->
           <el-form-item class="flex justify-center">
@@ -96,7 +96,7 @@ export default {
         avatar: require('@/assets/images/avatar-default.png'),
         role_id: '',
         password: '',
-        password_confirm: '',
+        password_confirmation: '',
       },
       imageCropperShow: false,
       imageCropperKey: 0,
@@ -122,17 +122,17 @@ export default {
         if (value === '') {
           cb(new Error(this.$t('validation.required', { attribute: this.$t('table.user.password') })));
         } else {
-          if (this.form.password_confirm !== '') {
-            this.$refs.users.validateField('password_confirm');
+          if (this.form.password_confirmation !== '') {
+            this.$refs.users.validateField('password_confirmation');
           }
           cb();
         }
       };
       const passwordConfirm = (rule, value, cb) => {
         if (value === '') {
-          cb(new Error(this.$t('validation.required', { attribute: this.$t('table.user.password_confirm') })));
+          cb(new Error(this.$t('validation.required', { attribute: this.$t('table.user.password_confirmation') })));
         } else if (value !== this.form.password) {
-          cb(new Error(this.$t('validation.confirmed', { attribute: this.$t('table.user.password_confirm') })));
+          cb(new Error(this.$t('validation.confirmed', { attribute: this.$t('table.user.password_confirmation') })));
         } else {
           cb();
         }
@@ -178,8 +178,9 @@ export default {
         ],
         password: [
           { validator: password, trigger: ['change', 'blur'] },
+          { min: 8, message: this.$t('validation.min', { attribute: this.$t('table.user.password') }), trigger: ['change', 'blur'] },
         ],
-        password_confirm: [
+        password_confirmation: [
           { validator: passwordConfirm, trigger: ['change', 'blur'] },
         ],
         // {{$RULES_NOT_DELETE_THIS_LINE$}}

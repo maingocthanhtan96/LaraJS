@@ -2,12 +2,61 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="48ec4041-b065-41c7-b197-b99331b3987d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitmodules" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laradock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Larajs/Swagger/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Larajs/Swagger/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/AuthController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/StoreUserRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/StoreUserRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Larajs/Permission.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Larajs/Permission.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/mail.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/mail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/RolesTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/RolesTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/UserTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/UserTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laradock/apache2/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/laradock/apache2/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laradock/apache2/sites/sample.conf.example" beforeDir="false" afterPath="$PROJECT_DIR$/laradock/apache2/sites/sample.conf.example" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laradock/php-fpm/xlaravel.pool.conf" beforeDir="false" afterPath="$PROJECT_DIR$/laradock/php-fpm/xlaravel.pool.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/generator/templates/Vuejs/Views/form.stub" beforeDir="false" afterPath="$PROJECT_DIR$/public/generator/templates/Vuejs/Views/form.stub" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/swagger/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/swagger/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/swagger/swagger.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/swagger/swagger.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/api/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/api/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/directive/role/role.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/directive/role/role.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/lang/vue-i18n-locales.generated.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/lang/vue-i18n-locales.generated.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/layout/components/Navbar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layout/components/Navbar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/permission.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/permission.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/settings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/settings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/template/bulma.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/template/datables/bulma.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/template/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/template/datables/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/template/modules/column-filters.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/template/datables/modules/column-filters.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/template/modules/columns-dropdown.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/template/datables/modules/columns-dropdown.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/template/modules/date-filter.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/template/datables/modules/date-filter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/template/modules/dropdown-item-wrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/template/datables/modules/dropdown-item-wrapper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/template/modules/dropdown-pagination-count.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/template/datables/modules/dropdown-pagination-count.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/template/modules/dropdown-pagination.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/template/datables/modules/dropdown-pagination.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/template/modules/dropdown-wrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/template/datables/modules/dropdown-wrapper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/template/modules/headings.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/template/datables/modules/headings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/template/modules/list-filter.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/template/datables/modules/list-filter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/template/modules/no-results.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/template/datables/modules/no-results.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/template/modules/normal-filter.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/template/datables/modules/normal-filter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/template/modules/pagination.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/template/datables/modules/pagination.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/template/modules/per-page-values.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/template/datables/modules/per-page-values.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/template/modules/per-page-wrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/template/datables/modules/per-page-wrapper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/template/modules/per-page.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/template/datables/modules/per-page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/template/modules/rows.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/template/datables/modules/rows.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/template/modules/sort-control.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/template/datables/modules/sort-control.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/template/modules/text-filter.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/template/datables/modules/text-filter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/utils/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/utils/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/utils/request.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/utils/request.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/auth/login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/auth/login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/generator/form.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/generator/form.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/rolePermission/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/rolePermission/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/user/form.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/user/form.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/auth.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/table.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/vn/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/vn/auth.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/vn/table.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/vn/table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -185,6 +234,7 @@
     </include_path>
   </component>
   <component name="ProjectId" id="1OpAgufvPtc7jYHPj004onakmlp" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -198,23 +248,23 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.PHP" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.JavaScript" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2018.3.5\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/resources/js/assets/images" />
-      <recent name="$PROJECT_DIR$/resources/js/assets" />
-      <recent name="$PROJECT_DIR$/resources/js/store" />
-      <recent name="$PROJECT_DIR$/resources/js/layout/components/TagsView" />
-      <recent name="$PROJECT_DIR$/resources/js/public/images" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/resources/js/views" />
       <recent name="$PROJECT_DIR$/public/swagger" />
       <recent name="$PROJECT_DIR$/public/images/avatar" />
       <recent name="$PROJECT_DIR$/public/fonts" />
       <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/js/template/datables" />
+      <recent name="$PROJECT_DIR$/resources/js/assets/images" />
+      <recent name="$PROJECT_DIR$/resources/js/assets" />
+      <recent name="$PROJECT_DIR$/resources/js/store" />
+      <recent name="$PROJECT_DIR$/resources/js/layout/components/TagsView" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -500,7 +550,18 @@
       <workItem from="1571910205415" duration="1181000" />
       <workItem from="1571924328826" duration="1559000" />
       <workItem from="1571966095477" duration="2102000" />
-      <workItem from="1571973031727" duration="506000" />
+      <workItem from="1571973031727" duration="1356000" />
+      <workItem from="1572015252147" duration="242000" />
+      <workItem from="1572151437937" duration="1373000" />
+      <workItem from="1572172877850" duration="9145000" />
+      <workItem from="1572185221818" duration="966000" />
+      <workItem from="1572224886663" duration="4032000" />
+      <workItem from="1572271396687" duration="3707000" />
+      <workItem from="1572312179897" duration="158000" />
+      <workItem from="1572314759936" duration="9916000" />
+      <workItem from="1572327504432" duration="1495000" />
+      <workItem from="1572348908293" duration="10816000" />
+      <workItem from="1572360291820" duration="4210000" />
     </task>
     <servers />
   </component>

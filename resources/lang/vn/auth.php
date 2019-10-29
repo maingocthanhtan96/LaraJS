@@ -30,5 +30,7 @@ return [
         'email_valid' => 'Email không hợp lệ',
         'password' => 'Password bắt buộc.',
     ],
+    'forgot_password' => 'Quên mật khẩu',
+    'reset_password' => 'Đặt lại mật khẩu',
     'logout' => "Đăng xuất"
 ];

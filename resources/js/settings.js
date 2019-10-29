@@ -6,6 +6,13 @@ module.exports = {
    * @description Redirect before login
    */
   redirect: '/dashboard',
+
+  /**
+   * @type {boolean} true | false
+   * @description Show translate
+   */
+  showTrans: true,
+
   /**
    * @type {boolean} true | false
    * @description Whether show the settings right-panel

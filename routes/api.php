@@ -15,10 +15,14 @@ use \App\Larajs\Permission as LarajsPermission;
 
 
 Route::group(['prefix' => 'v1'], function () {
-    Route::get('/language/{language}', 'Api\v1\LangController@setLanguage');
     Route::group(['namespace' => 'Api\v1'], function () {
+        Route::get('/language/{language}', 'LangController@setLanguage');
+        // Send reset password mail
+        Route::post('/forgot-password', 'AuthController@forgotPassword');
+        // Handle reset password form process
+        Route::post('/reset-password', 'AuthController@callResetPassword');
+        // Login
         Route::post('/login', 'AuthController@login')->name('login');
-        Route::post('/register', 'AuthController@register')->name('register');
 
         Route::group(['middleware' => 'auth:api'], function () {
             Route::get('/user-info', 'UserController@userInfo');

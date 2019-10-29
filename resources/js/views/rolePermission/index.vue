@@ -32,7 +32,7 @@
               </template>
             </el-table-column>
             <el-table-column v-if="checkPermission(['manage permission'])" align="center" label="Actions">
-              <template v-if="row.name !== 'admin'" v-permission="['manage permission']" slot-scope="{row}">
+              <template v-if="row.name !== 'admin'" slot-scope="{row}">
                 <el-button type="primary" icon="el-icon-edit" size="small" @click="handleEditRolePermissions(row.id)">
                   Edit permission
                 </el-button>
@@ -178,6 +178,7 @@ import path from 'path';
 import Resource from '@/api/resource';
 import RoleResource from '@/api/role';
 import permission from '@/directive/permission';
+import role from '@/directive/role';
 import checkPermission from '@/utils/permission'; // Permission checking
 import Pagination from '@/components/Pagination'; // Secondary package based on el-pagination
 import { asyncRouterMap, constantRouterMap } from '@/router';
@@ -187,7 +188,7 @@ const roleResource = new RoleResource();
 
 export default {
   components: { Pagination },
-  directives: { permission },
+  directives: { permission, role },
   data() {
     return {
       loading: false,
@@ -435,9 +436,7 @@ export default {
       });
     },
     createPermission(formName) {
-      permissionResource.store(this.formPermission).then(res => {
-        const { data } = res.data;
-        this.permissions.push(data);
+      permissionResource.store(this.formPermission).then(() => {
         // notification
         this.$notify({
           title: this.$t('messages.update'),
@@ -448,6 +447,7 @@ export default {
                 `,
           type: 'success',
         });
+        this.getPermissions();
         this.$refs[formName].resetFields();
       });
     },
@@ -457,14 +457,13 @@ export default {
         cancelButtonText: 'Cancel',
         type: 'warning',
       }).then(() => {
-        permissionResource.destroy(id).then(res => {
-          const index = this.permissions.findIndex(val => val.id === id);
-          this.permissions.splice(index, 1);
+        permissionResource.destroy(id).then(() => {
           this.$notify({
             title: 'Success',
             message: this.$t('messages.delete'),
             type: 'success',
           });
+          this.getPermissions();
         });
       });
     },
@@ -475,7 +474,7 @@ export default {
       this.formPermission = Object.assign({}, permission);
     },
     updatePermission() {
-      permissionResource.update(this.permissionId, this.formPermission).then(res => {
+      permissionResource.update(this.permissionId, this.formPermission).then(() => {
         this.$message({
           message: 'Permissions ' + this.$t('messages.update'),
           type: 'success',

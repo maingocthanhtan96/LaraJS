@@ -366,6 +366,30 @@ export function removeClass(ele, cls) {
   }
 }
 
+/**
+ *
+ * @param path
+ * @returns {boolean}
+ */
 export function isExternal(path) {
   return /^(https?:|mailto:|tel:)/.test(path);
 }
+
+/**
+ *
+ * @param string
+ * @param expressions
+ * @returns {boolean}
+ */
+export function matchInArray(string, expressions) {
+  const len = expressions.length;
+  let i = 0;
+
+  for (; i < len; i++) {
+    if (string.match(expressions[i])) {
+      return true;
+    }
+  }
+
+  return false;
+};

@@ -25,8 +25,7 @@
               </el-dropdown>
             </div>
           </div>
-          <el-form ref="login" :model="form" status-icon :rules="rules" label-width="120px" label-position="left"
-                   class="demo-ruleForm">
+          <el-form ref="login" :model="form" status-icon :rules="rules" label-width="120px" label-position="left">
             <el-form-item :label="$t('auth.login.email')" prop="email">
               <el-input v-model="form.email" type="text" autocomplete="on"/>
             </el-form-item>
@@ -49,7 +48,7 @@
               <el-checkbox>{{ $t('auth.login.remember') }}</el-checkbox>
             </el-col>
             <el-col :span="12" class="text-right">
-              <a class="text-black">{{ $t('auth.login.forgot_password') }}</a>
+              <router-link :to="{name: 'reset_password'}" class="text-black">{{ $t('auth.login.forgot_password') }}</router-link>
             </el-col>
           </el-row>
         </el-card>
@@ -121,13 +120,12 @@ export default {
       this.$refs['login'].validate(valid => {
         if (valid) {
           this.$store.dispatch(`user/${LOGIN}`, this.form)
-            .then(res => {
+            .then(() => {
               this.loading = false;
               this.$router.push({ path: this.redirect || this.$store.state.settings.redirect });
             })
-            .catch(err => {
+            .catch(() => {
               this.loading = false;
-              console.log(err);
             });
         } else {
           this.loading = false;

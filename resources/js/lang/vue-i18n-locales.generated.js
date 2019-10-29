@@ -18,6 +18,8 @@ export default {
         'email_valid': 'Invalid Email.',
         'password': 'Password is required.',
       },
+      'forgot_password': 'Forgot password',
+      'reset_password': 'Reset password',
       'logout': 'Logout',
     },
     'button': {
@@ -107,7 +109,7 @@ export default {
         'avatar': 'Avatar',
         'role': 'Role',
         'password': 'Password',
-        'password_confirm': 'Confrim password',
+        'password_confirmation': 'Confirmation password',
       },
       'rolePermission': {
         'id': 'No.',
@@ -265,6 +267,8 @@ export default {
         'email_valid': 'Email không hợp lệ',
         'password': 'Password bắt buộc.',
       },
+      'forgot_password': 'Quên mật khẩu',
+      'reset_password': 'Đặt lại mật khẩu',
       'logout': 'Đăng xuất',
     },
     'button': {
@@ -341,7 +345,7 @@ export default {
         'avatar': 'Ảnh đại diện',
         'role': 'Quyền',
         'password': 'Mật khẩu',
-        'password_confirm': 'Xác nhận mật khẩu',
+        'password_confirmation': 'Xác nhận mật khẩu',
       },
       'rolePermission': {
         'id': 'No.',

@@ -23,6 +23,7 @@
         class="language pr-2"
         trigger="click"
         @command="handleCommand"
+        v-if="$store.state.settings.showTrans"
       >
         <span class="el-dropdown-link">
           <svg-icon icon-class="language" class="text-4xl"/>

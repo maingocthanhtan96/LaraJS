@@ -466,7 +466,7 @@ export default {
           model: this.formModel,
           fields: this.form,
         })
-          .then(async (res) => {
+          .then(() => {
             this.$message({
               showClose: true,
               message: this.$t('messages.create'),
@@ -475,10 +475,9 @@ export default {
             this.loading = false;
             window.location.href = '/administrator/generator/index';
           })
-          .catch(err => {
+          .catch(() => {
             this.loading = false;
             window.location.href = '/administrator/generator/index';
-            console.log(err);
           });
       } else {
         this.loading = false;
@@ -507,19 +506,18 @@ export default {
           change: this.formChange,
           drop: this.formDrop,
         })
-          .then(res => {
+          .then(() => {
             this.loading = false;
             this.$message({
               showClose: true,
               message: this.$t('messages.update'),
               type: 'success',
             });
-            // window.location.href = '/administrator/generator/index';
+            window.location.href = '/administrator/generator/index';
           })
-          .catch(err => {
+          .catch(() => {
             this.loading = false;
-            // window.location.href = '/administrator/generator/index';
-            console.log(err);
+            window.location.href = '/administrator/generator/index';
           });
       } else {
         this.loading = false;
