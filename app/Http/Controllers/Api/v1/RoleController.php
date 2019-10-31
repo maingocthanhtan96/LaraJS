@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 
 class RoleController extends Controller
 {
+    CONST VIEW_MENU = 'view menu ';
     /**
      * Display a listing of the resource.
      *
@@ -85,12 +86,12 @@ class RoleController extends Controller
     public function update(Request $request, Role $role)
     {
         try {
-            $viewMenu = 'view menu ';
-            $input = $request->all();
-            $viewMenuPermissions = [];
             if (!$role || $role->isAdmin()) {
                 return $this->jsonError('Role not found!', 404);
             }
+            $viewMenu = self::VIEW_MENU;
+            $input = $request->all();
+            $viewMenuPermissions = [];
             $permissions = $request->get('permissions', []);
             foreach ($permissions['menu'] as $menu) {
                 $name = $viewMenu . $menu;
@@ -99,7 +100,11 @@ class RoleController extends Controller
                     Permission::findOrCreate($name, 'api');
                 }
             }
-            $permissions = Permission::allowed()->whereIn('id', $permissions['other'])->get(['name'])->toArray();
+            if(\Auth::user()->isPermission()) {
+                $permissions = Permission::whereIn('id', $permissions['other'])->get(['name'])->toArray();
+            } else {
+                $permissions = Permission::allowed()->whereIn('id', $permissions['other'])->get(['name'])->toArray();
+            }
             $permissions = array_merge($viewMenuPermissions, $permissions);
             $role->syncPermissions($permissions);
             $role->update([
@@ -122,6 +127,9 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         try {
+            if (!$role || $role->isAdmin()) {
+                return $this->jsonError('Role not found!', 404);
+            }
             $role = $role->delete();
 
             return $this->jsonData($role);

@@ -34,6 +34,8 @@ final class Permission
     const PERMISSION_DELETE = 'delete';
     const PERMISSION_DEVELOP = 'develop';
 
+    const PERMISSION_VIEW_MENU_ROLE_PERMISSION = 'view menu role_permission';
+
     /**
      * @param array $exclusives Exclude some permissions from the list
      * @return array

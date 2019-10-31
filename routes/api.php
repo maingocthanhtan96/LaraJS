@@ -35,7 +35,13 @@ Route::group(['prefix' => 'v1'], function () {
                 Route::get('upload-file/remove', 'FileController@remove');
             });
 
-            // permission Admin (Super admin)
+            // permission manage permission
+            Route::group(['middleware' => 'permission:' . LarajsPermission::PERMISSION_PERMISSION_MANAGE], function() {
+                Route::apiResource('roles', 'RoleController');
+                Route::apiResource('permissions', 'PermissionController');
+            });
+
+            // role Admin (Super admin)
             Route::group(['middleware' => 'role:' . LarajsPermission::ROLE_ADMIN], function () {
                 Route::group(['prefix' => 'generators'], function () {
                     Route::get('check-model', 'GeneratorController@checkModel');
@@ -46,8 +52,6 @@ Route::group(['prefix' => 'v1'], function () {
                     Route::get('diagram', 'GeneratorController@generateDiagram');
                 });
                 Route::apiResource('generators', 'GeneratorController');
-                Route::apiResource('roles', 'RoleController');
-                Route::apiResource('permissions', 'PermissionController');
 
                 Route::apiResource('users', 'UserController');
 

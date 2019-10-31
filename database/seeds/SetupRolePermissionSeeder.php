@@ -22,5 +22,9 @@ class SetupRolePermissionSeeder extends Seeder
         foreach (LarajsPermission::permissions() as $permission) {
             Permission::findOrCreate($permission, 'api');
         }
+
+        foreach (LarajsPermission::menuPermissions() as $menuPermission) {
+            Permission::findOrCreate($menuPermission, 'api');
+        }
     }
 }

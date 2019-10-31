@@ -16,4 +16,12 @@ class Permission extends \Spatie\Permission\Models\Permission
     {
         return $query->where('name', '!=', LarajsPermission::PERMISSION_PERMISSION_MANAGE);
     }
+
+    /**
+     * @return bool
+     */
+    public function isPermission(): bool
+    {
+        return $this->name === LarajsPermission::PERMISSION_PERMISSION_MANAGE;
+    }
 }

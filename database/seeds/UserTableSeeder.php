@@ -84,6 +84,7 @@ class UserTableSeeder extends Seeder
         // Setup basic permission
         $adminRole->givePermissionTo(LarajsPermission::permissions());
         $managerRole->givePermissionTo([
+            LarajsPermission::PERMISSION_PERMISSION_MANAGE,
             LarajsPermission::PERMISSION_VISIT,
             LarajsPermission::PERMISSION_CREATE,
             LarajsPermission::PERMISSION_EDIT,
