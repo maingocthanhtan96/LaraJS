@@ -3,18 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="48ec4041-b065-41c7-b197-b99331b3987d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/RoleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/RoleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Larajs/Permission.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Larajs/Permission.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Permission.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Permission.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/SetupRolePermissionSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/SetupRolePermissionSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/UserTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/UserTableSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laradock" beforeDir="false" afterPath="$PROJECT_DIR$/laradock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/router/modules/administrator.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/router/modules/administrator.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/views/rolePermission/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/rolePermission/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -521,7 +511,10 @@
       <workItem from="1572360291820" duration="4278000" />
       <workItem from="1572398775535" duration="1641000" />
       <workItem from="1572428082243" duration="4940000" />
-      <workItem from="1572484701354" duration="6297000" />
+      <workItem from="1572484701354" duration="7134000" />
+      <workItem from="1572491880471" duration="1496000" />
+      <workItem from="1572503233291" duration="49000" />
+      <workItem from="1572512389344" duration="4041000" />
     </task>
     <servers />
   </component>

@@ -34,7 +34,8 @@
             <el-table-column v-if="checkPermission(['manage permission'])" align="center" label="Actions">
               <template slot-scope="{row}">
                 <div v-if="row.name === 'admin' && checkRole(['admin'])">
-                  <el-button type="success" round icon="el-icon-s-tools" size="small" @click="handleEditRolePermissions(row.id)">
+                  <el-button type="success" round icon="el-icon-view
+" size="small" @click="handleEditRolePermissions(row.id)">
                   </el-button>
                 </div>
                 <div v-if="row.name !== 'admin'">
