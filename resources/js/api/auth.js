@@ -37,3 +37,19 @@ export function logout() {
     method: 'get',
   });
 }
+
+export function sendPasswordResetLink(form) {
+  return request({
+    url: '/forgot-password',
+    method: 'post',
+    data: form,
+  });
+}
+
+export function callResetPassword(form) {
+  return request({
+    url: '/reset-password',
+    method: 'post',
+    data: form,
+  });
+}

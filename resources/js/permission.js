@@ -5,11 +5,12 @@ import NProgress from 'nprogress'; // progress bar
 import 'nprogress/nprogress.css'; // progress bar style
 import { getToken } from '@/utils/auth'; // get token from cookie
 import getPageTitle from '@/utils/get-page-title';
+import { matchInArray } from '@/utils';
 import { USER_INFO, GENERATE_ROUTES, FED_LOGOUT } from '@/store/muation-types';
 
 NProgress.configure({ showSpinner: true }); // NProgress Configuration
 
-const whiteList = ['/login']; // no redirect whitelist
+const whiteList = [/^\/login$/i, /^\/reset-password$/i, /^\/reset-password\/((?:[^\/]+?))(?:\/(?=$))?$/i]; // no redirect whitelist
 
 router.beforeEach(async (to, from, next) => {
   // start progress bar
@@ -60,8 +61,7 @@ router.beforeEach(async (to, from, next) => {
     }
   } else {
     /* has no token*/
-
-    if (whiteList.indexOf(to.path) !== -1) {
+    if (matchInArray(to.path, whiteList)) {
       // in the free login whitelist, go directly
       next();
     } else {

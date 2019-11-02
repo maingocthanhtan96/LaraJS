@@ -22,8 +22,8 @@ final class Permission
     const ROLE_ADMIN = 'admin';
     const ROLE_MANAGER = 'manager';
     const ROLE_VISITOR = 'visitor';
-    const ROLE_EDITOR = 'editor';
     const ROLE_CREATOR = 'creator';
+    const ROLE_EDITOR = 'editor';
     const ROLE_DELETER = 'deleter';
     const ROLE_DEVELOPER = 'developer';
 
@@ -33,6 +33,8 @@ final class Permission
     const PERMISSION_EDIT = 'edit';
     const PERMISSION_DELETE = 'delete';
     const PERMISSION_DEVELOP = 'develop';
+
+    const PERMISSION_VIEW_MENU_ROLE_PERMISSION = 'view menu role_permission';
 
     /**
      * @param array $exclusives Exclude some permissions from the list

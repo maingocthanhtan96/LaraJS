@@ -6,7 +6,7 @@ const administrator = {
   meta: {
     title: 'administrator',
     icon: 'admin',
-    roles: ['admin'],
+    permissions: ['view menu role_permission'],
   },
   children: [
     {
@@ -16,6 +16,7 @@ const administrator = {
       meta: {
         title: 'role_permission',
         icon: 'skill',
+        permissions: ['manage permission'],
       },
     },
     {
@@ -25,6 +26,7 @@ const administrator = {
       meta: {
         title: 'generator',
         icon: 'skill',
+        roles: ['admin'],
       },
     },
     {
@@ -35,6 +37,7 @@ const administrator = {
         title: 'generator_create',
         icon: 'skill',
         activeMenu: '/administrator/generator/list',
+        roles: ['admin'],
       },
       hidden: true,
     },
@@ -46,6 +49,7 @@ const administrator = {
       meta: {
         title: 'generator_edit',
         activeMenu: '/administrator/generator/list',
+        roles: ['admin'],
       },
       props: route => {
         return {
@@ -62,6 +66,7 @@ const administrator = {
       meta: {
         title: 'generator_relationship',
         activeMenu: '/administrator/generator/list',
+        roles: ['admin'],
       },
       props: route => {
         return {
@@ -77,6 +82,7 @@ const administrator = {
       meta: {
         title: 'user',
         icon: 'user',
+        roles: ['admin'],
       },
     },
     {
@@ -87,6 +93,7 @@ const administrator = {
       meta: {
         title: 'user_create',
         activeMenu: '/administrator/user/list',
+        roles: ['admin'],
       },
     },
     {
@@ -97,6 +104,7 @@ const administrator = {
       meta: {
         title: 'user_edit',
         activeMenu: '/administrator/user/list',
+        roles: ['admin'],
       },
       props: route => {
         return {

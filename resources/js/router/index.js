@@ -33,6 +33,8 @@ export const constantRouterMap = [
   dashboard,
   // {{$ROUTE_CONSTANT_NOT_DELETE_THIS_LINE$}},
   { path: '/login', name: 'login', hidden: true, component: () => import('@/views/auth/login') },
+  { path: '/reset-password', name: 'reset_password', hidden: true, component: () => import('@/views/auth/forgotPassword') },
+  { path: '/reset-password/:token', name: 'reset_password_form', hidden: true, component: () => import('@/views/auth/resetPasswordForm') },
   { path: '/404', hidden: true, component: () => import('@/views/errors/404') },
   { path: '/401', hidden: true, component: () => import('@/views/errors/401') },
   { path: '/', redirect: '/login', hidden: true },

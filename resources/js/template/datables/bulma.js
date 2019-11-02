@@ -34,10 +34,10 @@ module.exports = function () {
       wrapper: 'el-pagination',
       list: 'el-pager',
       item: '',
-      link: 'number cursor-default font-medium',
+      link: 'number cursor-pointer font-medium',
       next: '',
       prev: '',
-      active: 'active',
+      active: 'active cursor-pointer',
       disabled: 'cursor-not-allowed',
     },
   };

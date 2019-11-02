@@ -32,12 +32,19 @@
               </template>
             </el-table-column>
             <el-table-column v-if="checkPermission(['manage permission'])" align="center" label="Actions">
-              <template v-if="row.name !== 'admin'" v-permission="['manage permission']" slot-scope="{row}">
-                <el-button type="primary" icon="el-icon-edit" size="small" @click="handleEditRolePermissions(row.id)">
-                  Edit permission
-                </el-button>
-                <el-button type="danger" icon="el-icon-delete" size="small"
-                           @click="handleDeleteRole(row.id, row.name)"></el-button>
+              <template slot-scope="{row}">
+                <div v-if="row.name === 'admin' && checkRole(['admin'])">
+                  <el-button type="success" round icon="el-icon-view
+" size="small" @click="handleEditRolePermissions(row.id)">
+                  </el-button>
+                </div>
+                <div v-if="row.name !== 'admin'">
+                  <el-button type="primary" icon="el-icon-edit" size="small" @click="handleEditRolePermissions(row.id)">
+                    Edit permission
+                  </el-button>
+                  <el-button type="danger" icon="el-icon-delete" size="small"
+                             @click="handleDeleteRole(row.id, row.name)"></el-button>
+                </div>
               </template>
             </el-table-column>
           </el-table>
@@ -116,7 +123,7 @@
             </div>
             <span slot="footer" class="dialog-footer">
               <el-button @click="dialogUpdateRoleVisible = false">Cancel</el-button>
-              <el-button type="primary" icon="el-icon-check"
+              <el-button type="primary" icon="el-icon-check" v-if="currentRole.name !== 'admin'"
                          @click="updateRolePermission">{{$t('button.update')}}</el-button>
             </span>
           </el-dialog>
@@ -178,7 +185,9 @@ import path from 'path';
 import Resource from '@/api/resource';
 import RoleResource from '@/api/role';
 import permission from '@/directive/permission';
+import role from '@/directive/role';
 import checkPermission from '@/utils/permission'; // Permission checking
+import checkRole from '@/utils/role'; // Permission checking
 import Pagination from '@/components/Pagination'; // Secondary package based on el-pagination
 import { asyncRouterMap, constantRouterMap } from '@/router';
 
@@ -187,7 +196,7 @@ const roleResource = new RoleResource();
 
 export default {
   components: { Pagination },
-  directives: { permission },
+  directives: { permission, role },
   data() {
     return {
       loading: false,
@@ -291,6 +300,7 @@ export default {
   },
   methods: {
     checkPermission,
+    checkRole,
     async getRoutes() {
       const routes = asyncRouterMap.concat(constantRouterMap);
       // this.serviceRoutes = routes;
@@ -358,7 +368,7 @@ export default {
     },
 
     normalizePermission(permission) {
-      return { id: permission.id, name: permission.name, disabled: permission.name === 'manage permission' };
+      return { id: permission.id, name: permission.name, disabled: checkRole(['admin']) ? false : (permission.name === 'manage permission') };
     },
     permissionKeys(permissions) {
       return permissions.map(permission => permission.id);
@@ -418,7 +428,7 @@ export default {
       });
     },
     handleDeleteRole(id, name) {
-      this.$confirm(this.$t('messages.delete_confirm', { attribute: `[${name}]` }), this.$t('message.warning'), {
+      this.$confirm(this.$t('messages.delete_confirm', { attribute: `[${name}]` }), this.$t('messages.warning'), {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',
         type: 'warning',
@@ -435,9 +445,7 @@ export default {
       });
     },
     createPermission(formName) {
-      permissionResource.store(this.formPermission).then(res => {
-        const { data } = res.data;
-        this.permissions.push(data);
+      permissionResource.store(this.formPermission).then(() => {
         // notification
         this.$notify({
           title: this.$t('messages.update'),
@@ -448,23 +456,23 @@ export default {
                 `,
           type: 'success',
         });
+        this.getPermissions();
         this.$refs[formName].resetFields();
       });
     },
     handleDeletePermission(id, name) {
-      this.$confirm(this.$t('messages.delete_confirm', { attribute: `[${name}]` }), this.$t('message.warning'), {
+      this.$confirm(this.$t('messages.delete_confirm', { attribute: `[${name}]` }), this.$t('messages.warning'), {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',
         type: 'warning',
       }).then(() => {
-        permissionResource.destroy(id).then(res => {
-          const index = this.permissions.findIndex(val => val.id === id);
-          this.permissions.splice(index, 1);
+        permissionResource.destroy(id).then(() => {
           this.$notify({
             title: 'Success',
             message: this.$t('messages.delete'),
             type: 'success',
           });
+          this.getPermissions();
         });
       });
     },
@@ -475,7 +483,7 @@ export default {
       this.formPermission = Object.assign({}, permission);
     },
     updatePermission() {
-      permissionResource.update(this.permissionId, this.formPermission).then(res => {
+      permissionResource.update(this.permissionId, this.formPermission).then(() => {
         this.$message({
           message: 'Permissions ' + this.$t('messages.update'),
           type: 'success',

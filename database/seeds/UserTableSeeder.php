@@ -14,10 +14,6 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker\Factory::create();
-
-        $limit = 10;
-
         $admin = User::create([
             'name' => 'Thanh Tan',
             'email' => 'admin@larajs.com',
@@ -36,35 +32,35 @@ class UserTableSeeder extends Seeder
             'name' => 'Visitor',
             'email' => 'visitor@larajs.com',
             'avatar' => '/images/avatar/logo-tanmnt.png',
-            'password' => 'larajs',
+            'password' => 'visitor123',
             'remember_token' => \Illuminate\Support\Str::random(10)
         ]);
         $creator = User::create([
             'name' => 'Creator',
             'email' => 'creator@larajs.com',
             'avatar' => '/images/avatar/logo-tanmnt.png',
-            'password' => 'larajs',
+            'password' => 'creator123',
             'remember_token' => \Illuminate\Support\Str::random(10)
         ]);
         $editor = User::create([
             'name' => 'Editor',
             'email' => 'editor@larajs.com',
             'avatar' => '/images/avatar/logo-tanmnt.png',
-            'password' => 'larajs',
+            'password' => 'editor123',
             'remember_token' => \Illuminate\Support\Str::random(10)
         ]);
         $deleter = User::create([
             'name' => 'Deleter',
             'email' => 'deleter@larajs.com',
             'avatar' => '/images/avatar/logo-tanmnt.png',
-            'password' => 'larajs',
+            'password' => 'deleter123',
             'remember_token' => \Illuminate\Support\Str::random(10)
         ]);
         $developer = User::create([
             'name' => 'Developer',
             'email' => 'developer@larajs.com',
             'avatar' => '/images/avatar/logo-tanmnt.png',
-            'password' => 'larajs',
+            'password' => 'developer123',
             'remember_token' => \Illuminate\Support\Str::random(10)
         ]);
 
@@ -88,6 +84,7 @@ class UserTableSeeder extends Seeder
         // Setup basic permission
         $adminRole->givePermissionTo(LarajsPermission::permissions());
         $managerRole->givePermissionTo([
+            LarajsPermission::PERMISSION_PERMISSION_MANAGE,
             LarajsPermission::PERMISSION_VISIT,
             LarajsPermission::PERMISSION_CREATE,
             LarajsPermission::PERMISSION_EDIT,
@@ -105,6 +102,8 @@ class UserTableSeeder extends Seeder
             LarajsPermission::PERMISSION_DEVELOP,
         ]);
 
+        $faker = Faker\Factory::create();
+        $limit = 100;
         for ($i = 0; $i < $limit; $i++) {
             $userFaker = User::create([
                 'name' => $faker->name,

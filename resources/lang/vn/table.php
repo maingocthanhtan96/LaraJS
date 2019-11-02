@@ -8,7 +8,7 @@ return [
         'avatar' => 'Ảnh đại diện',
         'role' => 'Quyền',
         'password' => 'Mật khẩu',
-        'password_confirm' => 'Xác nhận mật khẩu'
+        'password_confirmation' => 'Xác nhận mật khẩu'
     ],
     'rolePermission' => [
         'id' => 'No.',

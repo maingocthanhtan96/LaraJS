@@ -43,8 +43,16 @@ This project is built on top of fresh latest version Laravel (5.8). You should c
 # Clone the project and run composer
 git clone https://github.com/laudaikinhdi/larajs.git
 # https://github.com/beyondcode/laravel-er-diagram-generator#requirements
+
+# Pull submodule
+git submodule update --init --recursive
+# Install docker & docker compose
+sudo apt-get update && sudo apt install docker.io && sudo apt-get install docker-compose
+cd laradock && cp env-example .env && docker-compose up -d nginx php-fpm mariadb
+
+# Init project
+cd ../
 sudo apt-get install graphviz #(For ubuntu)
-cd larajs
 composer install
 
 # Create .env from .env.example

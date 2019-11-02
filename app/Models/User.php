@@ -66,5 +66,28 @@ class User extends Authenticatable
         return false;
     }
 
+    /**
+     * @return bool
+     * @throws \Exception
+     */
+    public function isPermission(): bool
+    {
+        foreach ($this->getAllPermissions() as $permission) {
+            if ($permission->isPermission()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Override the mail body for reset password notification mail.
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new \App\Notifications\MailResetPasswordNotification($token));
+    }
+
     //{{RELATIONS_NOT_DELETE_THIS_LINE}}
 }

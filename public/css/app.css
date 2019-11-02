@@ -15326,10 +15326,6 @@ video {
   border-bottom-width: 4px !important;
 }
 
-.cursor-default{
-  cursor: default !important;
-}
-
 .cursor-pointer{
   cursor: pointer !important;
 }

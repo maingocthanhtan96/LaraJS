@@ -8,7 +8,7 @@ return [
         'avatar' => 'Avatar',
         'role' => 'Role',
         'password' => 'Password',
-        'password_confirm' => 'Confrim password'
+        'password_confirmation' => 'Confirmation password'
     ],
     'rolePermission' => [
         'id' => 'No.',

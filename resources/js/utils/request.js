@@ -63,7 +63,7 @@ service.interceptors.response.use(
           duration: 5 * 1000,
         });
       }
-      console.log('Error response: ' + res); // for debug
+      console.log('Error response: ', res); // for debug
 
       return Promise.reject(error);
     }

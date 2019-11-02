@@ -39,7 +39,7 @@ Vue.use(ServerTable, {
     defaultOption: i18n.t('table.texts.defaultOption'),
     columns: i18n.t('table.texts.columns'),
   },
-}, false, 'bulma', require('./template/'));
+}, false, 'bulma', require('./template/datables'));
 
 // end third party
 
