@@ -473,11 +473,11 @@ export default {
               type: 'success',
             });
             this.loading = false;
-            window.location.href = '/administrator/generator/index';
+            window.location.href = '/administrator/generator/list';
           })
           .catch(() => {
             this.loading = false;
-            window.location.href = '/administrator/generator/index';
+            window.location.href = '/administrator/generator/list';
           });
       } else {
         this.loading = false;

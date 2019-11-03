@@ -18,7 +18,11 @@ return [
      * and an array of relation names to ignore.
      */
     'ignore' => [
-        // User::class,
+        \App\Models\BaseModel::class,
+        \App\Models\Generator::class,
+        \App\Models\Role::class,
+        \App\Models\Permission::class,
+//         User::class,
         // Post::class => [
         //     'user'
         // ]

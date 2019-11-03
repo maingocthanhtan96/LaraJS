@@ -198,6 +198,11 @@ export default {
       this.loading = true;
       generatorResource.generateRelationship(this.form)
         .then(res => {
+          this.$message({
+            showClose: true,
+            message: this.$t('messages.success'),
+            type: 'success',
+          });
           this.loading = false;
           location.reload();
         })
