@@ -15,8 +15,8 @@ class CreateGeneratorTable extends Migration
     {
         Schema::create('generators', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->longtext('field')->nullable();
-            $table->longtext('model')->nullable();
+            $table->text('field')->nullable();
+            $table->text('model')->nullable();
             $table->string('table');
             $table->timestamps();
             $table->softDeletes();

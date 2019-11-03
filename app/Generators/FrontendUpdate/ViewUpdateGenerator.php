@@ -196,7 +196,7 @@ Class ViewUpdateGenerator extends BaseGenerator
             . "},", "$selfHeadings: {" . $this->replaceTemplate($fieldsGenerateHeadings, 3) . "},", $templateDataReal);
         $templateDataReal = str_replace("$selfClasses: {" . $templateClasses
             . "},", "$selfClasses: {" . $this->replaceTemplate($fieldsGenerateClasses, 3) . "},", $templateDataReal);
-        $templateDataReal = str_replace("$selfSortable: [" . $templateColumns . "]", "$selfSortable: [" . implode(', ', $fieldsGenerateSortable) . "]", $templateDataReal);
+        $templateDataReal = str_replace("$selfSortable: [" . $templateSortable . "]", "$selfSortable: [" . implode(', ', $fieldsGenerateSortable) . "]", $templateDataReal);
 
         return $templateDataReal;
     }
@@ -395,7 +395,7 @@ Class ViewUpdateGenerator extends BaseGenerator
             . "},", "$selfHeadings: {" . $this->replaceTemplate($fieldsGenerateHeadings, 3) . "},", $templateDataReal);
         $templateDataReal = str_replace("$selfClasses: {" . $templateClasses
             . "},", "$selfClasses: {" . $this->replaceTemplate($fieldsGenerateClasses, 3) . "},", $templateDataReal);
-        $templateDataReal = str_replace("$selfSortable: [" . $templateColumns . "]", "$selfSortable: [" . implode(', ', $fieldsGenerateSortable) . "]", $templateDataReal);
+        $templateDataReal = str_replace("$selfSortable: [" . $templateSortable . "]", "$selfSortable: [" . implode(', ', $fieldsGenerateSortable) . "]", $templateDataReal);
         return $templateDataReal;
     }
 
@@ -520,7 +520,7 @@ Class ViewUpdateGenerator extends BaseGenerator
             . "},", "$selfHeadings: {" . $this->replaceTemplate($fieldsGenerateHeadings, 3) . "},", $templateDataReal);
         $templateDataReal = str_replace("$selfClasses: {" . $templateClasses
             . "},", "$selfClasses: {" . $this->replaceTemplate($fieldsGenerateClasses, 3) . "},", $templateDataReal);
-        $templateDataReal = str_replace("$selfSortable: [" . $templateColumns . "]", "$selfSortable: [" . implode(', ', $fieldsGenerateSortable) . "]", $templateDataReal);
+        $templateDataReal = str_replace("$selfSortable: [" . $templateSortable . "]", "$selfSortable: [" . implode(', ', $fieldsGenerateSortable) . "]", $templateDataReal);
         return $templateDataReal;
     }
 
@@ -663,7 +663,7 @@ Class ViewUpdateGenerator extends BaseGenerator
             . "},", "$selfHeadings: {" . $this->replaceTemplate($fieldsGenerateHeadings, 3) . "},", $templateDataReal);
         $templateDataReal = str_replace("$selfClasses: {" . $templateClasses
             . "},", "$selfClasses: {" . $this->replaceTemplate($fieldsGenerateClasses, 3) . "},", $templateDataReal);
-        $templateDataReal = str_replace("$selfSortable: [" . $templateColumns . "]", "$selfSortable: [" . implode(', ', $fieldsGenerateSortable) . "]", $templateDataReal);
+        $templateDataReal = str_replace("$selfSortable: [" . $templateSortable . "]", "$selfSortable: [" . implode(', ', $fieldsGenerateSortable) . "]", $templateDataReal);
         return $templateDataReal;
     }
 

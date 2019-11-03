@@ -58,8 +58,8 @@ Class FormUpdateGenerator extends BaseGenerator
         $fileName = $this->serviceGenerator->modelNameNotPluralFe($model['name']) . '/form.vue';
         $templateDataReal = $this->serviceGenerator->getFile('views', 'vuejs', $fileName);
         $templateDataReal = $this->generateFieldsRename($updateFields['renameFields'], $templateDataReal);
-        $templateDataReal = $this->generateFieldsChange($generator, $updateFields['changeFields'], $model, $templateDataReal);
         $templateDataReal = $this->generateFieldsDrop($updateFields['dropFields'], $model, $templateDataReal);
+        $templateDataReal = $this->generateFieldsChange($generator, $updateFields['changeFields'], $model, $templateDataReal);
         $templateDataReal = $this->generateFieldsUpdate($updateFields['updateFields'], $model, $templateDataReal);
         $templateDataReal = $this->importComponent($updateFields, $templateDataReal);
         $fileName = $this->path . $fileName;

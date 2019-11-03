@@ -66,7 +66,7 @@ Class  MigrationGenerator extends BaseGenerator
                 }
 
                 if ($field['db_type'] === $configDBType['file']) {
-                    $table .= '$table->longText("' . $field['field_name'] . '")';
+                    $table .= '$table->text("' . $field['field_name'] . '")';
                     break;
                 }
 

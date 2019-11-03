@@ -88,7 +88,7 @@ Class  MigrationUpdateGenerator extends BaseGenerator
                 }
 
                 if ($field['db_type'] === $configDBType['file']) {
-                    $table .= '$table->longText("' . $field['field_name'] . '")';
+                    $table .= '$table->text("' . $field['field_name'] . '")';
                     break;
                 }
 
@@ -172,7 +172,7 @@ Class  MigrationUpdateGenerator extends BaseGenerator
                     }
 
                     if ($change['db_type'] === $configDBType['file']) {
-                        $tableDrop .= '$table->longText("' . $change['field_name'] . '")';
+                        $tableDrop .= '$table->text("' . $change['field_name'] . '")';
                         break;
                     }
 
@@ -214,7 +214,7 @@ Class  MigrationUpdateGenerator extends BaseGenerator
                                 break;
                             }
                             if ($change['db_type'] === $configDBType['file']) {
-                                $tableChange .= '$table->longText("' . $change['field_name'] . '")';
+                                $tableChange .= '$table->text("' . $change['field_name'] . '")';
                                 break;
                             }
 
@@ -258,7 +258,7 @@ Class  MigrationUpdateGenerator extends BaseGenerator
                             }
 
                             if ($change['db_type'] === $configDBType['file']) {
-                                $tableChange .= '$table->longText("' . $change['field_name'] . '")';
+                                $tableChange .= '$table->text("' . $change['field_name'] . '")';
                                 break;
                             }
 

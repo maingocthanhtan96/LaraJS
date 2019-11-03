@@ -88,8 +88,8 @@ Class ControllerUpdateGenerator extends BaseGenerator
         $templateColumns = $this->serviceGenerator->searchTemplate(self::COLUMNS, '];', strlen(self::COLUMNS) + 4, -4 - strlen(self::COLUMNS), $templateDataReal);
         $templateColumnsSearch = $this->serviceGenerator->searchTemplate(self::COLUMNS_SEARCH, '];', strlen(self::COLUMNS_SEARCH) + 4, -4 - strlen(self::COLUMNS_SEARCH), $templateDataReal);
 
-        $comma = ',';
-        $commaSearch = ',';
+        $comma = ', ';
+        $commaSearch = ', ';
         $columns = '';
         $columnsSearch = '';
         if (\Str::endsWith($templateColumns, ',') || \Str::endsWith($templateColumns, ', ')) {
