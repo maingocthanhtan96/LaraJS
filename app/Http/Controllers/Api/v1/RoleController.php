@@ -21,7 +21,7 @@ class RoleController extends Controller
         try {
             $roles = Role::all();
 
-            return RoleResource::collection($roles);
+            return $this->jsonData(RoleResource::collection($roles));
         } catch (\Exception $e) {
             return $this->jsonError($e->getMessage());
         }
@@ -48,7 +48,7 @@ class RoleController extends Controller
         try {
             $role = Role::create($request->all());
 
-            return new RoleResource($role);
+            return $this->jsonData(new RoleResource($role));
         } catch (\Exception $e) {
             $this->jsonError($e->getMessage());
         }
@@ -112,7 +112,7 @@ class RoleController extends Controller
                 'description' => $input['role']['description']
             ]);
 
-            return new RoleResource($role);
+            return $this->jsonData(new RoleResource($role));
         } catch (\Exception $e) {
             return $this->jsonError($e->getMessage());
         }
@@ -130,9 +130,9 @@ class RoleController extends Controller
             if (!$role || $role->isAdmin()) {
                 return $this->jsonError('Role not found!', 404);
             }
-            $role = $role->delete();
+            $role->delete();
 
-            return $this->jsonData($role);
+            return $this->jsonSuccess(trans('messages.delete'));
         } catch (\Exception $e) {
             return $this->jsonError($e->getMessage());
         }

@@ -3,7 +3,7 @@
 /**
  * @OA\Post(
  *     path="/login",
- *     tags={"Login"},
+ *     tags={"Auth"},
  *     summary="Login",
  *     @OA\RequestBody(
  *          required=true,
@@ -20,7 +20,7 @@
  * ),
  * @OA\Get(
  *     path="/user-info",
- *     tags={"Login"},
+ *     tags={"Auth"},
  *     summary="Info user",
  *     security={{"authApi":{}}},
  *     @OA\Response(response="200", ref="#/components/responses/OK"),

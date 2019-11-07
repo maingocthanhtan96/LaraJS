@@ -52,8 +52,8 @@ mix.js('resources/js/app.js', 'public/js')
         ],
         css: ['./resources/js/styles/*.scss', './public/css/*.css'],
         whitelist: ["html", "body", 'app'],
-        whitelistPatterns: [/^el-/, /^fade-/, /^breadcrumb-/, /^vue-/, /^dropzone/, /^json/],
-        whitelistPatternsChildren: [/^el-/, /^fade-/, /^breadcrumb-/, /^vue-/, /^dropzone/, /^json/],
+        whitelistPatterns: [/^el-/, /^fade-/, /^breadcrumb-/, /^vue-/, /^dropzone/, /^json/, /^larajs-/],
+        whitelistPatternsChildren: [/^el-/, /^fade-/, /^breadcrumb-/, /^vue-/, /^dropzone/, /^json/, /^larajs-/],
         // Include any special characters you're using in this regular expression
         defaultExtractor: content => content.match(/[A-Za-z0-9-_:/]+/g) || []
       })
@@ -68,12 +68,10 @@ mix.webpackConfig(config);
 if (mix.inProduction()) {
   mix.version();
 } else {
-  if (process.env.LARAJS_USE_ESLINT === 'true') {
-    mix.eslint({
-      fix: true,
-      cache: false,
-    });
-  }
+  mix.eslint({
+    fix: true,
+    cache: false,
+  });
   // Development settings
   // mix.browserSync({
   //   proxy: process.env.APP_URL,

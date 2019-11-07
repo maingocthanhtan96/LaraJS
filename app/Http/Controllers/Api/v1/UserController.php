@@ -32,7 +32,7 @@ class UserController extends Controller
         try {
             $user = \Auth::user();
 
-            return new UserResource($user);
+            return $this->jsonData(new UserResource($user));
         } catch (\Exception $e) {
             return $this->jsonError($e->getMessage());
         }

@@ -23,6 +23,10 @@
             margin: 0;
             background: #fafafa;
         }
+
+        .topbar {
+            display: none;
+        }
     </style>
 </head>
 
@@ -30,6 +34,7 @@
 <div id="swagger-ui"></div>
 
 <script>
+  const PERMISSION_DEVELOP = 'develop';
   fetch('/api/v1/user-info', {
     method: 'get',
     headers: new Headers({
@@ -38,8 +43,11 @@
     }),
   }).then(res => res.json())
     .then(res => {
+      if(!res.success) {
+        return false;
+      }
       const permissions = res.data.permissions;
-      const checkPermission = permissions.some(val => val === 'develop');
+      const checkPermission = permissions.some(val => val === PERMISSION_DEVELOP);
       if (!checkPermission) {
         document.location.href = "/";
       }
@@ -48,7 +56,7 @@
   function getCookie(name) {
     const value = "; " + document.cookie;
     const parts = value.split("; " + name + "=");
-    if (parts.length == 2) return parts.pop().split(";").shift();
+    if (parts.length === 2) return parts.pop().split(";").shift();
   }
 </script>
 <script src="./swagger-ui-bundle.js"></script>
@@ -67,7 +75,20 @@
       plugins: [
         SwaggerUIBundle.plugins.DownloadUrl
       ],
-      layout: "StandaloneLayout"
+      layout: "StandaloneLayout",
+      tagsSorter: 'alpha',
+      filter: true,
+      // requestInterceptor: (req) => {
+      //   req.headers.Authorization = 'Bearer ' + getCookie('token');
+      //   return req;
+      // },
+      onComplete: function () {
+        // Here, "basicAuth" and "apiKey" are the security scheme names/keys in the "securityDefinitions" collection
+        const token = getCookie('token') || false;
+        if(token) {
+          ui.preauthorizeApiKey("authApi", token);
+        }
+      }
     });
     // End Swagger UI call region
     window.ui = ui;

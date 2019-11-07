@@ -34,6 +34,7 @@ class Controller extends BaseController
     public function jsonTable($data)
     {
         return response()->json([
+            'success' => true,
             'data' => $data['data'],
             'count' => ($data['total'])
         ]);

@@ -51,7 +51,7 @@ class PermissionController extends Controller
             $adminRole = Role::findByName(LarajsPermission::ROLE_ADMIN);
             $adminRole->givePermissionTo($permission);
 
-            return new PermissionResource($permission);
+            return $this->jsonData(new PermissionResource($permission));
         } catch (\Exception $e) {
             $this->jsonError($e->getMessage());
         }
@@ -91,7 +91,7 @@ class PermissionController extends Controller
         try {
             $permission->update($request->only(['name', 'description']));
 
-            return new PermissionResource($permission);
+            return $this->jsonData(new PermissionResource($permission));
         } catch (\Exception $e) {
             return $this->jsonError($e->getMessage());
         }
@@ -108,9 +108,9 @@ class PermissionController extends Controller
         try {
             $adminRole = Role::findByName(LarajsPermission::ROLE_ADMIN);
             $adminRole->revokePermissionTo($permission);
-            $permission = $permission->delete();
+            $permission->delete();
 
-            return $this->jsonData($permission);
+            return $this->jsonSuccess(trans('messages.delete'));
         } catch (\Exception $e) {
             return $this->jsonError($e->getMessage());
         }

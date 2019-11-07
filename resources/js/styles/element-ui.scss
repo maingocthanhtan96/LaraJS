@@ -97,3 +97,7 @@
 .el-message {
   z-index: 999999 !important;
 }
+
+.el-dialog__wrapper {
+  z-index: 2003 !important;
+}
