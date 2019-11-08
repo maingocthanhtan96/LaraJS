@@ -112,7 +112,7 @@
     & .nest-menu .el-submenu > .el-submenu__title,
     & .el-submenu .el-menu-item {
       min-width: $sideBarWidth !important;
-      background-color: $bgSidebar !important;
+      background-color: $bgSidebarItem !important;
 
       &:hover {
         background-color: $menuHover !important;

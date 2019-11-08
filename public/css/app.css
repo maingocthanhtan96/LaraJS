@@ -15306,20 +15306,12 @@ video {
   background-color: #38a169 !important;
 }
 
-.hover\:bg-indigo-600:hover{
-  background-color: #5a67d8 !important;
-}
-
 .border-collapse{
   border-collapse: collapse !important;
 }
 
 .border-green-600{
   border-color: #38a169 !important;
-}
-
-.border-indigo-600{
-  border-color: #5a67d8 !important;
 }
 
 .rounded{
@@ -15597,10 +15589,6 @@ video {
   color: #38a169 !important;
 }
 
-.text-indigo-600{
-  color: #5a67d8 !important;
-}
-
 .hover\:text-white:hover{
   color: #fff !important;
 }
@@ -15829,6 +15817,10 @@ table th {
   z-index: 999999 !important;
 }
 
+.el-dialog__wrapper {
+  z-index: 2003 !important;
+}
+
 .menu-wrapper a {
   text-decoration: none !important;
 }
@@ -15851,7 +15843,7 @@ table th {
   left: 0;
   overflow: hidden;
   background: #242635;
-  z-index: 2001;
+  z-index: 2002;
 }
 
 #app .sidebar-container .el-scrollbar {
@@ -15934,7 +15926,7 @@ table th {
 #app .sidebar-container .nest-menu .el-submenu > .el-submenu__title,
 #app .sidebar-container .el-submenu .el-menu-item {
   min-width: 210px !important;
-  background-color: #242635 !important;
+  background-color: #17202A !important;
 }
 
 #app .sidebar-container .nest-menu .el-submenu > .el-submenu__title:hover,

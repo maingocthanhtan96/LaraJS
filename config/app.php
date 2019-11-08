@@ -179,7 +179,6 @@ return [
         MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class
     ],
 
     /*

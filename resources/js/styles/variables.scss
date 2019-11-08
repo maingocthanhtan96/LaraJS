@@ -21,6 +21,7 @@ $subMenuHover: #001528;
 
 $sideBarWidth: 210px;
 $bgSidebar: rgb(36, 38, 53);
+$bgSidebarItem: #17202A;
 $activeSidebar: #1a1c29;
 
 // the :export directive is the magic sauce for webpack
@@ -34,5 +35,6 @@ $activeSidebar: #1a1c29;
   subMenuBg: $subMenuBg;
   subMenuHover: $subMenuHover;
   sideBarWidth: $sideBarWidth;
-  bgSidebar: $bgSidebar
+  bgSidebar: $bgSidebar;
+  bgSidebarItem: $bgSidebarItem;
 }
