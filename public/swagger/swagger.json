@@ -26,7 +26,7 @@
         "/login": {
             "post": {
                 "tags": [
-                    "Login"
+                    "Auth"
                 ],
                 "summary": "Login",
                 "requestBody": {
@@ -63,7 +63,7 @@
         "/user-info": {
             "get": {
                 "tags": [
-                    "Login"
+                    "Auth"
                 ],
                 "summary": "Info user",
                 "responses": {
