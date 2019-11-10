@@ -48,7 +48,7 @@ git clone https://github.com/laudaikinhdi/larajs.git
 git submodule update --init --recursive
 # Install docker & docker compose
 sudo apt-get update && sudo apt install docker.io && sudo apt-get install docker-compose
-cd laradock && cp env-example .env && docker-compose up -d nginx php-fpm mariadb
+cd laradock && sudo cp env-example .env && sudo docker-compose up -d nginx php-fpm mariadb workspace
 
 # Init project
 cd ../
@@ -74,7 +74,9 @@ Exemple: http://local.larajs.com
 PASSPORT_CLIENT_SECRET, PASSPORT_CLIENT_ID, PASSPORT_LOGIN_ENDPOINT, BASE_API
 
 # install dependency
-npm install
+npm install --unsafe-perm
+# If Error: ENOENT: no such file or directory (Node sass)
+npm rebuild node-sass
 
 #Generate file lang
 php artisan vue-i18n:generate
@@ -100,5 +102,5 @@ username: editor@larajs.com
 password: larajs
 
 # Build on production
-npm run production
+npm run prod
 ```

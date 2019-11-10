@@ -99,7 +99,7 @@
       &:hover {
         background-color: $menuHover !important;
         font-weight: bold;
-        color: #fff !important;
+        color: $menuActiveText !important;
       }
     }
 
@@ -117,7 +117,7 @@
       &:hover {
         background-color: $menuHover !important;
         font-weight: bold;
-        color: #fff !important;
+        color: $menuActiveText !important;
       }
     }
   }
@@ -232,7 +232,7 @@
     &:hover {
       background-color: $menuHover !important;
       font-weight: bold;
-      color: #fff !important;
+      color: $menuActiveText !important;
       text-decoration: none;
     }
   }
