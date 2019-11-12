@@ -44,45 +44,41 @@ This project is built on top of fresh latest version Laravel (5.8). You should c
 git clone https://github.com/laudaikinhdi/larajs.git
 # https://github.com/beyondcode/laravel-er-diagram-generator#requirements
 
-# Pull submodule
-git submodule update --init --recursive
 # Install docker & docker compose
 sudo apt-get update && sudo apt install docker.io && sudo apt-get install docker-compose
 cd laradock && sudo cp env-example .env && sudo docker-compose up -d nginx php-fpm mariadb workspace
 
 # Init project
-cd ../
-sudo apt-get install graphviz #(For ubuntu)
-composer install
-
-# Create .env from .env.example
-cp .env.example .env
+sudo docker-compose exec workspace apt-get install graphviz #(For ubuntu)
+sudo docker-compose exec workspace composer install
+sudo docker-compose exec workspace composer dump-autoload
 
 # Generate application key
-php artisan key:generate
+sudo docker-compose exec workspace php artisan key:generate
 
 # Migration and DB seeder (after changing your DB settings in .env)
-php artisan migrate --seed
+sudo docker-compose exec workspace php artisan migrate --seed
 
 # Generate Passport secret key
-php artisan passport:install
+sudo docker-compose exec workspace php artisan passport:install
+# install dependency
+sudo docker-compose exec workspace npm install --unsafe-perm
+
+#Generate file lang
+sudo docker-compose exec workspace php artisan vue-i18n:generate
+
+# develop
+sudo docker-compose exec workspace npm run dev # or npm run watch
+
+# Create .env from .env.example
+cd ../
+cp .env.example .env
 
 # Config Virtual host 
 Exemple: http://local.larajs.com
 
 # Change passport and api 
 PASSPORT_CLIENT_SECRET, PASSPORT_CLIENT_ID, PASSPORT_LOGIN_ENDPOINT, BASE_API
-
-# install dependency
-npm install --unsafe-perm
-# If Error: ENOENT: no such file or directory (Node sass)
-npm rebuild node-sass
-
-#Generate file lang
-php artisan vue-i18n:generate
-
-# develop
-npm run dev # or npm run watch
 
 # username, password
 - Amin
@@ -102,5 +98,5 @@ username: editor@larajs.com
 password: larajs
 
 # Build on production
-npm run prod
+sudo docker-compose exec workspace npm run prod
 ```

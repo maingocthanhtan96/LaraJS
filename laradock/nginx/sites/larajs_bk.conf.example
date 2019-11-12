@@ -4,8 +4,8 @@ server {
     listen [::]:80;
 
     # For https
-    # listen 443 ssl default_server;
-    # listen [::]:443 ssl default_server ipv6only=on;
+    # listen 443 ssl;
+    # listen [::]:443 ssl ipv6only=on;
     # ssl_certificate /etc/nginx/ssl/default.crt;
     # ssl_certificate_key /etc/nginx/ssl/default.key;
 
@@ -37,4 +37,28 @@ server {
         root /var/www/letsencrypt/;
         log_not_found off;
     }
+
+    location ~ /. {
+        access_log off;
+        log_not_found off;
+        deny all;
+    }
+
+    location ~* .php$ {
+       fastcgi_index  index.php;
+       #Chinh tai day
+       fastcgi_pass  unix:/var/run/php-fpm/php-fpm.sock;
+       include     fastcgi_params;
+       fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+       fastcgi_param  SCRIPT_NAME    $fastcgi_script_name;
+    }
+
+    location ~* .(jpg|jpeg|gif|png|css|js|ico|xml)$ {
+       access_log    off;
+       log_not_found   off;
+       expires      360d;
+    }
+
+    error_log /var/log/nginx/laravel_error.log;
+    access_log /var/log/nginx/laravel_access.log;
 }

@@ -252,7 +252,7 @@ class GeneratorController extends Controller
         Artisan::call('generate:erd ' . $resourcePath);
         $basePath = base_path();
         if (env('APP_ENV') === 'production') {
-            exec("cd $basePath && npm run prod");
+            exec("cd $basePath && npm run dev");
         }
         exec("cd $basePath/app/Larajs/Development && ./swagger.sh");
     }
