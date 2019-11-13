@@ -89,13 +89,13 @@ username: manager@larajs.com
 password: manage123
 - Visitor 
 username: visitor@larajs.com
-password: larajs
+password: visitor123
 - Creator 
 username: creator@larajs.com
-password: larajs
+password: creator123
 - Editor 
 username: editor@larajs.com
-password: larajs
+password: editor123
 
 # Build on production
 sudo docker-compose exec workspace npm run prod
