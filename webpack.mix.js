@@ -21,24 +21,6 @@ Mix.listen('configReady', webpackConfig => {
 });
 // mix.copy('node_modules/element-ui/lib/theme-chalk/fonts/*', 'public/css/fonts/');
 mix.js('resources/js/app.js', 'public/js')
-  .extract([
-    'vue',
-    'axios',
-    'vuex',
-    'vue-router',
-    'vue-tables-2',
-    'vue-i18n',
-    'element-ui',
-    'dropzone',
-    'tui-editor',
-    'codemirror',
-    'moment',
-    'lodash',
-    'vue2-dropzone',
-    'vuedraggable',
-    'echarts',
-    'vue-count-to',
-  ])
   .options({
     processCssUrls: false,
     postCss: [
@@ -64,6 +46,11 @@ mix.js('resources/js/app.js', 'public/js')
     implementation: require('node-sass'),
   });
 mix.webpackConfig(config);
+mix.webpackConfig({
+  output: {
+    chunkFilename: mix.inProduction() ? 'js/chunks/[name].[chunkhash].js' : 'js/chunks/[name].js'
+  }
+});
 
 if (mix.inProduction()) {
   mix.version();
