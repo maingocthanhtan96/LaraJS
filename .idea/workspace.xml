@@ -2,18 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="48ec4041-b065-41c7-b197-b99331b3987d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.babelrc" beforeDir="false" afterPath="$PROJECT_DIR$/.babelrc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/GeneratorController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/GeneratorController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/manifest.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/vendor.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/mix-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/mix-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/larajs.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/larajs.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.mix.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/chunks/0.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/0.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/lang/vue-i18n-locales.generated.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/lang/vue-i18n-locales.generated.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/layout/components/Sidebar/Item.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layout/components/Sidebar/Item.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/styles/element-ui.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/styles/element-ui.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/styles/sidebar.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/styles/sidebar.scss" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -195,7 +191,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../JAVAC/leadlogic-dev" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -540,6 +536,8 @@
       <workItem from="1573652234713" duration="7177000" />
       <workItem from="1573660161197" duration="1122000" />
       <workItem from="1573693532804" duration="11183000" />
+      <workItem from="1573735984174" duration="8210000" />
+      <workItem from="1573780620254" duration="1104000" />
     </task>
     <servers />
   </component>

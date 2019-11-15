@@ -89,12 +89,36 @@
       width: 100% !important;
     }
 
+    .submenu-title-noDropdown {
+      span {
+        &.truncate {
+          width: calc(#{$sideBarWidth} - 5rem);
+        }
+      }
+    }
+
+    .el-menu-item {
+      span {
+        &.truncate {
+          width: calc(#{$sideBarWidth} - 7rem);
+        }
+      }
+    }
+
+    .el-submenu__title {
+      span {
+        &.truncate {
+          width: calc(#{$sideBarWidth} - 8rem);
+        }
+      }
+    }
+
     // menu hover
     .submenu-title-noDropdown,
     .el-submenu__title {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
+      //display: flex;
+      //justify-content: flex-start;
+      //align-items: center;
 
       &:hover {
         background-color: $menuHover !important;
