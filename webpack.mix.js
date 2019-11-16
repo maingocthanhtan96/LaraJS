@@ -2,10 +2,6 @@ const mix = require('laravel-mix');
 const config = require('./webpack.config');
 require('laravel-mix-eslint');
 
-function publicPath(dir) {
-  return path.join(__dirname, '/public', dir);
-}
-
 function resolve(dir) {
   return path.join(__dirname, '/resources/js', dir);
 }
