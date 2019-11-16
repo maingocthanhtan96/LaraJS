@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Http\Requests\StoreRoleRequest;
 use App\Http\Resources\RoleResource;
 use App\Models\Permission;
 use App\Models\Role;
@@ -43,7 +44,7 @@ class RoleController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRoleRequest $request)
     {
         try {
             $role = Role::create($request->all());

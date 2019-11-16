@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Http\Requests\StorePermissionRequest;
 use App\Http\Resources\PermissionResource;
 use App\Models\Permission;
 use App\Models\Role;
@@ -44,7 +45,7 @@ class PermissionController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePermissionRequest $request)
     {
         try {
             $permission = Permission::create($request->all());
@@ -86,7 +87,7 @@ class PermissionController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Permission $permission)
+    public function update(StorePermissionRequest $request, Permission $permission)
     {
         try {
             $permission->update($request->only(['name', 'description']));

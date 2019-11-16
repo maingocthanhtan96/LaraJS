@@ -89,6 +89,7 @@ class UserTableSeeder extends Seeder
             LarajsPermission::PERMISSION_CREATE,
             LarajsPermission::PERMISSION_EDIT,
             LarajsPermission::PERMISSION_DELETE,
+            LarajsPermission::PERMISSION_VIEW_MENU_ROLE_PERMISSION,
         ]);
         $visitorRole->givePermissionTo(LarajsPermission::PERMISSION_VISIT);
         $creatorRole->givePermissionTo(LarajsPermission::PERMISSION_CREATE);

@@ -6,7 +6,7 @@
           <h3>{{$t('route.role_permission')}}</h3>
         </div>
         <div class="text-right mb-8">
-          <el-button type="primary" @click="resetFormRole(); dialogCreateRoleVisible = true; " icon="el-icon-plus">
+          <el-button type="primary" @click="showCreateRole()" icon="el-icon-plus">
             Role
           </el-button>
         </div>
@@ -51,7 +51,7 @@
           <!-- end table role -->
           <!-- table permission -->
           <div class="my-8 text-right">
-            <el-button type="primary" @click="dialogCreatePermissionVisible = true; resetFormPermission();"
+            <el-button type="primary" @click="showCreatePermission()"
                        icon="el-icon-plus">Permission
             </el-button>
           </div>
@@ -124,7 +124,7 @@
             <span slot="footer" class="dialog-footer">
               <el-button @click="dialogUpdateRoleVisible = false">Cancel</el-button>
               <el-button type="primary" icon="el-icon-check" v-if="currentRole.name !== 'admin'"
-                         @click="updateRolePermission">{{$t('button.update')}}</el-button>
+                         @click="updateRolePermission('formRole')">{{$t('button.update')}}</el-button>
             </span>
           </el-dialog>
           <!--end update role permission-->
@@ -135,7 +135,7 @@
             center>
             <div class="flex justify-between items-start">
               <el-form ref="formRole" :model="formRole" :rules="roleRules" label-width="110px" label-position="left">
-                <el-form-item required label="Role name" prop="name">
+                <el-form-item required label="Role name" :error="errors.name ? errors.name[0] : ''" prop="name">
                   <el-input autofocus v-model="formRole.name" placeholder="Ex: admin"></el-input>
                 </el-form-item>
                 <el-form-item label="Description" prop="description">
@@ -158,7 +158,7 @@
             <div>
               <el-form ref="formPermission" :model="formPermission" :rules="permissionRules" label-width="110px"
                        label-position="left">
-                <el-form-item required label="Permission" prop="name">
+                <el-form-item required label="Permission" :error="errors.name ? errors.name[0] : ''" prop="name">
                   <el-input autofocus v-model="formPermission.name" placeholder="Ex: role_permission"></el-input>
                 </el-form-item>
                 <el-form-item label="Description" prop="description">
@@ -170,7 +170,7 @@
               <el-button @click="dialogCreatePermissionVisible = false">Cancel</el-button>
               <el-button v-if="+permissionId === 0" type="primary" icon="el-icon-plus"
                          @click="createPermission('formPermission')">{{$t('button.create')}}</el-button>
-              <el-button v-else type="primary" icon="el-icon-check" @click="updatePermission('formRole')">{{$t('button.update')}}</el-button>
+              <el-button v-else type="primary" icon="el-icon-check" @click="updatePermission('formPermission')">{{$t('button.update')}}</el-button>
             </span>
           </el-dialog>
           <!-- end create permission -->
@@ -181,350 +181,375 @@
 </template>
 
 <script>
-import path from 'path';
-import Resource from '@/api/resource';
-import RoleResource from '@/api/role';
-import permission from '@/directive/permission';
-import role from '@/directive/role';
-import checkPermission from '@/utils/permission'; // Permission checking
-import checkRole from '@/utils/role'; // Permission checking
-import Pagination from '@/components/Pagination'; // Secondary package based on el-pagination
-import { asyncRouterMap, constantRouterMap } from '@/router';
+  import path from 'path';
+  import Resource from '@/api/resource';
+  import RoleResource from '@/api/role';
+  import permission from '@/directive/permission';
+  import role from '@/directive/role';
+  import checkPermission from '@/utils/permission'; // Permission checking
+  import checkRole from '@/utils/role'; // Permission checking
+  import Pagination from '@/components/Pagination'; // Secondary package based on el-pagination
+  import {asyncRouterMap, constantRouterMap} from '@/router';
 
-const permissionResource = new Resource('permissions');
-const roleResource = new RoleResource();
+  const permissionResource = new Resource('permissions');
+  const roleResource = new RoleResource();
 
-export default {
-  components: { Pagination },
-  directives: { permission, role },
-  data() {
-    return {
-      loading: false,
-      loadingPermission: false,
-      currentRoleId: 0,
-      permissionId: 0,
-      dialogUpdateRoleVisible: false,
-      dialogCreateRoleVisible: false,
-      dialogCreatePermissionVisible: false,
-      routes: [],
-      roles: [],
-      permissions: [],
-      menuPermissions: [],
-      otherPermissions: [],
-      permissionProps: {
-        children: 'children',
-        label: 'name',
-        disabled: 'disabled',
-      },
-      formRole: {
-        name: '',
-        description: '',
-      },
-      formPermission: {
-        name: '',
-        description: '',
-      },
-      query: {
-        page: 1,
-        limit: 25,
-        keyword: '',
-      },
-      total: 0,
-    };
-  },
-  created() {
-    this.getRoles();
-    this.getPermissions();
-    this.getRoutes();
-  },
-  computed: {
-    currentRole() {
-      const role = this.roles.find(role => role.id === this.currentRoleId);
-      if (role === undefined) {
-        return { name: '', permissions: [] };
-      }
-      return role;
-    },
-    rolePermissions() {
-      return this.classifyPermissions(this.currentRole.permissions).all;
-    },
-    roleMenuPermissions() {
-      return this.classifyPermissions(this.currentRole.permissions).menu;
-    },
-    roleOtherPermissions() {
-      return this.classifyPermissions(this.currentRole.permissions).other;
-    },
-    routesData() {
-      return this.routes;
-    },
-    roleRules() {
+  export default {
+    components: {Pagination},
+    directives: {permission, role},
+    data() {
       return {
-        name: [
-          {
-            validator: (rule, value, callback) => {
-              if (!value) {
-                return callback(new Error(this.$t('validation.required', { attribute: 'Role' })));
-              } else {
-                const checkExist = this.roles.some(val => val.name === value && val.id !== this.currentRoleId);
-                if (checkExist) {
-                  return callback(new Error('Role exist!'));
-                } else {
-                  callback();
-                }
-              }
-            }, trigger: ['blur', 'change'],
-          },
-        ],
+        loading: false,
+        loadingPermission: false,
+        currentRoleId: 0,
+        permissionId: 0,
+        dialogUpdateRoleVisible: false,
+        dialogCreateRoleVisible: false,
+        dialogCreatePermissionVisible: false,
+        routes: [],
+        roles: [],
+        permissions: [],
+        menuPermissions: [],
+        otherPermissions: [],
+        permissionProps: {
+          children: 'children',
+          label: 'name',
+          disabled: 'disabled',
+        },
+        formRole: {
+          name: '',
+          description: '',
+        },
+        formPermission: {
+          name: '',
+          description: '',
+        },
+        query: {
+          page: 1,
+          limit: 25,
+          keyword: '',
+        },
+        total: 0,
       };
     },
-    permissionRules() {
-      return {
-        name: [
-          {
-            validator: (rule, value, callback) => {
-              if (!value) {
-                return callback(new Error(this.$t('validation.required', { attribute: 'Permission' })));
-              } else {
-                const checkExist = this.permissions.some(val => val.name === value && val.id !== this.permissionId);
-                if (checkExist) {
-                  return callback(new Error('Permission exist!'));
+    created() {
+      this.getRoles();
+      this.getPermissions();
+      this.getRoutes();
+    },
+    computed: {
+      currentRole() {
+        const role = this.roles.find(role => role.id === this.currentRoleId);
+        if (role === undefined) {
+          return {name: '', permissions: []};
+        }
+        return role;
+      },
+      rolePermissions() {
+        return this.classifyPermissions(this.currentRole.permissions).all;
+      },
+      roleMenuPermissions() {
+        return this.classifyPermissions(this.currentRole.permissions).menu;
+      },
+      roleOtherPermissions() {
+        return this.classifyPermissions(this.currentRole.permissions).other;
+      },
+      routesData() {
+        return this.routes;
+      },
+      roleRules() {
+        return {
+          name: [
+            {
+              validator: (rule, value, callback) => {
+                if (!value) {
+                  return callback(new Error(this.$t('validation.required', {attribute: 'Role'})));
                 } else {
-                  callback();
+                  const checkExist = this.roles.some(val => val.name === value && val.id !== this.currentRoleId);
+                  if (checkExist) {
+                    return callback(new Error('Role exist!'));
+                  } else {
+                    callback();
+                  }
                 }
-              }
-            }, trigger: ['blur', 'change'],
-          },
-        ],
-      };
-    },
-  },
-  methods: {
-    checkPermission,
-    checkRole,
-    async getRoutes() {
-      const routes = asyncRouterMap.concat(constantRouterMap);
-      // this.serviceRoutes = routes;
-      this.routes = this.generateRoutes(routes);
-    },
-    generateRoutes(routes, basePath = '/') {
-      const res = [];
-      for (let route of routes) {
-        // skip some routez
-        if (route.hidden) {
-          continue;
-        }
-        const onlyOneShowingChild = this.onlyOneShowingChild(route.children, route);
-        if (route.children && onlyOneShowingChild && !route.alwaysShow) {
-          route = onlyOneShowingChild;
-        }
-        const data = {
-          path: path.resolve(basePath, route.path),
-          name: route.meta && route.meta.title,
+              }, trigger: ['blur', 'change'],
+            },
+          ],
         };
+      },
+      permissionRules() {
+        return {
+          name: [
+            {
+              validator: (rule, value, callback) => {
+                if (!value) {
+                  return callback(new Error(this.$t('validation.required', {attribute: 'Permission'})));
+                } else {
+                  const checkExist = this.permissions.some(val => val.name === value && val.id !== this.permissionId);
+                  if (checkExist) {
+                    return callback(new Error('Permission exist!'));
+                  } else {
+                    callback();
+                  }
+                }
+              }, trigger: ['blur', 'change'],
+            },
+          ],
+        };
+      },
+    },
+    methods: {
+      checkPermission,
+      checkRole,
+      async getRoutes() {
+        const routes = asyncRouterMap.concat(constantRouterMap);
+        // this.serviceRoutes = routes;
+        this.routes = this.generateRoutes(routes);
+      },
+      generateRoutes(routes, basePath = '/') {
+        const res = [];
+        for (let route of routes) {
+          // skip some routez
+          if (route.hidden) {
+            continue;
+          }
+          const onlyOneShowingChild = this.onlyOneShowingChild(route.children, route);
+          if (route.children && onlyOneShowingChild && !route.alwaysShow) {
+            route = onlyOneShowingChild;
+          }
+          const data = {
+            path: path.resolve(basePath, route.path),
+            name: route.meta && route.meta.title,
+          };
           // recursive child routes
-        if (route.children) {
-          data.children = this.generateRoutes(route.children, data.path);
+          if (route.children) {
+            data.children = this.generateRoutes(route.children, data.path);
+          }
+          res.push(data);
         }
-        res.push(data);
-      }
-      return res;
-    },
-    getRoles() {
-      this.loading = true;
-      roleResource.list().then(res => {
-        this.roles = res.data.data;
-        this.loading = false;
-      });
-    },
-    getPermissions() {
-      this.loadingPermission = true;
-      permissionResource.list(this.query).then(res => {
-        const { data } = res.data;
-        const { all, menu, other } = this.classifyPermissions(data);
-        this.total = res.data.meta.total;
-        this.permissions = all;
-        this.menuPermissions = menu;
-        this.otherPermissions = other;
-        this.loadingPermission = false;
-      });
-    },
-    classifyPermissions(permissions) {
-      const all = [];
-      const menu = [];
-      const other = [];
-      permissions.forEach(permission => {
-        const permissionName = permission.name;
-        all.push(permission);
-        if (permissionName.startsWith('view menu')) {
-          menu.push(this.normalizeMenuPermission(permission));
-        } else {
-          other.push(this.normalizePermission(permission));
-        }
-      });
-      return { all, menu, other };
-    },
-    normalizeMenuPermission(permission) {
-      return { id: permission.id, name: permission.name.substring(10) };
-    },
-
-    normalizePermission(permission) {
-      return { id: permission.id, name: permission.name, disabled: checkRole(['admin']) ? false : (permission.name === 'manage permission') };
-    },
-    permissionKeys(permissions) {
-      return permissions.map(permission => permission.id);
-    },
-    permissionName(permissions) {
-      return permissions.map(permission => permission.name);
-    },
-    handleEditRolePermissions(id) {
-      this.resetFormRole();
-      this.dialogUpdateRoleVisible = true;
-      this.currentRoleId = id;
-      this.formRole = Object.assign({}, this.currentRole);
-      this.$nextTick(() => {
-        this.$refs.menuPermissions.setCheckedKeys(this.permissionName(this.roleMenuPermissions));
-        this.$refs.otherPermissions.setCheckedKeys(this.permissionKeys(this.roleOtherPermissions));
-      });
-    },
-    updateRolePermission() {
-      const checkedMenu = this.$refs.menuPermissions.getCheckedKeys();
-      const checkedOther = this.$refs.otherPermissions.getCheckedKeys();
-      const permissions = {
-        'menu': checkedMenu,
-        'other': checkedOther,
-      };
-        // const checkedPermissions = checkedMenu.concat(checkedOther);
-      roleResource.update(this.currentRole.id, { permissions, role: this.formRole }).then(res => {
-        this.$message({
-          message: 'Role ' + this.$t('messages.update'),
-          type: 'success',
-          duration: 5 * 1000,
+        return res;
+      },
+      getRoles() {
+        this.loading = true;
+        roleResource.list().then(res => {
+          this.roles = res.data.data;
+          this.loading = false;
         });
-        this.dialogUpdateRoleVisible = false;
-        this.getRoles();
-        this.getPermissions();
-      });
-    },
-    createRole(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          roleResource.store(this.formRole)
-            .then(res => {
-              const { data } = res.data;
-              this.roles.push(data);
+      },
+      getPermissions() {
+        this.loadingPermission = true;
+        permissionResource.list(this.query).then(res => {
+          const {data} = res.data;
+          const {all, menu, other} = this.classifyPermissions(data);
+          this.total = res.data.meta.total;
+          this.permissions = all;
+          this.menuPermissions = menu;
+          this.otherPermissions = other;
+          this.loadingPermission = false;
+        });
+      },
+      classifyPermissions(permissions) {
+        const all = [];
+        const menu = [];
+        const other = [];
+        permissions.forEach(permission => {
+          const permissionName = permission.name;
+          all.push(permission);
+          if (permissionName.startsWith('view menu')) {
+            menu.push(this.normalizeMenuPermission(permission));
+          } else {
+            other.push(this.normalizePermission(permission));
+          }
+        });
+        return {all, menu, other};
+      },
+      normalizeMenuPermission(permission) {
+        return {id: permission.id, name: permission.name.substring(10)};
+      },
+
+      normalizePermission(permission) {
+        return {
+          id: permission.id,
+          name: permission.name,
+          disabled: checkRole(['admin']) ? false : (permission.name === 'manage permission')
+        };
+      },
+      permissionKeys(permissions) {
+        return permissions.map(permission => permission.id);
+      },
+      permissionName(permissions) {
+        return permissions.map(permission => permission.name);
+      },
+      handleEditRolePermissions(id) {
+        this.resetFormRole();
+        this.dialogUpdateRoleVisible = true;
+        this.currentRoleId = id;
+        this.formRole = Object.assign({}, this.currentRole);
+        this.$nextTick(() => {
+          this.$refs.menuPermissions.setCheckedKeys(this.permissionName(this.roleMenuPermissions));
+          this.$refs.otherPermissions.setCheckedKeys(this.permissionKeys(this.roleOtherPermissions));
+        });
+      },
+      updateRolePermission(formName) {
+        const checkedMenu = this.$refs.menuPermissions.getCheckedKeys();
+        const checkedOther = this.$refs.otherPermissions.getCheckedKeys();
+        const permissions = {
+          'menu': checkedMenu,
+          'other': checkedOther,
+        };
+        this.$refs[formName].validate(valid => {
+          if (valid) {
+            // const checkedPermissions = checkedMenu.concat(checkedOther);
+            roleResource.update(this.currentRole.id, {permissions, role: this.formRole}).then(res => {
+              this.$message({
+                message: 'Role ' + this.$t('messages.update'),
+                type: 'success',
+                duration: 5 * 1000,
+              });
+              this.dialogUpdateRoleVisible = false;
+              this.getRoles();
+              this.getPermissions();
+            });
+          }
+        });
+      },
+      showCreateRole() {
+        this.resetFormRole();
+        this.dialogCreateRoleVisible = true;
+      },
+      createRole(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            roleResource.store(this.formRole)
+              .then(res => {
+                const {data} = res.data;
+                this.roles.push(data);
+                // notification
+                this.$notify({
+                  title: this.$t('messages.update'),
+                  dangerouslyUseHTMLString: true,
+                  message: `
+                  <div>Role name: ${this.formRole.name}</div>
+                  <div>Description: ${this.formRole.description}</div>
+                `,
+                  type: 'success',
+                });
+                this.$refs[formName].resetFields();
+              });
+          }
+        });
+      },
+      handleDeleteRole(id, name) {
+        this.$confirm(this.$t('messages.delete_confirm', {attribute: `[${name}]`}), this.$t('messages.warning'), {
+          confirmButtonText: 'OK',
+          cancelButtonText: 'Cancel',
+          type: 'warning',
+        }).then(() => {
+          roleResource.destroy(id).then(res => {
+            const index = this.roles.findIndex(val => val.id === id);
+            this.roles.splice(index, 1);
+            this.$notify({
+              title: 'Success',
+              message: this.$t('messages.delete'),
+              type: 'success',
+            });
+          });
+        });
+      },
+      showCreatePermission() {
+        this.dialogCreatePermissionVisible = true;
+        this.permissionId = 0;
+        this.resetFormPermission();
+      },
+      createPermission(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            permissionResource.store(this.formPermission).then(() => {
               // notification
               this.$notify({
                 title: this.$t('messages.update'),
                 dangerouslyUseHTMLString: true,
                 message: `
-                  <div>Role name: ${this.formRole.name}</div>
-                  <div>Description: ${this.formRole.description}</div>
-                `,
-                type: 'success',
-              });
-              this.$refs[formName].resetFields();
-            });
-        }
-      });
-    },
-    handleDeleteRole(id, name) {
-      this.$confirm(this.$t('messages.delete_confirm', { attribute: `[${name}]` }), this.$t('messages.warning'), {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
-        type: 'warning',
-      }).then(() => {
-        roleResource.destroy(id).then(res => {
-          const index = this.roles.findIndex(val => val.id === id);
-          this.roles.splice(index, 1);
-          this.$notify({
-            title: 'Success',
-            message: this.$t('messages.delete'),
-            type: 'success',
-          });
-        });
-      });
-    },
-    createPermission(formName) {
-      permissionResource.store(this.formPermission).then(() => {
-        // notification
-        this.$notify({
-          title: this.$t('messages.update'),
-          dangerouslyUseHTMLString: true,
-          message: `
                   <div>Role name: ${this.formPermission.name}</div>
                   <div>Description: ${this.formPermission.description}</div>
                 `,
-          type: 'success',
+                type: 'success',
+              });
+              this.getPermissions();
+              this.$refs[formName].resetFields();
+            });
+          }
         });
-        this.getPermissions();
-        this.$refs[formName].resetFields();
-      });
-    },
-    handleDeletePermission(id, name) {
-      this.$confirm(this.$t('messages.delete_confirm', { attribute: `[${name}]` }), this.$t('messages.warning'), {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
-        type: 'warning',
-      }).then(() => {
-        permissionResource.destroy(id).then(() => {
-          this.$notify({
-            title: 'Success',
-            message: this.$t('messages.delete'),
-            type: 'success',
+      },
+      handleDeletePermission(id, name) {
+        this.$confirm(this.$t('messages.delete_confirm', {attribute: `[${name}]`}), this.$t('messages.warning'), {
+          confirmButtonText: 'OK',
+          cancelButtonText: 'Cancel',
+          type: 'warning',
+        }).then(() => {
+          permissionResource.destroy(id).then(() => {
+            this.$notify({
+              title: 'Success',
+              message: this.$t('messages.delete'),
+              type: 'success',
+            });
+            this.getPermissions();
           });
-          this.getPermissions();
         });
-      });
-    },
-    handleEditPermissions(id) {
-      this.permissionId = id;
-      this.dialogCreatePermissionVisible = true;
-      const permission = this.permissions.find(val => val.id === id);
-      this.formPermission = Object.assign({}, permission);
-    },
-    updatePermission() {
-      permissionResource.update(this.permissionId, this.formPermission).then(() => {
-        this.$message({
-          message: 'Permissions ' + this.$t('messages.update'),
-          type: 'success',
-          duration: 5 * 1000,
+      },
+      handleEditPermissions(id) {
+        this.permissionId = id;
+        this.dialogCreatePermissionVisible = true;
+        const permission = this.permissions.find(val => val.id === id);
+        this.formPermission = Object.assign({}, permission);
+      },
+      updatePermission(formName) {
+        this.$refs[formName].validate(valid => {
+          if (valid) {
+            permissionResource.update(this.permissionId, this.formPermission).then(() => {
+              this.$message({
+                message: 'Permissions ' + this.$t('messages.update'),
+                type: 'success',
+                duration: 5 * 1000,
+              });
+              this.dialogCreatePermissionVisible = false;
+              this.getPermissions();
+            });
+          }
         });
-        this.dialogCreatePermissionVisible = false;
-        this.getPermissions();
-      });
-    },
-    // reference: src/layout/components/Sidebar/SidebarItem.vue
-    onlyOneShowingChild(children = [], parent) {
-      let onlyOneChild = null;
-      const showingChildren = children.filter(item => !item.hidden);
+      },
+      // reference: src/layout/components/Sidebar/SidebarItem.vue
+      onlyOneShowingChild(children = [], parent) {
+        let onlyOneChild = null;
+        const showingChildren = children.filter(item => !item.hidden);
 
-      // When there is only one child route, the child route is displayed by default
-      if (showingChildren.length === 1) {
-        onlyOneChild = showingChildren[0];
-        onlyOneChild.path = path.resolve(parent.path, onlyOneChild.path);
-        return onlyOneChild;
-      }
+        // When there is only one child route, the child route is displayed by default
+        if (showingChildren.length === 1) {
+          onlyOneChild = showingChildren[0];
+          onlyOneChild.path = path.resolve(parent.path, onlyOneChild.path);
+          return onlyOneChild;
+        }
 
-      // Show parent if there are no child route to display
-      if (showingChildren.length === 0) {
-        onlyOneChild = { ...parent, path: '', noShowingChildren: true };
-        return onlyOneChild;
-      }
+        // Show parent if there are no child route to display
+        if (showingChildren.length === 0) {
+          onlyOneChild = {...parent, path: '', noShowingChildren: true};
+          return onlyOneChild;
+        }
 
-      return false;
+        return false;
+      },
+      resetFormRole() {
+        this.formRole = {
+          name: '',
+          description: '',
+        };
+      },
+      resetFormPermission() {
+        this.formPermission = {
+          name: '',
+          description: '',
+        };
+      },
     },
-    resetFormRole() {
-      this.formRole = {
-        name: '',
-        description: '',
-      };
-    },
-    resetFormPermission() {
-      this.formPermission = {
-        name: '',
-        description: '',
-      };
-    },
-  },
-};
+  };
 </script>
