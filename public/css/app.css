@@ -16194,19 +16194,6 @@ video {
   z-index: 10 !important;
 }
 
-/*fade*/
-
-.fade-enter-active,
-.fade-leave-active {
-  -webkit-transition: opacity 0.28s;
-  transition: opacity 0.28s;
-}
-
-.fade-enter,
-.fade-leave-active {
-  opacity: 0;
-}
-
 /*fade-transform*/
 
 .fade-transform-leave-active,
@@ -16249,6 +16236,145 @@ video {
 
 .breadcrumb-leave-active {
   position: absolute;
+}
+
+.zoom-fade-enter-active,
+.zoom-fade-leave-active {
+  -webkit-transition: opacity .28s ease-in-out, -webkit-transform .35s;
+  transition: opacity .28s ease-in-out, -webkit-transform .35s;
+  transition: transform .35s, opacity .28s ease-in-out;
+  transition: transform .35s, opacity .28s ease-in-out, -webkit-transform .35s;
+}
+
+.zoom-fade-enter {
+  -webkit-transform: scale(0.97);
+          transform: scale(0.97);
+  opacity: 0;
+}
+
+.zoom-fade-leave-to {
+  -webkit-transform: scale(1.03);
+          transform: scale(1.03);
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  -webkit-transition: opacity .28s ease-in-out;
+  transition: opacity .28s ease-in-out;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-fade-enter-active, .slide-fade-leave-active {
+  -webkit-transition: opacity .35s, -webkit-transform .4s;
+  transition: opacity .35s, -webkit-transform .4s;
+  transition: opacity .35s, transform .4s;
+  transition: opacity .35s, transform .4s, -webkit-transform .4s;
+}
+
+.slide-fade-enter {
+  opacity: 0;
+  -webkit-transform: translateX(-30%);
+          transform: translateX(-30%);
+}
+
+.slide-fade-leave-to {
+  opacity: 0;
+  -webkit-transform: translateX(30%);
+          transform: translateX(30%);
+}
+
+.zoom-out-enter-active, .zoom-out-leave-active {
+  -webkit-transition: opacity .35s ease-in-out, -webkit-transform .45s ease-out;
+  transition: opacity .35s ease-in-out, -webkit-transform .45s ease-out;
+  transition: opacity .35s ease-in-out, transform .45s ease-out;
+  transition: opacity .35s ease-in-out, transform .45s ease-out, -webkit-transform .45s ease-out;
+}
+
+.zoom-out-enter, .zoom-out-leave-to {
+  opacity: 0;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+}
+
+.fade-bottom-enter-active, .fade-bottom-leave-active {
+  -webkit-transition: opacity .3s, -webkit-transform .35s;
+  transition: opacity .3s, -webkit-transform .35s;
+  transition: opacity .3s, transform .35s;
+  transition: opacity .3s, transform .35s, -webkit-transform .35s;
+}
+
+.fade-bottom-enter {
+  opacity: 0;
+  -webkit-transform: translateY(-8%);
+          transform: translateY(-8%);
+}
+
+.fade-bottom-leave-to {
+  opacity: 0;
+  -webkit-transform: translateY(8%);
+          transform: translateY(8%);
+}
+
+.fade-bottom-2x-enter-active, .fade-bottom-2x-leave-active {
+  -webkit-transition: opacity .2s, -webkit-transform .25s;
+  transition: opacity .2s, -webkit-transform .25s;
+  transition: opacity .2s, transform .25s;
+  transition: opacity .2s, transform .25s, -webkit-transform .25s;
+}
+
+.fade-bottom-2x-enter {
+  opacity: 0;
+  -webkit-transform: translateY(-4%);
+          transform: translateY(-4%);
+}
+
+.fade-bottom-2x-leave-to {
+  opacity: 0;
+  -webkit-transform: translateY(4%);
+          transform: translateY(4%);
+}
+
+.fade-top-enter-active, .fade-top-leave-active {
+  -webkit-transition: opacity .3s, -webkit-transform .35s;
+  transition: opacity .3s, -webkit-transform .35s;
+  transition: opacity .3s, transform .35s;
+  transition: opacity .3s, transform .35s, -webkit-transform .35s;
+}
+
+.fade-top-enter {
+  opacity: 0;
+  -webkit-transform: translateY(8%);
+          transform: translateY(8%);
+}
+
+.fade-top-leave-to {
+  opacity: 0;
+  -webkit-transform: translateY(-8%);
+          transform: translateY(-8%);
+}
+
+.fade-top-2x-enter-active, .fade-top-2x-leave-active {
+  -webkit-transition: opacity .2s, -webkit-transform .25s;
+  transition: opacity .2s, -webkit-transform .25s;
+  transition: opacity .2s, transform .25s;
+  transition: opacity .2s, transform .25s, -webkit-transform .25s;
+}
+
+.fade-top-2x-enter {
+  opacity: 0;
+  -webkit-transform: translateY(4%);
+          transform: translateY(4%);
+}
+
+.fade-top-2x-leave-to {
+  opacity: 0;
+  -webkit-transform: translateY(-4%);
+          transform: translateY(-4%);
 }
 
 .table-responsive {

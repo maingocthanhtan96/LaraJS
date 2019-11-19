@@ -3,8 +3,8 @@
     <el-col :span="24">
       <el-card>
         <div slot="header" class="flex justify-end items-center">
-          <router-link v-permission="['create']" :to="{name: '{{$CONST_MODEL_CLASS$}}_create'}" class="hover:bg-indigo-600 hover:text-white font-bold border rounded border-indigo-600 text-indigo-600 bg-transparent py-3 px-4" tag="button">
-            <i class="fa fa-plus mr-2" />{{this.$t('button.create')}}
+          <router-link v-permission="['create']" :to="{name: '{{$CONST_MODEL_CLASS$}}_create'}" class="pan-btn blue-btn" tag="button">
+            <i class="el-icon-plus mr-2" />{{this.$t('button.create')}}
           </router-link>
         </div>
         <v-server-table
@@ -19,8 +19,8 @@
           <template slot="id" slot-scope="props">{{ props.index }}</template>
           <!--{{$TEMPLATES_NOT_DELETE_THIS_LINE$}}-->
           <div slot="actions" slot-scope="props" class="flex justify-center items-center">
-            <router-link v-permission="['edit']" :to="{name: '{{$CONST_MODEL_CLASS$}}_edit', params: {id: props.row.id}}"><i class="fa fa-edit el-link el-link--primary mr-2"></i></router-link>
-            <a v-permission="['delete']" class="cursor-pointer" @click.stop="remove(props.row.id, props.index)"><i class="fa fa-trash-o el-link el-link--danger"></i></a>
+            <router-link v-permission="['edit']" :to="{name: '{{$CONST_MODEL_CLASS$}}_edit', params: {id: props.row.id}}"><i class="el-icon-edit el-link el-link--primary mr-2"></i></router-link>
+            <a v-permission="['delete']" class="cursor-pointer" @click.stop="remove(props.row.id, props.index)"><i class="el-icon-delete el-link el-link--danger"></i></a>
           </div>
         </v-server-table>
       </el-card>

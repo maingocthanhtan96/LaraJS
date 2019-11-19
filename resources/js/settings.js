@@ -38,6 +38,13 @@ module.exports = {
   sidebarLogo: true,
 
   /**
+   * @type {string} fade / fade-transform / zoom-fade / slide-fade / zoom-out / fade-bottom / fade-bottom-2x / fade-top / fade-top-2x
+   * @default fade-transform
+   * @description transition change page
+   */
+  routerTransition: 'fade-transform',
+
+  /**
    * @type {string | array} 'production' | ['production', 'development']
    * @description Need show err logs component.
    * The default is only used in the production env

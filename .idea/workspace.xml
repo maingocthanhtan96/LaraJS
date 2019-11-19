@@ -3,28 +3,26 @@
   <component name="ChangeListManager">
     <list default="true" id="48ec4041-b065-41c7-b197-b99331b3987d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/generator/templates/Vuejs/Views/form.stub" beforeDir="false" afterPath="$PROJECT_DIR$/public/generator/templates/Vuejs/Views/form.stub" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/generator/templates/Vuejs/Views/index.stub" beforeDir="false" afterPath="$PROJECT_DIR$/public/generator/templates/Vuejs/Views/index.stub" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/chunks/0.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/0.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/chunks/1.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/1.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/chunks/10.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/10.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/chunks/12.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/12.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/chunks/13.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/13.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/chunks/16.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/16.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/chunks/18.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/18.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/chunks/2.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/chunks/3.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/3.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/chunks/4.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/4.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/chunks/6.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/6.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/chunks/7.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/7.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/chunks/8.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/8.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/chunks/9.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/9.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/chunks/js/app.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/chunks/js/vendor.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/mix-manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/larajs.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/larajs.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack-css.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack-css.mix.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack-js.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack-js.mix.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/vendor.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/vendor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/layout/components/AppMain.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layout/components/AppMain.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/layout/components/Settings/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/layout/components/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layout/components/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/layout/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layout/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/settings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/settings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/styles/transition.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/styles/transition.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/generator/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/generator/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/user/form.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/user/form.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/user/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/user/index.vue" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -564,7 +562,10 @@
       <workItem from="1574069008721" duration="3085000" />
       <workItem from="1574082960905" duration="3471000" />
       <workItem from="1574086511384" duration="4140000" />
-      <workItem from="1574127122252" duration="5217000" />
+      <workItem from="1574127122252" duration="5911000" />
+      <workItem from="1574134007971" duration="882000" />
+      <workItem from="1574143897749" duration="3449000" />
+      <workItem from="1574147652013" duration="2117000" />
     </task>
     <servers />
   </component>

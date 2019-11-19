@@ -1,16 +1,16 @@
 // import variables from '@/styles/element-variables.scss'
 import defaultSettings from '@/settings';
 
-const { showSettings, tagsView, fixedHeader, sidebarLogo, redirect, showTrans } = defaultSettings;
+const { showSettings, tagsView, fixedHeader, sidebarLogo, redirect, showTrans, routerTransition } = defaultSettings;
 
 const state = {
-  // theme: variables.theme,
   showSettings: showSettings,
   tagsView: tagsView,
   fixedHeader: fixedHeader,
   sidebarLogo: sidebarLogo,
   redirect: redirect,
   showTrans: showTrans,
+  routerTransition: routerTransition,
 };
 
 const mutations = {

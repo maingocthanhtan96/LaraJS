@@ -7,7 +7,7 @@
             {{ $t('route.user_edit') }}
           </template>
           <template v-else>
-            {{ $t('route.user_edit') }}
+            {{ $t('route.user_create') }}
           </template>
         </div>
         <el-form ref="users" :model="form" :rules="rules" status-icon>
@@ -53,13 +53,13 @@
           <!--{{$FROM_ITEM_NOT_DELETE_THIS_LINE$}}-->
           <el-form-item class="flex justify-center">
             <template v-if="$route.params.id">
-              <el-button :loading="loading" plain type="primary" icon="fa fa-edit mr-2" @click="update('users')">
-                {{ $t('route.user_edit') }}
+              <el-button :loading="loading" round type="primary" icon="el-icon-edit mr-2" @click="update('users')">
+                {{ $t('button.edit') }}
               </el-button>
             </template>
             <template v-else>
-              <el-button :loading="loading" plain type="success" icon="fa fa-plus mr-2" @click="store('users')">
-                {{ $t('route.user_create') }}
+              <el-button :loading="loading" round type="success" icon="el-icon-plus mr-2" @click="store('users')">
+                {{ $t('button.create') }}
               </el-button>
             </template>
           </el-form-item>

@@ -9,7 +9,7 @@
             <svg-icon icon-class="tree-table"/>
           </button>
           <router-link :to="{name: 'generator_create'}" class="pan-btn blue-btn" tag="button">
-            <i class="fa fa-plus mr-2"/>Create
+            <i class="el-icon-plus mr-2"/>Create
           </router-link>
         </div>
         <v-server-table
@@ -26,7 +26,8 @@
           <div slot="actions" slot-scope="{row}" class="flex justify-center items-center">
             <router-link :to="{name: 'generator_edit', params: {id: row.id}}">
               <el-tooltip effect="dark" content="Edit" placement="left">
-                <i class="fa fa-edit el-link el-link--primary mr-4"></i>
+                <i class="el-icon-edit
+ el-link el-link--primary mr-4"></i>
               </el-tooltip>
             </router-link>
             <router-link :to="{name: 'generator_relationship', params: {id: row.id}}">

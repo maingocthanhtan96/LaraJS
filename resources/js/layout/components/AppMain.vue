@@ -1,6 +1,6 @@
 <template>
   <section class="app-main">
-    <transition name="fade-transform" mode="out-in">
+    <transition :name="routerTransition" mode="out-in">
       <keep-alive :include="cachedViews">
         <router-view :key="key"/>
       </keep-alive>
@@ -18,6 +18,9 @@ export default {
     key() {
       return this.$route.fullPath;
     },
+    routerTransition() {
+      return this.$store.state.settings.routerTransition;
+    }
   },
 };
 </script>

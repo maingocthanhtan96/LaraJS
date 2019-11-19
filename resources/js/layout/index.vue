@@ -23,7 +23,7 @@
 <script>
 import RightPanel from '@/components/RightPanel';
 import BackToTop from '@/components/BackToTop';
-import { AppMain, Navbar, Settings, Sidebar } from './components';
+import { AppMain, Navbar, Sidebar } from './components';
 import TagViews from './components/TagsView';
 import FooterMain from './components/FooterMain';
 import ResizeMixin from './mixin/ResizeHandler';
@@ -35,7 +35,6 @@ export default {
     AppMain,
     Navbar,
     RightPanel,
-    Settings,
     Sidebar,
     TagViews,
     FooterMain,

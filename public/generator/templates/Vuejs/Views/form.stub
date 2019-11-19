@@ -14,12 +14,12 @@
           <!--{{$FROM_ITEM_NOT_DELETE_THIS_LINE$}}-->
           <el-form-item class="flex justify-center">
             <template v-if="$route.params.id">
-              <el-button :loading="loading" round type="primary" icon="fa fa-edit mr-2" @click="update('{{$REF_MODEL_CLASS$}}')">
+              <el-button :loading="loading" round type="primary" icon="el-icon-edit mr-2" @click="update('{{$REF_MODEL_CLASS$}}')">
                 {{ $t('button.edit') }}
               </el-button>
             </template>
             <template v-else>
-              <el-button :loading="loading" round type="success" icon="fa fa-plus mr-2" @click="store('{{$REF_MODEL_CLASS$}}')">
+              <el-button :loading="loading" round type="success" icon="el-icon-plus mr-2" @click="store('{{$REF_MODEL_CLASS$}}')">
                 {{ $t('button.create') }}
               </el-button>
             </template>
