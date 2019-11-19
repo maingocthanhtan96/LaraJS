@@ -29,10 +29,10 @@
           <svg-icon icon-class="language" class="text-4xl"/>
         </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item :class="{'bg-blue-400 text-white font-bold': $store.getters.lang === 'vn'}"
+          <el-dropdown-item :class="{'bg-blue-400 text-white font-bold': lang === 'vn'}"
                             icon="flag-icon flag-icon-vn" command="vn">Việt Nam
           </el-dropdown-item>
-          <el-dropdown-item :class="{'bg-blue-400 text-white font-bold': $store.getters.lang === 'en'}"
+          <el-dropdown-item :class="{'bg-blue-400 text-white font-bold': lang === 'en'}"
                             icon="flag-icon flag-icon-my" command="en">English
           </el-dropdown-item>
         </el-dropdown-menu>
@@ -82,6 +82,7 @@ export default {
       sidebar: 'sidebar',
       device: 'device',
       user: 'user',
+      lang: 'lang'
     }),
   },
   methods: {

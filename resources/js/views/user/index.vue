@@ -64,7 +64,7 @@ export default {
           },
           templates: {
             created_at: (h, row) => {
-              return this.$options.filters.formatDate(row.created_at);
+              return this.$options.filters.parseTime(row.created_at, '{y}-{m}-{d}');
             },
             roles: (h, row) => {
               return row.roles.map((value) => {

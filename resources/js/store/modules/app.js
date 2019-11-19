@@ -1,4 +1,4 @@
-import { CLEAR_ERRORS, SET_ERRORS, UPDATE_MESSAGE } from '../muation-types';
+import { CLEAR_ERRORS, SET_ERRORS } from '../muation-types';
 import Cookies from 'js-cookie';
 
 const state = {
@@ -6,9 +6,6 @@ const state = {
   table: {
     page: 1,
     limit: 25,
-  },
-  message: {
-    update: false,
   },
   isCollapse: false,
   collapse: '199px',
@@ -23,9 +20,6 @@ const state = {
 const mutations = {
   [SET_ERRORS](state, errors) {
     state.errors = errors;
-  },
-  [UPDATE_MESSAGE](state, status) {
-    state.message.update = status;
   },
   TOGGLE_SIDEBAR: state => {
     state.sidebar.opened = !state.sidebar.opened;
@@ -56,9 +50,6 @@ const actions = {
   },
   [CLEAR_ERRORS]({ commit }) {
     commit(SET_ERRORS, {});
-  },
-  [UPDATE_MESSAGE]({ commit }, status) {
-    commit(UPDATE_MESSAGE, status);
   },
   toggleSideBar({ commit }) {
     commit('TOGGLE_SIDEBAR');

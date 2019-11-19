@@ -7,9 +7,9 @@ import { Message } from 'element-ui';
 
 import axios from 'axios';
 
-import store from '../store/index';
+import store from '../store';
 
-import router from '@/router/index';
+import router from '@/router';
 
 import {
   getToken, setToken,
