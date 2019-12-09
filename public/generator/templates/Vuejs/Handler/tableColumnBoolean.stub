@@ -1,0 +1,5 @@
+<el-table-column data-generator="{{$FIELD_NAME$}}" prop="{{$FIELD_NAME$}}" {{$SORT$}} :label="$t('table.{{$TABLE_MODEL_CLASS$}}.{{$FIELD_NAME$}}')" align="center" header-align="center">
+                <template slot-scope="{ row }">
+                  <el-tag>{{row.{{$FIELD_NAME$}} === '0' ? 'false' : 'true'}}</el-tag>
+                </template>
+              </el-table-column>

@@ -15,29 +15,31 @@ class Controller extends BaseController
 
     /**
      * @param array $data
+     * @param int $status
      * @return \Illuminate\Http\JsonResponse
      * @author tanmnt
      */
-    public function jsonData($data = [])
+    public function jsonData($data = [], $status = 200)
     {
         return response()->json([
             'success' => true,
             'data' => $data
-        ], 200);
+        ], $status);
     }
 
     /**
      * @param $data
+     * @param int $status
      * @return \Illuminate\Http\JsonResponse
      * @author tanmnt
      */
-    public function jsonTable($data)
+    public function jsonTable($data, $status = 200)
     {
         return response()->json([
             'success' => true,
             'data' => $data['data'],
             'count' => ($data['total'])
-        ]);
+        ], $status);
     }
 
     /**

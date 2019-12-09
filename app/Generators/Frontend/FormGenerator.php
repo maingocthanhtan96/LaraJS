@@ -45,7 +45,7 @@ Class FormGenerator extends BaseGenerator
         $templateData = $this->serviceGenerator->get_template("form", $pathTemplate, 'vuejs');
         $templateData = str_replace('{{$LANG_MODEL_CLASS$}}', $this->serviceGenerator->tableNameNotPlural($model['name']), $templateData);
         $templateData = str_replace('{{$REF_MODEL_CLASS$}}', $this->serviceGenerator->modelNameNotPluralFe($model['name']), $templateData);
-        $templateData = $this->serviceGenerator->replaceNotDelete($notDelete['item'], $this->generateItems($fields, $model), 2, $templateData);
+        $templateData = $this->serviceGenerator->replaceNotDelete($notDelete['item'], $this->generateItems($fields, $model), 5, $templateData, 2);
         $templateData = str_replace('{{$MODEL_CLASS$}}', $this->serviceGenerator->modelNameNotPlural($model['name']), $templateData);
         $templateData = str_replace('{{$CONST_MODEL_CLASS$}}', $this->serviceGenerator->modelNameNotPluralFe($model['name']), $templateData);
         $templateData = str_replace($notDelete['fields'], $this->generateFields($fields), $templateData);
@@ -109,7 +109,7 @@ Class FormGenerator extends BaseGenerator
                     break;
             }
         }
-        return implode($this->serviceGenerator->infy_nl_tab(1, 3), $fieldsGenerate);
+        return implode($this->serviceGenerator->infy_nl_tab(1, 5, 2), $fieldsGenerate);
     }
 
     private function generateFields($fields)

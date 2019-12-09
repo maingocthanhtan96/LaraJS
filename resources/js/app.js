@@ -14,7 +14,7 @@ import {ServerTable, Event} from 'vue-tables-2';
 window.Event = Event;
 Vue.use(ServerTable, {
   perPage: 25, // page limit
-  sortIcon: {base: 'mdi', up: 'mdi-sort-ascending', down: 'mdi-sort-descending', is: 'mdi-sort'}, // change icon sortable
+  sortIcon: {base: 'mdi', up: 'mdi-sort-ascending', down: 'mdi-sort-descending', is: 'mdi-format-line-spacing'}, // change icon sortable
   debounce: 700, // debounce query search
   saveState: true, // save cache
   pagination: {
@@ -66,9 +66,8 @@ console.warn = (...args) => {
 
 Vue.config.productionTip = false;
 new Vue({
-  el: '#app',
   i18n,
   router,
   store,
   render: h => h(App),
-});
+}).$mount('#app');

@@ -1,0 +1,127 @@
+<template>
+  <el-row>
+    <el-col :span="24">
+      <el-card>
+        <div slot="header" class="flex justify-end items-center">
+          <router-link v-permission="['create']" :to="{name: '{{$CONST_MODEL_CLASS$}}_create'}" class="pan-btn blue-btn" tag="button">
+            <i class="el-icon-plus mr-2" />{{this.$t('button.create')}}
+          </router-link>
+        </div>
+        <el-col :span="24" class="mb-6">
+          <el-col :span="6">
+            <label>{{ $t('table.texts.filter') }}</label>
+            <el-input v-model="table.listQuery.query" :placeholder="$t('table.texts.filterPlaceholder')"/>
+          </el-col>
+        </el-col>
+        <el-col :span="24" class="table-responsive">
+          <el-table
+            v-loading="table.loading"
+            :data="table.list"
+            border
+            fit
+            highlight-current-row
+            class="w-full"
+            @sort-change="sortChange"
+            >
+              <el-table-column align="center" sortable="custom" :label="$t('table.{{$TABLE_MODEL_CLASS$}}.id')" width="50px">
+                <template slot-scope="{ $index }">
+                  {{ (table.listQuery.page - 1) + $index + 1 }}
+                </template>
+              </el-table-column>
+              <!--{{$TEMPLATES_NOT_DELETE_THIS_LINE$}}-->
+              <el-table-column data-generator="created_at" prop="created_at" :label="$t('date.created_at')" sortable="custom" align="center" header-align="center">
+                <template slot-scope="{ row }">
+                  {{ row.created_at | parseTime('{y}-{m}-{d}') }}
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('table.actions')" align="center" class-name="small-padding fixed-width">
+                <template slot-scope="props">
+                  <router-link v-permission="['edit']" :to="{name: '{{$CONST_MODEL_CLASS$}}_edit', params: {id: props.row.id}}"><i class="el-icon-edit el-link el-link--primary mr-2"></i></router-link>
+                  <a v-permission="['delete']" class="cursor-pointer" @click.stop="remove(props.row.id, props.index)"><i class="el-icon-delete el-link el-link--danger"></i></a>
+                </template>
+              </el-table-column>
+            </el-table>
+            <pagination v-if="table.total > 0" :total="table.total" :page.sync="table.listQuery.page" :limit.sync="table.listQuery.limit" @pagination="getList" />
+        </el-col>
+      </el-card>
+    </el-col>
+  </el-row>
+</template>
+<script>
+import permission from '@/directive/permission';
+import Pagination from '@/components/Pagination'; // Secondary package based on el-pagination
+import {debounce} from '@/utils';
+import {{$MODEL_CLASS$}}Resource from '@/api/{{$CONST_MODEL_CLASS$}}';
+const {{$CONST_MODEL_CLASS$}}Resource = new {{$MODEL_CLASS$}}Resource();
+
+export default {
+  directives: { permission },
+  components: { Pagination },
+  data() {
+    return {
+      table: {
+        listQuery: {
+          query: '',
+          limit: {{$LIMIT$}},
+          ascending: 1,
+          page: 1,
+          orderBy: '',
+        },
+        list: null,
+        total: 0,
+        loading: false,
+      },
+    }
+  },
+  created() {
+    this.getList();
+  },
+  methods: {
+    async getList() {
+      this.table.loading = true;
+      const { data } = await {{$CONST_MODEL_CLASS$}}Resource.list(this.table.listQuery);
+      this.table.list = data.data;
+      this.table.total = data.count;
+
+      // Just to simulate the time of the request
+      this.table.loading = false;
+    },
+    handleFilter() {
+      this.table.listQuery.page = 1;
+      this.getList();
+    },
+    sortChange(data) {
+      const { prop, order } = data;
+      this.table.listQuery.orderBy = prop;
+      if(order === 'ascending') {
+        this.table.listQuery.ascending = 0;
+      } else {
+        this.table.listQuery.ascending = 1;
+      }
+      this.getList();
+    },
+    remove(id, name) {
+      this.$confirm(this.$t('messages.delete_confirm', { attribute: this.$t('table.{{$TABLE_MODEL_CLASS$}}.id') + '#' + name }), this.$t('messages.warning'), {
+        confirmButtonText: this.$t('button.ok'),
+        cancelButtonClass: this.$t('button.cancel'),
+        type: 'warning',
+        center: true,
+      }).then(async () => {
+        await {{$CONST_MODEL_CLASS$}}Resource.destroy(id);
+        const index = this.$refs.table_{{$CONST_MODEL_CLASS$}}.data.findIndex((value) => value.id === id);
+        this.$refs.table_{{$CONST_MODEL_CLASS$}}.data.splice(index, 1);
+        this.$message({
+          showClose: true,
+          message: this.$t('messages.delete'),
+          type: 'success',
+        });
+      });
+    },
+  },
+  watch: {
+    'table.listQuery.query': debounce(function() {
+      this.handleFilter();
+    }, 700),
+  },
+};
+</script>

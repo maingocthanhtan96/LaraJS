@@ -78,7 +78,7 @@ class UserController extends Controller
             $user->assignRole($request->get('role_id'));
             //{{CONTROLLER_RELATIONSHIP_MTM_CREATE_NOT_DELETE_THIS_LINE}}
 
-            return $this->jsonData($user);
+            return $this->jsonData($user, 201);
         } catch (\Exception $e) {
             return $this->jsonError($e->getMessage());
         }
@@ -139,7 +139,7 @@ class UserController extends Controller
             //{{CONTROLLER_RELATIONSHIP_MTM_DELETE_NOT_DELETE_THIS_LINE}}
             $user->delete();
 
-            return $this->jsonSuccess(trans('messages.delete'));
+            return $this->jsonSuccess(trans('messages.delete'), 204);
         } catch (\Exception $e) {
             return $this->jsonError($e->getMessage());
         }

@@ -1,4 +1,6 @@
 const path = require('path');
+const ChunkRenamePlugin = require('webpack-chunk-rename-plugin');
+const mix = require('laravel-mix');
 
 function resolve(dir) {
   return path.join(
@@ -26,6 +28,20 @@ module.exports = {
           symbolId: 'icon-[name]',
         },
       },
+      {
+        test: /\.(js)$/,
+        use: 'babel-loader',
+        exclude: /node_modules/,
+      },
     ],
   },
+  output: {
+    chunkFilename: mix.inProduction() ? 'js/chunks/[name].[chunkhash].js' : 'js/chunks/[name].js'
+  },
+  plugins: [
+    new ChunkRenamePlugin({
+      initialChunksWithEntry: true,
+      '/js/vendor': '/js/vendor.js'
+    }),
+  ],
 };

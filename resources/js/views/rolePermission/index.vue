@@ -26,7 +26,7 @@
                 {{row.name}}
               </template>
             </el-table-column>
-            <el-table-column align="center" :label="$t('table.rolePermission.description')">
+            <el-table-column header-align="center" :label="$t('table.rolePermission.description')">
               <template slot-scope="{row}">
                 {{row.description}}
               </template>
@@ -71,7 +71,7 @@
                 {{row.name}}
               </template>
             </el-table-column>
-            <el-table-column align="center" :label="$t('table.rolePermission.description')">
+            <el-table-column header-align="center" :label="$t('table.rolePermission.description')">
               <template slot-scope="{row}">
                 {{row.description}}
               </template>

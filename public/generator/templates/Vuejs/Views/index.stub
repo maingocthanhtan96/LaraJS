@@ -28,56 +28,56 @@
   </el-row>
 </template>
 <script>
-import permission from '@/directive/permission';
-import {{$MODEL_CLASS$}}Resource from '@/api/{{$CONST_MODEL_CLASS$}}';
-const {{$CONST_MODEL_CLASS$}}Resource = new {{$MODEL_CLASS$}}Resource();
-export default {
-  directives: { permission },
-  data() {
-    return {
-      table: {
-        columns: [{{$COLUMN_FIELD$}}],
-        options: {
-          // request list
-          requestFunction: function(query) {
-            return {{$CONST_MODEL_CLASS$}}Resource.list(query);
-          },
-          //header table
-          headings: {
-            // {{$HEADING_FIELDS_NOT_DELETE_THIS_LINE$}}
-          },
-          // add class row table
-          columnsClasses: {
-            // {{$COLUMN_CLASSES_FIELDS_NOT_DELETE_THIS_LINE$}}
-          },
-          templates: {
-            created_at: (h, row) => {
-              return this.$options.filters.parseTime(row.created_at, '{y}-{m}-{d}');
+  import permission from '@/directive/permission';
+  import {{$MODEL_CLASS$}}Resource from '@/api/{{$CONST_MODEL_CLASS$}}';
+  const {{$CONST_MODEL_CLASS$}}Resource = new {{$MODEL_CLASS$}}Resource();
+  export default {
+    directives: { permission },
+    data() {
+      return {
+        table: {
+          columns: [{{$COLUMN_FIELD$}}],
+          options: {
+            // request list
+            requestFunction: function(query) {
+              return {{$CONST_MODEL_CLASS$}}Resource.list(query);
             },
+            //header table
+            headings: {
+              // {{$HEADING_FIELDS_NOT_DELETE_THIS_LINE$}}
+            },
+            // add class row table
+            columnsClasses: {
+              // {{$COLUMN_CLASSES_FIELDS_NOT_DELETE_THIS_LINE$}}
+            },
+            templates: {
+              created_at: (h, row) => {
+                return this.$options.filters.parseTime(row.created_at, '{y}-{m}-{d}');
+              },
+            },
+            sortable: [{{$SORTABLE_FIELDS$}}],
           },
-          sortable: [{{$SORTABLE_FIELDS$}}],
         },
-      },
-      loading: false,
-    };
-  },
-  mounted() {
-    Event.$on('vue-tables.loading', () => {
-      this.loading = true;
-    });
-    Event.$on('vue-tables.loaded', () => {
-      this.loading = false;
-    });
-  },
-  methods: {
-    remove(id, name) {
-      this.$confirm(this.$t('messages.delete_confirm', { attribute: this.$t('table.{{$TABLE_MODEL_CLASS$}}.id') + '#' + name }), this.$t('messages.warning'), {
-        confirmButtonText: this.$t('button.ok'),
-        cancelButtonClass: this.$t('button.cancel'),
-        type: 'warning',
-        center: true,
-      }).then(() => {
-        {{$CONST_MODEL_CLASS$}}Resource.destroy(id).then(() => {
+        loading: false,
+      };
+    },
+    mounted() {
+      Event.$on('vue-tables.loading', () => {
+        this.loading = true;
+      });
+      Event.$on('vue-tables.loaded', () => {
+        this.loading = false;
+      });
+    },
+    methods: {
+      remove(id, name) {
+        this.$confirm(this.$t('messages.delete_confirm', { attribute: this.$t('table.{{$TABLE_MODEL_CLASS$}}.id') + '#' + name }), this.$t('messages.warning'), {
+          confirmButtonText: this.$t('button.ok'),
+          cancelButtonClass: this.$t('button.cancel'),
+          type: 'warning',
+          center: true,
+        }).then(async () => {
+          await {{$CONST_MODEL_CLASS$}}Resource.destroy(id);
           const index = this.$refs.table_{{$CONST_MODEL_CLASS$}}.data.findIndex((value) => value.id === id);
           this.$refs.table_{{$CONST_MODEL_CLASS$}}.data.splice(index, 1);
           this.$message({
@@ -86,8 +86,7 @@ export default {
             type: 'success',
           });
         });
-      });
+      },
     },
-  },
-};
+  };
 </script>

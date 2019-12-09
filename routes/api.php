@@ -58,6 +58,9 @@ Route::group(['prefix' => 'v1'], function () {
                 //{{ROUTE_ADMIN_NOT_DELETE_THIS_LINE}}
             });
 
+            /*<==> TestGenerator Route - 2019-11-26 21:07:23 <==>*/
+			Route::apiResource('test-generators', 'TestGeneratorController');
+
             //{{ROUTE_USER_NOT_DELETE_THIS_LINE}}
         });
     });

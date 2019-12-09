@@ -5,9 +5,6 @@ namespace App\Generators\FrontendUpdate;
 use App\Generators\BaseGenerator;
 use App\Service\FileService;
 use App\Service\GeneratorService;
-use Carbon\Carbon;
-use function GuzzleHttp\Psr7\str;
-
 
 Class ViewUpdateGenerator extends BaseGenerator
 {
@@ -35,7 +32,7 @@ Class ViewUpdateGenerator extends BaseGenerator
     const TEMPLATE_START = '<template data-generator=';
     const TEMPLATE_END = '</template>';
 
-    public function __construct($model, $updateFields)
+    public function __construct($generator, $model, $updateFields)
     {
         $this->serviceGenerator = new GeneratorService();
         $this->serviceFile = new FileService();
@@ -43,15 +40,15 @@ Class ViewUpdateGenerator extends BaseGenerator
         $this->notDelete = config('generator.not_delete.vuejs.views');
         $this->dbType = config('generator.db_type');
 
-        $this->generate($model, $updateFields);
+        $this->generate($generator, $model, $updateFields);
     }
 
-    private function generate($model, $updateFields)
+    private function generate($generator, $model, $updateFields)
     {
         $fileName = $this->serviceGenerator->modelNameNotPluralFe($model['name']) . '/index.vue';
         $templateDataReal = $this->serviceGenerator->getFile('views', 'vuejs', $fileName);
         $templateDataReal = $this->generateFieldsRename($updateFields['renameFields'], $model, $templateDataReal);
-        $templateDataReal = $this->generateFieldsChange($updateFields['changeFields'], $model, $templateDataReal);
+        $templateDataReal = $this->generateFieldsChange($generator, $updateFields['changeFields'], $model, $templateDataReal);
         $templateDataReal = $this->generateFieldsDrop($updateFields['dropFields'], $templateDataReal);
         $templateDataReal = $this->generateFieldsUpdate($updateFields['updateFields'], $model, $templateDataReal);
         $fileName = $this->path . $fileName;
@@ -201,7 +198,7 @@ Class ViewUpdateGenerator extends BaseGenerator
         return $templateDataReal;
     }
 
-    private function generateFieldsChange($changeFields, $model, $templateDataReal)
+    private function generateFieldsChange($generator, $changeFields, $model, $templateDataReal)
     {
         if (empty($changeFields)) {
             return $templateDataReal;
@@ -225,6 +222,16 @@ Class ViewUpdateGenerator extends BaseGenerator
         $classes = explode(',', trim($templateClasses));
         $sortable = explode(',', trim($templateSortable));
         $arrayChange = \Arr::pluck($changeFields, 'field_name');
+
+        $formFields = json_decode($generator->field, true);
+        $dataOld = [];
+        foreach ($formFields as $index => $field) {
+            if ($index > 0) {
+                $dataOld[$field['id']]['db_type'] = $field['db_type'];
+                $dataOld[$field['id']]['field_name'] = $field['field_name'];
+            }
+        }
+
         foreach ($changeFields as $index => $update) {
             foreach ($columns as $col) {
                 if (strlen($col) > 0) {
@@ -365,29 +372,25 @@ Class ViewUpdateGenerator extends BaseGenerator
             //replace template index.view
             $selfTemplateStart = self::TEMPLATE_START;
             $selfTemplateStart .= '"' . $update['field_name'] . '"';
-            if ($update['db_type'] === $this->dbType['longtext']) {
-                $templateLongText = $this->serviceGenerator->searchTemplateX($selfTemplateStart, 1, $selfTemplateEnd, -strlen($selfTemplateStart), strlen($selfTemplateStart) + strlen($selfTemplateEnd), $templateDataReal);
-                if ($templateLongText) {
-                    if (!$update['show']) {
-                        $templateDataReal = str_replace($templateLongText, '', $templateDataReal);
+
+            switch ($update['db_type']) {
+                case $this->dbType['longtext']:
+                case $this->dbType['file']:
+                case $this->dbType['boolean']:
+                    $templateLongText = $this->serviceGenerator->searchTemplateX($selfTemplateStart, 1, $selfTemplateEnd, -strlen($selfTemplateStart), strlen($selfTemplateStart) + strlen($selfTemplateEnd), $templateDataReal);
+                    if ($templateLongText) {
+                        if (!$update['show']) {
+                            $templateDataReal = str_replace($templateLongText, '', $templateDataReal);
+                        }
+                        if($update['db_type'] !== $dataOld[$update['id']]['db_type']) {
+                            $templateDataReal = str_replace($templateLongText, $this->generateHandler($update), $templateDataReal);
+                        }
+                    } else {
+                        if ($update['show']) {
+                            $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['templates'], $this->generateHandler($update), 5, $templateDataReal, 2);
+                        }
                     }
-                } else {
-                    if ($update['show']) {
-                        $templateDataReal = $this->generateHandler($update);
-                    }
-                }
-            }
-            if ($update['db_type'] === $this->dbType['file']) {
-                $templateJson = $this->serviceGenerator->searchTemplateX($selfTemplateStart, 1, $selfTemplateEnd, -strlen($selfTemplateStart), strlen($selfTemplateStart) + strlen($selfTemplateEnd), $templateDataReal);
-                if ($templateJson) {
-                    if (!$update['show']) {
-                        $templateDataReal = str_replace($templateJson, '', $templateDataReal);
-                    }
-                } else {
-                    if ($update['show']) {
-                        $templateDataReal = $this->generateHandler($update);
-                    }
-                }
+                break;
             }
         }
         $templateDataReal = str_replace("$selfColumns: [" . $templateColumns . "]", "$selfColumns: [" . implode(', ', $fieldsGenerateColumns) . "]", $templateDataReal);
@@ -647,15 +650,8 @@ Class ViewUpdateGenerator extends BaseGenerator
             }
 
             //replace template index.view
-            if ($update['db_type'] === $this->dbType['longtext']) {
-                if ($update['show']) {
-                    $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['templates'], $this->generateHandler($update), 3, $templateDataReal);
-                }
-            }
-            if ($update['db_type'] === $this->dbType['file']) {
-                if ($update['show']) {
-                    $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['templates'], $this->generateHandler($update), 3, $templateDataReal);
-                }
+            if($update['show']) {
+                $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['templates'], $this->generateHandler($update), 3, $templateDataReal);
             }
         }
         $templateDataReal = str_replace("$selfColumns: [" . $templateColumns . "]", "$selfColumns: [" . implode(', ', $fieldsGenerateColumns) . "]", $templateDataReal);
@@ -669,21 +665,20 @@ Class ViewUpdateGenerator extends BaseGenerator
 
     private function generateHandler($field)
     {
-        $fieldsGenerate = [];
         $pathTemplate = 'Handler/';
         $templateDataLongText = $this->serviceGenerator->get_template("longText", $pathTemplate, 'vuejs');
         $templateDataUploadParse = $this->serviceGenerator->get_template("uploadParse", $pathTemplate, 'vuejs');
         $templateBoolean = $this->serviceGenerator->get_template("boolean", $pathTemplate, 'vuejs');
 
         if ($field['db_type'] === $this->dbType['longtext']) {
-            $fieldsGenerate[] = str_replace('{{$FIELD_NAME$}}', $field['field_name'], $templateDataLongText);
+            $fieldsGenerate = str_replace('{{$FIELD_NAME$}}', $field['field_name'], $templateDataLongText);
         } else if ($field['db_type'] === $this->dbType['file']) {
-            $fieldsGenerate[] = str_replace('{{$FIELD_NAME$}}', $field['field_name'], $templateDataUploadParse);
+            $fieldsGenerate = str_replace('{{$FIELD_NAME$}}', $field['field_name'], $templateDataUploadParse);
         } else if ($field['db_type'] === $this->dbType['boolean']) {
-            $fieldsGenerate[] = str_replace('{{$FIELD_NAME$}}', $field['field_name'], $templateBoolean);
+            $fieldsGenerate = str_replace('{{$FIELD_NAME$}}', $field['field_name'], $templateBoolean);
         }
 
-        return implode($this->serviceGenerator->infy_nl_tab(1, 3), $fieldsGenerate);
+        return $fieldsGenerate;
     }
 
     private function replaceTemplate($fieldsGenerate, $tab)

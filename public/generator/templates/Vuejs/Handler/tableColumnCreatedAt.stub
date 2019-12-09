@@ -1,0 +1,5 @@
+<el-table-column prop="created_at" :label="$t('date.created_at')" sortable="custom" align="center" header-align="center">
+                <template slot-scope="{ row }">
+                  {{ row.created_at | parseTime('{y}-{m}-{d}') }}
+                </template>
+              </el-table-column>

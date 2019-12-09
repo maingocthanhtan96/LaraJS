@@ -43,14 +43,11 @@ Class ViewGenerator extends BaseGenerator
         $templateData = str_replace('{{$CONST_MODEL_CLASS$}}', $this->serviceGenerator->modelNameNotPluralFe($model['name']), $templateData);
         $templateData = str_replace('{{$TABLE_MODEL_CLASS$}}', $this->serviceGenerator->tableNameNotPlural($model['name']), $templateData);
         $templateData = str_replace('{{$MODEL_CLASS$}}', $this->serviceGenerator->modelNamePlural($model['name']), $templateData);
-        $templateData = $this->serviceGenerator->replaceNotDelete($this->notDelete['templates'], $this->generateHandler($fields), 3, $templateData);
+        $templateData = $this->serviceGenerator->replaceNotDelete($this->notDelete['templates'], $this->generateHandler($fields), 5, $templateData, 2);
         $templateData = str_replace('{{$COLUMN_FIELD$}}', $this->generateColumnFields($fields), $templateData);
         $templateData = str_replace($this->notDelete['headings'], $this->generateHeadingFields($fields, $model), $templateData);
-//		$templateData = $this->serviceGenerator->replaceNotDelete($this->notDelete['headings'], $this->generateHeadingFields($fields, $model), 4, $templateData);
-        $templateData = str_replace($this->notDelete['column_classes'], $this->generateColumnClassesFields($fields), $templateData);
-//		$templateData = $this->serviceGenerator->replaceNotDelete($this->notDelete['column_classes'], $this->generateColumnClassesFields($fields), 4, $templateData);
-        $templateData = str_replace('{{$SORTABLE_FIELDS$}}', $this->generateSortableFields($fields), $templateData);
-
+        $templateData = str_replace($this->notDelete['column_classes'], $this->generateColumnClassesFields($fields, $model), $templateData);
+        $templateData = str_replace('{{$SORTABLE_FIELDS$}}', $this->generateSortableFields($fields, $model), $templateData);
         $folderName = $this->path . $this->serviceGenerator->modelNameNotPluralFe($model['name']);
         if (!is_dir($folderName)) {
             mkdir($folderName, 0755, true);
@@ -85,7 +82,7 @@ Class ViewGenerator extends BaseGenerator
         return implode($this->serviceGenerator->infy_nl_tab(1, 3), $fieldsGenerate);
     }
 
-    private function generateColumnClassesFields($fields)
+    private function generateColumnClassesFields($fields, $model)
     {
         $fieldsGenerate = [];
 
@@ -110,11 +107,14 @@ Class ViewGenerator extends BaseGenerator
                 }
             }
         }
-        $fieldsGenerate[] = "created_at: 'text-center'";
+        if ($this->serviceGenerator->getOptions(config('generator.model.options.sort_deletes'), $model['options'])) {
+            $fieldsGenerate[] = "created_at: 'text-center'";
+        }
+
         return implode($this->serviceGenerator->infy_nl_tab(1, 3), $fieldsGenerate);
     }
 
-    private function generateSortableFields($fields)
+    private function generateSortableFields($fields, $model)
     {
         $fieldsGenerate = '';
         foreach ($fields as $index => $field) {
@@ -122,7 +122,10 @@ Class ViewGenerator extends BaseGenerator
                 $fieldsGenerate .= "'" . $field['field_name'] . "'" . ', ';
             }
         }
-        $fieldsGenerate .= "'created_at'";
+        if ($this->serviceGenerator->getOptions(config('generator.model.options.sort_deletes'), $model['options'])) {
+            $fieldsGenerate .= "'created_at'";
+        }
+
         return $fieldsGenerate;
     }
 
@@ -145,6 +148,6 @@ Class ViewGenerator extends BaseGenerator
                 }
             }
         }
-        return implode($this->serviceGenerator->infy_nl_tab(1, 3), $fieldsGenerate);
+        return implode($this->serviceGenerator->infy_nl_tab(1, 2, 5), $fieldsGenerate);
     }
 }

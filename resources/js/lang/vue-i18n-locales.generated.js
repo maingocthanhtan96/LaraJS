@@ -93,6 +93,9 @@ export default {
             "user": "User",
             "user_create": "Create User",
             "user_edit": "Edit User",
+            "test_generator": "Test Generator",
+            "test_generator_create": "Create Test Generator",
+            "test_generator_edit": "Edit Test Generator",
             "generator": "Generator",
             "generator_create": "Generator Create",
             "generator_edit": "Generator Edit",
@@ -102,6 +105,7 @@ export default {
             "role_permission": "Role Permission"
         },
         "table": {
+            "actions": "Actions",
             "user": {
                 "id": "No.",
                 "name": "Name",
@@ -115,6 +119,23 @@ export default {
                 "id": "No.",
                 "name": "Name",
                 "description": "Description"
+            },
+            "test_generator": {
+                "id": "No.",
+                "int": "Int",
+                "big_int": "Big int",
+                "float": "Float",
+                "double": "Double",
+                "boolean": "Boolean",
+                "date": "Date",
+                "date_time": "Date time",
+                "time": "Time",
+                "year": "Year",
+                "varchar": "Varchar",
+                "text": "Text",
+                "long_text": "Long text",
+                "enum": "Enum",
+                "file": "File"
             },
             "texts": {
                 "count": "Showing {from} to {to} of {count} records|{count} records|One record",
@@ -329,6 +350,9 @@ export default {
             "user": "Nhân viên",
             "user_create": "Tạo Nhân viên",
             "user_edit": "Sửa Nhân viên",
+            "test_generator": "Test Generator",
+            "test_generator_create": "Tạo Test Generator",
+            "test_generator_edit": "Sửa Test Generator",
             "generator": "Generator",
             "generator_create": "Generator Create",
             "generator_edit": "Generator Edit",
@@ -338,6 +362,7 @@ export default {
             "role_permission": "Role Permission"
         },
         "table": {
+            "actions": "Actions",
             "user": {
                 "id": "STT",
                 "name": "Tên",
@@ -351,6 +376,23 @@ export default {
                 "id": "No.",
                 "name": "Tên",
                 "description": "Miêu tả"
+            },
+            "test_generator": {
+                "id": "No.",
+                "int": "Int",
+                "big_int": "Big int",
+                "float": "Float",
+                "double": "Double",
+                "boolean": "Boolean",
+                "date": "Date",
+                "date_time": "Date time",
+                "time": "Time",
+                "year": "Year",
+                "varchar": "Varchar",
+                "text": "Text",
+                "long_text": "Long text",
+                "enum": "Enum",
+                "file": "File"
             },
             "texts": {
                 "count": "Hiển thị {from} đến {to} trong số {count} dữ liệu|{count} dữ liệu|Một dữ liệu",

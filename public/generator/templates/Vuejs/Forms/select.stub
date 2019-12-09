@@ -1,5 +1,16 @@
 <el-form-item data-generator="{{$FORM_FIELD$}}" :label="{{$LABEL_NAME_INPUT$}}" {{$PROP_NAME$}}>
-	            <el-select name="{{$FORM_FIELD$}}" v-model="form.{{$FORM_FIELD$}}" filterable :placeholder="{{$LABEL_NAME_INPUT$}}" class="w-full">
-	              <el-option v-for="(item, index) in {{$LIST_SELECT$}}List" :key="'{{$LIST_SELECT$}}_' + index" :label="{{$LABEL_OPTION$}}" :value="{{$VALUE_OPTION$}}" />
-	            </el-select>
-            </el-form-item>
+            <el-select
+              name="{{$FORM_FIELD$}}"
+              v-model="form.{{$FORM_FIELD$}}"
+              filterable
+              :placeholder="{{$LABEL_NAME_INPUT$}}"
+              class="w-full"
+            >
+              <el-option
+                v-for="(item, index) in {{$LIST_SELECT$}}List"
+                :key="'{{$LIST_SELECT$}}_' + index"
+                :label="{{$LABEL_OPTION$}}"
+                :value="{{$VALUE_OPTION$}}"
+              />
+            </el-select>
+          </el-form-item>

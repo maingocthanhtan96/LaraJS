@@ -13,7 +13,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 /**
- * Class Acl
+ * Class Permission
  *
  * @package App\Larajs
  */

@@ -1147,7 +1147,8 @@ RUN apt-get -y update && \
     npm install -g n && \
     n stable && \
     npm install -g npm && \
-    npm install -g cross-env
+    npm install -g cross-env \
+    npm rebuild node-sass
 
 # Set default work directory
 WORKDIR /var/www/larajs

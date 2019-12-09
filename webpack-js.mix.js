@@ -1,6 +1,5 @@
 const mix = require('laravel-mix');
 const config = require('./webpack.config');
-const ChunkRenamePlugin = require('webpack-chunk-rename-plugin');
 const mergeManifest = require('./mergeManifest');
 require('laravel-mix-eslint');
 
@@ -18,18 +17,7 @@ Mix.listen('configReady', webpackConfig => {
   imageLoaderConfig.exclude = resolve('icons');
 });
 
-mix.extend('mergeManifest', mergeManifest);
-mix.webpackConfig({
-    output: {
-      chunkFilename: mix.inProduction() ? 'js/chunks/[name].[chunkhash].js' : 'js/chunks/[name].js'
-    },
-    plugins: [
-      new ChunkRenamePlugin({
-        initialChunksWithEntry: true,
-        '/js/vendor': '/js/vendor.js'
-      }),
-    ],
-  })
+mix.extend('mergeManifest', mergeManifest)
   .js('resources/js/app.js', 'public/js')
   .extract([
     'vue',
@@ -39,6 +27,7 @@ mix.webpackConfig({
     'axios',
     'element-ui',
     'vue-tables-2',
+    'echarts',
   ])
   .webpackConfig(config)
   .mergeManifest();

@@ -50,7 +50,7 @@ Class RouteGenerator extends BaseGenerator
             $namePermission = \Str::snake($model['name']);
             $templateData = str_replace('{{$ADMIN_ROLE$}}', "permissions: ['view menu $namePermission'],", $templateData);
         }
-        $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['async'], $this->serviceGenerator->modelNameNotPluralFe($model['name']) . ',', 3, $templateDataReal);
+        $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['async'], $this->serviceGenerator->modelNameNotPluralFe($model['name']) . ',', 3, $templateDataReal, 2);
         $nameModel = $this->serviceGenerator->modelNameNotPluralFe($model['name']);
         $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['import'], "import $nameModel from './modules/$nameModel';", 0, $templateDataReal);
         $fileName = $this->serviceGenerator->modelNameNotPluralFe($model['name']) . '.js';

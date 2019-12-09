@@ -24,8 +24,9 @@ use App\Generators\Frontend\{ApiGenerator,
     FormGenerator,
     FormHandlerGenerator,
     ViewGenerator,
-    RouteGenerator as RouteGeneratorFe};
-use App\Generators\FrontendUpdate\{FormUpdateGenerator, ViewUpdateGenerator};
+    RouteGenerator as RouteGeneratorFe,
+    ViewTableGenerator};
+use App\Generators\FrontendUpdate\{FormUpdateGenerator, ViewTableUpdateGenerator, ViewUpdateGenerator};
 use App\Http\Requests\StoreGeneratorRelationshipRequest;
 use App\Service\{GeneratorService, QueryService};
 use App\Models\Generator;
@@ -222,7 +223,11 @@ class GeneratorController extends Controller
     {
         new RouteGeneratorFe($model);
         new ApiGenerator($model);
-        new ViewGenerator($fields, $model);
+        if ($this->serviceGenerator->getOptions(config('generator.model.options.datatables'), $model['options'])) {
+            new ViewGenerator($fields, $model);
+        } else {
+            new ViewTableGenerator($fields, $model);
+        }
         new FormGenerator($fields, $model);
         new FormHandlerGenerator($fields, $model);
     }
@@ -240,7 +245,11 @@ class GeneratorController extends Controller
 
     private function _generateFrontendUpdate($generator, $model, $updateFields)
     {
-        new ViewUpdateGenerator($model, $updateFields);
+        if ($this->serviceGenerator->getOptions(config('generator.model.options.datatables'), $model['options'])) {
+            new ViewUpdateGenerator($generator, $model, $updateFields);
+        } else {
+            new ViewTableUpdateGenerator($generator, $model, $updateFields);
+        }
         new FormUpdateGenerator($generator, $model, $updateFields);
     }
 

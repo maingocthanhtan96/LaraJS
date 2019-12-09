@@ -70,192 +70,186 @@
 </template>
 
 <script>
-import UserResource from '@/api/user';
-import RoleResource from '@/api/role';
-import ImageCropper from '@/components/ImageCropper';
-import PanThumb from '@/components/PanThumb';
-import { validEmail } from '@/utils/validate';
-// {{$IMPORT_COMPONENT_NOT_DELETE_THIS_LINE$}}
+  import UserResource from '@/api/user';
+  import RoleResource from '@/api/role';
+  import ImageCropper from '@/components/ImageCropper';
+  import PanThumb from '@/components/PanThumb';
+  import {validEmail} from '@/utils/validate';
+  // {{$IMPORT_COMPONENT_NOT_DELETE_THIS_LINE$}}
 
-const userResource = new UserResource();
-const roleResource = new RoleResource();
+  const userResource = new UserResource();
+  const roleResource = new RoleResource();
 
-export default {
-  components: {
-    ImageCropper,
-    PanThumb,
-    // {{$IMPORT_COMPONENT_NAME_NOT_DELETE_THIS_LINE$}}
-  },
-  data() {
-    return {
-      loading: false,
-      rolesList: [],
-      form: {
-        name: '',
-        email: '',
-        avatar: require('@/assets/images/avatar-default.png'),
-        role_id: '',
-        password: '',
-        password_confirmation: '',
-      },
-      imageCropperShow: false,
-      imageCropperKey: 0,
-      // {{$DATA_NOT_DELETE_THIS_LINE$}}
-    };
-  },
-  watch: {},
-  mounted() {
-    this.roles();
-    const { id } = this.$route.params;
-    if (id) {
-      userResource.get(id)
-        .then(res => {
-          const { data } = res.data;
-          this.form = data;
-        });
-    }
-  },
-  computed: {
-    // not rename rules
-    rules() {
-      const password = (rule, value, cb) => {
-        if (value === '') {
-          cb(new Error(this.$t('validation.required', { attribute: this.$t('table.user.password') })));
-        } else {
-          if (this.form.password_confirmation !== '') {
-            this.$refs.users.validateField('password_confirmation');
-          }
-          cb();
-        }
-      };
-      const passwordConfirm = (rule, value, cb) => {
-        if (value === '') {
-          cb(new Error(this.$t('validation.required', { attribute: this.$t('table.user.password_confirmation') })));
-        } else if (value !== this.form.password) {
-          cb(new Error(this.$t('validation.confirmed', { attribute: this.$t('table.user.password_confirmation') })));
-        } else {
-          cb();
-        }
-      };
+  export default {
+    components: {
+      ImageCropper,
+      PanThumb,
+      // {{$IMPORT_COMPONENT_NAME_NOT_DELETE_THIS_LINE$}}
+    },
+    data() {
       return {
-        name: [
-          {
-            validator: (rule, value, cb) => {
-              value ? cb() : cb(new Error(this.$t('validation.required', { attribute: this.$t('table.user.name') })));
-            },
-            trigger: 'blur',
-          },
-        ],
-        email: [
-          {
-            validator: (rule, value, cb) => {
-              if (!value) {
-                cb(new Error(this.$t('validation.required', { attribute: this.$t('table.user.email') })));
-              } else if (!validEmail(value)) {
-                cb(new Error(this.$t('validation.email', { attribute: this.$t('table.user.email') })));
-              } else {
-                cb();
-              }
-            },
-            trigger: ['blur', 'change'],
-          },
-        ],
-        avatar: [
-          {
-            validator: (rule, value, cb) => {
-              value ? cb() : cb(new Error(this.$t('validation.required', { attribute: this.$t('table.user.avatar') })));
-            },
-            trigger: 'blur',
-          },
-        ],
-        role_id: [
-          {
-            validator: (rule, value, cb) => {
-              value ? cb() : cb(new Error(this.$t('validation.required', { attribute: this.$t('table.user.role') })));
-            },
-            trigger: 'change',
-          },
-        ],
-        password: [
-          { validator: password, trigger: ['change', 'blur'] },
-          { min: 8, message: this.$t('validation.min', { attribute: this.$t('table.user.password') }), trigger: ['change', 'blur'] },
-        ],
-        password_confirmation: [
-          { validator: passwordConfirm, trigger: ['change', 'blur'] },
-        ],
-        // {{$RULES_NOT_DELETE_THIS_LINE$}}
+        loading: false,
+        rolesList: [],
+        form: {
+          name: '',
+          email: '',
+          avatar: require('@/assets/images/avatar-default.png'),
+          role_id: '',
+          password: '',
+          password_confirmation: '',
+        },
+        imageCropperShow: false,
+        imageCropperKey: 0,
+        // {{$DATA_NOT_DELETE_THIS_LINE$}}
       };
     },
-  },
-  methods: {
-    // {{$METHODS_NOT_DELETE_THIS_LINE$}}
-    store(users) {
-      // {{$FILE_JSON_STRINGIFY_NOT_DELETE_THIS_LINE$}}
-      this.loading = true;
-      this.$refs[users].validate(valid => {
-        if (valid) {
-          userResource.store(this.form)
-            .then(res => {
-              this.$message({
-                showClose: true,
-                message: this.$t('messages.create'),
-                type: 'success',
-              });
-              this.$refs[users].resetFields();
-            })
-            .catch(err => {
-              this.loading = false;
-              console.log(err);
+    watch: {},
+    mounted() {
+      this.roles();
+      const {id} = this.$route.params;
+      if (id) {
+        userResource.get(id)
+          .then(res => {
+            const {data} = res.data;
+            this.form = data;
+          });
+      }
+    },
+    computed: {
+      // not rename rules
+      rules() {
+        const password = (rule, value, cb) => {
+          if (value === '') {
+            cb(new Error(this.$t('validation.required', {attribute: this.$t('table.user.password')})));
+          } else {
+            if (this.form.password_confirmation !== '') {
+              this.$refs.users.validateField('password_confirmation');
+            }
+            cb();
+          }
+        };
+        const passwordConfirm = (rule, value, cb) => {
+          if (value === '') {
+            cb(new Error(this.$t('validation.required', {attribute: this.$t('table.user.password_confirmation')})));
+          } else if (value !== this.form.password) {
+            cb(new Error(this.$t('validation.confirmed', {attribute: this.$t('table.user.password_confirmation')})));
+          } else {
+            cb();
+          }
+        };
+        return {
+          name: [
+            {
+              validator: (rule, value, cb) => {
+                value ? cb() : cb(new Error(this.$t('validation.required', {attribute: this.$t('table.user.name')})));
+              },
+              trigger: 'blur',
+            },
+          ],
+          email: [
+            {
+              validator: (rule, value, cb) => {
+                if (!value) {
+                  cb(new Error(this.$t('validation.required', {attribute: this.$t('table.user.email')})));
+                } else if (!validEmail(value)) {
+                  cb(new Error(this.$t('validation.email', {attribute: this.$t('table.user.email')})));
+                } else {
+                  cb();
+                }
+              },
+              trigger: ['blur', 'change'],
+            },
+          ],
+          avatar: [
+            {
+              validator: (rule, value, cb) => {
+                value ? cb() : cb(new Error(this.$t('validation.required', {attribute: this.$t('table.user.avatar')})));
+              },
+              trigger: 'blur',
+            },
+          ],
+          role_id: [
+            {
+              validator: (rule, value, cb) => {
+                value ? cb() : cb(new Error(this.$t('validation.required', {attribute: this.$t('table.user.role')})));
+              },
+              trigger: 'change',
+            },
+          ],
+          password: [
+            {validator: password, trigger: ['change', 'blur']},
+            {
+              min: 8,
+              message: this.$t('validation.min.string', {attribute: this.$t('table.user.password'), min: 8}),
+              trigger: ['change', 'blur']
+            },
+          ],
+          password_confirmation: [
+            {validator: passwordConfirm, trigger: ['change', 'blur']},
+          ],
+          // {{$RULES_NOT_DELETE_THIS_LINE$}}
+        };
+      },
+    },
+    methods: {
+      // {{$METHODS_NOT_DELETE_THIS_LINE$}}
+      store(users) {
+        // {{$FILE_JSON_STRINGIFY_NOT_DELETE_THIS_LINE$}}
+        this.loading = true;
+        this.$refs[users].validate(async (valid) => {
+          if (valid) {
+            await userResource.store(this.form);
+            this.$message({
+              showClose: true,
+              message: this.$t('messages.create'),
+              type: 'success',
             });
-        } else {
-          this.loading = false;
-          return false;
-        }
-      });
-    },
-    roles() {
-      roleResource.list().then(res => {
-        this.rolesList = res.data.data;
-      });
-    },
-    update(users) {
-      // {{$FILE_JSON_STRINGIFY_NOT_DELETE_THIS_LINE$}}
-      this.loading = true;
-      this.$refs[users].validate(valid => {
-        if (valid) {
-          delete this.form.password;
-          userResource.update(this.$route.params.id, this.form)
-            .then(res => {
-              this.$message({
-                showClose: true,
-                message: this.$t('messages.update'),
-                type: 'success',
-              });
-              this.loading = false;
-              this.$router.push({ name: 'user_list' });
-            }).catch(err => {
-              this.loading = false;
-              console.log(err);
+            this.$refs[users].resetFields();
+            this.loading = false;
+          } else {
+            this.loading = false;
+            return false;
+          }
+        });
+      },
+      roles() {
+        roleResource.list().then(res => {
+          this.rolesList = res.data.data;
+        });
+      },
+      update(users) {
+        // {{$FILE_JSON_STRINGIFY_NOT_DELETE_THIS_LINE$}}
+        this.loading = true;
+        this.$refs[users].validate(async (valid) => {
+          if (valid) {
+            delete this.form.password;
+            await userResource.update(this.$route.params.id, this.form);
+            this.$message({
+              showClose: true,
+              message: this.$t('messages.update'),
+              type: 'success',
             });
-        } else {
-          this.loading = false;
-          return false;
-        }
-      });
+            this.loading = false;
+            this.$router.push({name: 'user_list'});
+          } else {
+            this.loading = false;
+            return false;
+          }
+        });
+      },
+      cropSuccess(resData) {
+        this.imageCropperShow = false;
+        this.imageCropperKey = this.imageCropperKey + 1;
+        this.form.avatar = resData.data;
+        this.$message({message: this.$t('messages.upload'), type: 'success'});
+      },
+      cropError(error) {
+        const err = error.response.data.errors.file[0];
+        this.$message({message: err, type: 'error'});
+      },
+      close() {
+        this.imageCropperShow = false;
+      },
     },
-    cropSuccess(resData) {
-      this.imageCropperShow = false;
-      this.imageCropperKey = this.imageCropperKey + 1;
-      this.form.avatar = resData.data;
-      this.$message({ message: this.$t('messages.upload'), type: 'success' });
-    },
-    cropError(error) {
-      const err = error.response.data.errors.file[0];
-      this.$message({ message: err, type: 'error' });
-    },
-    close() {
-      this.imageCropperShow = false;
-    },
-  },
-};
+  };
 </script>

@@ -6,8 +6,8 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import adminDashboard from './admin';
-import editorDashboard from './editor';
+const adminDashboard = () => import ('./admin');
+const editorDashboard = () => import ('./editor');
 
 export default {
   name: 'Dashboard',

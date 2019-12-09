@@ -68,7 +68,7 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 			${{MODAL_CLASS_PARAM}} = {{MODAL_CLASS}}::create($request->all());
 			//{{CONTROLLER_RELATIONSHIP_MTM_CREATE_NOT_DELETE_THIS_LINE}}
 
-			return $this->jsonData(${{MODAL_CLASS_PARAM}});
+			return $this->jsonData(${{MODAL_CLASS_PARAM}}, 201);
 		} catch (\Exception $e) {
 			return $this->jsonError($e->getMessage());
 		}
@@ -122,7 +122,7 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 	        //{{CONTROLLER_RELATIONSHIP_MTM_DELETE_NOT_DELETE_THIS_LINE}}
 			${{MODAL_CLASS_PARAM}}->delete();
 
-		    return $this->jsonSuccess(trans('messages.delete'));
+		    return $this->jsonSuccess(trans('messages.delete'), 204);
 	    } catch (\Exception $e) {
 	    	return $this->jsonError($e->getMessage());
 	    }

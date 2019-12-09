@@ -11,7 +11,7 @@
           </template>
         </div>
         <el-form ref="{{$REF_MODEL_CLASS$}}" :model="form" :rules="rules" status-icon label-position="top">
-          <!--{{$FROM_ITEM_NOT_DELETE_THIS_LINE$}}-->
+        <!--{{$FROM_ITEM_NOT_DELETE_THIS_LINE$}}-->
           <el-form-item class="flex justify-center">
             <template v-if="$route.params.id">
               <el-button :loading="loading" round type="primary" icon="el-icon-edit mr-2" @click="update('{{$REF_MODEL_CLASS$}}')">
@@ -73,22 +73,17 @@ export default {
     store({{$REF_MODEL_CLASS$}}) {
       // {{$FILE_JSON_STRINGIFY_NOT_DELETE_THIS_LINE$}}
       this.loading = true;
-      this.$refs[{{$REF_MODEL_CLASS$}}].validate((valid, errors) => {
+      this.$refs[{{$REF_MODEL_CLASS$}}].validate(async (valid, errors) => {
         if (valid) {
-          {{$CONST_MODEL_CLASS$}}Resource.store(this.form)
-            .then(res => {
-              this.$message({
-                showClose: true,
-                message: this.$t('messages.create'),
-                type: 'success',
-              });
-              // {{$RESET_FIELD_NOT_DELETE_THIS_LINE$}}
-              this.$refs[{{$REF_MODEL_CLASS$}}].resetFields();
-              this.loading = false;
-            })
-            .catch(() => {
-              this.loading = false;
-            });
+          await {{$CONST_MODEL_CLASS$}}Resource.store(this.form);
+          this.$message({
+            showClose: true,
+            message: this.$t('messages.create'),
+            type: 'success',
+          });
+          // {{$RESET_FIELD_NOT_DELETE_THIS_LINE$}}
+          this.$refs[{{$REF_MODEL_CLASS$}}].resetFields();
+          this.loading = false;
         } else {
           this.loading = false;
           scrollTo(document.getElementsByName(Object.keys(errors)[0])[0].getBoundingClientRect().top - document.body.getBoundingClientRect().top - 130, 800);
@@ -99,20 +94,16 @@ export default {
     update({{$REF_MODEL_CLASS$}}) {
       // {{$FILE_JSON_STRINGIFY_NOT_DELETE_THIS_LINE$}}
       this.loading = true;
-      this.$refs[{{$REF_MODEL_CLASS$}}].validate((valid, errors) => {
+      this.$refs[{{$REF_MODEL_CLASS$}}].validate(async (valid, errors) => {
         if (valid) {
-          {{$CONST_MODEL_CLASS$}}Resource.update(this.$route.params.id, this.form)
-            .then(res => {
-              this.$message({
-                showClose: true,
-                message: this.$t('messages.update'),
-                type: 'success',
-              });
-              this.loading = false;
-              this.$router.push({ name: '{{$REF_MODEL_CLASS$}}_list' });
-            }).catch(() => {
-              this.loading = false;
-            });
+          await {{$CONST_MODEL_CLASS$}}Resource.update(this.$route.params.id, this.form);
+          this.$message({
+            showClose: true,
+            message: this.$t('messages.update'),
+            type: 'success',
+          });
+          this.loading = false;
+          this.$router.push({ name: '{{$REF_MODEL_CLASS$}}_list' });
         } else {
           this.loading = false;
           scrollTo(document.getElementsByName(Object.keys(errors)[0])[0].getBoundingClientRect().top - document.body.getBoundingClientRect().top - 130, 800);

@@ -1,6 +1,6 @@
 <template>
   <div :class="classObj" class="app-wrapper">
-    <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside"/>
+    <div v-if="device === 'mobile' && sidebar.opened" class="drawer-bg" @click="handleClickOutside"/>
     <sidebar class="sidebar-container"/>
     <div :class="{hasTagsView:needTagsView}" class="main-container">
       <div :class="{'fixed-header':fixedHeader}">
@@ -21,10 +21,10 @@
 </template>
 
 <script>
-import RightPanel from '@/components/RightPanel';
+const RightPanel = () => import ('@/components/RightPanel');
 import BackToTop from '@/components/BackToTop';
 import { AppMain, Navbar, Sidebar } from './components';
-import TagViews from './components/TagsView';
+const TagViews = () => import ('./components/TagsView');
 import FooterMain from './components/FooterMain';
 import ResizeMixin from './mixin/ResizeHandler';
 import { mapState } from 'vuex';

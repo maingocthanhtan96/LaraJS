@@ -39,9 +39,9 @@
                 <el-col :span="24">
                   <el-form-item :label="$t('generator.options')">
                     <el-checkbox-group v-model="formModel.options">
-                      <el-checkbox label="Soft Deletes" checked></el-checkbox>
-                      <el-checkbox label="Datatables" checked disabled></el-checkbox>
-                      <el-checkbox label="Role Admin"></el-checkbox>
+                      <el-checkbox label="Soft Deletes" checked :disabled="$route.params.id > 0"></el-checkbox>
+                      <el-checkbox label="Datatables" checked :disabled="$route.params.id > 0"></el-checkbox>
+                      <el-checkbox label="Role Admin" :disabled="$route.params.id > 0"></el-checkbox>
                       <el-checkbox label="Test Cases" disabled></el-checkbox>
                     </el-checkbox-group>
                   </el-form-item>
@@ -196,16 +196,16 @@
                       </el-form-item>
                     </div>
                     <div class="divTableCell text-center align-middle">
-                      <el-checkbox v-model="data.search" :disabled="disabledMethod(index) || !data.show"></el-checkbox>
+                      <el-checkbox v-model="data.search" :disabled="disabledMethod(index) || !data.show || notSearch.includes(data.db_type)"></el-checkbox>
                     </div>
                     <div class="divTableCell text-center align-middle">
-                      <el-checkbox v-model="data.sort" :disabled="!data.show"></el-checkbox>
+                      <el-checkbox v-model="data.sort" :disabled="!data.show || notSoft.includes(data.db_type)"></el-checkbox>
                     </div>
                     <div class="divTableCell text-center align-middle">
                       <el-checkbox v-model="data.show" @click.native="changeShow(index)"></el-checkbox>
                     </div>
                     <div class="divTableCell text-center align-middle">
-                      <el-button v-if="index > 0 " type="danger" icon="el-icon-delete" circle
+                      <el-button v-if="index > 0" type="danger" icon="el-icon-delete" circle
                                  @click.prevent="removeRow(index)"></el-button>
                     </div>
                   </el-form>
@@ -302,6 +302,8 @@ export default {
       defaultValue: ['None', 'NULL', 'As define'],
       defaultValueNotAs: ['None', 'NULL'],
       notAs: ['TEXT', 'LONGTEXT', 'FILE'],
+      notSearch: ['FILE', 'JSON'],
+      notSoft: ['FILE', 'JSON'],
       loading: false,
     };
   },
@@ -401,9 +403,18 @@ export default {
   },
   methods: {
     changeDBType(index, dbType) {
+      // not As define
       if (this.notAs.includes(dbType)) {
         this.form[index].default_value = 'NULL';
         this.form[index].as_define = '';
+      }
+      // not checkbox search
+      if(this.notSearch.includes(dbType)) {
+        this.form[index].search = false;
+      }
+      // not checkbox soft
+      if(this.notSoft.includes(dbType)) {
+        this.form[index].sort = false;
       }
     },
     showInputDefault(dbType) {
@@ -473,11 +484,11 @@ export default {
               type: 'success',
             });
             this.loading = false;
-            window.location.href = '/administrator/generator/list';
+            // window.location.href = '/administrator/generator/list';
           })
           .catch(() => {
             this.loading = false;
-            window.location.href = '/administrator/generator/list';
+            // window.location.href = '/administrator/generator/list';
           });
       } else {
         this.loading = false;
@@ -513,11 +524,11 @@ export default {
               message: this.$t('messages.update'),
               type: 'success',
             });
-            window.location.href = '/administrator/generator/index';
+            // window.location.href = '/administrator/generator/index';
           })
           .catch(() => {
             this.loading = false;
-            window.location.href = '/administrator/generator/index';
+            // window.location.href = '/administrator/generator/index';
           });
       } else {
         this.loading = false;

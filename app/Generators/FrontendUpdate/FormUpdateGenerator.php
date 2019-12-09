@@ -375,22 +375,22 @@ Class FormUpdateGenerator extends BaseGenerator
             //create rule
             if ($update['default_value'] === $this->defaultValue['none']) {
                 $templateRules = $this->getHandlerTemplate('rules');
-                $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['rules'], $templateRules, 2, $templateDataReal);
+                $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['rules'], $templateRules, 4, $templateDataReal, 2);
                 $templateDataReal = $this->replaceField($update, $model, $templateDataReal);
             }
             if ($update['db_type'] === $this->dbType['file']) {
                 $templateUpload = $this->getHandlerTemplate('upload');
                 $templateUpload = str_replace('{{$FIELD$}}', $update['field_name'], $templateUpload);
                 $templateUpload = str_replace('{{$NAME$}}', $this->serviceGenerator->modelNameNotPluralFe($update['field_name']), $templateUpload);
-                $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['methods'], $templateUpload, 2, $templateDataReal);
-                $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['data'], $this->serviceGenerator->modelNameNotPluralFe($update['field_name']) . 'Temp: [],', 3, $templateDataReal);
+                $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['methods'], $templateUpload, 2, $templateDataReal, 2);
+                $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['data'], $this->serviceGenerator->modelNameNotPluralFe($update['field_name']) . 'Temp: [],', 3, $templateDataReal, 2);
                 $templateStringify = $this->getHandlerTemplate('uploadStringify');
                 $templateStringify = str_replace('{{$FIELD$}}', $update['field_name'], $templateStringify);
-                $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['stringify'], $templateStringify, 3, $templateDataReal);
+                $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['stringify'], $templateStringify, 3, $templateDataReal, 2);
                 // create reset field
                 $templateResetFields = $this->getHandlerTemplate('resetFile');
                 $templateResetFields = str_replace('{{$FIELD_NAME$}}', $this->serviceGenerator->modelNameNotPluralFe($update['field_name']), $templateResetFields);
-                $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['reset_field'], $templateResetFields, 3, $templateDataReal);
+                $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['reset_field'], $templateResetFields, 5, $templateDataReal, 2);
             }
             if ($update['db_type'] === $this->dbType['enum']) {
                 $enum = '';
@@ -402,7 +402,7 @@ Class FormUpdateGenerator extends BaseGenerator
                     }
                 }
                 $name = $update['field_name'] . "List: [" . $enum . "],";
-                $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['data'], $name, 1, $templateDataReal);
+                $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['data'], $name, 3, $templateDataReal, 2);
             }
         }
 
@@ -429,33 +429,33 @@ Class FormUpdateGenerator extends BaseGenerator
         foreach ($megerUpdate as $field) {
             if ($field['db_type'] === $this->dbType['longtext'] && $flags['import']['long_text']) {
                 if (!strpos($templateDataReal, $importVuejs['tinymce']['file'])) {
-                    $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['import_component'], $importVuejs['tinymce']['file'], 0, $templateDataReal);
+                    $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['import_component'], $importVuejs['tinymce']['file'], 0, $templateDataReal, 2);
                     $flags['import']['long_text'] = false;
                 }
                 if (!strpos($templateDataReal, $importVuejs['tinymce']['name']) && $flags['component']['long_text']) {
-                    $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['import_component_name'], $importVuejs['tinymce']['name'], 1, $templateDataReal);
+                    $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['import_component_name'], $importVuejs['tinymce']['name'], 2, $templateDataReal, 2);
                     $flags['component']['long_text'] = false;
                 }
             } else if ($field['db_type'] === $this->dbType['json']) {
                 if (!strpos($templateDataReal, $importVuejs['json_editor']['file']) && $flags['import']['json']) {
-                    $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['import_component'], $importVuejs['json_editor']['file'], 0, $templateDataReal);
+                    $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['import_component'], $importVuejs['json_editor']['file'], 0, $templateDataReal, 2);
                     $flags['import']['json'] = false;
                 }
                 if (!strpos($templateDataReal, $importVuejs['json_editor']['name']) && $flags['component']['json']) {
-                    $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['import_component_name'], $importVuejs['json_editor']['name'], 1, $templateDataReal);
+                    $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['import_component_name'], $importVuejs['json_editor']['name'], 2, $templateDataReal, 2);
                     $flags['component']['json'] = false;
                 }
             } else if ($field['db_type'] === $this->dbType['file']) {
                 if (!strpos($templateDataReal, $importVuejs['vue_dropzone']['file']) && $flags['import']['upload']) {
-                    $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['import_component'], $importVuejs['vue_dropzone']['file'], 0, $templateDataReal);
+                    $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['import_component'], $importVuejs['vue_dropzone']['file'], 0, $templateDataReal, 2);
                     $flags['import']['upload'] = false;
                 }
                 if (!strpos($templateDataReal, $importVuejs['vue_dropzone']['name']) && $flags['component']['upload']) {
-                    $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['import_component_name'], $importVuejs['vue_dropzone']['name'], 1, $templateDataReal);
+                    $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['import_component_name'], $importVuejs['vue_dropzone']['name'], 2, $templateDataReal, 2);
                     $flags['component']['upload'] = false;
                 }
                 if (!strpos($templateDataReal, $importVuejs['vue_dropzone']['request']) && $flags['component']['removeFile']) {
-                    $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['import_component'], $importVuejs['vue_dropzone']['request'], 0, $templateDataReal);
+                    $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['import_component'], $importVuejs['vue_dropzone']['request'], 0, $templateDataReal, 2);
                     $flags['component']['removeFile'] = false;
                 }
             }
@@ -612,7 +612,7 @@ Class FormUpdateGenerator extends BaseGenerator
     private function generateRule($field, $model, $templateDataReal)
     {
         $templateRules = $this->getHandlerTemplate('rules');
-        $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['rules'], $templateRules, 2, $templateDataReal);
+        $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['rules'], $templateRules, 4, $templateDataReal, 2);
         $templateDataReal = $this->replaceField($field, $model, $templateDataReal);
         return $templateDataReal;
     }
@@ -763,11 +763,11 @@ Class FormUpdateGenerator extends BaseGenerator
         $templateUpload = $this->getHandlerTemplate('upload');
         $templateUpload = str_replace('{{$FIELD$}}', $field['field_name'], $templateUpload);
         $templateUpload = str_replace('{{$NAME$}}', $this->serviceGenerator->modelNameNotPluralFe($field['field_name']), $templateUpload);
-        $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['methods'], $templateUpload, 2, $templateDataReal);
-        $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['data'], $this->serviceGenerator->modelNameNotPluralFe($field['field_name']) . 'Temp: [],', 3, $templateDataReal);
+        $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['methods'], $templateUpload, 2, $templateDataReal, 2);
+        $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['data'], $this->serviceGenerator->modelNameNotPluralFe($field['field_name']) . 'Temp: [],', 3, $templateDataReal, 2);
         $templateStringify = $this->getHandlerTemplate('uploadStringify');
         $templateStringify = str_replace('{{$FIELD$}}', $field['field_name'], $templateStringify);
-        $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['stringify'], $templateStringify, 3, $templateDataReal);
+        $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['stringify'], $templateStringify, 3, $templateDataReal, 2);
         return $templateDataReal;
     }
 }

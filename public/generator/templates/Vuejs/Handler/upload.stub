@@ -9,7 +9,7 @@
       this.{{$NAME$}}Temp.push(file);
       this.$message({ message: this.$t('messages.upload'), type: 'success' });
     }, // Upload file => Dropzone
-   {{$NAME$}}DropzoneR(file) {
+    {{$NAME$}}DropzoneR(file) {
       const index = file.upload && this.{{$NAME$}}Temp.findIndex(value => value.upload.uuid === file.upload.uuid)
       if (typeof index !== 'undefined') {
         this.{{$NAME$}}Temp.splice(index, 1);
@@ -31,4 +31,4 @@
           console.log(err);
         });
       }
-	}, // Remove file => Dropzone
+	  }, // Remove file => Dropzone
