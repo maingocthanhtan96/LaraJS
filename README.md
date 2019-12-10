@@ -63,7 +63,7 @@ php artisan key:generate
 php artisan migrate --seed
 
 # install dependency
-npm install --unsafe-perm
+npm install && npm install -g cross-env && npm rebuild node-sass
 
 #Generate file lang
 php artisan vue-i18n:generate

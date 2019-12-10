@@ -1143,12 +1143,7 @@ RUN apt-get clean && \
 
 # Install package
 RUN apt-get -y update && \
-    apt-get install -y graphviz && \
-    npm install -g n && \
-    n stable && \
-    npm install -g npm && \
-    npm install -g cross-env \
-    npm rebuild node-sass
+    apt-get install -y graphviz
 
 # Set default work directory
 WORKDIR /var/www/larajs
