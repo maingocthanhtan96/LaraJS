@@ -72,7 +72,6 @@ npm install && npm install -g cross-env && npm rebuild node-sass
 php artisan vue-i18n:generate
 
 # Create .env from .env.example
-cd ../
 cp .env.example .env
 
 # Config Virtual host 
@@ -87,6 +86,9 @@ PASSPORT_CLIENT_SECRET
 npm run dev # or npm run watch
 # Build on production
 npm run prod
+
+# Run swagger
+cd app/Larajs/Development && ./swagger.sh
 
 # username, password
 - Amin

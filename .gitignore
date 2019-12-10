@@ -4,8 +4,14 @@
 /public/css/*.map
 /storage/*.key
 /vendor
+/public/css/app.css
 /public/*.js.map
 /public/uploads
+/public/js/chunks
+/public/js/app.js
+/public/js/manifest.js
+/public/js/vendor.js
+/resources/js/lang/vue-i18n-locales.generated.js
 /.idea
 /v8-compile-cache-0
 .env
