@@ -1142,8 +1142,7 @@ RUN apt-get clean && \
     rm /var/log/lastlog /var/log/faillog
 
 # Install package
-RUN apt-get -y update && \
-    apt-get install -y graphviz
+RUN apt-get -y update
 
 # Set default work directory
 WORKDIR /var/www

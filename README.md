@@ -44,12 +44,15 @@ This project is built on top of fresh latest version Laravel (5.8). You should c
 git clone https://github.com/laudaikinhdi/larajs.git
 # https://github.com/beyondcode/laravel-er-diagram-generator#requirements
 
-# Install docker & docker compose
-sudo apt-get update && sudo apt install docker.io && sudo apt-get install docker-compose
-cd laradock && sudo cp env-example .env && sudo docker-compose up -d nginx php-fpm mariadb workspace
+# Install docker
+sudo apt-get update && sudo apt install docker.io -y && sudo apt-get install docker-compose -y
+# Run docker compose
+cd laradock && sudo cp nginx/sites/larajs.conf.example nginx/sites/larajs.conf && sudo cp env-example .env
+
+sudo docker-compose up -d nginx php-fpm mariadb workspace
 
 # Access to docker workspace
-sudo docker-compose exec workspace
+sudo docker-compose exec workspace bash
 
 # Init project
 apt-get install graphviz #(For ubuntu)
