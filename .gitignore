@@ -11,7 +11,6 @@
 /public/js/app.js
 /public/js/manifest.js
 /public/js/vendor.js
-/resources/js/lang/vue-i18n-locales.generated.js
 /.idea
 /v8-compile-cache-0
 .env

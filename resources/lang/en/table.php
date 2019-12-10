@@ -16,23 +16,6 @@ return [
         'name' => 'Name',
         'description' => 'Description',
     ],
-    'test_generator' => [
-        'id' => 'No.',
-        'int' => 'Int',
-        'big_int' => 'Big int',
-        'float' => 'Float',
-        'double' => 'Double',
-        'boolean' => 'Boolean',
-        'date' => 'Date',
-        'date_time' => 'Date time',
-        'time' => 'Time',
-        'year' => 'Year',
-        'varchar' => 'Varchar',
-        'text' => 'Text',
-        'long_text' => 'Long text',
-        'enum_1' => 'Enum',
-        'file_1' => 'FIle',
-    ],
     //{{LANG_TABLE_NOT_DELETE_THIS_LINE}}
     'texts' => [
         'count' => 'Showing {from} to {to} of {count} records|{count} records|One record',
