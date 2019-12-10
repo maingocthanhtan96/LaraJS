@@ -1146,4 +1146,4 @@ RUN apt-get -y update && \
     apt-get install -y graphviz
 
 # Set default work directory
-WORKDIR /var/www/larajs
+WORKDIR /var/www

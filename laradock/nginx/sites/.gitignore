@@ -1,3 +1,3 @@
 *.conf
 !default.conf
-!larajs.conf
+!larajs.conf.example

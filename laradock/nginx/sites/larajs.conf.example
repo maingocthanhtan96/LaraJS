@@ -1,0 +1,57 @@
+server {
+    set $domain local.larajs.com;
+    set $app_path /var/www/larajs/public;
+
+    # listen 80;
+    # listen [::]:80;
+
+    # For https
+    listen 443 ssl default_server;
+    listen [::]:443 ssl default_server ipv6only=on;
+    ssl_certificate /etc/nginx/ssl/live/$domain/fullchain.pem;
+    ssl_certificate_key /etc/nginx/ssl/live/$domain/privkey.pem;
+
+    server_name $domain;
+    root $app_path;
+    index index.php index.html index.htm;
+
+    location / {
+         try_files $uri $uri/ /index.php$is_args$args;
+    }
+
+    location ~ \.php$ {
+        try_files $uri /index.php =404;
+        #fastcgi_pass php-upstream;
+        fastcgi_pass  unix:/var/run/php-fpm/php-fpm.sock;
+        fastcgi_index index.php;
+        fastcgi_buffers 16 16k;
+        fastcgi_buffer_size 32k;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        #fixes timeouts
+        fastcgi_read_timeout 600;
+        include fastcgi_params;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/letsencrypt/;
+        log_not_found off;
+    }
+
+    location ~* .(jpg|jpeg|gif|png|css|js|ico|xml)$ {
+       access_log    off;
+       log_not_found   off;
+       expires      360d;
+    }
+}
+
+server {
+    set $domain local.larajs.com;
+
+    listen 80;
+    server_name $domain;
+    return 301 https://$host$uri;
+}

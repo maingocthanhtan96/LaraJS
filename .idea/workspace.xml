@@ -3,30 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="48ec4041-b065-41c7-b197-b99331b3987d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/chunks/0.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/0.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/chunks/10.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/10.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/chunks/11.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/11.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/chunks/12.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/12.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/chunks/13.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/13.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/chunks/15.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/15.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/chunks/16.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/16.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/chunks/17.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/17.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/chunks/18.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/18.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/chunks/19.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/19.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/chunks/2.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/chunks/20.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/20.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/chunks/21.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/21.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/chunks/3.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/3.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/chunks/6.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/6.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/chunks/7.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/7.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/chunks/8.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/8.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/chunks/9.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/9.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/manifest.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/manifest.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/vendor.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/vendor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/mix-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/mix-manifest.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -607,7 +583,8 @@
       <workItem from="1575854468046" duration="7176000" />
       <workItem from="1575865188726" duration="3567000" />
       <workItem from="1575944953771" duration="47000" />
-      <workItem from="1575961260546" duration="237000" />
+      <workItem from="1575961260546" duration="740000" />
+      <workItem from="1575969529910" duration="267000" />
     </task>
     <servers />
   </component>
@@ -641,10 +618,10 @@
       <screen x="0" y="163" width="1366" height="605" />
     </state>
     <state x="0" y="163" width="800" height="605" key="#Plugins/0.163.1366.605/1366.0.1920.1080@0.163.1366.605" timestamp="1575901281891" />
-    <state x="466" y="136" width="424" height="484" key="FileChooserDialogImpl" timestamp="1575944999181">
+    <state x="466" y="136" width="424" height="484" key="FileChooserDialogImpl" timestamp="1575962001458">
       <screen x="0" y="27" width="1366" height="704" />
     </state>
-    <state x="466" y="136" width="424" height="484" key="FileChooserDialogImpl/0.27.1366.704/1366.0.1920.1080@0.27.1366.704" timestamp="1575944999181" />
+    <state x="466" y="136" width="424" height="484" key="FileChooserDialogImpl/0.27.1366.704/1366.0.1920.1080@0.27.1366.704" timestamp="1575962001458" />
     <state x="172" y="27" width="1012" height="704" key="SettingsEditor" timestamp="1575865296324">
       <screen x="0" y="27" width="1366" height="704" />
     </state>
