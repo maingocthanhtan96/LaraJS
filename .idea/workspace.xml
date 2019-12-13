@@ -3,9 +3,17 @@
   <component name="ChangeListManager">
     <list default="true" id="48ec4041-b065-41c7-b197-b99331b3987d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/lang/vue-i18n-locales.generated.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/lang/vue-i18n-locales.generated.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/en/table.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/vn/table.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/vn/table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/GeneratorController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/v1/GeneratorController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Larajs/Development/swagger-constants.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Larajs/Development/swagger-constants.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Larajs/Development/swagger.sh" beforeDir="false" afterPath="$PROJECT_DIR$/swagger.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/chunks/12.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/12.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/chunks/20.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chunks/20.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/vendor.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/vendor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/swagger/swagger.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/swagger/swagger.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/utils/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/utils/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/dashboard/editor/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/dashboard/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/dashboard/index.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -192,7 +200,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../JAVAC/leadlogic-dev" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -205,19 +213,19 @@
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/resources/js/plugins" />
-      <recent name="$PROJECT_DIR$/resources/js/template/datables" />
-      <recent name="$PROJECT_DIR$/resources/js/assets/images" />
-      <recent name="$PROJECT_DIR$/resources/js/assets" />
-      <recent name="$PROJECT_DIR$/resources/js/store" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/resources/js/views" />
       <recent name="$PROJECT_DIR$/public/swagger" />
       <recent name="$PROJECT_DIR$/public/images/avatar" />
       <recent name="$PROJECT_DIR$/public/fonts" />
       <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/resources/js/plugins" />
+      <recent name="$PROJECT_DIR$/resources/js/template/datables" />
+      <recent name="$PROJECT_DIR$/resources/js/assets/images" />
+      <recent name="$PROJECT_DIR$/resources/js/assets" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -587,7 +595,12 @@
       <workItem from="1575865188726" duration="3567000" />
       <workItem from="1575944953771" duration="47000" />
       <workItem from="1575961260546" duration="740000" />
-      <workItem from="1575969529910" duration="7276000" />
+      <workItem from="1575969529910" duration="8890000" />
+      <workItem from="1576071347356" duration="6426000" />
+      <workItem from="1576113489378" duration="494000" />
+      <workItem from="1576137590903" duration="3540000" />
+      <workItem from="1576157538481" duration="1418000" />
+      <workItem from="1576199110170" duration="624000" />
     </task>
     <servers />
   </component>
@@ -621,10 +634,10 @@
       <screen x="0" y="163" width="1366" height="605" />
     </state>
     <state x="0" y="163" width="800" height="605" key="#Plugins/0.163.1366.605/1366.0.1920.1080@0.163.1366.605" timestamp="1575901281891" />
-    <state x="466" y="136" width="424" height="484" key="FileChooserDialogImpl" timestamp="1575962001458">
+    <state x="466" y="136" width="424" height="484" key="FileChooserDialogImpl" timestamp="1576199903138">
       <screen x="0" y="27" width="1366" height="704" />
     </state>
-    <state x="466" y="136" width="424" height="484" key="FileChooserDialogImpl/0.27.1366.704/1366.0.1920.1080@0.27.1366.704" timestamp="1575962001458" />
+    <state x="466" y="136" width="424" height="484" key="FileChooserDialogImpl/0.27.1366.704/1366.0.1920.1080@0.27.1366.704" timestamp="1576199903138" />
     <state x="172" y="27" width="1012" height="704" key="SettingsEditor" timestamp="1575865296324">
       <screen x="0" y="27" width="1366" height="704" />
     </state>
@@ -635,11 +648,11 @@
     </state>
     <state width="514" height="446" key="SwitcherDM/0.163.1366.704/1366.0.1920.1080@0.163.1366.704" timestamp="1575090874441" />
     <state width="514" height="446" key="SwitcherDM/0.27.1366.704/1366.0.1920.1080@0.27.1366.704" timestamp="1575625486712" />
-    <state x="339" y="205" key="com.intellij.ide.util.TipDialog" timestamp="1575944979217">
+    <state x="339" y="205" key="com.intellij.ide.util.TipDialog" timestamp="1576199878681">
       <screen x="0" y="27" width="1366" height="704" />
     </state>
     <state x="339" y="341" key="com.intellij.ide.util.TipDialog/0.163.1366.704/1366.0.1920.1080@0.163.1366.704" timestamp="1575079964344" />
-    <state x="339" y="205" key="com.intellij.ide.util.TipDialog/0.27.1366.704/1366.0.1920.1080@0.27.1366.704" timestamp="1575944979216" />
+    <state x="339" y="205" key="com.intellij.ide.util.TipDialog/0.27.1366.704/1366.0.1920.1080@0.27.1366.704" timestamp="1576199878681" />
     <state x="100" y="125" width="1166" height="506" key="dock-window-1" timestamp="1575423445507">
       <screen x="0" y="27" width="1366" height="704" />
     </state>
@@ -653,11 +666,11 @@
       <screen x="0" y="27" width="1366" height="704" />
     </state>
     <state x="347" y="166" width="672" height="677" key="run.anything.popup/0.27.1366.704/1366.0.1920.1080@0.27.1366.704" timestamp="1575857826549" />
-    <state x="346" y="184" width="672" height="583" key="search.everywhere.popup" timestamp="1575987678088">
+    <state x="346" y="184" width="672" height="583" key="search.everywhere.popup" timestamp="1576158347980">
       <screen x="0" y="163" width="1366" height="605" />
     </state>
-    <state x="346" y="184" width="672" height="583" key="search.everywhere.popup/0.163.1366.605/1366.0.1920.1080@0.163.1366.605" timestamp="1575987678088" />
+    <state x="346" y="184" width="672" height="583" key="search.everywhere.popup/0.163.1366.605/1366.0.1920.1080@0.163.1366.605" timestamp="1576158347980" />
     <state x="346" y="188" width="672" height="678" key="search.everywhere.popup/0.163.1366.704/1366.0.1920.1080@0.163.1366.704" timestamp="1575091308980" />
-    <state x="346" y="52" width="672" height="678" key="search.everywhere.popup/0.27.1366.704/1366.0.1920.1080@0.27.1366.704" timestamp="1575854782353" />
+    <state x="346" y="52" width="672" height="678" key="search.everywhere.popup/0.27.1366.704/1366.0.1920.1080@0.27.1366.704" timestamp="1576140486621" />
   </component>
 </project>

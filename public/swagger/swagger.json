@@ -14,11 +14,11 @@
     },
     "servers": [
         {
-            "url": "http://local.larajs.com/api/v1",
+            "url": "http://local.larajs.com11/api/v1",
             "description": "Api v1"
         },
         {
-            "url": "http://local.larajs.com/api/v2",
+            "url": "http://local.larajs.com11/api/v2",
             "description": "Api v2"
         }
     ],

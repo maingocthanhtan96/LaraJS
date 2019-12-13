@@ -1,5 +1,5 @@
 <?php
-require_once "../../../vendor/autoload.php";
+require_once "vendor/autoload.php";
 $rootPath = __DIR__.'/../../../';
 $dotenv = \Dotenv\Dotenv::create($rootPath); // Dir where your .env file is located
 $dotenv->load();

@@ -260,7 +260,7 @@ class GeneratorController extends Controller
         $resourcePath = resource_path('js/assets/images/diagram-erd.png');
         Artisan::call('generate:erd ' . $resourcePath);
         $basePath = base_path();
-        exec("cd $basePath/app/Larajs/Development && ./swagger.sh");
+        exec("cd $basePath && ./swagger.sh");
         if (env('APP_ENV') === 'production') {
             exec("cd $basePath && npm run dev");
         }

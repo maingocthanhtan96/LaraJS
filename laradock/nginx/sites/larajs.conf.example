@@ -1,18 +1,15 @@
 server {
-    set $domain local.larajs.com;
-    set $app_path /var/www/larajs/public;
-
     # listen 80;
     # listen [::]:80;
 
     # For https
     listen 443 ssl default_server;
     listen [::]:443 ssl default_server ipv6only=on;
-    ssl_certificate /etc/nginx/ssl/live/$domain/fullchain.pem;
-    ssl_certificate_key /etc/nginx/ssl/live/$domain/privkey.pem;
+    ssl_certificate /etc/nginx/ssl/live/[local.larajs.com]/fullchain.pem;
+    ssl_certificate_key /etc/nginx/ssl/live/[local.larajs.com]/privkey.pem;
 
-    server_name $domain;
-    root $app_path;
+    server_name [local.larajs.com];
+    root [/var/www/larajs/public];
     index index.php index.html index.htm;
 
     location / {
@@ -21,8 +18,8 @@ server {
 
     location ~ \.php$ {
         try_files $uri /index.php =404;
-        #fastcgi_pass php-upstream;
-        fastcgi_pass  unix:/var/run/php-fpm/php-fpm.sock;
+        fastcgi_pass php-upstream;
+        # fastcgi_pass  unix:/var/run/php-fpm/php-fpm.sock;
         fastcgi_index index.php;
         fastcgi_buffers 16 16k;
         fastcgi_buffer_size 32k;
@@ -49,9 +46,7 @@ server {
 }
 
 server {
-    set $domain local.larajs.com;
-
     listen 80;
-    server_name $domain;
+    server_name [local.larajs.com];
     return 301 https://$host$uri;
 }
