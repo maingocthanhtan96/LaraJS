@@ -1,23 +1,12 @@
 <template>
   <div class="navbar">
-    <hamburger id="hamburger-container" :is-active="sidebar.opened" class="hamburger-container d-flex items-center"
-               @toggleClick="toggleSideBar"/>
-
+    <hamburger id="hamburger-container" :is-active="sidebar.opened" class="hamburger-container d-flex items-center" @toggleClick="toggleSideBar"/>
     <breadcrumb id="breadcrumb-container" class="breadcrumb-container"/>
-
     <div class="right-menu">
-      <template v-if="device!=='mobile'">
-
-        <!--				<search id="header-search" class="right-menu-item" />-->
-
-        <!--				<error-log class="errLog-container right-menu-item hover-effect" />-->
-
-        <!--				<screenfull id="screenfull" class="right-menu-item hover-effect" />-->
-
-        <!--				<el-tooltip content="Global Size" effect="dark" placement="bottom">-->
-        <!--					<size-select id="size-select" class="right-menu-item hover-effect" />-->
-        <!--				</el-tooltip>-->
-        <a v-if="checkPermission(['develop'])" :href="hrefDeveloper" class="mr-4"><svg-icon icon-class="api" class="text-4xl"/></a>
+      <template v-if="device !== 'mobile'">
+        <a v-if="checkPermission(['develop'])" :href="hrefDeveloper" class="mr-4">
+          <svg-icon icon-class="api" class="text-4xl"/>
+        </a>
       </template>
       <el-dropdown
         class="language pr-2"
@@ -44,7 +33,7 @@
         </div>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>
-            <span style="display:block;" @click="logout">Log Out</span>
+            <p @click="logout">Log Out</p>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -53,58 +42,50 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import Breadcrumb from '@/components/Breadcrumb';
-import Hamburger from '@/components/Hamburger';
-import { LOGOUT, SET_LANG } from '@/store/muation-types';
-import checkPermission from '@/utils/permission'; // Permission checking
-// import ErrorLog from '@/components/ErrorLog'
-// import Screenfull from '@/components/Screenfull'
-// import SizeSelect from '@/components/SizeSelect'
-// import Search from '@/components/HeaderSearch'
+  import {mapGetters} from 'vuex';
+  import Breadcrumb from '@/components/Breadcrumb';
+  import Hamburger from '@/components/Hamburger';
+  import {LOGOUT, SET_LANG} from '@/store/muation-types';
+  import checkPermission from '@/utils/permission'; // Permission checking
 
-export default {
-  components: {
-    Breadcrumb,
-    Hamburger,
-    // ErrorLog,
-    // Screenfull,
-    // SizeSelect,
-    // Search
-  },
-  data() {
-    return {
-      hrefDeveloper: `${process.env.MIX_APP_URL}/swagger/index.html`,
-    };
-  },
-  computed: {
-    ...mapGetters({
-      sidebar: 'sidebar',
-      device: 'device',
-      user: 'user',
-      lang: 'lang'
-    }),
-  },
-  methods: {
-    checkPermission,
-    handleCommand(command) {
-      if (command === 'logout') {
-        this.logout();
-      } else if (command === 'vn' || command === 'en') {
-        this.$store.dispatch(`lang/${SET_LANG}`, command);
-      }
+  export default {
+    components: {
+      Breadcrumb,
+      Hamburger,
     },
-    logout() {
-      this.$store.dispatch(`user/${LOGOUT}`)
-        .then(() => {
-          this.$router.push({ name: 'login' });
-        });
+    data() {
+      return {
+        hrefDeveloper: `${process.env.MIX_APP_URL}/swagger/index.html`,
+      };
     },
-    toggleSideBar() {
-      this.$store.dispatch('app/toggleSideBar');
+    computed: {
+      ...mapGetters({
+        sidebar: 'sidebar',
+        device: 'device',
+        user: 'user',
+        lang: 'lang'
+      }),
     },
-  },
-};
+    methods: {
+      checkPermission,
+      handleCommand(command) {
+        if (command === 'logout') {
+          this.logout();
+        } else if (command === 'vn' || command === 'en') {
+          this.$store.dispatch(`lang/${SET_LANG}`, command);
+        }
+      },
+      logout() {
+        this.$store.dispatch(`user/${LOGOUT}`)
+          .then(() => {
+            this.$router.push({name: 'login'});
+          });
+      },
+      toggleSideBar() {
+        this.$store.dispatch('app/toggleSideBar');
+      },
+    },
+  };
 </script>
 
 <style lang="scss" scoped>
