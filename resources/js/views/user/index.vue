@@ -35,12 +35,10 @@
   </el-row>
 </template>
 <script>
-  import permission from '@/directive/permission';
   import UserResource from '@/api/user';
 
   const userResource = new UserResource();
   export default {
-    directives: {permission},
     data() {
       return {
         table: {

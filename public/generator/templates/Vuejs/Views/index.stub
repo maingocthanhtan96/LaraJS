@@ -28,11 +28,9 @@
   </el-row>
 </template>
 <script>
-  import permission from '@/directive/permission';
   import {{$MODEL_CLASS$}}Resource from '@/api/{{$CONST_MODEL_CLASS$}}';
   const {{$CONST_MODEL_CLASS$}}Resource = new {{$MODEL_CLASS$}}Resource();
   export default {
-    directives: { permission },
     data() {
       return {
         table: {

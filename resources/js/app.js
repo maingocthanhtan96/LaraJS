@@ -6,6 +6,7 @@ import store from '@/store';
 import i18n from '@/lang';
 import '@/icons';
 import '@/permission';
+import permission from '@/directive/permission';
 
 // start third party
 import axios from 'axios';
@@ -37,6 +38,7 @@ Vue.use(ServerTable, {
 }, false, 'bulma', require('./template/datables'));
 // end third party
 
+// register element-ui
 Vue.use(ElementUI, {
   size: localStorage.getItem('size') || 'medium',
   i18n: (key, value) => i18n.t(key, value),
@@ -47,6 +49,9 @@ import * as filters from './filters';
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key]);
 });
+
+// register global directive
+Vue.directive('permission', permission);
 
 // register plugins
 const mixinPlugins = require.context('@/plugins', true, /\.js$/);

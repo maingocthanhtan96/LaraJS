@@ -48,80 +48,78 @@
   </el-row>
 </template>
 <script>
-import permission from '@/directive/permission';
-import Pagination from '@/components/Pagination'; // Secondary package based on el-pagination
-import {debounce} from '@/utils';
-import {{$MODEL_CLASS$}}Resource from '@/api/{{$CONST_MODEL_CLASS$}}';
-const {{$CONST_MODEL_CLASS$}}Resource = new {{$MODEL_CLASS$}}Resource();
+  import Pagination from '@/components/Pagination'; // Secondary package based on el-pagination
+  import {debounce} from '@/utils';
+  import {{$MODEL_CLASS$}}Resource from '@/api/{{$CONST_MODEL_CLASS$}}';
+  const {{$CONST_MODEL_CLASS$}}Resource = new {{$MODEL_CLASS$}}Resource();
 
-export default {
-  directives: { permission },
-  components: { Pagination },
-  data() {
-    return {
-      table: {
-        listQuery: {
-          query: '',
-          limit: {{$LIMIT$}},
-          ascending: 1,
-          page: 1,
-          orderBy: '',
+  export default {
+    components: { Pagination },
+    data() {
+      return {
+        table: {
+          listQuery: {
+            query: '',
+            limit: {{$LIMIT$}},
+            ascending: 1,
+            page: 1,
+            orderBy: '',
+          },
+          list: null,
+          total: 0,
+          loading: false,
         },
-        list: null,
-        total: 0,
-        loading: false,
-      },
-    }
-  },
-  created() {
-    this.getList();
-  },
-  methods: {
-    async getList() {
-      this.table.loading = true;
-      const { data } = await {{$CONST_MODEL_CLASS$}}Resource.list(this.table.listQuery);
-      this.table.list = data.data;
-      this.table.total = data.count;
-
-      // Just to simulate the time of the request
-      this.table.loading = false;
-    },
-    handleFilter() {
-      this.table.listQuery.page = 1;
-      this.getList();
-    },
-    sortChange(data) {
-      const { prop, order } = data;
-      this.table.listQuery.orderBy = prop;
-      if(order === 'ascending') {
-        this.table.listQuery.ascending = 0;
-      } else {
-        this.table.listQuery.ascending = 1;
       }
+    },
+    created() {
       this.getList();
     },
-    remove(id, name) {
-      this.$confirm(this.$t('messages.delete_confirm', { attribute: this.$t('table.{{$TABLE_MODEL_CLASS$}}.id') + '#' + name }), this.$t('messages.warning'), {
-        confirmButtonText: this.$t('button.ok'),
-        cancelButtonClass: this.$t('button.cancel'),
-        type: 'warning',
-        center: true,
-      }).then(async () => {
-        await {{$CONST_MODEL_CLASS$}}Resource.destroy(id);
-        const index = this.$refs.table_{{$CONST_MODEL_CLASS$}}.data.findIndex((value) => value.id === id);
-        this.$refs.table_{{$CONST_MODEL_CLASS$}}.data.splice(index, 1);
-        this.$message({
-          showClose: true,
-          message: this.$t('messages.delete'),
-          type: 'success',
+    methods: {
+      async getList() {
+        this.table.loading = true;
+        const { data } = await {{$CONST_MODEL_CLASS$}}Resource.list(this.table.listQuery);
+        this.table.list = data.data;
+        this.table.total = data.count;
+
+        // Just to simulate the time of the request
+        this.table.loading = false;
+      },
+      handleFilter() {
+        this.table.listQuery.page = 1;
+        this.getList();
+      },
+      sortChange(data) {
+        const { prop, order } = data;
+        this.table.listQuery.orderBy = prop;
+        if(order === 'ascending') {
+          this.table.listQuery.ascending = 0;
+        } else {
+          this.table.listQuery.ascending = 1;
+        }
+        this.getList();
+      },
+      remove(id, name) {
+        this.$confirm(this.$t('messages.delete_confirm', { attribute: this.$t('table.{{$TABLE_MODEL_CLASS$}}.id') + '#' + name }), this.$t('messages.warning'), {
+          confirmButtonText: this.$t('button.ok'),
+          cancelButtonClass: this.$t('button.cancel'),
+          type: 'warning',
+          center: true,
+        }).then(async () => {
+          await {{$CONST_MODEL_CLASS$}}Resource.destroy(id);
+          const index = this.$refs.table_{{$CONST_MODEL_CLASS$}}.data.findIndex((value) => value.id === id);
+          this.$refs.table_{{$CONST_MODEL_CLASS$}}.data.splice(index, 1);
+          this.$message({
+            showClose: true,
+            message: this.$t('messages.delete'),
+            type: 'success',
+          });
         });
-      });
+      },
     },
-  },
-  watch: {
-    'table.listQuery.query': debounce(function() {
-      this.handleFilter();
-    }, 700),
-  },
-};
+    watch: {
+      'table.listQuery.query': debounce(function() {
+        this.handleFilter();
+      }, 700),
+    },
+  };
 </script>

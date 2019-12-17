@@ -142,30 +142,6 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _nod
 
 /***/ }),
 
-/***/ "./resources/js/directive/permission/index.js":
-/*!****************************************************!*\
-  !*** ./resources/js/directive/permission/index.js ***!
-  \****************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _permission__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./permission */ \"./resources/js/directive/permission/permission.js\");\n\n\nvar install = function install(Vue) {\n  Vue.directive('permission', _permission__WEBPACK_IMPORTED_MODULE_0__[\"default\"]);\n};\n\nif (window.Vue) {\n  window['permission'] = _permission__WEBPACK_IMPORTED_MODULE_0__[\"default\"];\n  Vue.use(install); // eslint-disable-line\n}\n\n_permission__WEBPACK_IMPORTED_MODULE_0__[\"default\"].install = install;\n/* harmony default export */ __webpack_exports__[\"default\"] = (_permission__WEBPACK_IMPORTED_MODULE_0__[\"default\"]);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9yZXNvdXJjZXMvanMvZGlyZWN0aXZlL3Blcm1pc3Npb24vaW5kZXguanMuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvanMvZGlyZWN0aXZlL3Blcm1pc3Npb24vaW5kZXguanM/ODQ0ZCJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgcGVybWlzc2lvbiBmcm9tICcuL3Blcm1pc3Npb24nO1xuXG52YXIgaW5zdGFsbCA9IGZ1bmN0aW9uIGluc3RhbGwoVnVlKSB7XG4gIFZ1ZS5kaXJlY3RpdmUoJ3Blcm1pc3Npb24nLCBwZXJtaXNzaW9uKTtcbn07XG5cbmlmICh3aW5kb3cuVnVlKSB7XG4gIHdpbmRvd1sncGVybWlzc2lvbiddID0gcGVybWlzc2lvbjtcbiAgVnVlLnVzZShpbnN0YWxsKTsgLy8gZXNsaW50LWRpc2FibGUtbGluZVxufVxuXG5wZXJtaXNzaW9uLmluc3RhbGwgPSBpbnN0YWxsO1xuZXhwb3J0IGRlZmF1bHQgcGVybWlzc2lvbjsiXSwibWFwcGluZ3MiOiJBQUFBO0FBQUE7QUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSIsInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./resources/js/directive/permission/index.js\n");
-
-/***/ }),
-
-/***/ "./resources/js/directive/permission/permission.js":
-/*!*********************************************************!*\
-  !*** ./resources/js/directive/permission/permission.js ***!
-  \*********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/store */ \"./resources/js/store/index.js\");\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  inserted: function inserted(el, binding, vnode) {\n    var value = binding.value;\n    var permissions = _store__WEBPACK_IMPORTED_MODULE_0__[\"default\"].getters && _store__WEBPACK_IMPORTED_MODULE_0__[\"default\"].getters.permissions;\n\n    if (value && value instanceof Array && value.length > 0) {\n      var requiredPermissions = value;\n      var hasPermission = permissions.some(function (permission) {\n        return requiredPermissions.includes(permission);\n      });\n\n      if (!hasPermission) {\n        el.parentNode && el.parentNode.removeChild(el);\n      }\n    } else {\n      throw new Error(\"Permissions are required! Example: v-permission=\\\"['manage user','manage permission']\\\"\");\n    }\n  }\n});//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9yZXNvdXJjZXMvanMvZGlyZWN0aXZlL3Blcm1pc3Npb24vcGVybWlzc2lvbi5qcy5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL3Jlc291cmNlcy9qcy9kaXJlY3RpdmUvcGVybWlzc2lvbi9wZXJtaXNzaW9uLmpzP2RlZWMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHN0b3JlIGZyb20gJ0Avc3RvcmUnO1xuZXhwb3J0IGRlZmF1bHQge1xuICBpbnNlcnRlZDogZnVuY3Rpb24gaW5zZXJ0ZWQoZWwsIGJpbmRpbmcsIHZub2RlKSB7XG4gICAgdmFyIHZhbHVlID0gYmluZGluZy52YWx1ZTtcbiAgICB2YXIgcGVybWlzc2lvbnMgPSBzdG9yZS5nZXR0ZXJzICYmIHN0b3JlLmdldHRlcnMucGVybWlzc2lvbnM7XG5cbiAgICBpZiAodmFsdWUgJiYgdmFsdWUgaW5zdGFuY2VvZiBBcnJheSAmJiB2YWx1ZS5sZW5ndGggPiAwKSB7XG4gICAgICB2YXIgcmVxdWlyZWRQZXJtaXNzaW9ucyA9IHZhbHVlO1xuICAgICAgdmFyIGhhc1Blcm1pc3Npb24gPSBwZXJtaXNzaW9ucy5zb21lKGZ1bmN0aW9uIChwZXJtaXNzaW9uKSB7XG4gICAgICAgIHJldHVybiByZXF1aXJlZFBlcm1pc3Npb25zLmluY2x1ZGVzKHBlcm1pc3Npb24pO1xuICAgICAgfSk7XG5cbiAgICAgIGlmICghaGFzUGVybWlzc2lvbikge1xuICAgICAgICBlbC5wYXJlbnROb2RlICYmIGVsLnBhcmVudE5vZGUucmVtb3ZlQ2hpbGQoZWwpO1xuICAgICAgfVxuICAgIH0gZWxzZSB7XG4gICAgICB0aHJvdyBuZXcgRXJyb3IoXCJQZXJtaXNzaW9ucyBhcmUgcmVxdWlyZWQhIEV4YW1wbGU6IHYtcGVybWlzc2lvbj1cXFwiWydtYW5hZ2UgdXNlcicsJ21hbmFnZSBwZXJtaXNzaW9uJ11cXFwiXCIpO1xuICAgIH1cbiAgfVxufTsiXSwibWFwcGluZ3MiOiJBQUFBO0FBQUE7QUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBIiwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/js/directive/permission/permission.js\n");
-
-/***/ }),
-
 /***/ "./resources/js/directive/role/index.js":
 /*!**********************************************!*\
   !*** ./resources/js/directive/role/index.js ***!
