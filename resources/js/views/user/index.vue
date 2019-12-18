@@ -35,74 +35,74 @@
   </el-row>
 </template>
 <script>
-  import UserResource from '@/api/user';
+import UserResource from '@/api/user';
 
-  const userResource = new UserResource();
-  export default {
-    data() {
-      return {
-        table: {
-          columns: ['id', 'name', 'email', 'avatar', 'roles', 'created_at', 'actions'],
-          options: {
-            requestFunction: function (query) {
-              return userResource.list(query);
-            },
-            headings: {
-              id: () => this.$t('table.user.id'),
-              name: () => this.$t('table.user.name'),
-              avatar: () => this.$t('table.user.avatar'),
-              'role.name': () => this.$t('table.user.role'),
-              created_at: () => this.$t('date.created_at'),
-            },
-            columnsClasses: {
-              id: 'text-center',
-              avatar: 'text-center',
-              roles: 'text-center',
-              created_at: 'text-center',
-            },
-            templates: {
-              created_at: (h, row) => {
-                return this.$options.filters.parseTime(row.created_at, '{y}-{m}-{d}');
-              },
-              roles: (h, row) => {
-                return row.roles.map((value) => {
-                  return value.name;
-                });
-              },
-            },
-            sortable: ['id', 'created_at'],
+const userResource = new UserResource();
+export default {
+  data() {
+    return {
+      table: {
+        columns: ['id', 'name', 'email', 'avatar', 'roles', 'created_at', 'actions'],
+        options: {
+          requestFunction: function (query) {
+            return userResource.list(query);
           },
+          headings: {
+            id: () => this.$t('table.user.id'),
+            name: () => this.$t('table.user.name'),
+            avatar: () => this.$t('table.user.avatar'),
+            'role.name': () => this.$t('table.user.role'),
+            created_at: () => this.$t('date.created_at'),
+          },
+          columnsClasses: {
+            id: 'text-center',
+            avatar: 'text-center',
+            roles: 'text-center',
+            created_at: 'text-center',
+          },
+          templates: {
+            created_at: (h, row) => {
+              return this.$options.filters.parseTime(row.created_at, '{y}-{m}-{d}');
+            },
+            roles: (h, row) => {
+              return row.roles.map((value) => {
+                return value.name;
+              });
+            },
+          },
+          sortable: ['id', 'created_at'],
         },
-        loading: false,
-      };
-    },
-    mounted() {
-      Event.$on('vue-tables.loading', () => {
-        this.loading = true;
-      });
-      Event.$on('vue-tables.loaded', () => {
-        this.loading = false;
-      });
-    },
-    methods: {
-      remove(id, name) {
-        this.$confirm(this.$t('messages.delete_confirm', {attribute: name}), this.$t('messages.warning'), {
-          confirmButtonClass: 'outline-none',
-          confirmButtonText: this.$t('button.ok'),
-          cancelButtonClass: this.$t('button.cancel'),
-          type: 'warning',
-          center: true,
-        }).then(async () => {
-          await userResource.destroy(id);
-          const index = this.$refs.table_user.data.findIndex((value) => value.id === id);
-          this.$refs.table_user.data.splice(index, 1);
-          this.$message({
-            showClose: true,
-            message: this.$t('messages.delete'),
-            type: 'success',
-          });
-        });
       },
+      loading: false,
+    };
+  },
+  mounted() {
+    Event.$on('vue-tables.loading', () => {
+      this.loading = true;
+    });
+    Event.$on('vue-tables.loaded', () => {
+      this.loading = false;
+    });
+  },
+  methods: {
+    remove(id, name) {
+      this.$confirm(this.$t('messages.delete_confirm', { attribute: name }), this.$t('messages.warning'), {
+        confirmButtonClass: 'outline-none',
+        confirmButtonText: this.$t('button.ok'),
+        cancelButtonClass: this.$t('button.cancel'),
+        type: 'warning',
+        center: true,
+      }).then(async () => {
+        await userResource.destroy(id);
+        const index = this.$refs.table_user.data.findIndex((value) => value.id === id);
+        this.$refs.table_user.data.splice(index, 1);
+        this.$message({
+          showClose: true,
+          message: this.$t('messages.delete'),
+          type: 'success',
+        });
+      });
     },
-  };
+  },
+};
 </script>

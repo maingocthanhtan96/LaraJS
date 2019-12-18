@@ -17,39 +17,39 @@
 </template>
 
 <script>
-  import draggable from 'vuedraggable';
+import draggable from 'vuedraggable';
 
-  export default {
-    name: 'DragKanbanDemo',
-    components: {
-      draggable,
+export default {
+  name: 'DragKanbanDemo',
+  components: {
+    draggable,
+  },
+  props: {
+    headerText: {
+      type: String,
+      default: 'Header',
     },
-    props: {
-      headerText: {
-        type: String,
-        default: 'Header',
-      },
-      options: {
-        type: Object,
-        default() {
-          return {};
-        },
-      },
-      list: {
-        type: Array,
-        default() {
-          return [];
-        },
+    options: {
+      type: Object,
+      default() {
+        return {};
       },
     },
-    methods: {
-      setData(dataTransfer) {
-        // to avoid Firefox bug
-        // Detail see : https://github.com/RubaXa/Sortable/issues/1012
-        dataTransfer.setData('Text', '');
+    list: {
+      type: Array,
+      default() {
+        return [];
       },
     },
-  };
+  },
+  methods: {
+    setData(dataTransfer) {
+      // to avoid Firefox bug
+      // Detail see : https://github.com/RubaXa/Sortable/issues/1012
+      dataTransfer.setData('Text', '');
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
   .board-column {

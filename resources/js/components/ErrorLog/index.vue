@@ -43,19 +43,19 @@
 </template>
 
 <script>
-  export default {
-    name: 'ErrorLog',
-    data() {
-      return {
-        dialogTableVisible: false,
-      };
+export default {
+  name: 'ErrorLog',
+  data() {
+    return {
+      dialogTableVisible: false,
+    };
+  },
+  computed: {
+    errorLogs() {
+      return this.$store.getters.errorLogs;
     },
-    computed: {
-      errorLogs() {
-        return this.$store.getters.errorLogs;
-      },
-    },
-  };
+  },
+};
 </script>
 
 <style scoped>

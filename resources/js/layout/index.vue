@@ -21,10 +21,10 @@
 </template>
 
 <script>
-const RightPanel = () => import ('@/components/RightPanel');
+const RightPanel = () => import('@/components/RightPanel');
 import BackToTop from '@/components/BackToTop';
 import { AppMain, Navbar, Sidebar } from './components';
-const TagViews = () => import ('./components/TagsView');
+const TagViews = () => import('./components/TagsView');
 import FooterMain from './components/FooterMain';
 import ResizeMixin from './mixin/ResizeHandler';
 import { mapState } from 'vuex';

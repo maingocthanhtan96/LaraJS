@@ -110,12 +110,12 @@
 </template>
 
 <script>
-  // source:https://github.com/wemake-services/vue-material-input/blob/master/src/components/MaterialInput.vue
+// source:https://github.com/wemake-services/vue-material-input/blob/master/src/components/MaterialInput.vue
 
-  export default {
-    name: 'MdInput',
-    props: {
-      /* eslint-disable */
+export default {
+  name: 'MdInput',
+  props: {
+    /* eslint-disable */
       icon: String,
       name: String,
       type: {

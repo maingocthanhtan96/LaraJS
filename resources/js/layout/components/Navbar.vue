@@ -42,50 +42,50 @@
 </template>
 
 <script>
-  import {mapGetters} from 'vuex';
-  import Breadcrumb from '@/components/Breadcrumb';
-  import Hamburger from '@/components/Hamburger';
-  import {LOGOUT, SET_LANG} from '@/store/muation-types';
-  import checkPermission from '@/utils/permission'; // Permission checking
+import { mapGetters } from 'vuex';
+import Breadcrumb from '@/components/Breadcrumb';
+import Hamburger from '@/components/Hamburger';
+import { LOGOUT, SET_LANG } from '@/store/muation-types';
+import checkPermission from '@/utils/permission'; // Permission checking
 
-  export default {
-    components: {
-      Breadcrumb,
-      Hamburger,
+export default {
+  components: {
+    Breadcrumb,
+    Hamburger,
+  },
+  data() {
+    return {
+      hrefDeveloper: `${process.env.MIX_APP_URL}/swagger/index.html`,
+    };
+  },
+  computed: {
+    ...mapGetters({
+      sidebar: 'sidebar',
+      device: 'device',
+      user: 'user',
+      lang: 'lang',
+    }),
+  },
+  methods: {
+    checkPermission,
+    handleCommand(command) {
+      if (command === 'logout') {
+        this.logout();
+      } else if (command === 'vn' || command === 'en') {
+        this.$store.dispatch(`lang/${SET_LANG}`, command);
+      }
     },
-    data() {
-      return {
-        hrefDeveloper: `${process.env.MIX_APP_URL}/swagger/index.html`,
-      };
+    logout() {
+      this.$store.dispatch(`user/${LOGOUT}`)
+        .then(() => {
+          this.$router.push({ name: 'login' });
+        });
     },
-    computed: {
-      ...mapGetters({
-        sidebar: 'sidebar',
-        device: 'device',
-        user: 'user',
-        lang: 'lang'
-      }),
+    toggleSideBar() {
+      this.$store.dispatch('app/toggleSideBar');
     },
-    methods: {
-      checkPermission,
-      handleCommand(command) {
-        if (command === 'logout') {
-          this.logout();
-        } else if (command === 'vn' || command === 'en') {
-          this.$store.dispatch(`lang/${SET_LANG}`, command);
-        }
-      },
-      logout() {
-        this.$store.dispatch(`user/${LOGOUT}`)
-          .then(() => {
-            this.$router.push({name: 'login'});
-          });
-      },
-      toggleSideBar() {
-        this.$store.dispatch('app/toggleSideBar');
-      },
-    },
-  };
+  },
+};
 </script>
 
 <style lang="scss" scoped>

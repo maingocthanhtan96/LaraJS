@@ -99,7 +99,7 @@ export default {
     },
     ...mapGetters([
       'user',
-      'lang'
+      'lang',
     ]),
   },
   watch: {

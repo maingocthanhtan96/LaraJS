@@ -409,11 +409,11 @@ export default {
         this.form[index].as_define = '';
       }
       // not checkbox search
-      if(this.notSearch.includes(dbType)) {
+      if (this.notSearch.includes(dbType)) {
         this.form[index].search = false;
       }
       // not checkbox soft
-      if(this.notSoft.includes(dbType)) {
+      if (this.notSoft.includes(dbType)) {
         this.form[index].sort = false;
       }
     },

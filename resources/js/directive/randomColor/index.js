@@ -1,4 +1,4 @@
-import randomColor from "@/directive/randomColor/randomColor";
+import randomColor from '@/directive/randomColor/randomColor';
 
 const install = function (Vue) {
   Vue.directive('randomColor', randomColor);

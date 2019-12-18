@@ -1,4 +1,4 @@
-import {addResizeListener, removeResizeListener} from 'element-ui/src/utils/resize-event';
+import { addResizeListener, removeResizeListener } from 'element-ui/src/utils/resize-event';
 
 /**
  * How to use
@@ -8,9 +8,9 @@ import {addResizeListener, removeResizeListener} from 'element-ui/src/utils/resi
  */
 
 const doResize = (el, binding, vnode) => {
-  const {componentInstance: $table} = vnode;
+  const { componentInstance: $table } = vnode;
 
-  const {value} = binding;
+  const { value } = binding;
 
   if (!$table.height) {
     throw new Error(`el-$table must set the height. Such as height='100px'`);

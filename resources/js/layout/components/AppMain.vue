@@ -20,7 +20,7 @@ export default {
     },
     routerTransition() {
       return this.$store.state.settings.routerTransition;
-    }
+    },
   },
 };
 </script>

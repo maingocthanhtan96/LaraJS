@@ -11,30 +11,30 @@
 </template>
 
 <script>
-  export default {
-    props: {
-      items: {
-        type: Array,
-        default: function () {
-          return [];
-        },
-      },
-      title: {
-        type: String,
-        default: 'vue',
+export default {
+  props: {
+    items: {
+      type: Array,
+      default: function () {
+        return [];
       },
     },
-    data() {
-      return {
-        isActive: false,
-      };
+    title: {
+      type: String,
+      default: 'vue',
     },
-    methods: {
-      clickTitle() {
-        this.isActive = !this.isActive;
-      },
+  },
+  data() {
+    return {
+      isActive: false,
+    };
+  },
+  methods: {
+    clickTitle() {
+      this.isActive = !this.isActive;
     },
-  };
+  },
+};
 </script>
 
 <style lang="scss">
