@@ -1,5 +1,6 @@
 const mix = require('laravel-mix');
 const mergeManifest = require('./mergeManifest');
+require('laravel-mix-eslint');
 
 mix.extend('mergeManifest', mergeManifest);
 
