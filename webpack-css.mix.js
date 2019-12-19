@@ -43,6 +43,12 @@ mix.options({
 if (mix.inProduction()) {
   mix.version();
 } else {
+  if (process.env.LARAJS_USE_ESLINT === 'true') {
+    mix.eslint({
+      fix: true,
+      cache: false,
+    });
+  }
   // Development settings
   // mix.browserSync({
   //   proxy: process.env.APP_URL,

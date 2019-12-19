@@ -35,7 +35,7 @@ mix.extend('mergeManifest', mergeManifest)
 if (mix.inProduction()) {
   mix.version();
 } else {
-  if (process.env.LARAVUE_USE_ESLINT === 'true') {
+  if (process.env.LARAJS_USE_ESLINT === 'true') {
     mix.eslint({
       fix: true,
       cache: false,
