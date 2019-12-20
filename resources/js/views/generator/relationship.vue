@@ -123,7 +123,7 @@
 <script>
 import PreCodeTag from '@/components/PreCodeTag';
 import GeneratorResource from '@/api/generator';
-import { camelCase } from 'lodash';
+import { camelCase, snakeCase } from 'lodash';
 
 const generatorResource = new GeneratorResource();
 
@@ -226,7 +226,7 @@ export default {
       public function ${camelCase(this.form.model_current)}() {
         return $this->belongsToMany(${this.form.model_current}::class);
       }`;
-        templateInverse += `<br/>  # I will create a table ${this.$_.snakeCase(this.form.model_current)}_${this.$_.snakeCase(this.form.model)}`;
+        templateInverse += `<br/>  # I will create a table ${snakeCase(this.form.model_current)}_${snakeCase(this.form.model)}`;
       }
       if (this.form.relationship && this.form.model) {
         this.markdown = template.concat(templateInverse);
