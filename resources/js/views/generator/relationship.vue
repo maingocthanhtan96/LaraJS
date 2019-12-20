@@ -214,7 +214,7 @@ export default {
     },
     replaceTemplate(model) {
       const template = `# Model ${this.form.model_current}
-      public function ${this.camelCase(this.form.model)}() {
+      public function ${camelCase(this.form.model)}() {
         return $this->${this.form.relationship}(${this.form.model}::class);
       }`;
       let templateInverse = `<br/>  # Model ${this.form.model}
@@ -223,7 +223,7 @@ export default {
       }`;
       if (this.form.relationship === 'belongsToMany') {
         templateInverse = `<br/>  # Model ${this.form.model}
-      public function ${this.camelCase(this.form.model_current)}() {
+      public function ${camelCase(this.form.model_current)}() {
         return $this->belongsToMany(${this.form.model_current}::class);
       }`;
         templateInverse += `<br/>  # I will create a table ${this.$_.snakeCase(this.form.model_current)}_${this.$_.snakeCase(this.form.model)}`;
