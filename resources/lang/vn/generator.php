@@ -12,6 +12,7 @@ return [
     'field_name_trans' => 'Tên Hiển Thị',
     'db_type' => 'Kiểu dữ liểu',
     'default_value' => 'Giá trị mặc định',
+    'after_column' => 'Sau Cột',
     'as_define' => 'Định nghĩa',
     'search' => 'Tìm Kiếm',
     'sort' => 'Sắp xếp',

@@ -86,7 +86,7 @@ Class RelationshipGenerator extends BaseGenerator
             $templateData = $this->serviceGenerator->get_template("migrationRelationshipMTM", $pathTemplate);
             //if belongsToMany replace table to create
             $templateData = $this->_replaceTemplateRelationshipMTM($model, $modelCurrent, $templateData);
-            $fileName = date('Y_m_d_His') . '_' . 'create_' . self::_REF_LOWER .\Str::snake($model) . '_' . \Str::snake($modelCurrent) . '_table.php';
+            $fileName = date('Y_m_d_His') . '_' . 'relationship_' . self::_REF_LOWER . \Str::snake($model) . '_' . \Str::snake($modelCurrent) . '_table.php';
             $this->_generateModelMTM($model, $modelCurrent);
             $this->_generateSeederMTM($model, $modelCurrent);
             $this->_generateRoute($modelCurrent);
@@ -101,7 +101,7 @@ Class RelationshipGenerator extends BaseGenerator
         } else {
             //hasOne or hasMany
             $templateData = $this->_replaceTemplateRelationship($model, $modelCurrent, $templateData);
-            $fileName = date('Y_m_d_His') . '_' . 'create_' . $this->serviceGenerator->tableName($model) . '_table.php';
+            $fileName = date('Y_m_d_His') . '_' . 'relationship_' . $this->serviceGenerator->tableName($model) . '_table.php';
             $this->_generateModel($modelCurrent, $model);
             $this->_generateSeeder($modelCurrent);
             $this->_generateRoute($modelCurrent);

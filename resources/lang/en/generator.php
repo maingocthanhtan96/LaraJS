@@ -12,6 +12,7 @@ return [
     'field_name_trans' => 'Field Name Trans',
     'db_type' => 'DB Type',
     'default_value' => 'Default Value',
+    'after_column' => 'After Column',
     'as_define' => 'As define',
     'search' => 'Search',
     'sort' => 'Sort',

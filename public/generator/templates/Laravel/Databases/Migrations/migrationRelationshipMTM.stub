@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Create{{TABLE_NAME_TITLE}}Table extends Migration
+class Relationship{{TABLE_NAME_TITLE}}Table extends Migration
 {
     /**
      * Run the migrations.
@@ -20,6 +20,7 @@ class Create{{TABLE_NAME_TITLE}}Table extends Migration
     public function up()
     {
         Schema::create('{{TABLE_NAME}}', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('{{FOREIGN_KEY_1}}');
             $table->unsignedBigInteger('{{FOREIGN_KEY_2}}');
             $table->timestamps();

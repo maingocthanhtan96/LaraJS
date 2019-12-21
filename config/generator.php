@@ -51,6 +51,7 @@ return [
             'sort_deletes' => 'Soft Deletes',
             'datatables' => 'Datatables',
             'role_admin' => 'Role Admin',
+            'ignore_migrate' => 'Ignore Migrate',
             'test_cases' => 'Test Cases',
         ]
     ],

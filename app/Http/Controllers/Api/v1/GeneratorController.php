@@ -87,7 +87,7 @@ class GeneratorController extends Controller
                 'model' => json_encode($model),
                 'table' => $this->serviceGenerator->tableName($model['name']),
             ]);
-            $this->_runCommand();
+            $this->_runCommand($model);
             return $this->jsonSuccess(trans('messages.success'));
         } catch (\Exception $e) {
             return $this->jsonError($e->getMessage());
@@ -253,9 +253,11 @@ class GeneratorController extends Controller
         new FormUpdateGenerator($generator, $model, $updateFields);
     }
 
-    private function _runCommand()
+    private function _runCommand($model = [])
     {
-        Artisan::call('migrate --force');
+        if (isset($model['options']) && !$this->serviceGenerator->getOptions(config('generator.model.options.ignore_migrate'), $model['options'])) {
+            Artisan::call('migrate --force');
+        }
         Artisan::call('vue-i18n:generate');
         $resourcePath = resource_path('js/assets/images/diagram-erd.png');
         Artisan::call('generate:erd ' . $resourcePath);

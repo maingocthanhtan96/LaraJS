@@ -42,6 +42,9 @@
                       <el-checkbox label="Soft Deletes" checked :disabled="$route.params.id > 0"></el-checkbox>
                       <el-checkbox label="Datatables" checked :disabled="$route.params.id > 0"></el-checkbox>
                       <el-checkbox label="Role Admin" :disabled="$route.params.id > 0"></el-checkbox>
+                      <el-tooltip class="item" effect="light" content="Not run artisan migrate" placement="top">
+                        <el-checkbox label="Ignore Migrate" :disabled="$route.params.id > 0"></el-checkbox>
+                      </el-tooltip>
                       <el-checkbox label="Test Cases" disabled></el-checkbox>
                     </el-checkbox-group>
                   </el-form-item>
@@ -56,6 +59,8 @@
                   <div class="divTableCell text-center"><b>{{$t('generator.field_name_trans')}}</b></div>
                   <div class="divTableCell text-center"><b>{{$t('generator.db_type')}}</b></div>
                   <div class="divTableCell text-center"><b>{{$t('generator.default_value')}}</b></div>
+                  <div class="divTableCell text-center" v-if="$route.params.id > 0">
+                    <b>{{$t('generator.after_column')}}</b></div>
                   <div class="divTableCell text-center" style="max-width: 70px;width: 70px"><b>{{$t('generator.search')}}</b>
                   </div>
                   <div class="divTableCell text-center" style="max-width: 70px;width: 70px">
@@ -195,11 +200,23 @@
                                   class="max-w-sm pt-5"></el-input>
                       </el-form-item>
                     </div>
-                    <div class="divTableCell text-center align-middle">
-                      <el-checkbox v-model="data.search" :disabled="disabledMethod(index) || !data.show || notSearch.includes(data.db_type)"></el-checkbox>
+                    <div class="divTableCell text-center align-middle" v-if="$route.params.id > 0">
+                      <el-select v-if="data.id > lastId" v-model="data.after_column" filterable placeholder="Select">
+                        <el-option
+                          v-for="(item, index) in afterColumn"
+                          :key="'after_column_' + index"
+                          :label="item"
+                          :value="item">
+                        </el-option>
+                      </el-select>
                     </div>
                     <div class="divTableCell text-center align-middle">
-                      <el-checkbox v-model="data.sort" :disabled="!data.show || notSoft.includes(data.db_type)"></el-checkbox>
+                      <el-checkbox v-model="data.search"
+                                   :disabled="disabledMethod(index) || !data.show || notSearch.includes(data.db_type)"></el-checkbox>
+                    </div>
+                    <div class="divTableCell text-center align-middle">
+                      <el-checkbox v-model="data.sort"
+                                   :disabled="!data.show || notSoft.includes(data.db_type)"></el-checkbox>
                     </div>
                     <div class="divTableCell text-center align-middle">
                       <el-checkbox v-model="data.show" @click.native="changeShow(index)"></el-checkbox>
@@ -260,6 +277,7 @@ export default {
           enum: [],
           default_value: 'None',
           as_define: '',
+          after_column: '',
           search: false,
           sort: true,
           show: true,
@@ -302,20 +320,29 @@ export default {
       defaultValue: ['None', 'NULL', 'As define'],
       defaultValueNotAs: ['None', 'NULL'],
       notAs: ['TEXT', 'LONGTEXT', 'FILE'],
+      afterColumn: [],
       notSearch: ['FILE', 'JSON'],
       notSoft: ['FILE', 'JSON'],
+      lastId: 0,
       loading: false,
     };
   },
-  mounted() {
+  async mounted() {
     const { id } = this.$route.params;
     if (id) {
-      generatorResource.get(id)
+      await generatorResource.get(id)
         .then(res => {
           const { data } = res.data;
           this.form = JSON.parse(data.field);
           this.formTemp = JSON.parse(data.field);
           this.formModel = JSON.parse(data.model);
+
+          this.lastId = this.form.slice(-1)[0].id;
+        });
+      await generatorResource.getColumns(this.formModel.name)
+        .then(res => {
+          const { data } = res.data;
+          this.afterColumn = data;
         });
     }
   },
@@ -567,6 +594,7 @@ export default {
         if (this.$route.params.id && this.formTemp[index]) {
           this.formDrop.push(this.formTemp[index]);
           this.formTemp.splice(index, 1);
+          this.lastId -= 1;
         }
         this.form.splice(index, 1);
         this.$message({
