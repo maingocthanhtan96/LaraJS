@@ -472,7 +472,7 @@ Class GeneratorService extends BaseService
         foreach ($data as $line) {
             foreach ($relationshipIdentifiers as $relationship) {
                 $nameRelationship = $relationship . '(';
-                $searchRelationship = $this->searchTemplateX($nameRelationship, 1, ');', -strlen($nameRelationship), strlen($nameRelationship), $line);
+                $searchRelationship = $this->searchTemplateX($nameRelationship, 1, ')', -strlen($nameRelationship), strlen($nameRelationship), $line);
                 if ($searchRelationship) {
                     $modelData = explode(',', $searchRelationship);
                     $modelName = $this->stripString($modelData[0], $relationship);

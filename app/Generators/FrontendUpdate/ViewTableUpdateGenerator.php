@@ -47,7 +47,7 @@ Class ViewTableUpdateGenerator extends BaseGenerator
         $templateDataReal = $this->generateFieldsChange($generator, $updateFields['changeFields'], $model, $templateDataReal);
         $templateDataReal = $this->generateFieldsDrop($updateFields['dropFields'], $templateDataReal);
         $templateDataReal = $this->generateFieldsUpdate($updateFields['updateFields'], $model, $templateDataReal);
-        dd($templateDataReal);
+
         $fileName = $this->path . $fileName;
         $this->serviceFile->createFileReal($fileName, $templateDataReal);
     }

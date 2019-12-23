@@ -57,9 +57,9 @@ Class RelationshipGenerator extends BaseGenerator
         $templateInverse = str_replace('{{RELATION_MODEL_CLASS}}', $modelCurrent, $templateInverse);
         if ($relationship === $this->relationship['belongs_to_many']) {
             $templateInverse = str_replace('{{RELATION}}', 'belongsToMany', $templateInverse);
-            $templateModel = str_replace('{{FIELD_RELATIONSHIP}}', "'" . self::_REF_LOWER . \Str::snake($model) . '_' . \Str::snake($modelCurrent) . "', " . "'" . \Str::snake($modelCurrent) . "_id', " . "'" . \Str::snake($model) . "_id'", $templateModel);
+            $templateModel = str_replace('{{FIELD_RELATIONSHIP}}', "'" . self::_REF_LOWER . \Str::snake($modelCurrent) . '_' . \Str::snake($model) . "', " . "'" . \Str::snake($modelCurrent) . "_id', " . "'" . \Str::snake($model) . "_id'", $templateModel);
             $templateModel = str_replace(", 'id'", "", $templateModel);
-            $templateInverse = str_replace('{{FIELD_RELATIONSHIP}}', "'" . self::_REF_LOWER . \Str::snake($model) . '_' . \Str::snake($modelCurrent) . "', " . "'" . \Str::snake($model) . "_id', " . "'" . \Str::snake($modelCurrent) . "_id'", $templateInverse);
+            $templateInverse = str_replace('{{FIELD_RELATIONSHIP}}', "'" . self::_REF_LOWER . \Str::snake($modelCurrent) . '_' . \Str::snake($model) . "', " . "'" . \Str::snake($model) . "_id', " . "'" . \Str::snake($modelCurrent) . "_id'", $templateInverse);
             $templateInverse = str_replace(", 'id'", "", $templateInverse);
         } else {
             $templateModel = str_replace('{{FIELD_RELATIONSHIP}}', "'" . \Str::snake($modelCurrent) . '_id' . "'", $templateModel);
@@ -86,7 +86,7 @@ Class RelationshipGenerator extends BaseGenerator
             $templateData = $this->serviceGenerator->get_template("migrationRelationshipMTM", $pathTemplate);
             //if belongsToMany replace table to create
             $templateData = $this->_replaceTemplateRelationshipMTM($model, $modelCurrent, $templateData);
-            $fileName = date('Y_m_d_His') . '_' . 'relationship_' . self::_REF_LOWER . \Str::snake($model) . '_' . \Str::snake($modelCurrent) . '_table.php';
+            $fileName = date('Y_m_d_His') . '_' . 'relationship_' . self::_REF_LOWER . \Str::snake($modelCurrent) . '_' . \Str::snake($model) . '_table.php';
             $this->_generateModelMTM($model, $modelCurrent);
             $this->_generateSeederMTM($model, $modelCurrent);
             $this->_generateRoute($modelCurrent);
@@ -447,8 +447,8 @@ Class RelationshipGenerator extends BaseGenerator
     {
         $now = Carbon::now();
         $templateData = str_replace('{{DATE_TIME}}', $now->toDateTimeString(), $templateData);
-        $templateData = str_replace('{{TABLE_NAME_TITLE}}', self::REF_UPPER . $model . $modelCurrent, $templateData);
-        $templateData = str_replace('{{TABLE_NAME}}', self::_REF_LOWER . \Str::snake($model) . '_' . \Str::snake($modelCurrent), $templateData);
+        $templateData = str_replace('{{TABLE_NAME_TITLE}}', self::REF_UPPER . $modelCurrent . $model, $templateData);
+        $templateData = str_replace('{{TABLE_NAME}}', self::_REF_LOWER . \Str::snake($modelCurrent) . '_' . \Str::snake($model), $templateData);
         $templateData = str_replace('{{FOREIGN_KEY_1}}', \Str::snake($model) . '_id', $templateData);
         $templateData = str_replace('{{FOREIGN_KEY_2}}', \Str::snake($modelCurrent) . '_id', $templateData);
         $templateData = str_replace('{{TABLE_FOREIGN_KEY_1}}', $this->serviceGenerator->tableName($model), $templateData);
@@ -485,13 +485,13 @@ Class RelationshipGenerator extends BaseGenerator
         $pathTemplate = 'Models/';
         $templateData = $this->serviceGenerator->get_template("model", $pathTemplate);
         $templateData = str_replace('{{DATE}}', $now->toDateTimeString(), $templateData);
-        $templateData = str_replace('{{MODEL_CLASS}}', self::REF_UPPER . $model . $modelCurrent, $templateData);
+        $templateData = str_replace('{{MODEL_CLASS}}', self::REF_UPPER . $modelCurrent . $model, $templateData);
         $arFields = ["'" . $fieldModel . "',", "'" . $fieldModelCurrent . "',"];
         $implodeFields = implode($this->serviceGenerator->infy_nl_tab(1, 2), $arFields);
         $templateData = str_replace('{{FIELDS}}', $implodeFields, $templateData);
-        $templateData = str_replace('{{TABLE_NAME}}', self::_REF_LOWER . \Str::snake($model) . '_' . \Str::snake($modelCurrent), $templateData);
+        $templateData = str_replace('{{TABLE_NAME}}', self::_REF_LOWER . \Str::snake($modelCurrent) . '_' . \Str::snake($model), $templateData);
         $templateData = str_replace('{{CATS}}', '', $templateData);
-        $fileName = self::REF_UPPER . $model . $modelCurrent . '.php';
+        $fileName = self::REF_UPPER . $modelCurrent . $model . '.php';
         $path = config('generator.path.laravel.model');
         $this->serviceFile->createFile($path, $fileName, $templateData);
 
@@ -519,7 +519,7 @@ Class RelationshipGenerator extends BaseGenerator
         $notDelete = config('generator.not_delete.laravel.db');
         $fieldModel = \Str::snake($model) . '_id';
         $fieldModelCurrent = \Str::snake($modelCurrent) . '_id';
-        $fileName = self::REF_UPPER . $model . $modelCurrent . 'TableSeeder.php';
+        $fileName = self::REF_UPPER . $modelCurrent . $model . 'TableSeeder.php';
         $pathTemplate = 'Databases/Seeds/';
         $templateData = $this->serviceGenerator->get_template("seeder", $pathTemplate);
         $fakerCreate = '$faker = Faker\Factory::create();';
@@ -529,8 +529,8 @@ Class RelationshipGenerator extends BaseGenerator
         $fieldRelationshipModelCurrent = $paramModelCurrent . " = \App\Models\\" . $modelCurrent . "::all()->pluck('id')->toArray();";
         $templateData = str_replace($fakerCreate, $fakerCreate . $this->serviceGenerator->infy_nl_tab(1, 2) . $fieldRelationshipModel . $this->serviceGenerator->infy_nl_tab(1, 2) . $fieldRelationshipModelCurrent, $templateData);
         $templateData = str_replace('{{DATE_TIME}}', $now->toDateTimeString(), $templateData);
-        $templateData = str_replace('{{TABLE_NAME_TITLE}}', self::REF_UPPER . $model . $modelCurrent, $templateData);
-        $templateData = str_replace('{{MODEL_CLASS}}', self::REF_UPPER . $model . $modelCurrent, $templateData);
+        $templateData = str_replace('{{TABLE_NAME_TITLE}}', self::REF_UPPER . $modelCurrent . $model, $templateData);
+        $templateData = str_replace('{{MODEL_CLASS}}', self::REF_UPPER . $modelCurrent . $model, $templateData);
         $templateData = str_replace('{{FIELDS}}', "'" . $fieldModel . "' => " . '$faker->randomElement(' . $paramModel . '),' . $this->serviceGenerator->infy_nl_tab(1, 4) . "'" . $fieldModelCurrent . "' => " . '$faker->randomElement(' . $paramModelCurrent . '),', $templateData);
         $templateData = str_replace($notDelete['seeder'], '', $templateData);
         $path = config('generator.path.laravel.seeder');

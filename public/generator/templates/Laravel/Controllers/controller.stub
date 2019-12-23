@@ -23,10 +23,10 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
      */
     function __construct()
     {
-        $this->middleware('permission:visit', ['only' => ['index']]);
-        $this->middleware('permission:create', ['only' => ['store']]);
-        $this->middleware('permission:edit', ['only' => ['show', 'update']]);
-        $this->middleware('permission:delete', ['only' => ['destroy']]);
+        $this->middleware('permission:' . \LaraJS_Permission::PERMISSION_VISIT, ['only' => ['index']]);
+        $this->middleware('permission:' . \LaraJS_Permission::PERMISSION_CREATE, ['only' => ['store']]);
+        $this->middleware('permission:' . \LaraJS_Permission::PERMISSION_EDIT, ['only' => ['show', 'update']]);
+        $this->middleware('permission:' . \LaraJS_Permission::PERMISSION_DELETE, ['only' => ['destroy']]);
     }
 
 	/**

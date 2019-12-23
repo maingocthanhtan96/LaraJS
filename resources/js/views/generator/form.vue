@@ -75,7 +75,7 @@
                   v-model="form"
                   :options="{draggable:'.draggable',animation: 400}"
                 >
-                  <el-form v-for="(data,index) in form" :key="'form_' + data.id" :ref="`dynamicFieldsForm${index}`"
+                  <el-form v-for="(data,index) in form" :key="'form_' + index" :ref="`dynamicFieldsForm${index}`"
                            :model="data" :rules="dynamicFieldsRules" class="divTableRow hover:bg-gray-200"
                            :class="{'draggable': !disabledMethod(index) && index >= formTemp.length}" status-icon>
                     <div class="divTableCell text-center align-middle">{{index + 1}}</div>
@@ -572,6 +572,7 @@ export default {
       for (let i = 0; i < this.form.length; i++) {
         newID = this.form[i].id + 1;
       }
+      console.log(newID);
       this.form.push({
         id: newID,
         field_name: '',
