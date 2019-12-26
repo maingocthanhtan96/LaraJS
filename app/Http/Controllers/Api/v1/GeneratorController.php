@@ -52,13 +52,14 @@ class GeneratorController extends Controller
             $ascending = $request->get('ascending', 0);
             $orderBy = $request->get('orderBy', '');
             $query = $request->get('query', '');
+            $betweenDate = $request->get('created_at', []);
 
             $columns = ['id' => 'id', 'created_at' => 'created_at'];
             $columnsWith = [];
             $columnSearch = ['table'];
             $with = [];
             $qs = new QueryService(new Generator());
-            $generator = $qs->queryTable($columns, $columnsWith, $query, $columnSearch, $with, $limit, $ascending, $orderBy);
+            $generator = $qs->queryTable($columns, $columnsWith, $query, $columnSearch, $with, $betweenDate, $limit, $ascending, $orderBy);
 
             return $this->jsonTable($generator);
         } catch (\Exception $e) {
@@ -255,7 +256,11 @@ class GeneratorController extends Controller
 
     private function _runCommand($model = [])
     {
-        if (isset($model['options']) && !$this->serviceGenerator->getOptions(config('generator.model.options.ignore_migrate'), $model['options'])) {
+        if (isset($model['options'])) {
+            if(!$this->serviceGenerator->getOptions(config('generator.model.options.ignore_migrate'), $model['options'])) {
+                Artisan::call('migrate --force');
+            }
+        } else {
             Artisan::call('migrate --force');
         }
         Artisan::call('vue-i18n:generate');

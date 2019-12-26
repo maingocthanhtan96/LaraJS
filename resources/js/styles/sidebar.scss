@@ -30,6 +30,11 @@
     .el-scrollbar {
       height: 100%;
     }
+    &.has-logo {
+      .el-scrollbar {
+        height: calc(100% - 50px);
+      }
+    }
 
     //reset element-ui css
     .horizontal-collapse-transition {
@@ -40,8 +45,6 @@
       overflow-x: hidden !important;
 
       .el-scrollbar__view {
-        height: 100%;
-
         .menu-wrapper {
           &:hover {
             background-color: $menuHover !important;

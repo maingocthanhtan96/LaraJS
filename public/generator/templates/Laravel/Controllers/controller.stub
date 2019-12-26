@@ -42,13 +42,14 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 			$ascending = $request->get('ascending', 0);
 			$orderBy = $request->get('orderBy', '');
 			$query = $request->get('query', '');
+			$betweenDate = $request->get('created_at', []);
 
 			$columns = {{COLUMN_SORT}};
 			$columnsWith = [];
 			$columnSearch = {{COLUMN_SEARCH}};
 			$with = {{COLUMN_RELATIONSHIP}};
 			$qs = new QueryService(new {{MODAL_CLASS}});
-			${{MODAL_CLASS_PARAM}} = $qs->queryTable($columns, $columnsWith, $query, $columnSearch, $with, $limit, $ascending, $orderBy);
+			${{MODAL_CLASS_PARAM}} = $qs->queryTable($columns, $columnsWith, $query, $columnSearch, $with, $betweenDate, $limit, $ascending, $orderBy);
 
 			return $this->jsonTable(${{MODAL_CLASS_PARAM}});
 		} catch (\Exception $e) {

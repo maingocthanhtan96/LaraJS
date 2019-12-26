@@ -34,7 +34,7 @@ class QueryService extends BaseService
      * @return mixed
      * @author tanmnt
      */
-    public function queryTable($columns = [], $columnsWith = [], $search = '', $columnSearch = [], $with = [], $limit = 25, $ascending = 0, $orderBy = 'created_at', $defaultOrderBy = 'created_at', $defaultDescending = 'desc')
+    public function queryTable($columns = [], $columnsWith = [], $search = '', $columnSearch = [], $with = [], $betweenDate = [], $limit = 25, $ascending = 0, $orderBy = 'created_at', $defaultOrderBy = 'created_at', $defaultDescending = 'desc')
     {
         $ascending = $ascending == 0 ? 'asc' : 'desc';
 
@@ -57,6 +57,14 @@ class QueryService extends BaseService
 
         $query->when($search, function ($q) use ($search, $columnSearch) {
             $q->whereLike($columnSearch, $search);
+        });
+
+        $query->when(!empty($betweenDate[0]), function($q) use($betweenDate) {
+            $q->whereDate('created_at', '>=', $betweenDate[0]);
+        });
+
+        $query->when(!empty($betweenDate[1]), function($q) use($betweenDate) {
+            $q->whereDate('created_at', '<=', $betweenDate[1]);
         });
 
         $query = $query->orderBy($defaultOrderBy, $defaultDescending);

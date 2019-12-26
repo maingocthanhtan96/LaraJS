@@ -40,7 +40,7 @@
                   <el-form-item :label="$t('generator.options')">
                     <el-checkbox-group v-model="formModel.options">
                       <el-checkbox label="Soft Deletes" checked :disabled="$route.params.id > 0"></el-checkbox>
-                      <el-checkbox label="Datatables" checked :disabled="$route.params.id > 0"></el-checkbox>
+                      <el-checkbox label="Datatables" :disabled="$route.params.id > 0"></el-checkbox>
                       <el-checkbox label="Role Admin" :disabled="$route.params.id > 0"></el-checkbox>
                       <el-tooltip class="item" effect="light" content="Not run artisan migrate" placement="top">
                         <el-checkbox label="Ignore Migrate" :disabled="$route.params.id > 0"></el-checkbox>
