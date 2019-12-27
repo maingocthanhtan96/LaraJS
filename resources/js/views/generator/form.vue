@@ -88,7 +88,7 @@
                     <div class="divTableCell text-center align-middle pt-8">
                       <el-form-item prop="field_name_trans">
                         <el-input placeholder="Field Name Trans" v-model="data.field_name_trans"
-                                  :disabled="disabledMethod(index)"></el-input>
+                                  :disabled="disabledMethod(index) || disableTrans(data.id)"></el-input>
                       </el-form-item>
                     </div>
                     <div class="divTableCell text-center align-middle pt-8">
@@ -201,12 +201,12 @@
                       </el-form-item>
                     </div>
                     <div class="divTableCell text-center align-middle" v-if="$route.params.id > 0">
-                      <el-select v-if="data.id > lastId" v-model="data.after_column" filterable placeholder="Select">
+                      <el-select v-if="disableAfterColumn(data.id)" v-model="data.after_column" filterable placeholder="Select">
                         <el-option
                           v-for="(item, index) in afterColumn"
                           :key="'after_column_' + index"
-                          :label="item"
-                          :value="item">
+                          :label="item.val"
+                          :value="item.val">
                         </el-option>
                       </el-select>
                     </div>
@@ -323,7 +323,6 @@ export default {
       afterColumn: [],
       notSearch: ['FILE', 'JSON'],
       notSoft: ['FILE', 'JSON'],
-      lastId: 0,
       loading: false,
     };
   },
@@ -336,13 +335,13 @@ export default {
           this.form = JSON.parse(data.field);
           this.formTemp = JSON.parse(data.field);
           this.formModel = JSON.parse(data.model);
-
-          this.lastId = this.form.slice(-1)[0].id;
         });
       await generatorResource.getColumns(this.formModel.name)
         .then(res => {
           const { data } = res.data;
-          this.afterColumn = data;
+          this.afterColumn = data.map(val => {
+            return { id: `temp-${val}`, val };
+          });
         });
     }
   },
@@ -572,7 +571,6 @@ export default {
       for (let i = 0; i < this.form.length; i++) {
         newID = this.form[i].id + 1;
       }
-      console.log(newID);
       this.form.push({
         id: newID,
         field_name: '',
@@ -581,10 +579,12 @@ export default {
         enum: [],
         default_value: 'NULL',
         as_define: '',
+        after_column: '',
         search: true,
         sort: true,
         show: true,
       });
+      this.afterColumn.push({ id: newID, val: '' });
     },
     removeRow(index) {
       this.$confirm(this.$t('generator.confirm_remove_row'), 'Warning', {
@@ -595,7 +595,11 @@ export default {
         if (this.$route.params.id && this.formTemp[index]) {
           this.formDrop.push(this.formTemp[index]);
           this.formTemp.splice(index, 1);
-          this.lastId -= 1;
+        }
+        const formCurrent = this.form[index];
+        const afterIndex = this.afterColumn.findIndex(val => val.val === formCurrent.field_name);
+        if (afterIndex !== -1) {
+          this.afterColumn.splice(afterIndex, 1);
         }
         this.form.splice(index, 1);
         this.$message({
@@ -614,6 +618,14 @@ export default {
         this.form[index].sort = false;
         this.form[index].search = false;
       }
+    },
+    disableAfterColumn(id) {
+      const formClone = _.cloneDeep(this.form);
+      formClone.splice(0, this.formTemp.length);
+      return formClone.some(val => val.id === id);
+    },
+    disableTrans(id) {
+      return this.formTemp.some(val => val.id === id);
     },
   },
   watch: {
@@ -638,6 +650,21 @@ export default {
           this.formRename.push({
             'field_name_new': val,
             'field_name_old': this.formTemp[index],
+          });
+        });
+        this.form.forEach((column, indexColumn) => {
+          this.afterColumn.forEach((field, indexField) => {
+            if (isNaN(field.id)) {
+              if (this.formTemp[indexColumn]) {
+                if (`temp-${this.formTemp[indexColumn].field_name}` === field.id) {
+                  this.afterColumn[indexField].val = column.field_name;
+                }
+              }
+              return;
+            }
+            if (column.id === field.id) {
+              this.afterColumn[indexField].val = column.field_name;
+            }
           });
         });
       },

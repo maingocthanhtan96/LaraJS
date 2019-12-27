@@ -111,11 +111,11 @@ class GeneratorController extends Controller
                 'dropFields' => $dropFields
             ];
             $this->_generateBackendUpdate($generator, $model, $updateFields);
-            $this->_generateFrontendUpdate($generator, $model, $updateFields);
-            $generator->update([
-                'field' => json_encode($fields),
-            ]);
-            $this->_runCommand();
+//            $this->_generateFrontendUpdate($generator, $model, $updateFields);
+//            $generator->update([
+//                'field' => json_encode($fields),
+//            ]);
+//            $this->_runCommand();
             return $this->jsonSuccess(trans('messages.success'));
         } catch (\Exception $e) {
             return $this->jsonError($e->getMessage());
@@ -236,12 +236,12 @@ class GeneratorController extends Controller
     private function _generateBackendUpdate($generator, $model, $updateFields)
     {
         new MigrationUpdateGenerator($generator, $model, $updateFields);
-        new ModelUpdateGenerator($model, $updateFields);
-        new SeederUpdateGenerator($generator, $model, $updateFields);
-        new ControllerUpdateGenerator($model, $updateFields);
-        new LangUpdateGenerator($model, $updateFields);
-        new RequestUpdateGenerator($generator, $model, $updateFields);
-        new SwaggerUpdateGenerator($generator, $model, $updateFields);
+//        new ModelUpdateGenerator($model, $updateFields);
+//        new SeederUpdateGenerator($generator, $model, $updateFields);
+//        new ControllerUpdateGenerator($model, $updateFields);
+//        new LangUpdateGenerator($model, $updateFields);
+//        new RequestUpdateGenerator($generator, $model, $updateFields);
+//        new SwaggerUpdateGenerator($generator, $model, $updateFields);
     }
 
     private function _generateFrontendUpdate($generator, $model, $updateFields)

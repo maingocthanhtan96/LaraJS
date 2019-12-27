@@ -58,7 +58,7 @@ class UserController extends Controller
             $columnSearch = ['name', 'email'];
             $with = ['roles'];
             $qs = new QueryService(new User);
-            $users = $qs->queryTable($columns, $columnsWith, $query, $columnSearch, $betweenDate, $with, $limit, $ascending, $orderBy);
+            $users = $qs->queryTable($columns, $columnsWith, $query, $columnSearch, $with, $betweenDate, $limit, $ascending, $orderBy);
 
             return $this->jsonTable($users);
         } catch (\Exception $e) {
