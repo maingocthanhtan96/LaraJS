@@ -7,47 +7,63 @@
             <i class="el-icon-plus mr-2" />{{this.$t('button.create')}}
           </router-link>
         </div>
-        <el-col :span="24" class="mb-6">
-          <el-col :span="6">
-            <label>{{ $t('table.texts.filter') }}</label>
-            <el-input v-model="table.listQuery.query" :placeholder="$t('table.texts.filterPlaceholder')"/>
+        <div class="flex flex-col">
+          <el-col :span="24" class="mb-6">
+            <el-col :xs="24" :sm="10" :md="6">
+              <label>{{ $t('table.texts.filter') }}</label>
+              <el-input v-model="table.listQuery.query" :placeholder="$t('table.texts.filterPlaceholder')"/>
+            </el-col>
+            <el-col :xs="24" :sm="14" :md="18">
+              <br/>
+              <el-date-picker
+                v-model="table.listQuery.created_at"
+                class="md:float-right"
+                type="daterange"
+                :start-placeholder="$t('date.start_date')"
+                :end-placeholder="$t('date.end_date')"
+                :picker-options="pickerOptions"
+                @change="changeDateRangePicker"
+              >
+              </el-date-picker>
+            </el-col>
           </el-col>
-        </el-col>
-        <el-col :span="24" class="table-responsive">
-          <el-table
-            v-loading="table.loading"
-            :data="table.list"
-            border
-            fit
-            highlight-current-row
-            class="w-full"
-            @sort-change="sortChange"
-            >
-              <el-table-column align="center" sortable="custom" :label="$t('table.{{$TABLE_MODEL_CLASS$}}.id')" width="50px">
-                <template slot-scope="{ $index }">
-                  {{ (table.listQuery.page - 1) + $index + 1 }}
-                </template>
-              </el-table-column>
-              <!--{{$TEMPLATES_NOT_DELETE_THIS_LINE$}}-->
-              <el-table-column data-generator="created_at" prop="created_at" :label="$t('date.created_at')" sortable="custom" align="center" header-align="center">
-                <template slot-scope="{ row }">
-                  {{ row.created_at | parseTime('{y}-{m}-{d}') }}
-                </template>
-              </el-table-column>
-              <el-table-column :label="$t('table.actions')" align="center" class-name="small-padding fixed-width">
-                <template slot-scope="props">
-                  <router-link v-permission="['edit']" :to="{name: '{{$CONST_MODEL_CLASS$}}_edit', params: {id: props.row.id}}"><i class="el-icon-edit el-link el-link--primary mr-2"></i></router-link>
-                  <a v-permission="['delete']" class="cursor-pointer" @click.stop="remove(props.row.id, props.index)"><i class="el-icon-delete el-link el-link--danger"></i></a>
-                </template>
-              </el-table-column>
-            </el-table>
-            <pagination v-if="table.total > 0" :total="table.total" :page.sync="table.listQuery.page" :limit.sync="table.listQuery.limit" @pagination="getList" />
-        </el-col>
+          <el-col :span="24" class="table-responsive">
+            <el-table
+              class="w-full"
+              v-loading="table.loading"
+              :data="table.list"
+              border
+              fit
+              highlight-current-row
+              @sort-change="sortChange"
+              >
+                <el-table-column align="center" sortable="custom" :label="$t('table.{{$TABLE_MODEL_CLASS$}}.id')" width="70px">
+                  <template slot-scope="{ $index }">
+                    {{ (table.listQuery.page - 1) + $index + 1 }}
+                  </template>
+                </el-table-column>
+                <!--{{$TEMPLATES_NOT_DELETE_THIS_LINE$}}-->
+                <el-table-column data-generator="created_at" prop="created_at" :label="$t('date.created_at')" sortable="custom" align="center" header-align="center">
+                  <template slot-scope="{ row }">
+                    {{ row.created_at | parseTime('{y}-{m}-{d}') }}
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('table.actions')" align="center" class-name="small-padding fixed-width">
+                  <template slot-scope="props">
+                    <router-link v-permission="['edit']" :to="{name: '{{$CONST_MODEL_CLASS$}}_edit', params: {id: props.row.id}}"><i class="el-icon-edit el-link el-link--primary mr-2"></i></router-link>
+                    <a v-permission="['delete']" class="cursor-pointer" @click.stop="remove(props.row.id, props.index)"><i class="el-icon-delete el-link el-link--danger"></i></a>
+                  </template>
+                </el-table-column>
+              </el-table>
+              <pagination v-if="table.total > 0" :total="table.total" :page.sync="table.listQuery.page" :limit.sync="table.listQuery.limit" @pagination="getList" />
+          </el-col>
+        </div>
       </el-card>
     </el-col>
   </el-row>
 </template>
 <script>
+  import dateRangePicker from '@/plugins/mixins/dateRangePicker';
   import Pagination from '@/components/Pagination'; // Secondary package based on el-pagination
   import {debounce} from '@/utils';
   import {{$MODEL_CLASS$}}Resource from '@/api/{{$CONST_MODEL_CLASS$}}';
@@ -64,6 +80,7 @@
             ascending: 1,
             page: 1,
             orderBy: '',
+            created_at: [new Date().getTime() - 3600 * 1000 * 24 * 30, new Date()],
           },
           list: null,
           total: 0,
@@ -71,7 +88,8 @@
         },
       }
     },
-    created() {
+    mixins: [dateRangePicker],
+    mounted() {
       this.getList();
     },
     methods: {
@@ -87,6 +105,12 @@
       handleFilter() {
         this.table.listQuery.page = 1;
         this.getList();
+      },
+      changeDateRangePicker(date) {
+        const startDate = this.$options.filters.parseTime(date[0], '{y}-{m}-{d}');
+        const endDate = this.$options.filters.parseTime(date[1], '{y}-{m}-{d}');
+        this.table.listQuery.created_at = [startDate, endDate];
+        this.handleFilter();
       },
       sortChange(data) {
         const { prop, order } = data;

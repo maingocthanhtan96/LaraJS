@@ -16519,6 +16519,10 @@ table th {
   height: 100%;
 }
 
+#app .sidebar-container.has-logo .el-scrollbar {
+  height: calc(100% - 50px);
+}
+
 #app .sidebar-container .horizontal-collapse-transition {
   -webkit-transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
   transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
@@ -16526,10 +16530,6 @@ table th {
 
 #app .sidebar-container .scrollbar-wrapper {
   overflow-x: hidden !important;
-}
-
-#app .sidebar-container .scrollbar-wrapper .el-scrollbar__view {
-  height: 100%;
 }
 
 #app .sidebar-container .scrollbar-wrapper .el-scrollbar__view .menu-wrapper:hover {

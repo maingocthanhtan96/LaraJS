@@ -51,13 +51,14 @@ class UserController extends Controller
             $ascending = $request->get('ascending', 0);
             $orderBy = $request->get('orderBy', '');
             $query = $request->get('query', '');
+            $betweenDate = $request->get('created_at', []);
 
             $columns = ['id' => 'id', 'email' => 'email', 'created_at' => 'created_at'];
             $columnsWith = [];
             $columnSearch = ['name', 'email'];
             $with = ['roles'];
             $qs = new QueryService(new User);
-            $users = $qs->queryTable($columns, $columnsWith, $query, $columnSearch, $with, $limit, $ascending, $orderBy);
+            $users = $qs->queryTable($columns, $columnsWith, $query, $columnSearch, $with, $betweenDate, $limit, $ascending, $orderBy);
 
             return $this->jsonTable($users);
         } catch (\Exception $e) {

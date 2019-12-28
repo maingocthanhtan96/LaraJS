@@ -1,0 +1,5 @@
+<el-table-column data-generator="{{$FIELD_NAME_RELATIONSHIP$}}" prop="{{$FIELD_NAME_RELATIONSHIP$}}" {{$SORT$}} :label="$t('route.{{$TABLE_MODEL_CLASS$}}')" align="{{$ALIGN$}}" header-align="center">
+                <template slot-scope="{ row }">
+                  {{ row.{{$FIELD_NAME$}} }}
+                </template>
+              </el-table-column>

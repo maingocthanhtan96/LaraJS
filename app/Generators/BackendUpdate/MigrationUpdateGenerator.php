@@ -73,6 +73,12 @@ Class  MigrationUpdateGenerator extends BaseGenerator
 
         foreach ($updateFields['updateFields'] as $index => $field) {
             $table = '';
+            $afterColumn = '';
+            if($field['after_column']) {
+                $afterColumn = $field['after_column'];
+                $afterColumn = '->after("'.$afterColumn.'")';
+            }
+
             foreach ($configDBType as $typeLaravel => $typeDB) {
                 if ($field['db_type'] === $configDBType['enum']) {
                     $enum = '';
@@ -104,7 +110,7 @@ Class  MigrationUpdateGenerator extends BaseGenerator
                 $table .= '->nullable()->default("' . $field['as_define'] . '")';
             }
             if ($table) {
-                $table .= '; // Update';
+                $table .= $afterColumn . '; // Update';
                 $fieldsGenerate[] = $table;
             }
         }

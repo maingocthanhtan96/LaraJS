@@ -1,0 +1,13 @@
+<el-table-column data-generator="{{$FIELD_NAME$}}" prop="{{$FIELD_NAME$}}" {{$SORT$}} :label="$t('route.{{$TABLE_MODEL_CLASS$}}')" align="{{$ALIGN$}}" header-align="center">
+                  <template slot-scope="{ row }">
+                    <template v-for="(item) in row.{{$MODEL_RELATIONSHIP$}}">
+                      <el-tag
+                        class="mr-2"
+                        :key="'{{$FIELD_NAME$}}_' + item.id"
+                        size="medium"
+                      >
+                        {{item.{{$COLUMN_DISPLAY$}}}}
+                      </el-tag>
+                    </template>
+                  </template>
+                </el-table-column>
