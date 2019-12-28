@@ -11,6 +11,7 @@
 /public/js/app.js
 /public/js/manifest.js
 /public/js/vendor.js
+/public/mix-manifest.json
 /.idea
 /v8-compile-cache-0
 .env
