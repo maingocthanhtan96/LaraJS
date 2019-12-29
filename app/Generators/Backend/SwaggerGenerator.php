@@ -159,9 +159,9 @@ Class SwaggerGenerator extends BaseGenerator
                         $enum = '';
                         foreach ($field['enum'] as $keyEnum => $value) {
                             if ($keyEnum === count($field['enum']) - 1) {
-                                $enum .= "$value";
+                                $enum .= "'".$value."'";
                             } else {
-                                $enum .= "$value" . ',';
+                                $enum .= "'".$value."'" . ',';
                             }
                         }
                         $templateProperty = $this->serviceGenerator->get_template("propertyEnum", 'Swagger/');
