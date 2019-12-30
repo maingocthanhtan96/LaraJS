@@ -6,6 +6,8 @@ return [
     'end_date' => 'Ngày kết thúc',
     'today' => 'Hôm nay',
     'yesterday' => 'Hôm qua',
+    'this_week' => 'Tuần này',
+    'last_week' => 'Tuần trước',
     'last_7_days' => '7 ngày trước',
     'last_14_days' => '14 ngày trước',
     'last_30_days' => '30 ngày trước',

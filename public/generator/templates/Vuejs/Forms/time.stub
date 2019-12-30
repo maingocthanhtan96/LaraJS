@@ -1,6 +1,5 @@
 <el-form-item data-generator="{{$FORM_FIELD$}}" :label="{{$LABEL_NAME_INPUT$}}" {{$PROP_NAME$}} >
             <el-time-picker
-              name="{{$FORM_FIELD$}}"
               v-model="form.{{$FORM_FIELD$}}"
               :placeholder="{{$LABEL_NAME_INPUT$}}"
               value-format="HH:mm:ss"

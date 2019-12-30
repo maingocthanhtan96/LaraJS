@@ -6,6 +6,8 @@ return [
     'end_date' => 'End date',
     'today' => 'Today',
     'yesterday' => 'Yesterday',
+    'this_week' => 'This week',
+    'last_week' => 'Last week',
     'last_7_days' => 'Last 7 days',
     'last_14_days' => 'Last 14 days',
     'last_30_days' => 'Last 30 days',

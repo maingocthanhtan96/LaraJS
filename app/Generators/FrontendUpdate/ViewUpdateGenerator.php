@@ -670,6 +670,7 @@ Class ViewUpdateGenerator extends BaseGenerator
         $templateDataUploadParse = $this->serviceGenerator->get_template("uploadParse", $pathTemplate, 'vuejs');
         $templateBoolean = $this->serviceGenerator->get_template("boolean", $pathTemplate, 'vuejs');
 
+        $fieldsGenerate = '';
         if ($field['db_type'] === $this->dbType['longtext']) {
             $fieldsGenerate = str_replace('{{$FIELD_NAME$}}', $field['field_name'], $templateDataLongText);
         } else if ($field['db_type'] === $this->dbType['file']) {
@@ -678,7 +679,9 @@ Class ViewUpdateGenerator extends BaseGenerator
             $fieldsGenerate = str_replace('{{$FIELD_NAME$}}', $field['field_name'], $templateBoolean);
         }
 
-        return $fieldsGenerate;
+        if($fieldsGenerate) {
+            return $fieldsGenerate;
+        }
     }
 
     private function replaceTemplate($fieldsGenerate, $tab)

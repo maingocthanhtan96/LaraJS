@@ -5,6 +5,5 @@
               type="textarea"
               autosize
               :placeholder="{{$LABEL_NAME_INPUT$}}"
-              {{$AUTO_FOCUS_INPUT$}}
             />
           </el-form-item>

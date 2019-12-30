@@ -4,7 +4,6 @@
              placement="top"
            >
              <el-switch
-               name="{{$FORM_FIELD$}}"
                v-model="form.{{$FORM_FIELD$}}"
                :active-value="1"
                :inactive-value="0"
