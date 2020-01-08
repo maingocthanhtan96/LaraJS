@@ -54,7 +54,7 @@ class PermissionController extends Controller
 
             return $this->jsonData(new PermissionResource($permission));
         } catch (\Exception $e) {
-            $this->jsonError($e->getMessage());
+            $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
 
@@ -94,7 +94,7 @@ class PermissionController extends Controller
 
             return $this->jsonData(new PermissionResource($permission));
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage());
+            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
 
@@ -113,7 +113,7 @@ class PermissionController extends Controller
 
             return $this->jsonSuccess(trans('messages.delete'));
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage());
+            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
 }

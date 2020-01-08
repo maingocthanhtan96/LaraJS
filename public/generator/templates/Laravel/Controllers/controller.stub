@@ -53,7 +53,7 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 
 			return $this->jsonTable(${{MODAL_CLASS_PARAM}});
 		} catch (\Exception $e) {
-			return $this->jsonError($e->getMessage());
+			return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
 		}
 	}
 
@@ -71,7 +71,7 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 
 			return $this->jsonData(${{MODAL_CLASS_PARAM}}, 201);
 		} catch (\Exception $e) {
-			return $this->jsonError($e->getMessage());
+			return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
 		}
 	}
 
@@ -107,7 +107,7 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 
 			return $this->jsonData(${{MODAL_CLASS_PARAM}});
 		} catch (\Exception $e) {
-			return $this->jsonError($e->getMessage());
+			return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
 		}
 	}
 
@@ -125,7 +125,7 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 
 		    return $this->jsonSuccess(trans('messages.delete'), 204);
 	    } catch (\Exception $e) {
-	    	return $this->jsonError($e->getMessage());
+	    	return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
 	    }
     }
 

@@ -48,11 +48,13 @@ class Controller extends BaseController
      * @return \Illuminate\Http\JsonResponse
      * @author tanmnt
      */
-    public function jsonError($message, $status = 500)
+    public function jsonError($message, $file = '', $line = '', $status = 500)
     {
         return response()->json([
             'success' => false,
-            'message' => $message
+            'message' => $message,
+            'file' => $file,
+            'line' => $line,
         ], $status);
     }
 

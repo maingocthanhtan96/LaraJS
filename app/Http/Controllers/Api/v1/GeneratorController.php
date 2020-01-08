@@ -63,7 +63,7 @@ class GeneratorController extends Controller
 
             return $this->jsonTable($generator);
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage());
+            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
 
@@ -91,7 +91,7 @@ class GeneratorController extends Controller
             $this->_runCommand($model);
             return $this->jsonSuccess(trans('messages.success'));
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage());
+            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
 
@@ -118,7 +118,7 @@ class GeneratorController extends Controller
             $this->_runCommand();
             return $this->jsonSuccess(trans('messages.success'));
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage());
+            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
 
@@ -154,7 +154,7 @@ class GeneratorController extends Controller
             $this->_runCommand();
             return $this->jsonSuccess(trans('messages.success'));
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage());
+            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
 
@@ -166,7 +166,7 @@ class GeneratorController extends Controller
 
             return $this->jsonData($diagram);
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage());
+            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
 
@@ -190,7 +190,7 @@ class GeneratorController extends Controller
             }
             return $this->jsonData($modelData);
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage());
+            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
 
@@ -203,7 +203,7 @@ class GeneratorController extends Controller
 
             return $this->jsonData($columns);
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage());
+            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
 

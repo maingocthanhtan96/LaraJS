@@ -34,7 +34,7 @@ class UserController extends Controller
 
             return $this->jsonData(new UserResource($user));
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage());
+            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
 
@@ -62,7 +62,7 @@ class UserController extends Controller
 
             return $this->jsonTable($users);
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage());
+            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
 
@@ -81,7 +81,7 @@ class UserController extends Controller
 
             return $this->jsonData($user, 201);
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage());
+            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
 
@@ -121,7 +121,7 @@ class UserController extends Controller
 
             return $this->jsonData($user);
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage());
+            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
 
@@ -142,7 +142,7 @@ class UserController extends Controller
 
             return $this->jsonSuccess(trans('messages.delete'), 204);
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage());
+            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
 
