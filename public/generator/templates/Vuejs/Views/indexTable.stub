@@ -71,6 +71,7 @@
 
   export default {
     components: { Pagination },
+    mixins: [dateRangePicker],
     data() {
       return {
         table: {
@@ -88,7 +89,6 @@
         },
       }
     },
-    mixins: [dateRangePicker],
     mounted() {
       this.getList();
     },
