@@ -58,7 +58,7 @@ Class SeederGenerator extends BaseGenerator
                         break;
                     case $dbType['float']:
                     case $dbType['double']:
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . '$faker->randomFloat()' . ',';
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . '$faker->randomFloat(2, 1000, 9000)' . ',';
                         break;
                     case $dbType['boolean']:
                         $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . '$faker->numberBetween(0, 1)' . ',';

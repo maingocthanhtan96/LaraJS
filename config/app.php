@@ -175,7 +175,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        Barryvdh\Cors\ServiceProvider::class,
         MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,

@@ -106,7 +106,7 @@ Class SeederUpdateGenerator extends BaseGenerator
                 break;
             case $this->dbType['float']:
             case $this->dbType['double']:
-                $fieldsGenerate = "'" . $change['field_name'] . "'" . ' => ' . '$faker->randomFloat()' . ',';
+                $fieldsGenerate = "'" . $change['field_name'] . "'" . ' => ' . '$faker->randomFloat(2, 1000, 9000)' . ',';
                 break;
             case $this->dbType['boolean']:
                 $fieldsGenerate = "'" . $change['field_name'] . "'" . ' => ' . '$faker->numberBetween(0, 1)' . ',';

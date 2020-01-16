@@ -128,7 +128,7 @@ Class RelationshipGenerator extends BaseGenerator
             $templateData = $this->_replaceTemplateRelationship($model, $modelCurrent, $templateData);
             $fileName = date('Y_m_d_His') . '_' . 'relationship_' . $this->serviceGenerator->tableName($model) . '_table.php';
             $this->_generateModel($modelCurrent, $model);
-            $this->_generateSeeder($modelCurrent);
+            $this->_generateSeeder($modelCurrent, $model);
             $this->_generateRoute($modelCurrent);
             $this->_generateController($modelCurrent, $model, $options, $column, $relationship);
             //generate frontend
@@ -564,7 +564,7 @@ Class RelationshipGenerator extends BaseGenerator
         return $templateData;
     }
 
-    private function _generateSeeder($model)
+    private function _generateSeeder($model, $modelRelationship)
     {
         $field = \Str::snake($model) . self::_ID;
         $notDelete = config('generator.not_delete.laravel.db');
@@ -575,7 +575,7 @@ Class RelationshipGenerator extends BaseGenerator
         $fieldRelationship = $param . " = \App\Models\\" . $model . "::all()->pluck('id')->toArray();";
         $templateDataReal = str_replace($fakerCreate, $fakerCreate . $this->serviceGenerator->infy_nl_tab(1, 2) . $fieldRelationship, $templateDataReal);
         $templateDataReal = $this->serviceGenerator->replaceNotDelete($notDelete['seeder'], "'" . $field . "' => " . '$faker->randomElement(' . $param . '),', 4, $templateDataReal);
-        $this->_createFileAll('seeder', $model . 'TableSeeder', $templateDataReal);
+        $this->_createFileAll('seeder', $modelRelationship . 'TableSeeder', $templateDataReal);
         return $templateDataReal;
     }
 
