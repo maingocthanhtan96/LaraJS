@@ -533,7 +533,7 @@ Class RelationshipGenerator extends BaseGenerator
         $arTemplate = explode(',', trim($template));
         foreach ($arTemplate as $tpl) {
             if (strlen($tpl) > 0) {
-                $fieldsGenerate[] = $tpl . ',';
+                $fieldsGenerate[] = trim($tpl) . ',';
             }
         }
         $fieldsGenerate[] = "'" . $field . "'" . ',';
@@ -568,7 +568,7 @@ Class RelationshipGenerator extends BaseGenerator
     {
         $field = \Str::snake($model) . self::_ID;
         $notDelete = config('generator.not_delete.laravel.db');
-        $fileName = $model . 'TableSeeder.php';
+        $fileName = $modelRelationship . 'TableSeeder.php';
         $templateDataReal = $this->serviceGenerator->getFile('seeder', 'laravel', $fileName);
         $fakerCreate = '$faker = Faker\Factory::create();';
         $param = '$' . \Str::camel(\Str::plural($model));
