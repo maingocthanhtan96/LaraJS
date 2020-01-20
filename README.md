@@ -55,9 +55,13 @@ sudo docker-compose up -d nginx php-fpm mariadb workspace
 sudo docker-compose exec workspace bash
 
 # Init project
+# https://github.com/beyondcode/laravel-er-diagram-generator
 apt-get install graphviz #(For ubuntu)
 composer install
 composer dump-autoload
+
+# Create .env from .env.example
+cp .env.example .env
 
 # Generate application key
 php artisan key:generate
@@ -70,9 +74,6 @@ npm install && npm install -g cross-env && npm rebuild node-sass
 
 #Generate file lang
 php artisan vue-i18n:generate
-
-# Create .env from .env.example
-cp .env.example .env
 
 # Config Virtual host 
 Exemple: http://local.larajs.com
