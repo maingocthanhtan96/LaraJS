@@ -263,10 +263,10 @@ class GeneratorController extends Controller
         } else {
             Artisan::call('migrate --force');
         }
-        Artisan::call('vue-i18n:generate');
         $resourcePath = resource_path('js/assets/images/diagram-erd.png');
-        Artisan::call('generate:erd ' . $resourcePath);
         $basePath = base_path();
+        Artisan::call('vue-i18n:generate');
+        exec("cd $basePath && php artisan $resourcePath");
         exec("cd $basePath && ./swagger.sh");
         if (env('APP_ENV') === 'production') {
             exec("cd $basePath && npm run dev");
