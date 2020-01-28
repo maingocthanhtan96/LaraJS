@@ -83,7 +83,7 @@ Class ViewUpdateGenerator extends BaseGenerator
             foreach ($columns as $col) {
                 if (strlen($col) > 0) {
                     $col = trim($col);
-                    $col = trim($col, "''");
+                    $col = $this->serviceGenerator->trimQuotes($col);
                     if ($rename['field_name_old']['field_name'] === $col) {
                         $fieldsGenerateColumns[] = "'" . $rename['field_name_new']['field_name'] . "'";
                     } else {
@@ -112,6 +112,7 @@ Class ViewUpdateGenerator extends BaseGenerator
                     $keyHeading = trim($keyHeading);
                     $valHeading = trim($valHeading);
                     $keyHeading = trim($keyHeading, "'':");
+                    $keyHeading = trim($keyHeading, '"":');
                     if ($rename['field_name_old']['field_name'] === $keyHeading) {
                         $fieldsGenerateHeadings[] = "'" . $rename['field_name_new']['field_name'] . "'" . ': () => this.$t("table.' . $this->serviceGenerator->tableNameNotPlural($model['name']) . '.' . $rename['field_name_new']['field_name'] . '")' . ',';
                     } else {
@@ -135,6 +136,7 @@ Class ViewUpdateGenerator extends BaseGenerator
                     $keyClass = trim($keyClass);
                     $valClass = trim($valClass);
                     $keyClass = trim($keyClass, "'':");
+                    $keyClass = trim($keyClass, '"":');
                     if ($rename['field_name_old']['field_name'] === $keyClass) {
                         $fieldsGenerateClasses[] = "'" . $rename['field_name_new']['field_name'] . "': $valClass,";
                     } else {
@@ -154,7 +156,7 @@ Class ViewUpdateGenerator extends BaseGenerator
             foreach ($sortable as $sort) {
                 if (strlen($sort) > 0) {
                     $sort = trim($sort);
-                    $sort = trim($sort, "''");
+                    $sort = $this->serviceGenerator->trimQuotes($sort);
                     if ($rename['field_name_old']['field_name'] === $sort) {
                         $fieldsGenerateSortable[] = "'" . $rename['field_name_new']['field_name'] . "'";
                     } else {
@@ -236,7 +238,7 @@ Class ViewUpdateGenerator extends BaseGenerator
             foreach ($columns as $col) {
                 if (strlen($col) > 0) {
                     $col = trim($col);
-                    $col = trim($col, "''");
+                    $col = $this->serviceGenerator->trimQuotes($col);
                     if ($update['field_name'] === $col) {
                         if ($update['show']) {
                             $fieldsGenerateColumns[] = "'" . $update['field_name'] . "'";
@@ -267,6 +269,7 @@ Class ViewUpdateGenerator extends BaseGenerator
                     $keyHeading = trim($keyHeading);
                     $valHeading = trim($valHeading);
                     $keyHeading = trim($keyHeading, "'':");
+                    $keyHeading = trim($keyHeading, '"":');
                     if ($update['field_name'] === $keyHeading) {
                         if ($update['show']) {
                             $fieldsGenerateHeadings[] = "'" . $update['field_name'] . "'" . ': () => this.$t("table.' . $this->serviceGenerator->tableNameNotPlural($model['name']) . '.' . $update['field_name'] . '")' . ',';
@@ -292,6 +295,7 @@ Class ViewUpdateGenerator extends BaseGenerator
                     $keyClass = trim($keyClass);
                     $valClass = trim($valClass);
                     $keyClass = trim($keyClass, "'':");
+                    $keyClass = trim($keyClass, '"":');
                     if ($update['field_name'] === $keyClass) {
                         if ($update['show']) {
                             switch ($update['db_type']) {
@@ -349,7 +353,7 @@ Class ViewUpdateGenerator extends BaseGenerator
             foreach ($sortable as $sort) {
                 if (strlen($sort) > 0) {
                     $sort = trim($sort);
-                    $sort = trim($sort, "''");
+                    $sort = $this->serviceGenerator->trimQuotes($sort);
                     if ($update['field_name'] === $sort) {
                         if ($update['sort']) {
                             $fieldsGenerateSortable[] = "'" . $update['field_name'] . "'";
@@ -429,7 +433,7 @@ Class ViewUpdateGenerator extends BaseGenerator
             foreach ($columns as $col) {
                 if (strlen($col) > 0) {
                     $col = trim($col);
-                    $col = trim($col, "''");
+                    $col = $this->serviceGenerator->trimQuotes($col);
                     $name = "'" . $col . "'";
                     if ($drop['field_name'] !== $col && !in_array($name, $fieldsGenerateColumns)) {
                         if ($col === self::CREATE_AT || $col === self::ACTIONS) {
@@ -454,6 +458,7 @@ Class ViewUpdateGenerator extends BaseGenerator
                     $keyHeading = trim($keyHeading);
                     $valHeading = trim($valHeading);
                     $keyHeading = trim($keyHeading, "'':");
+                    $keyHeading = trim($keyHeading, '"":');
                     $name = "'" . $keyHeading . "'" . ': () => ' . $valHeading . ',';
                     if ($drop['field_name'] !== $keyHeading && !in_array($name, $fieldsGenerateHeadings)) {
                         if ($keyHeading === self::CREATE_AT) {
@@ -473,6 +478,7 @@ Class ViewUpdateGenerator extends BaseGenerator
                     $keyClass = trim($keyClass);
                     $valClass = trim($valClass);
                     $keyClass = trim($keyClass, "'':");
+                    $keyClass = trim($keyClass, '"":');
                     $name = "'" . $keyClass . "': $valClass,";
                     if ($drop['field_name'] !== $keyClass && !in_array($name, $fieldsGenerateClasses)) {
                         if ($keyClass === self::CREATE_AT) {
@@ -488,7 +494,7 @@ Class ViewUpdateGenerator extends BaseGenerator
             foreach ($sortable as $sort) {
                 if (strlen($sort) > 0) {
                     $sort = trim($sort);
-                    $sort = trim($sort, "''");
+                    $sort = $this->serviceGenerator->trimQuotes($sort);
                     $name = "'" . $sort . "'";
                     if ($drop['field_name'] !== $sort && !in_array($name, $fieldsGenerateSortable)) {
                         if ($sort === self::CREATE_AT) {

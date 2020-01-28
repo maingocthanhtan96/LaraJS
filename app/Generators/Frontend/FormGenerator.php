@@ -90,7 +90,7 @@ Class FormGenerator extends BaseGenerator
                     $fieldsGenerate[] = $this->generateDateTime('year', $tableName, $field);
                     break;
                 case $this->dbType['string']:
-                    $fieldsGenerate[] = $this->generateInput('input', $tableName, $field, $index);
+                    $fieldsGenerate[] = $this->generateInput('input', $tableName, $field, $index, $this->dbType['string']);
                     break;
                 case $this->dbType['text']:
                     $fieldsGenerate[] = $this->generateInput('textarea', $tableName, $field, $index);
@@ -157,13 +157,16 @@ Class FormGenerator extends BaseGenerator
         return $formTemplate;
     }
 
-    private function generateInput($fileName, $tableName, $field, $index)
+    private function generateInput($fileName, $tableName, $field, $index, $dbType = '')
     {
         $formTemplate = $this->getFormTemplate($fileName);
         $formTemplate = $this->replaceLabelForm($tableName, $field, $formTemplate);
         $formTemplate = $this->checkRequired($field, $formTemplate);
         $formTemplate = $this->replaceAutoFocus($index, $formTemplate);
         $formTemplate = $this->replaceFormField($field, $formTemplate);
+        if($dbType === $this->dbType['string']) {
+            $formTemplate = str_replace('{{MAX_LENGTH}}', $field['length_varchar'], $formTemplate);
+        }
         return $formTemplate;
     }
 

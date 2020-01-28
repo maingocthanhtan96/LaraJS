@@ -94,7 +94,7 @@ Class RequestUpdateGenerator extends BaseGenerator
                     list($keyField, $valField) = explode(' => ', $req);
                     $keyField = trim($keyField);
                     $valField = trim($valField);
-                    $keyField = trim($keyField, "'");
+                    $keyField = $this->serviceGenerator->trimQuotes($keyField);
 
                     if ($change['field_name'] === $keyField) {
                         if ($change['default_value'] === $this->configDefaultValue['none']) {
@@ -142,7 +142,7 @@ Class RequestUpdateGenerator extends BaseGenerator
                     list($keyField, $valField) = explode(' => ', $req);
                     $keyField = trim($keyField);
                     $valField = trim($valField);
-                    $keyField = trim($keyField, "'");
+                    $keyField = $this->serviceGenerator->trimQuotes($keyField);
                     $value = "'" . $keyField . "' => $valField";
                     if ($keyField !== $drop['field_name']) {
                         if (!in_array($value, $fieldsGenerator) && !in_array($keyField, $arrayChange)) {
@@ -202,6 +202,8 @@ Class RequestUpdateGenerator extends BaseGenerator
                     $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:Y'" . ',';
                     break;
                 case $this->dbType['string']:
+                    $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|string|max:{$field['length_varchar']}'" . ',';
+                    break;
                 case $this->dbType['text']:
                 case $this->dbType['longtext']:
                 case $this->dbType['file']:

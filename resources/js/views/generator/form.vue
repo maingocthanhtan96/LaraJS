@@ -114,7 +114,7 @@
                           </el-option-group>
                         </el-select>
                       </el-form-item>
-                      <div v-if="data.db_type === 'ENUM'">
+                      <template v-if="data.db_type === 'ENUM'">
                         <el-form-item prop="enum">
                           <el-select
                             v-model="data.enum"
@@ -125,7 +125,12 @@
                             placeholder="Enum">
                           </el-select>
                         </el-form-item>
-                      </div>
+                      </template>
+                      <template v-if="data.db_type === 'VARCHAR'">
+                        <el-form-item prop="length_varchar">
+                          <el-input-number v-model="data.length_varchar" :min="1" :max="191"></el-input-number>
+                        </el-form-item>
+                      </template>
                     </div>
                     <div class="divTableCell text-center align-middle pt-8">
                       <el-form-item prop="default_value">
@@ -275,6 +280,7 @@ export default {
           field_name_trans: 'No.',
           db_type: 'Increments',
           enum: [],
+          length_varchar: 191,
           default_value: 'None',
           as_define: '',
           after_column: '',
@@ -577,6 +583,7 @@ export default {
         field_name_trans: '',
         db_type: 'VARCHAR',
         enum: [],
+        length_varchar: 191,
         default_value: 'NULL',
         as_define: '',
         after_column: '',

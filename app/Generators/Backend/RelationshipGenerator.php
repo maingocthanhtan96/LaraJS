@@ -248,7 +248,7 @@ Class RelationshipGenerator extends BaseGenerator
             foreach ($arColumns as $col) {
                 if (strlen($col) > 0) {
                     $col = trim($col);
-                    $col = trim($col, "''");
+                    $col = $this->serviceGenerator->trimQuotes($col);
                     $name = "'" . $col . "'";
                     if ($name !== "'" . $createdAt . "'" && $name !== "'" . $actions . "'") {
                         $fieldsGenerateColumns[] = $name;
@@ -274,6 +274,7 @@ Class RelationshipGenerator extends BaseGenerator
                     $keyHeading = trim($keyHeading);
                     $valHeading = trim($valHeading);
                     $keyHeading = trim($keyHeading, "'':");
+                    $keyHeading = trim($keyHeading, '"":');
                     $name = "'" . $keyHeading . "'" . ': () => ' . $valHeading . ',';
                     if ($name !== $createHeading) {
                         $fieldsGenerateHeadings[] = $name;
@@ -306,7 +307,7 @@ Class RelationshipGenerator extends BaseGenerator
                 foreach ($arSorts as $sort) {
                     if (strlen($sort) > 0) {
                         $sort = trim($sort);
-                        $sort = trim($sort, "''");
+                        $sort = $this->serviceGenerator->trimQuotes($sort);
                         $name = "'" . $sort . "'";
                         if ($name !== "'" . $createdAt . "'") {
                             $fieldsGenerateSort[] = $name;

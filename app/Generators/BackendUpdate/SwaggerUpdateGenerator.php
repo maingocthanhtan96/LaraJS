@@ -99,7 +99,7 @@ Class SwaggerUpdateGenerator extends BaseGenerator
         $newFields = [];
         foreach($arrayFields as $field) {
             $field = trim($field);
-            $field = trim($field, '"');
+            $field = $this->serviceGenerator->trimQuotes($field);
             $newFields[] = $field; // auto None
         }
         // end required
@@ -160,7 +160,7 @@ Class SwaggerUpdateGenerator extends BaseGenerator
         $fieldRequires = '';
         foreach($arrayFields as $field) {
             $field = trim($field);
-            $field = trim($field, '"');
+            $field = $this->serviceGenerator->trimQuotes($field);
             if(!in_array($field, $fieldRequiredDrop)) {
                 $fieldRequires .= '"'.$field.'"' . ', ';
             }

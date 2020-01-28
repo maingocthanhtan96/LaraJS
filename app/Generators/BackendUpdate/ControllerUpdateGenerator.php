@@ -132,7 +132,7 @@ Class ControllerUpdateGenerator extends BaseGenerator
         foreach ($changeFields as $change) {
             foreach ($arrayColumns as $sort) {
                 $sort = trim($sort);
-                $trimSort = trim($sort, "''");
+                $trimSort = $this->serviceGenerator->trimQuotes($sort);
                 if ($change['field_name'] === $trimSort) {
                     if ($change['sort']) {
                         $fieldsGeneratorColumn[] = "'" . $change['field_name'] . "'";
@@ -146,7 +146,7 @@ Class ControllerUpdateGenerator extends BaseGenerator
             }
             foreach ($arrayColumnsSearch as $search) {
                 $search = trim($search);
-                $trimSort = trim($search, "''");
+                $trimSort = $this->serviceGenerator->trimQuotes($sort);
                 if ($change['field_name'] === $trimSort) {
                     if ($change['search']) {
                         $fieldsGeneratorColumnSearch[] = "'" . $change['field_name'] . "'";

@@ -52,6 +52,11 @@ Class  MigrationGenerator extends BaseGenerator
         foreach ($fields as $index => $field) {
             $table = '';
             foreach ($configDBType as $typeLaravel => $typeDB) {
+                if($field['db_type'] === $configDBType['string']) {
+                    $table .= '$table->string("' . $field['field_name'] . '", '.$field['length_varchar'].')';
+                    break;
+                }
+
                 if ($field['db_type'] === $configDBType['enum']) {
                     $enum = '';
                     foreach ($field['enum'] as $keyEnum => $value) {

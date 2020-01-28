@@ -3,5 +3,7 @@
               name="{{$FORM_FIELD$}}"
               v-model="form.{{$FORM_FIELD$}}"
               :placeholder="{{$LABEL_NAME_INPUT$}}"
+              maxlength="{{MAX_LENGTH}}"
+              show-word-limit
             />
           </el-form-item>

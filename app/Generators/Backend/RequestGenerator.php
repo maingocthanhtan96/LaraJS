@@ -83,6 +83,8 @@ Class RequestGenerator extends BaseGenerator
                         $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:Y'" . ',';
                         break;
                     case $dbType['string']:
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|string|max:{$field['length_varchar']}'" . ',';
+                        break;
                     case $dbType['text']:
                     case $dbType['longtext']:
                     case $dbType['file']:

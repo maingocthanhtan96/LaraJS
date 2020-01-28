@@ -521,4 +521,16 @@ Class GeneratorService extends BaseService
         $string = str_replace(' ', '', $string);
         return $string;
     }
+
+    /**
+     * Trim quotes
+     * @param $string
+     * @return string
+     */
+    public function trimQuotes($string)
+    {
+        $string = trim($string, "'");
+        $string = trim($string, '"');
+        return $string;
+    }
 }

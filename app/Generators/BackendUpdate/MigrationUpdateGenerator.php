@@ -216,6 +216,10 @@ Class  MigrationUpdateGenerator extends BaseGenerator
                     if ($change['db_type'] !== $field['db_type']) {
                         $tableChange = '';
                         foreach ($configDBType as $typeLaravel => $typeDB) {
+                            if($change['db_type'] === $configDBType['string']) {
+                                $tableChange .= '$table->string("' . $change['field_name'] . '", '.$change['length_varchar'].')';
+                                break;
+                            }
                             if ($change['db_type'] === $configDBType['enum']) {
                                 break;
                             }
@@ -259,6 +263,11 @@ Class  MigrationUpdateGenerator extends BaseGenerator
                     if ($change['db_type'] !== $changeNew['db_type']) {
                         $tableChange = '';
                         foreach ($configDBType as $typeLaravel => $typeDB) {
+                            if($change['db_type'] === $configDBType['string']) {
+                                $tableChange .= '$table->string("' . $change['field_name'] . '", '.$change['length_varchar'].')';
+                                break;
+                            }
+                            
                             if ($change['db_type'] === $configDBType['enum']) {
                                 break;
                             }

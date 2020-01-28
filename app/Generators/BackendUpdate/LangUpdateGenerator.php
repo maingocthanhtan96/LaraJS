@@ -67,8 +67,8 @@ Class LangUpdateGenerator extends BaseGenerator
                     list($fieldName, $fieldNameTrans) = explode('=>', $tpl);
                     $fieldName = trim($fieldName);
                     $fieldNameTrans = trim($fieldNameTrans);
-                    $fieldName = trim($fieldName, "''");
-                    $fieldNameTrans = trim($fieldNameTrans, "''");
+                    $fieldName = $this->serviceGenerator->trimQuotes($fieldName);
+                    $fieldNameTrans = $this->serviceGenerator->trimQuotes($fieldNameTrans);
                     if ($rename['field_name_old']['field_name'] === $fieldName) {
                         $fieldsGenerate[] = "'" . $rename['field_name_new']['field_name'] . "'" . ' => ' . "'" . $fieldNameTrans . "'" . ',';
                     } else {
@@ -132,8 +132,8 @@ Class LangUpdateGenerator extends BaseGenerator
                 list($fieldName, $fieldNameTrans) = explode('=>', $tpl);
                 $fieldName = trim($fieldName);
                 $fieldNameTrans = trim($fieldNameTrans);
-                $fieldName = trim($fieldName, "''");
-                $fieldNameTrans = trim($fieldNameTrans, "''");
+                $fieldName = $this->serviceGenerator->trimQuotes($fieldName);
+                $fieldNameTrans = $this->serviceGenerator->trimQuotes($fieldNameTrans);
                 $name = "'" . $fieldName . "'" . ' => ' . "'" . $fieldNameTrans . "'" . ',';
                 if (!in_array($fieldName, $dropUpdate) && !in_array($name, $fieldsGenerate)) {
                     $fieldsGenerate[] = $name;
