@@ -53,7 +53,7 @@ Class  MigrationGenerator extends BaseGenerator
             $table = '';
             foreach ($configDBType as $typeLaravel => $typeDB) {
                 if($field['db_type'] === $configDBType['string']) {
-                    $table .= '$table->string("' . $field['field_name'] . '", '.$field['length_varchar'].')';
+                    $table .= '$table->string("' . trim($field['field_name']) . '", '.$field['length_varchar'].')';
                     break;
                 }
 
@@ -66,17 +66,17 @@ Class  MigrationGenerator extends BaseGenerator
                             $enum .= "'$value'" . ',';
                         }
                     }
-                    $table .= '$table->enum("' . $field['field_name'] . '", [' . $enum . '])';
+                    $table .= '$table->enum("' . trim($field['field_name']) . '", [' . $enum . '])';
                     break;
                 }
 
                 if ($field['db_type'] === $configDBType['file']) {
-                    $table .= '$table->text("' . $field['field_name'] . '")';
+                    $table .= '$table->text("' . trim($field['field_name']) . '")';
                     break;
                 }
 
                 if ($field['db_type'] === $typeDB) {
-                    $table .= '$table->' . $typeLaravel . '("' . $field['field_name'] . '")';
+                    $table .= '$table->' . $typeLaravel . '("' . trim($field['field_name']) . '")';
                     break;
                 }
             }

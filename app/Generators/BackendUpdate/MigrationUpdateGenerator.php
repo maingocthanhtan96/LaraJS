@@ -89,17 +89,17 @@ Class  MigrationUpdateGenerator extends BaseGenerator
                             $enum .= "'$value'" . ',';
                         }
                     }
-                    $table .= '$table->enum("' . $field['field_name'] . '", [' . $enum . '])';
+                    $table .= '$table->enum("' . trim($field['field_name']) . '", [' . $enum . '])';
                     break;
                 }
 
                 if ($field['db_type'] === $configDBType['file']) {
-                    $table .= '$table->text("' . $field['field_name'] . '")';
+                    $table .= '$table->text("' . trim($field['field_name']) . '")';
                     break;
                 }
 
                 if ($field['db_type'] === $typeDB) {
-                    $table .= '$table->' . $typeLaravel . '("' . $field['field_name'] . '")';
+                    $table .= '$table->' . $typeLaravel . '("' . trim($field['field_name']) . '")';
                     break;
                 }
             }
@@ -116,7 +116,7 @@ Class  MigrationUpdateGenerator extends BaseGenerator
         }
 
         foreach ($updateFields['renameFields'] as $rename) {
-            $tableRename = '$table->renameColumn("' . $rename['field_name_old']['field_name'] . '", "' . $rename['field_name_new']['field_name'] . '"); // Rename';
+            $tableRename = '$table->renameColumn("' . trim($rename['field_name_old']['field_name']) . '", "' . trim($rename['field_name_new']['field_name']) . '"); // Rename';
             $fieldsGenerate[] = $tableRename;
         }
 
@@ -144,11 +144,11 @@ Class  MigrationUpdateGenerator extends BaseGenerator
         $configDBType = config('generator.db_type');
         $configDefaultValue = config('generator.default_value');
         foreach ($updateFields['updateFields'] as $index => $field) {
-            $fieldsGenerate[] = '$table->dropColumn("' . $field['field_name'] . '");//Drop Update';
+            $fieldsGenerate[] = '$table->dropColumn("' . trim($field['field_name']) . '");//Drop Update';
         }
 
         foreach ($updateFields['renameFields'] as $rename) {
-            $tableRename = '$table->renameColumn("' . $rename['field_name_new']['field_name'] . '", "' . $rename['field_name_old']['field_name'] . '"); // Reverse Rename';
+            $tableRename = '$table->renameColumn("' . trim($rename['field_name_new']['field_name']) . '", "' . trim($rename['field_name_old']['field_name']) . '"); // Reverse Rename';
             $fieldsGenerate[] = $tableRename;
         }
 
@@ -161,7 +161,7 @@ Class  MigrationUpdateGenerator extends BaseGenerator
         }
 
         foreach ($formFields as $change) {
-            if (in_array($change['field_name'], $arrayDrops)) {
+            if (in_array(trim($change['field_name']), $arrayDrops)) {
                 $tableDrop = '';
                 foreach ($configDBType as $typeLaravel => $typeDB) {
                     if ($change['db_type'] === $configDBType['enum']) {
@@ -173,17 +173,17 @@ Class  MigrationUpdateGenerator extends BaseGenerator
                                 $enum .= "'$value'" . ',';
                             }
                         }
-                        $tableDrop .= '$table->enum("' . $change['field_name'] . '", [' . $enum . '])';
+                        $tableDrop .= '$table->enum("' . trim($change['field_name']) . '", [' . $enum . '])';
                         break;
                     }
 
                     if ($change['db_type'] === $configDBType['file']) {
-                        $tableDrop .= '$table->text("' . $change['field_name'] . '")';
+                        $tableDrop .= '$table->text("' . trim($change['field_name']) . '")';
                         break;
                     }
 
                     if ($change['db_type'] === $typeDB) {
-                        $tableDrop .= '$table->' . $typeLaravel . '("' . $change['field_name'] . '")';
+                        $tableDrop .= '$table->' . $typeLaravel . '("' . trim($change['field_name']) . '")';
                         break;
                     }
                 }
@@ -217,19 +217,19 @@ Class  MigrationUpdateGenerator extends BaseGenerator
                         $tableChange = '';
                         foreach ($configDBType as $typeLaravel => $typeDB) {
                             if($change['db_type'] === $configDBType['string']) {
-                                $tableChange .= '$table->string("' . $change['field_name'] . '", '.$change['length_varchar'].')';
+                                $tableChange .= '$table->string("' . trim($change['field_name']) . '", '.$change['length_varchar'].')';
                                 break;
                             }
                             if ($change['db_type'] === $configDBType['enum']) {
                                 break;
                             }
                             if ($change['db_type'] === $configDBType['file']) {
-                                $tableChange .= '$table->text("' . $change['field_name'] . '")';
+                                $tableChange .= '$table->text("' . trim($change['field_name']) . '")';
                                 break;
                             }
 
                             if ($change['db_type'] === $typeDB) {
-                                $tableChange .= '$table->' . $typeLaravel . '("' . $change['field_name'] . '")';
+                                $tableChange .= '$table->' . $typeLaravel . '("' . trim($change['field_name']) . '")';
                                 break;
                             }
                         }
@@ -264,21 +264,21 @@ Class  MigrationUpdateGenerator extends BaseGenerator
                         $tableChange = '';
                         foreach ($configDBType as $typeLaravel => $typeDB) {
                             if($change['db_type'] === $configDBType['string']) {
-                                $tableChange .= '$table->string("' . $change['field_name'] . '", '.$change['length_varchar'].')';
+                                $tableChange .= '$table->string("' . trim($change['field_name']) . '", '.$change['length_varchar'].')';
                                 break;
                             }
-                            
+
                             if ($change['db_type'] === $configDBType['enum']) {
                                 break;
                             }
 
                             if ($change['db_type'] === $configDBType['file']) {
-                                $tableChange .= '$table->text("' . $change['field_name'] . '")';
+                                $tableChange .= '$table->text("' . trim($change['field_name']) . '")';
                                 break;
                             }
 
                             if ($change['db_type'] === $typeDB) {
-                                $tableChange .= '$table->' . $typeLaravel . '("' . $change['field_name'] . '")';
+                                $tableChange .= '$table->' . $typeLaravel . '("' . trim($change['field_name']) . '")';
                                 break;
                             }
                         }
