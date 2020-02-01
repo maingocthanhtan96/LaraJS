@@ -83,12 +83,12 @@ class GeneratorController extends Controller
             $model = $request->get('model', []);
             $this->_generateBackend($fields, $model);
             $this->_generateFrontend($fields, $model);
-//            Generator::create([
-//                'field' => json_encode($fields),
-//                'model' => json_encode($model),
-//                'table' => $this->serviceGenerator->tableName($model['name']),
-//            ]);
-//            $this->_runCommand($model);
+            Generator::create([
+                'field' => json_encode($fields),
+                'model' => json_encode($model),
+                'table' => $this->serviceGenerator->tableName($model['name']),
+            ]);
+            $this->_runCommand($model);
             return $this->jsonSuccess(trans('messages.success'));
         } catch (\Exception $e) {
             return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
@@ -209,28 +209,28 @@ class GeneratorController extends Controller
 
     private function _generateBackend($fields, $model)
     {
-//        new MigrationGenerator($fields, $model);
-//        new ControllerGenerator($fields, $model);
-//        new SeederGenerator($fields, $model);
-//        new ModelGenerator($fields, $model);
-//        new RepositoryGenerator($fields, $model);
-//        new LangGenerator($fields, $model);
-//        new RouteGenerator($model);
+        new MigrationGenerator($fields, $model);
+        new ControllerGenerator($fields, $model);
+        new SeederGenerator($fields, $model);
+        new ModelGenerator($fields, $model);
+        new RepositoryGenerator($fields, $model);
+        new LangGenerator($fields, $model);
+        new RouteGenerator($model);
         new RequestGenerator($fields, $model);
-//        new SwaggerGenerator($fields, $model);
+        new SwaggerGenerator($fields, $model);
     }
 
     private function _generateFrontend($fields, $model)
     {
-//        new RouteGeneratorFe($model);
-//        new ApiGenerator($model);
-//        if ($this->serviceGenerator->getOptions(config('generator.model.options.datatables'), $model['options'])) {
-//            new ViewGenerator($fields, $model);
-//        } else {
-//            new ViewTableGenerator($fields, $model);
-//        }
-//        new FormGenerator($fields, $model);
-//        new FormHandlerGenerator($fields, $model);
+        new RouteGeneratorFe($model);
+        new ApiGenerator($model);
+        if ($this->serviceGenerator->getOptions(config('generator.model.options.datatables'), $model['options'])) {
+            new ViewGenerator($fields, $model);
+        } else {
+            new ViewTableGenerator($fields, $model);
+        }
+        new FormGenerator($fields, $model);
+        new FormHandlerGenerator($fields, $model);
     }
 
     private function _generateBackendUpdate($generator, $model, $updateFields)

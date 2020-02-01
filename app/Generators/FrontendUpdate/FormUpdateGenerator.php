@@ -171,11 +171,11 @@ Class FormUpdateGenerator extends BaseGenerator
             foreach ($formFields as $index => $oldField) {
                 if ($index > 0 && $change['id'] === $oldField['id']) {
                     // replace form item
+                    $selfTemplateStart = self::TEMPLATE_START;
+                    $selfTemplateStart .= '"' . $change['field_name'] . '"';
+                    $templateFormItem = $this->serviceGenerator->searchTemplateX($selfTemplateStart, 1, $selfTemplateEnd, -strlen($selfTemplateStart), strlen($selfTemplateStart) + strlen($selfTemplateEnd), $templateDataReal);
                     if ($change['db_type'] !== $oldField['db_type']) {
                         //replace template form item
-                        $selfTemplateStart = self::TEMPLATE_START;
-                        $selfTemplateStart .= '"' . $change['field_name'] . '"';
-                        $templateFormItem = $this->serviceGenerator->searchTemplateX($selfTemplateStart, 1, $selfTemplateEnd, -strlen($selfTemplateStart), strlen($selfTemplateStart) + strlen($selfTemplateEnd), $templateDataReal);
                         $templateDataReal = str_replace($templateFormItem, $this->generateItems($change, $model), $templateDataReal);
                         //check if file
                         //drop file
@@ -212,6 +212,12 @@ Class FormUpdateGenerator extends BaseGenerator
                         // add file
                         if ($change['db_type'] === $this->dbType['file']) {
                             $templateDataReal = $this->generateFileAndHanler($change, $templateDataReal);
+                        }
+                    } else {
+                        preg_match('/maxlength=(\'|")[0-9]{0,3}(\'|")/im', $templateFormItem, $matches);
+                        if(isset($matches[0])) {
+                            $templateFormItemNew = str_replace($matches[0], 'maxlength='.'"'.$change['length_varchar'].'"', $templateFormItem);
+                            $templateDataReal = str_replace($templateFormItem, $templateFormItemNew, $templateDataReal);
                         }
                     }
                     //replace rules
@@ -493,7 +499,7 @@ Class FormUpdateGenerator extends BaseGenerator
                 $fieldsGenerate[] = $this->generateDateTime('year', $tableName, $field);
                 break;
             case $this->dbType['string']:
-                $fieldsGenerate[] = $this->generateInput('input', $tableName, $field);
+                $fieldsGenerate[] = $this->generateInput('input', $tableName, $field, $this->dbType['string']);
                 break;
             case $this->dbType['text']:
                 $fieldsGenerate[] = $this->generateInput('textarea', $tableName, $field);
@@ -556,13 +562,16 @@ Class FormUpdateGenerator extends BaseGenerator
         return $formTemplate;
     }
 
-    private function generateInput($fileName, $tableName, $field)
+    private function generateInput($fileName, $tableName, $field, $dbType = '')
     {
         $formTemplate = $this->getFormTemplate($fileName);
         $formTemplate = $this->replaceLabelForm($tableName, $field, $formTemplate);
         $formTemplate = $this->checkRequired($field, $formTemplate);
         $formTemplate = $this->replaceAutoFocus($formTemplate);
         $formTemplate = $this->replaceFormField($field, $formTemplate);
+        if($dbType === $this->dbType['string']) {
+            $formTemplate = str_replace('{{MAX_LENGTH}}', $field['length_varchar'], $formTemplate);
+        }
         return $formTemplate;
     }
 

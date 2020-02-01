@@ -61,12 +61,12 @@ export default {
     }
   },
   computed: {
-    //not rename rules
+    // not rename rules
     rules() {
       return {
         // {{$RULES_NOT_DELETE_THIS_LINE$}}
-      }
-    }
+      };
+    },
   },
   methods: {
     // {{$METHODS_NOT_DELETE_THIS_LINE$}}

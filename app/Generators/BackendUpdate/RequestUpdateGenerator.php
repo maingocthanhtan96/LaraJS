@@ -107,8 +107,22 @@ Class RequestUpdateGenerator extends BaseGenerator
                         } else {
                             $requiredOld = 'nullable';
                         }
+                        if($dataOld[$change['id']]['db_type'] === $this->dbType['string']) {
+                            preg_match('/max:[0-9]{0,3}/im', $valField, $matches);
+                            if(isset($matches[0])) {
+                                $valField = str_replace($matches[0], "max:{$change['length_varchar']}", $valField);
+                            }
+                        }
                         $valField = str_replace($requiredOld, $required, $valField);
-                        $valField = str_replace($this->changeDBType($dataOld[$change['id']]['db_type'], $dataOld[$change['id']]['enum']), $this->changeDBType($change['db_type'], $change['enum']), $valField);
+                        if($dataOld[$change['id']]['db_type'] !== $change['db_type']) {
+                            $valField = str_replace($this->changeDBType($dataOld[$change['id']]['db_type'], $dataOld[$change['id']]['enum']), $this->changeDBType($change['db_type'], $change['enum']), $valField);
+                            if($change['db_type'] !== $this->dbType['string']) {
+                                preg_match('/\|?max:[0-9]{0,3}\|?/im', $valField, $matches);
+                                if(isset($matches[0])) {
+                                    $valField = str_replace($matches[0], '', $valField);
+                                }
+                            }
+                        }
                         $fieldsGenerator[] = "'" . $keyField . "' => $valField";
                     } else {
                         $value = "'" . $keyField . "' => $valField";
