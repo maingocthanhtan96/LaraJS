@@ -5,7 +5,7 @@ import router from '@/router';
 import store from '@/store';
 import i18n from '@/lang';
 import '@/icons';
-import '@/permission';
+import '@/middleware';
 import permission from '@/directive/permission';
 
 // start third party

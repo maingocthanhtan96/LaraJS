@@ -14,6 +14,6 @@ export const FED_LOGOUT = 'fedLogOut';
 export const SET_TOKEN = 'setToken';
 export const LOGOUT = 'logout';
 
-// permission.js
+// middleware.js
 export const GENERATE_ROUTES = 'generateRoutes';
 export const SET_ROUTERS = 'setRouters';
