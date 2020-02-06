@@ -15,7 +15,7 @@ class GeneratorsTableSeeder extends Seeder
             "name" => "User",
             "name_trans" => "User",
             "limit" => 25,
-            "options" => ["Soft Deletes", "Datatables"]
+            "options" => ["Soft Deletes"]
         ];
 
         $fields[] = [
@@ -36,6 +36,7 @@ class GeneratorsTableSeeder extends Seeder
             "field_name_trans" => "Name",
             "db_type" => "VARCHAR",
             "enum" => [],
+            "length_varchar" => 191,
             "default_value" => "None",
             "as_define" => null,
             "search" => true,
@@ -48,6 +49,7 @@ class GeneratorsTableSeeder extends Seeder
             "field_name_trans" => "Email",
             "db_type" => "VARCHAR",
             "enum" => [],
+            "length_varchar" => 191,
             "default_value" => "None",
             "as_define" => null,
             "search" => true,

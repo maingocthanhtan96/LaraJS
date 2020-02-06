@@ -9,40 +9,11 @@ import '@/middleware';
 import permission from '@/directive/permission';
 
 // start third party
-import axios from 'axios';
-window.axios = axios;
-import { ServerTable, Event } from 'vue-tables-2';
-window.Event = Event;
-Vue.use(ServerTable, {
-  perPage: 25, // page limit
-  sortIcon: { base: 'mdi', up: 'mdi-sort-ascending', down: 'mdi-sort-descending', is: 'mdi-format-line-spacing' }, // change icon sortable
-  debounce: 700, // debounce query search
-  saveState: true, // save cache
-  pagination: {
-    edge: true, // disabled button fist/last
-  },
-  texts: {
-    count: i18n.t('table.texts.count'),
-    first: i18n.t('table.texts.first'),
-    last: i18n.t('table.texts.last'),
-    filter: i18n.t('table.texts.filter'),
-    filterPlaceholder: i18n.t('table.texts.filterPlaceholder'),
-    limit: i18n.t('table.texts.limit'),
-    page: i18n.t('table.texts.page'),
-    noResults: i18n.t('table.texts.noResults'),
-    filterBy: i18n.t('table.texts.filterBy'),
-    loading: i18n.t('table.texts.loading'),
-    defaultOption: i18n.t('table.texts.defaultOption'),
-    columns: i18n.t('table.texts.columns'),
-  },
-}, false, 'bulma', require('./template/datables'));
-// end third party
-
-// register element-ui
 Vue.use(ElementUI, {
   size: localStorage.getItem('size') || 'medium',
   i18n: (key, value) => i18n.t(key, value),
 });
+// end third party
 
 // register global utility filters.
 import * as filters from './filters';

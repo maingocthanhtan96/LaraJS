@@ -11,11 +11,11 @@
           </template>
         </div>
         <el-form ref="users" :model="form" :rules="rules" status-icon>
-          <el-form-item data-generator="name" :label="$t('table.user.name')" prop="name">
+          <el-form-item data-generator="name" :label="$t('table.user.name')" required prop="name">
             <el-input v-model="form.name" autofocus/>
           </el-form-item>
           <el-form-item data-generator="email" :error="errors.email ? errors.email[0] + '' : ''"
-                        :label="$t('table.user.email')" prop="email">
+                        :label="$t('table.user.email')" required prop="email">
             <el-input v-model="form.email"/>
           </el-form-item>
           <el-form-item data-generator="avatar" :error="errors.avatar ? errors.avatar[0] + '' : ''"
@@ -37,7 +37,7 @@
               @crop-upload-fail="cropError"
             />
           </el-form-item>
-          <el-form-item data-generator="role_id" :label="$t('table.user.role')" prop="role_id">
+          <el-form-item data-generator="role_id" :label="$t('table.user.role')" required prop="role_id">
             <el-select v-model="form.role_id" placeholder="Role" class="w-full">
               <el-option v-for="role in rolesList" :key="'role_' + role.id" :label="role.name" :value="role.id"/>
             </el-select>

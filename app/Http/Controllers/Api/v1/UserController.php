@@ -53,7 +53,7 @@ class UserController extends Controller
             $query = $request->get('query', '');
             $betweenDate = $request->get('created_at', []);
 
-            $columns = ['id' => 'id', 'email' => 'email', 'created_at' => 'created_at'];
+            $columns = ['id', 'created_at'];
             $columnsWith = [];
             $columnSearch = ['name', 'email'];
             $with = ['roles'];

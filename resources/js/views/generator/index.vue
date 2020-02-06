@@ -12,31 +12,74 @@
             <i class="el-icon-plus mr-2"/>Create
           </router-link>
         </div>
-        <v-server-table
-          class="generate-table"
-          ref="table_generator"
-          name="table_generator"
-          :columns="table.columns"
-          :options="table.options"
-        >
-          <template v-if="loading" slot="afterBody">
-            <div v-loading="loading" class="overlay-loader"/>
-          </template>
-          <template slot="id" slot-scope="props">{{ props.index }}</template>
-          <div slot="actions" slot-scope="{row}" class="flex justify-center items-center">
-            <router-link :to="{name: 'generator_edit', params: {id: row.id}}">
-              <el-tooltip effect="dark" content="Edit" placement="left">
-                <i class="el-icon-edit
+        <div class="flex flex-col">
+          <el-col :span="24" class="mb-6">
+            <el-col :xs="24" :sm="10" :md="6">
+              <label>{{ $t('table.texts.filter') }}</label>
+              <el-input v-model="table.listQuery.query" :placeholder="$t('table.texts.filterPlaceholder')"/>
+            </el-col>
+            <el-col :xs="24" :sm="14" :md="18">
+              <br/>
+              <el-date-picker
+                v-model="table.listQuery.created_at"
+                class="md:float-right"
+                type="daterange"
+                :start-placeholder="$t('date.start_date')"
+                :end-placeholder="$t('date.end_date')"
+                :picker-options="pickerOptions"
+                @change="changeDateRangePicker"
+              >
+              </el-date-picker>
+            </el-col>
+          </el-col>
+          <el-col :span="24" class="table-responsive">
+            <el-table
+              class="w-full"
+              v-loading="table.loading"
+              :data="table.list"
+              :default-sort="{prop: 'created_at', order: 'descending'}"
+              border
+              fit
+              highlight-current-row
+              @sort-change="sortChange"
+            >
+              <el-table-column align="center" sortable="custom" prop="id" label="No.">
+                <template slot-scope="{ $index }">
+                  {{ (table.listQuery.page - 1) * table.listQuery.limit + $index + 1 }}
+                </template>
+              </el-table-column>
+              <el-table-column align="center" label="Table">
+                <template slot-scope="{ row }">
+                  {{row.table}}
+                </template>
+              </el-table-column>
+              <!--{{$TEMPLATES_NOT_DELETE_THIS_LINE$}}-->
+              <el-table-column data-generator="created_at" prop="created_at" :label="$t('date.created_at')"
+                               sortable="custom" align="center" header-align="center">
+                <template slot-scope="{ row }">
+                  {{ row.created_at | parseTime('{y}-{m}-{d}') }}
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('table.actions')" align="center" class-name="small-padding fixed-width">
+                <template slot-scope="{ row }">
+                  <router-link :to="{name: 'generator_edit', params: {id: row.id}}">
+                    <el-tooltip effect="dark" content="Edit" placement="left">
+                      <i class="el-icon-edit
  el-link el-link--primary mr-4"></i>
-              </el-tooltip>
-            </router-link>
-            <router-link :to="{name: 'generator_relationship', params: {id: row.id}}">
-              <el-tooltip effect="dark" content="Relationship" placement="right">
-                <svg-icon class="el-link el-link--success" icon-class="tree"/>
-              </el-tooltip>
-            </router-link>
-          </div>
-        </v-server-table>
+                    </el-tooltip>
+                  </router-link>
+                  <router-link :to="{name: 'generator_relationship', params: {id: row.id}}">
+                    <el-tooltip effect="dark" content="Relationship" placement="right">
+                      <svg-icon class="el-link el-link--success" icon-class="tree"/>
+                    </el-tooltip>
+                  </router-link>
+                </template>
+              </el-table-column>
+            </el-table>
+            <pagination v-if="table.total > 0" :total="table.total" :page.sync="table.listQuery.page"
+                        :limit.sync="table.listQuery.limit" @pagination="getList"/>
+          </el-col>
+        </div>
       </el-card>
     </el-col>
     <div class="container is-fullhd">
@@ -61,69 +104,99 @@
   </el-row>
 </template>
 <script>
+import dateRangePicker from '@/plugins/mixins/dateRangePicker';
+import Pagination from '@/components/Pagination'; // Secondary package based on el-pagination
 import GeneratorResource from '@/api/generator';
+import { debounce } from '@/utils';
 
 const generatorResource = new GeneratorResource();
 
 export default {
+  components: { Pagination },
+  mixins: [dateRangePicker],
   data() {
     return {
       diagram: require('@/assets/images/diagram-erd.png'),
       dialogVisible: false,
       table: {
-        columns: ['id', 'table', 'created_at', 'actions'],
-        options: {
-          requestFunction: function (query) {
-            return generatorResource.list(query);
-          },
-          headings: {
-            id: () => this.$t('table.user.id'),
-            table: () => this.$t('table.user.name'),
-            created_at: () => this.$t('date.created_at'),
-          },
-          columnsClasses: {
-            id: 'text-center w-24',
-            created_at: 'text-center',
-          },
-          templates: {
-            created_at: (h, row) => {
-              return this.$options.filters.formatDate(row.created_at);
-            },
-          },
-          sortable: ['id', 'created_at'],
+        listQuery: {
+          query: '',
+          limit: 25,
+          ascending: 1,
+          page: 1,
+          orderBy: 'created_at',
+          created_at: [this.parseTime(new Date().getTime() - 86400000 * 30), this.parseTime(new Date())],
         },
+        list: null,
+        total: 0,
+        loading: false,
       },
-      loading: false,
     };
   },
   mounted() {
-    Event.$on('vue-tables.loading', () => {
-      this.loading = true;
-    });
-    Event.$on('vue-tables.loaded', () => {
-      this.loading = false;
-    });
+    this.getList();
   },
   methods: {
+    async getList() {
+      this.table.loading = true;
+      const { data } = await generatorResource.list(this.table.listQuery);
+      this.table.list = data.data;
+      this.table.total = data.count;
+
+      // Just to simulate the time of the request
+      this.table.loading = false;
+    },
+    handleFilter() {
+      this.table.listQuery.page = 1;
+      this.getList();
+    },
+    changeDateRangePicker(date) {
+      if (date) {
+        const startDate = this.parseTime(date[0]);
+        const endDate = this.parseTime(date[1]);
+        this.table.listQuery.created_at = [startDate, endDate];
+      } else {
+        this.table.listQuery.created_at = [];
+      }
+      this.handleFilter();
+    },
+    sortChange(data) {
+      const { prop, order } = data;
+      this.table.listQuery.orderBy = prop;
+      if (order === 'ascending') {
+        this.table.listQuery.ascending = 0;
+      } else {
+        this.table.listQuery.ascending = 1;
+      }
+      this.getList();
+    },
     remove(id, name) {
-      this.$confirm(this.$t('messages.delete_confirm', { attribute: name }), this.$t('messages.warning'), {
-        confirmButtonClass: 'outline-none',
+      this.$confirm(this.$t('messages.delete_confirm', { attribute: this.$t('table.user.id') + '#' + name }), this.$t('messages.warning'), {
         confirmButtonText: this.$t('button.ok'),
         cancelButtonClass: this.$t('button.cancel'),
         type: 'warning',
         center: true,
-      }).then(() => {
-        generatorResource.destroy(id).then(() => {
-          const index = this.$refs.table_generator.data.findIndex((value) => value.id === id);
-          this.$refs.table_generator.data.splice(index, 1);
-          this.$message({
-            showClose: true,
-            message: this.$t('messages.delete'),
-            type: 'success',
-          });
+      }).then(async () => {
+        this.table.loading = true;
+        await generatorResource.destroy(id);
+        const index = this.$refs.table_user.data.findIndex((value) => value.id === id);
+        this.$refs.table_user.data.splice(index, 1);
+        this.$message({
+          showClose: true,
+          message: this.$t('messages.delete'),
+          type: 'success',
         });
+        this.table.loading = false;
       });
     },
+    parseTime(date, format = '{y}-{m}-{d}') {
+      return this.$options.filters.parseTime(date, format);
+    },
+  },
+  watch: {
+    'table.listQuery.query': debounce(function () {
+      this.handleFilter();
+    }, 500),
   },
 };
 </script>
