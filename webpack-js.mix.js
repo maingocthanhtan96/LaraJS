@@ -12,7 +12,7 @@ Mix.listen('configReady', webpackConfig => {
   const imageLoaderConfig = webpackConfig.module.rules.find(
     rule =>
       String(rule.test) ===
-      String(/(\.(png|jpe?g|gif|webp)$|^((?!font).)*\.svg$)/)
+      String(/(\.(png|jpe?g|gif|webp)$|^((?!font).)*\.svg$)/),
   );
   imageLoaderConfig.exclude = resolve('icons');
 });
@@ -41,10 +41,10 @@ if (mix.inProduction()) {
     });
   }
   // Development settings
-  // mix.browserSync({
-  //   proxy: process.env.APP_URL,
-  //   files: ['resources/js/**/*']
-  // });
+  mix.browserSync({
+    proxy: process.env.APP_URL,
+    files: ['resources/js/**/*'],
+  });
   mix
     .sourceMaps()
     .webpackConfig({

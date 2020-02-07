@@ -38,7 +38,7 @@
               highlight-current-row
               @sort-change="sortChange"
             >
-              <el-table-column align="center" sortable="custom" prop="id" :label="$t('table.user.id')">
+              <el-table-column align="center" sortable="custom" prop="id" :label="$t('table.user.id')" width="70px">
                 <template slot-scope="{ $index }">
                   {{ (table.listQuery.page - 1) * table.listQuery.limit + $index + 1 }}
                 </template>
