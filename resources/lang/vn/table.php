@@ -14,11 +14,12 @@ return [
     'rolePermission' => [
         'id' => 'No.',
         'name' => 'Tên',
-        'description' => 'Miêu tả',
+        'description' => 'Miêu tả'
     ],
     //{{LANG_TABLE_NOT_DELETE_THIS_LINE}}
     'texts' => [
-        'count' => 'Hiển thị {from} đến {to} trong số {count} dữ liệu|{count} dữ liệu|Một dữ liệu',
+        'count' =>
+            'Hiển thị {from} đến {to} trong số {count} dữ liệu|{count} dữ liệu|Một dữ liệu',
         'first' => 'Đầu',
         'last' => 'Cuối',
         'filter' => "Bộ lọc:",

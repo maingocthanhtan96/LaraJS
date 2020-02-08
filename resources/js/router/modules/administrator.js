@@ -15,7 +15,7 @@ const administrator = {
       component: () => import('@/views/rolePermission'),
       meta: {
         title: 'role_permission',
-        icon: 'skill',
+        icon: 'role',
         permissions: ['manage permission']
       }
     },
@@ -25,7 +25,7 @@ const administrator = {
       component: () => import('@/views/generator'),
       meta: {
         title: 'generator',
-        icon: 'skill',
+        icon: 'tree-table',
         roles: ['admin']
       }
     },
@@ -35,7 +35,7 @@ const administrator = {
       component: () => import('@/views/generator/form'),
       meta: {
         title: 'generator_create',
-        icon: 'skill',
+        icon: 'tree-table',
         activeMenu: '/administrator/generator/list',
         roles: ['admin']
       },
@@ -48,6 +48,7 @@ const administrator = {
       component: () => import('@/views/generator/form'),
       meta: {
         title: 'generator_edit',
+        icon: 'tree-table',
         activeMenu: '/administrator/generator/list',
         roles: ['admin']
       },

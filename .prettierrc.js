@@ -3,7 +3,6 @@ module.exports = {
     {
       files: '*.{js,vue}',
       options: {
-        printWidth: 120,
         singleQuote: true,
         semi: true,
         tabWidth: 2,

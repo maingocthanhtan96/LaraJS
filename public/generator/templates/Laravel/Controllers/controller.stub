@@ -14,6 +14,7 @@ use App\Service\QueryService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Store{{MODAL_CLASS}}Request;
+use App\Larajs\Acl;
 
 class {{CONTROLLER_CLASS}}Controller extends Controller
 {
@@ -23,10 +24,10 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
      */
     function __construct()
     {
-        $this->middleware('permission:' . \LaraJS_Permission::PERMISSION_VISIT, ['only' => ['index']]);
-        $this->middleware('permission:' . \LaraJS_Permission::PERMISSION_CREATE, ['only' => ['store']]);
-        $this->middleware('permission:' . \LaraJS_Permission::PERMISSION_EDIT, ['only' => ['show', 'update']]);
-        $this->middleware('permission:' . \LaraJS_Permission::PERMISSION_DELETE, ['only' => ['destroy']]);
+        $this->middleware('permission:' . Acl::PERMISSION_VISIT, ['only' => ['index']]);
+        $this->middleware('permission:' . Acl::PERMISSION_CREATE, ['only' => ['store']]);
+        $this->middleware('permission:' . Acl::PERMISSION_EDIT, ['only' => ['show', 'update']]);
+        $this->middleware('permission:' . Acl::PERMISSION_DELETE, ['only' => ['destroy']]);
     }
 
 	/**

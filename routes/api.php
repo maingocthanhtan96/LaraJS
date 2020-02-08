@@ -1,6 +1,6 @@
 <?php
 
-use App\Larajs\Permission as LarajsPermission;
+use App\Larajs\Acl;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,8 +41,7 @@ Route::group(['prefix' => 'v1'], function () {
             Route::group(
                 [
                     'middleware' =>
-                        'permission:' .
-                        LarajsPermission::PERMISSION_PERMISSION_MANAGE
+                        'permission:' . Acl::PERMISSION_PERMISSION_MANAGE
                 ],
                 function () {
                     Route::apiResource('roles', 'RoleController');
@@ -52,7 +51,7 @@ Route::group(['prefix' => 'v1'], function () {
 
             // role Admin (Super admin)
             Route::group(
-                ['middleware' => 'role:' . LarajsPermission::ROLE_ADMIN],
+                ['middleware' => 'role:' . Acl::ROLE_ADMIN],
                 function () {
                     Route::group(['prefix' => 'generators'], function () {
                         Route::get(

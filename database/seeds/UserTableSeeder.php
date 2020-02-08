@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Larajs\Permission as LarajsPermission;
+use App\Larajs\Acl;
 use App\Models\Role;
 use App\Models\User;
 
@@ -65,13 +65,13 @@ class UserTableSeeder extends Seeder
         ]);
 
         // search role
-        $adminRole = Role::findByName(LarajsPermission::ROLE_ADMIN);
-        $managerRole = Role::findByName(LarajsPermission::ROLE_MANAGER);
-        $visitorRole = Role::findByName(LarajsPermission::ROLE_VISITOR);
-        $creatorRole = Role::findByName(LarajsPermission::ROLE_CREATOR);
-        $editorRole = Role::findByName(LarajsPermission::ROLE_EDITOR);
-        $deleterRole = Role::findByName(LarajsPermission::ROLE_DELETER);
-        $developerRole = Role::findByName(LarajsPermission::ROLE_DEVELOPER);
+        $adminRole = Role::findByName(Acl::ROLE_ADMIN);
+        $managerRole = Role::findByName(Acl::ROLE_MANAGER);
+        $visitorRole = Role::findByName(Acl::ROLE_VISITOR);
+        $creatorRole = Role::findByName(Acl::ROLE_CREATOR);
+        $editorRole = Role::findByName(Acl::ROLE_EDITOR);
+        $deleterRole = Role::findByName(Acl::ROLE_DELETER);
+        $developerRole = Role::findByName(Acl::ROLE_DEVELOPER);
         // Setup basic role
         $admin->syncRoles($adminRole);
         $manager->syncRoles($managerRole);
@@ -82,25 +82,25 @@ class UserTableSeeder extends Seeder
         $developer->syncRoles($developerRole);
 
         // Setup basic permission
-        $adminRole->givePermissionTo(LarajsPermission::permissions());
+        $adminRole->givePermissionTo(Acl::permissions());
         $managerRole->givePermissionTo([
-            LarajsPermission::PERMISSION_PERMISSION_MANAGE,
-            LarajsPermission::PERMISSION_VISIT,
-            LarajsPermission::PERMISSION_CREATE,
-            LarajsPermission::PERMISSION_EDIT,
-            LarajsPermission::PERMISSION_DELETE,
-            LarajsPermission::PERMISSION_VIEW_MENU_ROLE_PERMISSION
+            Acl::PERMISSION_PERMISSION_MANAGE,
+            Acl::PERMISSION_VISIT,
+            Acl::PERMISSION_CREATE,
+            Acl::PERMISSION_EDIT,
+            Acl::PERMISSION_DELETE,
+            Acl::PERMISSION_VIEW_MENU_ROLE_PERMISSION
         ]);
-        $visitorRole->givePermissionTo(LarajsPermission::PERMISSION_VISIT);
-        $creatorRole->givePermissionTo(LarajsPermission::PERMISSION_CREATE);
-        $editorRole->givePermissionTo(LarajsPermission::PERMISSION_EDIT);
-        $deleterRole->givePermissionTo(LarajsPermission::PERMISSION_DELETE);
+        $visitorRole->givePermissionTo(Acl::PERMISSION_VISIT);
+        $creatorRole->givePermissionTo(Acl::PERMISSION_CREATE);
+        $editorRole->givePermissionTo(Acl::PERMISSION_EDIT);
+        $deleterRole->givePermissionTo(Acl::PERMISSION_DELETE);
         $developerRole->givePermissionTo([
-            LarajsPermission::PERMISSION_VISIT,
-            LarajsPermission::PERMISSION_CREATE,
-            LarajsPermission::PERMISSION_EDIT,
-            LarajsPermission::PERMISSION_DELETE,
-            LarajsPermission::PERMISSION_DEVELOP
+            Acl::PERMISSION_VISIT,
+            Acl::PERMISSION_CREATE,
+            Acl::PERMISSION_EDIT,
+            Acl::PERMISSION_DELETE,
+            Acl::PERMISSION_DEVELOP
         ]);
 
         $faker = Faker\Factory::create();
@@ -115,10 +115,10 @@ class UserTableSeeder extends Seeder
                 //{{SEEDER_NOT_DELETE_THIS_LINE}}
             ]);
             $roleName = $faker->randomElement([
-                LarajsPermission::ROLE_VISITOR,
-                LarajsPermission::ROLE_CREATOR,
-                LarajsPermission::ROLE_EDITOR,
-                LarajsPermission::ROLE_DELETER
+                Acl::ROLE_VISITOR,
+                Acl::ROLE_CREATOR,
+                Acl::ROLE_EDITOR,
+                Acl::ROLE_DELETER
             ]);
             $userFaker->syncRoles($roleName);
         }
