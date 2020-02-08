@@ -66,25 +66,38 @@ class BackupMySQLCommand extends Command
     {
         set_time_limit(0);
         $dbName = env('DB_DATABASE') . '_' . date("Y-m-d_Hi");
-            // define target file
+        // define target file
         $tempLocation = '/tmp/' . $dbName . '.sql';
 
         // run the cli job
-        $process = new Process('mysqldump -u' . env('DB_USERNAME') . ' -p' . env('DB_PASSWORD') . ' ' . env('DB_DATABASE') . ' > ' . $tempLocation);
+        $process = new Process(
+            'mysqldump -u' .
+                env('DB_USERNAME') .
+                ' -p' .
+                env('DB_PASSWORD') .
+                ' ' .
+                env('DB_DATABASE') .
+                ' > ' .
+                $tempLocation
+        );
         $process->run();
 
         try {
-
             if ($process->isSuccessful()) {
                 $zip = new ZipArchive();
-                if ($zip->open(storage_path("app/mysql/{$dbName}.zip"), ZipArchive::CREATE) === TRUE) {
+                if (
+                    $zip->open(
+                        storage_path("app/mysql/{$dbName}.zip"),
+                        ZipArchive::CREATE
+                    ) === true
+                ) {
                     // Add files to the zip file
                     $zip->addFile($tempLocation, $dbName . '.sql');
                     // All files are added, so close the zip file.
                     $zip->close();
                 }
 
-                $currentTimestamp = time() - (168 * 3600); // 7 days
+                $currentTimestamp = time() - 168 * 3600; // 7 days
                 $s3 = \Storage::disk();
                 $allFiles = $s3->allFiles('mysql');
                 foreach ($allFiles as $file) {
@@ -116,9 +129,9 @@ class BackupMySQLCommand extends Command
         }
 
         try {
-            $zip = new ZipArchive;
+            $zip = new ZipArchive();
             $res = $zip->open(storage_path("app/mysql/{$snapshot}.zip"));
-            if ($res === TRUE) {
+            if ($res === true) {
                 $zip->extractTo(storage_path("app/mysql/"));
                 $zip->close();
             } else {
@@ -127,7 +140,8 @@ class BackupMySQLCommand extends Command
             // get file from s3
             $s3 = \Storage::disk();
             $found = $s3->get('/mysql/' . $snapshot . '.sql');
-            $tempLocation = '/tmp/' . env('DB_DATABASE') . '_' . date("Y-m-d_Hi") . '.sql';
+            $tempLocation =
+                '/tmp/' . env('DB_DATABASE') . '_' . date("Y-m-d_Hi") . '.sql';
 
             // create a temp file
             $bytes_written = File::put($tempLocation, $found);
@@ -136,7 +150,17 @@ class BackupMySQLCommand extends Command
             }
 
             // run the cli job
-            $process = new Process("mysql -h " . env('DB_HOST') . " -u " . env('DB_USERNAME') . " -p" . env('DB_PASSWORD') . " " . env('DB_DATABASE') . " < {$tempLocation}");
+            $process = new Process(
+                "mysql -h " .
+                    env('DB_HOST') .
+                    " -u " .
+                    env('DB_USERNAME') .
+                    " -p" .
+                    env('DB_PASSWORD') .
+                    " " .
+                    env('DB_DATABASE') .
+                    " < {$tempLocation}"
+            );
             $process->run();
 
             @unlink($tempLocation);
@@ -147,7 +171,11 @@ class BackupMySQLCommand extends Command
                 throw new ProcessFailedException($process);
             }
         } catch (\Exception $e) {
-            $this->info('File Not Found: ' . $e->getMessage(), $e->getFile(), $e->getLine());
+            $this->info(
+                'File Not Found: ' . $e->getMessage(),
+                $e->getFile(),
+                $e->getLine()
+            );
         }
     }
 }

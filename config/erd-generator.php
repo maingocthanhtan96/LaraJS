@@ -1,14 +1,11 @@
 <?php
 
 return [
-
     /*
      * All models in these directories will be scanned for ER diagram generation.
      * By default, the `app` directory will be scanned recursively for models.
      */
-    'directories' => [
-        app_path('Models'),
-    ],
+    'directories' => [app_path('Models')],
 
     /*
      * If you want to ignore complete models or certain relations of a specific model,
@@ -21,8 +18,8 @@ return [
         \App\Models\BaseModel::class,
         \App\Models\Generator::class,
         \App\Models\Role::class,
-        \App\Models\Permission::class,
-//         User::class,
+        \App\Models\Permission::class
+        //         User::class,
         // Post::class => [
         //     'user'
         // ]
@@ -57,7 +54,7 @@ return [
         'header_background_color' => '#d3d3d3',
         'header_font_color' => '#333333',
         'row_background_color' => '#ffffff',
-        'row_font_color' => '#333333',
+        'row_font_color' => '#333333'
     ],
 
     /*
@@ -100,20 +97,19 @@ return [
             'dir' => 'both',
             'color' => '#D62828',
             'arrowhead' => 'tee',
-            'arrowtail' => 'none',
+            'arrowtail' => 'none'
         ],
         'BelongsTo' => [
             'dir' => 'both',
             'color' => '#F77F00',
             'arrowhead' => 'tee',
-            'arrowtail' => 'crow',
+            'arrowtail' => 'crow'
         ],
         'HasMany' => [
             'dir' => 'both',
             'color' => '#FCBF49',
             'arrowhead' => 'crow',
-            'arrowtail' => 'none',
-        ],
+            'arrowtail' => 'none'
+        ]
     ]
-
 ];

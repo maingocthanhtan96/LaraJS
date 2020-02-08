@@ -7,7 +7,7 @@ use App\Service\FileService;
 use App\Service\GeneratorService;
 use Carbon\Carbon;
 
-Class RequestUpdateGenerator extends BaseGenerator
+class RequestUpdateGenerator extends BaseGenerator
 {
     /** @var $service */
     public $serviceGenerator;
@@ -47,11 +47,28 @@ Class RequestUpdateGenerator extends BaseGenerator
     private function generate($generator, $model, $updateFields)
     {
         $fileName = 'Store' . $model['name'] . 'Request.php';
-        $templateDataReal = $this->serviceGenerator->getFile('request', 'laravel', $fileName);
-        $templateDataReal = $this->generateFieldsDrop($updateFields['dropFields'], $templateDataReal);
-        $templateDataReal = $this->generateFieldsRename($updateFields['renameFields'], $templateDataReal);
-        $templateDataReal = $this->generateFieldsChange($generator, $updateFields['changeFields'], $templateDataReal);
-        $templateDataReal = $this->generateFieldsUpdate($updateFields['updateFields'], $templateDataReal);
+        $templateDataReal = $this->serviceGenerator->getFile(
+            'request',
+            'laravel',
+            $fileName
+        );
+        $templateDataReal = $this->generateFieldsDrop(
+            $updateFields['dropFields'],
+            $templateDataReal
+        );
+        $templateDataReal = $this->generateFieldsRename(
+            $updateFields['renameFields'],
+            $templateDataReal
+        );
+        $templateDataReal = $this->generateFieldsChange(
+            $generator,
+            $updateFields['changeFields'],
+            $templateDataReal
+        );
+        $templateDataReal = $this->generateFieldsUpdate(
+            $updateFields['updateFields'],
+            $templateDataReal
+        );
 
         $fileName = $this->path . $fileName;
         $this->serviceFile->createFileReal($fileName, $templateDataReal);
@@ -62,20 +79,33 @@ Class RequestUpdateGenerator extends BaseGenerator
     private function generateFieldsRename($renameFields, $templateDataReal)
     {
         foreach ($renameFields as $rename) {
-            $templateDataReal = str_replace("'" . $rename['field_name_old']['field_name'] . "'", "'" . $rename['field_name_new']['field_name'] . "'", $templateDataReal);
+            $templateDataReal = str_replace(
+                "'" . $rename['field_name_old']['field_name'] . "'",
+                "'" . $rename['field_name_new']['field_name'] . "'",
+                $templateDataReal
+            );
         }
 
         return $templateDataReal;
     }
 
-    private function generateFieldsChange($generator, $changeFields, $templateDataReal)
-    {
+    private function generateFieldsChange(
+        $generator,
+        $changeFields,
+        $templateDataReal
+    ) {
         if (empty($changeFields)) {
             return $templateDataReal;
         }
 
         $fieldsGenerator = [];
-        $templateColumns = $this->serviceGenerator->searchTemplate(self::COLUMNS, self::CHAR, strlen(self::COLUMNS) + 4, -4 - strlen(self::COLUMNS), $templateDataReal);
+        $templateColumns = $this->serviceGenerator->searchTemplate(
+            self::COLUMNS,
+            self::CHAR,
+            strlen(self::COLUMNS) + 4,
+            -4 - strlen(self::COLUMNS),
+            $templateDataReal
+        );
         $arrayColumns = explode(PHP_EOL, $templateColumns);
         $arrayChange = \Arr::pluck($changeFields, 'field_name');
 
@@ -84,7 +114,8 @@ Class RequestUpdateGenerator extends BaseGenerator
         foreach ($formFields as $index => $field) {
             if ($index > 0) {
                 $dataOld[$field['id']]['db_type'] = $field['db_type'];
-                $dataOld[$field['id']]['default_value'] = $field['default_value'];
+                $dataOld[$field['id']]['default_value'] =
+                    $field['default_value'];
                 $dataOld[$field['id']]['enum'] = $field['enum'];
             }
         }
@@ -97,44 +128,102 @@ Class RequestUpdateGenerator extends BaseGenerator
                     $keyField = $this->serviceGenerator->trimQuotes($keyField);
 
                     if ($change['field_name'] === $keyField) {
-                        if ($change['default_value'] === $this->configDefaultValue['none']) {
+                        if (
+                            $change['default_value'] ===
+                            $this->configDefaultValue['none']
+                        ) {
                             $required = 'required';
                         } else {
                             $required = 'nullable';
                         }
-                        if ($dataOld[$change['id']]['default_value'] === $this->configDefaultValue['none']) {
+                        if (
+                            $dataOld[$change['id']]['default_value'] ===
+                            $this->configDefaultValue['none']
+                        ) {
                             $requiredOld = 'required';
                         } else {
                             $requiredOld = 'nullable';
                         }
-                        if($dataOld[$change['id']]['db_type'] === $this->dbType['string']) {
-                            preg_match('/max:[0-9]{0,3}/im', $valField, $matches);
-                            if(isset($matches[0])) {
-                                $valField = str_replace($matches[0], "max:{$change['length_varchar']}", $valField);
+                        if (
+                            $dataOld[$change['id']]['db_type'] ===
+                            $this->dbType['string']
+                        ) {
+                            preg_match(
+                                '/max:[0-9]{0,3}/im',
+                                $valField,
+                                $matches
+                            );
+                            if (isset($matches[0])) {
+                                $valField = str_replace(
+                                    $matches[0],
+                                    "max:{$change['length_varchar']}",
+                                    $valField
+                                );
                             }
                         }
-                        $valField = str_replace($requiredOld, $required, $valField);
-                        if($dataOld[$change['id']]['db_type'] !== $change['db_type']) {
-                            $valField = str_replace($this->changeDBType($dataOld[$change['id']]['db_type'], $dataOld[$change['id']]['enum']), $this->changeDBType($change['db_type'], $change['enum']), $valField);
-                            if($change['db_type'] !== $this->dbType['string']) {
-                                preg_match('/\|?max:[0-9]{0,3}\|?/im', $valField, $matches);
-                                if(isset($matches[0])) {
-                                    $valField = str_replace($matches[0], '', $valField);
+                        $valField = str_replace(
+                            $requiredOld,
+                            $required,
+                            $valField
+                        );
+                        if (
+                            $dataOld[$change['id']]['db_type'] !==
+                            $change['db_type']
+                        ) {
+                            $valField = str_replace(
+                                $this->changeDBType(
+                                    $dataOld[$change['id']]['db_type'],
+                                    $dataOld[$change['id']]['enum']
+                                ),
+                                $this->changeDBType(
+                                    $change['db_type'],
+                                    $change['enum']
+                                ),
+                                $valField
+                            );
+                            if (
+                                $change['db_type'] !== $this->dbType['string']
+                            ) {
+                                preg_match(
+                                    '/\|?max:[0-9]{0,3}\|?/im',
+                                    $valField,
+                                    $matches
+                                );
+                                if (isset($matches[0])) {
+                                    $valField = str_replace(
+                                        $matches[0],
+                                        '',
+                                        $valField
+                                    );
                                 }
                             }
                         }
                         $fieldsGenerator[] = "'" . $keyField . "' => $valField";
                     } else {
                         $value = "'" . $keyField . "' => $valField";
-                        if (!in_array($value, $fieldsGenerator) && !in_array($keyField, $arrayChange)) {
+                        if (
+                            !in_array($value, $fieldsGenerator) &&
+                            !in_array($keyField, $arrayChange)
+                        ) {
                             $fieldsGenerator[] = $value;
                         }
                     }
                 }
             }
         }
-        $fieldsGenerator[] = $this->notDelete['rule'] . $this->serviceGenerator->infy_nl_tab(1, 2);
-        $templateDataReal = str_replace($templateColumns, $this->serviceGenerator->infy_nl_tab(0, 2) . ' ' . implode($this->serviceGenerator->infy_nl_tab(1, 3), $fieldsGenerator), $templateDataReal);
+        $fieldsGenerator[] =
+            $this->notDelete['rule'] .
+            $this->serviceGenerator->infy_nl_tab(1, 2);
+        $templateDataReal = str_replace(
+            $templateColumns,
+            $this->serviceGenerator->infy_nl_tab(0, 2) .
+                ' ' .
+                implode(
+                    $this->serviceGenerator->infy_nl_tab(1, 3),
+                    $fieldsGenerator
+                ),
+            $templateDataReal
+        );
 
         return $templateDataReal;
     }
@@ -146,7 +235,13 @@ Class RequestUpdateGenerator extends BaseGenerator
         }
 
         $fieldsGenerator = [];
-        $templateColumns = $this->serviceGenerator->searchTemplate(self::COLUMNS, self::CHAR, strlen(self::COLUMNS) + 4, -4 - strlen(self::COLUMNS), $templateDataReal);
+        $templateColumns = $this->serviceGenerator->searchTemplate(
+            self::COLUMNS,
+            self::CHAR,
+            strlen(self::COLUMNS) + 4,
+            -4 - strlen(self::COLUMNS),
+            $templateDataReal
+        );
         $arrayColumns = explode(PHP_EOL, $templateColumns);
         $arrayChange = \Arr::pluck($dropFields, 'field_name');
 
@@ -159,15 +254,29 @@ Class RequestUpdateGenerator extends BaseGenerator
                     $keyField = $this->serviceGenerator->trimQuotes($keyField);
                     $value = "'" . $keyField . "' => $valField";
                     if ($keyField !== $drop['field_name']) {
-                        if (!in_array($value, $fieldsGenerator) && !in_array($keyField, $arrayChange)) {
+                        if (
+                            !in_array($value, $fieldsGenerator) &&
+                            !in_array($keyField, $arrayChange)
+                        ) {
                             $fieldsGenerator[] = $value;
                         }
                     }
                 }
             }
         }
-        $fieldsGenerator[] = $this->notDelete['rule'] . $this->serviceGenerator->infy_nl_tab(1, 2);
-        $templateDataReal = str_replace($templateColumns, $this->serviceGenerator->infy_nl_tab(0, 2) . ' ' . implode($this->serviceGenerator->infy_nl_tab(1, 3), $fieldsGenerator), $templateDataReal);
+        $fieldsGenerator[] =
+            $this->notDelete['rule'] .
+            $this->serviceGenerator->infy_nl_tab(1, 2);
+        $templateDataReal = str_replace(
+            $templateColumns,
+            $this->serviceGenerator->infy_nl_tab(0, 2) .
+                ' ' .
+                implode(
+                    $this->serviceGenerator->infy_nl_tab(1, 3),
+                    $fieldsGenerator
+                ),
+            $templateDataReal
+        );
 
         return $templateDataReal;
     }
@@ -178,7 +287,12 @@ Class RequestUpdateGenerator extends BaseGenerator
             return $templateDataReal;
         }
 
-        $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['rule'], $this->generateFields($updateFields), 3, $templateDataReal);
+        $templateDataReal = $this->serviceGenerator->replaceNotDelete(
+            $this->notDelete['rule'],
+            $this->generateFields($updateFields),
+            3,
+            $templateDataReal
+        );
 
         return $templateDataReal;
     }
@@ -198,30 +312,78 @@ Class RequestUpdateGenerator extends BaseGenerator
                 case $this->dbType['bigInteger']:
                 case $this->dbType['float']:
                 case $this->dbType['double']:
-                    $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|numeric'" . ',';
+                    $fieldsGenerate[] =
+                        "'" .
+                        $field['field_name'] .
+                        "'" .
+                        ' => ' .
+                        "'$required|numeric'" .
+                        ',';
                     break;
                 case $this->dbType['boolean']:
-                    $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|boolean'" . ',';
+                    $fieldsGenerate[] =
+                        "'" .
+                        $field['field_name'] .
+                        "'" .
+                        ' => ' .
+                        "'$required|boolean'" .
+                        ',';
                     break;
                 case $this->dbType['date']:
-                    $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:Y-m-d'" . ',';
+                    $fieldsGenerate[] =
+                        "'" .
+                        $field['field_name'] .
+                        "'" .
+                        ' => ' .
+                        "'$required|date_format:Y-m-d'" .
+                        ',';
                     break;
                 case $this->dbType['dateTime']:
-                    $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:Y-m-d H:i:s'" . ',';
+                    $fieldsGenerate[] =
+                        "'" .
+                        $field['field_name'] .
+                        "'" .
+                        ' => ' .
+                        "'$required|date_format:Y-m-d H:i:s'" .
+                        ',';
                     break;
                 case $this->dbType['time']:
-                    $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:H:i:s'" . ',';
+                    $fieldsGenerate[] =
+                        "'" .
+                        $field['field_name'] .
+                        "'" .
+                        ' => ' .
+                        "'$required|date_format:H:i:s'" .
+                        ',';
                     break;
                 case $this->dbType['year']:
-                    $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:Y'" . ',';
+                    $fieldsGenerate[] =
+                        "'" .
+                        $field['field_name'] .
+                        "'" .
+                        ' => ' .
+                        "'$required|date_format:Y'" .
+                        ',';
                     break;
                 case $this->dbType['string']:
-                    $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|string|max:{$field['length_varchar']}'" . ',';
+                    $fieldsGenerate[] =
+                        "'" .
+                        $field['field_name'] .
+                        "'" .
+                        ' => ' .
+                        "'$required|string|max:{$field['length_varchar']}'" .
+                        ',';
                     break;
                 case $this->dbType['text']:
                 case $this->dbType['longtext']:
                 case $this->dbType['file']:
-                    $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|string'" . ',';
+                    $fieldsGenerate[] =
+                        "'" .
+                        $field['field_name'] .
+                        "'" .
+                        ' => ' .
+                        "'$required|string'" .
+                        ',';
                     break;
                 case $this->dbType['enum']:
                     $enum = 'in:';
@@ -232,15 +394,30 @@ Class RequestUpdateGenerator extends BaseGenerator
                             $enum .= "$value" . ',';
                         }
                     }
-                    $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|$enum'" . ',';
+                    $fieldsGenerate[] =
+                        "'" .
+                        $field['field_name'] .
+                        "'" .
+                        ' => ' .
+                        "'$required|$enum'" .
+                        ',';
                     break;
                 case $this->dbType['json']:
-                    $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|json'" . ',';
+                    $fieldsGenerate[] =
+                        "'" .
+                        $field['field_name'] .
+                        "'" .
+                        ' => ' .
+                        "'$required|json'" .
+                        ',';
                     break;
             }
         }
 
-        return implode($this->serviceGenerator->infy_nl_tab(1, 3), $fieldsGenerate);
+        return implode(
+            $this->serviceGenerator->infy_nl_tab(1, 3),
+            $fieldsGenerate
+        );
     }
 
     private function changeDBType($dbType, $enums = [])

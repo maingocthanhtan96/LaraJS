@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-Class FileService extends BaseService
+class FileService extends BaseService
 {
     /**
      * @param $path

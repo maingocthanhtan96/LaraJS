@@ -6,7 +6,7 @@ use App\Generators\BaseGenerator;
 use App\Service\FileService;
 use App\Service\GeneratorService;
 
-Class ViewTableUpdateGenerator extends BaseGenerator
+class ViewTableUpdateGenerator extends BaseGenerator
 {
     /** @var $service */
     public $serviceGenerator;
@@ -41,19 +41,44 @@ Class ViewTableUpdateGenerator extends BaseGenerator
 
     private function generate($generator, $model, $updateFields)
     {
-        $fileName = $this->serviceGenerator->modelNameNotPluralFe($model['name']) . '/index.vue';
-        $templateDataReal = $this->serviceGenerator->getFile('views', 'vuejs', $fileName);
-        $templateDataReal = $this->generateFieldsRename($updateFields['renameFields'], $model, $templateDataReal);
-        $templateDataReal = $this->generateFieldsChange($generator, $updateFields['changeFields'], $model, $templateDataReal);
-        $templateDataReal = $this->generateFieldsDrop($updateFields['dropFields'], $templateDataReal);
-        $templateDataReal = $this->generateFieldsUpdate($updateFields['updateFields'], $model, $templateDataReal);
+        $fileName =
+            $this->serviceGenerator->modelNameNotPluralFe($model['name']) .
+            '/index.vue';
+        $templateDataReal = $this->serviceGenerator->getFile(
+            'views',
+            'vuejs',
+            $fileName
+        );
+        $templateDataReal = $this->generateFieldsRename(
+            $updateFields['renameFields'],
+            $model,
+            $templateDataReal
+        );
+        $templateDataReal = $this->generateFieldsChange(
+            $generator,
+            $updateFields['changeFields'],
+            $model,
+            $templateDataReal
+        );
+        $templateDataReal = $this->generateFieldsDrop(
+            $updateFields['dropFields'],
+            $templateDataReal
+        );
+        $templateDataReal = $this->generateFieldsUpdate(
+            $updateFields['updateFields'],
+            $model,
+            $templateDataReal
+        );
 
         $fileName = $this->path . $fileName;
         $this->serviceFile->createFileReal($fileName, $templateDataReal);
     }
 
-    private function generateFieldsRename($renameFields, $model, $templateDataReal)
-    {
+    private function generateFieldsRename(
+        $renameFields,
+        $model,
+        $templateDataReal
+    ) {
         if (empty($renameFields)) {
             return $templateDataReal;
         }
@@ -62,17 +87,37 @@ Class ViewTableUpdateGenerator extends BaseGenerator
         foreach ($renameFields as $index => $rename) {
             //replace template index.view
             $selfTemplateStart = self::TEMPLATE_START;
-            $selfTemplateStart .= '"' . $rename['field_name_old']['field_name'] . '"';
-            $templateColumn = $this->serviceGenerator->searchTemplateX($selfTemplateStart, 1, $selfTemplateEnd, -strlen($selfTemplateStart), strlen($selfTemplateStart) + strlen($selfTemplateEnd), $templateDataReal);
-            $elColumn = $this->replaceElColumn($templateColumn, $rename, $model);
-            $templateDataReal = str_replace($templateColumn, $elColumn, $templateDataReal);
+            $selfTemplateStart .=
+                '"' . $rename['field_name_old']['field_name'] . '"';
+            $templateColumn = $this->serviceGenerator->searchTemplateX(
+                $selfTemplateStart,
+                1,
+                $selfTemplateEnd,
+                -strlen($selfTemplateStart),
+                strlen($selfTemplateStart) + strlen($selfTemplateEnd),
+                $templateDataReal
+            );
+            $elColumn = $this->replaceElColumn(
+                $templateColumn,
+                $rename,
+                $model
+            );
+            $templateDataReal = str_replace(
+                $templateColumn,
+                $elColumn,
+                $templateDataReal
+            );
         }
 
         return $templateDataReal;
     }
 
-    private function generateFieldsChange($generator, $changeFields, $model, $templateDataReal)
-    {
+    private function generateFieldsChange(
+        $generator,
+        $changeFields,
+        $model,
+        $templateDataReal
+    ) {
         if (empty($changeFields)) {
             return $templateDataReal;
         }
@@ -91,31 +136,69 @@ Class ViewTableUpdateGenerator extends BaseGenerator
             //replace template index.view
             $selfTemplateStart = self::TEMPLATE_START;
             $selfTemplateStart .= '"' . $change['field_name'] . '"';
-            $templateColumn = $templateColumnNew = $this->serviceGenerator->searchTemplateX($selfTemplateStart, 1, $selfTemplateEnd, -strlen($selfTemplateStart), strlen($selfTemplateStart) + strlen($selfTemplateEnd), $templateDataReal);
-            if(!$change['show']) {
-                $templateColumnNew = str_replace($templateColumnNew, '', $templateColumnNew);
+            $templateColumn = $templateColumnNew = $this->serviceGenerator->searchTemplateX(
+                $selfTemplateStart,
+                1,
+                $selfTemplateEnd,
+                -strlen($selfTemplateStart),
+                strlen($selfTemplateStart) + strlen($selfTemplateEnd),
+                $templateDataReal
+            );
+            if (!$change['show']) {
+                $templateColumnNew = str_replace(
+                    $templateColumnNew,
+                    '',
+                    $templateColumnNew
+                );
             }
-            if(!$change['sort']) {
-                $templateColumnNew = str_replace(self::SORT_COLUMN, '', $templateColumnNew);
+            if (!$change['sort']) {
+                $templateColumnNew = str_replace(
+                    self::SORT_COLUMN,
+                    '',
+                    $templateColumnNew
+                );
             } else {
-                if(!strpos($templateColumnNew, self::SORT_COLUMN)) {
-                    $generator = self::TEMPLATE_START . '"'.$change['field_name'].'"';
-                    $templateColumnNew = str_replace($generator, $generator . ' ' . self::SORT_COLUMN, $templateColumnNew);
+                if (!strpos($templateColumnNew, self::SORT_COLUMN)) {
+                    $generator =
+                        self::TEMPLATE_START .
+                        '"' .
+                        $change['field_name'] .
+                        '"';
+                    $templateColumnNew = str_replace(
+                        $generator,
+                        $generator . ' ' . self::SORT_COLUMN,
+                        $templateColumnNew
+                    );
                 }
             }
 
             // change db_type
-            if($change['db_type'] !== $dataOld[$change['id']]['db_type']) {
+            if ($change['db_type'] !== $dataOld[$change['id']]['db_type']) {
                 // remove column
                 $selfTemplateEnd = self::TEMPLATE_END;
                 $selfTemplateStart = self::TEMPLATE_START;
                 $selfTemplateStart .= '"' . $change['field_name'] . '"';
-                $templateColumnOld = $this->serviceGenerator->searchTemplateX($selfTemplateStart, 1, $selfTemplateEnd, -strlen($selfTemplateStart), strlen($selfTemplateStart) + strlen($selfTemplateEnd), $templateDataReal);
+                $templateColumnOld = $this->serviceGenerator->searchTemplateX(
+                    $selfTemplateStart,
+                    1,
+                    $selfTemplateEnd,
+                    -strlen($selfTemplateStart),
+                    strlen($selfTemplateStart) + strlen($selfTemplateEnd),
+                    $templateDataReal
+                );
                 $templateColumnNewDB = $this->generateHandler($change, $model);
-                $templateDataReal = str_replace($templateColumnOld, $templateColumnNewDB, $templateDataReal);
+                $templateDataReal = str_replace(
+                    $templateColumnOld,
+                    $templateColumnNewDB,
+                    $templateDataReal
+                );
             }
 
-            $templateDataReal = str_replace($templateColumn, $templateColumnNew, $templateDataReal);
+            $templateDataReal = str_replace(
+                $templateColumn,
+                $templateColumnNew,
+                $templateDataReal
+            );
         }
 
         return $templateDataReal;
@@ -132,18 +215,38 @@ Class ViewTableUpdateGenerator extends BaseGenerator
             //replace template index.view
             $selfTemplateStart = self::TEMPLATE_START;
             $selfTemplateStart .= '"' . $drop['field_name'] . '"';
-            $templateColumn = $this->serviceGenerator->searchTemplateX($selfTemplateStart, 1, $selfTemplateEnd, -strlen($selfTemplateStart), strlen($selfTemplateStart) + strlen($selfTemplateEnd), $templateDataReal);
+            $templateColumn = $this->serviceGenerator->searchTemplateX(
+                $selfTemplateStart,
+                1,
+                $selfTemplateEnd,
+                -strlen($selfTemplateStart),
+                strlen($selfTemplateStart) + strlen($selfTemplateEnd),
+                $templateDataReal
+            );
 
-            $templateDataReal = str_replace($templateColumn, '', $templateDataReal);
+            $templateDataReal = str_replace(
+                $templateColumn,
+                '',
+                $templateDataReal
+            );
         }
 
         return $templateDataReal;
     }
 
-    private function generateFieldsUpdate($updateFields, $model, $templateDataReal)
-    {
-        foreach($updateFields as $update) {
-            $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['templates'], $this->generateHandler($update, $model), 6, $templateDataReal, 2);
+    private function generateFieldsUpdate(
+        $updateFields,
+        $model,
+        $templateDataReal
+    ) {
+        foreach ($updateFields as $update) {
+            $templateDataReal = $this->serviceGenerator->replaceNotDelete(
+                $this->notDelete['templates'],
+                $this->generateHandler($update, $model),
+                6,
+                $templateDataReal,
+                2
+            );
         }
 
         return $templateDataReal;
@@ -154,19 +257,43 @@ Class ViewTableUpdateGenerator extends BaseGenerator
         $dataGenerator = 'data-generator=';
         $prop = 'prop=';
         $row = 'row.';
-        $fieldOld = '"'.$field['field_name_old']['field_name'].'"';
-        $fieldNew = '"'.$field['field_name_new']['field_name'].'"';
+        $fieldOld = '"' . $field['field_name_old']['field_name'] . '"';
+        $fieldNew = '"' . $field['field_name_new']['field_name'] . '"';
         // data-generator
-        $templates = str_replace($dataGenerator . $fieldOld, $dataGenerator . $fieldNew, $templates);
+        $templates = str_replace(
+            $dataGenerator . $fieldOld,
+            $dataGenerator . $fieldNew,
+            $templates
+        );
         // prop
-        $templates = str_replace($prop . $fieldOld, $prop . $fieldNew, $templates);
+        $templates = str_replace(
+            $prop . $fieldOld,
+            $prop . $fieldNew,
+            $templates
+        );
         // label
-        $templates = str_replace($this->serviceGenerator->tableNameNotPlural($model['name']) . '.' . $field['field_name_old']['field_name'], $this->serviceGenerator->tableNameNotPlural($model['name']) . '.' . $field['field_name_new']['field_name'], $templates);
+        $templates = str_replace(
+            $this->serviceGenerator->tableNameNotPlural($model['name']) .
+                '.' .
+                $field['field_name_old']['field_name'],
+            $this->serviceGenerator->tableNameNotPlural($model['name']) .
+                '.' .
+                $field['field_name_new']['field_name'],
+            $templates
+        );
         // row
-        $templates = str_replace($row . $field['field_name_old']['field_name'], $row . $field['field_name_new']['field_name'], $templates);
+        $templates = str_replace(
+            $row . $field['field_name_old']['field_name'],
+            $row . $field['field_name_new']['field_name'],
+            $templates
+        );
 
-        if($field['field_name_old']['db_type'] === $this->dbType['file']) {
-            $templates = str_replace("'".$field['field_name_old']['field_name']."_'", "'".$field['field_name_new']['field_name']."_'", $templates);
+        if ($field['field_name_old']['db_type'] === $this->dbType['file']) {
+            $templates = str_replace(
+                "'" . $field['field_name_old']['field_name'] . "_'",
+                "'" . $field['field_name_new']['field_name'] . "_'",
+                $templates
+            );
         }
 
         return $templates;
@@ -175,29 +302,85 @@ Class ViewTableUpdateGenerator extends BaseGenerator
     private function generateHandler($field, $model)
     {
         $pathTemplate = 'Handler/';
-        $templateTableColumnLongText = $this->serviceGenerator->get_template("tableColumnLongText", $pathTemplate, 'vuejs');
-        $templateTableColumnUploadParse = $this->serviceGenerator->get_template("tableColumnUploadParse", $pathTemplate, 'vuejs');
-        $templateTableColumnBoolean = $this->serviceGenerator->get_template("tableColumnBoolean", $pathTemplate, 'vuejs');
-        $templateTableColumn = $this->serviceGenerator->get_template("tableColumn", $pathTemplate, 'vuejs');
+        $templateTableColumnLongText = $this->serviceGenerator->get_template(
+            "tableColumnLongText",
+            $pathTemplate,
+            'vuejs'
+        );
+        $templateTableColumnUploadParse = $this->serviceGenerator->get_template(
+            "tableColumnUploadParse",
+            $pathTemplate,
+            'vuejs'
+        );
+        $templateTableColumnBoolean = $this->serviceGenerator->get_template(
+            "tableColumnBoolean",
+            $pathTemplate,
+            'vuejs'
+        );
+        $templateTableColumn = $this->serviceGenerator->get_template(
+            "tableColumn",
+            $pathTemplate,
+            'vuejs'
+        );
 
-        if($field['show']) {
+        if ($field['show']) {
             if ($field['db_type'] === $this->dbType['longtext']) {
-                $template = str_replace('{{$FIELD_NAME$}}', $field['field_name'], $templateTableColumnLongText);
-                $template = str_replace('{{$TABLE_MODEL_CLASS$}}', $this->serviceGenerator->tableNameNotPlural($model['name']), $template);
-            } else if ($field['db_type'] === $this->dbType['file']) {
-                $template = str_replace('{{$FIELD_NAME$}}', $field['field_name'], $templateTableColumnUploadParse);
-                $template = str_replace('{{$TABLE_MODEL_CLASS$}}', $this->serviceGenerator->tableNameNotPlural($model['name']), $template);
-            } else if ($field['db_type'] === $this->dbType['boolean']) {
-                $template = str_replace('{{$FIELD_NAME$}}', $field['field_name'], $templateTableColumnBoolean);
-                $template = str_replace('{{$TABLE_MODEL_CLASS$}}', $this->serviceGenerator->tableNameNotPlural($model['name']), $template);
+                $template = str_replace(
+                    '{{$FIELD_NAME$}}',
+                    $field['field_name'],
+                    $templateTableColumnLongText
+                );
+                $template = str_replace(
+                    '{{$TABLE_MODEL_CLASS$}}',
+                    $this->serviceGenerator->tableNameNotPlural($model['name']),
+                    $template
+                );
+            } elseif ($field['db_type'] === $this->dbType['file']) {
+                $template = str_replace(
+                    '{{$FIELD_NAME$}}',
+                    $field['field_name'],
+                    $templateTableColumnUploadParse
+                );
+                $template = str_replace(
+                    '{{$TABLE_MODEL_CLASS$}}',
+                    $this->serviceGenerator->tableNameNotPlural($model['name']),
+                    $template
+                );
+            } elseif ($field['db_type'] === $this->dbType['boolean']) {
+                $template = str_replace(
+                    '{{$FIELD_NAME$}}',
+                    $field['field_name'],
+                    $templateTableColumnBoolean
+                );
+                $template = str_replace(
+                    '{{$TABLE_MODEL_CLASS$}}',
+                    $this->serviceGenerator->tableNameNotPlural($model['name']),
+                    $template
+                );
             } else {
-                $template = str_replace('{{$FIELD_NAME$}}', $field['field_name'], $templateTableColumn);
-                $template = str_replace('{{$TABLE_MODEL_CLASS$}}', $this->serviceGenerator->tableNameNotPlural($model['name']), $template);
-                $template = str_replace('{{$ALIGN$}}', $this->generateColumnClassesFields($field), $template);
+                $template = str_replace(
+                    '{{$FIELD_NAME$}}',
+                    $field['field_name'],
+                    $templateTableColumn
+                );
+                $template = str_replace(
+                    '{{$TABLE_MODEL_CLASS$}}',
+                    $this->serviceGenerator->tableNameNotPlural($model['name']),
+                    $template
+                );
+                $template = str_replace(
+                    '{{$ALIGN$}}',
+                    $this->generateColumnClassesFields($field),
+                    $template
+                );
             }
 
-            if($field['sort']) {
-                $template = str_replace('{{$SORT$}}', self::SORT_COLUMN, $template);
+            if ($field['sort']) {
+                $template = str_replace(
+                    '{{$SORT$}}',
+                    self::SORT_COLUMN,
+                    $template
+                );
             } else {
                 $template = str_replace('{{$SORT$}}', '', $template);
             }

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use \App\Larajs\Permission as LarajsPermission;
+use App\Larajs\Permission as LarajsPermission;
 
 class Permission extends \Spatie\Permission\Models\Permission
 {
@@ -14,7 +14,11 @@ class Permission extends \Spatie\Permission\Models\Permission
      */
     public function scopeAllowed($query)
     {
-        return $query->where('name', '!=', LarajsPermission::PERMISSION_PERMISSION_MANAGE);
+        return $query->where(
+            'name',
+            '!=',
+            LarajsPermission::PERMISSION_PERMISSION_MANAGE
+        );
     }
 
     /**

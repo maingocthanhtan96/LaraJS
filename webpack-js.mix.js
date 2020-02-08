@@ -26,7 +26,6 @@ mix.extend('mergeManifest', mergeManifest)
     'vue-i18n',
     'axios',
     'element-ui',
-    'vue-tables-2',
     'echarts',
   ])
   .webpackConfig(config)

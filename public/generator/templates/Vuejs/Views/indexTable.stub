@@ -32,14 +32,15 @@
               class="w-full"
               v-loading="table.loading"
               :data="table.list"
+              :default-sort = "{prop: 'created_at', order: 'descending'}"
               border
               fit
               highlight-current-row
               @sort-change="sortChange"
               >
-                <el-table-column align="center" sortable="custom" :label="$t('table.{{$TABLE_MODEL_CLASS$}}.id')" width="70px">
+                <el-table-column align="center" sortable="custom" prop="id" :label="$t('table.{{$TABLE_MODEL_CLASS$}}.id')" width="70px">
                   <template slot-scope="{ $index }">
-                    {{ (table.listQuery.page - 1) + $index + 1 }}
+                    {{ (table.listQuery.page - 1) * table.listQuery.limit + $index + 1 }}
                   </template>
                 </el-table-column>
                 <!--{{$TEMPLATES_NOT_DELETE_THIS_LINE$}}-->
@@ -80,8 +81,8 @@
             limit: {{$LIMIT$}},
             ascending: 1,
             page: 1,
-            orderBy: '',
-            created_at: [new Date().getTime() - 3600 * 1000 * 24 * 30, new Date()],
+            orderBy: 'created_at',
+            created_at: [this.parseTime(new Date().getTime() - 86400000 * 30), this.parseTime(new Date())],
           },
           list: null,
           total: 0,
@@ -107,9 +108,13 @@
         this.getList();
       },
       changeDateRangePicker(date) {
-        const startDate = this.$options.filters.parseTime(date[0], '{y}-{m}-{d}');
-        const endDate = this.$options.filters.parseTime(date[1], '{y}-{m}-{d}');
-        this.table.listQuery.created_at = [startDate, endDate];
+        if (date) {
+          const startDate = this.parseTime(date[0]);
+          const endDate = this.parseTime(date[1]);
+          this.table.listQuery.created_at = [startDate, endDate];
+        } else {
+          this.table.listQuery.created_at = [];
+        }
         this.handleFilter();
       },
       sortChange(data) {
@@ -141,11 +146,14 @@
           this.table.loading = false;
         });
       },
+      parseTime(date, format = '{y}-{m}-{d}') {
+        return this.$options.filters.parseTime(date, format);
+      },
     },
     watch: {
       'table.listQuery.query': debounce(function() {
         this.handleFilter();
-      }, 700),
+      }, 500),
     },
   };
 </script>

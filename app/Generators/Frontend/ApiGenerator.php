@@ -7,7 +7,7 @@ use App\Service\FileService;
 use App\Service\GeneratorService;
 use Carbon\Carbon;
 
-Class ApiGenerator extends BaseGenerator
+class ApiGenerator extends BaseGenerator
 {
     /** @var $service */
     public $serviceGenerator;
@@ -31,12 +31,30 @@ Class ApiGenerator extends BaseGenerator
     {
         $now = Carbon::now();
         $pathTemplate = 'Api/';
-        $templateData = $this->serviceGenerator->get_template("api", $pathTemplate, 'vuejs');
-        $templateData = str_replace('{{$DATE$}}', $now->toDateTimeString(), $templateData);
-        $templateData = str_replace('{{$MODEL_CLASS$}}', $model['name'], $templateData);
-        $templateData = str_replace('{{$MODEL_CLASS_URI$}}', $this->serviceGenerator->urlResource($model['name']), $templateData);
+        $templateData = $this->serviceGenerator->get_template(
+            "api",
+            $pathTemplate,
+            'vuejs'
+        );
+        $templateData = str_replace(
+            '{{$DATE$}}',
+            $now->toDateTimeString(),
+            $templateData
+        );
+        $templateData = str_replace(
+            '{{$MODEL_CLASS$}}',
+            $model['name'],
+            $templateData
+        );
+        $templateData = str_replace(
+            '{{$MODEL_CLASS_URI$}}',
+            $this->serviceGenerator->urlResource($model['name']),
+            $templateData
+        );
 
-        $fileName = $this->serviceGenerator->modelNameNotPluralFe($model['name']) . '.js';
+        $fileName =
+            $this->serviceGenerator->modelNameNotPluralFe($model['name']) .
+            '.js';
         $this->serviceFile->createFile($this->path, $fileName, $templateData);
     }
 }

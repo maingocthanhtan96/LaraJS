@@ -4,5 +4,4 @@ namespace App\Service;
 
 class BaseService
 {
-
 }

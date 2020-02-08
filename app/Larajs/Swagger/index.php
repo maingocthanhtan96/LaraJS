@@ -37,7 +37,6 @@
  * ),
  */
 
-
 // Oauth2 passport
 /**
  * OA\SecurityScheme(
@@ -71,3 +70,4 @@
  *               ),
  *           ),
  */
+

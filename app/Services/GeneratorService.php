@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-Class GeneratorService extends BaseService
+class GeneratorService extends BaseService
 {
     /**
      * Generates tab with spaces.
@@ -77,8 +77,11 @@ Class GeneratorService extends BaseService
      *
      * @return string
      */
-    public function get_template_file_path($templateName, $templatePath, $typeTemplate = 'laravel')
-    {
+    public function get_template_file_path(
+        $templateName,
+        $templatePath,
+        $typeTemplate = 'laravel'
+    ) {
         if ($typeTemplate === 'laravel') {
             $templatesPath = config('generator.template.laravel');
         } else {
@@ -180,9 +183,16 @@ Class GeneratorService extends BaseService
      *
      * @return string
      */
-    public function get_template($templateName, $templatePath, $typeTemplate = 'laravel')
-    {
-        $path = $this->get_template_file_path($templateName, $templatePath, $typeTemplate);
+    public function get_template(
+        $templateName,
+        $templatePath,
+        $typeTemplate = 'laravel'
+    ) {
+        $path = $this->get_template_file_path(
+            $templateName,
+            $templatePath,
+            $typeTemplate
+        );
         return file_get_contents($path);
     }
 
@@ -195,9 +205,16 @@ Class GeneratorService extends BaseService
      *
      * @return string
      */
-    public function getFileExist($templateName, $templatePath, $typeTemplate = 'laravel')
-    {
-        $path = $this->get_template_file_path($templateName, $templatePath, $typeTemplate);
+    public function getFileExist(
+        $templateName,
+        $templatePath,
+        $typeTemplate = 'laravel'
+    ) {
+        $path = $this->get_template_file_path(
+            $templateName,
+            $templatePath,
+            $typeTemplate
+        );
         return file_get_contents($path);
     }
 
@@ -245,8 +262,12 @@ Class GeneratorService extends BaseService
      *
      * @return string
      */
-    public function fill_template_with_field_data($variables, $fieldVariables, $template, $field)
-    {
+    public function fill_template_with_field_data(
+        $variables,
+        $fieldVariables,
+        $template,
+        $field
+    ) {
         $template = $this->fill_template($variables, $template);
         return $this->fill_field_template($fieldVariables, $template, $field);
     }
@@ -354,8 +375,12 @@ Class GeneratorService extends BaseService
      *
      * @return string
      */
-    public function urlFilterColumn($key, $type, $value = '', $singleSorting = true)
-    {
+    public function urlFilterColumn(
+        $key,
+        $type,
+        $value = '',
+        $singleSorting = true
+    ) {
         $params = \Request::all();
         if (isset($params['filter_column']) && $singleSorting) {
             foreach ($params['filter_column'] as $k => $filter) {
@@ -394,9 +419,18 @@ Class GeneratorService extends BaseService
      *
      * @return string
      */
-    public function replaceNotDelete($noteDelete, $replace, $tab, $templateDataReal, $spaces = 4)
-    {
-        return str_replace($noteDelete, $replace . $this->infy_nl_tab(1, $tab, $spaces) . $noteDelete, $templateDataReal);
+    public function replaceNotDelete(
+        $noteDelete,
+        $replace,
+        $tab,
+        $templateDataReal,
+        $spaces = 4
+    ) {
+        return str_replace(
+            $noteDelete,
+            $replace . $this->infy_nl_tab(1, $tab, $spaces) . $noteDelete,
+            $templateDataReal
+        );
     }
 
     /**
@@ -410,11 +444,23 @@ Class GeneratorService extends BaseService
      *
      * @return string
      */
-    public function searchTemplate($search, $char, $plusStart, $plusEnd, $templateDataReal)
-    {
-        $template = substr($templateDataReal, stripos($templateDataReal, $search));
+    public function searchTemplate(
+        $search,
+        $char,
+        $plusStart,
+        $plusEnd,
+        $templateDataReal
+    ) {
+        $template = substr(
+            $templateDataReal,
+            stripos($templateDataReal, $search)
+        );
         $length = stripos($template, $char);
-        return substr($templateDataReal, stripos($templateDataReal, $search) + $plusStart, $length + $plusEnd);
+        return substr(
+            $templateDataReal,
+            stripos($templateDataReal, $search) + $plusStart,
+            $length + $plusEnd
+        );
     }
 
     /**
@@ -429,13 +475,23 @@ Class GeneratorService extends BaseService
      *
      * @return string
      */
-    public function searchTemplateX($search, $number, $char, $plusStart, $plusEnd, $templateDataReal)
-    {
+    public function searchTemplateX(
+        $search,
+        $number,
+        $char,
+        $plusStart,
+        $plusEnd,
+        $templateDataReal
+    ) {
         $position = strpos_x($templateDataReal, $search, $number);
         if ($position) {
             $template = substr($templateDataReal, $position);
             $length = stripos($template, $char);
-            return substr($templateDataReal, $position + strlen($search) + $plusStart, $length + $plusEnd - strlen($search));
+            return substr(
+                $templateDataReal,
+                $position + strlen($search) + $plusStart,
+                $length + $plusEnd - strlen($search)
+            );
         } else {
             return false;
         }
@@ -449,10 +505,15 @@ Class GeneratorService extends BaseService
      */
     public function getRelations($model)
     {
-        $fileData = file(config('generator.path.laravel.model') . $model . '.php');
+        $fileData = file(
+            config('generator.path.laravel.model') . $model . '.php'
+        );
         $modelData = [];
         if (!in_array($model, config('generator.relationship.ignore_model'))) {
-            $modelData[] = ['model' => $model, 'data' => $this->extractRelations($fileData)];
+            $modelData[] = [
+                'model' => $model,
+                'data' => $this->extractRelations($fileData)
+            ];
         }
         return $modelData;
     }
@@ -465,33 +526,61 @@ Class GeneratorService extends BaseService
      */
     public function extractRelations($data)
     {
-        $relationshipIdentifiers = config('generator.relationship.relationship');
+        $relationshipIdentifiers = config(
+            'generator.relationship.relationship'
+        );
         $relationshipData = [];
-//        $matchPattern = '#\((.*?)\)#';
+        //        $matchPattern = '#\((.*?)\)#';
         $matchPattern = '#(hasOne|belongsTo|hasMany|belongsToMany)\((.*?)\)#';
         foreach ($data as $line) {
             foreach ($relationshipIdentifiers as $relationship) {
                 $nameRelationship = $relationship . '(';
-                $searchRelationship = $this->searchTemplateX($nameRelationship, 1, ')', -strlen($nameRelationship), strlen($nameRelationship), $line);
+                $searchRelationship = $this->searchTemplateX(
+                    $nameRelationship,
+                    1,
+                    ')',
+                    -strlen($nameRelationship),
+                    strlen($nameRelationship),
+                    $line
+                );
                 if ($searchRelationship) {
                     $modelData = explode(',', $searchRelationship);
-                    $modelName = $this->stripString($modelData[0], $relationship);
+                    $modelName = $this->stripString(
+                        $modelData[0],
+                        $relationship
+                    );
                     if ($relationship === 'belongsToMany') {
-                        $tableName = $this->modelNameNotPlural($this->stripString($modelData[1], $relationship));
+                        $tableName = $this->modelNameNotPlural(
+                            $this->stripString($modelData[1], $relationship)
+                        );
                         $subModel = substr($tableName, strlen($modelName));
                         $relationshipData[] = [
                             'type' => $relationship,
                             'model' => $modelName,
                             'table' => $tableName,
-                            'foreign_key' => $this->stripString(isset($modelData[2]) ? $modelData[2] : \Str::snake($subModel) . '_id'),
-                            'local_key' => $this->stripString(isset($modelData[3]) ? $modelData[3] : \Str::snake($modelName) . '_id')
+                            'foreign_key' => $this->stripString(
+                                isset($modelData[2])
+                                    ? $modelData[2]
+                                    : \Str::snake($subModel) . '_id'
+                            ),
+                            'local_key' => $this->stripString(
+                                isset($modelData[3])
+                                    ? $modelData[3]
+                                    : \Str::snake($modelName) . '_id'
+                            )
                         ];
                     } else {
                         $relationshipData[] = [
                             'type' => $relationship,
                             'model' => $modelName,
-                            'foreign_key' => $this->stripString(isset($modelData[1]) ? $modelData[1] : \Str::snake($modelName) . '_id'),
-                            'local_key' => $this->stripString(isset($modelData[2]) ? $modelData[2] : 'id')
+                            'foreign_key' => $this->stripString(
+                                isset($modelData[1])
+                                    ? $modelData[1]
+                                    : \Str::snake($modelName) . '_id'
+                            ),
+                            'local_key' => $this->stripString(
+                                isset($modelData[2]) ? $modelData[2] : 'id'
+                            )
                         ];
                     }
                 }

@@ -34,8 +34,19 @@ class QueryService extends BaseService
      * @return mixed
      * @author tanmnt
      */
-    public function queryTable($columns = [], $columnsWith = [], $search = '', $columnSearch = [], $with = [], $betweenDate = [], $limit = 25, $ascending = 0, $orderBy = 'created_at', $defaultOrderBy = 'created_at', $defaultDescending = 'desc')
-    {
+    public function queryTable(
+        $columns = [],
+        $columnsWith = [],
+        $search = '',
+        $columnSearch = [],
+        $with = [],
+        $betweenDate = [],
+        $limit = 25,
+        $ascending = 0,
+        $orderBy = 'created_at',
+        $defaultOrderBy = 'created_at',
+        $defaultDescending = 'desc'
+    ) {
         $ascending = $ascending == 0 ? 'asc' : 'desc';
 
         $query = $this->_model::query();
@@ -44,13 +55,19 @@ class QueryService extends BaseService
         }
 
         foreach (Arr::wrap($columns) as $col) {
-            $query->when($col === $orderBy, function ($q) use ($col, $ascending) {
+            $query->when($col === $orderBy, function ($q) use (
+                $col,
+                $ascending
+            ) {
                 $q->orderBy($col, $ascending);
             });
         }
 
         foreach (Arr::wrap($columnsWith) as $value => $col) {
-            $query->when($value === $orderBy, function ($q) use ($col, $ascending) {
+            $query->when($value === $orderBy, function ($q) use (
+                $col,
+                $ascending
+            ) {
                 $q->orderBy($col, $ascending);
             });
         }
@@ -59,11 +76,11 @@ class QueryService extends BaseService
             $q->whereLike($columnSearch, $search);
         });
 
-        $query->when(!empty($betweenDate[0]), function($q) use($betweenDate) {
+        $query->when(!empty($betweenDate[0]), function ($q) use ($betweenDate) {
             $q->whereDate('created_at', '>=', $betweenDate[0]);
         });
 
-        $query->when(!empty($betweenDate[1]), function($q) use($betweenDate) {
+        $query->when(!empty($betweenDate[1]), function ($q) use ($betweenDate) {
             $q->whereDate('created_at', '<=', $betweenDate[1]);
         });
 

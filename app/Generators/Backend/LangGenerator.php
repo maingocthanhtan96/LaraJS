@@ -6,7 +6,7 @@ use App\Generators\BaseGenerator;
 use App\Service\FileService;
 use App\Service\GeneratorService;
 
-Class LangGenerator extends BaseGenerator
+class LangGenerator extends BaseGenerator
 {
     /** @var $service */
     public $serviceGenerator;
@@ -34,17 +34,44 @@ Class LangGenerator extends BaseGenerator
         $langs = config('generator.not_delete.laravel.lang');
         foreach ($langs as $key => $langComment) {
             foreach ($nameLangs as $nameLang) {
-                $templateData = $this->serviceGenerator->get_template($key . "/" . $nameLang, $pathTemplate);
+                $templateData = $this->serviceGenerator->get_template(
+                    $key . "/" . $nameLang,
+                    $pathTemplate
+                );
                 if ($nameLang === 'table') {
-                    $templateData = str_replace('{{FIELDS}}', $this->generateTableFields($fields), $templateData);
+                    $templateData = str_replace(
+                        '{{FIELDS}}',
+                        $this->generateTableFields($fields),
+                        $templateData
+                    );
                 }
-                $templateData = str_replace('{{LANG_MODEL_CLASS}}', $this->serviceGenerator->tableNameNotPlural($model['name']), $templateData);
-                $templateData = str_replace('{{LANG_MODEL_TRANS_CLASS}}', $model['name_trans'], $templateData);
+                $templateData = str_replace(
+                    '{{LANG_MODEL_CLASS}}',
+                    $this->serviceGenerator->tableNameNotPlural($model['name']),
+                    $templateData
+                );
+                $templateData = str_replace(
+                    '{{LANG_MODEL_TRANS_CLASS}}',
+                    $model['name_trans'],
+                    $templateData
+                );
 
-                $templateDataReal = $this->serviceGenerator->getFile('lang', 'laravel', $key . '/' . $nameLang . '.php');
+                $templateDataReal = $this->serviceGenerator->getFile(
+                    'lang',
+                    'laravel',
+                    $key . '/' . $nameLang . '.php'
+                );
 
-                $templateDataReal = $this->serviceGenerator->replaceNotDelete($langComment[$nameLang], $templateData, 1, $templateDataReal);
-                $this->serviceFile->createFileReal($this->path . $key . '/' . $nameLang . '.php', $templateDataReal);
+                $templateDataReal = $this->serviceGenerator->replaceNotDelete(
+                    $langComment[$nameLang],
+                    $templateData,
+                    1,
+                    $templateDataReal
+                );
+                $this->serviceFile->createFileReal(
+                    $this->path . $key . '/' . $nameLang . '.php',
+                    $templateDataReal
+                );
             }
         }
 
@@ -55,8 +82,19 @@ Class LangGenerator extends BaseGenerator
     {
         $fieldsGenerate = [];
         foreach ($fields as $field) {
-            $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'" . $field['field_name_trans'] . "'" . ',';
+            $fieldsGenerate[] =
+                "'" .
+                $field['field_name'] .
+                "'" .
+                ' => ' .
+                "'" .
+                $field['field_name_trans'] .
+                "'" .
+                ',';
         }
-        return implode($this->serviceGenerator->infy_nl_tab(1, 2), $fieldsGenerate);
+        return implode(
+            $this->serviceGenerator->infy_nl_tab(1, 2),
+            $fieldsGenerate
+        );
     }
 }
