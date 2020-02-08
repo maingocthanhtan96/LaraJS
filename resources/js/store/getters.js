@@ -10,7 +10,7 @@ const getters = {
   addRouters: state => state.permission.addRouters,
   routers: state => state.permission.routers,
   visitedViews: state => state.tagsView.visitedViews,
-  cachedViews: state => state.tagsView.cachedViews,
+  cachedViews: state => state.tagsView.cachedViews
 };
 
 export default getters;

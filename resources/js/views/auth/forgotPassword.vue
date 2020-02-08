@@ -1,18 +1,30 @@
 <template>
-  <el-container class="blue-grey lighten-5 h-screen justify-center items-center">
+  <el-container
+    class="blue-grey lighten-5 h-screen justify-center items-center"
+  >
     <el-row>
       <el-col :xs="24" :sm="24" :lg="24" :xl="24">
         <el-card>
           <div slot="header" class="text-center">
-            {{$t('auth.forgot_password')}}
+            {{ $t('auth.forgot_password') }}
           </div>
           <div>
-            <el-form :model="form" status-icon :rules="rules" ref="forgotForm">
-              <el-form-item :label="$t('auth.login.email')" prop="email" required>
-                <el-input v-model="form.email" type="text" autocomplete="off"/>
+            <el-form ref="forgotForm" :model="form" status-icon :rules="rules">
+              <el-form-item
+                :label="$t('auth.login.email')"
+                prop="email"
+                required
+              >
+                <el-input v-model="form.email" type="text" autocomplete="off" />
               </el-form-item>
               <el-form-item class="text-center">
-                <el-button type="primary" v-loading.fullscreen.lock="loadingSendEmail" icon="el-icon-message" circle @click="requestResetPassword('forgotForm')"></el-button>
+                <el-button
+                  v-loading.fullscreen.lock="loadingSendEmail"
+                  type="primary"
+                  icon="el-icon-message"
+                  circle
+                  @click="requestResetPassword('forgotForm')"
+                />
               </el-form-item>
             </el-form>
           </div>
@@ -28,24 +40,32 @@ export default {
   data() {
     return {
       form: {
-        email: '',
+        email: ''
       },
-      loadingSendEmail: false,
+      loadingSendEmail: false
     };
   },
   computed: {
     rules() {
       return {
         email: [
-          { required: true, message: this.$t('auth.error.email'), trigger: ['change', 'blur'] },
-          { type: 'email', message: this.$t('auth.error.email_valid'), trigger: ['change', 'blur'] },
-        ],
+          {
+            required: true,
+            message: this.$t('auth.error.email'),
+            trigger: ['change', 'blur']
+          },
+          {
+            type: 'email',
+            message: this.$t('auth.error.email_valid'),
+            trigger: ['change', 'blur']
+          }
+        ]
       };
-    },
+    }
   },
   methods: {
     requestResetPassword(nameForm) {
-      this.$refs[nameForm].validate((valid) => {
+      this.$refs[nameForm].validate(valid => {
         if (!valid) {
           return false;
         }
@@ -55,7 +75,7 @@ export default {
             this.$message({
               showClose: true,
               message: res.data.message,
-              type: 'success',
+              type: 'success'
             });
             this.loadingSendEmail = false;
           })
@@ -63,7 +83,7 @@ export default {
             this.loadingSendEmail = false;
           });
       });
-    },
-  },
+    }
+  }
 };
 </script>

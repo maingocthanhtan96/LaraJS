@@ -1,6 +1,6 @@
 const state = {
   visitedViews: [],
-  cachedViews: [],
+  cachedViews: []
 };
 const mutations = {
   ADD_VISITED_VIEW: (state, view) => {
@@ -9,7 +9,7 @@ const mutations = {
     }
     state.visitedViews.push(
       Object.assign({}, view, {
-        title: view.meta.title || 'no-name',
+        title: view.meta.title || 'no-name'
       })
     );
   },
@@ -71,7 +71,7 @@ const mutations = {
         break;
       }
     }
-  },
+  }
 };
 
 const actions = {
@@ -92,7 +92,7 @@ const actions = {
       dispatch('delCachedView', view);
       resolve({
         visitedViews: [...state.visitedViews],
-        cachedViews: [...state.cachedViews],
+        cachedViews: [...state.cachedViews]
       });
     });
   },
@@ -115,7 +115,7 @@ const actions = {
       dispatch('delOthersCachedViews', view);
       resolve({
         visitedViews: [...state.visitedViews],
-        cachedViews: [...state.cachedViews],
+        cachedViews: [...state.cachedViews]
       });
     });
   },
@@ -138,7 +138,7 @@ const actions = {
       dispatch('delAllCachedViews', view);
       resolve({
         visitedViews: [...state.visitedViews],
-        cachedViews: [...state.cachedViews],
+        cachedViews: [...state.cachedViews]
       });
     });
   },
@@ -157,12 +157,12 @@ const actions = {
 
   updateVisitedView({ commit }, view) {
     commit('UPDATE_VISITED_VIEW', view);
-  },
+  }
 };
 
 export default {
   namespaced: true,
   state,
   mutations,
-  actions,
+  actions
 };

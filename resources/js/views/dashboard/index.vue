@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard-container">
-    <admin-dashboard/>
+    <admin-dashboard />
   </div>
 </template>
 
@@ -11,8 +11,7 @@ export default {
   name: 'Dashboard',
   components: { adminDashboard },
   data() {
-    return {
-    };
-  },
+    return {};
+  }
 };
 </script>

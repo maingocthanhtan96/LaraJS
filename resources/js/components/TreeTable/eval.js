@@ -23,7 +23,7 @@ export function addAttrs(
     expand = false,
     children = 'children',
     show = true,
-    select = false,
+    select = false
   } = {}
 ) {
   data.forEach((item, index) => {
@@ -42,7 +42,7 @@ export function addAttrs(
         preIndex: _id,
         children,
         status,
-        select,
+        select
       });
     }
   });

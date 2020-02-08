@@ -7,7 +7,7 @@ use App\Service\FileService;
 use App\Service\GeneratorService;
 use Carbon\Carbon;
 
-Class RequestGenerator extends BaseGenerator
+class RequestGenerator extends BaseGenerator
 {
     /** @var $service */
     public $serviceGenerator;
@@ -38,7 +38,12 @@ Class RequestGenerator extends BaseGenerator
         $templateData = $this->serviceGenerator->get_template("store", $pathTemplate);
         $templateData = str_replace('{{DATE}}', $now->toDateTimeString(), $templateData);
         $templateData = str_replace('{{MODEL_CLASS}}', $model['name'], $templateData);
-        $templateData = $this->serviceGenerator->replaceNotDelete($this->notDelete['rule'], $this->generateFields($fields), 3, $templateData);
+        $templateData = $this->serviceGenerator->replaceNotDelete(
+            $this->notDelete['rule'],
+            $this->generateFields($fields),
+            3,
+            $templateData
+        );
 
         //create sort delete
         $fileName = 'Store' . $model['name'] . 'Request.php';
@@ -71,19 +76,29 @@ Class RequestGenerator extends BaseGenerator
                         $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|boolean'" . ',';
                         break;
                     case $dbType['date']:
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:Y-m-d'" . ',';
+                        $fieldsGenerate[] =
+                            "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:Y-m-d'" . ',';
                         break;
                     case $dbType['dateTime']:
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:Y-m-d H:i:s'" . ',';
+                        $fieldsGenerate[] =
+                            "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:Y-m-d H:i:s'" . ',';
                         break;
                     case $dbType['time']:
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:H:i:s'" . ',';
+                        $fieldsGenerate[] =
+                            "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:H:i:s'" . ',';
                         break;
                     case $dbType['year']:
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:Y'" . ',';
+                        $fieldsGenerate[] =
+                            "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:Y'" . ',';
                         break;
                     case $dbType['string']:
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|string|max:{$field['length_varchar']}'" . ',';
+                        $fieldsGenerate[] =
+                            "'" .
+                            $field['field_name'] .
+                            "'" .
+                            ' => ' .
+                            "'$required|string|max:{$field['length_varchar']}'" .
+                            ',';
                         break;
                     case $dbType['text']:
                     case $dbType['longtext']:

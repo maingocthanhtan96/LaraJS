@@ -20,7 +20,9 @@ function canAccess(roles, permissions, route) {
       }
 
       if (route.meta.permissions) {
-        hasPermission = permissions.some(permission => route.meta.permissions.includes(permission));
+        hasPermission = permissions.some(permission =>
+          route.meta.permissions.includes(permission)
+        );
       }
     }
 
@@ -43,11 +45,7 @@ function filterAsyncRoutes(routes, roles, permissions) {
     const tmp = { ...route };
     if (canAccess(roles, permissions, tmp)) {
       if (tmp.children) {
-        tmp.children = filterAsyncRoutes(
-          tmp.children,
-          roles,
-          permissions
-        );
+        tmp.children = filterAsyncRoutes(tmp.children, roles, permissions);
       }
       res.push(tmp);
     }
@@ -58,14 +56,14 @@ function filterAsyncRoutes(routes, roles, permissions) {
 
 const state = {
   routers: [],
-  addRouters: [],
+  addRouters: []
 };
 
 const mutations = {
   [SET_ROUTERS]: (state, routers) => {
     state.addRouters = routers;
     state.routers = constantRouterMap.concat(routers);
-  },
+  }
 };
 
 const actions = {
@@ -80,12 +78,12 @@ const actions = {
       commit(SET_ROUTERS, accessedRouters);
       resolve(accessedRouters);
     });
-  },
+  }
 };
 
 export default {
   namespaced: true,
   state,
   mutations,
-  actions,
+  actions
 };

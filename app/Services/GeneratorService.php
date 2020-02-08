@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-Class GeneratorService extends BaseService
+class GeneratorService extends BaseService
 {
     /**
      * Generates tab with spaces.
@@ -396,7 +396,11 @@ Class GeneratorService extends BaseService
      */
     public function replaceNotDelete($noteDelete, $replace, $tab, $templateDataReal, $spaces = 4)
     {
-        return str_replace($noteDelete, $replace . $this->infy_nl_tab(1, $tab, $spaces) . $noteDelete, $templateDataReal);
+        return str_replace(
+            $noteDelete,
+            $replace . $this->infy_nl_tab(1, $tab, $spaces) . $noteDelete,
+            $templateDataReal
+        );
     }
 
     /**
@@ -435,7 +439,11 @@ Class GeneratorService extends BaseService
         if ($position) {
             $template = substr($templateDataReal, $position);
             $length = stripos($template, $char);
-            return substr($templateDataReal, $position + strlen($search) + $plusStart, $length + $plusEnd - strlen($search));
+            return substr(
+                $templateDataReal,
+                $position + strlen($search) + $plusStart,
+                $length + $plusEnd - strlen($search)
+            );
         } else {
             return false;
         }
@@ -467,12 +475,19 @@ Class GeneratorService extends BaseService
     {
         $relationshipIdentifiers = config('generator.relationship.relationship');
         $relationshipData = [];
-//        $matchPattern = '#\((.*?)\)#';
+        //        $matchPattern = '#\((.*?)\)#';
         $matchPattern = '#(hasOne|belongsTo|hasMany|belongsToMany)\((.*?)\)#';
         foreach ($data as $line) {
             foreach ($relationshipIdentifiers as $relationship) {
                 $nameRelationship = $relationship . '(';
-                $searchRelationship = $this->searchTemplateX($nameRelationship, 1, ')', -strlen($nameRelationship), strlen($nameRelationship), $line);
+                $searchRelationship = $this->searchTemplateX(
+                    $nameRelationship,
+                    1,
+                    ')',
+                    -strlen($nameRelationship),
+                    strlen($nameRelationship),
+                    $line
+                );
                 if ($searchRelationship) {
                     $modelData = explode(',', $searchRelationship);
                     $modelName = $this->stripString($modelData[0], $relationship);
@@ -483,14 +498,20 @@ Class GeneratorService extends BaseService
                             'type' => $relationship,
                             'model' => $modelName,
                             'table' => $tableName,
-                            'foreign_key' => $this->stripString(isset($modelData[2]) ? $modelData[2] : \Str::snake($subModel) . '_id'),
-                            'local_key' => $this->stripString(isset($modelData[3]) ? $modelData[3] : \Str::snake($modelName) . '_id')
+                            'foreign_key' => $this->stripString(
+                                isset($modelData[2]) ? $modelData[2] : \Str::snake($subModel) . '_id'
+                            ),
+                            'local_key' => $this->stripString(
+                                isset($modelData[3]) ? $modelData[3] : \Str::snake($modelName) . '_id'
+                            )
                         ];
                     } else {
                         $relationshipData[] = [
                             'type' => $relationship,
                             'model' => $modelName,
-                            'foreign_key' => $this->stripString(isset($modelData[1]) ? $modelData[1] : \Str::snake($modelName) . '_id'),
+                            'foreign_key' => $this->stripString(
+                                isset($modelData[1]) ? $modelData[1] : \Str::snake($modelName) . '_id'
+                            ),
                             'local_key' => $this->stripString(isset($modelData[2]) ? $modelData[2] : 'id')
                         ];
                     }

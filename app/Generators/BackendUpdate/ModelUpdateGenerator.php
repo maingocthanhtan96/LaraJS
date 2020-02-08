@@ -6,7 +6,7 @@ use App\Generators\BaseGenerator;
 use App\Service\FileService;
 use App\Service\GeneratorService;
 
-Class ModelUpdateGenerator extends BaseGenerator
+class ModelUpdateGenerator extends BaseGenerator
 {
     /** @var $service */
     public $serviceGenerator;
@@ -36,7 +36,12 @@ Class ModelUpdateGenerator extends BaseGenerator
         $templateDataReal = $this->generateUpdateFields($updateFields['updateFields'], $templateDataReal);
         $checkGenerateYear = $this->generateYear($updateFields);
         if ($checkGenerateYear) {
-            $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['cats'], $checkGenerateYear, 2, $templateDataReal);
+            $templateDataReal = $this->serviceGenerator->replaceNotDelete(
+                $this->notDelete['cats'],
+                $checkGenerateYear,
+                2,
+                $templateDataReal
+            );
         }
         $templateDataReal = $this->generateFieldsRename($updateFields['renameFields'], $templateDataReal);
         $templateDataReal = $this->generateFieldsDrop($updateFields['dropFields'], $templateDataReal);
@@ -52,7 +57,13 @@ Class ModelUpdateGenerator extends BaseGenerator
         }
         $fieldsGenerate = [];
         $fieldAble = 'protected $fillable = [';
-        $template = $this->serviceGenerator->searchTemplate($fieldAble, '];', strlen($fieldAble), -strlen($fieldAble), $templateDataReal);
+        $template = $this->serviceGenerator->searchTemplate(
+            $fieldAble,
+            '];',
+            strlen($fieldAble),
+            -strlen($fieldAble),
+            $templateDataReal
+        );
         $arTemplate = explode(',', trim($template));
 
         foreach ($arTemplate as $tpl) {
@@ -64,7 +75,11 @@ Class ModelUpdateGenerator extends BaseGenerator
             $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ',';
         }
         $implodeString = implode($this->serviceGenerator->infy_nl_tab(1, 2), $fieldsGenerate);
-        $templateDataReal = str_replace($template, $this->serviceGenerator->infy_nl_tab(1, 2) . $implodeString . $this->serviceGenerator->infy_nl_tab(1, 1), $templateDataReal);
+        $templateDataReal = str_replace(
+            $template,
+            $this->serviceGenerator->infy_nl_tab(1, 2) . $implodeString . $this->serviceGenerator->infy_nl_tab(1, 1),
+            $templateDataReal
+        );
 
         return $templateDataReal;
     }
@@ -72,7 +87,11 @@ Class ModelUpdateGenerator extends BaseGenerator
     private function generateFieldsRename($renameFields, $templateDataReal)
     {
         foreach ($renameFields as $rename) {
-            $templateDataReal = str_replace("'" . $rename['field_name_old']['field_name'] . "',", "'" . $rename['field_name_new']['field_name'] . "',", $templateDataReal);
+            $templateDataReal = str_replace(
+                "'" . $rename['field_name_old']['field_name'] . "',",
+                "'" . $rename['field_name_new']['field_name'] . "',",
+                $templateDataReal
+            );
         }
         return $templateDataReal;
     }

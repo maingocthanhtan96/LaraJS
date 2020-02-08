@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Mail Driver
@@ -57,7 +56,7 @@ return [
 
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'larajs.vue@gmail.com'),
-        'name' => env('MAIL_FROM_NAME', 'Larajs'),
+        'name' => env('MAIL_FROM_NAME', 'Larajs')
     ],
 
     /*
@@ -115,9 +114,7 @@ return [
     'markdown' => [
         'theme' => 'default',
 
-        'paths' => [
-            resource_path('views/vendor/mail'),
-        ],
+        'paths' => [resource_path('views/vendor/mail')]
     ],
 
     /*
@@ -131,6 +128,5 @@ return [
     |
     */
 
-    'log_channel' => env('MAIL_LOG_CHANNEL'),
-
+    'log_channel' => env('MAIL_LOG_CHANNEL')
 ];

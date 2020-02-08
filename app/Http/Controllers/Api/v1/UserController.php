@@ -34,7 +34,11 @@ class UserController extends Controller
 
             return $this->jsonData(new UserResource($user));
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+            return $this->jsonError(
+                $e->getMessage(),
+                $e->getFile(),
+                $e->getLine()
+            );
         }
     }
 
@@ -57,12 +61,26 @@ class UserController extends Controller
             $columnsWith = [];
             $columnSearch = ['name', 'email'];
             $with = ['roles'];
-            $qs = new QueryService(new User);
-            $users = $qs->queryTable($columns, $columnsWith, $query, $columnSearch, $with, $betweenDate, $limit, $ascending, $orderBy);
+            $qs = new QueryService(new User());
+            $users = $qs->queryTable(
+                $columns,
+                $columnsWith,
+                $query,
+                $columnSearch,
+                $with,
+                $betweenDate,
+                $limit,
+                $ascending,
+                $orderBy
+            );
 
             return $this->jsonTable($users);
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+            return $this->jsonError(
+                $e->getMessage(),
+                $e->getFile(),
+                $e->getLine()
+            );
         }
     }
 
@@ -81,7 +99,11 @@ class UserController extends Controller
 
             return $this->jsonData($user, 201);
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+            return $this->jsonError(
+                $e->getMessage(),
+                $e->getFile(),
+                $e->getLine()
+            );
         }
     }
 
@@ -94,7 +116,9 @@ class UserController extends Controller
     public function show(User $user)
     {
         try {
-            $user['role_id'] = $user->roles->toArray()[0] ? $user->roles->toArray()[0]['id'] : '';
+            $user['role_id'] = $user->roles->toArray()[0]
+                ? $user->roles->toArray()[0]['id']
+                : '';
             $user = $user->toArray();
             //{{CONTROLLER_RELATIONSHIP_MTM_SHOW_NOT_DELETE_THIS_LINE}}
 
@@ -115,13 +139,19 @@ class UserController extends Controller
     {
         try {
             $user->update($request->all());
-            \DB::table('model_has_roles')->where('model_id', $user->id)->delete();
+            \DB::table('model_has_roles')
+                ->where('model_id', $user->id)
+                ->delete();
             $user->assignRole($request->get('role_id'));
             //{{CONTROLLER_RELATIONSHIP_MTM_UPDATE_NOT_DELETE_THIS_LINE}}
 
             return $this->jsonData($user);
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+            return $this->jsonError(
+                $e->getMessage(),
+                $e->getFile(),
+                $e->getLine()
+            );
         }
     }
 
@@ -142,7 +172,11 @@ class UserController extends Controller
 
             return $this->jsonSuccess(trans('messages.delete'), 204);
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+            return $this->jsonError(
+                $e->getMessage(),
+                $e->getFile(),
+                $e->getLine()
+            );
         }
     }
 

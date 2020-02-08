@@ -90,6 +90,11 @@
         },
       }
     },
+    watch: {
+      'table.listQuery.query': debounce(function() {
+        this.handleFilter();
+      }, 500),
+    },
     mounted() {
       this.getList();
     },
@@ -149,11 +154,6 @@
       parseTime(date, format = '{y}-{m}-{d}') {
         return this.$options.filters.parseTime(date, format);
       },
-    },
-    watch: {
-      'table.listQuery.query': debounce(function() {
-        this.handleFilter();
-      }, 500),
     },
   };
 </script>

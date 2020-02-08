@@ -25,13 +25,21 @@ export function parseTime(time, cFormat) {
     h: date.getHours(),
     i: date.getMinutes(),
     s: date.getSeconds(),
-    a: date.getDay(),
+    a: date.getDay()
   };
   const timeStr = format.replace(/{(y|m|d|h|i|s|a)+}/g, (result, key) => {
     let value = formatObj[key];
     // Note: getDay() returns 0 on Sunday
     if (key === 'a') {
-      return ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][value];
+      return [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday'
+      ][value];
     }
     if (result.length > 0 && value < 10) {
       value = '0' + value;
@@ -64,9 +72,12 @@ export function formatTime(time, option) {
     return parseTime(time, option);
   } else {
     return (
-      pluralize(d.getMonth() + 1, ' month') + ' ' +
-      pluralize(d.getDate(), ' day') + ' ' +
-      pluralize(d.getHours(), ' day') + ' ' +
+      pluralize(d.getMonth() + 1, ' month') +
+      ' ' +
+      pluralize(d.getDate(), ' day') +
+      ' ' +
+      pluralize(d.getHours(), ' day') +
+      ' ' +
       pluralize(d.getMinutes(), ' minute')
     );
   }
@@ -106,7 +117,7 @@ export function byteLength(str) {
     } else if (code > 0x7ff && code <= 0xffff) {
       s += 2;
     }
-    if (code >= 0xDC00 && code <= 0xDFFF) {
+    if (code >= 0xdc00 && code <= 0xdfff) {
       i--;
     }
   }
@@ -141,12 +152,12 @@ export function param2Obj(url) {
   }
   return JSON.parse(
     '{"' +
-    decodeURIComponent(search)
-      .replace(/"/g, '\\"')
-      .replace(/&/g, '","')
-      .replace(/=/g, '":"')
-      .replace(/\+/g, ' ') +
-    '"}'
+      decodeURIComponent(search)
+        .replace(/"/g, '\\"')
+        .replace(/&/g, '","')
+        .replace(/=/g, '":"')
+        .replace(/\+/g, ' ') +
+      '"}'
   );
 }
 
@@ -214,7 +225,7 @@ export const pickerOptions = [
       const start = new Date(new Date().toDateString());
       end.setTime(start.getTime());
       picker.$emit('pick', [start, end]);
-    },
+    }
   },
   {
     text: 'Last week',
@@ -223,7 +234,7 @@ export const pickerOptions = [
       const start = new Date();
       start.setTime(end.getTime() - 3600 * 1000 * 24 * 7);
       picker.$emit('pick', [start, end]);
-    },
+    }
   },
   {
     text: 'Last month',
@@ -232,7 +243,7 @@ export const pickerOptions = [
       const start = new Date();
       start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
       picker.$emit('pick', [start, end]);
-    },
+    }
   },
   {
     text: 'Last three months',
@@ -241,8 +252,8 @@ export const pickerOptions = [
       const start = new Date();
       start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
       picker.$emit('pick', [start, end]);
-    },
-  },
+    }
+  }
 ];
 
 export function getTime(type) {
@@ -398,7 +409,7 @@ export function matchInArray(string, expressions) {
   }
 
   return false;
-};
+}
 
 export function checkNested(obj /*, level1, level2, ... levelN*/) {
   var args = Array.prototype.slice.call(arguments, 1);

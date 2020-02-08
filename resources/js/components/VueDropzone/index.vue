@@ -1,12 +1,13 @@
 <template>
   <vue-dropzone
-    :ref="id" :id="id"
+    :id="id"
+    :ref="id"
     :options="options"
-    :destroyDropzone="false"
+    :destroy-dropzone="false"
     @vdropzone-file-added="addFile"
     @vdropzone-removed-file="removeFile"
     @vdropzone-success="success"
-  ></vue-dropzone>
+  />
 </template>
 
 <script>
@@ -18,7 +19,7 @@ const token = getToken() || '';
 export default {
   name: 'VueDropzone',
   components: {
-    vueDropzone: vue2Dropzone,
+    vueDropzone: vue2Dropzone
   },
   props: {
     options: {
@@ -28,29 +29,44 @@ export default {
           url: `${process.env.MIX_BASE_API}/upload-file/store`,
           maxFilesize: 10,
           addRemoveLinks: true,
-          dictDefaultMessage: "<i class='fa fa-cloud-upload'></i>" + '<br>Drop files here to upload',
+          dictDefaultMessage:
+            "<i class='fa fa-cloud-upload'></i>" +
+            '<br>Drop files here to upload',
           maxFiles: 10,
           headers: {
-            'Authorization': 'Bearer ' + token,
-          },
+            Authorization: 'Bearer ' + token
+          }
         };
-      },
+      }
     },
     id: {
       type: String,
-      required: true,
+      required: true
     },
     defaultImg: {
       type: [String, Array],
       default() {
         return [];
-      },
-    },
+      }
+    }
   },
   data() {
     return {
-      initOnce: true,
+      initOnce: true
     };
+  },
+  watch: {
+    defaultImg(val) {
+      if (val.length === 0) {
+        this.initOnce = false;
+        return;
+      }
+      if (!this.initOnce) {
+        return;
+      }
+      this.initImages(val);
+      this.initOnce = false;
+    }
   },
   methods: {
     addFile(file) {
@@ -69,31 +85,19 @@ export default {
       }
       val.map((value, index) => {
         if (value) {
-          this.$refs[ref].manuallyAddFile({ size: 12345, name: 'Image ' + (index + 1), nameRemove: value }, value);
+          this.$refs[ref].manuallyAddFile(
+            { size: 12345, name: 'Image ' + (index + 1), nameRemove: value },
+            value
+          );
         }
         return true;
       });
-    },
-  },
-  watch: {
-    defaultImg(val) {
-      if (val.length === 0) {
-        this.initOnce = false;
-        return;
-      }
-      if (!this.initOnce) {
-        return;
-      }
-      this.initImages(val);
-      this.initOnce = false;
-    },
+    }
   },
   destroy() {
     this.$destroy();
-  },
+  }
 };
 </script>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

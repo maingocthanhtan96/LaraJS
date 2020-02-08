@@ -1,20 +1,28 @@
-<template>
+`<template>
   <el-row>
     <el-col :span="24">
       <el-card>
         <div slot="header" class="flex justify-end items-center">
-          <router-link v-permission="['create']" :to="{name: 'user_create'}" class="pan-btn blue-btn" tag="button">
-            <i class="el-icon-plus mr-2"/>{{this.$t('button.create')}}
+          <router-link
+            v-permission="['create']"
+            :to="{ name: 'user_create' }"
+            class="pan-btn blue-btn"
+            tag="button"
+          >
+            <i class="el-icon-plus mr-2" />{{ this.$t('button.create') }}
           </router-link>
         </div>
         <div class="flex flex-col">
           <el-col :span="24" class="mb-6">
             <el-col :xs="24" :sm="10" :md="6">
               <label>{{ $t('table.texts.filter') }}</label>
-              <el-input v-model="table.listQuery.query" :placeholder="$t('table.texts.filterPlaceholder')"/>
+              <el-input
+                v-model="table.listQuery.query"
+                :placeholder="$t('table.texts.filterPlaceholder')"
+              />
             </el-col>
             <el-col :xs="24" :sm="14" :md="18">
-              <br/>
+              <br>
               <el-date-picker
                 v-model="table.listQuery.created_at"
                 class="md:float-right"
@@ -23,66 +31,109 @@
                 :end-placeholder="$t('date.end_date')"
                 :picker-options="pickerOptions"
                 @change="changeDateRangePicker"
-              >
-              </el-date-picker>
+              />
             </el-col>
           </el-col>
           <el-col :span="24" class="table-responsive">
             <el-table
-              class="w-full"
               v-loading="table.loading"
+              class="w-full"
               :data="table.list"
-              :default-sort="{prop: 'created_at', order: 'descending'}"
+              :default-sort="{ prop: 'created_at', order: 'descending' }"
               border
               fit
               highlight-current-row
               @sort-change="sortChange"
             >
-              <el-table-column align="center" sortable="custom" prop="id" :label="$t('table.user.id')" width="70px">
+              <el-table-column
+                align="center"
+                sortable="custom"
+                prop="id"
+                :label="$t('table.user.id')"
+                width="70px"
+              >
                 <template slot-scope="{ $index }">
-                  {{ (table.listQuery.page - 1) * table.listQuery.limit + $index + 1 }}
+                  {{
+                    (table.listQuery.page - 1) * table.listQuery.limit +
+                      $index +
+                      1
+                  }}
                 </template>
               </el-table-column>
-              <el-table-column data-generator="name" align="left" header-align="center" :label="$t('table.user.name')">
+              <el-table-column
+                data-generator="name"
+                align="left"
+                header-align="center"
+                :label="$t('table.user.name')"
+              >
                 <template slot-scope="{ row }">
-                  {{row.name}}
+                  {{ row.name }}
                 </template>
               </el-table-column>
-              <el-table-column data-generator="email" align="left" header-align="center" :label="$t('table.user.email')">
+              <el-table-column
+                data-generator="email"
+                align="left"
+                header-align="center"
+                :label="$t('table.user.email')"
+              >
                 <template slot-scope="{ row }">
-                  {{row.email}}
+                  {{ row.email }}
                 </template>
               </el-table-column>
               <el-table-column align="center" :label="$t('table.user.avatar')">
                 <template slot-scope="{ row }">
                   <el-avatar :size="60" :src="row.avatar">
-                    <img :src="avatarFail"/>
+                    <img :src="avatarFail">
                   </el-avatar>
                 </template>
               </el-table-column>
               <el-table-column align="center" :label="$t('table.user.role')">
                 <template slot-scope="{ row }">
-                  {{row.roles[0].name}}
+                  {{ row.roles[0].name }}
                 </template>
               </el-table-column>
               <!--{{$TEMPLATES_NOT_DELETE_THIS_LINE$}}-->
-              <el-table-column data-generator="created_at" prop="created_at" :label="$t('date.created_at')"
-                               sortable="custom" align="center" header-align="center">
+              <el-table-column
+                data-generator="created_at"
+                prop="created_at"
+                :label="$t('date.created_at')"
+                sortable="custom"
+                align="center"
+                header-align="center"
+              >
                 <template slot-scope="{ row }">
                   {{ row.created_at | parseTime('{y}-{m}-{d}') }}
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('table.actions')" align="center" class-name="small-padding fixed-width">
+              <el-table-column
+                :label="$t('table.actions')"
+                align="center"
+                class-name="small-padding fixed-width"
+              >
                 <template slot-scope="props">
-                  <router-link v-permission="['edit']" :to="{name: 'user_edit', params: {id: props.row.id}}"><i
-                    class="el-icon-edit el-link el-link--primary mr-2"></i></router-link>
-                  <a v-permission="['delete']" class="cursor-pointer" @click.stop="remove(props.row.id, props.index)"><i
-                    class="el-icon-delete el-link el-link--danger"></i></a>
+                  <router-link
+                    v-permission="['edit']"
+                    :to="{ name: 'user_edit', params: { id: props.row.id } }"
+                  ><i
+                    class="el-icon-edit el-link el-link--primary mr-2"
+                  /></router-link>
+                  <a
+                    v-permission="['delete']"
+                    class="cursor-pointer"
+                    @click.stop="remove(props.row.id, props.index)"
+                  ><i
+                    class="el-icon-delete el-link el-link--danger"
+                  /></a>
                 </template>
               </el-table-column>
             </el-table>
-            <pagination v-if="table.total > 0" :total="table.total" :page.sync="table.listQuery.page"
-                        :limit.sync="table.listQuery.limit" @pagination="getList"/>
+            <pagination
+              v-if="table.total > 0"
+              :total="table.total"
+              :page.sync="table.listQuery.page"
+              :limit.sync="table.listQuery.limit"
+              @pagination="getList"
+            />
           </el-col>
         </div>
       </el-card>
@@ -109,14 +160,22 @@ export default {
           ascending: 1,
           page: 1,
           orderBy: 'created_at',
-          created_at: [this.parseTime(new Date().getTime() - 86400000 * 30), this.parseTime(new Date())],
+          created_at: [
+            this.parseTime(new Date().getTime() - 86400000 * 30),
+            this.parseTime(new Date())
+          ]
         },
         list: null,
         total: 0,
-        loading: false,
+        loading: false
       },
-      avatarFail: require('@/assets/images/avatar-default.png'),
+      avatarFail: require('@/assets/images/avatar-default.png')
     };
+  },
+  watch: {
+    'table.listQuery.query': debounce(function() {
+      this.handleFilter();
+    }, 500)
   },
   mounted() {
     this.getList();
@@ -156,32 +215,35 @@ export default {
       this.getList();
     },
     remove(id, name) {
-      this.$confirm(this.$t('messages.delete_confirm', { attribute: this.$t('table.user.id') + '#' + name }), this.$t('messages.warning'), {
-        confirmButtonText: this.$t('button.ok'),
-        cancelButtonClass: this.$t('button.cancel'),
-        type: 'warning',
-        center: true,
-      }).then(async () => {
+      this.$confirm(
+        this.$t('messages.delete_confirm', {
+          attribute: this.$t('table.user.id') + '#' + name
+        }),
+        this.$t('messages.warning'),
+        {
+          confirmButtonText: this.$t('button.ok'),
+          cancelButtonClass: this.$t('button.cancel'),
+          type: 'warning',
+          center: true
+        }
+      ).then(async () => {
         this.table.loading = true;
         await userResource.destroy(id);
-        const index = this.$refs.table_user.data.findIndex((value) => value.id === id);
+        const index = this.$refs.table_user.data.findIndex(
+          value => value.id === id
+        );
         this.$refs.table_user.data.splice(index, 1);
         this.$message({
           showClose: true,
           message: this.$t('messages.delete'),
-          type: 'success',
+          type: 'success'
         });
         this.table.loading = false;
       });
     },
     parseTime(date, format = '{y}-{m}-{d}') {
       return this.$options.filters.parseTime(date, format);
-    },
-  },
-  watch: {
-    'table.listQuery.query': debounce(function () {
-      this.handleFilter();
-    }, 500),
-  },
+    }
+  }
 };
 </script>

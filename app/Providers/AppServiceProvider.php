@@ -11,7 +11,6 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Schema;
 
-
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -50,7 +49,10 @@ class AppServiceProvider extends ServiceProvider
                         function (Builder $query) use ($attribute, $searchTerm) {
                             [$relationName, $relationAttribute] = explode('.', $attribute);
 
-                            $query->orWhereHas($relationName, function (Builder $query) use ($relationAttribute, $searchTerm) {
+                            $query->orWhereHas($relationName, function (Builder $query) use (
+                                $relationAttribute,
+                                $searchTerm
+                            ) {
                                 $query->where($relationAttribute, 'LIKE', "%{$searchTerm}%");
                             });
                         },
@@ -70,14 +72,20 @@ class AppServiceProvider extends ServiceProvider
         if (!Collection::hasMacro('paginate')) {
             $pathInfo = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '';
             $hostInfo = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '';
-            $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$hostInfo$pathInfo";
-            Collection::macro('paginate',
-                function ($perPage = 15, $page = null, $options = []) use ($actual_link) {
-                    $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
-                    return (new LengthAwarePaginator(
-                        $this->forPage($page, $perPage)->values()->all(), $this->count(), $perPage, $page, $options))
-                        ->withPath($actual_link);
-                });
+            $actual_link =
+                (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$hostInfo$pathInfo";
+            Collection::macro('paginate', function ($perPage = 15, $page = null, $options = []) use ($actual_link) {
+                $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+                return (new LengthAwarePaginator(
+                    $this->forPage($page, $perPage)
+                        ->values()
+                        ->all(),
+                    $this->count(),
+                    $perPage,
+                    $page,
+                    $options
+                ))->withPath($actual_link);
+            });
         }
     }
 }

@@ -16,7 +16,7 @@ export default class GeneratorResource extends Resource {
     return request({
       url: '/generators/check-model',
       method: 'get',
-      params: { name },
+      params: { name }
     });
   }
 
@@ -31,7 +31,7 @@ export default class GeneratorResource extends Resource {
     return request({
       url: '/generators/check-column',
       method: 'get',
-      params: { table, column },
+      params: { table, column }
     });
   }
 
@@ -45,7 +45,7 @@ export default class GeneratorResource extends Resource {
     return request({
       url: '/generators/get-models',
       method: 'get',
-      params: { model },
+      params: { model }
     });
   }
 
@@ -59,7 +59,7 @@ export default class GeneratorResource extends Resource {
     return request({
       url: '/generators/get-columns',
       method: 'get',
-      params: { table },
+      params: { table }
     });
   }
 
@@ -73,7 +73,7 @@ export default class GeneratorResource extends Resource {
     return request({
       url: '/generators/relationship',
       method: 'post',
-      data: relationship,
+      data: relationship
     });
   }
 
@@ -87,7 +87,7 @@ export default class GeneratorResource extends Resource {
     return request({
       url: '/generators/diagram',
       method: 'get',
-      params: { model },
+      params: { model }
     });
   }
 }

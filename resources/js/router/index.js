@@ -32,9 +32,24 @@ import administrator from './modules/administrator';
 export const constantRouterMap = [
   dashboard,
   // {{$ROUTE_CONSTANT_NOT_DELETE_THIS_LINE$}},
-  { path: '/login', name: 'login', hidden: true, component: () => import('@/views/auth/login') },
-  { path: '/reset-password', name: 'reset_password', hidden: true, component: () => import('@/views/auth/forgotPassword') },
-  { path: '/reset-password/:token', name: 'reset_password_form', hidden: true, component: () => import('@/views/auth/resetPasswordForm') },
+  {
+    path: '/login',
+    name: 'login',
+    hidden: true,
+    component: () => import('@/views/auth/login')
+  },
+  {
+    path: '/reset-password',
+    name: 'reset_password',
+    hidden: true,
+    component: () => import('@/views/auth/forgotPassword')
+  },
+  {
+    path: '/reset-password/:token',
+    name: 'reset_password_form',
+    hidden: true,
+    component: () => import('@/views/auth/resetPasswordForm')
+  },
   { path: '/404', hidden: true, component: () => import('@/views/errors/404') },
   { path: '/401', hidden: true, component: () => import('@/views/errors/401') },
   { path: '/', redirect: '/login', hidden: true },
@@ -45,30 +60,31 @@ export const constantRouterMap = [
     children: [
       {
         path: ':path*',
-        component: () => import('@/views/redirect'),
-      },
-    ],
-  },
+        component: () => import('@/views/redirect')
+      }
+    ]
+  }
 ];
 
 export const asyncRouterMap = [
   // {{$ROUTE_ASYNC_NOT_DELETE_THIS_LINE$}},
   administrator,
-  { path: '*', redirect: '/404', hidden: true },
+  { path: '*', redirect: '/404', hidden: true }
 ];
 
-const createRouter = () => new VueRouter({
-  linkActiveClass: 'active', // active class
-  mode: 'history',
-  routes: constantRouterMap,
-  scrollBehavior: to => {
-    if (to.hash) {
-      return { selector: to.hash };
-    } else {
-      return { x: 0, y: 0 };
+const createRouter = () =>
+  new VueRouter({
+    linkActiveClass: 'active', // active class
+    mode: 'history',
+    routes: constantRouterMap,
+    scrollBehavior: to => {
+      if (to.hash) {
+        return { selector: to.hash };
+      } else {
+        return { x: 0, y: 0 };
+      }
     }
-  },
-});
+  });
 
 const router = createRouter();
 

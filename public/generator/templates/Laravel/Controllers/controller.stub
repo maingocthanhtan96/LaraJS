@@ -49,7 +49,17 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 			$columnSearch = {{COLUMN_SEARCH}};
 			$with = {{COLUMN_RELATIONSHIP}};
 			$qs = new QueryService(new {{MODAL_CLASS}});
-			${{MODAL_CLASS_PARAM}} = $qs->queryTable($columns, $columnsWith, $query, $columnSearch, $with, $betweenDate, $limit, $ascending, $orderBy);
+			${{MODAL_CLASS_PARAM}} = $qs->queryTable(
+                $columns,
+                $columnsWith,
+                $query,
+                $columnSearch,
+                $with,
+                $betweenDate,
+                $limit,
+                $ascending,
+                $orderBy
+            );
 
 			return $this->jsonTable(${{MODAL_CLASS_PARAM}});
 		} catch (\Exception $e) {

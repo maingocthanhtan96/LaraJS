@@ -1,6 +1,6 @@
 <template>
-  <div :class="{'has-logo':showLogo}">
-    <logo v-if="showLogo" :collapse="isCollapse"/>
+  <div :class="{ 'has-logo': showLogo }">
+    <logo v-if="showLogo" :collapse="isCollapse" />
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu
         :default-active="activeMenu"
@@ -12,7 +12,12 @@
         :collapse-transition="false"
         mode="vertical"
       >
-        <sidebar-item v-for="route in permission_routes" :key="route.path" :item="route" :base-path="route.path"/>
+        <sidebar-item
+          v-for="route in permission_routes"
+          :key="route.path"
+          :item="route"
+          :base-path="route.path"
+        />
       </el-menu>
     </el-scrollbar>
   </div>
@@ -29,7 +34,7 @@ export default {
   computed: {
     ...mapGetters({
       permission_routes: 'routers',
-      sidebar: 'sidebar',
+      sidebar: 'sidebar'
     }),
     activeMenu() {
       const route = this.$route;
@@ -48,7 +53,7 @@ export default {
     },
     isCollapse() {
       return !this.sidebar.opened;
-    },
-  },
+    }
+  }
 };
 </script>

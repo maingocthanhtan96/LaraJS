@@ -1,7 +1,16 @@
 <template>
   <el-color-picker
     v-model="theme"
-    :predefine="['#409EFF', '#1890ff', '#304156','#212121','#11a983', '#13c2c2', '#6959CD', '#f5222d' ]"
+    :predefine="[
+      '#409EFF',
+      '#1890ff',
+      '#304156',
+      '#212121',
+      '#11a983',
+      '#13c2c2',
+      '#6959CD',
+      '#f5222d',
+    ]"
     class="theme-picker"
     popper-class="theme-picker-dropdown"
   />
@@ -15,20 +24,20 @@ export default {
   data() {
     return {
       chalk: '', // content of theme-chalk css
-      theme: '',
+      theme: ''
     };
   },
   computed: {
     defaultTheme() {
       return this.$store.state.settings.theme;
-    },
+    }
   },
   watch: {
     defaultTheme: {
-      handler: function (val, oldVal) {
+      handler: function(val, oldVal) {
         this.theme = val;
       },
-      immediate: true,
+      immediate: true
     },
     async theme(val) {
       const oldVal = this.chalk ? this.theme : ORIGINAL_THEME;
@@ -44,13 +53,19 @@ export default {
         customClass: 'theme-message',
         type: 'success',
         duration: 0,
-        iconClass: 'el-icon-loading',
+        iconClass: 'el-icon-loading'
       });
 
       const getHandler = (variable, id) => {
         return () => {
-          const originalCluster = this.getThemeCluster(ORIGINAL_THEME.replace('#', ''));
-          const newStyle = this.updateStyle(this[variable], originalCluster, themeCluster);
+          const originalCluster = this.getThemeCluster(
+            ORIGINAL_THEME.replace('#', '')
+          );
+          const newStyle = this.updateStyle(
+            this[variable],
+            originalCluster,
+            themeCluster
+          );
 
           let styleTag = document.getElementById(id);
           if (!styleTag) {
@@ -71,23 +86,30 @@ export default {
 
       chalkHandler();
 
-      const styles = [].slice.call(document.querySelectorAll('style'))
+      const styles = [].slice
+        .call(document.querySelectorAll('style'))
         .filter(style => {
           const text = style.innerText;
-          return new RegExp(oldVal, 'i').test(text) && !/Chalk Variables/.test(text);
+          return (
+            new RegExp(oldVal, 'i').test(text) && !/Chalk Variables/.test(text)
+          );
         });
       styles.forEach(style => {
         const { innerText } = style;
         if (typeof innerText !== 'string') {
           return;
         }
-        style.innerText = this.updateStyle(innerText, originalCluster, themeCluster);
+        style.innerText = this.updateStyle(
+          innerText,
+          originalCluster,
+          themeCluster
+        );
       });
 
       this.$emit('change', val);
 
       $message.close();
-    },
+    }
   },
 
   methods: {
@@ -119,7 +141,8 @@ export default {
         let green = parseInt(color.slice(2, 4), 16);
         let blue = parseInt(color.slice(4, 6), 16);
 
-        if (tint === 0) { // when primary color is in its rgb space
+        if (tint === 0) {
+          // when primary color is in its rgb space
           return [red, green, blue].join(',');
         } else {
           red += Math.round(tint * (255 - red));
@@ -156,24 +179,24 @@ export default {
       }
       clusters.push(shadeColor(theme, 0.1));
       return clusters;
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style>
-  .theme-message,
-  .theme-picker-dropdown {
-    z-index: 99999 !important;
-  }
+.theme-message,
+.theme-picker-dropdown {
+  z-index: 99999 !important;
+}
 
-  .theme-picker .el-color-picker__trigger {
-    height: 26px !important;
-    width: 26px !important;
-    padding: 2px;
-  }
+.theme-picker .el-color-picker__trigger {
+  height: 26px !important;
+  width: 26px !important;
+  padding: 2px;
+}
 
-  .theme-picker-dropdown .el-color-dropdown__link-btn {
-    display: none;
-  }
+.theme-picker-dropdown .el-color-dropdown__link-btn {
+  display: none;
+}
 </style>

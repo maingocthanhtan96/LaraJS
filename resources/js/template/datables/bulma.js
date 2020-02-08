@@ -1,9 +1,10 @@
 'use strict';
 
-module.exports = function () {
+module.exports = function() {
   return {
     framework: 'bulma',
-    table: 'el-table el-table--fit el-table--striped el-table--border el-table--enable-row-hover el-table--enable-row-transition w-full',
+    table:
+      'el-table el-table--fit el-table--striped el-table--border el-table--enable-row-hover el-table--enable-row-transition w-full',
     row: '',
     column: 'el-col el-col-24 flex-wrap mb-6',
     label: 'cell',

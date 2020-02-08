@@ -5,7 +5,7 @@ const dashboard = {
   redirect: '/dashboard/list',
   meta: {
     title: 'dashboard',
-    icon: 'dashboard',
+    icon: 'dashboard'
   },
   children: [
     {
@@ -14,10 +14,10 @@ const dashboard = {
       component: () => import('@/views/dashboard/index'),
       meta: {
         title: 'dashboard',
-        icon: 'dashboard',
-      },
-    },
-  ],
+        icon: 'dashboard'
+      }
+    }
+  ]
 };
 
 export default dashboard;

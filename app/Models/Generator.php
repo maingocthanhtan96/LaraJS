@@ -7,9 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Generator extends Model
 {
     protected $table = 'generators';
-    protected $fillable = [
-        'field',
-        'model',
-        'table',
-    ];
+    protected $fillable = ['field', 'model', 'table'];
 }

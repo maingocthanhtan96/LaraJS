@@ -6,25 +6,19 @@ import {
   SET_USER,
   FED_LOGOUT,
   SET_TOKEN,
-  LOGOUT,
+  LOGOUT
 } from '../muation-types';
 
-import {
-  login,
-  userInfo,
-  logout,
-} from '@/api/auth';
+import { login, userInfo, logout } from '@/api/auth';
 
-import {
-  getToken, removeToken, setToken,
-} from '@/utils/auth';
+import { getToken, removeToken, setToken } from '@/utils/auth';
 import { resetRouter } from '@/router';
 
 const state = {
   token: getToken() || null,
   roles: [],
   permissions: [],
-  userInfo: {},
+  userInfo: {}
 };
 
 const mutations = {
@@ -42,7 +36,7 @@ const mutations = {
   },
   [SET_TOKEN](state, token) {
     state.token = token;
-  },
+  }
 };
 
 const actions = {
@@ -106,12 +100,12 @@ const actions = {
           reject(err);
         });
     });
-  },
+  }
 };
 
 export default {
   namespaced: true,
   state,
   mutations,
-  actions,
+  actions
 };

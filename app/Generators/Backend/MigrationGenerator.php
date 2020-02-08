@@ -7,7 +7,7 @@ use App\Service\FileService;
 use App\Service\GeneratorService;
 use Carbon\Carbon;
 
-Class  MigrationGenerator extends BaseGenerator
+class MigrationGenerator extends BaseGenerator
 {
     /** @var $service */
     public $serviceGenerator;
@@ -35,9 +35,18 @@ Class  MigrationGenerator extends BaseGenerator
         $templateData = str_replace('{{FIELDS}}', $this->generateFields($fields, $model), $templateData);
         $templateData = str_replace('{{DATE_TIME}}', $now->toDateTimeString(), $templateData);
 
-        $templateData = str_replace('{{TABLE_NAME_TITLE}}', $this->serviceGenerator->modelNamePlural($model['name']), $templateData);
-        $templateData = str_replace('{{TABLE_NAME}}', $this->serviceGenerator->tableName($model['name']), $templateData);
-        $fileName = date('Y_m_d_His') . '_' . 'create_' . $this->serviceGenerator->tableName($model['name']) . '_table.php';
+        $templateData = str_replace(
+            '{{TABLE_NAME_TITLE}}',
+            $this->serviceGenerator->modelNamePlural($model['name']),
+            $templateData
+        );
+        $templateData = str_replace(
+            '{{TABLE_NAME}}',
+            $this->serviceGenerator->tableName($model['name']),
+            $templateData
+        );
+        $fileName =
+            date('Y_m_d_His') . '_' . 'create_' . $this->serviceGenerator->tableName($model['name']) . '_table.php';
 
         $this->serviceFile->createFile($this->path, $fileName, $templateData);
     }
@@ -52,8 +61,8 @@ Class  MigrationGenerator extends BaseGenerator
         foreach ($fields as $index => $field) {
             $table = '';
             foreach ($configDBType as $typeLaravel => $typeDB) {
-                if($field['db_type'] === $configDBType['string']) {
-                    $table .= '$table->string("' . trim($field['field_name']) . '", '.$field['length_varchar'].')';
+                if ($field['db_type'] === $configDBType['string']) {
+                    $table .= '$table->string("' . trim($field['field_name']) . '", ' . $field['length_varchar'] . ')';
                     break;
                 }
 
@@ -83,7 +92,7 @@ Class  MigrationGenerator extends BaseGenerator
 
             if ($field['default_value'] === $configDefaultValue['null']) {
                 $table .= '->nullable()';
-            } else if ($field['default_value'] === $configDefaultValue['as_define']) {
+            } elseif ($field['default_value'] === $configDefaultValue['as_define']) {
                 $table .= '->nullable()->default("' . $field['as_define'] . '")';
             }
             if ($index > 0) {

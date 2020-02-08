@@ -21,8 +21,11 @@ class LarajsController extends Controller
      */
     public function fallbackApi()
     {
-        return response()->json([
-            'message' => trans('error.404')
-        ], 404);
+        return response()->json(
+            [
+                'message' => trans('error.404')
+            ],
+            404
+        );
     }
 }

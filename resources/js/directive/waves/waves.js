@@ -9,7 +9,7 @@ function handleClick(el, binding) {
       {
         ele: el, // Main wave element
         type: 'hit', // hit: Wave at click location. center: Center point
-        color: 'rgba(0, 0, 0, 0.15)', // Ripple color
+        color: 'rgba(0, 0, 0, 0.15)' // Ripple color
       },
       customOpts
     );
@@ -29,18 +29,18 @@ function handleClick(el, binding) {
         ripple.className = 'waves-ripple';
       }
       switch (opts.type) {
-      case 'center':
-        ripple.style.top = rect.height / 2 - ripple.offsetHeight / 2 + 'px';
-        ripple.style.left = rect.width / 2 - ripple.offsetWidth / 2 + 'px';
-        break;
-      default:
-        ripple.style.top =
+        case 'center':
+          ripple.style.top = rect.height / 2 - ripple.offsetHeight / 2 + 'px';
+          ripple.style.left = rect.width / 2 - ripple.offsetWidth / 2 + 'px';
+          break;
+        default:
+          ripple.style.top =
             (e.pageY -
               rect.top -
               ripple.offsetHeight / 2 -
               document.documentElement.scrollTop || document.body.scrollTop) +
             'px';
-        ripple.style.left =
+          ripple.style.left =
             (e.pageX -
               rect.left -
               ripple.offsetWidth / 2 -
@@ -55,7 +55,7 @@ function handleClick(el, binding) {
 
   if (!el[context]) {
     el[context] = {
-      removeHandle: handle,
+      removeHandle: handle
     };
   } else {
     el[context].removeHandle = handle;
@@ -76,5 +76,5 @@ export default {
     el.removeEventListener('click', el[context].removeHandle, false);
     el[context] = null;
     delete el[context];
-  },
+  }
 };

@@ -10,7 +10,7 @@ export function login(form) {
   return request({
     url: '/login',
     method: 'post',
-    data: form,
+    data: form
   });
 }
 
@@ -22,7 +22,7 @@ export function login(form) {
 export function userInfo() {
   return request({
     url: '/user-info',
-    method: 'get',
+    method: 'get'
   });
 }
 
@@ -34,7 +34,7 @@ export function userInfo() {
 export function logout() {
   return request({
     url: '/logout',
-    method: 'get',
+    method: 'get'
   });
 }
 
@@ -42,7 +42,7 @@ export function sendPasswordResetLink(form) {
   return request({
     url: '/forgot-password',
     method: 'post',
-    data: form,
+    data: form
   });
 }
 
@@ -50,6 +50,6 @@ export function callResetPassword(form) {
   return request({
     url: '/reset-password',
     method: 'post',
-    data: form,
+    data: form
   });
 }

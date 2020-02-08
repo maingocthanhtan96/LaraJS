@@ -1,5 +1,5 @@
 <template>
-  <div :ref="id" :action="url" :id="id" class="dropzone">
+  <div :id="id" :ref="id" :action="url" class="dropzone">
     <input type="file" name="file">
   </div>
 </template>
@@ -14,65 +14,65 @@ export default {
   props: {
     id: {
       type: String,
-      required: true,
+      required: true
     },
     url: {
       type: String,
-      required: true,
+      required: true
     },
     clickable: {
       type: Boolean,
-      default: true,
+      default: true
     },
     defaultMsg: {
       type: String,
-      default: 'Upload image',
+      default: 'Upload image'
     },
     acceptedFiles: {
       type: String,
-      default: '',
+      default: ''
     },
     thumbnailHeight: {
       type: Number,
-      default: 200,
+      default: 200
     },
     thumbnailWidth: {
       type: Number,
-      default: 200,
+      default: 200
     },
     showRemoveLink: {
       type: Boolean,
-      default: true,
+      default: true
     },
     maxFilesize: {
       type: Number,
-      default: 2,
+      default: 2
     },
     maxFiles: {
       type: Number,
-      default: 3,
+      default: 3
     },
     autoProcessQueue: {
       type: Boolean,
-      default: true,
+      default: true
     },
     useCustomDropzoneOptions: {
       type: Boolean,
-      default: false,
+      default: false
     },
     defaultImg: {
       default: '',
-      type: [String, Array],
+      type: [String, Array]
     },
     couldPaste: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   data() {
     return {
       dropzone: '',
-      initOnce: true,
+      initOnce: true
     };
   },
   watch: {
@@ -86,7 +86,7 @@ export default {
       }
       this.initImages(val);
       this.initOnce = false;
-    },
+    }
   },
   mounted() {
     const element = document.getElementById(this.id);
@@ -102,21 +102,31 @@ export default {
       acceptedFiles: this.acceptedFiles,
       autoProcessQueue: this.autoProcessQueue,
       dictDefaultMessage:
-          '<i style="margin-top: 3em;display: inline-block" class="material-icons">' + this.defaultMsg + '</i><br>Drop files here to upload',
+        '<i style="margin-top: 3em;display: inline-block" class="material-icons">' +
+        this.defaultMsg +
+        '</i><br>Drop files here to upload',
       dictMaxFilesExceeded: 'Only one picture',
       previewTemplate:
-          '<div class="dz-preview dz-file-preview">' +
-          '<div class="dz-image" style="width:' + this.thumbnailWidth + 'px;height:' + this.thumbnailHeight + 'px" >' +
-          '<img style="width:' + this.thumbnailWidth + 'px;height:' + this.thumbnailHeight + 'px" data-dz-thumbnail />' +
-          '</div>' +
-          '<div class="dz-details">' +
-          '<div class="dz-size"><span data-dz-size></span></div>' +
-          '<div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>' +
-          '<div class="dz-error-message"><span data-dz-errormessage></span></div>' +
-          '<div class="dz-success-mark"><i class="material-icons">done</i></div>' +
-          '<div class="dz-error-mark"><i class="material-icons">error</i></div>' +
-          '</div>' +
-          '</div>',
+        '<div class="dz-preview dz-file-preview">' +
+        '<div class="dz-image" style="width:' +
+        this.thumbnailWidth +
+        'px;height:' +
+        this.thumbnailHeight +
+        'px" >' +
+        '<img style="width:' +
+        this.thumbnailWidth +
+        'px;height:' +
+        this.thumbnailHeight +
+        'px" data-dz-thumbnail />' +
+        '</div>' +
+        '<div class="dz-details">' +
+        '<div class="dz-size"><span data-dz-size></span></div>' +
+        '<div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>' +
+        '<div class="dz-error-message"><span data-dz-errormessage></span></div>' +
+        '<div class="dz-success-mark"><i class="material-icons">done</i></div>' +
+        '<div class="dz-error-mark"><i class="material-icons">error</i></div>' +
+        '</div>' +
+        '</div>',
       init() {
         const val = vm.defaultImg;
         if (!val) {
@@ -149,7 +159,7 @@ export default {
       },
       sending: (file, xhr, formData) => {
         vm.initOnce = false;
-      },
+      }
     });
 
     if (this.couldPaste) {
@@ -184,7 +194,8 @@ export default {
       this.dropzone.processQueue();
     },
     pasteImg(event) {
-      const items = (event.clipboardData || event.originalEvent.clipboardData).items;
+      const items = (event.clipboardData || event.originalEvent.clipboardData)
+        .items;
       if (items[0].kind === 'file') {
         this.dropzone.addFile(items[0].getAsFile());
       }
@@ -209,101 +220,101 @@ export default {
         mockFile.previewElement.classList.add('dz-success');
         mockFile.previewElement.classList.add('dz-complete');
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style scoped>
-  .dropzone {
-    border: 2px solid #e5e5e5;
-    font-family: 'Poppins', sans-serif;
-    color: #777;
-    transition: background-color 0.2s linear;
-    padding: 5px;
-  }
+.dropzone {
+  border: 2px solid #e5e5e5;
+  font-family: 'Poppins', sans-serif;
+  color: #777;
+  transition: background-color 0.2s linear;
+  padding: 5px;
+}
 
-  .dropzone:hover {
-    background-color: #f6f6f6;
-  }
+.dropzone:hover {
+  background-color: #f6f6f6;
+}
 
-  i {
-    color: #ccc;
-  }
+i {
+  color: #ccc;
+}
 
-  .dropzone .dz-image img {
-    width: 100%;
-    height: 100%;
-  }
+.dropzone .dz-image img {
+  width: 100%;
+  height: 100%;
+}
 
-  .dropzone input[name='file'] {
-    display: none;
-  }
+.dropzone input[name='file'] {
+  display: none;
+}
 
-  .dropzone .dz-preview .dz-image {
-    border-radius: 0px;
-  }
+.dropzone .dz-preview .dz-image {
+  border-radius: 0px;
+}
 
-  .dropzone .dz-preview:hover .dz-image img {
-    transform: none;
-    -webkit-filter: none;
-    width: 100%;
-    height: 100%;
-  }
+.dropzone .dz-preview:hover .dz-image img {
+  transform: none;
+  -webkit-filter: none;
+  width: 100%;
+  height: 100%;
+}
 
-  .dropzone .dz-preview .dz-details {
-    bottom: 0px;
-    top: 0px;
-    color: white;
-    background-color: rgba(33, 150, 243, 0.8);
-    transition: opacity 0.2s linear;
-    text-align: left;
-  }
+.dropzone .dz-preview .dz-details {
+  bottom: 0px;
+  top: 0px;
+  color: white;
+  background-color: rgba(33, 150, 243, 0.8);
+  transition: opacity 0.2s linear;
+  text-align: left;
+}
 
-  .dropzone .dz-preview .dz-details .dz-filename span,
-  .dropzone .dz-preview .dz-details .dz-size span {
-    background-color: transparent;
-  }
+.dropzone .dz-preview .dz-details .dz-filename span,
+.dropzone .dz-preview .dz-details .dz-size span {
+  background-color: transparent;
+}
 
-  .dropzone .dz-preview .dz-details .dz-filename:not(:hover) span {
-    border: none;
-  }
+.dropzone .dz-preview .dz-details .dz-filename:not(:hover) span {
+  border: none;
+}
 
-  .dropzone .dz-preview .dz-details .dz-filename:hover span {
-    background-color: transparent;
-    border: none;
-  }
+.dropzone .dz-preview .dz-details .dz-filename:hover span {
+  background-color: transparent;
+  border: none;
+}
 
-  .dropzone .dz-preview .dz-remove {
-    position: absolute;
-    z-index: 30;
-    color: white;
-    margin-left: 15px;
-    padding: 10px;
-    top: inherit;
-    bottom: 15px;
-    border: 2px white solid;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    font-weight: 800;
-    letter-spacing: 1.1px;
-    opacity: 0;
-  }
+.dropzone .dz-preview .dz-remove {
+  position: absolute;
+  z-index: 30;
+  color: white;
+  margin-left: 15px;
+  padding: 10px;
+  top: inherit;
+  bottom: 15px;
+  border: 2px white solid;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 1.1px;
+  opacity: 0;
+}
 
-  .dropzone .dz-preview:hover .dz-remove {
-    opacity: 1;
-  }
+.dropzone .dz-preview:hover .dz-remove {
+  opacity: 1;
+}
 
-  .dropzone .dz-preview .dz-success-mark,
-  .dropzone .dz-preview .dz-error-mark {
-    margin-left: -40px;
-    margin-top: -50px;
-  }
+.dropzone .dz-preview .dz-success-mark,
+.dropzone .dz-preview .dz-error-mark {
+  margin-left: -40px;
+  margin-top: -50px;
+}
 
-  .dropzone .dz-preview .dz-success-mark i,
-  .dropzone .dz-preview .dz-error-mark i {
-    color: white;
-    font-size: 5rem;
-  }
+.dropzone .dz-preview .dz-success-mark i,
+.dropzone .dz-preview .dz-error-mark i {
+  color: white;
+  font-size: 5rem;
+}
 </style>

@@ -11,7 +11,7 @@ use App\Http\Controllers\Controller;
 
 class RoleController extends Controller
 {
-    CONST VIEW_MENU = 'view menu ';
+    const VIEW_MENU = 'view menu ';
     /**
      * Display a listing of the resource.
      *
@@ -35,7 +35,6 @@ class RoleController extends Controller
      */
     public function create()
     {
-
     }
 
     /**
@@ -101,10 +100,15 @@ class RoleController extends Controller
                     Permission::findOrCreate($name, 'api');
                 }
             }
-            if(\Auth::user()->isPermission()) {
-                $permissions = Permission::whereIn('id', $permissions['other'])->get(['name'])->toArray();
+            if (\Auth::user()->isPermission()) {
+                $permissions = Permission::whereIn('id', $permissions['other'])
+                    ->get(['name'])
+                    ->toArray();
             } else {
-                $permissions = Permission::allowed()->whereIn('id', $permissions['other'])->get(['name'])->toArray();
+                $permissions = Permission::allowed()
+                    ->whereIn('id', $permissions['other'])
+                    ->get(['name'])
+                    ->toArray();
             }
             $permissions = array_merge($viewMenuPermissions, $permissions);
             $role->syncPermissions($permissions);

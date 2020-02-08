@@ -1,6 +1,6 @@
 <?php
 
-use \App\Larajs\Permission as LarajsPermission;
+use App\Larajs\Permission as LarajsPermission;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,7 +12,6 @@ use \App\Larajs\Permission as LarajsPermission;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
 
 Route::group(['prefix' => 'v1'], function () {
     Route::group(['namespace' => 'Api\v1'], function () {
@@ -36,7 +35,7 @@ Route::group(['prefix' => 'v1'], function () {
             });
 
             // permission manage permission
-            Route::group(['middleware' => 'permission:' . LarajsPermission::PERMISSION_PERMISSION_MANAGE], function() {
+            Route::group(['middleware' => 'permission:' . LarajsPermission::PERMISSION_PERMISSION_MANAGE], function () {
                 Route::apiResource('roles', 'RoleController');
                 Route::apiResource('permissions', 'PermissionController');
             });

@@ -10,7 +10,7 @@
     <title>{{ config('app.name', 'Larajs') }}</title>
 
     <link href="{{ mix('css/app.css') }}" type="text/css" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('css/materialdesignicons.min.css')}}">
+{{--    <link rel="stylesheet" href="{{asset('css/materialdesignicons.min.css')}}">--}}
 {{--    <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">--}}
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
     <link rel="shortcut icon" href="{{asset('images/logo-tanmnt.png')}}"/>

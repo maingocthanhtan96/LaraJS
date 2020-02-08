@@ -30,12 +30,12 @@ class FileController extends Controller
                 }
                 $image->move($folder, $name);
 
-                return (new self)->jsonData("$folderCreate/$name");
+                return (new self())->jsonData("$folderCreate/$name");
             }
 
-            return (new self)->jsonError(trans('error.file_not_found'));
+            return (new self())->jsonError(trans('error.file_not_found'));
         } catch (\Exception $e) {
-            return (new self)->jsonError($e->getMessage());
+            return (new self())->jsonError($e->getMessage());
         }
     }
 
@@ -53,15 +53,14 @@ class FileController extends Controller
                 if (file_exists(public_path($file))) {
                     unlink(public_path($file));
                 } else {
-                    return (new self)->jsonError(trans('error.file_not_found'));
+                    return (new self())->jsonError(trans('error.file_not_found'));
                 }
             }
-            return (new self)->jsonSuccess(trans('messages.delete'));
+            return (new self())->jsonSuccess(trans('messages.delete'));
         } catch (\Exception $e) {
-            return (new self)->jsonError($e->getMessage());
+            return (new self())->jsonError($e->getMessage());
         }
     }
-
 
     public static function storeAvatar(StoreAvatarRequest $request)
     {
@@ -84,16 +83,16 @@ class FileController extends Controller
                     if (file_exists(public_path($fileOld))) {
                         unlink(public_path($fileOld));
                     } else {
-                        return (new self)->jsonError(trans('error.file_not_found'));
+                        return (new self())->jsonError(trans('error.file_not_found'));
                     }
                 }
 
-                return (new self)->jsonData("$folderCreate/$name");
+                return (new self())->jsonData("$folderCreate/$name");
             }
 
-            return (new self)->jsonError(trans('error.file_not_found'));
+            return (new self())->jsonError(trans('error.file_not_found'));
         } catch (\Exception $e) {
-            return (new self)->jsonError($e->getMessage());
+            return (new self())->jsonError($e->getMessage());
         }
     }
 }

@@ -7,7 +7,7 @@ use App\Service\FileService;
 use App\Service\GeneratorService;
 use Carbon\Carbon;
 
-Class SwaggerGenerator extends BaseGenerator
+class SwaggerGenerator extends BaseGenerator
 {
     /** @var $service */
     public $serviceGenerator;
@@ -27,13 +27,13 @@ Class SwaggerGenerator extends BaseGenerator
     /** @var string */
     public $configDefaultValue;
 
-    CONST DB_TYPE_INTEGER = 'integer';
-    CONST DB_TYPE_FLOAT = 'float';
-    CONST DB_TYPE_DOUBLE = 'double';
-    CONST DB_TYPE_BOOLEAN = 'boolean';
-    CONST DB_TYPE_STRING = 'string';
+    const DB_TYPE_INTEGER = 'integer';
+    const DB_TYPE_FLOAT = 'float';
+    const DB_TYPE_DOUBLE = 'double';
+    const DB_TYPE_BOOLEAN = 'boolean';
+    const DB_TYPE_STRING = 'string';
 
-    CONST FIELD_ID = 'id';
+    const FIELD_ID = 'id';
 
     public function __construct($fields, $model)
     {
@@ -54,9 +54,13 @@ Class SwaggerGenerator extends BaseGenerator
         $templateData = $this->serviceGenerator->get_template("swagger", $pathTemplate);
         $templateData = str_replace('{{DATE}}', $now->toDateTimeString(), $templateData);
         $templateData = str_replace('{{MODEL_CLASS}}', $model['name'], $templateData);
-        $templateData = str_replace('{{RESOURCE}}', $this->serviceGenerator->urlResource($model['name']), $templateData);
+        $templateData = str_replace(
+            '{{RESOURCE}}',
+            $this->serviceGenerator->urlResource($model['name']),
+            $templateData
+        );
         $templateSoftDeletes = '';
-        if($this->serviceGenerator->getOptions(config('generator.model.options.sort_deletes'), $model['options'])) {
+        if ($this->serviceGenerator->getOptions(config('generator.model.options.sort_deletes'), $model['options'])) {
             $templateSoftDeletes = $this->serviceGenerator->get_template("SoftDeletes", $pathTemplate);
         }
         // SoftDeletes
@@ -65,18 +69,23 @@ Class SwaggerGenerator extends BaseGenerator
         $fieldRequired = \Arr::pluck($fields, 'default_value', 'field_name');
 
         $fieldRequires = '';
-        foreach($fieldRequired as $field => $default) {
-            if($field === self::FIELD_ID) {
+        foreach ($fieldRequired as $field => $default) {
+            if ($field === self::FIELD_ID) {
                 continue;
             }
-            if($default === $this->configDefaultValue['none']) {
-                $fieldRequires .= '"'.$field.'"' . ', ';
+            if ($default === $this->configDefaultValue['none']) {
+                $fieldRequires .= '"' . $field . '"' . ', ';
             }
         }
-        $templateData = str_replace('{{REQUIRED_FIELDS}}', '{'.rtrim($fieldRequires, ', ').'}', $templateData);
+        $templateData = str_replace('{{REQUIRED_FIELDS}}', '{' . rtrim($fieldRequires, ', ') . '}', $templateData);
         // end required
 
-        $templateData = $this->serviceGenerator->replaceNotDelete($this->notDelete['property'], $this->generateFields($fields), 1, $templateData);
+        $templateData = $this->serviceGenerator->replaceNotDelete(
+            $this->notDelete['property'],
+            $this->generateFields($fields),
+            1,
+            $templateData
+        );
         //create sort delete
         $fileName = $model['name'] . '.php';
         $this->serviceFile->createFile($this->path, $fileName, $templateData);
@@ -92,7 +101,7 @@ Class SwaggerGenerator extends BaseGenerator
             if ($index > 0) {
                 if ($field['default_value'] === $this->configDefaultValue['none']) {
                     $defaultValue = 'NONE';
-                } else if ($field['default_value'] === $this->configDefaultValue['null']) {
+                } elseif ($field['default_value'] === $this->configDefaultValue['null']) {
                     $defaultValue = 'NULL';
                 } else {
                     $defaultValue = $field['as_define'];
@@ -152,21 +161,29 @@ Class SwaggerGenerator extends BaseGenerator
                         break;
                     case $this->dbType['file']:
                         $templateProperty = str_replace('{{DB_TYPE}}', self::DB_TYPE_STRING, $templateProperty);
-                        $templateProperty = str_replace('{{EXAMPLE}}', "['https://lorempixel.com/150/150/?77253', 'https://lorempixel.com/150/150/?77253']", $templateProperty);
+                        $templateProperty = str_replace(
+                            '{{EXAMPLE}}',
+                            "['https://lorempixel.com/150/150/?77253', 'https://lorempixel.com/150/150/?77253']",
+                            $templateProperty
+                        );
                         $fieldsGenerate[] = $templateProperty;
                         break;
                     case $this->dbType['enum']:
                         $enum = '';
                         foreach ($field['enum'] as $keyEnum => $value) {
                             if ($keyEnum === count($field['enum']) - 1) {
-                                $enum .= "'".$value."'";
+                                $enum .= "'" . $value . "'";
                             } else {
-                                $enum .= "'".$value."'" . ',';
+                                $enum .= "'" . $value . "'" . ',';
                             }
                         }
                         $templateProperty = $this->serviceGenerator->get_template("propertyEnum", 'Swagger/');
                         $templateProperty = str_replace('{{FIELD}}', $field['field_name'], $templateProperty);
-                        $templateProperty = str_replace('{{FIELD_TRANS}}', $field['field_name_trans'], $templateProperty);
+                        $templateProperty = str_replace(
+                            '{{FIELD_TRANS}}',
+                            $field['field_name_trans'],
+                            $templateProperty
+                        );
                         $templateProperty = str_replace('{{DEFAULT_VALUE}}', $defaultValue, $templateProperty);
                         $templateProperty = str_replace('{{DB_TYPE}}', self::DB_TYPE_STRING, $templateProperty);
                         $templateProperty = str_replace('{{EXAMPLE}}', \Arr::random($field['enum']), $templateProperty);

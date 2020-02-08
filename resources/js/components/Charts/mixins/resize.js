@@ -3,7 +3,7 @@ import { debounce } from '@/utils';
 export default {
   data() {
     return {
-      $_sidebarElm: null,
+      $_sidebarElm: null
     };
   },
   mounted() {
@@ -15,12 +15,20 @@ export default {
     window.addEventListener('resize', this.__resizeHandler);
 
     this.$_sidebarElm = document.getElementsByClassName('sidebar-container')[0];
-    this.$_sidebarElm && this.$_sidebarElm.addEventListener('transitionend', this.$_sidebarResizeHandler);
+    this.$_sidebarElm &&
+      this.$_sidebarElm.addEventListener(
+        'transitionend',
+        this.$_sidebarResizeHandler
+      );
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.__resizeHandler);
 
-    this.$_sidebarElm && this.$_sidebarElm.removeEventListener('transitionend', this.$_sidebarResizeHandler);
+    this.$_sidebarElm &&
+      this.$_sidebarElm.removeEventListener(
+        'transitionend',
+        this.$_sidebarResizeHandler
+      );
   },
   methods: {
     // use $_ for mixins properties
@@ -29,6 +37,6 @@ export default {
       if (e.propertyName === 'width') {
         this.__resizeHandler();
       }
-    },
-  },
+    }
+  }
 };

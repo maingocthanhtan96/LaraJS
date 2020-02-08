@@ -11,7 +11,7 @@ import permission from '@/directive/permission';
 // start third party
 Vue.use(ElementUI, {
   size: localStorage.getItem('size') || 'medium',
-  i18n: (key, value) => i18n.t(key, value),
+  i18n: (key, value) => i18n.t(key, value)
 });
 // end third party
 
@@ -26,7 +26,7 @@ Vue.directive('permission', permission);
 
 // register plugins
 const mixinPlugins = require.context('@/plugins', true, /\.js$/);
-mixinPlugins.keys().forEach((file) => {
+mixinPlugins.keys().forEach(file => {
   const mixin = file.replace(/^\.\/(.*)\w*$/, '$1');
   Vue.use(require(`./plugins/${mixin}`).default);
 });
@@ -45,5 +45,5 @@ new Vue({
   i18n,
   router,
   store,
-  render: h => h(App),
+  render: h => h(App)
 }).$mount('#app');

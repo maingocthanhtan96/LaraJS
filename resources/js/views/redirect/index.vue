@@ -5,8 +5,8 @@ export default {
     const { path } = params;
     this.$router.replace({ path: '/' + path, query });
   },
-  render: function (h) {
+  render: function(h) {
     return h(); // avoid warning message
-  },
+  }
 };
 </script>

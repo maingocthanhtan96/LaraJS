@@ -11,7 +11,7 @@ export function removeFile(file) {
     url: 'upload-file/remove',
     method: 'get',
     params: {
-      file,
-    },
+      file
+    }
   });
 }

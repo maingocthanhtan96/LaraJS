@@ -28,7 +28,7 @@ class GeneratorsTableSeeder extends Seeder
             "as_define" => null,
             "search" => false,
             "sort" => true,
-            "show" => true,
+            "show" => true
         ];
         $fields[] = [
             "id" => 2,
@@ -41,7 +41,7 @@ class GeneratorsTableSeeder extends Seeder
             "as_define" => null,
             "search" => true,
             "sort" => false,
-            "show" => true,
+            "show" => true
         ];
         $fields[] = [
             "id" => 3,
@@ -54,13 +54,13 @@ class GeneratorsTableSeeder extends Seeder
             "as_define" => null,
             "search" => true,
             "sort" => false,
-            "show" => true,
+            "show" => true
         ];
 
         \App\Models\Generator::create([
             'field' => json_encode($fields),
             'model' => json_encode($model),
-            'table' => \Str::snake(\Str::plural('user')),
+            'table' => \Str::snake(\Str::plural('user'))
         ]);
     }
 }

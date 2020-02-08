@@ -2,34 +2,38 @@
 
 var debounce = require('debounce');
 
-module.exports = function (h) {
+module.exports = function(h) {
   var _this = this;
 
-  return function (selectClass, id) {
+  return function(selectClass, id) {
     var pages = [];
     var selected;
 
     for (var pag = 1; pag <= _this.totalPages; pag++) {
       var selected = _this.page == pag;
-      pages.push(h(
-        'option',
-        {
-          domProps: {
-            'value': pag,
-            'selected': selected,
+      pages.push(
+        h(
+          'option',
+          {
+            domProps: {
+              value: pag,
+              selected: selected,
+            },
           },
-        },
-        [pag]
-      ));
+          [pag]
+        )
+      );
     }
     return h(
       'select',
       {
-        'class': selectClass + ' dropdown-pagination',
-        directives: [{
-          name: 'show',
-          value: _this.totalPages > 1,
-        }],
+        class: selectClass + ' dropdown-pagination',
+        directives: [
+          {
+            name: 'show',
+            value: _this.totalPages > 1,
+          },
+        ],
         attrs: {
           name: 'page',
 
@@ -37,10 +41,10 @@ module.exports = function (h) {
         },
         ref: 'page',
         domProps: {
-          'value': _this.page,
+          value: _this.page,
         },
         on: {
-          'change': _this.setPage.bind(_this, null, false),
+          change: _this.setPage.bind(_this, null, false),
         },
       },
       [pages]

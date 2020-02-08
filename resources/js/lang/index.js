@@ -9,18 +9,18 @@ Vue.use(VueI18n);
 const messages = {
   en: {
     ...Locale.en,
-    ...enLocale,
+    ...enLocale
   },
   vn: {
     ...Locale.vn,
-    ...vnLocale,
-  },
+    ...vnLocale
+  }
 };
 
 const i18n = new VueI18n({
   locale: localStorage.getItem('lang') || 'en',
   messages,
-  fallbackLocale: 'en',
+  fallbackLocale: 'en'
 });
 
 // ElementLocale.i18n((key, value) => i18n.t(key, value));

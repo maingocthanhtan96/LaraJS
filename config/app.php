@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Application Name
@@ -135,7 +134,6 @@ return [
     */
 
     'providers' => [
-
         /*
          * Laravel Framework Service Providers...
          */
@@ -177,7 +175,7 @@ return [
 
         MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
-        Spatie\Permission\PermissionServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class
     ],
 
     /*
@@ -192,7 +190,6 @@ return [
     */
 
     'aliases' => [
-
         'App' => Illuminate\Support\Facades\App::class,
         'Arr' => Illuminate\Support\Arr::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
@@ -230,7 +227,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'LaraJS_Permission' => App\Larajs\Permission::class,
         'Constant' => App\Larajs\Constant::class,
-        'Debugbar' => Barryvdh\Debugbar\Facade::class,
-    ],
-
+        'Debugbar' => Barryvdh\Debugbar\Facade::class
+    ]
 ];

@@ -1,36 +1,50 @@
 <template>
-  <el-table :data="tableData" :row-style="showRow" v-bind="$attrs" v-on="$listeners">
-    <slot name="selection"/>
-    <slot name="pre-column"/>
+  <el-table
+    :data="tableData"
+    :row-style="showRow"
+    v-bind="$attrs"
+    v-on="$listeners"
+  >
+    <slot name="selection" />
+    <slot name="pre-column" />
     <el-table-column
       v-for="item in columns"
       :key="item.key"
       :label="item.label"
       :width="item.width"
-      :align="item.align||'center'"
+      :align="item.align || 'center'"
       :header-align="item.headerAlign"
     >
       <template slot-scope="scope">
         <slot :scope="scope" :name="item.key">
           <template v-if="item.expand">
-            <span :style="{'padding-left':+scope.row._level*indent + 'px'} "/>
-            <span v-show="showSperadIcon(scope.row)" class="tree-ctrl" @click="toggleExpanded(scope.$index)">
-              <i v-if="!scope.row._expand" class="el-icon-plus"/>
-              <i v-else class="el-icon-minus"/>
+            <span
+              :style="{ 'padding-left': +scope.row._level * indent + 'px' }"
+            />
+            <span
+              v-show="showSperadIcon(scope.row)"
+              class="tree-ctrl"
+              @click="toggleExpanded(scope.$index)"
+            >
+              <i v-if="!scope.row._expand" class="el-icon-plus" />
+              <i v-else class="el-icon-minus" />
             </span>
           </template>
           <template v-if="item.checkbox">
             <el-checkbox
-              v-if="scope.row[defaultChildren]&&scope.row[defaultChildren].length>0"
+              v-if="
+                scope.row[defaultChildren] &&
+                  scope.row[defaultChildren].length > 0
+              "
               v-model="scope.row._select"
-              :style="{'padding-left':+scope.row._level*indent + 'px'} "
+              :style="{ 'padding-left': +scope.row._level * indent + 'px' }"
               :indeterminate="scope.row._select"
               @change="handleCheckAllChange(scope.row)"
             />
             <el-checkbox
               v-else
               v-model="scope.row._select"
-              :style="{'padding-left':+scope.row._level*indent + 'px'} "
+              :style="{ 'padding-left': +scope.row._level * indent + 'px' }"
               @change="handleCheckAllChange(scope.row)"
             />
           </template>
@@ -50,28 +64,28 @@ export default {
     data: {
       type: Array,
       required: true,
-      default: () => [],
+      default: () => []
     },
     columns: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
     defaultExpandAll: {
       type: Boolean,
-      default: false,
+      default: false
     },
     defaultChildren: {
       type: String,
-      default: 'children',
+      default: 'children'
     },
     indent: {
       type: Number,
-      default: 50,
-    },
+      default: 50
+    }
   },
   data() {
     return {
-      guard: 1,
+      guard: 1
     };
   },
   computed: {
@@ -85,12 +99,12 @@ export default {
       }
       addAttrs(data, {
         expand: this.defaultExpandAll,
-        children: this.defaultChildren,
+        children: this.defaultChildren
       });
 
       const retval = treeToArray(data, this.defaultChildren);
       return retval;
-    },
+    }
   },
   methods: {
     addBrother(row, data) {
@@ -117,7 +131,7 @@ export default {
     getData() {
       return this.tableData;
     },
-    showRow: function ({ row }) {
+    showRow: function({ row }) {
       const parent = row._parent;
       const show = parent ? parent._expand && parent._show : true;
       row._show = show;
@@ -162,33 +176,33 @@ export default {
           resolve(this.data);
         }
       });
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style>
-  @keyframes treeTableShow {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
+@keyframes treeTableShow {
+  from {
+    opacity: 0;
   }
+  to {
+    opacity: 1;
+  }
+}
 
-  @-webkit-keyframes treeTableShow {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
+@-webkit-keyframes treeTableShow {
+  from {
+    opacity: 0;
   }
+  to {
+    opacity: 1;
+  }
+}
 
-  .tree-ctrl {
-    position: relative;
-    cursor: pointer;
-    color: #2196f3;
-  }
+.tree-ctrl {
+  position: relative;
+  cursor: pointer;
+  color: #2196f3;
+}
 </style>

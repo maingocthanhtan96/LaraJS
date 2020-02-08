@@ -1,6 +1,6 @@
 <template>
   <div class="json-editor">
-    <textarea ref="textarea"/>
+    <textarea ref="textarea" />
   </div>
 </template>
 
@@ -21,7 +21,7 @@ export default {
   props: ['value'],
   data() {
     return {
-      jsonEditor: false,
+      jsonEditor: false
     };
   },
   watch: {
@@ -32,7 +32,7 @@ export default {
       if (value !== editorValue) {
         this.jsonEditor.setValue(value);
       }
-    },
+    }
   },
   mounted() {
     this.jsonEditor = CodeMirror.fromTextArea(this.$refs.textarea, {
@@ -40,7 +40,7 @@ export default {
       mode: 'application/json',
       gutters: ['CodeMirror-lint-markers'],
       theme: 'rubyblue',
-      lint: true,
+      lint: true
     });
 
     this.jsonEditor.setValue(this.value);
@@ -52,27 +52,27 @@ export default {
   methods: {
     getValue() {
       return this.jsonEditor.getValue();
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style scoped>
-  .json-editor {
-    height: 100%;
-    position: relative;
-  }
+.json-editor {
+  height: 100%;
+  position: relative;
+}
 
-  .json-editor >>> .CodeMirror {
-    height: auto;
-    min-height: 300px;
-  }
+.json-editor >>> .CodeMirror {
+  height: auto;
+  min-height: 300px;
+}
 
-  .json-editor >>> .CodeMirror-scroll {
-    min-height: 300px;
-  }
+.json-editor >>> .CodeMirror-scroll {
+  min-height: 300px;
+}
 
-  .json-editor >>> .cm-s-rubyblue span.cm-string {
-    color: #F08047;
-  }
+.json-editor >>> .cm-s-rubyblue span.cm-string {
+  color: #f08047;
+}
 </style>

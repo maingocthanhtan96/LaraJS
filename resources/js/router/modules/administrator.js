@@ -6,7 +6,7 @@ const administrator = {
   meta: {
     title: 'administrator',
     icon: 'admin',
-    permissions: ['view menu role_permission'],
+    permissions: ['view menu role_permission']
   },
   children: [
     {
@@ -16,8 +16,8 @@ const administrator = {
       meta: {
         title: 'role_permission',
         icon: 'skill',
-        permissions: ['manage permission'],
-      },
+        permissions: ['manage permission']
+      }
     },
     {
       path: 'generator/list',
@@ -26,8 +26,8 @@ const administrator = {
       meta: {
         title: 'generator',
         icon: 'skill',
-        roles: ['admin'],
-      },
+        roles: ['admin']
+      }
     },
     {
       path: 'generator/form',
@@ -37,9 +37,9 @@ const administrator = {
         title: 'generator_create',
         icon: 'skill',
         activeMenu: '/administrator/generator/list',
-        roles: ['admin'],
+        roles: ['admin']
       },
-      hidden: true,
+      hidden: true
     },
     {
       path: 'generator/form/:id(\\d+)',
@@ -49,14 +49,14 @@ const administrator = {
       meta: {
         title: 'generator_edit',
         activeMenu: '/administrator/generator/list',
-        roles: ['admin'],
+        roles: ['admin']
       },
       props: route => {
         return {
           ...route,
-          props: true,
+          props: true
         };
-      },
+      }
     },
     {
       path: 'generator/relationship/:id(\\d+)',
@@ -66,14 +66,14 @@ const administrator = {
       meta: {
         title: 'generator_relationship',
         activeMenu: '/administrator/generator/list',
-        roles: ['admin'],
+        roles: ['admin']
       },
       props: route => {
         return {
           ...route,
-          props: true,
+          props: true
         };
-      },
+      }
     },
     {
       path: 'user/list',
@@ -82,8 +82,8 @@ const administrator = {
       meta: {
         title: 'user',
         icon: 'user',
-        roles: ['admin'],
-      },
+        roles: ['admin']
+      }
     },
     {
       path: 'user/form',
@@ -93,8 +93,8 @@ const administrator = {
       meta: {
         title: 'user_create',
         activeMenu: '/administrator/user/list',
-        roles: ['admin'],
-      },
+        roles: ['admin']
+      }
     },
     {
       path: 'user/form/:id(\\d+)',
@@ -104,16 +104,16 @@ const administrator = {
       meta: {
         title: 'user_edit',
         activeMenu: '/administrator/user/list',
-        roles: ['admin'],
+        roles: ['admin']
       },
       props: route => {
         return {
           ...route,
-          props: true,
+          props: true
         };
-      },
-    },
-  ],
+      }
+    }
+  ]
 };
 
 export default administrator;

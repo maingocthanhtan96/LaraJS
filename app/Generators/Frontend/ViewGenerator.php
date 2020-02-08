@@ -7,8 +7,7 @@ use App\Service\FileService;
 use App\Service\GeneratorService;
 use Carbon\Carbon;
 
-
-Class ViewGenerator extends BaseGenerator
+class ViewGenerator extends BaseGenerator
 {
     /** @var $service */
     public $serviceGenerator;
@@ -40,14 +39,44 @@ Class ViewGenerator extends BaseGenerator
     {
         $pathTemplate = 'Views/';
         $templateData = $this->serviceGenerator->get_template("index", $pathTemplate, 'vuejs');
-        $templateData = str_replace('{{$CONST_MODEL_CLASS$}}', $this->serviceGenerator->modelNameNotPluralFe($model['name']), $templateData);
-        $templateData = str_replace('{{$TABLE_MODEL_CLASS$}}', $this->serviceGenerator->tableNameNotPlural($model['name']), $templateData);
-        $templateData = str_replace('{{$MODEL_CLASS$}}', $this->serviceGenerator->modelNamePlural($model['name']), $templateData);
-        $templateData = $this->serviceGenerator->replaceNotDelete($this->notDelete['templates'], $this->generateHandler($fields), 5, $templateData, 2);
+        $templateData = str_replace(
+            '{{$CONST_MODEL_CLASS$}}',
+            $this->serviceGenerator->modelNameNotPluralFe($model['name']),
+            $templateData
+        );
+        $templateData = str_replace(
+            '{{$TABLE_MODEL_CLASS$}}',
+            $this->serviceGenerator->tableNameNotPlural($model['name']),
+            $templateData
+        );
+        $templateData = str_replace(
+            '{{$MODEL_CLASS$}}',
+            $this->serviceGenerator->modelNamePlural($model['name']),
+            $templateData
+        );
+        $templateData = $this->serviceGenerator->replaceNotDelete(
+            $this->notDelete['templates'],
+            $this->generateHandler($fields),
+            5,
+            $templateData,
+            2
+        );
         $templateData = str_replace('{{$COLUMN_FIELD$}}', $this->generateColumnFields($fields), $templateData);
-        $templateData = str_replace($this->notDelete['headings'], $this->generateHeadingFields($fields, $model), $templateData);
-        $templateData = str_replace($this->notDelete['column_classes'], $this->generateColumnClassesFields($fields, $model), $templateData);
-        $templateData = str_replace('{{$SORTABLE_FIELDS$}}', $this->generateSortableFields($fields, $model), $templateData);
+        $templateData = str_replace(
+            $this->notDelete['headings'],
+            $this->generateHeadingFields($fields, $model),
+            $templateData
+        );
+        $templateData = str_replace(
+            $this->notDelete['column_classes'],
+            $this->generateColumnClassesFields($fields, $model),
+            $templateData
+        );
+        $templateData = str_replace(
+            '{{$SORTABLE_FIELDS$}}',
+            $this->generateSortableFields($fields, $model),
+            $templateData
+        );
         $folderName = $this->path . $this->serviceGenerator->modelNameNotPluralFe($model['name']);
         if (!is_dir($folderName)) {
             mkdir($folderName, 0755, true);
@@ -75,7 +104,15 @@ Class ViewGenerator extends BaseGenerator
 
         foreach ($fields as $field) {
             if ($field['show']) {
-                $fieldsGenerate[] = '"' . $field['field_name'] . '": () => this.$t("table.' . $this->serviceGenerator->tableNameNotPlural($model['name']) . '.' . $field['field_name'] . '")' . ',';
+                $fieldsGenerate[] =
+                    '"' .
+                    $field['field_name'] .
+                    '": () => this.$t("table.' .
+                    $this->serviceGenerator->tableNameNotPlural($model['name']) .
+                    '.' .
+                    $field['field_name'] .
+                    '")' .
+                    ',';
             }
         }
         $fieldsGenerate[] = '"created_at": () => this.$t("date.created_at")';
@@ -141,9 +178,9 @@ Class ViewGenerator extends BaseGenerator
             if ($field['show']) {
                 if ($field['db_type'] === $this->dbType['longtext']) {
                     $fieldsGenerate[] = str_replace('{{$FIELD_NAME$}}', $field['field_name'], $templateDataLongText);
-                } else if ($field['db_type'] === $this->dbType['file']) {
+                } elseif ($field['db_type'] === $this->dbType['file']) {
                     $fieldsGenerate[] = str_replace('{{$FIELD_NAME$}}', $field['field_name'], $templateDataUploadParse);
-                } else if ($field['db_type'] === $this->dbType['boolean']) {
+                } elseif ($field['db_type'] === $this->dbType['boolean']) {
                     $fieldsGenerate[] = str_replace('{{$FIELD_NAME$}}', $field['field_name'], $templateBoolean);
                 }
             }
