@@ -14,7 +14,11 @@ class Permission extends \Spatie\Permission\Models\Permission
      */
     public function scopeAllowed($query)
     {
-        return $query->where('name', '!=', LarajsPermission::PERMISSION_PERMISSION_MANAGE);
+        return $query->where(
+            'name',
+            '!=',
+            LarajsPermission::PERMISSION_PERMISSION_MANAGE
+        );
     }
 
     /**

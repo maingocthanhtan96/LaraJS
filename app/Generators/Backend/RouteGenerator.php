@@ -31,9 +31,20 @@ class RouteGenerator extends BaseGenerator
     {
         $now = Carbon::now();
         $pathTemplate = 'Routes/';
-        $templateData = $this->serviceGenerator->get_template("api", $pathTemplate);
-        $templateData = str_replace('{{MODEL_CLASS}}', $model['name'], $templateData);
-        $templateData = str_replace('{{DATE}}', $now->toDateTimeString(), $templateData);
+        $templateData = $this->serviceGenerator->get_template(
+            "api",
+            $pathTemplate
+        );
+        $templateData = str_replace(
+            '{{MODEL_CLASS}}',
+            $model['name'],
+            $templateData
+        );
+        $templateData = str_replace(
+            '{{DATE}}',
+            $now->toDateTimeString(),
+            $templateData
+        );
         $templateData = str_replace(
             '{{RESOURCE}}',
             $this->serviceGenerator->urlResource($model['name']),
@@ -41,8 +52,16 @@ class RouteGenerator extends BaseGenerator
         );
 
         $notDelete = config('generator.not_delete.laravel.route.api');
-        $templateDataReal = $this->serviceGenerator->getFile('api_routes', 'laravel');
-        if ($this->serviceGenerator->getOptions(config('generator.model.options.role_admin'), $model['options'])) {
+        $templateDataReal = $this->serviceGenerator->getFile(
+            'api_routes',
+            'laravel'
+        );
+        if (
+            $this->serviceGenerator->getOptions(
+                config('generator.model.options.role_admin'),
+                $model['options']
+            )
+        ) {
             $templateDataReal = $this->serviceGenerator->replaceNotDelete(
                 $notDelete['admin'],
                 $templateData,

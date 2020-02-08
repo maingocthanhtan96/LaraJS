@@ -31,25 +31,61 @@ class ModelGenerator extends BaseGenerator
     {
         $now = Carbon::now();
         $pathTemplate = 'Models/';
-        $templateData = $this->serviceGenerator->get_template("model", $pathTemplate);
-        $templateData = str_replace('{{DATE}}', $now->toDateTimeString(), $templateData);
-        $templateData = str_replace('{{MODEL_CLASS}}', $model['name'], $templateData);
-        $templateData = str_replace('{{FIELDS}}', $this->generateFields($fields), $templateData);
+        $templateData = $this->serviceGenerator->get_template(
+            "model",
+            $pathTemplate
+        );
+        $templateData = str_replace(
+            '{{DATE}}',
+            $now->toDateTimeString(),
+            $templateData
+        );
+        $templateData = str_replace(
+            '{{MODEL_CLASS}}',
+            $model['name'],
+            $templateData
+        );
+        $templateData = str_replace(
+            '{{FIELDS}}',
+            $this->generateFields($fields),
+            $templateData
+        );
         $templateData = str_replace(
             '{{TABLE_NAME}}',
             $this->serviceGenerator->tableName($model['name']),
             $templateData
         );
-        $templateData = str_replace('{{CATS}}', $this->generateYear($fields), $templateData);
+        $templateData = str_replace(
+            '{{CATS}}',
+            $this->generateYear($fields),
+            $templateData
+        );
 
         //create sort delete
         $importLaravel = config('generator.import.laravel.use');
         $notDelete = config('generator.not_delete.laravel.model');
-        if ($this->serviceGenerator->getOptions(config('generator.model.options.sort_deletes'), $model['options'])) {
-            $templateData = str_replace($notDelete['use_class'], $importLaravel['file'], $templateData);
-            $templateData = str_replace($notDelete['use'], $importLaravel['name'], $templateData);
+        if (
+            $this->serviceGenerator->getOptions(
+                config('generator.model.options.sort_deletes'),
+                $model['options']
+            )
+        ) {
+            $templateData = str_replace(
+                $notDelete['use_class'],
+                $importLaravel['file'],
+                $templateData
+            );
+            $templateData = str_replace(
+                $notDelete['use'],
+                $importLaravel['name'],
+                $templateData
+            );
         } else {
-            $templateData = str_replace($notDelete['use_class'], '', $templateData);
+            $templateData = str_replace(
+                $notDelete['use_class'],
+                '',
+                $templateData
+            );
             $templateData = str_replace($notDelete['use'], '', $templateData);
         }
         $fileName = $model['name'] . '.php';
@@ -67,7 +103,10 @@ class ModelGenerator extends BaseGenerator
             }
         }
 
-        return implode($this->serviceGenerator->infy_nl_tab(1, 2), $fieldsGenerate);
+        return implode(
+            $this->serviceGenerator->infy_nl_tab(1, 2),
+            $fieldsGenerate
+        );
     }
 
     private function generateYear($fields)
@@ -75,15 +114,25 @@ class ModelGenerator extends BaseGenerator
         $fieldsGenerate = [];
         $dbType = config('generator.db_type');
         $pathTemplate = 'Models/';
-        $templateCats = $this->serviceGenerator->get_template("cats", $pathTemplate);
+        $templateCats = $this->serviceGenerator->get_template(
+            "cats",
+            $pathTemplate
+        );
         foreach ($fields as $index => $field) {
             if ($index > 0) {
                 if ($field['db_type'] === $dbType['year']) {
                     $name = $field['field_name'];
-                    $fieldsGenerate[] = str_replace('{{FIELD}}', "'$name' => 'string',", $templateCats);
+                    $fieldsGenerate[] = str_replace(
+                        '{{FIELD}}',
+                        "'$name' => 'string',",
+                        $templateCats
+                    );
                 }
             }
         }
-        return implode($this->serviceGenerator->infy_nl_tab(1, 2), $fieldsGenerate);
+        return implode(
+            $this->serviceGenerator->infy_nl_tab(1, 2),
+            $fieldsGenerate
+        );
     }
 }

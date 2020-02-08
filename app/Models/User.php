@@ -82,7 +82,9 @@ class User extends Authenticatable
      */
     public function sendPasswordResetNotification($token)
     {
-        $this->notify(new \App\Notifications\MailResetPasswordNotification($token));
+        $this->notify(
+            new \App\Notifications\MailResetPasswordNotification($token)
+        );
     }
 
     //{{RELATIONS_NOT_DELETE_THIS_LINE}}

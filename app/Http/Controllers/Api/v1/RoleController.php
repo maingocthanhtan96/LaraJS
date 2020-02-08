@@ -24,7 +24,11 @@ class RoleController extends Controller
 
             return $this->jsonData(RoleResource::collection($roles));
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+            return $this->jsonError(
+                $e->getMessage(),
+                $e->getFile(),
+                $e->getLine()
+            );
         }
     }
 
@@ -119,7 +123,11 @@ class RoleController extends Controller
 
             return $this->jsonData(new RoleResource($role));
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+            return $this->jsonError(
+                $e->getMessage(),
+                $e->getFile(),
+                $e->getLine()
+            );
         }
     }
 
@@ -139,7 +147,11 @@ class RoleController extends Controller
 
             return $this->jsonSuccess(trans('messages.delete'));
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+            return $this->jsonError(
+                $e->getMessage(),
+                $e->getFile(),
+                $e->getLine()
+            );
         }
     }
 }

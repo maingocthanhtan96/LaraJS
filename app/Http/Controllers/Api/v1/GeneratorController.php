@@ -32,7 +32,11 @@ use App\Generators\Frontend\{
     RouteGenerator as RouteGeneratorFe,
     ViewTableGenerator
 };
-use App\Generators\FrontendUpdate\{FormUpdateGenerator, ViewTableUpdateGenerator, ViewUpdateGenerator};
+use App\Generators\FrontendUpdate\{
+    FormUpdateGenerator,
+    ViewTableUpdateGenerator,
+    ViewUpdateGenerator
+};
 use App\Http\Requests\StoreGeneratorRelationshipRequest;
 use App\Service\{GeneratorService, QueryService};
 use App\Models\Generator;
@@ -79,7 +83,11 @@ class GeneratorController extends Controller
 
             return $this->jsonTable($generator);
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+            return $this->jsonError(
+                $e->getMessage(),
+                $e->getFile(),
+                $e->getLine()
+            );
         }
     }
 
@@ -107,7 +115,11 @@ class GeneratorController extends Controller
             $this->_runCommand($model);
             return $this->jsonSuccess(trans('messages.success'));
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+            return $this->jsonError(
+                $e->getMessage(),
+                $e->getFile(),
+                $e->getLine()
+            );
         }
     }
 
@@ -134,7 +146,11 @@ class GeneratorController extends Controller
             $this->_runCommand();
             return $this->jsonSuccess(trans('messages.success'));
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+            return $this->jsonError(
+                $e->getMessage(),
+                $e->getFile(),
+                $e->getLine()
+            );
         }
     }
 
@@ -156,8 +172,9 @@ class GeneratorController extends Controller
         }
     }
 
-    public function generateRelationship(StoreGeneratorRelationshipRequest $request)
-    {
+    public function generateRelationship(
+        StoreGeneratorRelationshipRequest $request
+    ) {
         try {
             $relationship = $request->get('relationship');
             $model = $request->get('model');
@@ -165,12 +182,27 @@ class GeneratorController extends Controller
             $column = $request->get('column');
             $column2 = $request->get('column2');
             $options = $request->get('options', []);
-            new RelationshipGenerator($relationship, $model, $modelCurrent, $column, $column2, $options);
-            new SwaggerRelationshipGenerator($relationship, $model, $modelCurrent);
+            new RelationshipGenerator(
+                $relationship,
+                $model,
+                $modelCurrent,
+                $column,
+                $column2,
+                $options
+            );
+            new SwaggerRelationshipGenerator(
+                $relationship,
+                $model,
+                $modelCurrent
+            );
             $this->_runCommand();
             return $this->jsonSuccess(trans('messages.success'));
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+            return $this->jsonError(
+                $e->getMessage(),
+                $e->getFile(),
+                $e->getLine()
+            );
         }
     }
 
@@ -182,7 +214,11 @@ class GeneratorController extends Controller
 
             return $this->jsonData($diagram);
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+            return $this->jsonError(
+                $e->getMessage(),
+                $e->getFile(),
+                $e->getLine()
+            );
         }
     }
 
@@ -206,7 +242,11 @@ class GeneratorController extends Controller
             }
             return $this->jsonData($modelData);
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+            return $this->jsonError(
+                $e->getMessage(),
+                $e->getFile(),
+                $e->getLine()
+            );
         }
     }
 
@@ -219,7 +259,11 @@ class GeneratorController extends Controller
 
             return $this->jsonData($columns);
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+            return $this->jsonError(
+                $e->getMessage(),
+                $e->getFile(),
+                $e->getLine()
+            );
         }
     }
 
@@ -240,7 +284,12 @@ class GeneratorController extends Controller
     {
         new RouteGeneratorFe($model);
         new ApiGenerator($model);
-        if ($this->serviceGenerator->getOptions(config('generator.model.options.datatables'), $model['options'])) {
+        if (
+            $this->serviceGenerator->getOptions(
+                config('generator.model.options.datatables'),
+                $model['options']
+            )
+        ) {
             new ViewGenerator($fields, $model);
         } else {
             new ViewTableGenerator($fields, $model);
@@ -262,7 +311,12 @@ class GeneratorController extends Controller
 
     private function _generateFrontendUpdate($generator, $model, $updateFields)
     {
-        if ($this->serviceGenerator->getOptions(config('generator.model.options.datatables'), $model['options'])) {
+        if (
+            $this->serviceGenerator->getOptions(
+                config('generator.model.options.datatables'),
+                $model['options']
+            )
+        ) {
             new ViewUpdateGenerator($generator, $model, $updateFields);
         } else {
             new ViewTableUpdateGenerator($generator, $model, $updateFields);

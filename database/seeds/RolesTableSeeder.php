@@ -16,7 +16,8 @@ class RolesTableSeeder extends Seeder
         Role::create([
             'name' => LarajsPermission::ROLE_ADMIN,
             'guard_name' => 'api',
-            'description' => 'Super Administrator. Have access and full permission to all pages.'
+            'description' =>
+                'Super Administrator. Have access and full permission to all pages.'
         ]);
         Role::create([
             'name' => LarajsPermission::ROLE_MANAGER,
@@ -24,7 +25,8 @@ class RolesTableSeeder extends Seeder
         ]);
         Role::create([
             'name' => LarajsPermission::ROLE_VISITOR,
-            'description' => 'Just a visitor. Can only see the home page and the document page'
+            'description' =>
+                'Just a visitor. Can only see the home page and the document page'
         ]);
         Role::create([
             'name' => LarajsPermission::ROLE_CREATOR,
@@ -40,7 +42,8 @@ class RolesTableSeeder extends Seeder
         ]);
         Role::create([
             'name' => LarajsPermission::ROLE_DEVELOPER,
-            'description' => 'Just a developer. Some permissions(visit, create, edit, delete, develop)'
+            'description' =>
+                'Just a developer. Some permissions(visit, create, edit, delete, develop)'
         ]);
     }
 }

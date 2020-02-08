@@ -32,8 +32,15 @@ class ModelUpdateGenerator extends BaseGenerator
 
     private function generate($updateFields, $model)
     {
-        $templateDataReal = $this->serviceGenerator->getFile('model', 'laravel', $model['name'] . '.php');
-        $templateDataReal = $this->generateUpdateFields($updateFields['updateFields'], $templateDataReal);
+        $templateDataReal = $this->serviceGenerator->getFile(
+            'model',
+            'laravel',
+            $model['name'] . '.php'
+        );
+        $templateDataReal = $this->generateUpdateFields(
+            $updateFields['updateFields'],
+            $templateDataReal
+        );
         $checkGenerateYear = $this->generateYear($updateFields);
         if ($checkGenerateYear) {
             $templateDataReal = $this->serviceGenerator->replaceNotDelete(
@@ -43,8 +50,14 @@ class ModelUpdateGenerator extends BaseGenerator
                 $templateDataReal
             );
         }
-        $templateDataReal = $this->generateFieldsRename($updateFields['renameFields'], $templateDataReal);
-        $templateDataReal = $this->generateFieldsDrop($updateFields['dropFields'], $templateDataReal);
+        $templateDataReal = $this->generateFieldsRename(
+            $updateFields['renameFields'],
+            $templateDataReal
+        );
+        $templateDataReal = $this->generateFieldsDrop(
+            $updateFields['dropFields'],
+            $templateDataReal
+        );
 
         $fileName = $this->path . $model['name'] . '.php';
         $this->serviceFile->createFileReal($fileName, $templateDataReal);
@@ -74,10 +87,15 @@ class ModelUpdateGenerator extends BaseGenerator
         foreach ($updateFields as $index => $field) {
             $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ',';
         }
-        $implodeString = implode($this->serviceGenerator->infy_nl_tab(1, 2), $fieldsGenerate);
+        $implodeString = implode(
+            $this->serviceGenerator->infy_nl_tab(1, 2),
+            $fieldsGenerate
+        );
         $templateDataReal = str_replace(
             $template,
-            $this->serviceGenerator->infy_nl_tab(1, 2) . $implodeString . $this->serviceGenerator->infy_nl_tab(1, 1),
+            $this->serviceGenerator->infy_nl_tab(1, 2) .
+                $implodeString .
+                $this->serviceGenerator->infy_nl_tab(1, 1),
             $templateDataReal
         );
 
@@ -99,8 +117,16 @@ class ModelUpdateGenerator extends BaseGenerator
     private function generateFieldsDrop($dropFields, $templateDataReal)
     {
         foreach ($dropFields as $drop) {
-            $templateDataReal = str_replace("'" . $drop['field_name'] . "',", '', $templateDataReal);
-            $templateDataReal = str_replace("'" . $drop['field_name'] . "' => 'string',", '', $templateDataReal);
+            $templateDataReal = str_replace(
+                "'" . $drop['field_name'] . "',",
+                '',
+                $templateDataReal
+            );
+            $templateDataReal = str_replace(
+                "'" . $drop['field_name'] . "' => 'string',",
+                '',
+                $templateDataReal
+            );
         }
         return $templateDataReal;
     }
@@ -122,6 +148,9 @@ class ModelUpdateGenerator extends BaseGenerator
                 $fieldsGenerate[] = "'$name' => 'string',";
             }
         }
-        return implode($this->serviceGenerator->infy_nl_tab(1, 2), $fieldsGenerate);
+        return implode(
+            $this->serviceGenerator->infy_nl_tab(1, 2),
+            $fieldsGenerate
+        );
     }
 }

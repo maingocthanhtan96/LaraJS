@@ -64,7 +64,10 @@ return array(
 
     'include_helpers' => false,
 
-    'helper_files' => array(base_path() . '/vendor/laravel/framework/src/Illuminate/Support/helpers.php'),
+    'helper_files' => array(
+        base_path() .
+            '/vendor/laravel/framework/src/Illuminate/Support/helpers.php'
+    ),
 
     /*
     |--------------------------------------------------------------------------
@@ -88,7 +91,10 @@ return array(
     */
 
     'extra' => array(
-        'Eloquent' => array('Illuminate\Database\Eloquent\Builder', 'Illuminate\Database\Query\Builder'),
+        'Eloquent' => array(
+            'Illuminate\Database\Eloquent\Builder',
+            'Illuminate\Database\Query\Builder'
+        ),
         'Session' => array('Illuminate\Session\Store')
     ),
 

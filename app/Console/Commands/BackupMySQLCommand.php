@@ -85,7 +85,12 @@ class BackupMySQLCommand extends Command
         try {
             if ($process->isSuccessful()) {
                 $zip = new ZipArchive();
-                if ($zip->open(storage_path("app/mysql/{$dbName}.zip"), ZipArchive::CREATE) === true) {
+                if (
+                    $zip->open(
+                        storage_path("app/mysql/{$dbName}.zip"),
+                        ZipArchive::CREATE
+                    ) === true
+                ) {
                     // Add files to the zip file
                     $zip->addFile($tempLocation, $dbName . '.sql');
                     // All files are added, so close the zip file.
@@ -135,7 +140,8 @@ class BackupMySQLCommand extends Command
             // get file from s3
             $s3 = \Storage::disk();
             $found = $s3->get('/mysql/' . $snapshot . '.sql');
-            $tempLocation = '/tmp/' . env('DB_DATABASE') . '_' . date("Y-m-d_Hi") . '.sql';
+            $tempLocation =
+                '/tmp/' . env('DB_DATABASE') . '_' . date("Y-m-d_Hi") . '.sql';
 
             // create a temp file
             $bytes_written = File::put($tempLocation, $found);
@@ -165,7 +171,11 @@ class BackupMySQLCommand extends Command
                 throw new ProcessFailedException($process);
             }
         } catch (\Exception $e) {
-            $this->info('File Not Found: ' . $e->getMessage(), $e->getFile(), $e->getLine());
+            $this->info(
+                'File Not Found: ' . $e->getMessage(),
+                $e->getFile(),
+                $e->getLine()
+            );
         }
     }
 }

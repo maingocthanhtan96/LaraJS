@@ -22,7 +22,12 @@ class FileController extends Controller
             if ($request->file('file')) {
                 $now = Carbon::now();
                 $image = $request->file('file');
-                $name = time() . '_' . \Str::random(20) . '.' . $image->getClientOriginalExtension();
+                $name =
+                    time() .
+                    '_' .
+                    \Str::random(20) .
+                    '.' .
+                    $image->getClientOriginalExtension();
                 $folderCreate = "/uploads/dropzone/$now->year/$now->month/$now->day";
                 $folder = public_path($folderCreate);
                 if (!is_dir($folder)) {
@@ -53,7 +58,9 @@ class FileController extends Controller
                 if (file_exists(public_path($file))) {
                     unlink(public_path($file));
                 } else {
-                    return (new self())->jsonError(trans('error.file_not_found'));
+                    return (new self())->jsonError(
+                        trans('error.file_not_found')
+                    );
                 }
             }
             return (new self())->jsonSuccess(trans('messages.delete'));
@@ -68,7 +75,12 @@ class FileController extends Controller
             if ($request->file('file')) {
                 $now = Carbon::now();
                 $image = $request->file('file');
-                $name = time() . '_' . \Str::random(20) . '.' . $image->getClientOriginalExtension();
+                $name =
+                    time() .
+                    '_' .
+                    \Str::random(20) .
+                    '.' .
+                    $image->getClientOriginalExtension();
                 $folderCreate = "/uploads/avatars/$now->year/$now->month/$now->day";
                 $folder = public_path($folderCreate);
                 if (!is_dir($folder)) {
@@ -83,7 +95,9 @@ class FileController extends Controller
                     if (file_exists(public_path($fileOld))) {
                         unlink(public_path($fileOld));
                     } else {
-                        return (new self())->jsonError(trans('error.file_not_found'));
+                        return (new self())->jsonError(
+                            trans('error.file_not_found')
+                        );
                     }
                 }
 

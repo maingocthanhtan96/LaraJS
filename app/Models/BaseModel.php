@@ -33,12 +33,17 @@ class BaseModel extends Model
 
         // apply mysql variables
         $query->addSelect(
-            DB::raw("@rank := IF(@group = {$group}, @rank+1, 1) as {$rankAlias}, @group := {$group} as {$groupAlias}")
+            DB::raw(
+                "@rank := IF(@group = {$group}, @rank+1, 1) as {$rankAlias}, @group := {$group} as {$groupAlias}"
+            )
         );
 
         // make sure first order clause is the group order
         $query->getQuery()->orders = (array) $query->getQuery()->orders;
-        array_unshift($query->getQuery()->orders, ['column' => $group, 'direction' => 'asc']);
+        array_unshift($query->getQuery()->orders, [
+            'column' => $group,
+            'direction' => 'asc'
+        ]);
 
         // prepare subquery
         $subQuery = $query->toSql();

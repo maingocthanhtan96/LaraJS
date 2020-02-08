@@ -55,13 +55,19 @@ class QueryService extends BaseService
         }
 
         foreach (Arr::wrap($columns) as $col) {
-            $query->when($col === $orderBy, function ($q) use ($col, $ascending) {
+            $query->when($col === $orderBy, function ($q) use (
+                $col,
+                $ascending
+            ) {
                 $q->orderBy($col, $ascending);
             });
         }
 
         foreach (Arr::wrap($columnsWith) as $value => $col) {
-            $query->when($value === $orderBy, function ($q) use ($col, $ascending) {
+            $query->when($value === $orderBy, function ($q) use (
+                $col,
+                $ascending
+            ) {
                 $q->orderBy($col, $ascending);
             });
         }

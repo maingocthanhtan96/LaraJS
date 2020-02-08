@@ -32,13 +32,19 @@ class LangUpdateGenerator extends BaseGenerator
 
     private function generate($model, $updateFields)
     {
-        $tableName = $this->serviceGenerator->tableNameNotPlural($model['name']);
+        $tableName = $this->serviceGenerator->tableNameNotPlural(
+            $model['name']
+        );
 
         $nameLangs = ['table'];
         $langs = config('generator.not_delete.laravel.lang');
         foreach ($langs as $key => $langComment) {
             foreach ($nameLangs as $nameLang) {
-                $templateDataReal = $this->serviceGenerator->getFile('lang', 'laravel', $key . '/table.php');
+                $templateDataReal = $this->serviceGenerator->getFile(
+                    'lang',
+                    'laravel',
+                    $key . '/table.php'
+                );
                 $templateDataReal = $this->generateFieldsRename(
                     $tableName,
                     $updateFields['renameFields'],
@@ -54,13 +60,19 @@ class LangUpdateGenerator extends BaseGenerator
                     $updateFields['updateFields'],
                     $templateDataReal
                 );
-                $this->serviceFile->createFileReal($this->path . $key . '/' . $nameLang . '.php', $templateDataReal);
+                $this->serviceFile->createFileReal(
+                    $this->path . $key . '/' . $nameLang . '.php',
+                    $templateDataReal
+                );
             }
         }
     }
 
-    private function generateFieldsRename($tableName, $renameFields, $templateDataReal)
-    {
+    private function generateFieldsRename(
+        $tableName,
+        $renameFields,
+        $templateDataReal
+    ) {
         if (empty($renameFields)) {
             return $templateDataReal;
         }
@@ -91,9 +103,15 @@ class LangUpdateGenerator extends BaseGenerator
                     list($fieldName, $fieldNameTrans) = explode('=>', $tpl);
                     $fieldName = trim($fieldName);
                     $fieldNameTrans = trim($fieldNameTrans);
-                    $fieldName = $this->serviceGenerator->trimQuotes($fieldName);
-                    $fieldNameTrans = $this->serviceGenerator->trimQuotes($fieldNameTrans);
-                    if ($rename['field_name_old']['field_name'] === $fieldName) {
+                    $fieldName = $this->serviceGenerator->trimQuotes(
+                        $fieldName
+                    );
+                    $fieldNameTrans = $this->serviceGenerator->trimQuotes(
+                        $fieldNameTrans
+                    );
+                    if (
+                        $rename['field_name_old']['field_name'] === $fieldName
+                    ) {
                         $fieldsGenerate[] =
                             "'" .
                             $rename['field_name_new']['field_name'] .
@@ -104,7 +122,15 @@ class LangUpdateGenerator extends BaseGenerator
                             "'" .
                             ',';
                     } else {
-                        $name = "'" . $fieldName . "'" . ' => ' . "'" . $fieldNameTrans . "'" . ',';
+                        $name =
+                            "'" .
+                            $fieldName .
+                            "'" .
+                            ' => ' .
+                            "'" .
+                            $fieldNameTrans .
+                            "'" .
+                            ',';
                         if (
                             !in_array($name, $fieldsGenerate) &&
                             !in_array($fieldName, $arRename) &&
@@ -116,14 +142,24 @@ class LangUpdateGenerator extends BaseGenerator
                 }
             }
         }
-        $replace = implode($this->serviceGenerator->infy_nl_tab(1, 2), $fieldsGenerate);
+        $replace = implode(
+            $this->serviceGenerator->infy_nl_tab(1, 2),
+            $fieldsGenerate
+        );
         $replace .= "\n\t],";
-        $templateDataReal = $this->replaceTemplate($templateReplace, $replace, $templateDataReal);
+        $templateDataReal = $this->replaceTemplate(
+            $templateReplace,
+            $replace,
+            $templateDataReal
+        );
         return $templateDataReal;
     }
 
-    private function generateFieldsUpdate($tableName, $updateFields, $templateDataReal)
-    {
+    private function generateFieldsUpdate(
+        $tableName,
+        $updateFields,
+        $templateDataReal
+    ) {
         if (empty($updateFields)) {
             return $templateDataReal;
         }
@@ -154,17 +190,34 @@ class LangUpdateGenerator extends BaseGenerator
             }
         }
         foreach ($updateFields as $update) {
-            $name = "'" . $update['field_name'] . "'" . ' => ' . "'" . $update['field_name_trans'] . "',";
+            $name =
+                "'" .
+                $update['field_name'] .
+                "'" .
+                ' => ' .
+                "'" .
+                $update['field_name_trans'] .
+                "',";
             $fieldsGenerate[] = $name;
         }
-        $replace = implode($this->serviceGenerator->infy_nl_tab(1, 2), $fieldsGenerate);
+        $replace = implode(
+            $this->serviceGenerator->infy_nl_tab(1, 2),
+            $fieldsGenerate
+        );
         $replace .= "\n\t],";
-        $templateDataReal = $this->replaceTemplate($templateReplace, $replace, $templateDataReal);
+        $templateDataReal = $this->replaceTemplate(
+            $templateReplace,
+            $replace,
+            $templateDataReal
+        );
         return $templateDataReal;
     }
 
-    private function generateFieldsDrop($tableName, $dropUpdate, $templateDataReal)
-    {
+    private function generateFieldsDrop(
+        $tableName,
+        $dropUpdate,
+        $templateDataReal
+    ) {
         if (empty($dropUpdate)) {
             return $templateDataReal;
         }
@@ -193,17 +246,37 @@ class LangUpdateGenerator extends BaseGenerator
                 $fieldName = trim($fieldName);
                 $fieldNameTrans = trim($fieldNameTrans);
                 $fieldName = $this->serviceGenerator->trimQuotes($fieldName);
-                $fieldNameTrans = $this->serviceGenerator->trimQuotes($fieldNameTrans);
-                $name = "'" . $fieldName . "'" . ' => ' . "'" . $fieldNameTrans . "'" . ',';
-                if (!in_array($fieldName, $dropUpdate) && !in_array($name, $fieldsGenerate)) {
+                $fieldNameTrans = $this->serviceGenerator->trimQuotes(
+                    $fieldNameTrans
+                );
+                $name =
+                    "'" .
+                    $fieldName .
+                    "'" .
+                    ' => ' .
+                    "'" .
+                    $fieldNameTrans .
+                    "'" .
+                    ',';
+                if (
+                    !in_array($fieldName, $dropUpdate) &&
+                    !in_array($name, $fieldsGenerate)
+                ) {
                     $fieldsGenerate[] = $name;
                 }
             }
         }
 
-        $replace = implode($this->serviceGenerator->infy_nl_tab(1, 2), $fieldsGenerate);
+        $replace = implode(
+            $this->serviceGenerator->infy_nl_tab(1, 2),
+            $fieldsGenerate
+        );
         $replace .= "\n\t],";
-        $templateDataReal = $this->replaceTemplate($templateReplace, $replace, $templateDataReal);
+        $templateDataReal = $this->replaceTemplate(
+            $templateReplace,
+            $replace,
+            $templateDataReal
+        );
         return $templateDataReal;
     }
 

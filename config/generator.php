@@ -115,11 +115,16 @@ return [
     'not_delete' => [
         'laravel' => [
             'controller' => [
-                'relationship' => '//{{CONTROLLER_RELATIONSHIP_NOT_DELETE_THIS_LINE}}',
-                'relationship_mtm_create' => '//{{CONTROLLER_RELATIONSHIP_MTM_CREATE_NOT_DELETE_THIS_LINE}}',
-                'relationship_mtm_update' => '//{{CONTROLLER_RELATIONSHIP_MTM_UPDATE_NOT_DELETE_THIS_LINE}}',
-                'relationship_mtm_delete' => '//{{CONTROLLER_RELATIONSHIP_MTM_DELETE_NOT_DELETE_THIS_LINE}}',
-                'relationship_mtm_show' => '//{{CONTROLLER_RELATIONSHIP_MTM_SHOW_NOT_DELETE_THIS_LINE}}'
+                'relationship' =>
+                    '//{{CONTROLLER_RELATIONSHIP_NOT_DELETE_THIS_LINE}}',
+                'relationship_mtm_create' =>
+                    '//{{CONTROLLER_RELATIONSHIP_MTM_CREATE_NOT_DELETE_THIS_LINE}}',
+                'relationship_mtm_update' =>
+                    '//{{CONTROLLER_RELATIONSHIP_MTM_UPDATE_NOT_DELETE_THIS_LINE}}',
+                'relationship_mtm_delete' =>
+                    '//{{CONTROLLER_RELATIONSHIP_MTM_DELETE_NOT_DELETE_THIS_LINE}}',
+                'relationship_mtm_show' =>
+                    '//{{CONTROLLER_RELATIONSHIP_MTM_SHOW_NOT_DELETE_THIS_LINE}}'
             ],
             'model' => [
                 'use_class' => '//{{USE_CLASS_NOT_DELETE_THIS_LINE}}',
@@ -152,7 +157,8 @@ return [
             ],
             'swagger' => [
                 'property' => '//{{SWAGGER_PROPERTY_NOT_DELETE_THIS_LINE}}',
-                'soft_deletes' => '//{{SWAGGER_SOFT_DELETES_NOT_DELETE_THIS_LINE}}'
+                'soft_deletes' =>
+                    '//{{SWAGGER_SOFT_DELETES_NOT_DELETE_THIS_LINE}}'
             ]
         ],
         'vuejs' => [
@@ -164,18 +170,22 @@ return [
                 'item' => '<!--{{$FROM_ITEM_NOT_DELETE_THIS_LINE$}}-->',
                 'fields' => '// {{$FORM_FIELDS_NOT_DELETE_THIS_LINE$}}',
                 'rules' => '// {{$RULES_NOT_DELETE_THIS_LINE$}}',
-                'import_component' => '// {{$IMPORT_COMPONENT_NOT_DELETE_THIS_LINE$}}',
-                'import_component_name' => '// {{$IMPORT_COMPONENT_NAME_NOT_DELETE_THIS_LINE$}}',
+                'import_component' =>
+                    '// {{$IMPORT_COMPONENT_NOT_DELETE_THIS_LINE$}}',
+                'import_component_name' =>
+                    '// {{$IMPORT_COMPONENT_NAME_NOT_DELETE_THIS_LINE$}}',
                 'methods' => '// {{$METHODS_NOT_DELETE_THIS_LINE$}}',
                 'data' => '// {{$DATA_NOT_DELETE_THIS_LINE$}}',
-                'stringify' => '// {{$FILE_JSON_STRINGIFY_NOT_DELETE_THIS_LINE$}}',
+                'stringify' =>
+                    '// {{$FILE_JSON_STRINGIFY_NOT_DELETE_THIS_LINE$}}',
                 'reset_field' => '// {{$RESET_FIELD_NOT_DELETE_THIS_LINE$}}', // reset file
                 'api' => '// {{$API_NOT_DELETE_THIS_LINE$}}'
             ],
             'views' => [
                 'templates' => '<!--{{$TEMPLATES_NOT_DELETE_THIS_LINE$}}-->',
                 'headings' => '// {{$HEADING_FIELDS_NOT_DELETE_THIS_LINE$}}',
-                'column_classes' => '// {{$COLUMN_CLASSES_FIELDS_NOT_DELETE_THIS_LINE$}}'
+                'column_classes' =>
+                    '// {{$COLUMN_CLASSES_FIELDS_NOT_DELETE_THIS_LINE$}}'
             ]
         ]
     ],

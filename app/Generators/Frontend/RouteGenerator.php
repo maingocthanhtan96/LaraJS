@@ -35,8 +35,16 @@ class RouteGenerator extends BaseGenerator
     {
         $now = Carbon::now();
         $pathTemplate = 'Router/';
-        $templateData = $this->serviceGenerator->get_template("route", $pathTemplate, 'vuejs');
-        $templateData = str_replace('{{$DATE$}}', $now->toDateTimeString(), $templateData);
+        $templateData = $this->serviceGenerator->get_template(
+            "route",
+            $pathTemplate,
+            'vuejs'
+        );
+        $templateData = str_replace(
+            '{{$DATE$}}',
+            $now->toDateTimeString(),
+            $templateData
+        );
         $templateData = str_replace(
             '{{$NAME_ROUTE_MODEL_CLASS$}}',
             $this->serviceGenerator->modelNameNotPluralFe($model['name']),
@@ -53,9 +61,22 @@ class RouteGenerator extends BaseGenerator
             $templateData
         );
 
-        $templateDataReal = $this->serviceGenerator->getFile('router', 'vuejs', 'index.js');
-        if ($this->serviceGenerator->getOptions(config('generator.model.options.role_admin'), $model['options'])) {
-            $templateData = str_replace('{{$ADMIN_ROLE$}}', "roles: ['admin'],", $templateData);
+        $templateDataReal = $this->serviceGenerator->getFile(
+            'router',
+            'vuejs',
+            'index.js'
+        );
+        if (
+            $this->serviceGenerator->getOptions(
+                config('generator.model.options.role_admin'),
+                $model['options']
+            )
+        ) {
+            $templateData = str_replace(
+                '{{$ADMIN_ROLE$}}',
+                "roles: ['admin'],",
+                $templateData
+            );
         } else {
             $namePermission = \Str::snake($model['name']);
             $templateData = str_replace(
@@ -71,14 +92,18 @@ class RouteGenerator extends BaseGenerator
             $templateDataReal,
             2
         );
-        $nameModel = $this->serviceGenerator->modelNameNotPluralFe($model['name']);
+        $nameModel = $this->serviceGenerator->modelNameNotPluralFe(
+            $model['name']
+        );
         $templateDataReal = $this->serviceGenerator->replaceNotDelete(
             $this->notDelete['import'],
             "import $nameModel from './modules/$nameModel';",
             0,
             $templateDataReal
         );
-        $fileName = $this->serviceGenerator->modelNameNotPluralFe($model['name']) . '.js';
+        $fileName =
+            $this->serviceGenerator->modelNameNotPluralFe($model['name']) .
+            '.js';
         $this->serviceFile->createFile($this->path, $fileName, $templateData);
         $pathReal = config('generator.path.vuejs.router') . 'index.js';
         $this->serviceFile->createFileReal($pathReal, $templateDataReal);
