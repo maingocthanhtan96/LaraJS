@@ -57,8 +57,18 @@ class UserController extends Controller
             $columnsWith = [];
             $columnSearch = ['name', 'email'];
             $with = ['roles'];
-            $qs = new QueryService(new User);
-            $users = $qs->queryTable($columns, $columnsWith, $query, $columnSearch, $with, $betweenDate, $limit, $ascending, $orderBy);
+            $qs = new QueryService(new User());
+            $users = $qs->queryTable(
+                $columns,
+                $columnsWith,
+                $query,
+                $columnSearch,
+                $with,
+                $betweenDate,
+                $limit,
+                $ascending,
+                $orderBy
+            );
 
             return $this->jsonTable($users);
         } catch (\Exception $e) {
@@ -115,7 +125,9 @@ class UserController extends Controller
     {
         try {
             $user->update($request->all());
-            \DB::table('model_has_roles')->where('model_id', $user->id)->delete();
+            \DB::table('model_has_roles')
+                ->where('model_id', $user->id)
+                ->delete();
             $user->assignRole($request->get('role_id'));
             //{{CONTROLLER_RELATIONSHIP_MTM_UPDATE_NOT_DELETE_THIS_LINE}}
 

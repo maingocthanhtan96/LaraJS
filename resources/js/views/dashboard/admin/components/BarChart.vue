@@ -1,5 +1,5 @@
 <template>
-  <div :class="className" :style="{height:height,width:width}"/>
+  <div :class="className" :style="{ height: height, width: width }" />
 </template>
 
 <script>
@@ -54,7 +54,8 @@ export default {
       this.chart.setOption({
         tooltip: {
           trigger: 'axis',
-          axisPointer: { // Axis indicator, axis trigger is valid
+          axisPointer: {
+            // Axis indicator, axis trigger is valid
             type: 'shadow', // The default is a straight line, which can be selected as: 'line' | 'shadow'
           },
         },
@@ -65,41 +66,49 @@ export default {
           bottom: '3%',
           containLabel: true,
         },
-        xAxis: [{
-          type: 'category',
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-          axisTick: {
-            alignWithLabel: true,
+        xAxis: [
+          {
+            type: 'category',
+            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            axisTick: {
+              alignWithLabel: true,
+            },
           },
-        }],
-        yAxis: [{
-          type: 'value',
-          axisTick: {
-            show: false,
+        ],
+        yAxis: [
+          {
+            type: 'value',
+            axisTick: {
+              show: false,
+            },
           },
-        }],
-        series: [{
-          name: 'pageA',
-          type: 'bar',
-          stack: 'vistors',
-          barWidth: '60%',
-          data: [79, 52, 200, 334, 390, 330, 220],
-          animationDuration,
-        }, {
-          name: 'pageB',
-          type: 'bar',
-          stack: 'vistors',
-          barWidth: '60%',
-          data: [80, 52, 200, 334, 390, 330, 220],
-          animationDuration,
-        }, {
-          name: 'pageC',
-          type: 'bar',
-          stack: 'vistors',
-          barWidth: '60%',
-          data: [30, 52, 200, 334, 390, 330, 220],
-          animationDuration,
-        }],
+        ],
+        series: [
+          {
+            name: 'pageA',
+            type: 'bar',
+            stack: 'vistors',
+            barWidth: '60%',
+            data: [79, 52, 200, 334, 390, 330, 220],
+            animationDuration,
+          },
+          {
+            name: 'pageB',
+            type: 'bar',
+            stack: 'vistors',
+            barWidth: '60%',
+            data: [80, 52, 200, 334, 390, 330, 220],
+            animationDuration,
+          },
+          {
+            name: 'pageC',
+            type: 'bar',
+            stack: 'vistors',
+            barWidth: '60%',
+            data: [30, 52, 200, 334, 390, 330, 220],
+            animationDuration,
+          },
+        ],
       });
     },
   },

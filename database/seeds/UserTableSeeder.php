@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Larajs\Permission as LarajsPermission;
 use App\Models\Role;
-use \App\Models\User;
+use App\Models\User;
 
 class UserTableSeeder extends Seeder
 {
@@ -89,7 +89,7 @@ class UserTableSeeder extends Seeder
             LarajsPermission::PERMISSION_CREATE,
             LarajsPermission::PERMISSION_EDIT,
             LarajsPermission::PERMISSION_DELETE,
-            LarajsPermission::PERMISSION_VIEW_MENU_ROLE_PERMISSION,
+            LarajsPermission::PERMISSION_VIEW_MENU_ROLE_PERMISSION
         ]);
         $visitorRole->givePermissionTo(LarajsPermission::PERMISSION_VISIT);
         $creatorRole->givePermissionTo(LarajsPermission::PERMISSION_CREATE);
@@ -100,7 +100,7 @@ class UserTableSeeder extends Seeder
             LarajsPermission::PERMISSION_CREATE,
             LarajsPermission::PERMISSION_EDIT,
             LarajsPermission::PERMISSION_DELETE,
-            LarajsPermission::PERMISSION_DEVELOP,
+            LarajsPermission::PERMISSION_DEVELOP
         ]);
 
         $faker = Faker\Factory::create();
@@ -111,14 +111,14 @@ class UserTableSeeder extends Seeder
                 'email' => $faker->unique()->email,
                 'avatar' => $faker->imageUrl($width = 150, $height = 150),
                 'password' => 'secret',
-                'remember_token' => \Illuminate\Support\Str::random(10),
+                'remember_token' => \Illuminate\Support\Str::random(10)
                 //{{SEEDER_NOT_DELETE_THIS_LINE}}
             ]);
             $roleName = $faker->randomElement([
                 LarajsPermission::ROLE_VISITOR,
                 LarajsPermission::ROLE_CREATOR,
                 LarajsPermission::ROLE_EDITOR,
-                LarajsPermission::ROLE_DELETER,
+                LarajsPermission::ROLE_DELETER
             ]);
             $userFaker->syncRoles($roleName);
         }

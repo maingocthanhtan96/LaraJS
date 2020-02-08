@@ -1,8 +1,15 @@
 <template>
-  <div :class="{fullscreen:fullscreen}" class="tinymce-container editor-container">
-    <textarea :id="tinymceId" class="tinymce-textarea"/>
+  <div
+    :class="{ fullscreen: fullscreen }"
+    class="tinymce-container editor-container"
+  >
+    <textarea :id="tinymceId" class="tinymce-textarea" />
     <div class="editor-custom-btn-container">
-      <editorImage color="#1890ff" class="editor-upload-btn" @successCBK="imageSuccessCBK"/>
+      <editorImage
+        color="#1890ff"
+        class="editor-upload-btn"
+        @successCBK="imageSuccessCBK"
+      />
     </div>
   </div>
 </template>
@@ -18,8 +25,12 @@ export default {
   props: {
     id: {
       type: String,
-      default: function () {
-        return 'vue-tinymce-' + +new Date() + ((Math.random() * 1000).toFixed(0) + '');
+      default: function() {
+        return (
+          'vue-tinymce-' +
+          +new Date() +
+          ((Math.random() * 1000).toFixed(0) + '')
+        );
       },
     },
     value: {
@@ -50,8 +61,8 @@ export default {
       tinymceId: this.id,
       fullscreen: false,
       languageTypeList: {
-        'en': 'en',
-        'zh': 'zh_CN',
+        en: 'en',
+        zh: 'zh_CN',
       },
     };
   },
@@ -64,7 +75,8 @@ export default {
     value(val) {
       if (!this.hasChange && this.hasInit) {
         this.$nextTick(() =>
-          window.tinymce.get(this.tinymceId).setContent(val || ''));
+          window.tinymce.get(this.tinymceId).setContent(val || '')
+        );
       }
     },
     language() {
@@ -117,7 +129,7 @@ export default {
           });
         },
         setup(editor) {
-          editor.on('FullscreenStateChanged', (e) => {
+          editor.on('FullscreenStateChanged', e => {
             _this.fullscreen = e.state;
           });
         },
@@ -175,7 +187,9 @@ export default {
     imageSuccessCBK(arr) {
       const _this = this;
       arr.forEach(v => {
-        window.tinymce.get(_this.tinymceId).insertContent(`<img class="wscnph" src="${v.url}" >`);
+        window.tinymce
+          .get(_this.tinymceId)
+          .insertContent(`<img class="wscnph" src="${v.url}" >`);
       });
     },
   },
@@ -183,33 +197,33 @@ export default {
 </script>
 
 <style scoped>
-  .tinymce-container {
-    position: relative;
-    line-height: normal;
-  }
+.tinymce-container {
+  position: relative;
+  line-height: normal;
+}
 
-  .tinymce-container >>> .mce-fullscreen {
-    z-index: 10000;
-  }
+.tinymce-container >>> .mce-fullscreen {
+  z-index: 10000;
+}
 
-  .tinymce-textarea {
-    visibility: hidden;
-    z-index: -1;
-  }
+.tinymce-textarea {
+  visibility: hidden;
+  z-index: -1;
+}
 
-  .editor-custom-btn-container {
-    position: absolute;
-    right: 4px;
-    top: 4px;
-    /*z-index: 2005;*/
-  }
+.editor-custom-btn-container {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  /*z-index: 2005;*/
+}
 
-  .fullscreen .editor-custom-btn-container {
-    z-index: 10000;
-    position: fixed;
-  }
+.fullscreen .editor-custom-btn-container {
+  z-index: 10000;
+  position: fixed;
+}
 
-  .editor-upload-btn {
-    display: inline-block;
-  }
+.editor-upload-btn {
+  display: inline-block;
+}
 </style>

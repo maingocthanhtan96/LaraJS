@@ -1,26 +1,29 @@
 <template>
   <el-card class="box-card-component" style="margin-left:8px;">
     <div slot="header" class="box-card-header">
-      <img :src="user.avatar">
+      <img :src="user.avatar" />
     </div>
     <div style="position:relative;">
-      <pan-thumb :image="user.avatar + '?imageView2/1/w/80/h/80'" class="panThumb"/>
+      <pan-thumb
+        :image="user.avatar + '?imageView2/1/w/80/h/80'"
+        class="panThumb"
+      />
       <mallki class-name="mallki-text" text="Larajs" />
       <div style="padding-top:35px;" class="progress-item">
         <span>Laravel</span>
-        <el-progress :percentage="90"/>
+        <el-progress :percentage="90" />
       </div>
       <div class="progress-item">
         <span>Vue</span>
-        <el-progress :percentage="80"/>
+        <el-progress :percentage="80" />
       </div>
       <div class="progress-item">
         <span>JavaScript</span>
-        <el-progress :percentage="80"/>
+        <el-progress :percentage="80" />
       </div>
       <div class="progress-item">
         <span>HTML &amp; CSS</span>
-        <el-progress :percentage="70"/>
+        <el-progress :percentage="70" />
       </div>
     </div>
   </el-card>
@@ -51,73 +54,70 @@ export default {
     };
   },
   computed: {
-    ...mapGetters([
-      'user',
-      'roles',
-    ]),
+    ...mapGetters(['user', 'roles']),
   },
 };
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
-  .box-card-component {
-    .el-card__header {
-      padding: 0px !important;
-    }
+.box-card-component {
+  .el-card__header {
+    padding: 0px !important;
   }
+}
 </style>
 <style rel="stylesheet/scss" lang="scss" scoped>
-  .box-card-component {
-    .box-card-header {
-      position: relative;
-      height: 220px;
+.box-card-component {
+  .box-card-header {
+    position: relative;
+    height: 220px;
 
-      img {
-        width: 100%;
-        height: 100%;
-        transition: all 0.2s linear;
+    img {
+      width: 100%;
+      height: 100%;
+      transition: all 0.2s linear;
 
-        &:hover {
-          transform: scale(1.1, 1.1);
-          filter: contrast(130%);
-        }
-      }
-    }
-
-    .mallki-text {
-      position: absolute;
-      top: 0px;
-      right: 0px;
-      font-size: 20px;
-      font-weight: bold;
-    }
-
-    .panThumb {
-      z-index: 100;
-      height: 70px !important;
-      width: 70px !important;
-      position: absolute !important;
-      top: -45px;
-      left: 0px;
-      border: 5px solid #ffffff;
-      background-color: #fff;
-      margin: auto;
-      box-shadow: none !important;
-
-      &::v-deep .pan-info {
-        box-shadow: none !important;
-      }
-    }
-
-    .progress-item {
-      margin-bottom: 10px;
-      font-size: 14px;
-    }
-
-    @media only screen and (max-width: 1510px) {
-      .mallki-text {
-        display: none;
+      &:hover {
+        transform: scale(1.1, 1.1);
+        filter: contrast(130%);
       }
     }
   }
+
+  .mallki-text {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .panThumb {
+    z-index: 100;
+    height: 70px !important;
+    width: 70px !important;
+    position: absolute !important;
+    top: -45px;
+    left: 0px;
+    border: 5px solid #ffffff;
+    background-color: #fff;
+    margin: auto;
+    box-shadow: none !important;
+
+    &::v-deep .pan-info {
+      box-shadow: none !important;
+    }
+  }
+
+  .progress-item {
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+
+  @media only screen and (max-width: 1510px) {
+    .mallki-text {
+      display: none;
+    }
+  }
+}
 </style>

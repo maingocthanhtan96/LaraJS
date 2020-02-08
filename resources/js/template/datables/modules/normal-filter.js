@@ -2,14 +2,17 @@
 
 var debounce = require('debounce');
 
-module.exports = function (h) {
+module.exports = function(h) {
   var _this = this;
 
-  return function (classes, id) {
-    var search = _this.source == 'client' ? _this.search.bind(_this, _this.data) : _this.serverSearch.bind(_this);
+  return function(classes, id) {
+    var search =
+      _this.source == 'client'
+        ? _this.search.bind(_this, _this.data)
+        : _this.serverSearch.bind(_this);
 
     return h('input', {
-      'class': classes.input + ' ' + classes.small,
+      class: classes.input + ' ' + classes.small,
       attrs: {
         type: 'text',
 
@@ -18,10 +21,12 @@ module.exports = function (h) {
         id: id,
       },
       domProps: {
-        'value': _this.query,
+        value: _this.query,
       },
       on: {
-        'keyup': _this.opts.debounce ? debounce(search, _this.opts.debounce) : search,
+        keyup: _this.opts.debounce
+          ? debounce(search, _this.opts.debounce)
+          : search,
       },
     });
   };

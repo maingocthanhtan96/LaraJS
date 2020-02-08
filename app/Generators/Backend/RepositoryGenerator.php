@@ -7,7 +7,7 @@ use App\Service\FileService;
 use App\Service\GeneratorService;
 use Carbon\Carbon;
 
-Class  RepositoryGenerator extends BaseGenerator
+class RepositoryGenerator extends BaseGenerator
 {
     /** @var $service */
     public $serviceGenerator;

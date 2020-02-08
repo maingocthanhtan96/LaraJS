@@ -28,14 +28,14 @@ return [
             'api_controller' => app_path('Http/Controllers/Api/v1/'),
             'lang' => base_path('resources/lang/'),
             'request' => app_path('Http/Requests/'),
-            'swagger' => app_path('Larajs/Swagger/'),
+            'swagger' => app_path('Larajs/Swagger/')
         ],
         'vuejs' => [
             'api' => base_path('resources/js/api/'),
             'views' => base_path('resources/js/views/'),
             'router_modules' => base_path('resources/js/router/modules/'),
             'router' => base_path('resources/js/router/'),
-            'resource_js' => base_path('resources/js/'),
+            'resource_js' => base_path('resources/js/')
         ]
     ],
 
@@ -52,7 +52,7 @@ return [
             'datatables' => 'Datatables',
             'role_admin' => 'Role Admin',
             'ignore_migrate' => 'Ignore Migrate',
-            'test_cases' => 'Test Cases',
+            'test_cases' => 'Test Cases'
         ]
     ],
 
@@ -77,7 +77,7 @@ return [
         'longtext' => 'LONGTEXT',
         'enum' => 'ENUM',
         'json' => 'JSON',
-        'file' => 'FILE',
+        'file' => 'FILE'
     ],
 
     /*
@@ -103,7 +103,7 @@ return [
     'namespace' => [
         'model' => 'App\Models',
         'repository' => 'App\Repositories',
-        'api_controller' => 'App\Http\Controllers\Api\v1',
+        'api_controller' => 'App\Http\Controllers\Api\v1'
     ],
 
     /*
@@ -119,14 +119,14 @@ return [
                 'relationship_mtm_create' => '//{{CONTROLLER_RELATIONSHIP_MTM_CREATE_NOT_DELETE_THIS_LINE}}',
                 'relationship_mtm_update' => '//{{CONTROLLER_RELATIONSHIP_MTM_UPDATE_NOT_DELETE_THIS_LINE}}',
                 'relationship_mtm_delete' => '//{{CONTROLLER_RELATIONSHIP_MTM_DELETE_NOT_DELETE_THIS_LINE}}',
-                'relationship_mtm_show' => '//{{CONTROLLER_RELATIONSHIP_MTM_SHOW_NOT_DELETE_THIS_LINE}}',
+                'relationship_mtm_show' => '//{{CONTROLLER_RELATIONSHIP_MTM_SHOW_NOT_DELETE_THIS_LINE}}'
             ],
             'model' => [
                 'use_class' => '//{{USE_CLASS_NOT_DELETE_THIS_LINE}}',
                 'use' => '//{{USE_NOT_DELETE_THIS_LINE}}',
                 'relationship' => '//{{RELATIONS_NOT_DELETE_THIS_LINE}}',
                 'cats' => '//{{CATS_NOT_DELETE_THIS_LINE}}',
-                'fill_able' => '//{{FILL_ABLE_NOT_DELETE_THIS_LINE}}',
+                'fill_able' => '//{{FILL_ABLE_NOT_DELETE_THIS_LINE}}'
             ],
             'route' => [
                 'api' => [
@@ -152,13 +152,13 @@ return [
             ],
             'swagger' => [
                 'property' => '//{{SWAGGER_PROPERTY_NOT_DELETE_THIS_LINE}}',
-                'soft_deletes' => '//{{SWAGGER_SOFT_DELETES_NOT_DELETE_THIS_LINE}}',
-            ],
+                'soft_deletes' => '//{{SWAGGER_SOFT_DELETES_NOT_DELETE_THIS_LINE}}'
+            ]
         ],
         'vuejs' => [
             'route' => [
                 'import' => '// {{$IMPORT_ROUTE_NOT_DELETE_THIS_LINE$}}',
-                'async' => '// {{$ROUTE_ASYNC_NOT_DELETE_THIS_LINE$}}',
+                'async' => '// {{$ROUTE_ASYNC_NOT_DELETE_THIS_LINE$}}'
             ],
             'form' => [
                 'item' => '<!--{{$FROM_ITEM_NOT_DELETE_THIS_LINE$}}-->',
@@ -205,9 +205,9 @@ return [
             'vue_dropzone' => [
                 'file' => "import VueDropzone from '@/components/VueDropzone';",
                 'name' => 'VueDropzone,',
-                'request' => "import { removeFile } from '@/api/file';",
-            ],
-        ],
+                'request' => "import { removeFile } from '@/api/file';"
+            ]
+        ]
     ],
 
     /*
@@ -222,12 +222,12 @@ return [
             'has_one' => 'hasOne',
             'has_many' => 'hasMany',
             'belongs_to_many' => 'belongsToMany',
-            'belongs_to' => 'belongsTo',
+            'belongs_to' => 'belongsTo'
         ],
         'options' => [
             'search' => 'Search',
             'sort' => 'Sort',
-            'show' => 'Show',
-        ],
+            'show' => 'Show'
+        ]
     ]
 ];

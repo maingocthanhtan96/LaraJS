@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Api\v1;
 
-use App\Generators\Backend\{ControllerGenerator,
+use App\Generators\Backend\{
+    ControllerGenerator,
     LangGenerator,
     MigrationGenerator,
     ModelGenerator,
@@ -12,20 +13,25 @@ use App\Generators\Backend\{ControllerGenerator,
     SeederGenerator,
     RelationshipGenerator,
     SwaggerGenerator,
-    SwaggerRelationshipGenerator};
-use App\Generators\BackendUpdate\{ControllerUpdateGenerator,
+    SwaggerRelationshipGenerator
+};
+use App\Generators\BackendUpdate\{
+    ControllerUpdateGenerator,
     LangUpdateGenerator,
     MigrationUpdateGenerator,
     ModelUpdateGenerator,
     SeederUpdateGenerator,
     RequestUpdateGenerator,
-    SwaggerUpdateGenerator};
-use App\Generators\Frontend\{ApiGenerator,
+    SwaggerUpdateGenerator
+};
+use App\Generators\Frontend\{
+    ApiGenerator,
     FormGenerator,
     FormHandlerGenerator,
     ViewGenerator,
     RouteGenerator as RouteGeneratorFe,
-    ViewTableGenerator};
+    ViewTableGenerator
+};
 use App\Generators\FrontendUpdate\{FormUpdateGenerator, ViewTableUpdateGenerator, ViewUpdateGenerator};
 use App\Http\Requests\StoreGeneratorRelationshipRequest;
 use App\Service\{GeneratorService, QueryService};
@@ -42,7 +48,7 @@ class GeneratorController extends Controller
 
     public function __construct()
     {
-        $this->serviceGenerator = new GeneratorService;
+        $this->serviceGenerator = new GeneratorService();
     }
 
     public function index(Request $request)
@@ -59,7 +65,17 @@ class GeneratorController extends Controller
             $columnSearch = ['table'];
             $with = [];
             $qs = new QueryService(new Generator());
-            $generator = $qs->queryTable($columns, $columnsWith, $query, $columnSearch, $with, $betweenDate, $limit, $ascending, $orderBy);
+            $generator = $qs->queryTable(
+                $columns,
+                $columnsWith,
+                $query,
+                $columnSearch,
+                $with,
+                $betweenDate,
+                $limit,
+                $ascending,
+                $orderBy
+            );
 
             return $this->jsonTable($generator);
         } catch (\Exception $e) {
@@ -86,7 +102,7 @@ class GeneratorController extends Controller
             Generator::create([
                 'field' => json_encode($fields),
                 'model' => json_encode($model),
-                'table' => $this->serviceGenerator->tableName($model['name']),
+                'table' => $this->serviceGenerator->tableName($model['name'])
             ]);
             $this->_runCommand($model);
             return $this->jsonSuccess(trans('messages.success'));
@@ -113,7 +129,7 @@ class GeneratorController extends Controller
             $this->_generateBackendUpdate($generator, $model, $updateFields);
             $this->_generateFrontendUpdate($generator, $model, $updateFields);
             $generator->update([
-                'field' => json_encode($fields),
+                'field' => json_encode($fields)
             ]);
             $this->_runCommand();
             return $this->jsonSuccess(trans('messages.success'));
@@ -257,7 +273,12 @@ class GeneratorController extends Controller
     private function _runCommand($model = [])
     {
         if (isset($model['options'])) {
-            if(!$this->serviceGenerator->getOptions(config('generator.model.options.ignore_migrate'), $model['options'])) {
+            if (
+                !$this->serviceGenerator->getOptions(
+                    config('generator.model.options.ignore_migrate'),
+                    $model['options']
+                )
+            ) {
                 Artisan::call('migrate --force');
             }
         } else {

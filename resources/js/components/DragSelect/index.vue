@@ -1,6 +1,13 @@
 <template>
-  <el-select ref="dragSelect" v-model="selectVal" v-bind="$attrs" class="drag-select" multiple v-on="$listeners">
-    <slot/>
+  <el-select
+    ref="dragSelect"
+    v-model="selectVal"
+    v-bind="$attrs"
+    class="drag-select"
+    multiple
+    v-on="$listeners"
+  >
+    <slot />
   </el-select>
 </template>
 
@@ -30,10 +37,12 @@ export default {
   },
   methods: {
     setSort() {
-      const el = this.$refs.dragSelect.$el.querySelectorAll('.el-select__tags > span')[0];
+      const el = this.$refs.dragSelect.$el.querySelectorAll(
+        '.el-select__tags > span'
+      )[0];
       this.sortable = Sortable.create(el, {
         ghostClass: 'sortable-ghost', // Class name for the drop placeholder,
-        setData: function (dataTransfer) {
+        setData: function(dataTransfer) {
           dataTransfer.setData('Text', '');
           // to avoid Firefox bug
           // Detail see : https://github.com/RubaXa/Sortable/issues/1012
@@ -49,13 +58,13 @@ export default {
 </script>
 
 <style scoped>
-  .drag-select >>> .sortable-ghost {
-    opacity: .8;
-    color: #fff !important;
-    background: #42b983 !important;
-  }
+.drag-select >>> .sortable-ghost {
+  opacity: 0.8;
+  color: #fff !important;
+  background: #42b983 !important;
+}
 
-  .drag-select >>> .el-tag {
-    cursor: pointer;
-  }
+.drag-select >>> .el-tag {
+  cursor: pointer;
+}
 </style>

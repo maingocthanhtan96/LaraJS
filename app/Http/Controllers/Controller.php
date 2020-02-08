@@ -21,10 +21,13 @@ class Controller extends BaseController
      */
     public function jsonData($data = [], $status = 200)
     {
-        return response()->json([
-            'success' => true,
-            'data' => $data
-        ], $status);
+        return response()->json(
+            [
+                'success' => true,
+                'data' => $data
+            ],
+            $status
+        );
     }
 
     /**
@@ -35,11 +38,14 @@ class Controller extends BaseController
      */
     public function jsonTable($data, $status = 200)
     {
-        return response()->json([
-            'success' => true,
-            'data' => $data['data'],
-            'count' => ($data['total'])
-        ], $status);
+        return response()->json(
+            [
+                'success' => true,
+                'data' => $data['data'],
+                'count' => $data['total']
+            ],
+            $status
+        );
     }
 
     /**
@@ -50,12 +56,15 @@ class Controller extends BaseController
      */
     public function jsonError($message, $file = '', $line = '', $status = 500)
     {
-        return response()->json([
-            'success' => false,
-            'message' => $message,
-            'file' => $file,
-            'line' => $line,
-        ], $status);
+        return response()->json(
+            [
+                'success' => false,
+                'message' => $message,
+                'file' => $file,
+                'line' => $line
+            ],
+            $status
+        );
     }
 
     /**
@@ -66,10 +75,13 @@ class Controller extends BaseController
      */
     public function jsonSuccess($message, $status = 200)
     {
-        return response()->json([
-            'success' => true,
-            'message' => $message
-        ], $status);
+        return response()->json(
+            [
+                'success' => true,
+                'message' => $message
+            ],
+            $status
+        );
     }
 
     /**
@@ -80,9 +92,12 @@ class Controller extends BaseController
      */
     public function jsonString(string $string, $status = 200)
     {
-        return response()->json([
-            'success' => true,
-            'name' => $string
-        ], $status);
+        return response()->json(
+            [
+                'success' => true,
+                'name' => $string
+            ],
+            $status
+        );
     }
 }

@@ -9,15 +9,9 @@ import {
   LOGOUT,
 } from '../muation-types';
 
-import {
-  login,
-  userInfo,
-  logout,
-} from '@/api/auth';
+import { login, userInfo, logout } from '@/api/auth';
 
-import {
-  getToken, removeToken, setToken,
-} from '@/utils/auth';
+import { getToken, removeToken, setToken } from '@/utils/auth';
 import { resetRouter } from '@/router';
 
 const state = {

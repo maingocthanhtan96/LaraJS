@@ -20,7 +20,9 @@ function canAccess(roles, permissions, route) {
       }
 
       if (route.meta.permissions) {
-        hasPermission = permissions.some(permission => route.meta.permissions.includes(permission));
+        hasPermission = permissions.some(permission =>
+          route.meta.permissions.includes(permission)
+        );
       }
     }
 
@@ -43,11 +45,7 @@ function filterAsyncRoutes(routes, roles, permissions) {
     const tmp = { ...route };
     if (canAccess(roles, permissions, tmp)) {
       if (tmp.children) {
-        tmp.children = filterAsyncRoutes(
-          tmp.children,
-          roles,
-          permissions
-        );
+        tmp.children = filterAsyncRoutes(tmp.children, roles, permissions);
       }
       res.push(tmp);
     }

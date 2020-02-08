@@ -1,9 +1,7 @@
 <?php
 
 return [
-
     'models' => [
-
         /*
          * When using the "HasPermissions" trait from this package, we need to know which
          * Eloquent model should be used to retrieve your permissions. Of course, it
@@ -24,12 +22,10 @@ return [
          * `Spatie\Permission\Contracts\Role` contract.
          */
 
-        'role' => App\Models\Role::class,
-
+        'role' => App\Models\Role::class
     ],
 
     'table_names' => [
-
         /*
          * When using the "HasRoles" trait from this package, we need to know which
          * table should be used to retrieve your roles. We have chosen a basic
@@ -68,11 +64,10 @@ return [
          * basic default value but you may easily change it to any table you like.
          */
 
-        'role_has_permissions' => 'role_has_permissions',
+        'role_has_permissions' => 'role_has_permissions'
     ],
 
     'column_names' => [
-
         /*
          * Change this if you want to name the related model primary key other than
          * `model_id`.
@@ -81,7 +76,7 @@ return [
          * that case, name this `model_uuid`.
          */
 
-        'model_morph_key' => 'model_id',
+        'model_morph_key' => 'model_id'
     ],
 
     /*
@@ -93,7 +88,6 @@ return [
     'display_permission_in_exception' => false,
 
     'cache' => [
-
         /*
          * By default all permissions are cached for 24 hours to speed up performance.
          * When permissions or roles are updated the cache is flushed automatically.
@@ -124,6 +118,6 @@ return [
          * file. Using 'default' here means to use the `default` set in cache.php.
          */
 
-        'store' => 'default',
-    ],
+        'store' => 'default'
+    ]
 ];

@@ -7,7 +7,7 @@ use App\Service\FileService;
 use App\Service\GeneratorService;
 use Carbon\Carbon;
 
-Class ControllerUpdateGenerator extends BaseGenerator
+class ControllerUpdateGenerator extends BaseGenerator
 {
     /** @var $service */
     public $serviceGenerator;
@@ -45,7 +45,11 @@ Class ControllerUpdateGenerator extends BaseGenerator
     private function generateFieldsRename($renameFields, $templateDataReal)
     {
         foreach ($renameFields as $rename) {
-            $templateDataReal = str_replace("'" . $rename['field_name_old']['field_name'] . "'", "'" . $rename['field_name_new']['field_name'] . "'", $templateDataReal);
+            $templateDataReal = str_replace(
+                "'" . $rename['field_name_old']['field_name'] . "'",
+                "'" . $rename['field_name_new']['field_name'] . "'",
+                $templateDataReal
+            );
         }
         return $templateDataReal;
     }
@@ -85,8 +89,20 @@ Class ControllerUpdateGenerator extends BaseGenerator
         if (empty($updateFields)) {
             return $templateDataReal;
         }
-        $templateColumns = $this->serviceGenerator->searchTemplate(self::COLUMNS, '];', strlen(self::COLUMNS) + 4, -4 - strlen(self::COLUMNS), $templateDataReal);
-        $templateColumnsSearch = $this->serviceGenerator->searchTemplate(self::COLUMNS_SEARCH, '];', strlen(self::COLUMNS_SEARCH) + 4, -4 - strlen(self::COLUMNS_SEARCH), $templateDataReal);
+        $templateColumns = $this->serviceGenerator->searchTemplate(
+            self::COLUMNS,
+            '];',
+            strlen(self::COLUMNS) + 4,
+            -4 - strlen(self::COLUMNS),
+            $templateDataReal
+        );
+        $templateColumnsSearch = $this->serviceGenerator->searchTemplate(
+            self::COLUMNS_SEARCH,
+            '];',
+            strlen(self::COLUMNS_SEARCH) + 4,
+            -4 - strlen(self::COLUMNS_SEARCH),
+            $templateDataReal
+        );
 
         $comma = ', ';
         $commaSearch = ', ';
@@ -110,8 +126,16 @@ Class ControllerUpdateGenerator extends BaseGenerator
         }
         $selfColumns = self::COLUMNS;
         $selfColumnsSearch = self::COLUMNS_SEARCH;
-        $templateDataReal = str_replace("$selfColumns = [" . $templateColumns . "]", "$selfColumns = [" . $templateColumns . $columns . "]", $templateDataReal);
-        $templateDataReal = str_replace("$selfColumnsSearch = [" . $templateColumnsSearch . "]", "$selfColumnsSearch = [" . $templateColumnsSearch . $columnsSearch . "]", $templateDataReal);
+        $templateDataReal = str_replace(
+            "$selfColumns = [" . $templateColumns . "]",
+            "$selfColumns = [" . $templateColumns . $columns . "]",
+            $templateDataReal
+        );
+        $templateDataReal = str_replace(
+            "$selfColumnsSearch = [" . $templateColumnsSearch . "]",
+            "$selfColumnsSearch = [" . $templateColumnsSearch . $columnsSearch . "]",
+            $templateDataReal
+        );
 
         return $templateDataReal;
     }
@@ -123,9 +147,21 @@ Class ControllerUpdateGenerator extends BaseGenerator
         }
         $fieldsGeneratorColumn = [];
         $fieldsGeneratorColumnSearch = [];
-        $templateColumns = $this->serviceGenerator->searchTemplate(self::COLUMNS, '];', strlen(self::COLUMNS) + 4, -4 - strlen(self::COLUMNS), $templateDataReal);
+        $templateColumns = $this->serviceGenerator->searchTemplate(
+            self::COLUMNS,
+            '];',
+            strlen(self::COLUMNS) + 4,
+            -4 - strlen(self::COLUMNS),
+            $templateDataReal
+        );
         $arrayColumns = explode(',', $templateColumns);
-        $templateColumnsSearch = $this->serviceGenerator->searchTemplate(self::COLUMNS_SEARCH, '];', strlen(self::COLUMNS_SEARCH) + 4, -4 - strlen(self::COLUMNS_SEARCH), $templateDataReal);
+        $templateColumnsSearch = $this->serviceGenerator->searchTemplate(
+            self::COLUMNS_SEARCH,
+            '];',
+            strlen(self::COLUMNS_SEARCH) + 4,
+            -4 - strlen(self::COLUMNS_SEARCH),
+            $templateDataReal
+        );
         $arrayColumnsSearch = explode(',', $templateColumnsSearch);
         $arrayChange = \Arr::pluck($changeFields, 'field_name');
 
@@ -153,7 +189,10 @@ Class ControllerUpdateGenerator extends BaseGenerator
                     }
                 } else {
                     $nameTrimSort = "'" . $trimSort . "'";
-                    if (!in_array($nameTrimSort, $fieldsGeneratorColumnSearch) && !in_array($nameTrimSort, $arrayChange)) {
+                    if (
+                        !in_array($nameTrimSort, $fieldsGeneratorColumnSearch) &&
+                        !in_array($nameTrimSort, $arrayChange)
+                    ) {
                         $fieldsGeneratorColumnSearch[] = $nameTrimSort;
                     }
                 }
@@ -162,8 +201,20 @@ Class ControllerUpdateGenerator extends BaseGenerator
 
         $selfColumns = self::COLUMNS;
         $selfColumnsSearch = self::COLUMNS_SEARCH;
-        $templateDataReal = str_replace("$selfColumns = [" . $templateColumns . "]", "$selfColumns = [" . implode($this->serviceGenerator->infy_nl_tab(0, 0) . ', ', $fieldsGeneratorColumn) . "]", $templateDataReal);
-        $templateDataReal = str_replace("$selfColumnsSearch = [" . $templateColumnsSearch . "]", "$selfColumnsSearch = [" . implode($this->serviceGenerator->infy_nl_tab(0, 0) . ', ', $fieldsGeneratorColumnSearch) . "]", $templateDataReal);
+        $templateDataReal = str_replace(
+            "$selfColumns = [" . $templateColumns . "]",
+            "$selfColumns = [" .
+                implode($this->serviceGenerator->infy_nl_tab(0, 0) . ', ', $fieldsGeneratorColumn) .
+                "]",
+            $templateDataReal
+        );
+        $templateDataReal = str_replace(
+            "$selfColumnsSearch = [" . $templateColumnsSearch . "]",
+            "$selfColumnsSearch = [" .
+                implode($this->serviceGenerator->infy_nl_tab(0, 0) . ', ', $fieldsGeneratorColumnSearch) .
+                "]",
+            $templateDataReal
+        );
 
         return $templateDataReal;
     }

@@ -7,7 +7,7 @@ use App\Service\FileService;
 use App\Service\GeneratorService;
 use Carbon\Carbon;
 
-Class ControllerGenerator extends BaseGenerator
+class ControllerGenerator extends BaseGenerator
 {
     /** @var $service */
     public $serviceGenerator;
@@ -36,8 +36,16 @@ Class ControllerGenerator extends BaseGenerator
         $templateData = str_replace('{{CONTROLLER_CLASS}}', $model['name'], $templateData);
         $templateData = str_replace('{{MODAL_CLASS}}', $model['name'], $templateData);
         $templateData = str_replace('{{LIMIT}}', $model['limit'], $templateData);
-        $templateData = str_replace('{{COLUMN_SORT}}', '[' . $this->generateColumnSoft($fields, $model) . ']', $templateData);
-        $templateData = str_replace('{{COLUMN_SEARCH}}', '[' . $this->generateColumnSearch($fields) . ']', $templateData);
+        $templateData = str_replace(
+            '{{COLUMN_SORT}}',
+            '[' . $this->generateColumnSoft($fields, $model) . ']',
+            $templateData
+        );
+        $templateData = str_replace(
+            '{{COLUMN_SEARCH}}',
+            '[' . $this->generateColumnSearch($fields) . ']',
+            $templateData
+        );
         $templateData = str_replace('{{COLUMN_RELATIONSHIP}}', '[]', $templateData);
         $templateData = str_replace('{{MODAL_CLASS_PARAM}}', \Str::camel($model['name']), $templateData);
 
@@ -58,7 +66,6 @@ Class ControllerGenerator extends BaseGenerator
 
         return implode($this->serviceGenerator->infy_nl_tab(0, 0) . ', ', $column);
     }
-
 
     private function generateColumnSoft($fields, $model)
     {

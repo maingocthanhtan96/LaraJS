@@ -10,7 +10,9 @@ const state = {
   isCollapse: false,
   collapse: '199px',
   sidebar: {
-    opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus') : true,
+    opened: Cookies.get('sidebarStatus')
+      ? !!+Cookies.get('sidebarStatus')
+      : true,
     withoutAnimation: false,
   },
   device: 'desktop',

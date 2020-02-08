@@ -3,77 +3,132 @@
     <el-col :span="24">
       <el-card>
         <div slot="header" class="text-center">
-          <button @click="dialogVisible = true"
-                  class="hover:bg-green-600 hover:text-white font-bold border rounded border-green-600 text-green-600 bg-transparent py-3 px-4">
-            <svg-icon icon-class="tree"/>
+          <button
+            @click="dialogVisible = true"
+            class="hover:bg-green-600 hover:text-white font-bold border rounded border-green-600 text-green-600 bg-transparent py-3 px-4"
+          >
+            <svg-icon icon-class="tree" />
           </button>
         </div>
         <section class="section">
           <div class="flex flex-col items-center">
-            <el-tag type="success" effect="dark">{{form.model_current}}</el-tag>
+            <el-tag type="success" effect="dark">{{
+              form.model_current
+            }}</el-tag>
             <div class="w-04-rem h-24 bg-indigo-600 draw-arrow-down one"></div>
-            <el-select @change="replaceTemplate('')" :class="{'error-danger': errors.relationship}"
-                       v-model="form.relationship" placeholder="Relationship">
+            <el-select
+              @change="replaceTemplate('')"
+              :class="{ 'error-danger': errors.relationship }"
+              v-model="form.relationship"
+              placeholder="Relationship"
+            >
               <el-option
                 v-for="(relationship, index) in relationshipOptions"
                 :key="'relationship_' + index"
                 :label="relationship"
-                :value="relationship">
+                :value="relationship"
+              >
               </el-option>
             </el-select>
-            <p class="help is-danger text-lg" v-if="errors.relationship">{{errors.relationship[0]}}</p>
+            <p class="help is-danger text-lg" v-if="errors.relationship">
+              {{ errors.relationship[0] }}
+            </p>
             <div class="w-04-rem h-24 bg-indigo-600 draw-arrow-down two"></div>
-            <el-select @change="replaceTemplate('display')" :class="{'error-danger': errors.model}"
-                       :loading="loadingModel" v-model="form.model" filterable placeholder="Model">
+            <el-select
+              @change="replaceTemplate('display')"
+              :class="{ 'error-danger': errors.model }"
+              :loading="loadingModel"
+              v-model="form.model"
+              filterable
+              placeholder="Model"
+            >
               <el-option
                 v-for="(model, index) in modelOptions"
                 :key="'model_' + index"
                 :label="model"
-                :value="model">
+                :value="model"
+              >
               </el-option>
             </el-select>
-            <p class="help is-danger text-lg" v-if="errors.model">{{errors.model[0]}}</p>
-            <div class="w-04-rem h-24 bg-indigo-600 draw-arrow-down three"></div>
+            <p class="help is-danger text-lg" v-if="errors.model">
+              {{ errors.model[0] }}
+            </p>
+            <div
+              class="w-04-rem h-24 bg-indigo-600 draw-arrow-down three"
+            ></div>
             <div class="z-10">
-              <pre-code-tag :content="markdown"/>
+              <pre-code-tag :content="markdown" />
             </div>
             <div class="w-04-rem h-24 bg-indigo-600 draw-arrow-down four"></div>
-            <el-select v-model="form.column" :class="{'error-danger': errors.column}" :loading="loadingDisplay"
-                       filterable placeholder="Display Column" class="z-10">
+            <el-select
+              v-model="form.column"
+              :class="{ 'error-danger': errors.column }"
+              :loading="loadingDisplay"
+              filterable
+              placeholder="Display Column"
+              class="z-10"
+            >
               <el-option
                 v-for="(col, index) in displayColumns"
                 :key="'col_' + index"
                 :label="col"
-                :value="col">
+                :value="col"
+              >
               </el-option>
             </el-select>
             <template v-if="form.relationship === 'belongsToMany'">
-              <div class="w-04-rem h-24 bg-indigo-600 draw-arrow-down equivalent"></div>
-              <el-select v-model="form.column2" :class="{'error-danger': errors.column2}" :loading="loadingDisplay"
-                         filterable placeholder="Display Column 2">
+              <div
+                class="w-04-rem h-24 bg-indigo-600 draw-arrow-down equivalent"
+              ></div>
+              <el-select
+                v-model="form.column2"
+                :class="{ 'error-danger': errors.column2 }"
+                :loading="loadingDisplay"
+                filterable
+                placeholder="Display Column 2"
+              >
                 <el-option
                   v-for="(col, index) in displayColumns2"
                   :key="'col_' + index"
                   :label="col"
-                  :value="col">
+                  :value="col"
+                >
                 </el-option>
               </el-select>
             </template>
-            <p class="help is-danger text-lg" v-if="errors.column">{{errors.column[0]}}</p>
+            <p class="help is-danger text-lg" v-if="errors.column">
+              {{ errors.column[0] }}
+            </p>
             <div class="w-04-rem h-24 bg-indigo-600 draw-arrow-down five"></div>
-            <el-select @change="changeOptions(form.options)" class="options" v-model="form.options" multiple
-                       placeholder="Options">
+            <el-select
+              @change="changeOptions(form.options)"
+              class="options"
+              v-model="form.options"
+              multiple
+              placeholder="Options"
+            >
               <el-option
                 v-for="(item, key) in options"
                 :key="'option_' + key"
                 :label="item"
-                :value="item">
+                :value="item"
+              >
               </el-option>
             </el-select>
             <div class="w-04-rem h-24 bg-indigo-600 draw-arrow-down six"></div>
-            <el-tooltip effect="dark" :content="$t('route.generator_relationship')" placement="bottom">
-              <el-button class="z-10" type="success" icon="el-icon-check" circle v-loading.fullscreen.lock="loading"
-                         @click.prevent="createRelationship()"></el-button>
+            <el-tooltip
+              effect="dark"
+              :content="$t('route.generator_relationship')"
+              placement="bottom"
+            >
+              <el-button
+                class="z-10"
+                type="success"
+                icon="el-icon-check"
+                circle
+                v-loading.fullscreen.lock="loading"
+                @click.prevent="createRelationship()"
+              ></el-button>
             </el-tooltip>
           </div>
           <!--dialog-->
@@ -84,25 +139,44 @@
               @open="diagram"
             >
               <div slot="title" class="text-center">
-                <h3 class="title">Diagram {{$t('route.generator_relationship')}}</h3>
+                <h3 class="title">
+                  Diagram {{ $t('route.generator_relationship') }}
+                </h3>
               </div>
               <div>
                 <div class="tree text-center">
                   <ul class="inline-block">
-                    <li v-for="(diagram, index) in drawDiagram" :key="'diagram_' + index">
+                    <li
+                      v-for="(diagram, index) in drawDiagram"
+                      :key="'diagram_' + index"
+                    >
                       <a>{{ diagram.model }}</a>
                       <ul class="flex">
-                        <li v-for="(item, index) in diagram.data" :key="'itemDiagram_' + index">
+                        <li
+                          v-for="(item, index) in diagram.data"
+                          :key="'itemDiagram_' + index"
+                        >
                           <a>{{ item.type }}</a>
                           <ul>
                             <li>
                               <a class="w-64">{{ item.model }}</a>
-                              <ul v-if="item.table" :class="{'has-mtm-parent': item.table}">
+                              <ul
+                                v-if="item.table"
+                                :class="{ 'has-mtm-parent': item.table }"
+                              >
                                 <a class="w-64">{{ item.table }}</a>
                               </ul>
                               <ul>
-                                <li><a :class="{'has-mtm': item.table}">{{ item.foreign_key }}</a></li>
-                                <li><a :class="{'has-mtm': item.table}">{{ item.local_key }}</a></li>
+                                <li>
+                                  <a :class="{ 'has-mtm': item.table }">{{
+                                    item.foreign_key
+                                  }}</a>
+                                </li>
+                                <li>
+                                  <a :class="{ 'has-mtm': item.table }">{{
+                                    item.local_key
+                                  }}</a>
+                                </li>
                               </ul>
                             </li>
                           </ul>
@@ -157,31 +231,30 @@ export default {
   mounted() {
     const { id } = this.$route.params;
     if (id) {
-      generatorResource.get(id)
-        .then(res => {
-          const { model } = res.data.data;
-          const modelCurrent = JSON.parse(model);
-          this.form.model_current = modelCurrent.name;
-          this.loadingModel = true;
-          generatorResource.getModels(model)
-            .then(res => {
-              this.loadingModel = false;
-              const { data } = res.data;
-              this.modelOptions = data;
-            })
-            .catch(() => {
-              this.loadingModel = false;
-            });
-        });
+      generatorResource.get(id).then(res => {
+        const { model } = res.data.data;
+        const modelCurrent = JSON.parse(model);
+        this.form.model_current = modelCurrent.name;
+        this.loadingModel = true;
+        generatorResource
+          .getModels(model)
+          .then(res => {
+            this.loadingModel = false;
+            const { data } = res.data;
+            this.modelOptions = data;
+          })
+          .catch(() => {
+            this.loadingModel = false;
+          });
+      });
     }
   },
   methods: {
     diagram() {
-      generatorResource.generateDiagram(this.form.model_current)
-        .then(res => {
-          const { data } = res.data;
-          this.drawDiagram = data;
-        });
+      generatorResource.generateDiagram(this.form.model_current).then(res => {
+        const { data } = res.data;
+        this.drawDiagram = data;
+      });
     },
     changeOptions(options) {
       if (!options.includes('Show')) {
@@ -197,7 +270,8 @@ export default {
     },
     createRelationship() {
       this.loading = true;
-      generatorResource.generateRelationship(this.form)
+      generatorResource
+        .generateRelationship(this.form)
         .then(res => {
           this.$message({
             showClose: true,
@@ -226,7 +300,9 @@ export default {
       public function ${camelCase(this.form.model_current)}() {
         return $this->belongsToMany(${this.form.model_current}::class);
       }`;
-        templateInverse += `<br/>  # I will create a table ${snakeCase(this.form.model_current)}_${snakeCase(this.form.model)}`;
+        templateInverse += `<br/>  # I will create a table ${snakeCase(
+          this.form.model_current
+        )}_${snakeCase(this.form.model)}`;
       }
       if (this.form.relationship && this.form.model) {
         this.markdown = template.concat(templateInverse);
@@ -240,7 +316,8 @@ export default {
       }
       if (model) {
         this.loadingDisplay = true;
-        generatorResource.getColumns(this.form.model_current)
+        generatorResource
+          .getColumns(this.form.model_current)
           .then(res => {
             this.loadingDisplay = false;
             const { data } = res.data;
@@ -249,7 +326,8 @@ export default {
           .catch(() => {
             this.loadingDisplay = false;
           });
-        generatorResource.getColumns(this.form.model)
+        generatorResource
+          .getColumns(this.form.model)
           .then(res => {
             this.loadingDisplay = false;
             const { data } = res.data;
@@ -265,88 +343,88 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  $indigo600: #5a67d8;
-  @mixin circleNumber($number) {
-    &:after {
-      content: $number;
-      background-color: $indigo600;
-      position: absolute;
-      top: 14px;
-      left: -8px;
-      color: #fff;
-      width: 20px;
-      height: 20px;
-      border-radius: 100%;
-      text-align: center;
-      line-height: 20px;
-    }
+$indigo600: #5a67d8;
+@mixin circleNumber($number) {
+  &:after {
+    content: $number;
+    background-color: $indigo600;
+    position: absolute;
+    top: 14px;
+    left: -8px;
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 20px;
   }
+}
 
-  .w-04-rem {
-    width: 0.4rem;
+.w-04-rem {
+  width: 0.4rem;
+}
+
+.draw-arrow-down {
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    bottom: -1rem;
+    right: -0.3rem;
+    width: 0;
+    height: 0;
+    border-left: 0.5rem solid transparent;
+    border-right: 0.5rem solid transparent;
+    border-top: 1.9rem solid $indigo600;
   }
+}
 
-  .draw-arrow-down {
-    position: relative;
-
-    &:before {
-      content: "";
-      position: absolute;
-      bottom: -1rem;
-      right: -0.3rem;
-      width: 0;
-      height: 0;
-      border-left: 0.5rem solid transparent;
-      border-right: 0.5rem solid transparent;
-      border-top: 1.9rem solid $indigo600;
-    }
+.error-danger {
+  &::v-deep input {
+    border-color: #ff3860 !important;
   }
+}
 
-  .error-danger {
-    &::v-deep input {
-      border-color: #ff3860 !important;
-    }
-  }
+.options {
+  width: 260px;
+}
 
-  .options {
-    width: 260px;
-  }
+.one {
+  @include circleNumber('1');
+}
 
-  .one {
-    @include circleNumber("1")
-  }
+.two {
+  @include circleNumber('2');
+}
 
-  .two {
-    @include circleNumber("2")
-  }
+.three {
+  @include circleNumber('3');
+}
 
-  .three {
-    @include circleNumber("3")
-  }
+.four {
+  @include circleNumber('4');
+}
 
-  .four {
-    @include circleNumber("4")
-  }
+.five {
+  @include circleNumber('5');
+}
 
-  .five {
-    @include circleNumber("5")
-  }
+.six {
+  @include circleNumber('6');
+}
 
-  .six {
-    @include circleNumber("6")
+.equivalent {
+  &:after {
+    content: '';
+    position: absolute;
+    top: -1rem;
+    right: -0.3rem;
+    width: 0;
+    height: 0;
+    border-left: 0.5rem solid transparent;
+    border-right: 0.5rem solid transparent;
+    border-bottom: 1.9rem solid $indigo600;
   }
-
-  .equivalent {
-    &:after {
-      content: "";
-      position: absolute;
-      top: -1rem;
-      right: -0.3rem;
-      width: 0;
-      height: 0;
-      border-left: 0.5rem solid transparent;
-      border-right: 0.5rem solid transparent;
-      border-bottom: 1.9rem solid $indigo600;
-    }
-  }
+}
 </style>

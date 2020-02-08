@@ -11,17 +11,35 @@
           </template>
         </div>
         <el-form ref="users" :model="form" :rules="rules" status-icon>
-          <el-form-item data-generator="name" :label="$t('table.user.name')" required prop="name">
-            <el-input v-model="form.name" autofocus/>
+          <el-form-item
+            data-generator="name"
+            :label="$t('table.user.name')"
+            required
+            prop="name"
+          >
+            <el-input v-model="form.name" autofocus />
           </el-form-item>
-          <el-form-item data-generator="email" :error="errors.email ? errors.email[0] + '' : ''"
-                        :label="$t('table.user.email')" required prop="email">
-            <el-input v-model="form.email"/>
+          <el-form-item
+            data-generator="email"
+            :error="errors.email ? errors.email[0] + '' : ''"
+            :label="$t('table.user.email')"
+            required
+            prop="email"
+          >
+            <el-input v-model="form.email" />
           </el-form-item>
-          <el-form-item data-generator="avatar" :error="errors.avatar ? errors.avatar[0] + '' : ''"
-                        :label="$t('table.user.avatar')" prop="avatar">
+          <el-form-item
+            data-generator="avatar"
+            :error="errors.avatar ? errors.avatar[0] + '' : ''"
+            :label="$t('table.user.avatar')"
+            prop="avatar"
+          >
             <pan-thumb :image="form.avatar" classImg="bg-white">
-              <el-button type="primary" @click="imageCropperShow = true" icon="el-icon-upload"/>
+              <el-button
+                type="primary"
+                @click="imageCropperShow = true"
+                icon="el-icon-upload"
+              />
             </pan-thumb>
             <image-cropper
               v-show="imageCropperShow"
@@ -29,7 +47,7 @@
               :width="300"
               :height="300"
               url="upload-file/store-avatar"
-              :params="{fileOld: $route.params.id ? form.avatar : ''}"
+              :params="{ fileOld: $route.params.id ? form.avatar : '' }"
               field="file"
               lang-type="en"
               @close="close"
@@ -37,28 +55,64 @@
               @crop-upload-fail="cropError"
             />
           </el-form-item>
-          <el-form-item data-generator="role_id" :label="$t('table.user.role')" required prop="role_id">
+          <el-form-item
+            data-generator="role_id"
+            :label="$t('table.user.role')"
+            required
+            prop="role_id"
+          >
             <el-select v-model="form.role_id" placeholder="Role" class="w-full">
-              <el-option v-for="role in rolesList" :key="'role_' + role.id" :label="role.name" :value="role.id"/>
+              <el-option
+                v-for="role in rolesList"
+                :key="'role_' + role.id"
+                :label="role.name"
+                :value="role.id"
+              />
             </el-select>
           </el-form-item>
-          <el-form-item data-generator="password" v-if="!$route.params.id" required :label="$t('table.user.password')"
-                        prop="password">
-            <el-input v-model="form.password" show-password type="password"/>
+          <el-form-item
+            data-generator="password"
+            v-if="!$route.params.id"
+            required
+            :label="$t('table.user.password')"
+            prop="password"
+          >
+            <el-input v-model="form.password" show-password type="password" />
           </el-form-item>
-          <el-form-item data-generator="password_confirmation" v-if="!$route.params.id" required
-                        :label="$t('table.user.password_confirmation')" prop="password_confirmation">
-            <el-input v-model="form.password_confirmation" show-password type="password"/>
+          <el-form-item
+            data-generator="password_confirmation"
+            v-if="!$route.params.id"
+            required
+            :label="$t('table.user.password_confirmation')"
+            prop="password_confirmation"
+          >
+            <el-input
+              v-model="form.password_confirmation"
+              show-password
+              type="password"
+            />
           </el-form-item>
           <!--{{$FROM_ITEM_NOT_DELETE_THIS_LINE$}}-->
           <el-form-item class="flex justify-center">
             <template v-if="$route.params.id">
-              <el-button :loading="loading" round type="primary" icon="el-icon-edit mr-2" @click="update('users')">
+              <el-button
+                :loading="loading"
+                round
+                type="primary"
+                icon="el-icon-edit mr-2"
+                @click="update('users')"
+              >
                 {{ $t('button.edit') }}
               </el-button>
             </template>
             <template v-else>
-              <el-button :loading="loading" round type="success" icon="el-icon-plus mr-2" @click="store('users')">
+              <el-button
+                :loading="loading"
+                round
+                type="success"
+                icon="el-icon-plus mr-2"
+                @click="store('users')"
+              >
                 {{ $t('button.create') }}
               </el-button>
             </template>
@@ -108,11 +162,10 @@ export default {
     this.roles();
     const { id } = this.$route.params;
     if (id) {
-      userResource.get(id)
-        .then(res => {
-          const { data } = res.data;
-          this.form = data;
-        });
+      userResource.get(id).then(res => {
+        const { data } = res.data;
+        this.form = data;
+      });
     }
   },
   computed: {
@@ -120,7 +173,13 @@ export default {
     rules() {
       const password = (rule, value, cb) => {
         if (value === '') {
-          cb(new Error(this.$t('validation.required', { attribute: this.$t('table.user.password') })));
+          cb(
+            new Error(
+              this.$t('validation.required', {
+                attribute: this.$t('table.user.password'),
+              })
+            )
+          );
         } else {
           if (this.form.password_confirmation !== '') {
             this.$refs.users.validateField('password_confirmation');
@@ -130,9 +189,21 @@ export default {
       };
       const passwordConfirm = (rule, value, cb) => {
         if (value === '') {
-          cb(new Error(this.$t('validation.required', { attribute: this.$t('table.user.password_confirmation') })));
+          cb(
+            new Error(
+              this.$t('validation.required', {
+                attribute: this.$t('table.user.password_confirmation'),
+              })
+            )
+          );
         } else if (value !== this.form.password) {
-          cb(new Error(this.$t('validation.confirmed', { attribute: this.$t('table.user.password_confirmation') })));
+          cb(
+            new Error(
+              this.$t('validation.confirmed', {
+                attribute: this.$t('table.user.password_confirmation'),
+              })
+            )
+          );
         } else {
           cb();
         }
@@ -141,7 +212,15 @@ export default {
         name: [
           {
             validator: (rule, value, cb) => {
-              value ? cb() : cb(new Error(this.$t('validation.required', { attribute: this.$t('table.user.name') })));
+              value
+                ? cb()
+                : cb(
+                    new Error(
+                      this.$t('validation.required', {
+                        attribute: this.$t('table.user.name'),
+                      })
+                    )
+                  );
             },
             trigger: 'blur',
           },
@@ -150,9 +229,21 @@ export default {
           {
             validator: (rule, value, cb) => {
               if (!value) {
-                cb(new Error(this.$t('validation.required', { attribute: this.$t('table.user.email') })));
+                cb(
+                  new Error(
+                    this.$t('validation.required', {
+                      attribute: this.$t('table.user.email'),
+                    })
+                  )
+                );
               } else if (!validEmail(value)) {
-                cb(new Error(this.$t('validation.email', { attribute: this.$t('table.user.email') })));
+                cb(
+                  new Error(
+                    this.$t('validation.email', {
+                      attribute: this.$t('table.user.email'),
+                    })
+                  )
+                );
               } else {
                 cb();
               }
@@ -163,7 +254,15 @@ export default {
         avatar: [
           {
             validator: (rule, value, cb) => {
-              value ? cb() : cb(new Error(this.$t('validation.required', { attribute: this.$t('table.user.avatar') })));
+              value
+                ? cb()
+                : cb(
+                    new Error(
+                      this.$t('validation.required', {
+                        attribute: this.$t('table.user.avatar'),
+                      })
+                    )
+                  );
             },
             trigger: 'blur',
           },
@@ -171,7 +270,15 @@ export default {
         role_id: [
           {
             validator: (rule, value, cb) => {
-              value ? cb() : cb(new Error(this.$t('validation.required', { attribute: this.$t('table.user.role') })));
+              value
+                ? cb()
+                : cb(
+                    new Error(
+                      this.$t('validation.required', {
+                        attribute: this.$t('table.user.role'),
+                      })
+                    )
+                  );
             },
             trigger: 'change',
           },
@@ -180,7 +287,10 @@ export default {
           { validator: password, trigger: ['change', 'blur'] },
           {
             min: 8,
-            message: this.$t('validation.min.string', { attribute: this.$t('table.user.password'), min: 8 }),
+            message: this.$t('validation.min.string', {
+              attribute: this.$t('table.user.password'),
+              min: 8,
+            }),
             trigger: ['change', 'blur'],
           },
         ],
@@ -196,7 +306,7 @@ export default {
     store(users) {
       // {{$FILE_JSON_STRINGIFY_NOT_DELETE_THIS_LINE$}}
       this.loading = true;
-      this.$refs[users].validate(async (valid) => {
+      this.$refs[users].validate(async valid => {
         if (valid) {
           await userResource.store(this.form);
           this.$message({
@@ -220,7 +330,7 @@ export default {
     update(users) {
       // {{$FILE_JSON_STRINGIFY_NOT_DELETE_THIS_LINE$}}
       this.loading = true;
-      this.$refs[users].validate(async (valid) => {
+      this.$refs[users].validate(async valid => {
         if (valid) {
           delete this.form.password;
           await userResource.update(this.$route.params.id, this.form);

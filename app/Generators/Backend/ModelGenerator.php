@@ -7,7 +7,7 @@ use App\Service\FileService;
 use App\Service\GeneratorService;
 use Carbon\Carbon;
 
-Class ModelGenerator extends BaseGenerator
+class ModelGenerator extends BaseGenerator
 {
     /** @var $service */
     public $serviceGenerator;
@@ -35,7 +35,11 @@ Class ModelGenerator extends BaseGenerator
         $templateData = str_replace('{{DATE}}', $now->toDateTimeString(), $templateData);
         $templateData = str_replace('{{MODEL_CLASS}}', $model['name'], $templateData);
         $templateData = str_replace('{{FIELDS}}', $this->generateFields($fields), $templateData);
-        $templateData = str_replace('{{TABLE_NAME}}', $this->serviceGenerator->tableName($model['name']), $templateData);
+        $templateData = str_replace(
+            '{{TABLE_NAME}}',
+            $this->serviceGenerator->tableName($model['name']),
+            $templateData
+        );
         $templateData = str_replace('{{CATS}}', $this->generateYear($fields), $templateData);
 
         //create sort delete

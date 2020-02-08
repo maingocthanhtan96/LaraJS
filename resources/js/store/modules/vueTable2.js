@@ -7,35 +7,31 @@ const state = {
 // }
 // },
 const mutations = {
-  'LOADING'(state, data) {
+  LOADING(state, data) {
     // Do something
     state.loading = true;
   },
-  'LOADED'(state, data) {
+  LOADED(state, data) {
     state.loading = false;
   },
-  'FILTER'(state, data) {
+  FILTER(state, data) {
     // Do something
   },
-  'SORTED'(state, data) {
+  SORTED(state, data) {
     // Do something
   },
-  'PAGINATE'(state, data) {
-
-  },
-  'LIMIT'(state, data) {
+  PAGINATE(state, data) {},
+  LIMIT(state, data) {
     // Do something
   },
-  'ERROR'(state, data) {
+  ERROR(state, data) {
     // Do something
   },
-  'ROW_CLICK'(state, data) {
+  ROW_CLICK(state, data) {
     // Do something
     console.log(data);
   },
-  'SET_DATA'(state, data) {
-
-  },
+  SET_DATA(state, data) {},
 };
 
 const actions = {};
@@ -46,4 +42,3 @@ export default {
   mutations,
   actions,
 };
-

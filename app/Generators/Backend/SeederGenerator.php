@@ -7,7 +7,7 @@ use App\Service\FileService;
 use App\Service\GeneratorService;
 use Carbon\Carbon;
 
-Class SeederGenerator extends BaseGenerator
+class SeederGenerator extends BaseGenerator
 {
     /** @var $service */
     public $serviceGenerator;
@@ -17,7 +17,6 @@ Class SeederGenerator extends BaseGenerator
 
     /** @var string */
     public $path;
-
 
     public function __construct($fields, $model)
     {
@@ -54,14 +53,17 @@ Class SeederGenerator extends BaseGenerator
                 switch ($field['db_type']) {
                     case $dbType['integer']:
                     case $dbType['bigInteger']:
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . '$faker->numberBetween(1000, 9000)' . ',';
+                        $fieldsGenerate[] =
+                            "'" . $field['field_name'] . "'" . ' => ' . '$faker->numberBetween(1000, 9000)' . ',';
                         break;
                     case $dbType['float']:
                     case $dbType['double']:
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . '$faker->randomFloat(2, 1000, 9000)' . ',';
+                        $fieldsGenerate[] =
+                            "'" . $field['field_name'] . "'" . ' => ' . '$faker->randomFloat(2, 1000, 9000)' . ',';
                         break;
                     case $dbType['boolean']:
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . '$faker->numberBetween(0, 1)' . ',';
+                        $fieldsGenerate[] =
+                            "'" . $field['field_name'] . "'" . ' => ' . '$faker->numberBetween(0, 1)' . ',';
                         break;
                     case $dbType['date']:
                         $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . '$faker->date("Y-m-d")' . ',';
@@ -83,14 +85,29 @@ Class SeederGenerator extends BaseGenerator
                         $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . '$faker->paragraph' . ',';
                         break;
                     case $dbType['enum']:
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . '$faker->randomElement(' . json_encode($field['enum']) . ')' . ',';
+                        $fieldsGenerate[] =
+                            "'" .
+                            $field['field_name'] .
+                            "'" .
+                            ' => ' .
+                            '$faker->randomElement(' .
+                            json_encode($field['enum']) .
+                            ')' .
+                            ',';
                         break;
                     case $dbType['json']:
-                        $json = '{"menu": {"id": "file","value": "File","popup": {"menuitem": [{"value": "New", "onclick": "CreateNewDoc()"},{"value": "Open", "onclick":"OpenDoc()"},{"value": "Close", "onclick": "CloseDoc()"}]}}';
+                        $json =
+                            '{"menu": {"id": "file","value": "File","popup": {"menuitem": [{"value": "New", "onclick": "CreateNewDoc()"},{"value": "Open", "onclick":"OpenDoc()"},{"value": "Close", "onclick": "CloseDoc()"}]}}';
                         $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'" . $json . "'" . ',';
                         break;
                     case $dbType['file']:
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . 'json_encode(["https://via.placeholder.com/350"])' . ',';
+                        $fieldsGenerate[] =
+                            "'" .
+                            $field['field_name'] .
+                            "'" .
+                            ' => ' .
+                            'json_encode(["https://via.placeholder.com/350"])' .
+                            ',';
                         break;
                 }
             }

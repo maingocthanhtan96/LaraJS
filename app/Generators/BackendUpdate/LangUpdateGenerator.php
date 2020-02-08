@@ -6,7 +6,7 @@ use App\Generators\BaseGenerator;
 use App\Service\FileService;
 use App\Service\GeneratorService;
 
-Class LangUpdateGenerator extends BaseGenerator
+class LangUpdateGenerator extends BaseGenerator
 {
     /** @var $service */
     public $serviceGenerator;
@@ -39,9 +39,21 @@ Class LangUpdateGenerator extends BaseGenerator
         foreach ($langs as $key => $langComment) {
             foreach ($nameLangs as $nameLang) {
                 $templateDataReal = $this->serviceGenerator->getFile('lang', 'laravel', $key . '/table.php');
-                $templateDataReal = $this->generateFieldsRename($tableName, $updateFields['renameFields'], $templateDataReal);
-                $templateDataReal = $this->generateFieldsDrop($tableName, $updateFields['dropFields'], $templateDataReal);
-                $templateDataReal = $this->generateFieldsUpdate($tableName, $updateFields['updateFields'], $templateDataReal);
+                $templateDataReal = $this->generateFieldsRename(
+                    $tableName,
+                    $updateFields['renameFields'],
+                    $templateDataReal
+                );
+                $templateDataReal = $this->generateFieldsDrop(
+                    $tableName,
+                    $updateFields['dropFields'],
+                    $templateDataReal
+                );
+                $templateDataReal = $this->generateFieldsUpdate(
+                    $tableName,
+                    $updateFields['updateFields'],
+                    $templateDataReal
+                );
                 $this->serviceFile->createFileReal($this->path . $key . '/' . $nameLang . '.php', $templateDataReal);
             }
         }
@@ -54,12 +66,24 @@ Class LangUpdateGenerator extends BaseGenerator
         }
 
         $fieldsGenerate = [];
-        $template = $this->serviceGenerator->searchTemplate($tableName, '],', strlen($tableName) + 6, -6 - strlen($tableName), $templateDataReal);
-        $templateReplace = $this->serviceGenerator->searchTemplate($tableName, '],', -strlen($tableName) + 12, strlen($tableName) - 10, $templateDataReal);
+        $template = $this->serviceGenerator->searchTemplate(
+            $tableName,
+            '],',
+            strlen($tableName) + 6,
+            -6 - strlen($tableName),
+            $templateDataReal
+        );
+        $templateReplace = $this->serviceGenerator->searchTemplate(
+            $tableName,
+            '],',
+            -strlen($tableName) + 12,
+            strlen($tableName) - 10,
+            $templateDataReal
+        );
         $arTemplate = explode(',', trim($template));
         $arRename = \Arr::pluck($renameFields, 'field_name_new.field_name');
         $arRenameOld = \Arr::pluck($renameFields, 'field_name_old.field_name');
-        $fieldsGenerate[] = " '".$tableName."' => [";
+        $fieldsGenerate[] = " '" . $tableName . "' => [";
 
         foreach ($renameFields as $rename) {
             foreach ($arTemplate as $tpl) {
@@ -70,10 +94,22 @@ Class LangUpdateGenerator extends BaseGenerator
                     $fieldName = $this->serviceGenerator->trimQuotes($fieldName);
                     $fieldNameTrans = $this->serviceGenerator->trimQuotes($fieldNameTrans);
                     if ($rename['field_name_old']['field_name'] === $fieldName) {
-                        $fieldsGenerate[] = "'" . $rename['field_name_new']['field_name'] . "'" . ' => ' . "'" . $fieldNameTrans . "'" . ',';
+                        $fieldsGenerate[] =
+                            "'" .
+                            $rename['field_name_new']['field_name'] .
+                            "'" .
+                            ' => ' .
+                            "'" .
+                            $fieldNameTrans .
+                            "'" .
+                            ',';
                     } else {
                         $name = "'" . $fieldName . "'" . ' => ' . "'" . $fieldNameTrans . "'" . ',';
-                        if (!in_array($name, $fieldsGenerate) && !in_array($fieldName, $arRename) && !in_array($fieldName, $arRenameOld)) {
+                        if (
+                            !in_array($name, $fieldsGenerate) &&
+                            !in_array($fieldName, $arRename) &&
+                            !in_array($fieldName, $arRenameOld)
+                        ) {
                             $fieldsGenerate[] = $name;
                         }
                     }
@@ -93,10 +129,22 @@ Class LangUpdateGenerator extends BaseGenerator
         }
 
         $fieldsGenerate = [];
-        $template = $this->serviceGenerator->searchTemplate($tableName, '],', strlen($tableName) + 6, -6 - strlen($tableName), $templateDataReal);
-        $templateReplace = $this->serviceGenerator->searchTemplate($tableName, '],', -strlen($tableName) + 12, strlen($tableName) - 10, $templateDataReal);
+        $template = $this->serviceGenerator->searchTemplate(
+            $tableName,
+            '],',
+            strlen($tableName) + 6,
+            -6 - strlen($tableName),
+            $templateDataReal
+        );
+        $templateReplace = $this->serviceGenerator->searchTemplate(
+            $tableName,
+            '],',
+            -strlen($tableName) + 12,
+            strlen($tableName) - 10,
+            $templateDataReal
+        );
         $arTemplate = explode(',', trim($template));
-        $fieldsGenerate[] = " '".$tableName."' => [";
+        $fieldsGenerate[] = " '" . $tableName . "' => [";
         foreach ($arTemplate as $tpl) {
             if (strlen($tpl) > 0) {
                 list($fieldName, $fieldNameTrans) = explode('=>', $tpl);
@@ -122,11 +170,23 @@ Class LangUpdateGenerator extends BaseGenerator
         }
 
         $fieldsGenerate = [];
-        $template = $this->serviceGenerator->searchTemplate($tableName, '],', strlen($tableName) + 6, -6 - strlen($tableName), $templateDataReal);
-        $templateReplace = $this->serviceGenerator->searchTemplate($tableName, '],', -strlen($tableName) + 12, strlen($tableName) - 10, $templateDataReal);
+        $template = $this->serviceGenerator->searchTemplate(
+            $tableName,
+            '],',
+            strlen($tableName) + 6,
+            -6 - strlen($tableName),
+            $templateDataReal
+        );
+        $templateReplace = $this->serviceGenerator->searchTemplate(
+            $tableName,
+            '],',
+            -strlen($tableName) + 12,
+            strlen($tableName) - 10,
+            $templateDataReal
+        );
         $arTemplate = explode(',', trim($template));
         $dropUpdate = \Arr::pluck($dropUpdate, 'field_name');
-        $fieldsGenerate[] = " '".$tableName."' => [";
+        $fieldsGenerate[] = " '" . $tableName . "' => [";
         foreach ($arTemplate as $tpl) {
             if (strlen($tpl) > 0) {
                 list($fieldName, $fieldNameTrans) = explode('=>', $tpl);

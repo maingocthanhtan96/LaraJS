@@ -1,6 +1,7 @@
 <template>
   <vue-dropzone
-    :ref="id" :id="id"
+    :ref="id"
+    :id="id"
     :options="options"
     :destroyDropzone="false"
     @vdropzone-file-added="addFile"
@@ -28,10 +29,12 @@ export default {
           url: `${process.env.MIX_BASE_API}/upload-file/store`,
           maxFilesize: 10,
           addRemoveLinks: true,
-          dictDefaultMessage: "<i class='fa fa-cloud-upload'></i>" + '<br>Drop files here to upload',
+          dictDefaultMessage:
+            "<i class='fa fa-cloud-upload'></i>" +
+            '<br>Drop files here to upload',
           maxFiles: 10,
           headers: {
-            'Authorization': 'Bearer ' + token,
+            Authorization: 'Bearer ' + token,
           },
         };
       },
@@ -69,7 +72,10 @@ export default {
       }
       val.map((value, index) => {
         if (value) {
-          this.$refs[ref].manuallyAddFile({ size: 12345, name: 'Image ' + (index + 1), nameRemove: value }, value);
+          this.$refs[ref].manuallyAddFile(
+            { size: 12345, name: 'Image ' + (index + 1), nameRemove: value },
+            value
+          );
         }
         return true;
       });
@@ -94,6 +100,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

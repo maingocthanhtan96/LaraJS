@@ -1,5 +1,5 @@
 <template>
-  <div :id="id"/>
+  <div :id="id" />
 </template>
 
 <script>
@@ -22,7 +22,11 @@ export default {
       type: String,
       required: false,
       default() {
-        return 'markdown-editor-' + +new Date() + ((Math.random() * 1000).toFixed(0) + '');
+        return (
+          'markdown-editor-' +
+          +new Date() +
+          ((Math.random() * 1000).toFixed(0) + '')
+        );
       },
     },
     options: {

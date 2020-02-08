@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use \App\Larajs\Permission as LarajsPermission;
+use App\Larajs\Permission as LarajsPermission;
 
 class Role extends \Spatie\Permission\Models\Role
 {

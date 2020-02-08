@@ -26,7 +26,7 @@ Vue.directive('permission', permission);
 
 // register plugins
 const mixinPlugins = require.context('@/plugins', true, /\.js$/);
-mixinPlugins.keys().forEach((file) => {
+mixinPlugins.keys().forEach(file => {
   const mixin = file.replace(/^\.\/(.*)\w*$/, '$1');
   Vue.use(require(`./plugins/${mixin}`).default);
 });

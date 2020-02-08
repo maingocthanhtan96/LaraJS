@@ -7,8 +7,7 @@ use App\Service\FileService;
 use App\Service\GeneratorService;
 use Carbon\Carbon;
 
-
-Class FormGenerator extends BaseGenerator
+class FormGenerator extends BaseGenerator
 {
     /** @var $service */
     public $serviceGenerator;
@@ -43,11 +42,33 @@ Class FormGenerator extends BaseGenerator
         $pathTemplate = 'Views/';
         $notDelete = config('generator.not_delete.vuejs.form');
         $templateData = $this->serviceGenerator->get_template("form", $pathTemplate, 'vuejs');
-        $templateData = str_replace('{{$LANG_MODEL_CLASS$}}', $this->serviceGenerator->tableNameNotPlural($model['name']), $templateData);
-        $templateData = str_replace('{{$REF_MODEL_CLASS$}}', $this->serviceGenerator->modelNameNotPluralFe($model['name']), $templateData);
-        $templateData = $this->serviceGenerator->replaceNotDelete($notDelete['item'], $this->generateItems($fields, $model), 5, $templateData, 2);
-        $templateData = str_replace('{{$MODEL_CLASS$}}', $this->serviceGenerator->modelNameNotPlural($model['name']), $templateData);
-        $templateData = str_replace('{{$CONST_MODEL_CLASS$}}', $this->serviceGenerator->modelNameNotPluralFe($model['name']), $templateData);
+        $templateData = str_replace(
+            '{{$LANG_MODEL_CLASS$}}',
+            $this->serviceGenerator->tableNameNotPlural($model['name']),
+            $templateData
+        );
+        $templateData = str_replace(
+            '{{$REF_MODEL_CLASS$}}',
+            $this->serviceGenerator->modelNameNotPluralFe($model['name']),
+            $templateData
+        );
+        $templateData = $this->serviceGenerator->replaceNotDelete(
+            $notDelete['item'],
+            $this->generateItems($fields, $model),
+            5,
+            $templateData,
+            2
+        );
+        $templateData = str_replace(
+            '{{$MODEL_CLASS$}}',
+            $this->serviceGenerator->modelNameNotPlural($model['name']),
+            $templateData
+        );
+        $templateData = str_replace(
+            '{{$CONST_MODEL_CLASS$}}',
+            $this->serviceGenerator->modelNameNotPluralFe($model['name']),
+            $templateData
+        );
         $templateData = str_replace($notDelete['fields'], $this->generateFields($fields), $templateData);
 
         $folderName = $this->path . $this->serviceGenerator->modelNameNotPluralFe($model['name']);
@@ -90,7 +111,13 @@ Class FormGenerator extends BaseGenerator
                     $fieldsGenerate[] = $this->generateDateTime('year', $tableName, $field);
                     break;
                 case $this->dbType['string']:
-                    $fieldsGenerate[] = $this->generateInput('input', $tableName, $field, $index, $this->dbType['string']);
+                    $fieldsGenerate[] = $this->generateInput(
+                        'input',
+                        $tableName,
+                        $field,
+                        $index,
+                        $this->dbType['string']
+                    );
                     break;
                 case $this->dbType['text']:
                     $fieldsGenerate[] = $this->generateInput('textarea', $tableName, $field, $index);
@@ -120,15 +147,18 @@ Class FormGenerator extends BaseGenerator
         foreach ($fields as $index => $field) {
             $fieldName = $field['field_name'];
             $fieldForm = '';
-            if ($field['default_value'] === $defaultValue['none'] || $field['default_value'] === $defaultValue['null']) {
+            if (
+                $field['default_value'] === $defaultValue['none'] ||
+                $field['default_value'] === $defaultValue['null']
+            ) {
                 if ($field['db_type'] === $dbType['file']) {
                     $fieldForm = "$fieldName: []";
-                } else if ($field['db_type'] === $dbType['json']) {
+                } elseif ($field['db_type'] === $dbType['json']) {
                     $fieldForm = "$fieldName: '[]'";
                 } else {
                     $fieldForm = "$fieldName: ''";
                 }
-            } else if ($field['default_value'] === $defaultValue['as_define']) {
+            } elseif ($field['default_value'] === $defaultValue['as_define']) {
                 $asDefine = $field['as_define'];
                 $fieldForm = "$fieldName: '$asDefine'";
             }
@@ -164,7 +194,7 @@ Class FormGenerator extends BaseGenerator
         $formTemplate = $this->checkRequired($field, $formTemplate);
         $formTemplate = $this->replaceAutoFocus($index, $formTemplate);
         $formTemplate = $this->replaceFormField($field, $formTemplate);
-        if($dbType === $this->dbType['string']) {
+        if ($dbType === $this->dbType['string']) {
             $formTemplate = str_replace('{{MAX_LENGTH}}', $field['length_varchar'], $formTemplate);
         }
         return $formTemplate;
@@ -186,7 +216,11 @@ Class FormGenerator extends BaseGenerator
         $formTemplate = $this->replaceLabelForm($tableName, $field, $formTemplate);
         $formTemplate = $this->checkRequired($field, $formTemplate);
         $formTemplate = $this->replaceFormField($field, $formTemplate);
-        $formTemplate = str_replace('{{$LIST_SELECT$}}', $this->serviceGenerator->modelNameNotPluralFe($field['field_name']), $formTemplate);
+        $formTemplate = str_replace(
+            '{{$LIST_SELECT$}}',
+            $this->serviceGenerator->modelNameNotPluralFe($field['field_name']),
+            $formTemplate
+        );
         $formTemplate = str_replace('{{$LABEL_OPTION$}}', 'item', $formTemplate);
         $formTemplate = str_replace('{{$VALUE_OPTION$}}', 'item', $formTemplate);
 
@@ -199,7 +233,11 @@ Class FormGenerator extends BaseGenerator
         $formTemplate = $this->replaceLabelForm($tableName, $field, $formTemplate);
         $formTemplate = $this->checkRequired($field, $formTemplate);
         $formTemplate = $this->replaceFormField($field, $formTemplate);
-        $formTemplate = str_replace('{{$REF_JSON$}}', $this->serviceGenerator->modelNameNotPluralFe($field['field_name']), $formTemplate);
+        $formTemplate = str_replace(
+            '{{$REF_JSON$}}',
+            $this->serviceGenerator->modelNameNotPluralFe($field['field_name']),
+            $formTemplate
+        );
         return $formTemplate;
     }
 
@@ -209,7 +247,11 @@ Class FormGenerator extends BaseGenerator
         $formTemplate = $this->replaceLabelForm($tableName, $field, $formTemplate);
         $formTemplate = $this->checkRequired($field, $formTemplate);
         $formTemplate = $this->replaceFormField($field, $formTemplate);
-        $formTemplate = str_replace('{{$NAME_FUNC$}}', $this->serviceGenerator->modelNameNotPluralFe($field['field_name']), $formTemplate);
+        $formTemplate = str_replace(
+            '{{$NAME_FUNC$}}',
+            $this->serviceGenerator->modelNameNotPluralFe($field['field_name']),
+            $formTemplate
+        );
         return $formTemplate;
     }
 
@@ -229,7 +271,11 @@ Class FormGenerator extends BaseGenerator
 
     private function replaceLabelForm($tableName, $field, $formTemplate)
     {
-        return str_replace($this->labelNameForm, '$t(\'table.' . $tableName . '.' . $field['field_name'] . '\')', $formTemplate);
+        return str_replace(
+            $this->labelNameForm,
+            '$t(\'table.' . $tableName . '.' . $field['field_name'] . '\')',
+            $formTemplate
+        );
     }
 
     private function replaceAutoFocus($index, $formTemplate)

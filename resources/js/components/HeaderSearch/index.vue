@@ -1,6 +1,10 @@
 <template>
-  <div :class="{'show':show}" class="header-search">
-    <svg-icon class-name="search-icon" icon-class="search" @click.stop="click"/>
+  <div :class="{ show: show }" class="header-search">
+    <svg-icon
+      class-name="search-icon"
+      icon-class="search"
+      @click.stop="click"
+    />
     <el-select
       ref="headerSearchSelect"
       v-model="search"
@@ -12,7 +16,12 @@
       class="header-search-select"
       @change="change"
     >
-      <el-option v-for="item in options" :key="item.path" :value="item" :label="item.title.join(' > ')"/>
+      <el-option
+        v-for="item in options"
+        :key="item.path"
+        :value="item"
+        :label="item.title.join(' > ')"
+      />
     </el-select>
   </div>
 </template>
@@ -92,13 +101,16 @@ export default {
         distance: 100,
         maxPatternLength: 32,
         minMatchCharLength: 1,
-        keys: [{
-          name: 'title',
-          weight: 0.7,
-        }, {
-          name: 'path',
-          weight: 0.3,
-        }],
+        keys: [
+          {
+            name: 'title',
+            weight: 0.7,
+          },
+          {
+            name: 'path',
+            weight: 0.3,
+          },
+        ],
       });
     },
     // Filter out the routes that can be displayed in the sidebar
@@ -132,7 +144,11 @@ export default {
 
         // recursive child routes
         if (router.children) {
-          const tempRoutes = this.generateRoutes(router.children, data.path, data.title);
+          const tempRoutes = this.generateRoutes(
+            router.children,
+            data.path,
+            data.title
+          );
           if (tempRoutes.length >= 1) {
             res = [...res, ...tempRoutes];
           }
@@ -152,41 +168,41 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .header-search {
-    font-size: 0 !important;
+.header-search {
+  font-size: 0 !important;
 
-    .search-icon {
-      cursor: pointer;
-      font-size: 18px;
-      vertical-align: middle;
-    }
+  .search-icon {
+    cursor: pointer;
+    font-size: 18px;
+    vertical-align: middle;
+  }
 
-    .header-search-select {
-      font-size: 18px;
-      transition: width 0.2s;
-      width: 0;
-      overflow: hidden;
-      background: transparent;
+  .header-search-select {
+    font-size: 18px;
+    transition: width 0.2s;
+    width: 0;
+    overflow: hidden;
+    background: transparent;
+    border-radius: 0;
+    display: inline-block;
+    vertical-align: middle;
+
+    > .el-input__inner {
       border-radius: 0;
-      display: inline-block;
+      border: 0;
+      padding-left: 0;
+      padding-right: 0;
+      box-shadow: none !important;
+      border-bottom: 1px solid #d9d9d9;
       vertical-align: middle;
-
-      > > > .el-input__inner {
-        border-radius: 0;
-        border: 0;
-        padding-left: 0;
-        padding-right: 0;
-        box-shadow: none !important;
-        border-bottom: 1px solid #d9d9d9;
-        vertical-align: middle;
-      }
-    }
-
-    &.show {
-      .header-search-select {
-        width: 210px;
-        margin-left: 10px;
-      }
     }
   }
+
+  &.show {
+    .header-search-select {
+      width: 210px;
+      margin-left: 10px;
+    }
+  }
+}
 </style>
