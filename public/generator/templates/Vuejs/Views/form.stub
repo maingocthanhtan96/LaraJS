@@ -39,7 +39,7 @@ const {{$CONST_MODEL_CLASS$}}Resource = new {{$MODEL_CLASS$}}Resource();
 
 export default {
   components: {
-	  // {{$IMPORT_COMPONENT_NAME_NOT_DELETE_THIS_LINE$}}
+    // {{$IMPORT_COMPONENT_NAME_NOT_DELETE_THIS_LINE$}}
   },
   data() {
     return {

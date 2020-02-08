@@ -225,7 +225,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'LaraJS_Permission' => App\Larajs\Permission::class,
+        'Acl' => App\Larajs\Acl::class,
         'Constant' => App\Larajs\Constant::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class
     ]

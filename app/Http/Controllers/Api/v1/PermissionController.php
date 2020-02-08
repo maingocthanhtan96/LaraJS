@@ -8,7 +8,7 @@ use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Larajs\Permission as LarajsPermission;
+use App\Larajs\Acl;
 
 class PermissionController extends Controller
 {
@@ -26,7 +26,9 @@ class PermissionController extends Controller
             return $q->where('name', 'LIKE', "%$keyword%");
         });
 
-        return PermissionResource::collection($permissionQuery->paginate($limit));
+        return PermissionResource::collection(
+            $permissionQuery->paginate($limit)
+        );
     }
 
     /**
@@ -49,7 +51,7 @@ class PermissionController extends Controller
     {
         try {
             $permission = Permission::create($request->all());
-            $adminRole = Role::findByName(LarajsPermission::ROLE_ADMIN);
+            $adminRole = Role::findByName(Acl::ROLE_ADMIN);
             $adminRole->givePermissionTo($permission);
 
             return $this->jsonData(new PermissionResource($permission));
@@ -87,14 +89,20 @@ class PermissionController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StorePermissionRequest $request, Permission $permission)
-    {
+    public function update(
+        StorePermissionRequest $request,
+        Permission $permission
+    ) {
         try {
             $permission->update($request->only(['name', 'description']));
 
             return $this->jsonData(new PermissionResource($permission));
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+            return $this->jsonError(
+                $e->getMessage(),
+                $e->getFile(),
+                $e->getLine()
+            );
         }
     }
 
@@ -107,13 +115,17 @@ class PermissionController extends Controller
     public function destroy(Permission $permission)
     {
         try {
-            $adminRole = Role::findByName(LarajsPermission::ROLE_ADMIN);
+            $adminRole = Role::findByName(Acl::ROLE_ADMIN);
             $adminRole->revokePermissionTo($permission);
             $permission->delete();
 
             return $this->jsonSuccess(trans('messages.delete'));
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+            return $this->jsonError(
+                $e->getMessage(),
+                $e->getFile(),
+                $e->getLine()
+            );
         }
     }
 }

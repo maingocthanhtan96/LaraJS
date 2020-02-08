@@ -1,6 +1,6 @@
 <?php
 /**
- * File Permission.php
+ * File Acl.php
  *
  * @author Tan Mai <maingocthanhtan96@gmail.com>
  * @package Larajs
@@ -13,11 +13,11 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 /**
- * Class Permission
+ * Class Acl
  *
  * @package App\Larajs
  */
-final class Permission
+final class Acl
 {
     const ROLE_ADMIN = 'admin';
     const ROLE_MANAGER = 'manager';
@@ -45,8 +45,11 @@ final class Permission
         try {
             $class = new \ReflectionClass(__CLASS__);
             $constants = $class->getConstants();
-            $permissions = Arr::where($constants, function ($value, $key) use ($exclusives) {
-                return !in_array($value, $exclusives) && Str::startsWith($key, 'PERMISSION_');
+            $permissions = Arr::where($constants, function ($value, $key) use (
+                $exclusives
+            ) {
+                return !in_array($value, $exclusives) &&
+                    Str::startsWith($key, 'PERMISSION_');
             });
 
             return array_values($permissions);

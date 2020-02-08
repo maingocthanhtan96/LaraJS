@@ -1,10 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Larajs\Permission as LarajsPermission;
+use App\Larajs\Acl;
 use App\Models\Role;
 use App\Models\Permission;
-use App\Models\User;
 
 class SetupRolePermissionSeeder extends Seeder
 {
@@ -15,15 +14,15 @@ class SetupRolePermissionSeeder extends Seeder
      */
     public function run()
     {
-        foreach (LarajsPermission::roles() as $role) {
+        foreach (Acl::roles() as $role) {
             Role::findOrCreate($role, 'api');
         }
 
-        foreach (LarajsPermission::permissions() as $permission) {
+        foreach (Acl::permissions() as $permission) {
             Permission::findOrCreate($permission, 'api');
         }
 
-        foreach (LarajsPermission::menuPermissions() as $menuPermission) {
+        foreach (Acl::menuPermissions() as $menuPermission) {
             Permission::findOrCreate($menuPermission, 'api');
         }
     }
