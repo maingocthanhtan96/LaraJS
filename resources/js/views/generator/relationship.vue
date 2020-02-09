@@ -12,9 +12,9 @@
         </div>
         <section class="section">
           <div class="flex flex-col items-center">
-            <el-tag type="success" effect="dark">{{
-              form.model_current
-            }}</el-tag>
+            <el-tag type="success" effect="dark">
+              {{ form.model_current }}
+            </el-tag>
             <div class="w-04-rem h-24 bg-indigo-600 draw-arrow-down one" />
             <el-select
               v-model="form.relationship"
@@ -161,14 +161,14 @@
                               </ul>
                               <ul>
                                 <li>
-                                  <a :class="{ 'has-mtm': item.table }">{{
-                                    item.foreign_key
-                                  }}</a>
+                                  <a :class="{ 'has-mtm': item.table }">
+                                    {{ item.foreign_key }}
+                                  </a>
                                 </li>
                                 <li>
-                                  <a :class="{ 'has-mtm': item.table }">{{
-                                    item.local_key
-                                  }}</a>
+                                  <a :class="{ 'has-mtm': item.table }">
+                                    {{ item.local_key }}
+                                  </a>
                                 </li>
                               </ul>
                             </li>

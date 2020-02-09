@@ -20,9 +20,9 @@
             <i class="vicp-icon1-bottom" />
           </i>
           <span v-show="loading !== 1" class="vicp-hint">{{ lang.hint }}</span>
-          <span v-show="!isSupported" class="vicp-step-supported-hint">{{
-            lang.stepSupported
-          }}</span>
+          <span v-show="!isSupported" class="vicp-step-supported-hint">
+            {{ lang.stepSupported }}
+          </span>
           <input
             v-show="false"
             v-if="step == 1"
@@ -32,7 +32,8 @@
           >
         </div>
         <div v-show="hasError" class="vicp-error">
-          <i class="vicp-icon2" /> {{ errorMsg }}
+          <i class="vicp-icon2" />
+          {{ errorMsg }}
         </div>
         <div class="vicp-operate">
           <a @click="off" @mousedown="ripple">{{ lang.btn.off }}</a>
@@ -103,12 +104,16 @@
                 @mousedown="startRotateLeft"
                 @mouseout="endRotate"
                 @mouseup="endRotate"
-              >↺</i>
+              >
+                ↺
+              </i>
               <i
                 @mousedown="startRotateRight"
                 @mouseout="endRotate"
                 @mouseup="endRotate"
-              >↻</i>
+              >
+                ↻
+              </i>
             </div>
           </div>
           <div v-show="true" class="vicp-crop-right">
@@ -133,15 +138,17 @@
             class="vicp-operate-btn"
             @click="prepareUpload"
             @mousedown="ripple"
-          >{{ lang.btn.save }}</a>
+          >
+            {{ lang.btn.save }}
+          </a>
         </div>
       </div>
 
       <div v-if="step == 3" class="vicp-step3">
         <div class="vicp-upload">
-          <span v-show="loading === 1" class="vicp-loading">{{
-            lang.loading
-          }}</span>
+          <span v-show="loading === 1" class="vicp-loading">
+            {{ lang.loading }}
+          </span>
           <div class="vicp-progress-wrap">
             <span
               v-show="loading === 1"
@@ -150,10 +157,12 @@
             />
           </div>
           <div v-show="hasError" class="vicp-error">
-            <i class="vicp-icon2" /> {{ errorMsg }}
+            <i class="vicp-icon2" />
+            {{ errorMsg }}
           </div>
           <div v-show="loading === 2" class="vicp-success">
-            <i class="vicp-icon3" /> {{ lang.success }}
+            <i class="vicp-icon3" />
+            {{ lang.success }}
           </div>
         </div>
         <div class="vicp-operate">

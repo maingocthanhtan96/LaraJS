@@ -15,7 +15,8 @@
             class="pan-btn blue-btn"
             tag="button"
           >
-            <i class="el-icon-plus mr-2" />Create
+            <i class="el-icon-plus mr-2" />
+            Create
           </router-link>
         </div>
         <div class="flex flex-col">
@@ -103,7 +104,7 @@
                   <router-link
                     :to="{
                       name: 'generator_relationship',
-                      params: { id: row.id },
+                      params: { id: row.id }
                     }"
                   >
                     <el-tooltip

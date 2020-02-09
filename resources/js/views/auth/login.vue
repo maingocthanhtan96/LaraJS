@@ -19,19 +19,21 @@
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item
                     :class="{
-                      'bg-blue-400 text-white font-bold': lang === 'vn',
+                      'bg-blue-400 text-white font-bold': lang === 'vn'
                     }"
                     icon="flag-icon flag-icon-vn"
                     command="vn"
-                  >Việt Nam
+                  >
+                    Việt Nam
                   </el-dropdown-item>
                   <el-dropdown-item
                     :class="{
-                      'bg-blue-400 text-white font-bold': lang === 'en',
+                      'bg-blue-400 text-white font-bold': lang === 'en'
                     }"
                     icon="flag-icon flag-icon-my"
                     command="en"
-                  >English
+                  >
+                    English
                   </el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
@@ -65,17 +67,17 @@
                 :loading="loading"
                 class="w-full"
                 @click.prevent="login"
-              >{{ $t('auth.login.login') }}
+              >
+                {{ $t('auth.login.login') }}
               </el-button>
             </el-col>
             <el-col :span="12">
               <el-checkbox>{{ $t('auth.login.remember') }}</el-checkbox>
             </el-col>
             <el-col :span="12" class="text-right">
-              <router-link
-                :to="{ name: 'reset_password' }"
-                class="text-black"
-              >{{ $t('auth.login.forgot_password') }}</router-link>
+              <router-link :to="{ name: 'reset_password' }" class="text-black">
+                {{ $t('auth.login.forgot_password') }}
+              </router-link>
             </el-col>
           </el-row>
         </el-card>

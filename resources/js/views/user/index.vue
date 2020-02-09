@@ -1,4 +1,5 @@
-`<template>
+`
+<template>
   <el-row>
     <el-col :span="24">
       <el-card>
@@ -9,7 +10,8 @@
             class="pan-btn blue-btn"
             tag="button"
           >
-            <i class="el-icon-plus mr-2" />{{ this.$t('button.create') }}
+            <i class="el-icon-plus mr-2" />
+            {{ this.$t('button.create') }}
           </router-link>
         </div>
         <div class="flex flex-col">
@@ -114,16 +116,16 @@
                   <router-link
                     v-permission="['edit']"
                     :to="{ name: 'user_edit', params: { id: props.row.id } }"
-                  ><i
-                    class="el-icon-edit el-link el-link--primary mr-2"
-                  /></router-link>
+                  >
+                    <i class="el-icon-edit el-link el-link--primary mr-2" />
+                  </router-link>
                   <a
                     v-permission="['delete']"
                     class="cursor-pointer"
                     @click.stop="remove(props.row.id, props.index)"
-                  ><i
-                    class="el-icon-delete el-link el-link--danger"
-                  /></a>
+                  >
+                    <i class="el-icon-delete el-link el-link--danger" />
+                  </a>
                 </template>
               </el-table-column>
             </el-table>

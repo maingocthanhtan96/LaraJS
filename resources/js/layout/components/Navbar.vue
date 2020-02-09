@@ -31,13 +31,15 @@
             :class="{ 'bg-blue-400 text-white font-bold': lang === 'vn' }"
             icon="flag-icon flag-icon-vn"
             command="vn"
-          >Việt Nam
+          >
+            Việt Nam
           </el-dropdown-item>
           <el-dropdown-item
             :class="{ 'bg-blue-400 text-white font-bold': lang === 'en' }"
             icon="flag-icon flag-icon-my"
             command="en"
-          >English
+          >
+            English
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>

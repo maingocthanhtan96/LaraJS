@@ -152,7 +152,7 @@
                     class="divTableRow hover:bg-gray-200"
                     :class="{
                       draggable:
-                        !disabledMethod(index) && index >= formTemp.length,
+                        !disabledMethod(index) && index >= formTemp.length
                     }"
                     status-icon
                   >
@@ -377,12 +377,8 @@
               </div>
             </div>
             <div class="pt-6">
-              <el-button
-                v-waves
-                type="success"
-                round
-                @click.prevent="addField"
-              >{{ $t('generator.add_field') }}
+              <el-button v-waves type="success" round @click.prevent="addField">
+                {{ $t('generator.add_field') }}
               </el-button>
             </div>
             <div class="float-right">
@@ -405,7 +401,8 @@
                 type="primary"
                 round
                 @click.prevent="generate(`dynamicFieldsForm`, 'formModel')"
-              >{{ $t('generator.generate') }}
+              >
+                {{ $t('generator.generate') }}
               </el-button>
             </div>
           </div>

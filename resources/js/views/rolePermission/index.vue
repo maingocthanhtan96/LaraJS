@@ -87,7 +87,8 @@
               type="primary"
               icon="el-icon-plus"
               @click="showCreatePermission()"
-            >Permission
+            >
+              Permission
             </el-button>
           </div>
           <el-input
@@ -219,15 +220,17 @@
               </el-form>
             </div>
             <span slot="footer" class="dialog-footer">
-              <el-button
-                @click="dialogUpdateRoleVisible = false"
-              >Cancel</el-button>
+              <el-button @click="dialogUpdateRoleVisible = false">
+                Cancel
+              </el-button>
               <el-button
                 v-if="currentRole.name !== 'admin'"
                 type="primary"
                 icon="el-icon-check"
                 @click="updateRolePermission('formRole')"
-              >{{ $t('button.update') }}</el-button>
+              >
+                {{ $t('button.update') }}
+              </el-button>
             </span>
           </el-dialog>
           <!--end update role permission-->
@@ -263,14 +266,16 @@
               </el-form>
             </div>
             <span slot="footer" class="dialog-footer">
-              <el-button
-                @click="dialogCreateRoleVisible = false"
-              >Cancel</el-button>
+              <el-button @click="dialogCreateRoleVisible = false">
+                Cancel
+              </el-button>
               <el-button
                 type="primary"
                 icon="el-icon-plus"
                 @click="createRole('formRole')"
-              >{{ $t('button.create') }}</el-button>
+              >
+                {{ $t('button.create') }}
+              </el-button>
             </span>
           </el-dialog>
           <!-- end create role -->
@@ -309,21 +314,25 @@
               </el-form>
             </div>
             <span slot="footer" class="dialog-footer">
-              <el-button
-                @click="dialogCreatePermissionVisible = false"
-              >Cancel</el-button>
+              <el-button @click="dialogCreatePermissionVisible = false">
+                Cancel
+              </el-button>
               <el-button
                 v-if="+permissionId === 0"
                 type="primary"
                 icon="el-icon-plus"
                 @click="createPermission('formPermission')"
-              >{{ $t('button.create') }}</el-button>
+              >
+                {{ $t('button.create') }}
+              </el-button>
               <el-button
                 v-else
                 type="primary"
                 icon="el-icon-check"
                 @click="updatePermission('formPermission')"
-              >{{ $t('button.update') }}</el-button>
+              >
+                {{ $t('button.update') }}
+              </el-button>
             </span>
           </el-dialog>
           <!-- end create permission -->
