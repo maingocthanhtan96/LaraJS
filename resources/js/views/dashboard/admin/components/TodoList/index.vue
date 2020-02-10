@@ -7,7 +7,7 @@
         autocomplete="off"
         placeholder="Todo List"
         @keyup.enter="addTodo"
-      >
+      />
     </header>
     <!-- main section -->
     <section v-show="todos.length" class="main">
@@ -17,7 +17,7 @@
         class="toggle-all"
         type="checkbox"
         @change="toggleAll({ done: !allChecked })"
-      >
+      />
       <label for="toggle-all" />
       <ul class="todo-list">
         <todo

@@ -29,7 +29,7 @@
               />
             </el-col>
             <el-col :xs="24" :sm="14" :md="18">
-              <br>
+              <br />
               <el-date-picker
                 v-model="table.listQuery.created_at"
                 class="md:float-right"

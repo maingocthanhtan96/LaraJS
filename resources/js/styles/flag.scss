@@ -8,11 +8,11 @@
   line-height: 1em;
 
   &:before {
-    content: "\00a0"
+    content: "\00a0";
   }
 
   .flag-icon-squared {
-    width: 1em
+    width: 1em;
   }
 }
 
@@ -20,7 +20,6 @@
   background-image: url(../flags/4x3/vn.svg);
 }
 
-;
 .flag-icon-my {
-  background-image: url(../flags/4x3/my.svg)
+  background-image: url(../flags/4x3/my.svg);
 }

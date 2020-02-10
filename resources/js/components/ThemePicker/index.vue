@@ -9,7 +9,7 @@
       '#11a983',
       '#13c2c2',
       '#6959CD',
-      '#f5222d',
+      '#f5222d'
     ]"
     class="theme-picker"
     popper-class="theme-picker-dropdown"

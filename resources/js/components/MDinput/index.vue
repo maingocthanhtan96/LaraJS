@@ -20,7 +20,7 @@
         @focus="handleMdFocus"
         @blur="handleMdBlur"
         @input="handleModelInput"
-      >
+      />
       <input
         v-if="type === 'url'"
         v-model="currentValue"
@@ -35,7 +35,7 @@
         @focus="handleMdFocus"
         @blur="handleMdBlur"
         @input="handleModelInput"
-      >
+      />
       <input
         v-if="type === 'number'"
         v-model="currentValue"
@@ -55,7 +55,7 @@
         @focus="handleMdFocus"
         @blur="handleMdBlur"
         @input="handleModelInput"
-      >
+      />
       <input
         v-if="type === 'password'"
         v-model="currentValue"
@@ -72,7 +72,7 @@
         @focus="handleMdFocus"
         @blur="handleMdBlur"
         @input="handleModelInput"
-      >
+      />
       <input
         v-if="type === 'tel'"
         v-model="currentValue"
@@ -87,7 +87,7 @@
         @focus="handleMdFocus"
         @blur="handleMdBlur"
         @input="handleModelInput"
-      >
+      />
       <input
         v-if="type === 'text'"
         v-model="currentValue"
@@ -104,7 +104,7 @@
         @focus="handleMdFocus"
         @blur="handleMdBlur"
         @input="handleModelInput"
-      >
+      />
       <span class="material-input-bar" />
       <label class="material-label">
         <slot />
@@ -124,7 +124,7 @@ export default {
     name: String,
     type: {
       type: String,
-      default: 'text',
+      default: 'text'
     },
     value: [String, Number],
     placeholder: String,
@@ -137,22 +137,22 @@ export default {
     maxlength: Number,
     required: {
       type: Boolean,
-      default: true,
+      default: true
     },
     autoComplete: {
       type: String,
-      default: 'off',
+      default: 'off'
     },
     validateEvent: {
       type: Boolean,
-      default: true,
-    },
+      default: true
+    }
   },
   data() {
     return {
       currentValue: this.value,
       focus: false,
-      fillPlaceHolder: null,
+      fillPlaceHolder: null
     };
   },
   computed: {
@@ -160,14 +160,14 @@ export default {
       return {
         'material--active': this.focus,
         'material--disabled': this.disabled,
-        'material--raised': Boolean(this.focus || this.currentValue), // has value
+        'material--raised': Boolean(this.focus || this.currentValue) // has value
       };
-    },
+    }
   },
   watch: {
     value(newValue) {
       this.currentValue = newValue;
-    },
+    }
   },
   methods: {
     handleModelInput(event) {
@@ -196,8 +196,8 @@ export default {
           this.$parent.$emit('el.form.blur', [this.currentValue]);
         }
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

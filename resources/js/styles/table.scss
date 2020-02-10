@@ -20,7 +20,6 @@ table {
 
 // Table responsive in mobile
 .table-mobile {
-
   table {
     border-collapse: collapse;
   }
@@ -80,7 +79,8 @@ table {
       width: 100%;
     }
 
-    table thead, colgroup {
+    table thead,
+    colgroup {
       display: none;
     }
 

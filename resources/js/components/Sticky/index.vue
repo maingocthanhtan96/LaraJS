@@ -7,7 +7,7 @@
         zIndex: zIndex,
         position: position,
         width: width,
-        height: height + 'px',
+        height: height + 'px'
       }"
     >
       <slot>

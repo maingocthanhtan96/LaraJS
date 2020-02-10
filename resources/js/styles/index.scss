@@ -1,18 +1,18 @@
 //@import '~normalize.css/normalize.css';
-@import '~element-ui/lib/theme-chalk/index.css';
-@import '~nprogress/nprogress.css'; // progress bar style
+@import "~element-ui/lib/theme-chalk/index.css";
+@import "~nprogress/nprogress.css"; // progress bar style
 @import "~tailwindcss/base";
 @import "~tailwindcss/components";
 @import "~tailwindcss/utilities";
-@import 'variables.scss';
+@import "variables.scss";
 @import "transition";
 @import "table";
-@import 'mixin.scss';
-@import 'element-ui.scss';
-@import 'sidebar.scss';
-@import 'btn.scss';
-@import 'flag.scss';
-@import 'diagramRelationship.scss';
+@import "mixin.scss";
+@import "element-ui.scss";
+@import "sidebar.scss";
+@import "btn.scss";
+@import "flag.scss";
+@import "diagramRelationship.scss";
 
 html {
   font-size: 62.5% !important;
@@ -38,7 +38,7 @@ html {
   justify-content: center;
   -webkit-flex-grow: 1;
   flex-grow: 1;
-  @media(max-width: 767px) {
+  @media (max-width: 767px) {
     padding: 1rem 1rem;
   }
 }

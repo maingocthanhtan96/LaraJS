@@ -6,7 +6,7 @@
       type="file"
       accept=".xlsx, .xls"
       @change="handleClick"
-    >
+    />
     <div
       class="drop"
       @drop="handleDrop"
@@ -33,7 +33,7 @@ import XLSX from 'xlsx';
 export default {
   props: {
     beforeUpload: Function, // eslint-disable-line
-    onSuccess: Function, // eslint-disable-line
+    onSuccess: Function // eslint-disable-line
   },
   data() {
     return {

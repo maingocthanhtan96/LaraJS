@@ -1,6 +1,6 @@
 <template>
   <div :id="id" :ref="id" :action="url" class="dropzone">
-    <input type="file" name="file">
+    <input type="file" name="file" />
   </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
   <el-card class="box-card-component" style="margin-left:8px;">
     <div slot="header" class="box-card-header">
-      <img :src="user.avatar">
+      <img :src="user.avatar" />
     </div>
     <div style="position:relative;">
       <pan-thumb

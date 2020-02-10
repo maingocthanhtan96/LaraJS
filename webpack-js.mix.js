@@ -12,12 +12,13 @@ Mix.listen('configReady', webpackConfig => {
   const imageLoaderConfig = webpackConfig.module.rules.find(
     rule =>
       String(rule.test) ===
-      String(/(\.(png|jpe?g|gif|webp)$|^((?!font).)*\.svg$)/),
+      String(/(\.(png|jpe?g|gif|webp)$|^((?!font).)*\.svg$)/)
   );
   imageLoaderConfig.exclude = resolve('icons');
 });
 
-mix.extend('mergeManifest', mergeManifest)
+mix
+  .extend('mergeManifest', mergeManifest)
   .js('resources/js/app.js', 'public/js')
   .extract([
     'vue',
@@ -26,7 +27,7 @@ mix.extend('mergeManifest', mergeManifest)
     'vue-i18n',
     'axios',
     'element-ui',
-    'echarts',
+    'echarts'
   ])
   .webpackConfig(config)
   .mergeManifest();
@@ -37,17 +38,15 @@ if (mix.inProduction()) {
   if (process.env.LARAJS_USE_ESLINT === 'true') {
     mix.eslint({
       fix: true,
-      cache: false,
+      cache: false
     });
   }
   // Development settings
   mix.browserSync({
     proxy: process.env.APP_URL,
-    files: ['resources/js/**/*'],
+    files: ['resources/js/**/*']
   });
-  mix
-    .sourceMaps()
-    .webpackConfig({
-      devtool: 'cheap-eval-source-map', // Fastest for development
-    });
+  mix.sourceMaps().webpackConfig({
+    devtool: 'cheap-eval-source-map' // Fastest for development
+  });
 }

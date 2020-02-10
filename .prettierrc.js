@@ -3,22 +3,22 @@ module.exports = {
     {
       files: '*.{js,vue}',
       options: {
-        "arrowParens": "avoid",
-        "bracketSpacing": true,
-        "htmlWhitespaceSensitivity": "ignore",
-        "insertPragma": false,
-        "jsxBracketSameLine": true,
-        "jsxSingleQuote": true,
-        "printWidth": 80,
-        "proseWrap": "always",
-        "quoteProps": "as-needed",
-        "requirePragma": false,
-        "semi": true,
-        "singleQuote": true,
-        "tabWidth": 2,
-        "trailingComma": "none",
-        "useTabs": false,
-        "vueIndentScriptAndStyle": false
+        arrowParens: 'avoid',
+        bracketSpacing: true,
+        htmlWhitespaceSensitivity: 'ignore',
+        insertPragma: false,
+        jsxBracketSameLine: true,
+        jsxSingleQuote: true,
+        printWidth: 80,
+        proseWrap: 'always',
+        quoteProps: 'as-needed',
+        requirePragma: false,
+        semi: true,
+        singleQuote: true,
+        tabWidth: 2,
+        trailingComma: 'none',
+        useTabs: false,
+        vueIndentScriptAndStyle: false
       }
     },
     {
@@ -33,8 +33,8 @@ module.exports = {
         bracketSpacing: true,
         jsxBracketSameLine: false,
         arrowParens: 'avoid',
-        proseWrap: 'never',
-      },
-    },
-  ],
+        proseWrap: 'never'
+      }
+    }
+  ]
 };

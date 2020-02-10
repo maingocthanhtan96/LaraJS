@@ -24,7 +24,7 @@
               />
             </el-col>
             <el-col :xs="24" :sm="14" :md="18">
-              <br>
+              <br />
               <el-date-picker
                 v-model="table.listQuery.created_at"
                 class="md:float-right"
@@ -85,7 +85,7 @@
               <el-table-column align="center" :label="$t('table.user.avatar')">
                 <template slot-scope="{ row }">
                   <el-avatar :size="60" :src="row.avatar">
-                    <img :src="avatarFail">
+                    <img :src="avatarFail" />
                   </el-avatar>
                 </template>
               </el-table-column>

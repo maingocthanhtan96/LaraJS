@@ -7,7 +7,7 @@
         class="sidebar-logo-link no-underline"
         to="/"
       >
-        <img v-if="logo" :src="user.avatar" class="sidebar-logo">
+        <img v-if="logo" :src="user.avatar" class="sidebar-logo" />
         <h1 v-else class="sidebar-title">{{ title }}</h1>
       </router-link>
       <router-link
@@ -16,7 +16,7 @@
         class="sidebar-logo-link no-underline"
         to="/"
       >
-        <img v-if="logo" :src="user.avatar" class="sidebar-logo">
+        <img v-if="logo" :src="user.avatar" class="sidebar-logo" />
         <h1 class="sidebar-title">{{ title }}</h1>
       </router-link>
     </transition>

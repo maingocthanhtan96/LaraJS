@@ -9,7 +9,7 @@
 
     ul {
       &:before {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: 50%;
@@ -31,8 +31,9 @@
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
 
-    &:before, &:after {
-      content: '';
+    &:before,
+    &:after {
+      content: "";
       position: absolute;
       top: 0;
       right: 50%;
@@ -47,7 +48,8 @@
       border-left: 1px solid #ccc;
     }
 
-    &:only-child:after, &:only-child:before {
+    &:only-child:after,
+    &:only-child:before {
       display: none;
     }
 
@@ -55,7 +57,8 @@
       padding-top: 0;
     }
 
-    &:first-child:before, &:last-child:after {
+    &:first-child:before,
+    &:last-child:after {
       border: 0 none;
     }
 
@@ -89,13 +92,18 @@
       -webkit-transition: all 0.5s;
       -moz-transition: all 0.5s;
 
-      &:hover, &:hover + ul li a, &:hover ~ ul a {
+      &:hover,
+      &:hover + ul li a,
+      &:hover ~ ul a {
         background: #c8e4f8;
         color: #000;
         border: 1px solid #94a0b4;
       }
 
-      &:hover + ul li:after, &:hover + ul li:before, &:hover + ul:before, &:hover + ul ul::before {
+      &:hover + ul li:after,
+      &:hover + ul li:before,
+      &:hover + ul:before,
+      &:hover + ul ul::before {
         border-color: #94a0b4;
       }
     }
