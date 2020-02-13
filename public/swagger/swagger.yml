@@ -1,0 +1,265 @@
+openapi: 3.0.0
+info:
+  title: 'Manage API'
+  description: 'Documents Api'
+  contact:
+    email: maingocthanhtan96@gmail.com
+  license:
+    name: 'Go to Larajs'
+    url: /
+  version: 1.0.0
+servers:
+  -
+    url: 'http://local.larajs.com/api/v1'
+    description: 'Api v1'
+  -
+    url: 'http://local.larajs.com/api/v2'
+    description: 'Api v2'
+paths:
+  /login:
+    post:
+      tags:
+        - Auth
+      summary: Login
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  example: example@larajs.com
+                password:
+                  type: string
+                  format: password
+              type: object
+      responses:
+        '200':
+          description: 'Login Success!'
+  /user-info:
+    get:
+      tags:
+        - Auth
+      summary: 'Info user'
+      responses:
+        '200':
+          $ref: '#/components/responses/OK'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/Error'
+      security:
+        -
+          authApi: []
+  /users:
+    get:
+      tags:
+        - User
+      summary: 'List User'
+      responses:
+        '200':
+          $ref: '#/components/responses/OK'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/Error'
+      security:
+        -
+          authApi: []
+    post:
+      tags:
+        - User
+      summary: 'Create User'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          $ref: '#/components/responses/OK'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/Error'
+      security:
+        -
+          authApi: []
+  '/users/{id}':
+    get:
+      tags:
+        - User
+      summary: 'Find User'
+      parameters:
+        -
+          $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          $ref: '#/components/responses/OK'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/Error'
+      security:
+        -
+          authApi: []
+    put:
+      tags:
+        - User
+      summary: 'Update User'
+      parameters:
+        -
+          $ref: '#/components/parameters/id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          $ref: '#/components/responses/OK'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/Error'
+      security:
+        -
+          authApi: []
+    delete:
+      tags:
+        - User
+      summary: 'Delete User'
+      parameters:
+        -
+          $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          $ref: '#/components/responses/OK'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/Error'
+      security:
+        -
+          authApi: []
+components:
+  schemas:
+    User:
+      title: User
+      required:
+        - name
+        - email
+        - password
+        - role_id
+      properties:
+        name:
+          title: Name
+          description: ''
+          type: string
+          default: None
+        email:
+          title: Email
+          description: ''
+          type: string
+          default: None
+          example: example@larajs.com
+        avatar:
+          title: Avatar
+          description: ''
+          type: string
+          default: None
+          example: 'https://lorempixel.com/150/150/?57749'
+        role_id:
+          title: Role
+          description: 'You cann''t set id as 1(role: admin)'
+          type: integer
+          default: None
+          example: '2'
+        password:
+          title: Password
+          description: ''
+          type: string
+          default: None
+          example: larajs
+        created_at:
+          title: 'Create date'
+          description: ''
+          type: string
+          format: date-time
+          default: timestamp
+          example: ''
+        updated_at:
+          title: 'Update date'
+          description: ''
+          type: string
+          format: date-time
+          default: timestamp
+          example: ''
+        deleted_at:
+          title: 'Delete date'
+          description: ''
+          type: string
+          format: date-time
+          default: timestamp
+          example: ''
+      type: object
+  responses:
+    OK:
+      description: Success
+      content:
+        application/json:
+          schema:
+            properties:
+              success:
+                type: string
+                example: 'true'
+              data:
+                type: string
+                example: '[]'
+            type: object
+    NotFound:
+      description: Error
+      content:
+        application/json:
+          schema:
+            properties:
+              success:
+                type: string
+                example: 'false'
+              message:
+                type: string
+                example: '404 not found'
+            type: object
+    Error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            properties:
+              success:
+                type: string
+                example: 'false'
+              message:
+                type: string
+                example: 'Error server'
+            type: object
+  parameters:
+    id:
+      name: id
+      in: path
+      description: ID
+      required: true
+      schema:
+        type: integer
+  securitySchemes:
+    authApi:
+      type: http
+      in: header
+      bearerFormat: JWT
+      scheme: bearer

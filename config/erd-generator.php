@@ -16,13 +16,13 @@ return [
      */
     'ignore' => [
         \App\Models\BaseModel::class,
-        \App\Models\Generator::class,
-        \App\Models\Role::class,
-        \App\Models\Permission::class
+        \App\Models\Generator::class
+        //        \App\Models\Role::class,
+        //        \App\Models\Permission::class
         //         User::class,
-        // Post::class => [
-        //     'user'
-        // ]
+        //         Post::class => [
+        //             'user'
+        //         ]
     ],
 
     /*

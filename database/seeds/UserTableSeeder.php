@@ -17,49 +17,49 @@ class UserTableSeeder extends Seeder
         $admin = User::create([
             'name' => 'Thanh Tan',
             'email' => 'admin@larajs.com',
-            'avatar' => '/images/avatar/logo-tanmnt.png',
+            'avatar' => '/images/logo-tanmnt.png',
             'password' => 'admin123',
             'remember_token' => \Illuminate\Support\Str::random(10)
         ]);
         $manager = User::create([
             'name' => 'Manager',
             'email' => 'manager@larajs.com',
-            'avatar' => '/images/avatar/logo-tanmnt.png',
+            'avatar' => '/images/logo-tanmnt.png',
             'password' => 'manager123',
             'remember_token' => \Illuminate\Support\Str::random(10)
         ]);
         $visitor = User::create([
             'name' => 'Visitor',
             'email' => 'visitor@larajs.com',
-            'avatar' => '/images/avatar/logo-tanmnt.png',
+            'avatar' => '/images/logo-tanmnt.png',
             'password' => 'visitor123',
             'remember_token' => \Illuminate\Support\Str::random(10)
         ]);
         $creator = User::create([
             'name' => 'Creator',
             'email' => 'creator@larajs.com',
-            'avatar' => '/images/avatar/logo-tanmnt.png',
+            'avatar' => '/images/logo-tanmnt.png',
             'password' => 'creator123',
             'remember_token' => \Illuminate\Support\Str::random(10)
         ]);
         $editor = User::create([
             'name' => 'Editor',
             'email' => 'editor@larajs.com',
-            'avatar' => '/images/avatar/logo-tanmnt.png',
+            'avatar' => '/images/logo-tanmnt.png',
             'password' => 'editor123',
             'remember_token' => \Illuminate\Support\Str::random(10)
         ]);
         $deleter = User::create([
             'name' => 'Deleter',
             'email' => 'deleter@larajs.com',
-            'avatar' => '/images/avatar/logo-tanmnt.png',
+            'avatar' => '/images/logo-tanmnt.png',
             'password' => 'deleter123',
             'remember_token' => \Illuminate\Support\Str::random(10)
         ]);
         $developer = User::create([
             'name' => 'Developer',
             'email' => 'developer@larajs.com',
-            'avatar' => '/images/avatar/logo-tanmnt.png',
+            'avatar' => '/images/logo-tanmnt.png',
             'password' => 'developer123',
             'remember_token' => \Illuminate\Support\Str::random(10)
         ]);

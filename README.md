@@ -57,6 +57,7 @@ sudo docker-compose exec workspace bash
 # Init project
 # https://github.com/beyondcode/laravel-er-diagram-generator
 apt-get install graphviz #(For ubuntu)
+brew install graphviz #(For macos)
 composer install
 composer dump-autoload
 
@@ -72,8 +73,11 @@ php artisan migrate --seed
 # install dependency
 npm install && npm install -g cross-env && npm rebuild node-sass
 
-#Generate file lang
+# Generate file lang
 php artisan vue-i18n:generate
+
+# Generate ide
+php artisan ide-helper:generate
 
 # Config Virtual host 
 Exemple: http://local.larajs.com
@@ -89,7 +93,7 @@ npm run dev # or npm run watch
 npm run prod
 
 # Run swagger
-cd app/Larajs/Development && ./swagger.sh
+./swagger.sh
 
 # username, password
 - Amin

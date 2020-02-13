@@ -25,6 +25,7 @@ class SwaggerRelationshipGenerator extends BaseGenerator
     public $relationship;
 
     const DB_TYPE_INTEGER = 'integer';
+    const REF_UPPER = 'Ref';
 
     public function __construct($relationship, $model, $modelCurrent)
     {
@@ -71,7 +72,7 @@ class SwaggerRelationshipGenerator extends BaseGenerator
             );
             $templateData = str_replace(
                 '{{MODEL_CLASS}}',
-                $model . $modelCurrent,
+                self::REF_UPPER . $modelCurrent . $model,
                 $templateData
             );
             $templateData = str_replace(

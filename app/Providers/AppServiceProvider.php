@@ -22,12 +22,6 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->_whereLike();
         $this->_paginate();
-
-        if ($this->app->environment() !== 'production') {
-            $this->app->register(
-                \Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class
-            );
-        }
     }
 
     /**

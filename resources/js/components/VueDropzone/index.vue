@@ -30,7 +30,7 @@ export default {
           maxFilesize: 10,
           addRemoveLinks: true,
           dictDefaultMessage:
-            "<i class='fa fa-cloud-upload'></i>" +
+            "<i class='el-icon-upload text-5xl'></i>" +
             '<br>Drop files here to upload',
           maxFiles: 10,
           headers: {

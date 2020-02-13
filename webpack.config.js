@@ -3,11 +3,7 @@ const ChunkRenamePlugin = require('webpack-chunk-rename-plugin');
 const mix = require('laravel-mix');
 
 function resolve(dir) {
-  return path.join(
-    __dirname,
-    '/resources/js',
-    dir
-  );
+  return path.join(__dirname, '/resources/js', dir);
 }
 
 module.exports = {
@@ -15,8 +11,8 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       vue$: 'vue/dist/vue.esm.js',
-      '@': path.join(__dirname, '/resources/js'),
-    },
+      '@': path.join(__dirname, '/resources/js')
+    }
   },
   module: {
     rules: [
@@ -25,23 +21,25 @@ module.exports = {
         loader: 'svg-sprite-loader',
         include: [resolve('icons')],
         options: {
-          symbolId: 'icon-[name]',
-        },
+          symbolId: 'icon-[name]'
+        }
       },
       {
         test: /\.(js)$/,
         use: 'babel-loader',
-        exclude: /node_modules/,
-      },
-    ],
+        exclude: /node_modules/
+      }
+    ]
   },
   output: {
-    chunkFilename: mix.inProduction() ? 'js/chunks/[name].[chunkhash].js' : 'js/chunks/[name].js'
+    chunkFilename: mix.inProduction()
+      ? 'js/chunks/[name].[chunkhash].js'
+      : 'js/chunks/[name].js'
   },
   plugins: [
     new ChunkRenamePlugin({
       initialChunksWithEntry: true,
       '/js/vendor': '/js/vendor.js'
-    }),
-  ],
+    })
+  ]
 };
