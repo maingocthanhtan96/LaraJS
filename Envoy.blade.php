@@ -1,16 +1,16 @@
-@servers(['local' => '127.0.0.1', 'web' => ['ubuntu@cipherpols.com']])
+@servers(['local' => '127.0.0.1', 'web' => ['ubuntu@13.250.65.200']])
 
 @setup
     $now = new DateTime();
-    $branch = isset($branch) ? $branch : 'gitlab-ci';
+    $branch = isset($branch) ? $branch : 'dev';
     $repository = 'git@gitlab.com:laudaikinhdi/larajs.git';
-    $releases_dir = '/Applications/MAMP/htdocs/Project/larajs/release';
-    $app_dir = '/Applications/MAMP/htdocs/Project/larajs/';
+    $releases_dir = '/var/www/larajs/release';
+    $app_dir = '/var/www/larajs';
     $release = $branch . '-' . date('YmdHis');
     $new_release_dir = $releases_dir .'/'. $release;
 @endsetup
 
-@story('deploy', ['on' => 'local'])
+@story('deploy', ['on' => 'web'])
     clone_repository
     run_composer
     run_deploy_scripts
