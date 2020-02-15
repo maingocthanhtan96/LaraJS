@@ -22,7 +22,7 @@ unit_test:
     - php artisan migrate
     - vendor/bin/phpunit
 
-deploy_staging:
+deploy_dev:
   stage: deploy
   script:
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
