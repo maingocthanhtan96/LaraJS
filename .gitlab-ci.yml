@@ -1,13 +1,12 @@
-image: registry.gitlab.com/laudaikinhdi/larajs:latest
-
-services:
-  - mysql:5.7
+image: lsfiege/laravel-php:7.3
 
 variables:
-  MYSQL_DATABASE: larajs
   MYSQL_ROOT_PASSWORD: root
-  DB_HOST: mysql
-  DB_USERNAME: root
+  MYSQL_USER: homestead
+  MYSQL_PASSWORD: secret
+  MYSQL_DATABASE: homestead
+  DB_HOST: mariadb
+  DB_CONNECTION: mysql
 
 stages:
   - test
