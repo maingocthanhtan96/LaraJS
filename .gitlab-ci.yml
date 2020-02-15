@@ -19,7 +19,6 @@ unit_test:
     - cp .env.example .env
     - composer install
     - php artisan key:generate
-    - vendor/bin/phpunit
 
 deploy_dev:
   stage: deploy
