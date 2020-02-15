@@ -4,8 +4,8 @@ services:
   - mysql:5.7
 
 variables:
-  MYSQL_DATABASE: larajs
-  MYSQL_ROOT_PASSWORD: root
+  MYSQL_DATABASE: homestead
+  MYSQL_ROOT_PASSWORD: secret
   DB_HOST: mysql
   DB_USERNAME: root
 
@@ -19,7 +19,6 @@ unit_test:
     - cp .env.example .env
     - composer install
     - php artisan key:generate
-    - php artisan migrate
     - vendor/bin/phpunit
 
 deploy_dev:
