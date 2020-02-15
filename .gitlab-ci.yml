@@ -3,6 +3,12 @@ image: registry.gitlab.com/laudaikinhdi/larajs:latest
 services:
   - mysql:5.7
 
+variables:
+  MYSQL_DATABASE: larajs
+  MYSQL_ROOT_PASSWORD: root
+  DB_HOST: mysql
+  DB_USERNAME: root
+
 stages:
   - test
   - deploy
