@@ -2,6 +2,12 @@ image: registry.gitlab.com/laudaikinhdi/larajs:latest
 
 services:
   - mysql:5.7
+  
+variables:
+  MYSQL_DATABASE: homestead
+  MYSQL_ROOT_PASSWORD: secret
+  DB_HOST: mysql
+  DB_USERNAME: root
 
 variables:
   MYSQL_DATABASE: larajs
