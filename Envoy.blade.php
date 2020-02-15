@@ -1,4 +1,4 @@
-@servers(['local' => '127.0.0.1', 'web' => ['ubuntu@13.250.65.200']])
+@servers(['local' => '127.0.0.1', 'web' => ['ubuntu@13.229.117.133']])
 
 @setup
     $now = new DateTime();
