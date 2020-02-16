@@ -20,16 +20,16 @@
     clean_old_releases
 @endstory
 
-@task('access_docker')
-    docker-compose exec workspace bash
-@endtask
-
 @task('clone_repository')
     echo 'Cloning repository'
     [ -d {{ $releases_dir }} ] || mkdir {{ $releases_dir }}
     git clone {{ $repository }} {{ $new_release_dir }}
     cd {{ $new_release_dir }}
     git checkout {{ $branch }}
+@endtask
+
+@task('access_docker')
+    docker-compose exec workspace bash
 @endtask
 
 @task('run_composer')
