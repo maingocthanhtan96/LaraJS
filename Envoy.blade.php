@@ -11,8 +11,8 @@
 @endsetup
 
 @story('deploy', ['on' => 'web'])
-    access_docker
     clone_repository
+    access_docker
     run_composer
     run_deploy_scripts
     update_symlinks
