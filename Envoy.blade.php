@@ -12,7 +12,6 @@
 
 @story('deploy', ['on' => 'web'])
     clone_repository
-    access_docker
     run_composer
     run_deploy_scripts
     update_symlinks
@@ -28,20 +27,22 @@
     git checkout {{ $branch }}
 @endtask
 
-@task('access_docker')
+@task('run_composer')
     echo "Access docker"
     cd {{ $app_dir }}/laradock
     sudo docker-compose exec -T workspace bash
-@endtask
 
-@task('run_composer')
-    echo "Starting deployment ({{ $release }} - {{ $new_release_dir }})"
+    echo "Starting deployment ({{ $release }})"
     cd {{ $new_release_dir }}
     echo "Running composer..."
     composer install --prefer-dist --no-scripts -q -o
 @endtask
 
 @task('run_deploy_scripts')
+    echo "Access docker"
+    cd {{ $app_dir }}/laradock
+    sudo docker-compose exec -T workspace bash
+
     echo 'Linking .env file'
     ln -nfs {{ $app_dir }}/.env {{ $new_release_dir }}/.env
 
