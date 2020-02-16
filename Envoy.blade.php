@@ -44,7 +44,6 @@
     php artisan config:clear
     php artisan view:clear
     php artisan storage:link
-    php artisan migrate --force
 
     echo 'Running npm...'
     npm install
