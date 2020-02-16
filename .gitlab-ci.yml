@@ -29,7 +29,7 @@ deploy_dev:
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
-    - ~/.composer/vendor/bin/envoy run deploy --commit="$CI_COMMIT_SHA"
+    - ~/.composer/vendor/bin/envoy run deploy --commit="$CI_COMMIT_SHA" --branch=gitlap-ci
   environment:
     name: DEV
     url: https://larajs.site
