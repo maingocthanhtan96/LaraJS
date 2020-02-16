@@ -1,4 +1,4 @@
-@servers(['local' => '127.0.0.1', 'web' => ['ubuntu@54.254.155.151']])
+@servers(['local' => '127.0.0.1', 'web' => ['ubuntu@13.228.25.165']])
 
 @setup
     $now = new DateTime();
@@ -68,10 +68,10 @@
 @task('update_symlinks')
     echo 'Linking storage directory'
     rm -rf {{ $new_release_dir }}/storage
-    ln -nfs {{ $app_dir }}/storage {{ $new_release_dir }}/storage
+    sudo ln -nfs {{ $app_dir }}/storage {{ $new_release_dir }}/storage
 
     echo 'Linking current release'
-    ln -nfs {{ $new_release_dir }} {{ $app_dir }}/current
+    sudo ln -nfs {{ $new_release_dir }} {{ $app_dir }}/current
 @endtask
 
 @task('clean_old_releases')
