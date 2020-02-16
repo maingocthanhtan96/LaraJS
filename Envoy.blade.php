@@ -35,7 +35,7 @@
 @endtask
 
 @task('run_composer')
-    echo "Starting deployment ({{ $release }})"
+    echo "Starting deployment ({{ $release }} - {{ $new_release_dir }})"
     cd {{ $new_release_dir }}
     echo "Running composer..."
     composer install --prefer-dist --no-scripts -q -o
