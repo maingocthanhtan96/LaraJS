@@ -29,6 +29,7 @@
 @endtask
 
 @task('access_docker')
+    cd {{ $app_dir }}/laradock
     docker-compose exec workspace bash
 @endtask
 
