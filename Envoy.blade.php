@@ -5,12 +5,13 @@
     $branch = isset($branch) ? $branch : 'dev';
     $repository = 'git@gitlab.com:laudaikinhdi/larajs.git';
     $releases_dir = '/var/www/larajs/release';
-    $app_dir = '/var/www/larajs';
+    $app_dir = '/var/www/larajs/app';
     $release = $branch . '-' . date('YmdHis');
     $new_release_dir = $releases_dir .'/'. $release;
 @endsetup
 
 @story('deploy', ['on' => 'web'])
+    access_docker
     clone_repository
     run_composer
     run_deploy_scripts
@@ -18,6 +19,10 @@
     delete_git_metadata
     clean_old_releases
 @endstory
+
+@task('access_dokcer')
+    docker-compose exec workspace bash
+@endtask
 
 @task('clone_repository')
     echo 'Cloning repository'
@@ -44,9 +49,10 @@
     php artisan config:clear
     php artisan view:clear
     php artisan storage:link
+    php artisan migrate --force
 
     echo 'Running npm...'
-    npm install
+    npm install && npm install -g cross-env && npm rebuild node-sass
     npm run prod
 @endtask
 
