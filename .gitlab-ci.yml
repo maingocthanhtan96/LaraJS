@@ -13,11 +13,6 @@ stages:
   - test
   - deploy
 
-cache:
-  paths:
-    - vendor/
-    - node_modules/
-
 unit_test:
   stage: test
   script:
