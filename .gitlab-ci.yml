@@ -3,6 +3,14 @@ image: registry.gitlab.com/laudaikinhdi/larajs:latest
 services:
   - mysql:5.7
 
+# Helper function to setup private key to ssh to server
+.init_opensshclient: &init_opensshclient |
+  'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+  eval $(ssh-agent -s)
+  ssh-add <(echo "$SSH_PRIVATE_KEY")
+  mkdir -p ~/.ssh
+  '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
 variables:
   MYSQL_DATABASE: homestead
   MYSQL_ROOT_PASSWORD: secret
@@ -11,7 +19,8 @@ variables:
 
 stages:
   - test
-  - deploy
+  - dev
+  - staging
 
 unit_test:
   stage: test
@@ -22,18 +31,25 @@ unit_test:
     - vendor/bin/phpunit
 
 deploy_dev:
-  stage: deploy
+  stage: dev
   script:
-    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-    - eval $(ssh-agent -s)
-    - ssh-add <(echo "$SSH_PRIVATE_KEY")
-    - mkdir -p ~/.ssh
-    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-
-    - ~/.composer/vendor/bin/envoy run deploy --commit="$CI_COMMIT_SHA" --branch=gitlap-ci
+    - *init_opensshclient
+    - ~/.composer/vendor/bin/envoy run deploy --commit="$CI_COMMIT_SHA" --branch=dev
   environment:
     name: DEV
     url: https://larajs.site
   when: on_success
   only:
-    - gitlap-ci
+    - dev
+
+deploy_staging:
+  stage: staging
+  script:
+    - *init_opensshclient
+    - ~/.composer/vendor/bin/envoy run deploy --commit="$CI_COMMIT_SHA" --branch=staging
+  environment:
+    name: STAGING
+    url: https://larajs.site
+  when: on_success
+  only:
+    - staging

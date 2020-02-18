@@ -82,7 +82,6 @@ class UserTableSeeder extends Seeder
         $developer->syncRoles($developerRole);
 
         // Setup basic permission
-        $adminRole->givePermissionTo(Acl::permissions());
         $managerRole->givePermissionTo([
             Acl::PERMISSION_PERMISSION_MANAGE,
             Acl::PERMISSION_VISIT,

@@ -35,11 +35,25 @@ class RouteGenerator extends BaseGenerator
     {
         $now = Carbon::now();
         $pathTemplate = 'Router/';
-        $templateData = $this->serviceGenerator->get_template(
-            "route",
-            $pathTemplate,
-            'vuejs'
-        );
+        if (
+            $this->serviceGenerator->getOptions(
+                config('generator.model.options.role_admin'),
+                $model['options']
+            )
+        ) {
+            $templateData = $this->serviceGenerator->get_template(
+                "routeAdmin",
+                $pathTemplate,
+                'vuejs'
+            );
+        } else {
+            $templateData = $this->serviceGenerator->get_template(
+                "route",
+                $pathTemplate,
+                'vuejs'
+            );
+        }
+
         $templateData = str_replace(
             '{{$DATE$}}',
             $now->toDateTimeString(),
@@ -74,7 +88,7 @@ class RouteGenerator extends BaseGenerator
         ) {
             $templateData = str_replace(
                 '{{$ADMIN_ROLE$}}',
-                "roles: ['admin'],",
+                "roles: [superAdmin],",
                 $templateData
             );
         } else {

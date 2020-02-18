@@ -51,8 +51,6 @@ class PermissionController extends Controller
     {
         try {
             $permission = Permission::create($request->all());
-            $adminRole = Role::findByName(Acl::ROLE_ADMIN);
-            $adminRole->givePermissionTo($permission);
 
             return $this->jsonData(new PermissionResource($permission));
         } catch (\Exception $e) {
@@ -115,8 +113,6 @@ class PermissionController extends Controller
     public function destroy(Permission $permission)
     {
         try {
-            $adminRole = Role::findByName(Acl::ROLE_ADMIN);
-            $adminRole->revokePermissionTo($permission);
             $permission->delete();
 
             return $this->jsonSuccess(trans('messages.delete'));

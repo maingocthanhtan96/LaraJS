@@ -4,6 +4,14 @@ export default {
   inserted(el, binding, vnode) {
     const { value } = binding;
     const permissions = store.getters && store.getters.permissions;
+    const roles = store.getters && store.getters.roles;
+
+    if (roles) {
+      const hasRole = roles.includes(store.state.settings.superAdmin);
+      if (hasRole) {
+        return true;
+      }
+    }
 
     if (value && value instanceof Array && value.length > 0) {
       const requiredPermissions = value;
@@ -16,7 +24,7 @@ export default {
       }
     } else {
       throw new Error(
-        `Permissions are required! Example: v-permission="['manage user','manage permission']"`
+        `Permissions are required! Example: v-permission="['editor','manage permission']"`
       );
     }
   }

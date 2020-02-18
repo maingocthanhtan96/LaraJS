@@ -1,5 +1,6 @@
 import { asyncRouterMap, constantRouterMap } from '@/router';
 import { GENERATE_ROUTES, SET_ROUTERS } from '../muation-types';
+import { superAdmin } from '@/settings';
 
 /**
  * Check if it matches the current user right by meta.role
@@ -70,7 +71,7 @@ const actions = {
   [GENERATE_ROUTES]({ commit }, { roles, permissions }) {
     return new Promise(resolve => {
       let accessedRouters;
-      if (roles.includes('admin')) {
+      if (roles.includes(superAdmin)) {
         accessedRouters = asyncRouterMap;
       } else {
         accessedRouters = filterAsyncRoutes(asyncRouterMap, roles, permissions);
