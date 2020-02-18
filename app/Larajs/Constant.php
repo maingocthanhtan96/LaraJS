@@ -28,5 +28,6 @@ final class Constant
     const STATUS_415 = 415; // Unsupported Media Type – Does not support this type of Resource.
     const STATUS_422 = 422; // Unprocessable Entity – Data not validated
     const STATUS_429 = 429; // Too Many Requests – Request was rejected due to restrictions
-    const STATUS_500 = 500; // Internal Server Error — API developers should avoid this error. If an error occurs in the global catch blog, the stracktrace should be logged and not returned as response.
+    const STATUS_500 = 500; // Internal Server Error — API developers should avoid this error.
+    // If an error occurs in the global catch blog, the stracktrace should be logged and not returned as response.
 }

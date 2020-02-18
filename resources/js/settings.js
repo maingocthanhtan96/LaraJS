@@ -45,6 +45,12 @@ module.exports = {
   routerTransition: 'fade-transform',
 
   /**
+   * @type {string} name
+   * @description role user
+   */
+  superAdmin: 'admin',
+
+  /**
    * @type {string | array} 'production' | ['production', 'development']
    * @description Need show err logs component.
    * The default is only used in the production env

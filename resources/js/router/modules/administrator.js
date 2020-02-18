@@ -1,3 +1,5 @@
+import { superAdmin } from '@/settings';
+
 const administrator = {
   path: '/administrator',
   name: 'administrator',
@@ -26,7 +28,7 @@ const administrator = {
       meta: {
         title: 'generator',
         icon: 'tree-table',
-        roles: ['admin']
+        roles: [superAdmin]
       }
     },
     {
@@ -37,7 +39,7 @@ const administrator = {
         title: 'generator_create',
         icon: 'tree-table',
         activeMenu: '/administrator/generator/list',
-        roles: ['admin']
+        roles: [superAdmin]
       },
       hidden: true
     },
@@ -50,7 +52,7 @@ const administrator = {
         title: 'generator_edit',
         icon: 'tree-table',
         activeMenu: '/administrator/generator/list',
-        roles: ['admin']
+        roles: [superAdmin]
       },
       props: route => {
         return {
@@ -67,7 +69,7 @@ const administrator = {
       meta: {
         title: 'generator_relationship',
         activeMenu: '/administrator/generator/list',
-        roles: ['admin']
+        roles: [superAdmin]
       },
       props: route => {
         return {
@@ -83,7 +85,7 @@ const administrator = {
       meta: {
         title: 'user',
         icon: 'user',
-        roles: ['admin']
+        roles: [superAdmin]
       }
     },
     {
@@ -94,7 +96,7 @@ const administrator = {
       meta: {
         title: 'user_create',
         activeMenu: '/administrator/user/list',
-        roles: ['admin']
+        roles: [superAdmin]
       }
     },
     {
@@ -105,7 +107,7 @@ const administrator = {
       meta: {
         title: 'user_edit',
         activeMenu: '/administrator/user/list',
-        roles: ['admin']
+        roles: [superAdmin]
       },
       props: route => {
         return {

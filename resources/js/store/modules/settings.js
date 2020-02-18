@@ -8,7 +8,8 @@ const {
   sidebarLogo,
   redirect,
   showTrans,
-  routerTransition
+  routerTransition,
+  superAdmin
 } = defaultSettings;
 
 const state = {
@@ -18,7 +19,8 @@ const state = {
   sidebarLogo: sidebarLogo,
   redirect: redirect,
   showTrans: showTrans,
-  routerTransition: routerTransition
+  routerTransition: routerTransition,
+  superAdmin: superAdmin
 };
 
 const mutations = {

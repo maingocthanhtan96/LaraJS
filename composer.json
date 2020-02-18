@@ -7,6 +7,14 @@
         "laravel"
     ],
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Tan Mai",
+            "email": "maingocthanthan96@gmail.com",
+            "homepage": "https://larajs.site",
+            "role": "Developer"
+        }
+    ],
     "require": {
         "php": "^7.2",
         "doctrine/dbal": "^2.10.1",

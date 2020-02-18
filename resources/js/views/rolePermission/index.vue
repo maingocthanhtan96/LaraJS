@@ -51,17 +51,16 @@
               label="Actions"
             >
               <template slot-scope="{ row }">
-                <div v-if="row.name === 'admin' && checkRole(['admin'])">
+                <div v-if="row.name === superAdmin && checkRole([superAdmin])">
                   <el-button
                     type="success"
                     round
-                    icon="el-icon-view
-"
+                    icon="el-icon-view"
                     size="small"
                     @click="handleEditRolePermissions(row.id)"
                   />
                 </div>
-                <div v-if="row.name !== 'admin'">
+                <div v-if="row.name !== superAdmin">
                   <el-button
                     type="primary"
                     icon="el-icon-edit"
@@ -224,7 +223,7 @@
                 Cancel
               </el-button>
               <el-button
-                v-if="currentRole.name !== 'admin'"
+                v-if="currentRole.name !== superAdmin"
                 type="primary"
                 icon="el-icon-check"
                 @click="updateRolePermission('formRole')"
@@ -395,6 +394,9 @@ export default {
     };
   },
   computed: {
+    superAdmin() {
+      return this.$store.state.settings.superAdmin;
+    },
     currentRole() {
       const role = this.roles.find(role => role.id === this.currentRoleId);
       if (role === undefined) {
@@ -550,7 +552,7 @@ export default {
       return {
         id: permission.id,
         name: permission.name,
-        disabled: checkRole(['admin'])
+        disabled: checkRole([this.superAdmin])
           ? false
           : permission.name === 'manage permission'
       };
