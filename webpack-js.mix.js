@@ -27,6 +27,7 @@ mix
     'vue-i18n',
     'axios',
     'element-ui',
+    'nprogress',
     'echarts'
   ])
   .webpackConfig(config)
