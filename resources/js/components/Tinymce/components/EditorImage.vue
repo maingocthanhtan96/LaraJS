@@ -7,7 +7,7 @@
       type="primary"
       @click="dialogVisible = true"
     >
-      upload
+      Upload
     </el-button>
     <el-dialog :visible.sync="dialogVisible">
       <el-upload
@@ -119,8 +119,7 @@ export default {
 <style lang="scss" scoped>
 .editor-slide-upload {
   margin-bottom: 20px;
-
-  .el-upload--picture-card::v-deep {
+  ::v-deep .el-upload--picture-card {
     width: 100%;
   }
 }
