@@ -35,6 +35,7 @@
 
 <script>
   const PERMISSION_DEVELOP = 'develop';
+  const PERMISSION_ROLE = 'admin';
   fetch('/api/v1/user-info', {
     method: 'get',
     headers: new Headers({
@@ -47,8 +48,10 @@
         return false;
       }
       const permissions = res.data.permissions;
+      const roles = res.data.roles;
       const checkPermission = permissions.some(val => val === PERMISSION_DEVELOP);
-      if (!checkPermission) {
+      const checkRoles = roles.some(val => val === PERMISSION_ROLE);
+      if (!checkPermission && !checkRoles) {
         document.location.href = "/";
       }
     });

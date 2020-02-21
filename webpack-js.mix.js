@@ -45,6 +45,7 @@ if (mix.inProduction()) {
   // Development settings
   mix.browserSync({
     proxy: process.env.APP_URL,
+    port: 8080,
     files: ['resources/js/**/*']
   });
   mix.sourceMaps().webpackConfig({

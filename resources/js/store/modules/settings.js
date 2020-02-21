@@ -2,24 +2,24 @@
 import defaultSettings from '@/settings';
 
 const {
-  showSettings,
   tagsView,
   fixedHeader,
   sidebarLogo,
   redirect,
   showTrans,
-  routerTransition,
+  routerTransitionTo,
+  routerTransitionFrom,
   superAdmin
 } = defaultSettings;
 
 const state = {
-  showSettings: showSettings,
   tagsView: tagsView,
   fixedHeader: fixedHeader,
   sidebarLogo: sidebarLogo,
   redirect: redirect,
   showTrans: showTrans,
-  routerTransition: routerTransition,
+  routerTransitionTo: routerTransitionTo,
+  routerTransitionFrom: routerTransitionFrom,
   superAdmin: superAdmin
 };
 

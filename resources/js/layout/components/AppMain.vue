@@ -1,6 +1,6 @@
 <template>
   <section class="app-main">
-    <transition :name="routerTransition" mode="out-in">
+    <transition :name="transitionName" mode="out-in">
       <keep-alive :include="cachedViews">
         <router-view :key="key" />
       </keep-alive>
@@ -11,15 +11,27 @@
 <script>
 export default {
   name: 'AppMain',
+  data() {
+    return {
+      transitionName: ''
+    };
+  },
   computed: {
     cachedViews() {
       return this.$store.getters.cachedViews;
     },
     key() {
       return this.$route.fullPath;
-    },
-    routerTransition() {
-      return this.$store.state.settings.routerTransition;
+    }
+  },
+  watch: {
+    $route(to, from) {
+      const toDepth = to.path.split('/').length;
+      const fromDepth = from.path.split('/').length;
+      this.transitionName =
+        toDepth < fromDepth
+          ? this.$store.state.settings.routerTransitionTo
+          : this.$store.state.settings.routerTransitionFrom;
     }
   }
 };

@@ -108,7 +108,7 @@ class UserTableSeeder extends Seeder
             $userFaker = User::create([
                 'name' => $faker->name,
                 'email' => $faker->unique()->email,
-                'avatar' => $faker->imageUrl($width = 150, $height = 150),
+                'avatar' => '/images/logo-tanmnt.png',
                 'password' => 'secret',
                 'remember_token' => \Illuminate\Support\Str::random(10)
                 //{{SEEDER_NOT_DELETE_THIS_LINE}}

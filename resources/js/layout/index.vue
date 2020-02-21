@@ -13,9 +13,6 @@
       </div>
       <app-main />
       <footer-main />
-      <right-panel v-if="showSettings">
-        <settings />
-      </right-panel>
     </div>
     <!--<el-tooltip> to show the helptext -->
     <el-tooltip placement="top" :content="$t('common.back_to_top')">
@@ -30,7 +27,6 @@
 </template>
 
 <script>
-const RightPanel = () => import('@/components/RightPanel');
 import BackToTop from '@/components/BackToTop';
 import { AppMain, Navbar, Sidebar } from './components';
 const TagViews = () => import('./components/TagsView');
@@ -43,7 +39,6 @@ export default {
   components: {
     AppMain,
     Navbar,
-    RightPanel,
     Sidebar,
     TagViews,
     FooterMain,
@@ -70,7 +65,6 @@ export default {
     ...mapState({
       sidebar: state => state.app.sidebar,
       device: state => state.app.device,
-      showSettings: state => state.settings.showSettings,
       needTagsView: state => state.settings.tagsView,
       fixedHeader: state => state.settings.fixedHeader
     }),

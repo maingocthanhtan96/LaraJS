@@ -1,12 +1,12 @@
 import { superAdmin } from '@/settings';
 
 const administrator = {
-  path: '/administrator',
-  name: 'administrator',
-  redirect: '/administrator/roles',
+  path: '/administrators',
+  name: 'administrators',
+  redirect: '/administrators/roles',
   component: () => import('@/layout'),
   meta: {
-    title: 'administrator',
+    title: 'administrators',
     icon: 'admin',
     permissions: ['view menu role_permission']
   },
@@ -38,7 +38,7 @@ const administrator = {
       meta: {
         title: 'generator_create',
         icon: 'tree-table',
-        activeMenu: '/administrator/generator/list',
+        activeMenu: '/administrators/generator/list',
         roles: [superAdmin]
       },
       hidden: true
@@ -51,7 +51,7 @@ const administrator = {
       meta: {
         title: 'generator_edit',
         icon: 'tree-table',
-        activeMenu: '/administrator/generator/list',
+        activeMenu: '/administrators/generator/list',
         roles: [superAdmin]
       },
       props: route => {
@@ -68,7 +68,7 @@ const administrator = {
       component: () => import('@/views/generator/relationship'),
       meta: {
         title: 'generator_relationship',
-        activeMenu: '/administrator/generator/list',
+        activeMenu: '/administrators/generator/list',
         roles: [superAdmin]
       },
       props: route => {
@@ -95,7 +95,7 @@ const administrator = {
       component: () => import('@/views/user/form'),
       meta: {
         title: 'user_create',
-        activeMenu: '/administrator/user/list',
+        activeMenu: '/administrators/user/list',
         roles: [superAdmin]
       }
     },
@@ -106,7 +106,7 @@ const administrator = {
       component: () => import('@/views/user/form'),
       meta: {
         title: 'user_edit',
-        activeMenu: '/administrator/user/list',
+        activeMenu: '/administrators/user/list',
         roles: [superAdmin]
       },
       props: route => {

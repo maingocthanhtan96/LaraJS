@@ -15,12 +15,6 @@ module.exports = {
 
   /**
    * @type {boolean} true | false
-   * @description Whether show the settings right-panel
-   */
-  showSettings: false,
-
-  /**
-   * @type {boolean} true | false
    * @description Whether need tagsView
    */
   tagsView: true,
@@ -38,23 +32,16 @@ module.exports = {
   sidebarLogo: true,
 
   /**
-   * @type {string} fade / fade-transform / zoom-fade / slide-fade / zoom-out / fade-bottom / fade-bottom-2x / fade-top / fade-top-2x
+   * @type {string} fade / fade-transform-left / fade-transform-left / zoom-fade / slide-fade / zoom-out / fade-bottom / fade-bottom-2x / fade-top / fade-top-2x
    * @default fade-transform
    * @description transition change page
    */
-  routerTransition: 'fade-transform',
+  routerTransitionTo: 'fade-transform-left',
+  routerTransitionFrom: 'fade-transform-right',
 
   /**
    * @type {string} name
    * @description role user
    */
-  superAdmin: 'admin',
-
-  /**
-   * @type {string | array} 'production' | ['production', 'development']
-   * @description Need show err logs component.
-   * The default is only used in the production env
-   * If you want to also use it in dev, you can pass ['production', 'development']
-   */
-  errorLog: 'production'
+  superAdmin: 'admin'
 };
