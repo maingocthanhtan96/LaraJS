@@ -92,7 +92,7 @@ class FormGenerator extends BaseGenerator
 
         $fileName =
             $this->serviceGenerator->folderPages($model['name']) .
-            '/form' .
+            '/Form' .
             '.vue';
         $this->serviceFile->createFile($this->path, $fileName, $templateData);
     }

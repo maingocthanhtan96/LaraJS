@@ -36,7 +36,7 @@ export const constantRouterMap = [
     path: '/login',
     name: 'login',
     hidden: true,
-    component: () => import('@/views/auth/login'),
+    component: () => import('@/views/auth/Login'),
   },
   {
     path: '/reset-password',

@@ -56,7 +56,7 @@ class FormUpdateGenerator extends BaseGenerator
     private function generate($generator, $model, $updateFields)
     {
         $fileName =
-            $this->serviceGenerator->folderPages($model['name']) . '/form.vue';
+            $this->serviceGenerator->folderPages($model['name']) . '/Form.vue';
         $templateDataReal = $this->serviceGenerator->getFile(
             'views',
             'vuejs',

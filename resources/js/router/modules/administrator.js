@@ -34,7 +34,7 @@ const administrator = {
     {
       path: 'generator/create',
       name: 'generator-create',
-      component: () => import('@/views/generator/form'),
+      component: () => import('@/views/generator/Form'),
       meta: {
         title: 'generator_create',
         icon: 'tree-table',
@@ -47,7 +47,7 @@ const administrator = {
       path: 'generator/edit/:id(\\d+)',
       name: 'generator-edit',
       hidden: true,
-      component: () => import('@/views/generator/form'),
+      component: () => import('@/views/generator/Form'),
       meta: {
         title: 'generator_edit',
         icon: 'tree-table',
@@ -65,7 +65,7 @@ const administrator = {
       path: 'generator/relationship/:id(\\d+)',
       name: 'generator-relationship',
       hidden: true,
-      component: () => import('@/views/generator/relationship'),
+      component: () => import('@/views/generator/Relationship'),
       meta: {
         title: 'generator_relationship',
         activeMenu: '/administrators/generator',
@@ -92,7 +92,7 @@ const administrator = {
       path: 'user/create',
       name: 'user-create',
       hidden: true,
-      component: () => import('@/views/user/form'),
+      component: () => import('@/views/user/Form'),
       meta: {
         title: 'user_create',
         activeMenu: '/administrators/user',
@@ -103,7 +103,7 @@ const administrator = {
       path: 'user/edit/:id(\\d+)',
       name: 'user-edit',
       hidden: true,
-      component: () => import('@/views/user/form'),
+      component: () => import('@/views/user/Form'),
       meta: {
         title: 'user_edit',
         activeMenu: '/administrators/user',

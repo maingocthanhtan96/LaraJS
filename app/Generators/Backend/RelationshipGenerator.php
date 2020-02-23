@@ -397,7 +397,7 @@ class RelationshipGenerator extends BaseGenerator
         $notDelete = config('generator.not_delete.vuejs.form');
         $fileName =
             $this->serviceGenerator->folderPages($modelRelationship) .
-            '/form.vue';
+            '/Form.vue';
         $templateDataReal = $this->serviceGenerator->getFile(
             'views',
             'vuejs',
