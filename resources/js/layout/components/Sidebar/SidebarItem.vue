@@ -61,16 +61,16 @@ export default {
     // route object
     item: {
       type: Object,
-      required: true
+      required: true,
     },
     isNest: {
       type: Boolean,
-      default: false
+      default: false,
     },
     basePath: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
   data() {
     // To fix https://github.com/PanJiaChen/vue-admin-template/issues/237
@@ -112,7 +112,7 @@ export default {
       }
       return path.resolve(this.basePath, routePath);
     },
-    generateTitle
-  }
+    generateTitle,
+  },
 };
 </script>

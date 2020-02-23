@@ -189,81 +189,81 @@ export default {
     // Upload field name
     field: {
       type: String,
-      default: 'avatar'
+      default: 'avatar',
     },
     // Identify
     ki: {
-      default: 0
+      default: 0,
     },
     // Show the control or stept
     value: {
-      default: true
+      default: true,
     },
     // URL to upload
     url: {
       type: String,
-      default: 'upload-file/store-avatar'
+      default: 'upload-file/store-avatar',
     },
     // Other data to be uploaded along with file, as in object format
     params: {
       type: Object,
-      default: null
+      default: null,
     },
     // Add custom headers
     headers: {
       type: Object,
-      default: null
+      default: null,
     },
     // Width to crop
     width: {
       type: Number,
-      default: 200
+      default: 200,
     },
     // Height to crop
     height: {
       type: Number,
-      default: 200
+      default: 200,
     },
     // Show/hide rotation function
     stepRotate: {
       type: Boolean,
-      default: true
+      default: true,
     },
     // Circle when preview image
     stepCircle: {
       type: Boolean,
-      default: false
+      default: false,
     },
     // Square when preview image
     stepSquare: {
       type: Boolean,
-      default: false
+      default: false,
     },
     // Max-size of single file
     maxSize: {
       type: Number,
-      default: 10240
+      default: 10240,
     },
     // Language type
     langType: {
       type: String,
-      default: 'en'
+      default: 'en',
     },
     // Language pack
     langExt: {
       type: Object,
-      default: null
+      default: null,
     },
     // Image format
     imgFormat: {
       type: String,
-      default: 'png'
+      default: 'png',
     },
     // For cross-domain support, credentials will be sent
     withCredentials: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     const that = this;
@@ -313,18 +313,18 @@ export default {
         mX: 0, // Mouse pressed coordinates
         mY: 0,
         x: 0, // scale original coordinates
-        y: 0
+        y: 0,
       },
       // Generate container size for image preview
       previewContainer: {
         width: 100,
-        height: 100
+        height: 100,
       },
       // Original container size
       sourceImgContainer: {
         // sic
         width: 240,
-        height: 184 // If the generated graph scale is consistent with this, there will be a bug, first change to a special format
+        height: 184, // If the generated graph scale is consistent with this, there will be a bug, first change to a special format
       },
       // Original image display attribute
       scale: {
@@ -343,8 +343,8 @@ export default {
         minWidth: 0, // Min width
         minHeight: 0,
         naturalWidth: 0, // Original width
-        naturalHeight: 0
-      }
+        naturalHeight: 0,
+      },
     };
   },
   computed: {
@@ -353,7 +353,7 @@ export default {
       const { progress } = this;
 
       return {
-        width: progress + '%'
+        width: progress + '%',
       };
     },
     // Original image
@@ -370,7 +370,7 @@ export default {
         '-ms-transform': 'rotate(' + scale.degree + 'deg)', // Compatible with IE9
         '-moz-transform': 'rotate(' + scale.degree + 'deg)', // Compatible with FireFox
         '-webkit-transform': 'rotate(' + scale.degree + 'deg)', // Safari and Chrome
-        '-o-transform': 'rotate(' + scale.degree + 'deg)' // Opera
+        '-o-transform': 'rotate(' + scale.degree + 'deg)', // Opera
       };
     },
     // Original mark attribute
@@ -398,7 +398,7 @@ export default {
         x,
         y,
         width: w,
-        height: h
+        height: h,
       };
     },
     // Original mark style
@@ -412,7 +412,7 @@ export default {
         sim.height === sic.height ? sim.height : (sic.height - sim.height) / 2;
       return {
         width: w + 'px',
-        height: h + 'px'
+        height: h + 'px',
       };
     },
     previewStyle() {
@@ -429,16 +429,16 @@ export default {
       }
       return {
         width: w + 'px',
-        height: h + 'px'
+        height: h + 'px',
       };
-    }
+    },
   },
   watch: {
     value(newValue) {
       if (newValue && this.loading !== 1) {
         this.reset();
       }
-    }
+    },
   },
   methods: {
     // Click ripple effect
@@ -536,7 +536,7 @@ export default {
         scale,
         sourceImgUrl,
         sourceImgMasking,
-        lang
+        lang,
       } = that;
       const sim = sourceImgMasking;
       const img = new Image();
@@ -607,7 +607,7 @@ export default {
       const {
         sourceImgMouseDown: { on, mX, mY, x, y },
         scale,
-        sourceImgMasking
+        sourceImgMasking,
       } = this;
       const sim = sourceImgMasking;
       const nX = et.screenX;
@@ -737,7 +737,7 @@ export default {
         height,
         x,
         y,
-        range
+        range,
       } = scale;
       const sim = sourceImgMasking;
       // Mask width
@@ -781,7 +781,7 @@ export default {
         mime,
         sourceImg,
         scale: { x, y, width, height, degree },
-        sourceImgMasking: { scale }
+        sourceImgMasking: { scale },
       } = that;
       const canvas = that.$refs.canvas;
       const ctx = canvas.getContext('2d');
@@ -829,7 +829,7 @@ export default {
         field,
         ki,
         createImgUrl,
-        withCredentials
+        withCredentials,
       } = this;
       const fmData = new FormData();
       fmData.append(
@@ -856,7 +856,7 @@ export default {
       request({
         url,
         method: 'post',
-        data: fmData
+        data: fmData,
       })
         .then(resData => {
           that.loading = 2;
@@ -870,7 +870,7 @@ export default {
             that.$emit('crop-upload-fail', err, field, ki);
           }
         });
-    }
+    },
   },
   created() {
     // Binding button esc to hide this plugin event
@@ -879,7 +879,7 @@ export default {
         this.off();
       }
     });
-  }
+  },
 };
 </script>
 

@@ -152,7 +152,7 @@
                     class="divTableRow hover:bg-gray-200"
                     :class="{
                       draggable:
-                        !disabledMethod(index) && index >= formTemp.length
+                        !disabledMethod(index) && index >= formTemp.length,
                     }"
                     status-icon
                   >
@@ -424,10 +424,10 @@ const generatorResource = new GeneratorResource();
 export default {
   components: {
     draggable,
-    Mallki
+    Mallki,
   },
   directives: {
-    waves
+    waves,
   },
   data() {
     return {
@@ -444,14 +444,14 @@ export default {
           after_column: '',
           search: false,
           sort: true,
-          show: true
-        }
+          show: true,
+        },
       ],
       formModel: {
         name: '',
         name_trans: '',
         limit: 25,
-        options: []
+        options: [],
       },
       formRename: [],
       formDrop: [],
@@ -462,24 +462,24 @@ export default {
       dbType: [
         {
           label: 'Numeric',
-          options: ['INT', 'BIGINT', 'FLOAT', 'DOUBLE', 'BOOLEAN']
+          options: ['INT', 'BIGINT', 'FLOAT', 'DOUBLE', 'BOOLEAN'],
         },
         {
           label: 'Date and time',
-          options: ['DATE', 'DATETIME', 'TIME', 'YEAR']
+          options: ['DATE', 'DATETIME', 'TIME', 'YEAR'],
         },
         {
           label: 'String',
-          options: ['VARCHAR', 'TEXT', 'LONGTEXT', 'ENUM']
+          options: ['VARCHAR', 'TEXT', 'LONGTEXT', 'ENUM'],
         },
         {
           label: 'JSON',
-          options: ['JSON']
+          options: ['JSON'],
         },
         {
           label: 'FILE',
-          options: ['FILE']
-        }
+          options: ['FILE'],
+        },
       ],
       defaultValue: ['None', 'NULL', 'As define'],
       defaultValueNotAs: ['None', 'NULL'],
@@ -487,7 +487,7 @@ export default {
       afterColumn: [],
       notSearch: ['FILE', 'JSON'],
       notSoft: ['FILE', 'JSON'],
-      loading: false
+      loading: false,
     };
   },
   computed: {
@@ -500,7 +500,7 @@ export default {
                 callback(
                   new Error(
                     this.$t('validation.required', {
-                      attribute: this.$t('generator.field_name')
+                      attribute: this.$t('generator.field_name'),
                     })
                   )
                 );
@@ -520,52 +520,52 @@ export default {
                 }
               }
             },
-            trigger: ['change', 'blur']
-          }
+            trigger: ['change', 'blur'],
+          },
         ],
         field_name_trans: [
           {
             required: true,
             message: this.$t('validation.required', {
-              attribute: this.$t('generator.field_name_trans')
+              attribute: this.$t('generator.field_name_trans'),
             }),
-            trigger: ['change', 'blur']
-          }
+            trigger: ['change', 'blur'],
+          },
         ],
         db_type: [
           {
             required: true,
             message: this.$t('validation.required', {
-              attribute: this.$t('generator.db_type')
+              attribute: this.$t('generator.db_type'),
             }),
-            trigger: ['change', 'blur']
-          }
+            trigger: ['change', 'blur'],
+          },
         ],
         enum: [
           {
             required: true,
             message: this.$t('validation.required', { attribute: 'Enum' }),
-            trigger: ['change', 'blur']
-          }
+            trigger: ['change', 'blur'],
+          },
         ],
         default_value: [
           {
             required: true,
             message: this.$t('validation.required', {
-              attribute: this.$t('generator.default_value')
+              attribute: this.$t('generator.default_value'),
             }),
-            trigger: ['change', 'blur']
-          }
+            trigger: ['change', 'blur'],
+          },
         ],
         as_define: [
           {
             required: true,
             message: this.$t('validation.required', {
-              attribute: this.$t('generator.as_define')
+              attribute: this.$t('generator.as_define'),
             }),
-            trigger: ['change', 'blur']
-          }
-        ]
+            trigger: ['change', 'blur'],
+          },
+        ],
       };
     },
     modalRules() {
@@ -577,7 +577,7 @@ export default {
                 callback(
                   new Error(
                     this.$t('validation.required', {
-                      attribute: this.$t('generator.form_model_name')
+                      attribute: this.$t('generator.form_model_name'),
                     })
                   )
                 );
@@ -585,20 +585,20 @@ export default {
                 this.checkModelMethod(callback);
               }
             },
-            trigger: ['change']
-          }
+            trigger: ['change'],
+          },
         ],
         name_trans: [
           {
             required: true,
             message: this.$t('validation.required', {
-              attribute: this.$t('generator.form_model_name_trans')
+              attribute: this.$t('generator.form_model_name_trans'),
             }),
-            trigger: ['change', 'blur']
-          }
-        ]
+            trigger: ['change', 'blur'],
+          },
+        ],
       };
-    }
+    },
   },
   watch: {
     form: {
@@ -621,7 +621,7 @@ export default {
           const index = this.formTemp.findIndex(temp => val.id === temp.id);
           this.formRename.push({
             field_name_new: val,
-            field_name_old: this.formTemp[index]
+            field_name_old: this.formTemp[index],
           });
         });
         this.form.forEach((column, indexColumn) => {
@@ -642,8 +642,8 @@ export default {
           });
         });
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
   async mounted() {
     const { id } = this.$route.params;
@@ -691,7 +691,7 @@ export default {
           cb(
             new Error(
               this.$t('validation.required', {
-                attribute: this.$t('generator.form_model_name')
+                attribute: this.$t('generator.form_model_name'),
               })
             )
           );
@@ -709,7 +709,7 @@ export default {
           cb(
             new Error(
               this.$t('validation.required', {
-                attribute: this.$t('generator.field_name')
+                attribute: this.$t('generator.field_name'),
               })
             )
           );
@@ -747,20 +747,20 @@ export default {
         generatorResource
           .store({
             model: this.formModel,
-            fields: this.form
+            fields: this.form,
           })
           .then(() => {
             this.$message({
               showClose: true,
               message: this.$t('messages.create'),
-              type: 'success'
+              type: 'success',
             });
             this.loading = false;
-            // window.location.href = '/administrator/generator/list';
+            // window.location.href = '/administrator/generator';
           })
           .catch(() => {
             this.loading = false;
-            // window.location.href = '/administrator/generator/list';
+            // window.location.href = '/administrator/generator';
           });
       } else {
         this.loading = false;
@@ -788,14 +788,14 @@ export default {
             fields_update: formClone,
             rename: this.formRename,
             change: this.formChange,
-            drop: this.formDrop
+            drop: this.formDrop,
           })
           .then(() => {
             this.loading = false;
             this.$message({
               showClose: true,
               message: this.$t('messages.update'),
-              type: 'success'
+              type: 'success',
             });
             // window.location.href = '/administrator/generator/index';
           })
@@ -830,7 +830,7 @@ export default {
         after_column: '',
         search: true,
         sort: true,
-        show: true
+        show: true,
       });
       this.afterColumn.push({ id: newID, val: '' });
     },
@@ -838,7 +838,7 @@ export default {
       this.$confirm(this.$t('generator.confirm_remove_row'), 'Warning', {
         confirmButtonText: this.$t('button.ok'),
         cancelButtonText: this.$t('button.cancel'),
-        type: 'warning'
+        type: 'warning',
       })
         .then(() => {
           if (this.$route.params.id && this.formTemp[index]) {
@@ -855,7 +855,7 @@ export default {
           this.form.splice(index, 1);
           this.$message({
             type: 'success',
-            message: this.$t('messages.success')
+            message: this.$t('messages.success'),
           });
         })
         .catch(() => {});
@@ -876,8 +876,8 @@ export default {
     },
     disableTrans(id) {
       return this.formTemp.some(val => val.id === id);
-    }
-  }
+    },
+  },
 };
 </script>
 

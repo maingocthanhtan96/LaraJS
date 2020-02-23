@@ -86,14 +86,13 @@ class ViewGenerator extends BaseGenerator
             $templateData
         );
         $folderName =
-            $this->path .
-            $this->serviceGenerator->modelNameNotPluralFe($model['name']);
+            $this->path . $this->serviceGenerator->folderPages($model['name']);
         if (!is_dir($folderName)) {
             mkdir($folderName, 0755, true);
         }
 
         $fileName =
-            $this->serviceGenerator->modelNameNotPluralFe($model['name']) .
+            $this->serviceGenerator->folderPages($model['name']) .
             '/index' .
             '.vue';
         $this->serviceFile->createFile($this->path, $fileName, $templateData);

@@ -225,7 +225,7 @@ class MigrationUpdateGenerator extends BaseGenerator
             $fieldsGenerate[] =
                 '$table->dropColumn("' .
                 trim($field['field_name']) .
-                '");//Drop Update';
+                '"); //Drop Update';
         }
 
         foreach ($updateFields['renameFields'] as $rename) {

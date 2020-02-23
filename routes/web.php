@@ -10,5 +10,4 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('{path}', 'LarajsController@viewLarajs')->where('path', '(.*)');
+Route::get('{path}', 'LaraJSController')->where('path', '(.*)');

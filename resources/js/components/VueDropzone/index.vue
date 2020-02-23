@@ -19,7 +19,7 @@ const token = getToken() || '';
 export default {
   name: 'VueDropzone',
   components: {
-    vueDropzone: vue2Dropzone
+    vueDropzone: vue2Dropzone,
   },
   props: {
     options: {
@@ -34,25 +34,25 @@ export default {
             '<br>Drop files here to upload',
           maxFiles: 10,
           headers: {
-            Authorization: 'Bearer ' + token
-          }
+            Authorization: 'Bearer ' + token,
+          },
         };
-      }
+      },
     },
     id: {
       type: String,
-      required: true
+      required: true,
     },
     defaultImg: {
       type: [String, Array],
       default() {
         return [];
-      }
-    }
+      },
+    },
   },
   data() {
     return {
-      initOnce: true
+      initOnce: true,
     };
   },
   watch: {
@@ -66,7 +66,7 @@ export default {
       }
       this.initImages(val);
       this.initOnce = false;
-    }
+    },
   },
   methods: {
     addFile(file) {
@@ -92,11 +92,11 @@ export default {
         }
         return true;
       });
-    }
+    },
   },
   destroy() {
     this.$destroy();
-  }
+  },
 };
 </script>
 

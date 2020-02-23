@@ -11,9 +11,9 @@ export default {
     content: {
       type: String,
       required: false,
-      default: ''
-    }
-  }
+      default: '',
+    },
+  },
 };
 </script>
 

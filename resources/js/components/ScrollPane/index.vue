@@ -16,7 +16,7 @@ export default {
   name: 'ScrollPane',
   data() {
     return {
-      left: 0
+      left: 0,
     };
   },
   methods: {
@@ -67,8 +67,8 @@ export default {
           $scrollWrapper.scrollLeft = beforePrevTagOffsetLeft;
         }
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

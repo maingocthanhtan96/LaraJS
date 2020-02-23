@@ -9,7 +9,7 @@ function handleClick(el, binding) {
       {
         ele: el, // Main wave element
         type: 'hit', // hit: Wave at click location. center: Center point
-        color: 'rgba(0, 0, 0, 0.15)' // Ripple color
+        color: 'rgba(0, 0, 0, 0.15)', // Ripple color
       },
       customOpts
     );
@@ -55,7 +55,7 @@ function handleClick(el, binding) {
 
   if (!el[context]) {
     el[context] = {
-      removeHandle: handle
+      removeHandle: handle,
     };
   } else {
     el[context].removeHandle = handle;
@@ -76,5 +76,5 @@ export default {
     el.removeEventListener('click', el[context].removeHandle, false);
     el[context] = null;
     delete el[context];
-  }
+  },
 };

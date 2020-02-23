@@ -11,7 +11,7 @@ import permission from '@/directive/permission';
 // start third party
 Vue.use(ElementUI, {
   size: localStorage.getItem('size') || 'medium',
-  i18n: (key, value) => i18n.t(key, value)
+  i18n: (key, value) => i18n.t(key, value),
 });
 // end third party
 
@@ -45,5 +45,5 @@ new Vue({
   i18n,
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
 }).$mount('#app');

@@ -13,7 +13,7 @@ import { getToken, setToken } from './auth';
 // Create axios instance
 const service = axios.create({
   baseURL: process.env.MIX_BASE_API,
-  timeout: 60000 // Request timeout
+  timeout: 60000, // Request timeout
 });
 
 // request
@@ -55,7 +55,7 @@ service.interceptors.response.use(
         Message({
           message: res.data.message || 'Error',
           type: 'error',
-          duration: 5 * 1000
+          duration: 5 * 1000,
         });
       }
       console.log('Error response: ', res); // for debug

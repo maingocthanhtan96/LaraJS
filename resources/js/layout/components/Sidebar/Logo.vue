@@ -31,18 +31,18 @@ export default {
   props: {
     collapse: {
       type: Boolean,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
       title: this.$store.getters.user.name,
-      logo: true
+      logo: true,
     };
   },
   computed: {
-    ...mapGetters(['user'])
-  }
+    ...mapGetters(['user']),
+  },
 };
 </script>
 

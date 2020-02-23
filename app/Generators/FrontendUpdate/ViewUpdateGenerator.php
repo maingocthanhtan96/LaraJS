@@ -46,8 +46,7 @@ class ViewUpdateGenerator extends BaseGenerator
     private function generate($generator, $model, $updateFields)
     {
         $fileName =
-            $this->serviceGenerator->modelNameNotPluralFe($model['name']) .
-            '/index.vue';
+            $this->serviceGenerator->folderPages($model['name']) . '/index.vue';
         $templateDataReal = $this->serviceGenerator->getFile(
             'views',
             'vuejs',

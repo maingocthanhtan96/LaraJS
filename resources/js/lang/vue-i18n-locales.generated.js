@@ -6,7 +6,7 @@ export default {
       reset: 'Your password has been reset!',
       sent: 'We have e-mailed your password reset link!',
       token: 'This password reset token is invalid.',
-      user: "We can't find a user with that e-mail address."
+      user: "We can't find a user with that e-mail address.",
     },
     auth: {
       failed: 'These credentials do not match our records.',
@@ -20,36 +20,36 @@ export default {
         password: 'Password',
         login: 'Login',
         remember: 'Remember',
-        forgot_password: 'Forgot password?'
+        forgot_password: 'Forgot password?',
       },
       error: {
         email: 'Email is required.',
         email_valid: 'Invalid Email.',
-        password: 'Password is required.'
+        password: 'Password is required.',
       },
       forgot_password: 'Forgot password',
       reset_password: 'Reset password',
-      logout: 'Logout'
+      logout: 'Logout',
     },
     pagination: {
       previous: '&laquo; Previous',
-      next: 'Next &raquo;'
+      next: 'Next &raquo;',
     },
     tagsView: {
       refresh: 'Refresh',
       close: 'Close',
       closeOthers: 'Close Others',
-      closeAll: 'Close All'
+      closeAll: 'Close All',
     },
     field: {
       password: 'Password',
       password_confirm: 'Password confirm',
-      email: 'Email'
+      email: 'Email',
     },
     error: {
       is_admin: 'Can not delete admin user',
       file_not_found: 'File not found!',
-      '404': 'Page Not Found. Check if you entered an invalid link!'
+      '404': 'Page Not Found. Check if you entered an invalid link!',
     },
     date: {
       created_at: 'Create date',
@@ -66,7 +66,7 @@ export default {
       last_month: 'Last month',
       last_3_months: 'Last 3 months',
       last_6_months: 'Last 6 months',
-      this_year: 'This year'
+      this_year: 'This year',
     },
     route: {
       user: 'User',
@@ -77,11 +77,11 @@ export default {
       generator_edit: 'Generator Edit',
       generator_relationship: 'Relationship',
       dashboard: 'Dashboard',
-      administrator: 'Administrator',
-      role_permission: 'Role Permission'
+      administrators: 'Administrators',
+      role_permission: 'Role Permission',
     },
     common: {
-      back_to_top: 'Back to top'
+      back_to_top: 'Back to top',
     },
     validation: {
       accepted: 'The {attribute} must be accepted.',
@@ -101,7 +101,7 @@ export default {
         numeric: 'The {attribute} must be between {min} and {max}.',
         file: 'The {attribute} must be between {min} and {max} kilobytes.',
         string: 'The {attribute} must be between {min} and {max} characters.',
-        array: 'The {attribute} must have between {min} and {max} items.'
+        array: 'The {attribute} must have between {min} and {max} items.',
       },
       boolean: 'The {attribute} field must be true or false.',
       confirmed: 'The {attribute} confirmation does not match.',
@@ -121,7 +121,7 @@ export default {
         numeric: 'The {attribute} must be greater than {value}.',
         file: 'The {attribute} must be greater than {value} kilobytes.',
         string: 'The {attribute} must be greater than {value} characters.',
-        array: 'The {attribute} must have more than {value} items.'
+        array: 'The {attribute} must have more than {value} items.',
       },
       gte: {
         numeric: 'The {attribute} must be greater than or equal {value}.',
@@ -129,7 +129,7 @@ export default {
           'The {attribute} must be greater than or equal {value} kilobytes.',
         string:
           'The {attribute} must be greater than or equal {value} characters.',
-        array: 'The {attribute} must have {value} items or more.'
+        array: 'The {attribute} must have {value} items or more.',
       },
       image: 'The {attribute} must be an image.',
       in: 'The selected {attribute} is invalid.',
@@ -143,20 +143,20 @@ export default {
         numeric: 'The {attribute} must be less than {value}.',
         file: 'The {attribute} must be less than {value} kilobytes.',
         string: 'The {attribute} must be less than {value} characters.',
-        array: 'The {attribute} must have less than {value} items.'
+        array: 'The {attribute} must have less than {value} items.',
       },
       lte: {
         numeric: 'The {attribute} must be less than or equal {value}.',
         file: 'The {attribute} must be less than or equal {value} kilobytes.',
         string:
           'The {attribute} must be less than or equal {value} characters.',
-        array: 'The {attribute} must not have more than {value} items.'
+        array: 'The {attribute} must not have more than {value} items.',
       },
       max: {
         numeric: 'The {attribute} may not be greater than {max}.',
         file: 'The {attribute} may not be greater than {max} kilobytes.',
         string: 'The {attribute} may not be greater than {max} characters.',
-        array: 'The {attribute} may not have more than {max} items.'
+        array: 'The {attribute} may not have more than {max} items.',
       },
       mimes: 'The {attribute} must be a file of type: {values}.',
       mimetypes: 'The {attribute} must be a file of type: {values}.',
@@ -164,7 +164,7 @@ export default {
         numeric: 'The {attribute} must be at least {min}.',
         file: 'The {attribute} must be at least {min} kilobytes.',
         string: 'The {attribute} must be at least {min} characters.',
-        array: 'The {attribute} must have at least {min} items.'
+        array: 'The {attribute} must have at least {min} items.',
       },
       not_in: 'The selected {attribute} is invalid.',
       not_regex: 'The {attribute} format is invalid.',
@@ -188,7 +188,7 @@ export default {
         numeric: 'The {attribute} must be {size}.',
         file: 'The {attribute} must be {size} kilobytes.',
         string: 'The {attribute} must be {size} characters.',
-        array: 'The {attribute} must contain {size} items.'
+        array: 'The {attribute} must contain {size} items.',
       },
       starts_with:
         'The {attribute} must start with one of the following: {values}',
@@ -200,10 +200,10 @@ export default {
       uuid: 'The {attribute} must be a valid UUID.',
       custom: {
         'attribute-name': {
-          'rule-name': 'custom-message'
-        }
+          'rule-name': 'custom-message',
+        },
       },
-      attributes: []
+      attributes: [],
     },
     generator: {
       add_field: 'Add Field',
@@ -226,7 +226,7 @@ export default {
       limit: 'Limit',
       options: 'Options',
       table_exist: 'Table exist!',
-      column_exist: 'Column exist!'
+      column_exist: 'Column exist!',
     },
     table: {
       actions: 'Actions',
@@ -237,12 +237,12 @@ export default {
         avatar: 'Avatar',
         role: 'Role',
         password: 'Password',
-        password_confirmation: 'Confirmation password'
+        password_confirmation: 'Confirmation password',
       },
       rolePermission: {
         id: 'No.',
         name: 'Name',
-        description: 'Description'
+        description: 'Description',
       },
       texts: {
         count:
@@ -257,8 +257,8 @@ export default {
         filterBy: 'Filter by {column}',
         loading: 'Loading...',
         defaultOption: 'Select {column}',
-        columns: 'Columns'
-      }
+        columns: 'Columns',
+      },
     },
     messages: {
       create: 'Created successfully!',
@@ -269,15 +269,15 @@ export default {
       warning: 'Warning',
       success: 'Success',
       error: 'Error',
-      info: 'Info'
+      info: 'Info',
     },
     button: {
       ok: 'OK',
       cancel: 'Cancel',
       create: 'Create',
       edit: 'Edit',
-      update: 'Update'
-    }
+      update: 'Update',
+    },
   },
   vn: {
     auth: {
@@ -294,32 +294,32 @@ export default {
         password: 'Mật khẩu',
         login: 'Đăng nhập',
         remember: 'Ghi nhớ',
-        forgot_password: 'Quên mật khẩu?'
+        forgot_password: 'Quên mật khẩu?',
       },
       error: {
         email: 'Email bắt buộc.',
         email_valid: 'Email không hợp lệ',
-        password: 'Password bắt buộc.'
+        password: 'Password bắt buộc.',
       },
       forgot_password: 'Quên mật khẩu',
       reset_password: 'Đặt lại mật khẩu',
-      logout: 'Đăng xuất'
+      logout: 'Đăng xuất',
     },
     tagsView: {
       refresh: 'Refresh',
       close: 'Close',
       closeOthers: 'Close Others',
-      closeAll: 'Close All'
+      closeAll: 'Close All',
     },
     field: {
       password: 'Mật khẩu',
-      password_confirm: 'Xác nhận mật khẩu'
+      password_confirm: 'Xác nhận mật khẩu',
     },
     error: {
       is_admin: 'Không thể xóa Admin',
       file_not_found: 'File không tồn tại!',
       '404':
-        'Không tìm thấy trang. Kiểm tra nếu bạn nhập một liên kết không hợp lệ!'
+        'Không tìm thấy trang. Kiểm tra nếu bạn nhập một liên kết không hợp lệ!',
     },
     date: {
       created_at: 'Ngày tạo',
@@ -336,7 +336,7 @@ export default {
       last_month: 'Tháng sau',
       last_3_months: '3 tháng sau',
       last_6_months: '6 tháng sau',
-      this_year: 'Năm nay'
+      this_year: 'Năm nay',
     },
     route: {
       user: 'Nhân viên',
@@ -347,11 +347,11 @@ export default {
       generator_edit: 'Generator Edit',
       generator_relationship: 'Relationship',
       dashboard: 'Bảng điều khiển',
-      administrator: 'Administrator',
-      role_permission: 'Role Permission'
+      administrators: 'Administrators',
+      role_permission: 'Role Permission',
     },
     common: {
-      back_to_top: 'Trở lại đầu trang'
+      back_to_top: 'Trở lại đầu trang',
     },
     validation: {
       accepted: 'The {attribute} must be accepted.',
@@ -371,7 +371,7 @@ export default {
         numeric: 'The {attribute} must be between {min} and {max}.',
         file: 'The {attribute} must be between {min} and {max} kilobytes.',
         string: 'The {attribute} must be between {min} and {max} characters.',
-        array: 'The {attribute} must have between {min} and {max} items.'
+        array: 'The {attribute} must have between {min} and {max} items.',
       },
       boolean: 'The {attribute} field must be true or false.',
       confirmed: '{attribute} xác nhận không phù hợp.',
@@ -391,7 +391,7 @@ export default {
         numeric: 'The {attribute} must be greater than {value}.',
         file: 'The {attribute} must be greater than {value} kilobytes.',
         string: 'The {attribute} must be greater than {value} characters.',
-        array: 'The {attribute} must have more than {value} items.'
+        array: 'The {attribute} must have more than {value} items.',
       },
       gte: {
         numeric: 'The {attribute} must be greater than or equal {value}.',
@@ -399,7 +399,7 @@ export default {
           'The {attribute} must be greater than or equal {value} kilobytes.',
         string:
           'The {attribute} must be greater than or equal {value} characters.',
-        array: 'The {attribute} must have {value} items or more.'
+        array: 'The {attribute} must have {value} items or more.',
       },
       image: 'The {attribute} must be an image.',
       in: 'The selected {attribute} is invalid.',
@@ -413,20 +413,20 @@ export default {
         numeric: 'The {attribute} must be less than {value}.',
         file: 'The {attribute} must be less than {value} kilobytes.',
         string: 'The {attribute} must be less than {value} characters.',
-        array: 'The {attribute} must have less than {value} items.'
+        array: 'The {attribute} must have less than {value} items.',
       },
       lte: {
         numeric: 'The {attribute} must be less than or equal {value}.',
         file: 'The {attribute} must be less than or equal {value} kilobytes.',
         string:
           'The {attribute} must be less than or equal {value} characters.',
-        array: 'The {attribute} must not have more than {value} items.'
+        array: 'The {attribute} must not have more than {value} items.',
       },
       max: {
         numeric: 'The {attribute} may not be greater than {max}.',
         file: 'The {attribute} may not be greater than {max} kilobytes.',
         string: 'The {attribute} may not be greater than {max} characters.',
-        array: 'The {attribute} may not have more than {max} items.'
+        array: 'The {attribute} may not have more than {max} items.',
       },
       mimes: 'The {attribute} must be a file of type: {values}.',
       mimetypes: 'The {attribute} must be a file of type: {values}.',
@@ -434,7 +434,7 @@ export default {
         numeric: 'The {attribute} must be at least {min}.',
         file: 'The {attribute} must be at least {min} kilobytes.',
         string: 'The {attribute} must be at least {min} characters.',
-        array: 'The {attribute} must have at least {min} items.'
+        array: 'The {attribute} must have at least {min} items.',
       },
       not_in: 'The selected {attribute} is invalid.',
       not_regex: 'The {attribute} format is invalid.',
@@ -458,7 +458,7 @@ export default {
         numeric: 'The {attribute} must be {size}.',
         file: 'The {attribute} must be {size} kilobytes.',
         string: 'The {attribute} must be {size} characters.',
-        array: 'The {attribute} must contain {size} items.'
+        array: 'The {attribute} must contain {size} items.',
       },
       starts_with:
         'The {attribute} must start with one of the following: {values}',
@@ -470,10 +470,10 @@ export default {
       uuid: 'The {attribute} must be a valid UUID.',
       custom: {
         'attribute-name': {
-          'rule-name': 'custom-message'
-        }
+          'rule-name': 'custom-message',
+        },
       },
-      attributes: []
+      attributes: [],
     },
     generator: {
       add_field: 'Thêm Field',
@@ -496,7 +496,7 @@ export default {
       limit: 'Giới hạn',
       options: 'Tùy chỉnh',
       table_exist: 'Table đã tồn tài!',
-      column_exist: 'Column đã tồn tài!'
+      column_exist: 'Column đã tồn tài!',
     },
     table: {
       actions: 'Actions',
@@ -507,12 +507,12 @@ export default {
         avatar: 'Ảnh đại diện',
         role: 'Quyền',
         password: 'Mật khẩu',
-        password_confirmation: 'Xác nhận mật khẩu'
+        password_confirmation: 'Xác nhận mật khẩu',
       },
       rolePermission: {
         id: 'No.',
         name: 'Tên',
-        description: 'Miêu tả'
+        description: 'Miêu tả',
       },
       texts: {
         count:
@@ -527,8 +527,8 @@ export default {
         filterBy: 'Lọc bởi {column}',
         loading: 'Chờ đợi...',
         defaultOption: 'Chọn {column}',
-        columns: 'Cột'
-      }
+        columns: 'Cột',
+      },
     },
     messages: {
       create: 'Tạo thành công!',
@@ -538,14 +538,14 @@ export default {
       warning: 'Cảnh báo',
       success: 'Thành công',
       error: 'Lỗi',
-      info: 'Thông báo'
+      info: 'Thông báo',
     },
     button: {
       ok: 'Xác nhận',
       cancel: 'Bỏ qua',
       create: 'Tạo',
       edit: 'Sửa',
-      update: 'Cập nhật'
-    }
-  }
+      update: 'Cập nhật',
+    },
+  },
 };

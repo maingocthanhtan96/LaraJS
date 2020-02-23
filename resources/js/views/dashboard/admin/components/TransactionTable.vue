@@ -32,18 +32,18 @@ export default {
     statusFilter(status) {
       const statusMap = {
         success: 'success',
-        pending: 'danger'
+        pending: 'danger',
       };
       return statusMap[status];
     },
     orderNoFilter(str) {
       return str;
-    }
+    },
   },
   data() {
     return {
       list: [{ order_no: '1', price: '2', status: 'pending' }],
-      loading: true
+      loading: true,
     };
   },
   created() {
@@ -54,7 +54,7 @@ export default {
       const { data } = await fetchList();
       this.list = data.items.slice(0, 8);
       this.loading = false;
-    }
-  }
+    },
+  },
 };
 </script>

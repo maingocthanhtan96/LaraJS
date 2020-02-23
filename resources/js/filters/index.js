@@ -74,7 +74,7 @@ export function numberFormatter(num, digits) {
     { value: 1e12, symbol: 'T' },
     { value: 1e9, symbol: 'G' },
     { value: 1e6, symbol: 'M' },
-    { value: 1e3, symbol: 'k' }
+    { value: 1e3, symbol: 'k' },
   ];
   for (let i = 0; i < si.length; i++) {
     if (num >= si[i].value) {

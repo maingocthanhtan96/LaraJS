@@ -3,7 +3,7 @@ import { debounce } from '@/utils';
 export default {
   data() {
     return {
-      $_sidebarElm: null
+      $_sidebarElm: null,
     };
   },
   mounted() {
@@ -37,6 +37,6 @@ export default {
       if (e.propertyName === 'width') {
         this.__resizeHandler();
       }
-    }
-  }
+    },
+  },
 };

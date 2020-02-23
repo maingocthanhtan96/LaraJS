@@ -33,8 +33,9 @@ class FormUpdateGenerator extends BaseGenerator
     /** @var string */
     public $defaultValue;
 
-    const TEMPLATE_START = '<el-form-item data-generator=';
+    const TEMPLATE_START = '<el-form-item';
     const TEMPLATE_END = '</el-form-item>';
+    const DATA_GENERATOR = 'data-generator=';
     const DATA_FORM = 'form:';
     const RULES = 'rules() {';
     const SUCCESS_FILE = 'DropzoneS';
@@ -55,8 +56,7 @@ class FormUpdateGenerator extends BaseGenerator
     private function generate($generator, $model, $updateFields)
     {
         $fileName =
-            $this->serviceGenerator->modelNameNotPluralFe($model['name']) .
-            '/form.vue';
+            $this->serviceGenerator->folderPages($model['name']) . '/form.vue';
         $templateDataReal = $this->serviceGenerator->getFile(
             'views',
             'vuejs',
@@ -104,9 +104,9 @@ class FormUpdateGenerator extends BaseGenerator
         $templateDataForm = $this->serviceGenerator->searchTemplateX(
             $selfDataForm,
             1,
-            '},',
-            strlen($selfDataForm) - 1,
-            -strlen($selfDataForm) + 1,
+            $this->notDelete['this_check'],
+            strlen($selfDataForm),
+            -strlen($selfDataForm) - 4,
             $templateDataReal
         );
         $templateRules = $this->serviceGenerator->searchTemplateX(
@@ -122,15 +122,15 @@ class FormUpdateGenerator extends BaseGenerator
 
         foreach ($renameFields as $index => $rename) {
             //replace template form item
-            $selfTemplateStart = self::TEMPLATE_START;
+            $selfTemplateStart = self::DATA_GENERATOR;
             $selfTemplateStart .=
                 '"' . $rename['field_name_old']['field_name'] . '"';
             $templateFormItem = $this->serviceGenerator->searchTemplateX(
                 $selfTemplateStart,
                 1,
                 $selfTemplateEnd,
-                -strlen($selfTemplateStart),
-                strlen($selfTemplateStart) + strlen($selfTemplateEnd),
+                -strlen($selfTemplateStart) - strlen(self::TEMPLATE_START) * 2,
+                strlen($selfTemplateStart) * 3,
                 $templateDataReal
             );
             $formItem = explode(" ", $templateFormItem);
@@ -322,9 +322,9 @@ class FormUpdateGenerator extends BaseGenerator
         $templateDataForm = $this->serviceGenerator->searchTemplateX(
             $selfDataForm,
             1,
-            '},',
-            strlen($selfDataForm) - 1,
-            -strlen($selfDataForm) + 1,
+            $this->notDelete['this_check'],
+            strlen($selfDataForm),
+            -strlen($selfDataForm) - 4,
             $templateDataReal
         );
         $dataForms = explode(',', trim($templateDataForm));
@@ -334,14 +334,15 @@ class FormUpdateGenerator extends BaseGenerator
             foreach ($formFields as $index => $oldField) {
                 if ($index > 0 && $change['id'] === $oldField['id']) {
                     // replace form item
-                    $selfTemplateStart = self::TEMPLATE_START;
+                    $selfTemplateStart = self::DATA_GENERATOR;
                     $selfTemplateStart .= '"' . $change['field_name'] . '"';
                     $templateFormItem = $this->serviceGenerator->searchTemplateX(
                         $selfTemplateStart,
                         1,
                         $selfTemplateEnd,
-                        -strlen($selfTemplateStart),
-                        strlen($selfTemplateStart) + strlen($selfTemplateEnd),
+                        -strlen($selfTemplateStart) -
+                            strlen(self::TEMPLATE_START) * 2,
+                        strlen($selfTemplateStart) * 3,
                         $templateDataReal
                     );
                     if ($change['db_type'] !== $oldField['db_type']) {
@@ -600,23 +601,23 @@ class FormUpdateGenerator extends BaseGenerator
         $templateDataForm = $this->serviceGenerator->searchTemplateX(
             $selfDataForm,
             1,
-            '},',
-            strlen($selfDataForm) - 1,
-            -strlen($selfDataForm) + 1,
+            $this->notDelete['this_check'],
+            strlen($selfDataForm),
+            -strlen($selfDataForm) - 4,
             $templateDataReal
         );
         $dataForms = explode(',', trim($templateDataForm));
         $arrayChange = \Arr::pluck($dropFields, 'field_name');
         foreach ($dropFields as $index => $drop) {
             //replace template form item
-            $selfTemplateStart = self::TEMPLATE_START;
+            $selfTemplateStart = self::DATA_GENERATOR;
             $selfTemplateStart .= '"' . $drop['field_name'] . '"';
             $templateFormItem = $this->serviceGenerator->searchTemplateX(
                 $selfTemplateStart,
                 1,
                 $selfTemplateEnd,
-                -strlen($selfTemplateStart),
-                strlen($selfTemplateStart) + strlen($selfTemplateEnd),
+                -strlen($selfTemplateStart) - strlen(self::TEMPLATE_START) * 2,
+                strlen($selfTemplateStart) * 3,
                 $templateDataReal
             );
             $templateDataReal = str_replace(
@@ -755,15 +756,14 @@ class FormUpdateGenerator extends BaseGenerator
         if (empty($updateFields)) {
             return $templateDataReal;
         }
-
         $selfDataForm = self::DATA_FORM;
         //create form
         $templateDataForm = $this->serviceGenerator->searchTemplateX(
             $selfDataForm,
             1,
-            '},',
-            strlen($selfDataForm) - 1,
-            -strlen($selfDataForm) + 1,
+            $this->notDelete['this_check'],
+            strlen($selfDataForm),
+            -strlen($selfDataForm) - 4,
             $templateDataReal
         );
         $dataForms = explode(',', trim($templateDataForm));

@@ -25,8 +25,9 @@ class ViewTableUpdateGenerator extends BaseGenerator
 
     const SORT_COLUMN = 'sortable="custom"';
     const COLUMNS = 'columns';
-    const TEMPLATE_START = '<el-table-column data-generator=';
+    const TEMPLATE_START = '<el-table-column';
     const TEMPLATE_END = '</el-table-column>';
+    const DATA_GENERATOR = 'data-generator=';
 
     public function __construct($generator, $model, $updateFields)
     {
@@ -42,8 +43,7 @@ class ViewTableUpdateGenerator extends BaseGenerator
     private function generate($generator, $model, $updateFields)
     {
         $fileName =
-            $this->serviceGenerator->modelNameNotPluralFe($model['name']) .
-            '/index.vue';
+            $this->serviceGenerator->folderPages($model['name']) . '/index.vue';
         $templateDataReal = $this->serviceGenerator->getFile(
             'views',
             'vuejs',
@@ -86,15 +86,15 @@ class ViewTableUpdateGenerator extends BaseGenerator
         $selfTemplateEnd = self::TEMPLATE_END;
         foreach ($renameFields as $index => $rename) {
             //replace template index.view
-            $selfTemplateStart = self::TEMPLATE_START;
+            $selfTemplateStart = self::DATA_GENERATOR;
             $selfTemplateStart .=
                 '"' . $rename['field_name_old']['field_name'] . '"';
             $templateColumn = $this->serviceGenerator->searchTemplateX(
                 $selfTemplateStart,
                 1,
                 $selfTemplateEnd,
-                -strlen($selfTemplateStart),
-                strlen($selfTemplateStart) + strlen($selfTemplateEnd),
+                -strlen($selfTemplateStart) * 3,
+                strlen($selfTemplateStart) * 4 - 5,
                 $templateDataReal
             );
             $elColumn = $this->replaceElColumn(
@@ -134,14 +134,14 @@ class ViewTableUpdateGenerator extends BaseGenerator
         $selfTemplateEnd = self::TEMPLATE_END;
         foreach ($changeFields as $index => $change) {
             //replace template index.view
-            $selfTemplateStart = self::TEMPLATE_START;
+            $selfTemplateStart = self::DATA_GENERATOR;
             $selfTemplateStart .= '"' . $change['field_name'] . '"';
             $templateColumn = $templateColumnNew = $this->serviceGenerator->searchTemplateX(
                 $selfTemplateStart,
                 1,
                 $selfTemplateEnd,
-                -strlen($selfTemplateStart),
-                strlen($selfTemplateStart) + strlen($selfTemplateEnd),
+                -strlen($selfTemplateStart) * 3,
+                strlen($selfTemplateStart) * 4 - 5,
                 $templateDataReal
             );
             if (!$change['show']) {
@@ -160,7 +160,7 @@ class ViewTableUpdateGenerator extends BaseGenerator
             } else {
                 if (!strpos($templateColumnNew, self::SORT_COLUMN)) {
                     $generator =
-                        self::TEMPLATE_START .
+                        self::DATA_GENERATOR .
                         '"' .
                         $change['field_name'] .
                         '"';
@@ -176,14 +176,14 @@ class ViewTableUpdateGenerator extends BaseGenerator
             if ($change['db_type'] !== $dataOld[$change['id']]['db_type']) {
                 // remove column
                 $selfTemplateEnd = self::TEMPLATE_END;
-                $selfTemplateStart = self::TEMPLATE_START;
+                $selfTemplateStart = self::DATA_GENERATOR;
                 $selfTemplateStart .= '"' . $change['field_name'] . '"';
-                $templateColumnOld = $this->serviceGenerator->searchTemplateX(
+                $templateColumnOld = $templateColumnNew = $this->serviceGenerator->searchTemplateX(
                     $selfTemplateStart,
                     1,
                     $selfTemplateEnd,
-                    -strlen($selfTemplateStart),
-                    strlen($selfTemplateStart) + strlen($selfTemplateEnd),
+                    -strlen($selfTemplateStart) * 3,
+                    strlen($selfTemplateStart) * 4 - 5,
                     $templateDataReal
                 );
                 $templateColumnNewDB = $this->generateHandler($change, $model);
@@ -213,14 +213,14 @@ class ViewTableUpdateGenerator extends BaseGenerator
         $selfTemplateEnd = self::TEMPLATE_END;
         foreach ($dropFields as $index => $drop) {
             //replace template index.view
-            $selfTemplateStart = self::TEMPLATE_START;
+            $selfTemplateStart = self::DATA_GENERATOR;
             $selfTemplateStart .= '"' . $drop['field_name'] . '"';
             $templateColumn = $this->serviceGenerator->searchTemplateX(
                 $selfTemplateStart,
                 1,
                 $selfTemplateEnd,
-                -strlen($selfTemplateStart),
-                strlen($selfTemplateStart) + strlen($selfTemplateEnd),
+                -strlen($selfTemplateStart) * 3,
+                strlen($selfTemplateStart) * 4 - 5,
                 $templateDataReal
             );
 

@@ -36,19 +36,19 @@ export const constantRouterMap = [
     path: '/login',
     name: 'login',
     hidden: true,
-    component: () => import('@/views/auth/login')
+    component: () => import('@/views/auth/login'),
   },
   {
     path: '/reset-password',
-    name: 'reset_password',
+    name: 'reset-password',
     hidden: true,
-    component: () => import('@/views/auth/forgotPassword')
+    component: () => import('@/views/auth/ForgotPassword'),
   },
   {
     path: '/reset-password/:token',
-    name: 'reset_password_form',
+    name: 'reset-password-form',
     hidden: true,
-    component: () => import('@/views/auth/resetPasswordForm')
+    component: () => import('@/views/auth/ResetPasswordForm'),
   },
   { path: '/404', hidden: true, component: () => import('@/views/errors/404') },
   { path: '/401', hidden: true, component: () => import('@/views/errors/401') },
@@ -60,16 +60,16 @@ export const constantRouterMap = [
     children: [
       {
         path: ':path*',
-        component: () => import('@/views/redirect')
-      }
-    ]
-  }
+        component: () => import('@/views/redirect'),
+      },
+    ],
+  },
 ];
 
 export const asyncRouterMap = [
   // {{$ROUTE_ASYNC_NOT_DELETE_THIS_LINE$}},
   administrator,
-  { path: '*', redirect: '/404', hidden: true }
+  { path: '*', redirect: '/404', hidden: true },
 ];
 
 const createRouter = () =>
@@ -83,7 +83,7 @@ const createRouter = () =>
       } else {
         return { x: 0, y: 0 };
       }
-    }
+    },
   });
 
 const router = createRouter();

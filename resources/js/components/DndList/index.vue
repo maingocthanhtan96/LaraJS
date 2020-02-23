@@ -55,30 +55,30 @@ export default {
       type: Array,
       default() {
         return [];
-      }
+      },
     },
     list2: {
       type: Array,
       default() {
         return [];
-      }
+      },
     },
     list1Title: {
       type: String,
-      default: 'list1'
+      default: 'list1',
     },
     list2Title: {
       type: String,
-      default: 'list2'
+      default: 'list2',
     },
     width1: {
       type: String,
-      default: '48%'
+      default: '48%',
     },
     width2: {
       type: String,
-      default: '48%'
-    }
+      default: '48%',
+    },
   },
   methods: {
     isNotInList1(v) {
@@ -115,8 +115,8 @@ export default {
       // to avoid Firefox bug
       // Detail see : https://github.com/RubaXa/Sortable/issues/1012
       dataTransfer.setData('Text', '');
-    }
-  }
+    },
+  },
 };
 </script>
 

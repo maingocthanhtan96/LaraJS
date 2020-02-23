@@ -15,5 +15,5 @@ export default {
     } else {
       console.error('Like v-random-color or v-random-color-bg');
     }
-  }
+  },
 };

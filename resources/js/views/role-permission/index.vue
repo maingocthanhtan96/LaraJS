@@ -375,22 +375,22 @@ export default {
       permissionProps: {
         children: 'children',
         label: 'name',
-        disabled: 'disabled'
+        disabled: 'disabled',
       },
       formRole: {
         name: '',
-        description: ''
+        description: '',
       },
       formPermission: {
         name: '',
-        description: ''
+        description: '',
       },
       query: {
         page: 1,
         limit: 25,
-        keyword: ''
+        keyword: '',
       },
-      total: 0
+      total: 0,
     };
   },
   computed: {
@@ -438,9 +438,9 @@ export default {
                 }
               }
             },
-            trigger: ['blur', 'change']
-          }
-        ]
+            trigger: ['blur', 'change'],
+          },
+        ],
       };
     },
     permissionRules() {
@@ -465,11 +465,11 @@ export default {
                 }
               }
             },
-            trigger: ['blur', 'change']
-          }
-        ]
+            trigger: ['blur', 'change'],
+          },
+        ],
       };
-    }
+    },
   },
   created() {
     this.getRoles();
@@ -500,7 +500,7 @@ export default {
         }
         const data = {
           path: path.resolve(basePath, route.path),
-          name: route.meta && route.meta.title
+          name: route.meta && route.meta.title,
         };
         // recursive child routes
         if (route.children) {
@@ -554,7 +554,7 @@ export default {
         name: permission.name,
         disabled: checkRole([this.superAdmin])
           ? false
-          : permission.name === 'manage permission'
+          : permission.name === 'manage permission',
       };
     },
     permissionKeys(permissions) {
@@ -582,7 +582,7 @@ export default {
       const checkedOther = this.$refs.otherPermissions.getCheckedKeys();
       const permissions = {
         menu: checkedMenu,
-        other: checkedOther
+        other: checkedOther,
       };
       this.$refs[formName].validate(valid => {
         if (valid) {
@@ -593,7 +593,7 @@ export default {
               this.$message({
                 message: 'Role ' + this.$t('messages.update'),
                 type: 'success',
-                duration: 5 * 1000
+                duration: 5 * 1000,
               });
               this.dialogUpdateRoleVisible = false;
               this.getRoles();
@@ -620,7 +620,7 @@ export default {
                   <div>Role name: ${this.formRole.name}</div>
                   <div>Description: ${this.formRole.description}</div>
                 `,
-              type: 'success'
+              type: 'success',
             });
             this.$refs[formName].resetFields();
           });
@@ -634,7 +634,7 @@ export default {
         {
           confirmButtonText: 'OK',
           cancelButtonText: 'Cancel',
-          type: 'warning'
+          type: 'warning',
         }
       ).then(() => {
         roleResource.destroy(id).then(res => {
@@ -643,7 +643,7 @@ export default {
           this.$notify({
             title: 'Success',
             message: this.$t('messages.delete'),
-            type: 'success'
+            type: 'success',
           });
         });
       });
@@ -665,7 +665,7 @@ export default {
                   <div>Role name: ${this.formPermission.name}</div>
                   <div>Description: ${this.formPermission.description}</div>
                 `,
-              type: 'success'
+              type: 'success',
             });
             this.getPermissions();
             this.$refs[formName].resetFields();
@@ -680,14 +680,14 @@ export default {
         {
           confirmButtonText: 'OK',
           cancelButtonText: 'Cancel',
-          type: 'warning'
+          type: 'warning',
         }
       ).then(() => {
         permissionResource.destroy(id).then(() => {
           this.$notify({
             title: 'Success',
             message: this.$t('messages.delete'),
-            type: 'success'
+            type: 'success',
           });
           this.getPermissions();
         });
@@ -708,7 +708,7 @@ export default {
               this.$message({
                 message: 'Permissions ' + this.$t('messages.update'),
                 type: 'success',
-                duration: 5 * 1000
+                duration: 5 * 1000,
               });
               this.dialogCreatePermissionVisible = false;
               this.getPermissions();
@@ -739,15 +739,15 @@ export default {
     resetFormRole() {
       this.formRole = {
         name: '',
-        description: ''
+        description: '',
       };
     },
     resetFormPermission() {
       this.formPermission = {
         name: '',
-        description: ''
+        description: '',
       };
-    }
-  }
+    },
+  },
 };
 </script>

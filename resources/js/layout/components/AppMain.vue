@@ -13,7 +13,7 @@ export default {
   name: 'AppMain',
   data() {
     return {
-      transitionName: ''
+      transitionName: this.$store.state.settings.routerTransitionTo,
     };
   },
   computed: {
@@ -22,18 +22,20 @@ export default {
     },
     key() {
       return this.$route.fullPath;
+    },
+  },
+  mounted() {
+    if (this.$store.state.settings.moreTransition) {
+      this.$watch('$route', (to, from) => {
+        const toDepth = to.path.split('/').length;
+        const fromDepth = from.path.split('/').length;
+        this.transitionName =
+          toDepth < fromDepth
+            ? this.$store.state.settings.routerTransitionTo
+            : this.$store.state.settings.routerTransitionFrom;
+      });
     }
   },
-  watch: {
-    $route(to, from) {
-      const toDepth = to.path.split('/').length;
-      const fromDepth = from.path.split('/').length;
-      this.transitionName =
-        toDepth < fromDepth
-          ? this.$store.state.settings.routerTransitionTo
-          : this.$store.state.settings.routerTransitionFrom;
-    }
-  }
 };
 </script>
 

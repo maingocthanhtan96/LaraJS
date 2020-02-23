@@ -345,6 +345,18 @@ class GeneratorService extends BaseService
     }
 
     /**
+     * generates folder name from model name.
+     *
+     * @param string $tableName
+     *
+     * @return string
+     */
+    public function nameAttribute($tableName)
+    {
+        return lcfirst(\Str::kebab($tableName));
+    }
+
+    /**
      * generates model name from table name.
      *
      * @param string $name

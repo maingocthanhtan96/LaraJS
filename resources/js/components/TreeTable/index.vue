@@ -64,28 +64,28 @@ export default {
     data: {
       type: Array,
       required: true,
-      default: () => []
+      default: () => [],
     },
     columns: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     defaultExpandAll: {
       type: Boolean,
-      default: false
+      default: false,
     },
     defaultChildren: {
       type: String,
-      default: 'children'
+      default: 'children',
     },
     indent: {
       type: Number,
-      default: 50
-    }
+      default: 50,
+    },
   },
   data() {
     return {
-      guard: 1
+      guard: 1,
     };
   },
   computed: {
@@ -99,12 +99,12 @@ export default {
       }
       addAttrs(data, {
         expand: this.defaultExpandAll,
-        children: this.defaultChildren
+        children: this.defaultChildren,
       });
 
       const retval = treeToArray(data, this.defaultChildren);
       return retval;
-    }
+    },
   },
   methods: {
     addBrother(row, data) {
@@ -176,8 +176,8 @@ export default {
           resolve(this.data);
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

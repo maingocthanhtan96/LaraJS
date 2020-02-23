@@ -5,9 +5,9 @@ export default {
     Vue.mixin({
       computed: {
         ...mapGetters({
-          errors: 'errors'
-        })
-      }
+          errors: 'errors',
+        }),
+      },
     });
-  }
+  },
 };

@@ -60,8 +60,13 @@ class RouteGenerator extends BaseGenerator
             $templateData
         );
         $templateData = str_replace(
-            '{{$NAME_ROUTE_MODEL_CLASS$}}',
+            '{{$NAME_CONST$}}',
             $this->serviceGenerator->modelNameNotPluralFe($model['name']),
+            $templateData
+        );
+        $templateData = str_replace(
+            '{{$NAME_ROUTE_MODEL_CLASS$}}',
+            $this->serviceGenerator->nameAttribute($model['name']),
             $templateData
         );
         $templateData = str_replace(
@@ -109,15 +114,17 @@ class RouteGenerator extends BaseGenerator
         $nameModel = $this->serviceGenerator->modelNameNotPluralFe(
             $model['name']
         );
+        $nameModelImport = $this->serviceGenerator->nameAttribute(
+            $model['name']
+        );
         $templateDataReal = $this->serviceGenerator->replaceNotDelete(
             $this->notDelete['import'],
-            "import $nameModel from './modules/$nameModel';",
+            "import $nameModel from './modules/$nameModelImport';",
             0,
             $templateDataReal
         );
         $fileName =
-            $this->serviceGenerator->modelNameNotPluralFe($model['name']) .
-            '.js';
+            $this->serviceGenerator->folderPages($model['name']) . '.js';
         $this->serviceFile->createFile($this->path, $fileName, $templateData);
         $pathReal = config('generator.path.vuejs.router') . 'index.js';
         $this->serviceFile->createFileReal($pathReal, $templateDataReal);

@@ -6,7 +6,7 @@
         <div slot="header" class="flex justify-end items-center">
           <router-link
             v-permission="['create']"
-            :to="{ name: 'user_create' }"
+            :to="{ name: 'user-create' }"
             class="pan-btn blue-btn"
             tag="button"
           >
@@ -115,7 +115,7 @@
                 <template slot-scope="props">
                   <router-link
                     v-permission="['edit']"
-                    :to="{ name: 'user_edit', params: { id: props.row.id } }"
+                    :to="{ name: 'user-edit', params: { id: props.row.id } }"
                   >
                     <i class="el-icon-edit el-link el-link--primary mr-2" />
                   </router-link>
@@ -164,20 +164,20 @@ export default {
           orderBy: 'created_at',
           created_at: [
             this.parseTime(new Date().getTime() - 86400000 * 30),
-            this.parseTime(new Date())
-          ]
+            this.parseTime(new Date()),
+          ],
         },
         list: null,
         total: 0,
-        loading: false
+        loading: false,
       },
-      avatarFail: require('@/assets/images/avatar-default.png')
+      avatarFail: require('@/assets/images/avatar-default.png'),
     };
   },
   watch: {
     'table.listQuery.query': debounce(function() {
       this.handleFilter();
-    }, 500)
+    }, 500),
   },
   mounted() {
     this.getList();
@@ -219,14 +219,14 @@ export default {
     remove(id, name) {
       this.$confirm(
         this.$t('messages.delete_confirm', {
-          attribute: this.$t('table.user.id') + '#' + name
+          attribute: this.$t('table.user.id') + '#' + name,
         }),
         this.$t('messages.warning'),
         {
           confirmButtonText: this.$t('button.ok'),
           cancelButtonClass: this.$t('button.cancel'),
           type: 'warning',
-          center: true
+          center: true,
         }
       ).then(async () => {
         this.table.loading = true;
@@ -238,14 +238,14 @@ export default {
         this.$message({
           showClose: true,
           message: this.$t('messages.delete'),
-          type: 'success'
+          type: 'success',
         });
         this.table.loading = false;
       });
     },
     parseTime(date, format = '{y}-{m}-{d}') {
       return this.$options.filters.parseTime(date, format);
-    }
-  }
+    },
+  },
 };
 </script>

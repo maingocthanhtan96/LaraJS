@@ -14,6 +14,6 @@ export default function(data, mime) {
   }
   // The default format returned by canvas.toDataURL is image/png
   return new Blob([ia], {
-    type: mime
+    type: mime,
   });
 }

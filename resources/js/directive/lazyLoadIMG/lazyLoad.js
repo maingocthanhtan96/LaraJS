@@ -29,7 +29,7 @@ export default {
       const options = {
         // circumstances under which the observer's callback is invoked
         root: null, // defaults to the browser viewport if not specified or if null
-        threshold: '0' // the degree of intersection between the target element and its root (0 - 1)
+        threshold: '0', // the degree of intersection between the target element and its root (0 - 1)
         // threshold of 1.0 means that when 100% of the target is visible within
         // the element specified by the root option, the callback is invoked
       };
@@ -48,5 +48,5 @@ export default {
     } else {
       createObserver();
     }
-  }
+  },
 };

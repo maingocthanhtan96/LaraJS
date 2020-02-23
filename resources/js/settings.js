@@ -32,16 +32,22 @@ module.exports = {
   sidebarLogo: true,
 
   /**
+   * @type {boolean} true | false
+   * @description Multiple transition
+   */
+  moreTransition: true,
+
+  /**
    * @type {string} fade / fade-transform-left / fade-transform-left / zoom-fade / slide-fade / zoom-out / fade-bottom / fade-bottom-2x / fade-top / fade-top-2x
    * @default fade-transform
    * @description transition change page
    */
-  routerTransitionTo: 'fade-transform-left',
-  routerTransitionFrom: 'fade-transform-right',
+  routerTransitionTo: 'fade-transform-right',
+  routerTransitionFrom: 'fade-transform-left',
 
   /**
    * @type {string} name
    * @description role user
    */
-  superAdmin: 'admin'
+  superAdmin: 'admin',
 };

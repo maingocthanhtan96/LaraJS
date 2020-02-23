@@ -57,14 +57,14 @@ function filterAsyncRoutes(routes, roles, permissions) {
 
 const state = {
   routers: [],
-  addRouters: []
+  addRouters: [],
 };
 
 const mutations = {
   [SET_ROUTERS]: (state, routers) => {
     state.addRouters = routers;
     state.routers = constantRouterMap.concat(routers);
-  }
+  },
 };
 
 const actions = {
@@ -79,12 +79,12 @@ const actions = {
       commit(SET_ROUTERS, accessedRouters);
       resolve(accessedRouters);
     });
-  }
+  },
 };
 
 export default {
   namespaced: true,
   state,
   mutations,
-  actions
+  actions,
 };

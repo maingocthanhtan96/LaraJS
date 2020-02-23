@@ -74,11 +74,11 @@ import checkPermission from '@/utils/permission'; // Permission checking
 export default {
   components: {
     Breadcrumb,
-    Hamburger
+    Hamburger,
   },
   data() {
     return {
-      hrefDeveloper: `${process.env.MIX_APP_URL}/swagger/index.html`
+      hrefDeveloper: `${process.env.MIX_APP_URL}/swagger/index.html`,
     };
   },
   computed: {
@@ -86,8 +86,8 @@ export default {
       sidebar: 'sidebar',
       device: 'device',
       user: 'user',
-      lang: 'lang'
-    })
+      lang: 'lang',
+    }),
   },
   methods: {
     checkPermission,
@@ -105,8 +105,8 @@ export default {
     },
     toggleSideBar() {
       this.$store.dispatch('app/toggleSideBar');
-    }
-  }
+    },
+  },
 };
 </script>
 

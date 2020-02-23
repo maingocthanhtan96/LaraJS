@@ -53,8 +53,7 @@ class ApiGenerator extends BaseGenerator
         );
 
         $fileName =
-            $this->serviceGenerator->modelNameNotPluralFe($model['name']) .
-            '.js';
+            $this->serviceGenerator->folderPages($model['name']) . '.js';
         $this->serviceFile->createFile($this->path, $fileName, $templateData);
     }
 }

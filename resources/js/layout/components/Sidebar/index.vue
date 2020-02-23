@@ -34,7 +34,7 @@ export default {
   computed: {
     ...mapGetters({
       permission_routes: 'routers',
-      sidebar: 'sidebar'
+      sidebar: 'sidebar',
     }),
     activeMenu() {
       const route = this.$route;
@@ -53,7 +53,7 @@ export default {
     },
     isCollapse() {
       return !this.sidebar.opened;
-    }
-  }
+    },
+  },
 };
 </script>

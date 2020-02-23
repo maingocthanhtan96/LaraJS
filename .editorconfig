@@ -20,6 +20,8 @@ indent_size = 2
 
 [public/generator/templates/Laravel/**.stub]
 indent_size = 4
+insert_final_newline = false
 [public/generator/templates/Vuejs/**.stub]
 indent_size = 2
+insert_final_newline = false
 

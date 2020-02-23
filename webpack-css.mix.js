@@ -53,11 +53,6 @@ if (mix.inProduction()) {
       cache: false
     });
   }
-  // Development settings
-  // mix.browserSync({
-  //   proxy: process.env.APP_URL,
-  //   files: ['resources/js/**/*']
-  // });
   mix.sourceMaps().webpackConfig({
     devtool: 'cheap-eval-source-map' // Fastest for development
   });

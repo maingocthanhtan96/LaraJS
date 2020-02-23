@@ -10,6 +10,6 @@ return [
     'generator_edit' => 'Generator Edit',
     'generator_relationship' => 'Relationship',
     'dashboard' => 'Dashboard',
-    'administrator' => 'Administrator',
+    'administrators' => 'Administrators',
     'role_permission' => 'Role Permission'
 ];

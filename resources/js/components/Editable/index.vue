@@ -15,36 +15,36 @@ export default {
       type: String,
       default() {
         return '';
-      }
+      },
     },
     classes: {
       type: String,
       default() {
         return '';
-      }
+      },
     },
     content: {
       type: String,
       default() {
         return '';
-      }
+      },
     },
     maxlength: {
       type: Number,
       default() {
         return 256;
-      }
+      },
     },
     enter: {
       type: Boolean,
       default() {
         return true;
-      }
-    }
+      },
+    },
   },
   data() {
     return {
-      textCurrent: ''
+      textCurrent: '',
     };
   },
   mounted() {
@@ -67,8 +67,8 @@ export default {
       if (!this.enter) {
         return event.preventDefault();
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

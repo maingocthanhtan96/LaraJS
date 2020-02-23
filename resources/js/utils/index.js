@@ -25,7 +25,7 @@ export function parseTime(time, cFormat) {
     h: date.getHours(),
     i: date.getMinutes(),
     s: date.getSeconds(),
-    a: date.getDay()
+    a: date.getDay(),
   };
   const timeStr = format.replace(/{(y|m|d|h|i|s|a)+}/g, (result, key) => {
     let value = formatObj[key];
@@ -38,7 +38,7 @@ export function parseTime(time, cFormat) {
         'Wednesday',
         'Thursday',
         'Friday',
-        'Saturday'
+        'Saturday',
       ][value];
     }
     if (result.length > 0 && value < 10) {
@@ -225,7 +225,7 @@ export const pickerOptions = [
       const start = new Date(new Date().toDateString());
       end.setTime(start.getTime());
       picker.$emit('pick', [start, end]);
-    }
+    },
   },
   {
     text: 'Last week',
@@ -234,7 +234,7 @@ export const pickerOptions = [
       const start = new Date();
       start.setTime(end.getTime() - 3600 * 1000 * 24 * 7);
       picker.$emit('pick', [start, end]);
-    }
+    },
   },
   {
     text: 'Last month',
@@ -243,7 +243,7 @@ export const pickerOptions = [
       const start = new Date();
       start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
       picker.$emit('pick', [start, end]);
-    }
+    },
   },
   {
     text: 'Last three months',
@@ -252,8 +252,8 @@ export const pickerOptions = [
       const start = new Date();
       start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
       picker.$emit('pick', [start, end]);
-    }
-  }
+    },
+  },
 ];
 
 export function getTime(type) {

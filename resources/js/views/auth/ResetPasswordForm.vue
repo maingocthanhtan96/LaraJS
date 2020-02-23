@@ -70,7 +70,7 @@ export default {
         cb(
           new Error(
             this.$t('validation.required', {
-              attribute: this.$t('table.user.password')
+              attribute: this.$t('table.user.password'),
             })
           )
         );
@@ -86,7 +86,7 @@ export default {
         cb(
           new Error(
             this.$t('validation.required', {
-              attribute: this.$t('table.user.password_confirmation')
+              attribute: this.$t('table.user.password_confirmation'),
             })
           )
         );
@@ -94,7 +94,7 @@ export default {
         cb(
           new Error(
             this.$t('validation.confirmed', {
-              attribute: this.$t('table.user.password_confirmation')
+              attribute: this.$t('table.user.password_confirmation'),
             })
           )
         );
@@ -107,7 +107,7 @@ export default {
         token: this.$route.params.token,
         email: '',
         password: '',
-        password_confirmation: ''
+        password_confirmation: '',
       },
       loadingResetPassword: false,
       rules: {
@@ -118,7 +118,7 @@ export default {
                 cb(
                   new Error(
                     this.$t('validation.required', {
-                      attribute: this.$t('table.user.email')
+                      attribute: this.$t('table.user.email'),
                     })
                   )
                 );
@@ -126,7 +126,7 @@ export default {
                 cb(
                   new Error(
                     this.$t('validation.email', {
-                      attribute: this.$t('table.user.email')
+                      attribute: this.$t('table.user.email'),
                     })
                   )
                 );
@@ -134,14 +134,14 @@ export default {
                 cb();
               }
             },
-            trigger: ['blur', 'change']
-          }
+            trigger: ['blur', 'change'],
+          },
         ],
         password: [{ validator: password, trigger: ['change', 'blur'] }],
         password_confirmation: [
-          { validator: passwordConfirm, trigger: ['change', 'blur'] }
-        ]
-      }
+          { validator: passwordConfirm, trigger: ['change', 'blur'] },
+        ],
+      },
     };
   },
   methods: {
@@ -157,7 +157,7 @@ export default {
             this.$message({
               showClose: true,
               message: res.data.message,
-              type: 'success'
+              type: 'success',
             });
             this.loadingResetPassword = false;
           })
@@ -165,7 +165,7 @@ export default {
             this.loadingResetPassword = false;
           });
       });
-    }
-  }
+    },
+  },
 };
 </script>

@@ -8,115 +8,115 @@ const administrator = {
   meta: {
     title: 'administrators',
     icon: 'admin',
-    permissions: ['view menu role_permission']
+    permissions: ['view menu role_permission'],
   },
   children: [
     {
       path: 'roles',
       name: 'roles',
-      component: () => import('@/views/rolePermission'),
+      component: () => import('@/views/role-permission'),
       meta: {
         title: 'role_permission',
         icon: 'role',
-        permissions: ['manage permission']
-      }
+        permissions: ['manage permission'],
+      },
     },
     {
-      path: 'generator/list',
-      name: 'generator_list',
+      path: 'generator',
+      name: 'generator',
       component: () => import('@/views/generator'),
       meta: {
         title: 'generator',
         icon: 'tree-table',
-        roles: [superAdmin]
-      }
+        roles: [superAdmin],
+      },
     },
     {
-      path: 'generator/form',
-      name: 'generator_create',
+      path: 'generator/create',
+      name: 'generator-create',
       component: () => import('@/views/generator/form'),
       meta: {
         title: 'generator_create',
         icon: 'tree-table',
-        activeMenu: '/administrators/generator/list',
-        roles: [superAdmin]
+        activeMenu: '/administrators/generator',
+        roles: [superAdmin],
       },
-      hidden: true
+      hidden: true,
     },
     {
-      path: 'generator/form/:id(\\d+)',
-      name: 'generator_edit',
+      path: 'generator/edit/:id(\\d+)',
+      name: 'generator-edit',
       hidden: true,
       component: () => import('@/views/generator/form'),
       meta: {
         title: 'generator_edit',
         icon: 'tree-table',
-        activeMenu: '/administrators/generator/list',
-        roles: [superAdmin]
+        activeMenu: '/administrators/generator',
+        roles: [superAdmin],
       },
       props: route => {
         return {
           ...route,
-          props: true
+          props: true,
         };
-      }
+      },
     },
     {
       path: 'generator/relationship/:id(\\d+)',
-      name: 'generator_relationship',
+      name: 'generator-relationship',
       hidden: true,
       component: () => import('@/views/generator/relationship'),
       meta: {
         title: 'generator_relationship',
-        activeMenu: '/administrators/generator/list',
-        roles: [superAdmin]
+        activeMenu: '/administrators/generator',
+        roles: [superAdmin],
       },
       props: route => {
         return {
           ...route,
-          props: true
+          props: true,
         };
-      }
+      },
     },
     {
-      path: 'user/list',
-      name: 'user_list',
-      component: () => import('@/views/user/index'),
+      path: 'user',
+      name: 'user',
+      component: () => import('@/views/user'),
       meta: {
         title: 'user',
         icon: 'user',
-        roles: [superAdmin]
-      }
+        roles: [superAdmin],
+      },
     },
     {
-      path: 'user/form',
-      name: 'user_create',
+      path: 'user/create',
+      name: 'user-create',
       hidden: true,
       component: () => import('@/views/user/form'),
       meta: {
         title: 'user_create',
-        activeMenu: '/administrators/user/list',
-        roles: [superAdmin]
-      }
+        activeMenu: '/administrators/user',
+        roles: [superAdmin],
+      },
     },
     {
-      path: 'user/form/:id(\\d+)',
-      name: 'user_edit',
+      path: 'user/edit/:id(\\d+)',
+      name: 'user-edit',
       hidden: true,
       component: () => import('@/views/user/form'),
       meta: {
         title: 'user_edit',
-        activeMenu: '/administrators/user/list',
-        roles: [superAdmin]
+        activeMenu: '/administrators/user',
+        roles: [superAdmin],
       },
       props: route => {
         return {
           ...route,
-          props: true
+          props: true,
         };
-      }
-    }
-  ]
+      },
+    },
+  ],
 };
 
 export default administrator;

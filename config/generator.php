@@ -179,7 +179,8 @@ return [
                 'stringify' =>
                     '// {{$FILE_JSON_STRINGIFY_NOT_DELETE_THIS_LINE$}}',
                 'reset_field' => '// {{$RESET_FIELD_NOT_DELETE_THIS_LINE$}}', // reset file
-                'api' => '// {{$API_NOT_DELETE_THIS_LINE$}}'
+                'api' => '// {{$API_NOT_DELETE_THIS_LINE$}}',
+                'this_check' => '// {{$$}}'
             ],
             'views' => [
                 'templates' => '<!--{{$TEMPLATES_NOT_DELETE_THIS_LINE$}}-->',

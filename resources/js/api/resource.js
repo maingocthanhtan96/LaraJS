@@ -12,14 +12,14 @@ class Resource {
     return request({
       url: '/' + this.uri,
       method: 'get',
-      params: query
+      params: query,
     });
   }
 
   get(id) {
     return request({
       url: '/' + this.uri + '/' + id,
-      method: 'get'
+      method: 'get',
     });
   }
 
@@ -27,7 +27,7 @@ class Resource {
     return request({
       url: '/' + this.uri,
       method: 'post',
-      data: resource
+      data: resource,
     });
   }
 
@@ -35,14 +35,14 @@ class Resource {
     return request({
       url: '/' + this.uri + '/' + id,
       method: 'put',
-      data: resource
+      data: resource,
     });
   }
 
   destroy(id) {
     return request({
       url: '/' + this.uri + '/' + id,
-      method: 'delete'
+      method: 'delete',
     });
   }
 }

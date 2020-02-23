@@ -9,7 +9,7 @@ const {
   showTrans,
   routerTransitionTo,
   routerTransitionFrom,
-  superAdmin
+  superAdmin,
 } = defaultSettings;
 
 const state = {
@@ -20,7 +20,7 @@ const state = {
   showTrans: showTrans,
   routerTransitionTo: routerTransitionTo,
   routerTransitionFrom: routerTransitionFrom,
-  superAdmin: superAdmin
+  superAdmin: superAdmin,
 };
 
 const mutations = {
@@ -28,18 +28,18 @@ const mutations = {
     if (state.hasOwnProperty(key)) {
       state[key] = value;
     }
-  }
+  },
 };
 
 const actions = {
   changeSetting({ commit }, data) {
     commit('CHANGE_SETTING', data);
-  }
+  },
 };
 
 export default {
   namespaced: true,
   state,
   mutations,
-  actions
+  actions,
 };

@@ -10,7 +10,7 @@ export default function(e, argOpts) {
     {
       ele: e.target, // Corrugated element
       type: 'hit', // Hit click position spread center center point expansion
-      bgc: 'rgba(0, 0, 0, 0.15)' // Ripple color
+      bgc: 'rgba(0, 0, 0, 0.15)', // Ripple color
     },
     argOpts
   );

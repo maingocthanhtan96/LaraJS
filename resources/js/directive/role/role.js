@@ -18,5 +18,5 @@ export default {
     } else {
       throw new Error(`need roles! Like v-permission="['admin','editor']"`);
     }
-  }
+  },
 };

@@ -24,14 +24,14 @@ export default {
         { label: 'Default', value: 'default' },
         { label: 'Medium', value: 'medium' },
         { label: 'Small', value: 'small' },
-        { label: 'Mini', value: 'mini' }
-      ]
+        { label: 'Mini', value: 'mini' },
+      ],
     };
   },
   computed: {
     size() {
       return this.$store.getters.size;
-    }
+    },
   },
   methods: {
     handleSetSize(size) {
@@ -40,7 +40,7 @@ export default {
       this.refreshView();
       this.$message({
         message: 'Switch Size Success',
-        type: 'success'
+        type: 'success',
       });
     },
     refreshView() {
@@ -51,10 +51,10 @@ export default {
 
       this.$nextTick(() => {
         this.$router.replace({
-          path: '/redirect' + fullPath
+          path: '/redirect' + fullPath,
         });
       });
-    }
-  }
+    },
+  },
 };
 </script>

@@ -42,7 +42,7 @@ export default {
     Sidebar,
     TagViews,
     FooterMain,
-    BackToTop
+    BackToTop,
   },
   mixins: [ResizeMixin],
   data() {
@@ -57,8 +57,8 @@ export default {
         background: '#e7eaf1', // The background color of the button,
         display: 'flex',
         'justify-content': 'center',
-        'align-items': 'center'
-      }
+        'align-items': 'center',
+      },
     };
   },
   computed: {
@@ -66,22 +66,22 @@ export default {
       sidebar: state => state.app.sidebar,
       device: state => state.app.device,
       needTagsView: state => state.settings.tagsView,
-      fixedHeader: state => state.settings.fixedHeader
+      fixedHeader: state => state.settings.fixedHeader,
     }),
     classObj() {
       return {
         hideSidebar: !this.sidebar.opened,
         openSidebar: this.sidebar.opened,
         withoutAnimation: this.sidebar.withoutAnimation,
-        mobile: this.device === 'mobile'
+        mobile: this.device === 'mobile',
       };
-    }
+    },
   },
   methods: {
     handleClickOutside() {
       this.$store.dispatch('app/closeSideBar', { withoutAnimation: false });
-    }
-  }
+    },
+  },
 };
 </script>
 

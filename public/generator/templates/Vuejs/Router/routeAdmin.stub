@@ -7,10 +7,8 @@
 
 import { superAdmin } from '@/settings';
 
-const {{$NAME_ROUTE_MODEL_CLASS$}} = {
+const {{$NAME_CONST$}} = {
   path: '/{{$PATH_ROUTE_MODEL_CLASS$}}',
-  name: '{{$NAME_ROUTE_MODEL_CLASS$}}',
-  redirect: '/{{$PATH_ROUTE_MODEL_CLASS$}}/list',
   component: () => import('@/layout'),
   meta: {
     title: '{{$TITLE_ROUTE_MODEL_CLASS$}}',
@@ -19,9 +17,9 @@ const {{$NAME_ROUTE_MODEL_CLASS$}} = {
   },
   children: [
     {
-      path: 'list',
-      name: '{{$NAME_ROUTE_MODEL_CLASS$}}_list',
-      component: () => import('@/views/{{$NAME_ROUTE_MODEL_CLASS$}}/index'),
+      path: '/{{$PATH_ROUTE_MODEL_CLASS$}}',
+      name: '{{$NAME_ROUTE_MODEL_CLASS$}}',
+      component: () => import('@/views/{{$NAME_ROUTE_MODEL_CLASS$}}'),
       meta: {
         title: '{{$TITLE_ROUTE_MODEL_CLASS$}}',
         icon: 'list',
@@ -30,8 +28,8 @@ const {{$NAME_ROUTE_MODEL_CLASS$}} = {
       hidden: true,
     },
     {
-      path: 'form',
-      name: '{{$NAME_ROUTE_MODEL_CLASS$}}_create',
+      path: 'create',
+      name: '{{$NAME_ROUTE_MODEL_CLASS$}}-create',
       hidden: true,
       component: () => import('@/views/{{$NAME_ROUTE_MODEL_CLASS$}}/form'),
       meta: {
@@ -41,8 +39,8 @@ const {{$NAME_ROUTE_MODEL_CLASS$}} = {
       },
     },
     {
-      path: 'form/:id(\\d+)',
-      name: '{{$NAME_ROUTE_MODEL_CLASS$}}_edit',
+      path: 'edit/:id(\\d+)',
+      name: '{{$NAME_ROUTE_MODEL_CLASS$}}-edit',
       hidden: true,
       component: () => import('@/views/{{$NAME_ROUTE_MODEL_CLASS$}}/form'),
       meta: {
@@ -60,4 +58,4 @@ const {{$NAME_ROUTE_MODEL_CLASS$}} = {
   ],
 };
 
-export default {{$NAME_ROUTE_MODEL_CLASS$}};
+export default {{$NAME_CONST$}};

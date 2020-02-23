@@ -12,7 +12,7 @@ NProgress.configure({ showSpinner: true }); // NProgress Configuration
 const whiteList = [
   /^\/login$/i,
   /^\/reset-password$/i,
-  /^\/reset-password\/((?:[^\/]+?))(?:\/(?=$))?$/i
+  /^\/reset-password\/((?:[^\/]+?))(?:\/(?=$))?$/i,
 ]; // no redirect whitelist
 
 router.beforeEach(async (to, from, next) => {

@@ -196,7 +196,7 @@ const generatorResource = new GeneratorResource();
 
 export default {
   components: {
-    PreCodeTag
+    PreCodeTag,
   },
   data() {
     return {
@@ -216,9 +216,9 @@ export default {
         model: '',
         column: '',
         column2: '',
-        options: ['Search', 'Sort', 'Show']
+        options: ['Search', 'Sort', 'Show'],
       },
-      drawDiagram: []
+      drawDiagram: [],
     };
   },
   mounted() {
@@ -269,7 +269,7 @@ export default {
           this.$message({
             showClose: true,
             message: this.$t('messages.success'),
-            type: 'success'
+            type: 'success',
           });
           this.loading = false;
           location.reload();
@@ -330,8 +330,8 @@ export default {
             this.loadingDisplay = false;
           });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

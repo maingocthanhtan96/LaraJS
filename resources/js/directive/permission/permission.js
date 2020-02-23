@@ -27,5 +27,5 @@ export default {
         `Permissions are required! Example: v-permission="['editor','manage permission']"`
       );
     }
-  }
+  },
 };

@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-class LarajsController extends Controller
+class LaraJSController extends Controller
 {
     /**
      * @return \Illuminate\Contracts\View\Factory\Illuminate\View\View
      * @author tanmnt
      */
-    public function viewLarajs()
+    public function __invoke()
     {
         return view('larajs');
     }

@@ -56,6 +56,11 @@ class FormGenerator extends BaseGenerator
             $this->serviceGenerator->modelNameNotPluralFe($model['name']),
             $templateData
         );
+        $templateData = str_replace(
+            '{{$NAME_ROUTE$}}',
+            $this->serviceGenerator->nameAttribute($model['name']),
+            $templateData
+        );
         $templateData = $this->serviceGenerator->replaceNotDelete(
             $notDelete['item'],
             $this->generateItems($fields, $model),
@@ -80,14 +85,13 @@ class FormGenerator extends BaseGenerator
         );
 
         $folderName =
-            $this->path .
-            $this->serviceGenerator->modelNameNotPluralFe($model['name']);
+            $this->path . $this->serviceGenerator->folderPages($model['name']);
         if (!is_dir($folderName)) {
             mkdir($folderName, 0755, true);
         }
 
         $fileName =
-            $this->serviceGenerator->modelNameNotPluralFe($model['name']) .
+            $this->serviceGenerator->folderPages($model['name']) .
             '/form' .
             '.vue';
         $this->serviceFile->createFile($this->path, $fileName, $templateData);

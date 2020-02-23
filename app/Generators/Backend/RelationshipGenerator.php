@@ -396,7 +396,7 @@ class RelationshipGenerator extends BaseGenerator
     ) {
         $notDelete = config('generator.not_delete.vuejs.form');
         $fileName =
-            $this->serviceGenerator->modelNameNotPluralFe($modelRelationship) .
+            $this->serviceGenerator->folderPages($modelRelationship) .
             '/form.vue';
         $templateDataReal = $this->serviceGenerator->getFile(
             'views',
@@ -408,9 +408,9 @@ class RelationshipGenerator extends BaseGenerator
         $templateDataForm = $this->serviceGenerator->searchTemplateX(
             $dataForm,
             1,
-            '},',
-            strlen($dataForm) - 1,
-            -strlen($dataForm) + 1,
+            $notDelete['this_check'],
+            strlen($dataForm),
+            -strlen($dataForm) - 4,
             $templateDataReal
         );
         $dataForms = explode(',', trim($templateDataForm));
@@ -529,7 +529,7 @@ class RelationshipGenerator extends BaseGenerator
             $this->serviceGenerator->modelNameNotPlural($model) .
             "Resource" .
             " from '@/api/" .
-            \Str::camel($model) .
+            $this->serviceGenerator->nameAttribute($model) .
             "';";
         if (!stripos($templateDataReal, $importStub)) {
             $templateDataReal = $this->serviceGenerator->replaceNotDelete(
@@ -572,8 +572,7 @@ class RelationshipGenerator extends BaseGenerator
     {
         $checkFuncName = 'get' . $model;
         $notDelete = config('generator.not_delete.vuejs.form');
-        $fileName =
-            $this->serviceGenerator->modelNameNotPluralFe($model) . '.js';
+        $fileName = $this->serviceGenerator->folderPages($model) . '.js';
         $templateDataReal = $this->serviceGenerator->getFile(
             'api',
             'vuejs',
@@ -639,7 +638,7 @@ class RelationshipGenerator extends BaseGenerator
         $configOptions = config('generator.relationship.options');
         $notDelete = config('generator.not_delete.vuejs.views');
         $fileName =
-            $this->serviceGenerator->modelNameNotPluralFe($modelRelationship) .
+            $this->serviceGenerator->folderPages($modelRelationship) .
             '/index.vue';
         $templateDataReal = $this->serviceGenerator->getFile(
             'views',
@@ -817,7 +816,7 @@ class RelationshipGenerator extends BaseGenerator
         $configOptions = config('generator.relationship.options');
         $notDelete = config('generator.not_delete.vuejs.views');
         $fileName =
-            $this->serviceGenerator->modelNameNotPluralFe($modelRelationship) .
+            $this->serviceGenerator->folderPages($modelRelationship) .
             '/index.vue';
         $templateDataReal = $this->serviceGenerator->getFile(
             'views',

@@ -40,9 +40,9 @@ export default {
   data() {
     return {
       form: {
-        email: ''
+        email: '',
       },
-      loadingSendEmail: false
+      loadingSendEmail: false,
     };
   },
   computed: {
@@ -52,16 +52,16 @@ export default {
           {
             required: true,
             message: this.$t('auth.error.email'),
-            trigger: ['change', 'blur']
+            trigger: ['change', 'blur'],
           },
           {
             type: 'email',
             message: this.$t('auth.error.email_valid'),
-            trigger: ['change', 'blur']
-          }
-        ]
+            trigger: ['change', 'blur'],
+          },
+        ],
       };
-    }
+    },
   },
   methods: {
     requestResetPassword(nameForm) {
@@ -75,7 +75,7 @@ export default {
             this.$message({
               showClose: true,
               message: res.data.message,
-              type: 'success'
+              type: 'success',
             });
             this.loadingSendEmail = false;
           })
@@ -83,7 +83,7 @@ export default {
             this.loadingSendEmail = false;
           });
       });
-    }
-  }
+    },
+  },
 };
 </script>

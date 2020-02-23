@@ -32,19 +32,19 @@ export default {
           el.focus();
         });
       }
-    }
+    },
   },
   props: {
     todo: {
       type: Object,
       default: function() {
         return {};
-      }
-    }
+      },
+    },
   },
   data() {
     return {
-      editing: false
+      editing: false,
     };
   },
   methods: {
@@ -62,12 +62,12 @@ export default {
       const { todo } = this;
       if (!value) {
         this.deleteTodo({
-          todo
+          todo,
         });
       } else if (this.editing) {
         this.editTodo({
           todo,
-          value
+          value,
         });
         this.editing = false;
       }
@@ -75,7 +75,7 @@ export default {
     cancelEdit(e) {
       e.target.value = this.todo.text;
       this.editing = false;
-    }
-  }
+    },
+  },
 };
 </script>

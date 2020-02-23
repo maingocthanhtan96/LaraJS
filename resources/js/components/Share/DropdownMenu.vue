@@ -25,23 +25,23 @@ export default {
       type: Array,
       default: function() {
         return [];
-      }
+      },
     },
     title: {
       type: String,
-      default: 'vue'
-    }
+      default: 'vue',
+    },
   },
   data() {
     return {
-      isActive: false
+      isActive: false,
     };
   },
   methods: {
     clickTitle() {
       this.isActive = !this.isActive;
-    }
-  }
+    },
+  },
 };
 </script>
 

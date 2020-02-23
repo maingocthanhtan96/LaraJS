@@ -34,19 +34,19 @@ export default {
   props: {
     value: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
   data() {
     return {
       tempUrl: '',
-      dataObj: { token: '', key: '' }
+      dataObj: { token: '', key: '' },
     };
   },
   computed: {
     imageUrl() {
       return this.value;
-    }
+    },
   },
   methods: {
     rmImage() {
@@ -74,8 +74,8 @@ export default {
             reject(false);
           });
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

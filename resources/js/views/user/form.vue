@@ -137,7 +137,7 @@ const roleResource = new RoleResource();
 export default {
   components: {
     ImageCropper,
-    PanThumb
+    PanThumb,
     // {{$IMPORT_COMPONENT_NAME_NOT_DELETE_THIS_LINE$}}
   },
   data() {
@@ -150,10 +150,10 @@ export default {
         avatar: require('@/assets/images/avatar-default.png'),
         role_id: '',
         password: '',
-        password_confirmation: ''
+        password_confirmation: '',
       },
       imageCropperShow: false,
-      imageCropperKey: 0
+      imageCropperKey: 0,
       // {{$DATA_NOT_DELETE_THIS_LINE$}}
     };
   },
@@ -165,7 +165,7 @@ export default {
           cb(
             new Error(
               this.$t('validation.required', {
-                attribute: this.$t('table.user.password')
+                attribute: this.$t('table.user.password'),
               })
             )
           );
@@ -181,7 +181,7 @@ export default {
           cb(
             new Error(
               this.$t('validation.required', {
-                attribute: this.$t('table.user.password_confirmation')
+                attribute: this.$t('table.user.password_confirmation'),
               })
             )
           );
@@ -189,7 +189,7 @@ export default {
           cb(
             new Error(
               this.$t('validation.confirmed', {
-                attribute: this.$t('table.user.password_confirmation')
+                attribute: this.$t('table.user.password_confirmation'),
               })
             )
           );
@@ -206,13 +206,13 @@ export default {
                 : cb(
                     new Error(
                       this.$t('validation.required', {
-                        attribute: this.$t('table.user.name')
+                        attribute: this.$t('table.user.name'),
                       })
                     )
                   );
             },
-            trigger: 'blur'
-          }
+            trigger: 'blur',
+          },
         ],
         email: [
           {
@@ -221,7 +221,7 @@ export default {
                 cb(
                   new Error(
                     this.$t('validation.required', {
-                      attribute: this.$t('table.user.email')
+                      attribute: this.$t('table.user.email'),
                     })
                   )
                 );
@@ -229,7 +229,7 @@ export default {
                 cb(
                   new Error(
                     this.$t('validation.email', {
-                      attribute: this.$t('table.user.email')
+                      attribute: this.$t('table.user.email'),
                     })
                   )
                 );
@@ -237,8 +237,8 @@ export default {
                 cb();
               }
             },
-            trigger: ['blur', 'change']
-          }
+            trigger: ['blur', 'change'],
+          },
         ],
         avatar: [
           {
@@ -248,13 +248,13 @@ export default {
                 : cb(
                     new Error(
                       this.$t('validation.required', {
-                        attribute: this.$t('table.user.avatar')
+                        attribute: this.$t('table.user.avatar'),
                       })
                     )
                   );
             },
-            trigger: 'blur'
-          }
+            trigger: 'blur',
+          },
         ],
         role_id: [
           {
@@ -264,13 +264,13 @@ export default {
                 : cb(
                     new Error(
                       this.$t('validation.required', {
-                        attribute: this.$t('table.user.role')
+                        attribute: this.$t('table.user.role'),
                       })
                     )
                   );
             },
-            trigger: 'change'
-          }
+            trigger: 'change',
+          },
         ],
         password: [
           { validator: password, trigger: ['change', 'blur'] },
@@ -278,17 +278,17 @@ export default {
             min: 8,
             message: this.$t('validation.min.string', {
               attribute: this.$t('table.user.password'),
-              min: 8
+              min: 8,
             }),
-            trigger: ['change', 'blur']
-          }
+            trigger: ['change', 'blur'],
+          },
         ],
         password_confirmation: [
-          { validator: passwordConfirm, trigger: ['change', 'blur'] }
-        ]
+          { validator: passwordConfirm, trigger: ['change', 'blur'] },
+        ],
         // {{$RULES_NOT_DELETE_THIS_LINE$}}
       };
-    }
+    },
   },
   watch: {},
   mounted() {
@@ -312,7 +312,7 @@ export default {
           this.$message({
             showClose: true,
             message: this.$t('messages.create'),
-            type: 'success'
+            type: 'success',
           });
           this.$refs[users].resetFields();
           this.loading = false;
@@ -337,10 +337,10 @@ export default {
           this.$message({
             showClose: true,
             message: this.$t('messages.update'),
-            type: 'success'
+            type: 'success',
           });
           this.loading = false;
-          this.$router.push({ name: 'user_list' });
+          this.$router.push({ name: 'user' });
         } else {
           this.loading = false;
           return false;
@@ -359,7 +359,7 @@ export default {
     },
     close() {
       this.imageCropperShow = false;
-    }
-  }
+    },
+  },
 };
 </script>

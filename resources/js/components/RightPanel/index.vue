@@ -24,22 +24,22 @@ export default {
   props: {
     clickNotClose: {
       default: false,
-      type: Boolean
+      type: Boolean,
     },
     buttonTop: {
       default: 250,
-      type: Number
-    }
+      type: Number,
+    },
   },
   data() {
     return {
-      show: false
+      show: false,
     };
   },
   computed: {
     theme() {
       return this.$store.state.settings.theme;
-    }
+    },
   },
   watch: {
     show(value) {
@@ -51,7 +51,7 @@ export default {
       } else {
         removeClass(document.body, 'showRightPanel');
       }
-    }
+    },
   },
   mounted() {
     this.insertToBody();
@@ -75,8 +75,8 @@ export default {
       const elx = this.$refs.rightPanel;
       const body = document.querySelector('body');
       body.insertBefore(elx, body.firstChild);
-    }
-  }
+    },
+  },
 };
 </script>
 

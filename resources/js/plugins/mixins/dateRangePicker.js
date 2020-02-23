@@ -8,7 +8,7 @@ export default {
             onClick(picker) {
               const start = new Date();
               picker.$emit('pick', [start, start]);
-            }
+            },
           },
           {
             text: this.$t('date.yesterday'),
@@ -17,7 +17,7 @@ export default {
               const end = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 - 86400);
               picker.$emit('pick', [start, end]);
-            }
+            },
           },
           {
             text: this.$t('date.this_week'),
@@ -27,9 +27,9 @@ export default {
               const end = start + 6; // last day is the first day + 6
               picker.$emit('pick', [
                 new Date(now.setDate(start)),
-                new Date(now.setDate(end))
+                new Date(now.setDate(end)),
               ]);
-            }
+            },
           },
           {
             text: this.$t('date.last_week'),
@@ -39,9 +39,9 @@ export default {
               const end = now.getDate() - now.getDay(); // last day is the first day + 6
               picker.$emit('pick', [
                 new Date(now.setDate(start)),
-                new Date(now.setDate(end))
+                new Date(now.setDate(end)),
               ]);
-            }
+            },
           },
           {
             text: this.$t('date.last_14_days'),
@@ -50,7 +50,7 @@ export default {
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 14);
               picker.$emit('pick', [start, end]);
-            }
+            },
           },
           {
             text: this.$t('date.last_30_days'),
@@ -59,7 +59,7 @@ export default {
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
               picker.$emit('pick', [start, end]);
-            }
+            },
           },
           {
             text: this.$t('date.this_month'),
@@ -67,9 +67,9 @@ export default {
               const now = new Date();
               picker.$emit('pick', [
                 new Date(now.getFullYear(), now.getMonth(), 1),
-                new Date(now.getFullYear(), now.getMonth() + 1, 0)
+                new Date(now.getFullYear(), now.getMonth() + 1, 0),
               ]);
-            }
+            },
           },
           {
             text: this.$t('date.last_month'),
@@ -77,9 +77,9 @@ export default {
               const now = new Date();
               picker.$emit('pick', [
                 new Date(now.getFullYear(), now.getMonth() - 1, 1),
-                new Date(now.getFullYear(), now.getMonth(), 0)
+                new Date(now.getFullYear(), now.getMonth(), 0),
               ]);
-            }
+            },
           },
           {
             text: this.$t('date.last_3_months'),
@@ -88,7 +88,7 @@ export default {
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
               picker.$emit('pick', [start, end]);
-            }
+            },
           },
           {
             text: this.$t('date.last_6_months'),
@@ -97,7 +97,7 @@ export default {
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 180);
               picker.$emit('pick', [start, end]);
-            }
+            },
           },
           {
             text: this.$t('date.this_year'),
@@ -105,12 +105,12 @@ export default {
               const now = new Date();
               picker.$emit('pick', [
                 new Date(now.getFullYear(), 0, 1),
-                new Date(now.getFullYear(), 12, 0)
+                new Date(now.getFullYear(), 12, 0),
               ]);
-            }
-          }
-        ]
+            },
+          },
+        ],
       };
-    }
-  }
+    },
+  },
 };

@@ -34,9 +34,7 @@ class FormHandlerGenerator extends BaseGenerator
     {
         $dbType = config('generator.db_type');
         $defaultValue = config('generator.default_value');
-        $folderName = $this->serviceGenerator->modelNameNotPluralFe(
-            $model['name']
-        );
+        $folderName = $this->serviceGenerator->folderPages($model['name']);
         $fileNameReal = "views/$folderName/form.vue";
         $templateDataReal = $this->serviceGenerator->getFileReal(
             $fileNameReal,

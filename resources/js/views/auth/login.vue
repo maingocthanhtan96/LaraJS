@@ -22,7 +22,7 @@
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item
                     :class="{
-                      'bg-blue-400 text-white font-bold': lang === 'vn'
+                      'bg-blue-400 text-white font-bold': lang === 'vn',
                     }"
                     icon="flag-icon flag-icon-vn"
                     command="vn"
@@ -31,7 +31,7 @@
                   </el-dropdown-item>
                   <el-dropdown-item
                     :class="{
-                      'bg-blue-400 text-white font-bold': lang === 'en'
+                      'bg-blue-400 text-white font-bold': lang === 'en',
                     }"
                     icon="flag-icon flag-icon-my"
                     command="en"
@@ -98,20 +98,20 @@ export default {
     return {
       form: {
         email: '',
-        password: ''
+        password: '',
       },
       loading: false,
       languages: [
         {
           value: 'vn',
-          title: 'Việt Nam'
+          title: 'Việt Nam',
         },
         {
           value: 'en',
-          title: 'English'
-        }
+          title: 'English',
+        },
       ],
-      redirect: undefined
+      redirect: undefined,
     };
   },
   computed: {
@@ -121,32 +121,32 @@ export default {
           {
             required: true,
             message: this.$t('auth.error.email'),
-            trigger: ['change', 'blur']
+            trigger: ['change', 'blur'],
           },
           {
             type: 'email',
             message: this.$t('auth.error.email_valid'),
-            trigger: ['change', 'blur']
-          }
+            trigger: ['change', 'blur'],
+          },
         ],
         password: [
           {
             required: true,
             message: this.$t('auth.error.password'),
-            trigger: ['change', 'blur']
-          }
-        ]
+            trigger: ['change', 'blur'],
+          },
+        ],
       };
     },
-    ...mapGetters(['user', 'lang'])
+    ...mapGetters(['user', 'lang']),
   },
   watch: {
     $route: {
       handler: function(route) {
         this.redirect = route.query && route.query.redirect;
       },
-      immediate: true
-    }
+      immediate: true,
+    },
   },
   methods: {
     handleCommand(command) {
@@ -163,7 +163,7 @@ export default {
             .then(() => {
               this.loading = false;
               this.$router.push({
-                path: this.redirect || this.$store.state.settings.redirect
+                path: this.redirect || this.$store.state.settings.redirect,
               });
             })
             .catch(() => {
@@ -174,7 +174,7 @@ export default {
           return false;
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>

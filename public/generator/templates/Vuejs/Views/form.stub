@@ -32,7 +32,7 @@
 
 <script>
 import { scrollTo } from '@/utils/scroll-to';
-import {{$MODEL_CLASS$}}Resource from '@/api/{{$CONST_MODEL_CLASS$}}';
+import {{$MODEL_CLASS$}}Resource from '@/api/{{$NAME_ROUTE$}}';
 // {{$IMPORT_COMPONENT_NOT_DELETE_THIS_LINE$}}
 
 const {{$CONST_MODEL_CLASS$}}Resource = new {{$MODEL_CLASS$}}Resource();
@@ -46,7 +46,7 @@ export default {
       loading: false,
       form: {
         // {{$FORM_FIELDS_NOT_DELETE_THIS_LINE$}}
-      },
+      }, // {{$$}}
       // {{$DATA_NOT_DELETE_THIS_LINE$}}
     };
   },
@@ -103,7 +103,7 @@ export default {
             type: 'success',
           });
           this.loading = false;
-          this.$router.push({ name: '{{$REF_MODEL_CLASS$}}_list' });
+          this.$router.push({ name: '{{$NAME_ROUTE$}}' });
         } else {
           this.loading = false;
           scrollTo(document.getElementsByName(Object.keys(errors)[0])[0].getBoundingClientRect().top - document.body.getBoundingClientRect().top - 130, 800);

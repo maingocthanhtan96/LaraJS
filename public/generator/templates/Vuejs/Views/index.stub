@@ -3,7 +3,7 @@
     <el-col :span="24">
       <el-card>
         <div slot="header" class="flex justify-end items-center">
-          <router-link v-permission="['create']" :to="{name: '{{$CONST_MODEL_CLASS$}}_create'}" class="pan-btn blue-btn" tag="button">
+          <router-link v-permission="['create']" :to="{name: '{{$CONST_MODEL_CLASS$}}-create'}" class="pan-btn blue-btn" tag="button">
             <i class="el-icon-plus mr-2" />{{this.$t('button.create')}}
           </router-link>
         </div>

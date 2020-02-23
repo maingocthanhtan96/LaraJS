@@ -11,7 +11,7 @@
             <svg-icon icon-class="tree-table" />
           </button>
           <router-link
-            :to="{ name: 'generator_create' }"
+            :to="{ name: 'generator-create' }"
             class="pan-btn blue-btn"
             tag="button"
           >
@@ -92,7 +92,7 @@
               >
                 <template slot-scope="{ row }">
                   <router-link
-                    :to="{ name: 'generator_edit', params: { id: row.id } }"
+                    :to="{ name: 'generator-edit', params: { id: row.id } }"
                   >
                     <el-tooltip effect="dark" content="Edit" placement="left">
                       <i
@@ -103,8 +103,8 @@
                   </router-link>
                   <router-link
                     :to="{
-                      name: 'generator_relationship',
-                      params: { id: row.id }
+                      name: 'generator-relationship',
+                      params: { id: row.id },
                     }"
                   >
                     <el-tooltip
@@ -173,19 +173,19 @@ export default {
           orderBy: 'created_at',
           created_at: [
             this.parseTime(new Date().getTime() - 86400000 * 30),
-            this.parseTime(new Date())
-          ]
+            this.parseTime(new Date()),
+          ],
         },
         list: null,
         total: 0,
-        loading: false
-      }
+        loading: false,
+      },
     };
   },
   watch: {
     'table.listQuery.query': debounce(function() {
       this.handleFilter();
-    }, 500)
+    }, 500),
   },
   mounted() {
     this.getList();
@@ -227,14 +227,14 @@ export default {
     remove(id, name) {
       this.$confirm(
         this.$t('messages.delete_confirm', {
-          attribute: this.$t('table.user.id') + '#' + name
+          attribute: this.$t('table.user.id') + '#' + name,
         }),
         this.$t('messages.warning'),
         {
           confirmButtonText: this.$t('button.ok'),
           cancelButtonClass: this.$t('button.cancel'),
           type: 'warning',
-          center: true
+          center: true,
         }
       ).then(async () => {
         this.table.loading = true;
@@ -246,15 +246,15 @@ export default {
         this.$message({
           showClose: true,
           message: this.$t('messages.delete'),
-          type: 'success'
+          type: 'success',
         });
         this.table.loading = false;
       });
     },
     parseTime(date, format = '{y}-{m}-{d}') {
       return this.$options.filters.parseTime(date, format);
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
