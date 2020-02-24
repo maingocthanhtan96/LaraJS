@@ -47,7 +47,9 @@
               :width="300"
               :height="300"
               url="upload-file/store-avatar"
-              :params="{ fileOld: $route.params.id ? form.avatar : '' }"
+              :params="{
+                fileOld: $route.params.id ? (fileOld ? fileOld : '') : fileOld,
+              }"
               field="file"
               lang-type="en"
               @close="close"
@@ -152,6 +154,7 @@ export default {
         password: '',
         password_confirmation: '',
       },
+      fileOld: '',
       imageCropperShow: false,
       imageCropperKey: 0,
       // {{$DATA_NOT_DELETE_THIS_LINE$}}
@@ -351,6 +354,7 @@ export default {
       this.imageCropperShow = false;
       this.imageCropperKey = this.imageCropperKey + 1;
       this.form.avatar = resData.data;
+      this.fileOld = resData.data;
       this.$message({ message: this.$t('messages.upload'), type: 'success' });
     },
     cropError(error) {

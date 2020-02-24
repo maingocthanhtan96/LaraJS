@@ -7,6 +7,7 @@ use App\Http\Requests\StoreFileRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
 {
@@ -22,20 +23,11 @@ class FileController extends Controller
             if ($request->file('file')) {
                 $now = Carbon::now();
                 $image = $request->file('file');
-                $name =
-                    time() .
-                    '_' .
-                    \Str::random(20) .
-                    '.' .
-                    $image->getClientOriginalExtension();
-                $folderCreate = "/uploads/dropzone/$now->year/$now->month/$now->day";
-                $folder = public_path($folderCreate);
-                if (!is_dir($folder)) {
-                    mkdir($folder, 0775, true);
-                }
-                $image->move($folder, $name);
+                $folderCreate = "public/uploads/dropzone/$now->year/$now->month/$now->day";
+                $diskLocal = Storage::disk();
+                $fileName = $diskLocal->put($folderCreate, $image);
 
-                return (new self())->jsonData("$folderCreate/$name");
+                return (new self())->jsonData($diskLocal->url($fileName));
             }
 
             return (new self())->jsonError(trans('error.file_not_found'));
@@ -75,20 +67,9 @@ class FileController extends Controller
             if ($request->file('file')) {
                 $now = Carbon::now();
                 $image = $request->file('file');
-                $name =
-                    time() .
-                    '_' .
-                    \Str::random(20) .
-                    '.' .
-                    $image->getClientOriginalExtension();
-                $folderCreate = "/uploads/avatars/$now->year/$now->month/$now->day";
-                $folder = public_path($folderCreate);
-                if (!is_dir($folder)) {
-                    mkdir($folder, 0775, true);
-                }
-
-                $image->move($folder, $name);
-
+                $folderCreate = "public/uploads/avatars/$now->year/$now->month/$now->day";
+                $diskLocal = Storage::disk();
+                $fileName = $diskLocal->put($folderCreate, $image);
                 // Remove file old
                 $fileOld = $request->get('fileOld', '');
                 if ($fileOld) {
@@ -101,7 +82,7 @@ class FileController extends Controller
                     }
                 }
 
-                return (new self())->jsonData("$folderCreate/$name");
+                return (new self())->jsonData($diskLocal->url($fileName));
             }
 
             return (new self())->jsonError(trans('error.file_not_found'));
