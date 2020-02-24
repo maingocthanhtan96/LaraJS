@@ -30,10 +30,6 @@ module.exports = {
         semi: false,
         singleQuote: true,
         trailingCommaPHP: 'all',
-        bracketSpacing: true,
-        jsxBracketSameLine: false,
-        arrowParens: 'avoid',
-        proseWrap: 'never'
       }
     }
   ]
