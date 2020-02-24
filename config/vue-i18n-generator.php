@@ -76,5 +76,5 @@ return [
     | after generating json files.
     |
     */
-    'showOutputMessages' => false
+    'showOutputMessages' => false,
 ];

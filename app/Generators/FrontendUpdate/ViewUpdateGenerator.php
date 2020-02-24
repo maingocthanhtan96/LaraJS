@@ -45,42 +45,23 @@ class ViewUpdateGenerator extends BaseGenerator
 
     private function generate($generator, $model, $updateFields)
     {
-        $fileName =
-            $this->serviceGenerator->folderPages($model['name']) . '/index.vue';
-        $templateDataReal = $this->serviceGenerator->getFile(
-            'views',
-            'vuejs',
-            $fileName
-        );
-        $templateDataReal = $this->generateFieldsRename(
-            $updateFields['renameFields'],
-            $model,
-            $templateDataReal
-        );
+        $fileName = $this->serviceGenerator->folderPages($model['name']) . '/index.vue';
+        $templateDataReal = $this->serviceGenerator->getFile('views', 'vuejs', $fileName);
+        $templateDataReal = $this->generateFieldsRename($updateFields['renameFields'], $model, $templateDataReal);
         $templateDataReal = $this->generateFieldsChange(
             $generator,
             $updateFields['changeFields'],
             $model,
-            $templateDataReal
+            $templateDataReal,
         );
-        $templateDataReal = $this->generateFieldsDrop(
-            $updateFields['dropFields'],
-            $templateDataReal
-        );
-        $templateDataReal = $this->generateFieldsUpdate(
-            $updateFields['updateFields'],
-            $model,
-            $templateDataReal
-        );
+        $templateDataReal = $this->generateFieldsDrop($updateFields['dropFields'], $templateDataReal);
+        $templateDataReal = $this->generateFieldsUpdate($updateFields['updateFields'], $model, $templateDataReal);
         $fileName = $this->path . $fileName;
         $this->serviceFile->createFileReal($fileName, $templateDataReal);
     }
 
-    private function generateFieldsRename(
-        $renameFields,
-        $model,
-        $templateDataReal
-    ) {
+    private function generateFieldsRename($renameFields, $model, $templateDataReal)
+    {
         if (empty($renameFields)) {
             return $templateDataReal;
         }
@@ -94,38 +75,10 @@ class ViewUpdateGenerator extends BaseGenerator
         $fieldsGenerateHeadings = [];
         $fieldsGenerateClasses = [];
         $fieldsGenerateSortable = [];
-        $templateColumns = $this->serviceGenerator->searchTemplateX(
-            $selfColumns,
-            3,
-            '],',
-            3,
-            -3,
-            $templateDataReal
-        );
-        $templateHeadings = $this->serviceGenerator->searchTemplateX(
-            $selfHeadings,
-            3,
-            '},',
-            3,
-            -3,
-            $templateDataReal
-        );
-        $templateClasses = $this->serviceGenerator->searchTemplateX(
-            $selfClasses,
-            3,
-            '},',
-            3,
-            -3,
-            $templateDataReal
-        );
-        $templateSortable = $this->serviceGenerator->searchTemplateX(
-            $selfSortable,
-            3,
-            '],',
-            3,
-            -3,
-            $templateDataReal
-        );
+        $templateColumns = $this->serviceGenerator->searchTemplateX($selfColumns, 3, '],', 3, -3, $templateDataReal);
+        $templateHeadings = $this->serviceGenerator->searchTemplateX($selfHeadings, 3, '},', 3, -3, $templateDataReal);
+        $templateClasses = $this->serviceGenerator->searchTemplateX($selfClasses, 3, '},', 3, -3, $templateDataReal);
+        $templateSortable = $this->serviceGenerator->searchTemplateX($selfSortable, 3, '],', 3, -3, $templateDataReal);
         $columns = explode(',', trim($templateColumns));
         $headings = explode(',', trim($templateHeadings));
         $classes = explode(',', trim($templateClasses));
@@ -137,26 +90,17 @@ class ViewUpdateGenerator extends BaseGenerator
                     $col = trim($col);
                     $col = $this->serviceGenerator->trimQuotes($col);
                     if ($rename['field_name_old']['field_name'] === $col) {
-                        $fieldsGenerateColumns[] =
-                            "'" . $rename['field_name_new']['field_name'] . "'";
+                        $fieldsGenerateColumns[] = "'" . $rename['field_name_new']['field_name'] . "'";
                     } else {
                         $name = "'" . $col . "'";
-                        if (
-                            !in_array($name, $fieldsGenerateColumns) &&
-                            !in_array($col, $arrayChange)
-                        ) {
-                            if (
-                                $col === self::CREATE_AT ||
-                                $col === self::ACTIONS
-                            ) {
+                        if (!in_array($name, $fieldsGenerateColumns) && !in_array($col, $arrayChange)) {
+                            if ($col === self::CREATE_AT || $col === self::ACTIONS) {
                                 if ($index === count($renameFields) - 1) {
                                     if ($col === self::CREATE_AT) {
-                                        $fieldsGenerateColumns[] =
-                                            "'" . self::CREATE_AT . "'";
+                                        $fieldsGenerateColumns[] = "'" . self::CREATE_AT . "'";
                                     }
                                     if ($col === self::ACTIONS) {
-                                        $fieldsGenerateColumns[] =
-                                            "'" . self::ACTIONS . "'";
+                                        $fieldsGenerateColumns[] = "'" . self::ACTIONS . "'";
                                     }
                                 }
                             } else {
@@ -174,33 +118,20 @@ class ViewUpdateGenerator extends BaseGenerator
                     $valHeading = trim($valHeading);
                     $keyHeading = trim($keyHeading, "'':");
                     $keyHeading = trim($keyHeading, '"":');
-                    if (
-                        $rename['field_name_old']['field_name'] === $keyHeading
-                    ) {
+                    if ($rename['field_name_old']['field_name'] === $keyHeading) {
                         $fieldsGenerateHeadings[] =
                             "'" .
                             $rename['field_name_new']['field_name'] .
                             "'" .
                             ': () => this.$t("table.' .
-                            $this->serviceGenerator->tableNameNotPlural(
-                                $model['name']
-                            ) .
+                            $this->serviceGenerator->tableNameNotPlural($model['name']) .
                             '.' .
                             $rename['field_name_new']['field_name'] .
                             '")' .
                             ',';
                     } else {
-                        $name =
-                            "'" .
-                            $keyHeading .
-                            "'" .
-                            ': () => ' .
-                            $valHeading .
-                            ',';
-                        if (
-                            !in_array($name, $fieldsGenerateHeadings) &&
-                            !in_array($keyHeading, $arrayChange)
-                        ) {
+                        $name = "'" . $keyHeading . "'" . ': () => ' . $valHeading . ',';
+                        if (!in_array($name, $fieldsGenerateHeadings) && !in_array($keyHeading, $arrayChange)) {
                             if ($keyHeading === self::CREATE_AT) {
                                 if ($index === count($renameFields) - 1) {
                                     $fieldsGenerateHeadings[] = $name;
@@ -221,16 +152,10 @@ class ViewUpdateGenerator extends BaseGenerator
                     $keyClass = trim($keyClass, "'':");
                     $keyClass = trim($keyClass, '"":');
                     if ($rename['field_name_old']['field_name'] === $keyClass) {
-                        $fieldsGenerateClasses[] =
-                            "'" .
-                            $rename['field_name_new']['field_name'] .
-                            "': $valClass,";
+                        $fieldsGenerateClasses[] = "'" . $rename['field_name_new']['field_name'] . "': $valClass,";
                     } else {
                         $name = "'" . $keyClass . "': $valClass,";
-                        if (
-                            !in_array($name, $fieldsGenerateClasses) &&
-                            !in_array($keyClass, $arrayChange)
-                        ) {
+                        if (!in_array($name, $fieldsGenerateClasses) && !in_array($keyClass, $arrayChange)) {
                             if ($keyClass === self::CREATE_AT) {
                                 if ($index === count($renameFields) - 1) {
                                     $fieldsGenerateClasses[] = $name;
@@ -247,14 +172,10 @@ class ViewUpdateGenerator extends BaseGenerator
                     $sort = trim($sort);
                     $sort = $this->serviceGenerator->trimQuotes($sort);
                     if ($rename['field_name_old']['field_name'] === $sort) {
-                        $fieldsGenerateSortable[] =
-                            "'" . $rename['field_name_new']['field_name'] . "'";
+                        $fieldsGenerateSortable[] = "'" . $rename['field_name_new']['field_name'] . "'";
                     } else {
                         $name = "'" . $sort . "'";
-                        if (
-                            !in_array($name, $fieldsGenerateSortable) &&
-                            !in_array($sort, $arrayChange)
-                        ) {
+                        if (!in_array($name, $fieldsGenerateSortable) && !in_array($sort, $arrayChange)) {
                             if ($sort === self::CREATE_AT) {
                                 if ($index === count($renameFields) - 1) {
                                     $fieldsGenerateSortable[] = $name;
@@ -269,85 +190,64 @@ class ViewUpdateGenerator extends BaseGenerator
 
             //replace template index.view
             $selfTemplateStart = self::TEMPLATE_START;
-            $selfTemplateStart .=
-                '"' . $rename['field_name_old']['field_name'] . '"';
-            if (
-                $rename['field_name_old']['db_type'] ===
-                $this->dbType['longtext']
-            ) {
+            $selfTemplateStart .= '"' . $rename['field_name_old']['field_name'] . '"';
+            if ($rename['field_name_old']['db_type'] === $this->dbType['longtext']) {
                 $templateLongText = $this->serviceGenerator->searchTemplateX(
                     $selfTemplateStart,
                     1,
                     $selfTemplateEnd,
                     -strlen($selfTemplateStart),
                     strlen($selfTemplateStart) + strlen($selfTemplateEnd),
-                    $templateDataReal
+                    $templateDataReal,
                 );
-                $longTexts = explode(" ", $templateLongText);
-                $fieldsGenerateLongText = $this->templateArray(
-                    $longTexts,
-                    $rename
-                );
+                $longTexts = explode(' ', $templateLongText);
+                $fieldsGenerateLongText = $this->templateArray($longTexts, $rename);
                 $templateDataReal = str_replace(
                     $templateLongText,
                     implode(' ', $fieldsGenerateLongText),
-                    $templateDataReal
+                    $templateDataReal,
                 );
             }
-            if (
-                $rename['field_name_old']['db_type'] === $this->dbType['file']
-            ) {
+            if ($rename['field_name_old']['db_type'] === $this->dbType['file']) {
                 $templateJson = $this->serviceGenerator->searchTemplateX(
                     $selfTemplateStart,
                     1,
                     $selfTemplateEnd,
                     -strlen($selfTemplateStart),
                     strlen($selfTemplateStart) + strlen($selfTemplateEnd),
-                    $templateDataReal
+                    $templateDataReal,
                 );
-                $files = explode(" ", $templateJson);
+                $files = explode(' ', $templateJson);
                 $fieldsGenerateJson = $this->templateArray($files, $rename);
-                $templateDataReal = str_replace(
-                    $templateJson,
-                    implode(' ', $fieldsGenerateJson),
-                    $templateDataReal
-                );
+                $templateDataReal = str_replace($templateJson, implode(' ', $fieldsGenerateJson), $templateDataReal);
             }
         }
         $templateDataReal = str_replace(
-            "$selfColumns: [" . $templateColumns . "]",
-            "$selfColumns: [" . implode(', ', $fieldsGenerateColumns) . "]",
-            $templateDataReal
+            "$selfColumns: [" . $templateColumns . ']',
+            "$selfColumns: [" . implode(', ', $fieldsGenerateColumns) . ']',
+            $templateDataReal,
         );
         $templateDataReal = str_replace(
-            "$selfHeadings: {" . $templateHeadings . "},",
-            "$selfHeadings: {" .
-                $this->replaceTemplate($fieldsGenerateHeadings, 3) .
-                "},",
-            $templateDataReal
+            "$selfHeadings: {" . $templateHeadings . '},',
+            "$selfHeadings: {" . $this->replaceTemplate($fieldsGenerateHeadings, 3) . '},',
+            $templateDataReal,
         );
         $templateDataReal = str_replace(
-            "$selfClasses: {" . $templateClasses . "},",
-            "$selfClasses: {" .
-                $this->replaceTemplate($fieldsGenerateClasses, 3) .
-                "},",
-            $templateDataReal
+            "$selfClasses: {" . $templateClasses . '},',
+            "$selfClasses: {" . $this->replaceTemplate($fieldsGenerateClasses, 3) . '},',
+            $templateDataReal,
         );
         $templateDataReal = str_replace(
-            "$selfSortable: [" . $templateSortable . "]",
-            "$selfSortable: [" . implode(', ', $fieldsGenerateSortable) . "]",
-            $templateDataReal
+            "$selfSortable: [" . $templateSortable . ']',
+            "$selfSortable: [" . implode(', ', $fieldsGenerateSortable) . ']',
+            $templateDataReal,
         );
 
         return $templateDataReal;
     }
 
-    private function generateFieldsChange(
-        $generator,
-        $changeFields,
-        $model,
-        $templateDataReal
-    ) {
+    private function generateFieldsChange($generator, $changeFields, $model, $templateDataReal)
+    {
         if (empty($changeFields)) {
             return $templateDataReal;
         }
@@ -361,38 +261,10 @@ class ViewUpdateGenerator extends BaseGenerator
         $fieldsGenerateHeadings = [];
         $fieldsGenerateClasses = [];
         $fieldsGenerateSortable = [];
-        $templateColumns = $this->serviceGenerator->searchTemplateX(
-            $selfColumns,
-            3,
-            '],',
-            3,
-            -3,
-            $templateDataReal
-        );
-        $templateHeadings = $this->serviceGenerator->searchTemplateX(
-            $selfHeadings,
-            3,
-            '},',
-            3,
-            -3,
-            $templateDataReal
-        );
-        $templateClasses = $this->serviceGenerator->searchTemplateX(
-            $selfClasses,
-            3,
-            '},',
-            3,
-            -3,
-            $templateDataReal
-        );
-        $templateSortable = $this->serviceGenerator->searchTemplateX(
-            $selfSortable,
-            3,
-            '],',
-            3,
-            -3,
-            $templateDataReal
-        );
+        $templateColumns = $this->serviceGenerator->searchTemplateX($selfColumns, 3, '],', 3, -3, $templateDataReal);
+        $templateHeadings = $this->serviceGenerator->searchTemplateX($selfHeadings, 3, '},', 3, -3, $templateDataReal);
+        $templateClasses = $this->serviceGenerator->searchTemplateX($selfClasses, 3, '},', 3, -3, $templateDataReal);
+        $templateSortable = $this->serviceGenerator->searchTemplateX($selfSortable, 3, '],', 3, -3, $templateDataReal);
         $columns = explode(',', trim($templateColumns));
         $headings = explode(',', trim($templateHeadings));
         $classes = explode(',', trim($templateClasses));
@@ -415,27 +287,18 @@ class ViewUpdateGenerator extends BaseGenerator
                     $col = $this->serviceGenerator->trimQuotes($col);
                     if ($update['field_name'] === $col) {
                         if ($update['show']) {
-                            $fieldsGenerateColumns[] =
-                                "'" . $update['field_name'] . "'";
+                            $fieldsGenerateColumns[] = "'" . $update['field_name'] . "'";
                         }
                     } else {
                         $name = "'" . $col . "'";
-                        if (
-                            !in_array($name, $fieldsGenerateColumns) &&
-                            !in_array($col, $arrayChange)
-                        ) {
-                            if (
-                                $col === self::CREATE_AT ||
-                                $col === self::ACTIONS
-                            ) {
+                        if (!in_array($name, $fieldsGenerateColumns) && !in_array($col, $arrayChange)) {
+                            if ($col === self::CREATE_AT || $col === self::ACTIONS) {
                                 if ($index === count($changeFields) - 1) {
                                     if ($col === self::CREATE_AT) {
-                                        $fieldsGenerateColumns[] =
-                                            "'" . self::CREATE_AT . "'";
+                                        $fieldsGenerateColumns[] = "'" . self::CREATE_AT . "'";
                                     }
                                     if ($col === self::ACTIONS) {
-                                        $fieldsGenerateColumns[] =
-                                            "'" . self::ACTIONS . "'";
+                                        $fieldsGenerateColumns[] = "'" . self::ACTIONS . "'";
                                     }
                                 }
                             } else {
@@ -460,26 +323,15 @@ class ViewUpdateGenerator extends BaseGenerator
                                 $update['field_name'] .
                                 "'" .
                                 ': () => this.$t("table.' .
-                                $this->serviceGenerator->tableNameNotPlural(
-                                    $model['name']
-                                ) .
+                                $this->serviceGenerator->tableNameNotPlural($model['name']) .
                                 '.' .
                                 $update['field_name'] .
                                 '")' .
                                 ',';
                         }
                     } else {
-                        $name =
-                            "'" .
-                            $keyHeading .
-                            "'" .
-                            ': () => ' .
-                            $valHeading .
-                            ',';
-                        if (
-                            !in_array($name, $fieldsGenerateHeadings) &&
-                            !in_array($keyHeading, $arrayChange)
-                        ) {
+                        $name = "'" . $keyHeading . "'" . ': () => ' . $valHeading . ',';
+                        if (!in_array($name, $fieldsGenerateHeadings) && !in_array($keyHeading, $arrayChange)) {
                             if ($keyHeading === self::CREATE_AT) {
                                 if ($index === count($changeFields) - 1) {
                                     $fieldsGenerateHeadings[] = $name;
@@ -514,19 +366,13 @@ class ViewUpdateGenerator extends BaseGenerator
                                 case $this->dbType['year']:
                                 case $this->dbType['enum']:
                                 case $this->dbType['file']:
-                                    $fieldsGenerateClasses[] =
-                                        "'" .
-                                        $update['field_name'] .
-                                        "': 'text-center',";
+                                    $fieldsGenerateClasses[] = "'" . $update['field_name'] . "': 'text-center',";
                                     break;
                             }
                         }
                     } else {
                         $name = "'" . $keyClass . "': $valClass,";
-                        if (
-                            !in_array($name, $fieldsGenerateClasses) &&
-                            !in_array($keyClass, $arrayChange)
-                        ) {
+                        if (!in_array($name, $fieldsGenerateClasses) && !in_array($keyClass, $arrayChange)) {
                             if ($keyClass === self::CREATE_AT) {
                                 if ($index === count($changeFields) - 1) {
                                     $fieldsGenerateClasses[] = $name;
@@ -535,8 +381,7 @@ class ViewUpdateGenerator extends BaseGenerator
                                 $fieldsGenerateClasses[] = $name;
                             }
                         }
-                        $name =
-                            "'" . $update['field_name'] . "': 'text-center',";
+                        $name = "'" . $update['field_name'] . "': 'text-center',";
                         if (!in_array($name, $fieldsGenerateClasses)) {
                             if ($update['show']) {
                                 switch ($update['db_type']) {
@@ -566,15 +411,11 @@ class ViewUpdateGenerator extends BaseGenerator
                     $sort = $this->serviceGenerator->trimQuotes($sort);
                     if ($update['field_name'] === $sort) {
                         if ($update['sort']) {
-                            $fieldsGenerateSortable[] =
-                                "'" . $update['field_name'] . "'";
+                            $fieldsGenerateSortable[] = "'" . $update['field_name'] . "'";
                         }
                     } else {
                         $name = "'" . $sort . "'";
-                        if (
-                            !in_array($name, $fieldsGenerateSortable) &&
-                            !in_array($sort, $arrayChange)
-                        ) {
+                        if (!in_array($name, $fieldsGenerateSortable) && !in_array($sort, $arrayChange)) {
                             if ($sort === self::CREATE_AT) {
                                 if ($index === count($changeFields) - 1) {
                                     $fieldsGenerateSortable[] = $name;
@@ -601,24 +442,17 @@ class ViewUpdateGenerator extends BaseGenerator
                         $selfTemplateEnd,
                         -strlen($selfTemplateStart),
                         strlen($selfTemplateStart) + strlen($selfTemplateEnd),
-                        $templateDataReal
+                        $templateDataReal,
                     );
                     if ($templateLongText) {
                         if (!$update['show']) {
-                            $templateDataReal = str_replace(
-                                $templateLongText,
-                                '',
-                                $templateDataReal
-                            );
+                            $templateDataReal = str_replace($templateLongText, '', $templateDataReal);
                         }
-                        if (
-                            $update['db_type'] !==
-                            $dataOld[$update['id']]['db_type']
-                        ) {
+                        if ($update['db_type'] !== $dataOld[$update['id']]['db_type']) {
                             $templateDataReal = str_replace(
                                 $templateLongText,
                                 $this->generateHandler($update),
-                                $templateDataReal
+                                $templateDataReal,
                             );
                         }
                     } else {
@@ -628,7 +462,7 @@ class ViewUpdateGenerator extends BaseGenerator
                                 $this->generateHandler($update),
                                 5,
                                 $templateDataReal,
-                                2
+                                2,
                             );
                         }
                     }
@@ -636,28 +470,24 @@ class ViewUpdateGenerator extends BaseGenerator
             }
         }
         $templateDataReal = str_replace(
-            "$selfColumns: [" . $templateColumns . "]",
-            "$selfColumns: [" . implode(', ', $fieldsGenerateColumns) . "]",
-            $templateDataReal
+            "$selfColumns: [" . $templateColumns . ']',
+            "$selfColumns: [" . implode(', ', $fieldsGenerateColumns) . ']',
+            $templateDataReal,
         );
         $templateDataReal = str_replace(
-            "$selfHeadings: {" . $templateHeadings . "},",
-            "$selfHeadings: {" .
-                $this->replaceTemplate($fieldsGenerateHeadings, 3) .
-                "},",
-            $templateDataReal
+            "$selfHeadings: {" . $templateHeadings . '},',
+            "$selfHeadings: {" . $this->replaceTemplate($fieldsGenerateHeadings, 3) . '},',
+            $templateDataReal,
         );
         $templateDataReal = str_replace(
-            "$selfClasses: {" . $templateClasses . "},",
-            "$selfClasses: {" .
-                $this->replaceTemplate($fieldsGenerateClasses, 3) .
-                "},",
-            $templateDataReal
+            "$selfClasses: {" . $templateClasses . '},',
+            "$selfClasses: {" . $this->replaceTemplate($fieldsGenerateClasses, 3) . '},',
+            $templateDataReal,
         );
         $templateDataReal = str_replace(
-            "$selfSortable: [" . $templateSortable . "]",
-            "$selfSortable: [" . implode(', ', $fieldsGenerateSortable) . "]",
-            $templateDataReal
+            "$selfSortable: [" . $templateSortable . ']',
+            "$selfSortable: [" . implode(', ', $fieldsGenerateSortable) . ']',
+            $templateDataReal,
         );
         return $templateDataReal;
     }
@@ -677,38 +507,10 @@ class ViewUpdateGenerator extends BaseGenerator
         $fieldsGenerateHeadings = [];
         $fieldsGenerateClasses = [];
         $fieldsGenerateSortable = [];
-        $templateColumns = $this->serviceGenerator->searchTemplateX(
-            $selfColumns,
-            3,
-            '],',
-            3,
-            -3,
-            $templateDataReal
-        );
-        $templateHeadings = $this->serviceGenerator->searchTemplateX(
-            $selfHeadings,
-            3,
-            '},',
-            3,
-            -3,
-            $templateDataReal
-        );
-        $templateClasses = $this->serviceGenerator->searchTemplateX(
-            $selfClasses,
-            3,
-            '},',
-            3,
-            -3,
-            $templateDataReal
-        );
-        $templateSortable = $this->serviceGenerator->searchTemplateX(
-            $selfSortable,
-            3,
-            '],',
-            3,
-            -3,
-            $templateDataReal
-        );
+        $templateColumns = $this->serviceGenerator->searchTemplateX($selfColumns, 3, '],', 3, -3, $templateDataReal);
+        $templateHeadings = $this->serviceGenerator->searchTemplateX($selfHeadings, 3, '},', 3, -3, $templateDataReal);
+        $templateClasses = $this->serviceGenerator->searchTemplateX($selfClasses, 3, '},', 3, -3, $templateDataReal);
+        $templateSortable = $this->serviceGenerator->searchTemplateX($selfSortable, 3, '],', 3, -3, $templateDataReal);
         $columns = explode(',', trim($templateColumns));
         $headings = explode(',', trim($templateHeadings));
         $classes = explode(',', trim($templateClasses));
@@ -719,22 +521,14 @@ class ViewUpdateGenerator extends BaseGenerator
                     $col = trim($col);
                     $col = $this->serviceGenerator->trimQuotes($col);
                     $name = "'" . $col . "'";
-                    if (
-                        $drop['field_name'] !== $col &&
-                        !in_array($name, $fieldsGenerateColumns)
-                    ) {
-                        if (
-                            $col === self::CREATE_AT ||
-                            $col === self::ACTIONS
-                        ) {
+                    if ($drop['field_name'] !== $col && !in_array($name, $fieldsGenerateColumns)) {
+                        if ($col === self::CREATE_AT || $col === self::ACTIONS) {
                             if ($index === count($dropFields) - 1) {
                                 if ($col === self::CREATE_AT) {
-                                    $fieldsGenerateColumns[] =
-                                        "'" . self::CREATE_AT . "'";
+                                    $fieldsGenerateColumns[] = "'" . self::CREATE_AT . "'";
                                 }
                                 if ($col === self::ACTIONS) {
-                                    $fieldsGenerateColumns[] =
-                                        "'" . self::ACTIONS . "'";
+                                    $fieldsGenerateColumns[] = "'" . self::ACTIONS . "'";
                                 }
                             }
                         } else {
@@ -751,17 +545,8 @@ class ViewUpdateGenerator extends BaseGenerator
                     $valHeading = trim($valHeading);
                     $keyHeading = trim($keyHeading, "'':");
                     $keyHeading = trim($keyHeading, '"":');
-                    $name =
-                        "'" .
-                        $keyHeading .
-                        "'" .
-                        ': () => ' .
-                        $valHeading .
-                        ',';
-                    if (
-                        $drop['field_name'] !== $keyHeading &&
-                        !in_array($name, $fieldsGenerateHeadings)
-                    ) {
+                    $name = "'" . $keyHeading . "'" . ': () => ' . $valHeading . ',';
+                    if ($drop['field_name'] !== $keyHeading && !in_array($name, $fieldsGenerateHeadings)) {
                         if ($keyHeading === self::CREATE_AT) {
                             if ($index === count($dropFields) - 1) {
                                 $fieldsGenerateHeadings[] = $name;
@@ -781,10 +566,7 @@ class ViewUpdateGenerator extends BaseGenerator
                     $keyClass = trim($keyClass, "'':");
                     $keyClass = trim($keyClass, '"":');
                     $name = "'" . $keyClass . "': $valClass,";
-                    if (
-                        $drop['field_name'] !== $keyClass &&
-                        !in_array($name, $fieldsGenerateClasses)
-                    ) {
+                    if ($drop['field_name'] !== $keyClass && !in_array($name, $fieldsGenerateClasses)) {
                         if ($keyClass === self::CREATE_AT) {
                             if ($index === count($dropFields) - 1) {
                                 $fieldsGenerateClasses[] = $name;
@@ -800,10 +582,7 @@ class ViewUpdateGenerator extends BaseGenerator
                     $sort = trim($sort);
                     $sort = $this->serviceGenerator->trimQuotes($sort);
                     $name = "'" . $sort . "'";
-                    if (
-                        $drop['field_name'] !== $sort &&
-                        !in_array($name, $fieldsGenerateSortable)
-                    ) {
+                    if ($drop['field_name'] !== $sort && !in_array($name, $fieldsGenerateSortable)) {
                         if ($sort === self::CREATE_AT) {
                             if ($index === count($dropFields) - 1) {
                                 $fieldsGenerateSortable[] = $name;
@@ -825,14 +604,10 @@ class ViewUpdateGenerator extends BaseGenerator
                     $selfTemplateEnd,
                     -strlen($selfTemplateStart),
                     strlen($selfTemplateStart) + strlen($selfTemplateEnd),
-                    $templateDataReal
+                    $templateDataReal,
                 );
                 if ($templateLongText) {
-                    $templateDataReal = str_replace(
-                        $templateLongText,
-                        '',
-                        $templateDataReal
-                    );
+                    $templateDataReal = str_replace($templateLongText, '', $templateDataReal);
                 }
             }
             if ($drop['db_type'] === $this->dbType['file']) {
@@ -842,49 +617,38 @@ class ViewUpdateGenerator extends BaseGenerator
                     $selfTemplateEnd,
                     -strlen($selfTemplateStart),
                     strlen($selfTemplateStart) + strlen($selfTemplateEnd),
-                    $templateDataReal
+                    $templateDataReal,
                 );
                 if ($templateJson) {
-                    $templateDataReal = str_replace(
-                        $templateJson,
-                        '',
-                        $templateDataReal
-                    );
+                    $templateDataReal = str_replace($templateJson, '', $templateDataReal);
                 }
             }
         }
         $templateDataReal = str_replace(
-            "$selfColumns: [" . $templateColumns . "]",
-            "$selfColumns: [" . implode(', ', $fieldsGenerateColumns) . "]",
-            $templateDataReal
+            "$selfColumns: [" . $templateColumns . ']',
+            "$selfColumns: [" . implode(', ', $fieldsGenerateColumns) . ']',
+            $templateDataReal,
         );
         $templateDataReal = str_replace(
-            "$selfHeadings: {" . $templateHeadings . "},",
-            "$selfHeadings: {" .
-                $this->replaceTemplate($fieldsGenerateHeadings, 3) .
-                "},",
-            $templateDataReal
+            "$selfHeadings: {" . $templateHeadings . '},',
+            "$selfHeadings: {" . $this->replaceTemplate($fieldsGenerateHeadings, 3) . '},',
+            $templateDataReal,
         );
         $templateDataReal = str_replace(
-            "$selfClasses: {" . $templateClasses . "},",
-            "$selfClasses: {" .
-                $this->replaceTemplate($fieldsGenerateClasses, 3) .
-                "},",
-            $templateDataReal
+            "$selfClasses: {" . $templateClasses . '},',
+            "$selfClasses: {" . $this->replaceTemplate($fieldsGenerateClasses, 3) . '},',
+            $templateDataReal,
         );
         $templateDataReal = str_replace(
-            "$selfSortable: [" . $templateSortable . "]",
-            "$selfSortable: [" . implode(', ', $fieldsGenerateSortable) . "]",
-            $templateDataReal
+            "$selfSortable: [" . $templateSortable . ']',
+            "$selfSortable: [" . implode(', ', $fieldsGenerateSortable) . ']',
+            $templateDataReal,
         );
         return $templateDataReal;
     }
 
-    private function generateFieldsUpdate(
-        $updateFields,
-        $model,
-        $templateDataReal
-    ) {
+    private function generateFieldsUpdate($updateFields, $model, $templateDataReal)
+    {
         if (empty($updateFields)) {
             return $templateDataReal;
         }
@@ -897,38 +661,10 @@ class ViewUpdateGenerator extends BaseGenerator
         $fieldsGenerateHeadings = [];
         $fieldsGenerateClasses = [];
         $fieldsGenerateSortable = [];
-        $templateColumns = $this->serviceGenerator->searchTemplateX(
-            $selfColumns,
-            3,
-            '],',
-            3,
-            -3,
-            $templateDataReal
-        );
-        $templateHeadings = $this->serviceGenerator->searchTemplateX(
-            $selfHeadings,
-            3,
-            '},',
-            3,
-            -3,
-            $templateDataReal
-        );
-        $templateClasses = $this->serviceGenerator->searchTemplateX(
-            $selfClasses,
-            3,
-            '},',
-            3,
-            -3,
-            $templateDataReal
-        );
-        $templateSortable = $this->serviceGenerator->searchTemplateX(
-            $selfSortable,
-            3,
-            '],',
-            3,
-            -3,
-            $templateDataReal
-        );
+        $templateColumns = $this->serviceGenerator->searchTemplateX($selfColumns, 3, '],', 3, -3, $templateDataReal);
+        $templateHeadings = $this->serviceGenerator->searchTemplateX($selfHeadings, 3, '},', 3, -3, $templateDataReal);
+        $templateClasses = $this->serviceGenerator->searchTemplateX($selfClasses, 3, '},', 3, -3, $templateDataReal);
+        $templateSortable = $this->serviceGenerator->searchTemplateX($selfSortable, 3, '],', 3, -3, $templateDataReal);
         $columns = explode(',', trim($templateColumns));
         $headings = explode(',', trim($templateHeadings));
         $classes = explode(',', trim($templateClasses));
@@ -939,19 +675,12 @@ class ViewUpdateGenerator extends BaseGenerator
                 $col = trim($col);
                 $col = trim($col, "''");
                 $name = "'" . $col . "'";
-                if (
-                    $name !== "'" . self::CREATE_AT . "'" &&
-                    $name !== "'" . self::ACTIONS . "'"
-                ) {
+                if ($name !== "'" . self::CREATE_AT . "'" && $name !== "'" . self::ACTIONS . "'") {
                     $fieldsGenerateColumns[] = $name;
                 }
             }
         }
-        $createHeading =
-            "'" .
-            self::CREATE_AT .
-            "': () => " .
-            'this.$t(\'date.created_at\'),';
+        $createHeading = "'" . self::CREATE_AT . "': () => " . 'this.$t(\'date.created_at\'),';
         foreach ($headings as $heading) {
             if (strlen($heading) > 0) {
                 $heading = trim($heading);
@@ -959,8 +688,7 @@ class ViewUpdateGenerator extends BaseGenerator
                 $keyHeading = trim($keyHeading);
                 $valHeading = trim($valHeading);
                 $keyHeading = trim($keyHeading, "'':");
-                $name =
-                    "'" . $keyHeading . "'" . ': () => ' . $valHeading . ',';
+                $name = "'" . $keyHeading . "'" . ': () => ' . $valHeading . ',';
                 if ($name !== $createHeading) {
                     $fieldsGenerateHeadings[] = $name;
                 }
@@ -1011,18 +739,13 @@ class ViewUpdateGenerator extends BaseGenerator
                     $update['field_name'] .
                     "'" .
                     ': () => this.$t("table.' .
-                    $this->serviceGenerator->tableNameNotPlural(
-                        $model['name']
-                    ) .
+                    $this->serviceGenerator->tableNameNotPlural($model['name']) .
                     '.' .
                     $update['field_name'] .
                     '")' .
                     ',';
             }
-            if (
-                $index === count($updateFields) - 1 &&
-                \Str::contains($templateHeadings, self::CREATE_AT)
-            ) {
+            if ($index === count($updateFields) - 1 && \Str::contains($templateHeadings, self::CREATE_AT)) {
                 $fieldsGenerateHeadings[] = $createHeading;
             }
             //columnsClasses
@@ -1040,25 +763,18 @@ class ViewUpdateGenerator extends BaseGenerator
                     case $this->dbType['year']:
                     case $this->dbType['enum']:
                     case $this->dbType['file']:
-                        $fieldsGenerateClasses[] =
-                            "'" . $update['field_name'] . "': 'text-center',";
+                        $fieldsGenerateClasses[] = "'" . $update['field_name'] . "': 'text-center',";
                         break;
                 }
             }
-            if (
-                $index === count($updateFields) - 1 &&
-                \Str::contains($templateClasses, self::CREATE_AT)
-            ) {
+            if ($index === count($updateFields) - 1 && \Str::contains($templateClasses, self::CREATE_AT)) {
                 $fieldsGenerateClasses[] = $createClasses;
             }
             //sortable
             if ($update['sort']) {
                 $fieldsGenerateSortable[] = "'" . $update['field_name'] . "'";
             }
-            if (
-                $index === count($updateFields) - 1 &&
-                \Str::contains($templateSortable, self::CREATE_AT)
-            ) {
+            if ($index === count($updateFields) - 1 && \Str::contains($templateSortable, self::CREATE_AT)) {
                 $fieldsGenerateSortable[] = $createSort;
             }
 
@@ -1068,33 +784,29 @@ class ViewUpdateGenerator extends BaseGenerator
                     $this->notDelete['templates'],
                     $this->generateHandler($update),
                     3,
-                    $templateDataReal
+                    $templateDataReal,
                 );
             }
         }
         $templateDataReal = str_replace(
-            "$selfColumns: [" . $templateColumns . "]",
-            "$selfColumns: [" . implode(', ', $fieldsGenerateColumns) . "]",
-            $templateDataReal
+            "$selfColumns: [" . $templateColumns . ']',
+            "$selfColumns: [" . implode(', ', $fieldsGenerateColumns) . ']',
+            $templateDataReal,
         );
         $templateDataReal = str_replace(
-            "$selfHeadings: {" . $templateHeadings . "},",
-            "$selfHeadings: {" .
-                $this->replaceTemplate($fieldsGenerateHeadings, 3) .
-                "},",
-            $templateDataReal
+            "$selfHeadings: {" . $templateHeadings . '},',
+            "$selfHeadings: {" . $this->replaceTemplate($fieldsGenerateHeadings, 3) . '},',
+            $templateDataReal,
         );
         $templateDataReal = str_replace(
-            "$selfClasses: {" . $templateClasses . "},",
-            "$selfClasses: {" .
-                $this->replaceTemplate($fieldsGenerateClasses, 3) .
-                "},",
-            $templateDataReal
+            "$selfClasses: {" . $templateClasses . '},',
+            "$selfClasses: {" . $this->replaceTemplate($fieldsGenerateClasses, 3) . '},',
+            $templateDataReal,
         );
         $templateDataReal = str_replace(
-            "$selfSortable: [" . $templateSortable . "]",
-            "$selfSortable: [" . implode(', ', $fieldsGenerateSortable) . "]",
-            $templateDataReal
+            "$selfSortable: [" . $templateSortable . ']',
+            "$selfSortable: [" . implode(', ', $fieldsGenerateSortable) . ']',
+            $templateDataReal,
         );
         return $templateDataReal;
     }
@@ -1102,41 +814,17 @@ class ViewUpdateGenerator extends BaseGenerator
     private function generateHandler($field)
     {
         $pathTemplate = 'Handler/';
-        $templateDataLongText = $this->serviceGenerator->get_template(
-            "longText",
-            $pathTemplate,
-            'vuejs'
-        );
-        $templateDataUploadParse = $this->serviceGenerator->get_template(
-            "uploadParse",
-            $pathTemplate,
-            'vuejs'
-        );
-        $templateBoolean = $this->serviceGenerator->get_template(
-            "boolean",
-            $pathTemplate,
-            'vuejs'
-        );
+        $templateDataLongText = $this->serviceGenerator->get_template('longText', $pathTemplate, 'vuejs');
+        $templateDataUploadParse = $this->serviceGenerator->get_template('uploadParse', $pathTemplate, 'vuejs');
+        $templateBoolean = $this->serviceGenerator->get_template('boolean', $pathTemplate, 'vuejs');
 
         $fieldsGenerate = '';
         if ($field['db_type'] === $this->dbType['longtext']) {
-            $fieldsGenerate = str_replace(
-                '{{$FIELD_NAME$}}',
-                $field['field_name'],
-                $templateDataLongText
-            );
+            $fieldsGenerate = str_replace('{{$FIELD_NAME$}}', $field['field_name'], $templateDataLongText);
         } elseif ($field['db_type'] === $this->dbType['file']) {
-            $fieldsGenerate = str_replace(
-                '{{$FIELD_NAME$}}',
-                $field['field_name'],
-                $templateDataUploadParse
-            );
+            $fieldsGenerate = str_replace('{{$FIELD_NAME$}}', $field['field_name'], $templateDataUploadParse);
         } elseif ($field['db_type'] === $this->dbType['boolean']) {
-            $fieldsGenerate = str_replace(
-                '{{$FIELD_NAME$}}',
-                $field['field_name'],
-                $templateBoolean
-            );
+            $fieldsGenerate = str_replace('{{$FIELD_NAME$}}', $field['field_name'], $templateBoolean);
         }
 
         if ($fieldsGenerate) {
@@ -1147,10 +835,7 @@ class ViewUpdateGenerator extends BaseGenerator
     private function replaceTemplate($fieldsGenerate, $tab)
     {
         return $this->serviceGenerator->infy_nl_tab(1, $tab) .
-            implode(
-                $this->serviceGenerator->infy_nl_tab(1, 3),
-                $fieldsGenerate
-            ) .
+            implode($this->serviceGenerator->infy_nl_tab(1, 3), $fieldsGenerate) .
             $this->serviceGenerator->infy_nl_tab(1, $tab);
     }
 
@@ -1158,16 +843,11 @@ class ViewUpdateGenerator extends BaseGenerator
     {
         $fieldsGenerate = [];
         foreach ($templates as $template) {
-            if (
-                \Str::contains(
-                    $template,
-                    $fields['field_name_old']['field_name']
-                )
-            ) {
+            if (\Str::contains($template, $fields['field_name_old']['field_name'])) {
                 $fieldsGenerate[] = str_replace(
                     $fields['field_name_old']['field_name'],
                     $fields['field_name_new']['field_name'],
-                    $template
+                    $template,
                 );
             } else {
                 $fieldsGenerate[] = $template;

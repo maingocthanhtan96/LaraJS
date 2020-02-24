@@ -27,8 +27,7 @@ class StoreGeneratorRelationshipRequest extends FormRequest
             'relationship' => 'required',
             'model' => 'required',
             'column' => 'required',
-            'column2' =>
-                $this->request->get('column2') !== null ? 'required' : ''
+            'column2' => $this->request->get('column2') !== null ? 'required' : '',
         ];
     }
 }

@@ -36,20 +36,20 @@ return [
         'stack' => [
             'driver' => 'stack',
             'channels' => ['daily'],
-            'ignore_exceptions' => false
+            'ignore_exceptions' => false,
         ],
 
         'single' => [
             'driver' => 'single',
             'path' => storage_path('logs/laravel.log'),
-            'level' => 'debug'
+            'level' => 'debug',
         ],
 
         'daily' => [
             'driver' => 'daily',
             'path' => storage_path('logs/laravel.log'),
             'level' => 'debug',
-            'days' => 14
+            'days' => 14,
         ],
 
         'slack' => [
@@ -57,7 +57,7 @@ return [
             'url' => env('LOG_SLACK_WEBHOOK_URL'),
             'username' => 'Laravel Log',
             'emoji' => ':boom:',
-            'level' => 'critical'
+            'level' => 'critical',
         ],
 
         'papertrail' => [
@@ -66,8 +66,8 @@ return [
             'handler' => SyslogUdpHandler::class,
             'handler_with' => [
                 'host' => env('PAPERTRAIL_URL'),
-                'port' => env('PAPERTRAIL_PORT')
-            ]
+                'port' => env('PAPERTRAIL_PORT'),
+            ],
         ],
 
         'stderr' => [
@@ -75,18 +75,18 @@ return [
             'handler' => StreamHandler::class,
             'formatter' => env('LOG_STDERR_FORMATTER'),
             'with' => [
-                'stream' => 'php://stderr'
-            ]
+                'stream' => 'php://stderr',
+            ],
         ],
 
         'syslog' => [
             'driver' => 'syslog',
-            'level' => 'debug'
+            'level' => 'debug',
         ],
 
         'errorlog' => [
             'driver' => 'errorlog',
-            'level' => 'debug'
-        ]
-    ]
+            'level' => 'debug',
+        ],
+    ],
 ];

@@ -22,14 +22,14 @@ module.exports = {
       }
     },
     {
-      files: '*.{php}',
+      files: '*.php',
       options: {
         printWidth: 120,
         tabWidth: 4,
         useTabs: false,
         semi: false,
-        singleQuote: false,
-        trailingComma: 'all',
+        singleQuote: true,
+        trailingCommaPHP: 'all',
         bracketSpacing: true,
         jsxBracketSameLine: false,
         arrowParens: 'avoid',

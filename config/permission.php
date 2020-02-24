@@ -22,7 +22,7 @@ return [
          * `Spatie\Permission\Contracts\Role` contract.
          */
 
-        'role' => App\Models\Role::class
+        'role' => App\Models\Role::class,
     ],
 
     'table_names' => [
@@ -64,7 +64,7 @@ return [
          * basic default value but you may easily change it to any table you like.
          */
 
-        'role_has_permissions' => 'role_has_permissions'
+        'role_has_permissions' => 'role_has_permissions',
     ],
 
     'column_names' => [
@@ -76,7 +76,7 @@ return [
          * that case, name this `model_uuid`.
          */
 
-        'model_morph_key' => 'model_id'
+        'model_morph_key' => 'model_id',
     ],
 
     /*
@@ -118,6 +118,6 @@ return [
          * file. Using 'default' here means to use the `default` set in cache.php.
          */
 
-        'store' => 'default'
-    ]
+        'store' => 'default',
+    ],
 ];

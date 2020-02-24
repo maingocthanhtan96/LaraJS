@@ -31,29 +31,16 @@ class ApiGenerator extends BaseGenerator
     {
         $now = Carbon::now();
         $pathTemplate = 'Api/';
-        $templateData = $this->serviceGenerator->get_template(
-            "api",
-            $pathTemplate,
-            'vuejs'
-        );
-        $templateData = str_replace(
-            '{{$DATE$}}',
-            $now->toDateTimeString(),
-            $templateData
-        );
-        $templateData = str_replace(
-            '{{$MODEL_CLASS$}}',
-            $model['name'],
-            $templateData
-        );
+        $templateData = $this->serviceGenerator->get_template('api', $pathTemplate, 'vuejs');
+        $templateData = str_replace('{{$DATE$}}', $now->toDateTimeString(), $templateData);
+        $templateData = str_replace('{{$MODEL_CLASS$}}', $model['name'], $templateData);
         $templateData = str_replace(
             '{{$MODEL_CLASS_URI$}}',
             $this->serviceGenerator->urlResource($model['name']),
-            $templateData
+            $templateData,
         );
 
-        $fileName =
-            $this->serviceGenerator->folderPages($model['name']) . '.js';
+        $fileName = $this->serviceGenerator->folderPages($model['name']) . '.js';
         $this->serviceFile->createFile($this->path, $fileName, $templateData);
     }
 }

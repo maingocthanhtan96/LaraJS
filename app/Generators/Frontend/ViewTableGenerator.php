@@ -39,49 +39,36 @@ class ViewTableGenerator extends BaseGenerator
     private function generate($fields, $model)
     {
         $pathTemplate = 'Views/';
-        $templateData = $this->serviceGenerator->get_template(
-            "indexTable",
-            $pathTemplate,
-            'vuejs'
-        );
+        $templateData = $this->serviceGenerator->get_template('indexTable', $pathTemplate, 'vuejs');
         $templateData = str_replace(
             '{{$CONST_MODEL_CLASS$}}',
             $this->serviceGenerator->modelNameNotPluralFe($model['name']),
-            $templateData
+            $templateData,
         );
         $templateData = str_replace(
             '{{$NAME_ROUTE$}}',
             $this->serviceGenerator->nameAttribute($model['name']),
-            $templateData
+            $templateData,
         );
         $templateData = str_replace(
             '{{$TABLE_MODEL_CLASS$}}',
             $this->serviceGenerator->tableNameNotPlural($model['name']),
-            $templateData
+            $templateData,
         );
         $templateData = str_replace(
             '{{$MODEL_CLASS$}}',
             $this->serviceGenerator->modelNamePlural($model['name']),
-            $templateData
+            $templateData,
         );
-        $templateData = str_replace(
-            '{{$LIMIT$}}',
-            $model['limit'],
-            $templateData
-        );
+        $templateData = str_replace('{{$LIMIT$}}', $model['limit'], $templateData);
         $templateData = $this->serviceGenerator->replaceNotDelete(
             $this->notDelete['templates'],
             $this->generateHandler($fields, $model),
             7,
             $templateData,
-            2
+            2,
         );
-        if (
-            !$this->serviceGenerator->getOptions(
-                config('generator.model.options.sort_deletes'),
-                $model['options']
-            )
-        ) {
+        if (!$this->serviceGenerator->getOptions(config('generator.model.options.sort_deletes'), $model['options'])) {
             $selfTemplateEnd = '</el-table-column>';
             $selfTemplateStart = '<el-table-column data-generator="created_at"';
             $templateCreatedAt = $this->serviceGenerator->searchTemplateX(
@@ -90,21 +77,17 @@ class ViewTableGenerator extends BaseGenerator
                 $selfTemplateEnd,
                 -strlen($selfTemplateStart),
                 strlen($selfTemplateStart) + strlen($selfTemplateEnd),
-                $templateData
+                $templateData,
             );
             $templateData = str_replace($templateCreatedAt, '', $templateData);
         }
 
-        $folderName =
-            $this->path . $this->serviceGenerator->folderPages($model['name']);
+        $folderName = $this->path . $this->serviceGenerator->folderPages($model['name']);
         if (!is_dir($folderName)) {
             mkdir($folderName, 0755, true);
         }
 
-        $fileName =
-            $this->serviceGenerator->folderPages($model['name']) .
-            '/index' .
-            '.vue';
+        $fileName = $this->serviceGenerator->folderPages($model['name']) . '/index' . '.vue';
         $this->serviceFile->createFile($this->path, $fileName, $templateData);
     }
 
@@ -123,7 +106,7 @@ class ViewTableGenerator extends BaseGenerator
             case $this->dbType['year']:
             case $this->dbType['enum']:
             case $this->dbType['file']:
-                $align = "center";
+                $align = 'center';
                 break;
             default:
                 $align = 'left';
@@ -137,93 +120,57 @@ class ViewTableGenerator extends BaseGenerator
         $fieldsGenerate = [];
         $pathTemplate = 'Handler/';
         $templateTableColumnLongText = $this->serviceGenerator->get_template(
-            "tableColumnLongText",
+            'tableColumnLongText',
             $pathTemplate,
-            'vuejs'
+            'vuejs',
         );
         $templateTableColumnUploadParse = $this->serviceGenerator->get_template(
-            "tableColumnUploadParse",
+            'tableColumnUploadParse',
             $pathTemplate,
-            'vuejs'
+            'vuejs',
         );
         $templateTableColumnBoolean = $this->serviceGenerator->get_template(
-            "tableColumnBoolean",
+            'tableColumnBoolean',
             $pathTemplate,
-            'vuejs'
+            'vuejs',
         );
-        $templateTableColumn = $this->serviceGenerator->get_template(
-            "tableColumn",
-            $pathTemplate,
-            'vuejs'
-        );
+        $templateTableColumn = $this->serviceGenerator->get_template('tableColumn', $pathTemplate, 'vuejs');
 
         foreach ($fields as $index => $field) {
             if ($field['show'] && $index > 0) {
                 if ($field['db_type'] === $this->dbType['longtext']) {
-                    $template = str_replace(
-                        '{{$FIELD_NAME$}}',
-                        $field['field_name'],
-                        $templateTableColumnLongText
-                    );
+                    $template = str_replace('{{$FIELD_NAME$}}', $field['field_name'], $templateTableColumnLongText);
                     $template = str_replace(
                         '{{$TABLE_MODEL_CLASS$}}',
-                        $this->serviceGenerator->tableNameNotPlural(
-                            $model['name']
-                        ),
-                        $template
+                        $this->serviceGenerator->tableNameNotPlural($model['name']),
+                        $template,
                     );
                 } elseif ($field['db_type'] === $this->dbType['file']) {
-                    $template = str_replace(
-                        '{{$FIELD_NAME$}}',
-                        $field['field_name'],
-                        $templateTableColumnUploadParse
-                    );
+                    $template = str_replace('{{$FIELD_NAME$}}', $field['field_name'], $templateTableColumnUploadParse);
                     $template = str_replace(
                         '{{$TABLE_MODEL_CLASS$}}',
-                        $this->serviceGenerator->tableNameNotPlural(
-                            $model['name']
-                        ),
-                        $template
+                        $this->serviceGenerator->tableNameNotPlural($model['name']),
+                        $template,
                     );
                 } elseif ($field['db_type'] === $this->dbType['boolean']) {
-                    $template = str_replace(
-                        '{{$FIELD_NAME$}}',
-                        $field['field_name'],
-                        $templateTableColumnBoolean
-                    );
+                    $template = str_replace('{{$FIELD_NAME$}}', $field['field_name'], $templateTableColumnBoolean);
                     $template = str_replace(
                         '{{$TABLE_MODEL_CLASS$}}',
-                        $this->serviceGenerator->tableNameNotPlural(
-                            $model['name']
-                        ),
-                        $template
+                        $this->serviceGenerator->tableNameNotPlural($model['name']),
+                        $template,
                     );
                 } else {
-                    $template = str_replace(
-                        '{{$FIELD_NAME$}}',
-                        $field['field_name'],
-                        $templateTableColumn
-                    );
+                    $template = str_replace('{{$FIELD_NAME$}}', $field['field_name'], $templateTableColumn);
                     $template = str_replace(
                         '{{$TABLE_MODEL_CLASS$}}',
-                        $this->serviceGenerator->tableNameNotPlural(
-                            $model['name']
-                        ),
-                        $template
+                        $this->serviceGenerator->tableNameNotPlural($model['name']),
+                        $template,
                     );
-                    $template = str_replace(
-                        '{{$ALIGN$}}',
-                        $this->generateColumnClassesFields($field),
-                        $template
-                    );
+                    $template = str_replace('{{$ALIGN$}}', $this->generateColumnClassesFields($field), $template);
                 }
 
                 if ($field['sort']) {
-                    $template = str_replace(
-                        '{{$SORT$}}',
-                        self::SORT_COLUMN,
-                        $template
-                    );
+                    $template = str_replace('{{$SORT$}}', self::SORT_COLUMN, $template);
                 } else {
                     $template = str_replace('{{$SORT$}}', '', $template);
                 }
@@ -231,9 +178,6 @@ class ViewTableGenerator extends BaseGenerator
             }
         }
 
-        return implode(
-            $this->serviceGenerator->infy_nl_tab(1, 7, 2),
-            $fieldsGenerate
-        );
+        return implode($this->serviceGenerator->infy_nl_tab(1, 7, 2), $fieldsGenerate);
     }
 }

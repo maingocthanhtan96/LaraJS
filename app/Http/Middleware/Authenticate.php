@@ -13,9 +13,9 @@ class Authenticate extends Middleware
             return response()->json(
                 [
                     'success' => false,
-                    'message' => 'Unauthorized'
+                    'message' => 'Unauthorized',
                 ],
-                401
+                401,
             );
         }
 

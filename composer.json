@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": "^7.2",
+        "php": "^7.3",
         "doctrine/dbal": "^2.10.1",
         "fideloper/proxy": "~4.0",
         "guzzlehttp/guzzle": "^6.5.2",

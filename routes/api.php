@@ -30,62 +30,37 @@ Route::group(['prefix' => 'v1'], function () {
             Route::middleware('optimizeImages')->group(function () {
                 // all images will be optimized automatically
                 Route::post('upload-file/store', 'FileController@store');
-                Route::post(
-                    'upload-file/store-avatar',
-                    'FileController@storeAvatar'
-                );
+                Route::post('upload-file/store-avatar', 'FileController@storeAvatar');
                 Route::get('upload-file/remove', 'FileController@remove');
             });
 
             // permission manage permission
             Route::group(
                 [
-                    'middleware' =>
-                        'permission:' . Acl::PERMISSION_PERMISSION_MANAGE
+                    'middleware' => 'permission:' . Acl::PERMISSION_PERMISSION_MANAGE,
                 ],
                 function () {
                     Route::apiResource('roles', 'RoleController');
                     Route::apiResource('permissions', 'PermissionController');
-                }
+                },
             );
 
             // role Admin (Super admin)
-            Route::group(
-                ['middleware' => 'role:' . Acl::ROLE_ADMIN],
-                function () {
-                    Route::group(['prefix' => 'generators'], function () {
-                        Route::get(
-                            'check-model',
-                            'GeneratorController@checkModel'
-                        );
-                        Route::get(
-                            'check-column',
-                            'GeneratorController@checkColumn'
-                        );
-                        Route::get(
-                            'get-models',
-                            'GeneratorController@getModels'
-                        );
-                        Route::get(
-                            'get-columns',
-                            'GeneratorController@getColumns'
-                        );
-                        Route::post(
-                            'relationship',
-                            'GeneratorController@generateRelationship'
-                        );
-                        Route::get(
-                            'diagram',
-                            'GeneratorController@generateDiagram'
-                        );
-                    });
-                    Route::apiResource('generators', 'GeneratorController');
+            Route::group(['middleware' => 'role:' . Acl::ROLE_ADMIN], function () {
+                Route::group(['prefix' => 'generators'], function () {
+                    Route::get('check-model', 'GeneratorController@checkModel');
+                    Route::get('check-column', 'GeneratorController@checkColumn');
+                    Route::get('get-models', 'GeneratorController@getModels');
+                    Route::get('get-columns', 'GeneratorController@getColumns');
+                    Route::post('relationship', 'GeneratorController@generateRelationship');
+                    Route::get('diagram', 'GeneratorController@generateDiagram');
+                });
+                Route::apiResource('generators', 'GeneratorController');
 
-                    Route::apiResource('users', 'UserController');
+                Route::apiResource('users', 'UserController');
 
-                    //{{ROUTE_ADMIN_NOT_DELETE_THIS_LINE}}
-                }
-            );
+                //{{ROUTE_ADMIN_NOT_DELETE_THIS_LINE}}
+            });
 
             //{{ROUTE_USER_NOT_DELETE_THIS_LINE}}
         });

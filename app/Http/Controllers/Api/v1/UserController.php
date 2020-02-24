@@ -34,11 +34,7 @@ class UserController extends Controller
 
             return $this->jsonData(new UserResource($user));
         } catch (\Exception $e) {
-            return $this->jsonError(
-                $e->getMessage(),
-                $e->getFile(),
-                $e->getLine()
-            );
+            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
 
@@ -71,16 +67,12 @@ class UserController extends Controller
                 $betweenDate,
                 $limit,
                 $ascending,
-                $orderBy
+                $orderBy,
             );
 
             return $this->jsonTable($users);
         } catch (\Exception $e) {
-            return $this->jsonError(
-                $e->getMessage(),
-                $e->getFile(),
-                $e->getLine()
-            );
+            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
 
@@ -99,11 +91,7 @@ class UserController extends Controller
 
             return $this->jsonData($user, 201);
         } catch (\Exception $e) {
-            return $this->jsonError(
-                $e->getMessage(),
-                $e->getFile(),
-                $e->getLine()
-            );
+            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
 
@@ -116,9 +104,7 @@ class UserController extends Controller
     public function show(User $user)
     {
         try {
-            $user['role_id'] = $user->roles->toArray()[0]
-                ? $user->roles->toArray()[0]['id']
-                : '';
+            $user['role_id'] = $user->roles->toArray()[0] ? $user->roles->toArray()[0]['id'] : '';
             $user = $user->toArray();
             //{{CONTROLLER_RELATIONSHIP_MTM_SHOW_NOT_DELETE_THIS_LINE}}
 
@@ -147,11 +133,7 @@ class UserController extends Controller
 
             return $this->jsonData($user);
         } catch (\Exception $e) {
-            return $this->jsonError(
-                $e->getMessage(),
-                $e->getFile(),
-                $e->getLine()
-            );
+            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
 
@@ -172,11 +154,7 @@ class UserController extends Controller
 
             return $this->jsonSuccess(trans('messages.delete'), 204);
         } catch (\Exception $e) {
-            return $this->jsonError(
-                $e->getMessage(),
-                $e->getFile(),
-                $e->getLine()
-            );
+            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
 

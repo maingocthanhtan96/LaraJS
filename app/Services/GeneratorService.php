@@ -77,11 +77,8 @@ class GeneratorService extends BaseService
      *
      * @return string
      */
-    public function get_template_file_path(
-        $templateName,
-        $templatePath,
-        $typeTemplate = 'laravel'
-    ) {
+    public function get_template_file_path($templateName, $templatePath, $typeTemplate = 'laravel')
+    {
         if ($typeTemplate === 'laravel') {
             $templatesPath = config('generator.template.laravel');
         } else {
@@ -183,16 +180,9 @@ class GeneratorService extends BaseService
      *
      * @return string
      */
-    public function get_template(
-        $templateName,
-        $templatePath,
-        $typeTemplate = 'laravel'
-    ) {
-        $path = $this->get_template_file_path(
-            $templateName,
-            $templatePath,
-            $typeTemplate
-        );
+    public function get_template($templateName, $templatePath, $typeTemplate = 'laravel')
+    {
+        $path = $this->get_template_file_path($templateName, $templatePath, $typeTemplate);
         return file_get_contents($path);
     }
 
@@ -205,16 +195,9 @@ class GeneratorService extends BaseService
      *
      * @return string
      */
-    public function getFileExist(
-        $templateName,
-        $templatePath,
-        $typeTemplate = 'laravel'
-    ) {
-        $path = $this->get_template_file_path(
-            $templateName,
-            $templatePath,
-            $typeTemplate
-        );
+    public function getFileExist($templateName, $templatePath, $typeTemplate = 'laravel')
+    {
+        $path = $this->get_template_file_path($templateName, $templatePath, $typeTemplate);
         return file_get_contents($path);
     }
 
@@ -262,12 +245,8 @@ class GeneratorService extends BaseService
      *
      * @return string
      */
-    public function fill_template_with_field_data(
-        $variables,
-        $fieldVariables,
-        $template,
-        $field
-    ) {
+    public function fill_template_with_field_data($variables, $fieldVariables, $template, $field)
+    {
         $template = $this->fill_template($variables, $template);
         return $this->fill_field_template($fieldVariables, $template, $field);
     }
@@ -387,12 +366,8 @@ class GeneratorService extends BaseService
      *
      * @return string
      */
-    public function urlFilterColumn(
-        $key,
-        $type,
-        $value = '',
-        $singleSorting = true
-    ) {
+    public function urlFilterColumn($key, $type, $value = '', $singleSorting = true)
+    {
         $params = \Request::all();
         if (isset($params['filter_column']) && $singleSorting) {
             foreach ($params['filter_column'] as $k => $filter) {
@@ -431,17 +406,12 @@ class GeneratorService extends BaseService
      *
      * @return string
      */
-    public function replaceNotDelete(
-        $noteDelete,
-        $replace,
-        $tab,
-        $templateDataReal,
-        $spaces = 4
-    ) {
+    public function replaceNotDelete($noteDelete, $replace, $tab, $templateDataReal, $spaces = 4)
+    {
         return str_replace(
             $noteDelete,
             $replace . $this->infy_nl_tab(1, $tab, $spaces) . $noteDelete,
-            $templateDataReal
+            $templateDataReal,
         );
     }
 
@@ -456,23 +426,11 @@ class GeneratorService extends BaseService
      *
      * @return string
      */
-    public function searchTemplate(
-        $search,
-        $char,
-        $plusStart,
-        $plusEnd,
-        $templateDataReal
-    ) {
-        $template = substr(
-            $templateDataReal,
-            stripos($templateDataReal, $search)
-        );
+    public function searchTemplate($search, $char, $plusStart, $plusEnd, $templateDataReal)
+    {
+        $template = substr($templateDataReal, stripos($templateDataReal, $search));
         $length = stripos($template, $char);
-        return substr(
-            $templateDataReal,
-            stripos($templateDataReal, $search) + $plusStart,
-            $length + $plusEnd
-        );
+        return substr($templateDataReal, stripos($templateDataReal, $search) + $plusStart, $length + $plusEnd);
     }
 
     /**
@@ -487,14 +445,8 @@ class GeneratorService extends BaseService
      *
      * @return string
      */
-    public function searchTemplateX(
-        $search,
-        $number,
-        $char,
-        $plusStart,
-        $plusEnd,
-        $templateDataReal
-    ) {
+    public function searchTemplateX($search, $number, $char, $plusStart, $plusEnd, $templateDataReal)
+    {
         $position = strpos_x($templateDataReal, $search, $number);
         if ($position) {
             $template = substr($templateDataReal, $position);
@@ -502,7 +454,7 @@ class GeneratorService extends BaseService
             return substr(
                 $templateDataReal,
                 $position + strlen($search) + $plusStart,
-                $length + $plusEnd - strlen($search)
+                $length + $plusEnd - strlen($search),
             );
         } else {
             return false;
@@ -517,14 +469,12 @@ class GeneratorService extends BaseService
      */
     public function getRelations($model)
     {
-        $fileData = file(
-            config('generator.path.laravel.model') . $model . '.php'
-        );
+        $fileData = file(config('generator.path.laravel.model') . $model . '.php');
         $modelData = [];
         if (!in_array($model, config('generator.relationship.ignore_model'))) {
             $modelData[] = [
                 'model' => $model,
-                'data' => $this->extractRelations($fileData)
+                'data' => $this->extractRelations($fileData),
             ];
         }
         return $modelData;
@@ -538,9 +488,7 @@ class GeneratorService extends BaseService
      */
     public function extractRelations($data)
     {
-        $relationshipIdentifiers = config(
-            'generator.relationship.relationship'
-        );
+        $relationshipIdentifiers = config('generator.relationship.relationship');
         $relationshipData = [];
         //        $matchPattern = '#\((.*?)\)#';
         $matchPattern = '#(hasOne|belongsTo|hasMany|belongsToMany)\((.*?)\)#';
@@ -553,46 +501,33 @@ class GeneratorService extends BaseService
                     ')',
                     -strlen($nameRelationship),
                     strlen($nameRelationship),
-                    $line
+                    $line,
                 );
                 if ($searchRelationship) {
                     $modelData = explode(',', $searchRelationship);
-                    $modelName = $this->stripString(
-                        $modelData[0],
-                        $relationship
-                    );
+                    $modelName = $this->stripString($modelData[0], $relationship);
                     if ($relationship === 'belongsToMany') {
-                        $tableName = $this->modelNameNotPlural(
-                            $this->stripString($modelData[1], $relationship)
-                        );
+                        $tableName = $this->modelNameNotPlural($this->stripString($modelData[1], $relationship));
                         $subModel = substr($tableName, strlen($modelName));
                         $relationshipData[] = [
                             'type' => $relationship,
                             'model' => $modelName,
                             'table' => $tableName,
                             'foreign_key' => $this->stripString(
-                                isset($modelData[2])
-                                    ? $modelData[2]
-                                    : \Str::snake($subModel) . '_id'
+                                isset($modelData[2]) ? $modelData[2] : \Str::snake($subModel) . '_id',
                             ),
                             'local_key' => $this->stripString(
-                                isset($modelData[3])
-                                    ? $modelData[3]
-                                    : \Str::snake($modelName) . '_id'
-                            )
+                                isset($modelData[3]) ? $modelData[3] : \Str::snake($modelName) . '_id',
+                            ),
                         ];
                     } else {
                         $relationshipData[] = [
                             'type' => $relationship,
                             'model' => $modelName,
                             'foreign_key' => $this->stripString(
-                                isset($modelData[1])
-                                    ? $modelData[1]
-                                    : \Str::snake($modelName) . '_id'
+                                isset($modelData[1]) ? $modelData[1] : \Str::snake($modelName) . '_id',
                             ),
-                            'local_key' => $this->stripString(
-                                isset($modelData[2]) ? $modelData[2] : 'id'
-                            )
+                            'local_key' => $this->stripString(isset($modelData[2]) ? $modelData[2] : 'id'),
                         ];
                     }
                 }
@@ -612,10 +547,10 @@ class GeneratorService extends BaseService
     {
         $string = str_replace('App', '', $string);
         $string = str_replace("'", '', $string);
-        $string = str_replace("\\", '', $string);
-        $string = str_replace("Models", '', $string);
-        $string = str_replace("::", '', $string);
-        $string = str_replace("class", '', $string);
+        $string = str_replace('\\', '', $string);
+        $string = str_replace('Models', '', $string);
+        $string = str_replace('::', '', $string);
+        $string = str_replace('class', '', $string);
         $string = str_replace($relationship, '', $string);
         $string = str_replace('(', '', $string);
         $string = str_replace(')', '', $string);

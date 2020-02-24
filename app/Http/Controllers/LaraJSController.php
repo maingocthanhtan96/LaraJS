@@ -21,9 +21,9 @@ class LaraJSController extends Controller
     {
         return response()->json(
             [
-                'message' => trans('error.404')
+                'message' => trans('error.404'),
             ],
-            404
+            404,
         );
     }
 }

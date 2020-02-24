@@ -64,10 +64,7 @@ return array(
 
     'include_helpers' => false,
 
-    'helper_files' => array(
-        base_path() .
-            '/vendor/laravel/framework/src/Illuminate/Support/helpers.php'
-    ),
+    'helper_files' => array(base_path() . '/vendor/laravel/framework/src/Illuminate/Support/helpers.php'),
 
     /*
     |--------------------------------------------------------------------------
@@ -91,11 +88,8 @@ return array(
     */
 
     'extra' => array(
-        'Eloquent' => array(
-            'Illuminate\Database\Eloquent\Builder',
-            'Illuminate\Database\Query\Builder'
-        ),
-        'Session' => array('Illuminate\Session\Store')
+        'Eloquent' => array('Illuminate\Database\Eloquent\Builder', 'Illuminate\Database\Query\Builder'),
+        'Session' => array('Illuminate\Session\Store'),
     ),
 
     'magic' => array(),
@@ -176,7 +170,7 @@ return array(
     */
     'type_overrides' => array(
         'integer' => 'int',
-        'boolean' => 'bool'
+        'boolean' => 'bool',
     ),
 
     /*
@@ -188,5 +182,5 @@ return array(
     | magic methods and properties.
     |
     */
-    'include_class_docblocks' => false
+    'include_class_docblocks' => false,
 );

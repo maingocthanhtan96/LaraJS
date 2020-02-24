@@ -16,7 +16,7 @@ return [
      */
     'ignore' => [
         \App\Models\BaseModel::class,
-        \App\Models\Generator::class
+        \App\Models\Generator::class,
         //        \App\Models\Role::class,
         //        \App\Models\Permission::class
         //         User::class,
@@ -54,7 +54,7 @@ return [
         'header_background_color' => '#d3d3d3',
         'header_font_color' => '#333333',
         'row_background_color' => '#ffffff',
-        'row_font_color' => '#333333'
+        'row_font_color' => '#333333',
     ],
 
     /*
@@ -77,19 +77,19 @@ return [
         'pad' => 0.5,
         'ranksep' => 2,
         'esep' => true,
-        'fontname' => 'Helvetica Neue'
+        'fontname' => 'Helvetica Neue',
     ],
 
     'node' => [
         'margin' => 0,
         'shape' => 'rectangle',
-        'fontname' => 'Helvetica Neue'
+        'fontname' => 'Helvetica Neue',
     ],
 
     'edge' => [
         'color' => '#003049',
         'penwidth' => 1.8,
-        'fontname' => 'Helvetica Neue'
+        'fontname' => 'Helvetica Neue',
     ],
 
     'relations' => [
@@ -97,19 +97,19 @@ return [
             'dir' => 'both',
             'color' => '#D62828',
             'arrowhead' => 'tee',
-            'arrowtail' => 'none'
+            'arrowtail' => 'none',
         ],
         'BelongsTo' => [
             'dir' => 'both',
             'color' => '#F77F00',
             'arrowhead' => 'tee',
-            'arrowtail' => 'crow'
+            'arrowtail' => 'crow',
         ],
         'HasMany' => [
             'dir' => 'both',
             'color' => '#FCBF49',
             'arrowhead' => 'crow',
-            'arrowtail' => 'none'
-        ]
-    ]
+            'arrowtail' => 'none',
+        ],
+    ],
 ];

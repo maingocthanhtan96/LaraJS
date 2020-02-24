@@ -32,9 +32,10 @@ class CreatePermissionTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create($tableNames['model_has_permissions'], function (
-            Blueprint $table
-        ) use ($tableNames, $columnNames) {
+        Schema::create($tableNames['model_has_permissions'], function (Blueprint $table) use (
+            $tableNames,
+            $columnNames
+        ) {
             $table->unsignedInteger('permission_id');
 
             $table->string('model_type');
@@ -48,18 +49,12 @@ class CreatePermissionTables extends Migration
                 ->onDelete('cascade');
 
             $table->primary(
-                [
-                    'permission_id',
-                    $columnNames['model_morph_key'],
-                    'model_type'
-                ],
-                'model_has_permissions_permission_model_type_primary'
+                ['permission_id', $columnNames['model_morph_key'], 'model_type'],
+                'model_has_permissions_permission_model_type_primary',
             );
         });
 
-        Schema::create($tableNames['model_has_roles'], function (
-            Blueprint $table
-        ) use ($tableNames, $columnNames) {
+        Schema::create($tableNames['model_has_roles'], function (Blueprint $table) use ($tableNames, $columnNames) {
             $table->unsignedInteger('role_id');
 
             $table->string('model_type');
@@ -74,13 +69,11 @@ class CreatePermissionTables extends Migration
 
             $table->primary(
                 ['role_id', $columnNames['model_morph_key'], 'model_type'],
-                'model_has_roles_role_model_type_primary'
+                'model_has_roles_role_model_type_primary',
             );
         });
 
-        Schema::create($tableNames['role_has_permissions'], function (
-            Blueprint $table
-        ) use ($tableNames) {
+        Schema::create($tableNames['role_has_permissions'], function (Blueprint $table) use ($tableNames) {
             $table->unsignedInteger('permission_id');
             $table->unsignedInteger('role_id');
 
@@ -100,11 +93,7 @@ class CreatePermissionTables extends Migration
         });
 
         app('cache')
-            ->store(
-                config('permission.cache.store') != 'default'
-                    ? config('permission.cache.store')
-                    : null
-            )
+            ->store(config('permission.cache.store') != 'default' ? config('permission.cache.store') : null)
             ->forget(config('permission.cache.key'));
     }
 

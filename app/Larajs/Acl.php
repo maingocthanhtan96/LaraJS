@@ -45,11 +45,8 @@ final class Acl
         try {
             $class = new \ReflectionClass(__CLASS__);
             $constants = $class->getConstants();
-            $permissions = Arr::where($constants, function ($value, $key) use (
-                $exclusives
-            ) {
-                return !in_array($value, $exclusives) &&
-                    Str::startsWith($key, 'PERMISSION_');
+            $permissions = Arr::where($constants, function ($value, $key) use ($exclusives) {
+                return !in_array($value, $exclusives) && Str::startsWith($key, 'PERMISSION_');
             });
 
             return array_values($permissions);

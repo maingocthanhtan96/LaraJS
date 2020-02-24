@@ -34,7 +34,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime'
+        'email_verified_at' => 'datetime',
     ];
 
     /**
@@ -82,9 +82,7 @@ class User extends Authenticatable
      */
     public function sendPasswordResetNotification($token)
     {
-        $this->notify(
-            new \App\Notifications\MailResetPasswordNotification($token)
-        );
+        $this->notify(new \App\Notifications\MailResetPasswordNotification($token));
     }
 
     //{{RELATIONS_NOT_DELETE_THIS_LINE}}

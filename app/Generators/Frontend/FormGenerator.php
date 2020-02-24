@@ -41,59 +41,47 @@ class FormGenerator extends BaseGenerator
     {
         $pathTemplate = 'Views/';
         $notDelete = config('generator.not_delete.vuejs.form');
-        $templateData = $this->serviceGenerator->get_template(
-            "form",
-            $pathTemplate,
-            'vuejs'
-        );
+        $templateData = $this->serviceGenerator->get_template('form', $pathTemplate, 'vuejs');
         $templateData = str_replace(
             '{{$LANG_MODEL_CLASS$}}',
             $this->serviceGenerator->tableNameNotPlural($model['name']),
-            $templateData
+            $templateData,
         );
         $templateData = str_replace(
             '{{$REF_MODEL_CLASS$}}',
             $this->serviceGenerator->modelNameNotPluralFe($model['name']),
-            $templateData
+            $templateData,
         );
         $templateData = str_replace(
             '{{$NAME_ROUTE$}}',
             $this->serviceGenerator->nameAttribute($model['name']),
-            $templateData
+            $templateData,
         );
         $templateData = $this->serviceGenerator->replaceNotDelete(
             $notDelete['item'],
             $this->generateItems($fields, $model),
             5,
             $templateData,
-            2
+            2,
         );
         $templateData = str_replace(
             '{{$MODEL_CLASS$}}',
             $this->serviceGenerator->modelNameNotPlural($model['name']),
-            $templateData
+            $templateData,
         );
         $templateData = str_replace(
             '{{$CONST_MODEL_CLASS$}}',
             $this->serviceGenerator->modelNameNotPluralFe($model['name']),
-            $templateData
+            $templateData,
         );
-        $templateData = str_replace(
-            $notDelete['fields'],
-            $this->generateFields($fields),
-            $templateData
-        );
+        $templateData = str_replace($notDelete['fields'], $this->generateFields($fields), $templateData);
 
-        $folderName =
-            $this->path . $this->serviceGenerator->folderPages($model['name']);
+        $folderName = $this->path . $this->serviceGenerator->folderPages($model['name']);
         if (!is_dir($folderName)) {
             mkdir($folderName, 0755, true);
         }
 
-        $fileName =
-            $this->serviceGenerator->folderPages($model['name']) .
-            '/Form' .
-            '.vue';
+        $fileName = $this->serviceGenerator->folderPages($model['name']) . '/Form' . '.vue';
         $this->serviceFile->createFile($this->path, $fileName, $templateData);
     }
 
@@ -104,54 +92,28 @@ class FormGenerator extends BaseGenerator
         $this->propNameForm = '{{$PROP_NAME$}}';
 
         foreach ($fields as $index => $field) {
-            $tableName = $this->serviceGenerator->tableNameNotPlural(
-                $model['name']
-            );
+            $tableName = $this->serviceGenerator->tableNameNotPlural($model['name']);
             switch ($field['db_type']) {
                 case $this->dbType['integer']:
                 case $this->dbType['bigInteger']:
                 case $this->dbType['float']:
                 case $this->dbType['double']:
-                    $fieldsGenerate[] = $this->generateInput(
-                        'inputNumber',
-                        $tableName,
-                        $field,
-                        $index
-                    );
+                    $fieldsGenerate[] = $this->generateInput('inputNumber', $tableName, $field, $index);
                     break;
                 case $this->dbType['boolean']:
-                    $fieldsGenerate[] = $this->generateBoolean(
-                        $tableName,
-                        $field
-                    );
+                    $fieldsGenerate[] = $this->generateBoolean($tableName, $field);
                     break;
                 case $this->dbType['date']:
-                    $fieldsGenerate[] = $this->generateDateTime(
-                        'date',
-                        $tableName,
-                        $field
-                    );
+                    $fieldsGenerate[] = $this->generateDateTime('date', $tableName, $field);
                     break;
                 case $this->dbType['dateTime']:
-                    $fieldsGenerate[] = $this->generateDateTime(
-                        'dateTime',
-                        $tableName,
-                        $field
-                    );
+                    $fieldsGenerate[] = $this->generateDateTime('dateTime', $tableName, $field);
                     break;
                 case $this->dbType['time']:
-                    $fieldsGenerate[] = $this->generateDateTime(
-                        'time',
-                        $tableName,
-                        $field
-                    );
+                    $fieldsGenerate[] = $this->generateDateTime('time', $tableName, $field);
                     break;
                 case $this->dbType['year']:
-                    $fieldsGenerate[] = $this->generateDateTime(
-                        'year',
-                        $tableName,
-                        $field
-                    );
+                    $fieldsGenerate[] = $this->generateDateTime('year', $tableName, $field);
                     break;
                 case $this->dbType['string']:
                     $fieldsGenerate[] = $this->generateInput(
@@ -159,22 +121,14 @@ class FormGenerator extends BaseGenerator
                         $tableName,
                         $field,
                         $index,
-                        $this->dbType['string']
+                        $this->dbType['string'],
                     );
                     break;
                 case $this->dbType['text']:
-                    $fieldsGenerate[] = $this->generateInput(
-                        'textarea',
-                        $tableName,
-                        $field,
-                        $index
-                    );
+                    $fieldsGenerate[] = $this->generateInput('textarea', $tableName, $field, $index);
                     break;
                 case $this->dbType['longtext']:
-                    $fieldsGenerate[] = $this->generateTinymce(
-                        $tableName,
-                        $field
-                    );
+                    $fieldsGenerate[] = $this->generateTinymce($tableName, $field);
                     break;
                 case $this->dbType['enum']:
                     $fieldsGenerate[] = $this->generateEnum($tableName, $field);
@@ -187,10 +141,7 @@ class FormGenerator extends BaseGenerator
                     break;
             }
         }
-        return implode(
-            $this->serviceGenerator->infy_nl_tab(1, 5, 2),
-            $fieldsGenerate
-        );
+        return implode($this->serviceGenerator->infy_nl_tab(1, 5, 2), $fieldsGenerate);
     }
 
     private function generateFields($fields)
@@ -220,20 +171,13 @@ class FormGenerator extends BaseGenerator
             $fieldsGenerate[] = $fieldForm;
         }
 
-        return implode(
-            $this->serviceGenerator->infy_nl_tab(1, 2),
-            $fieldsGenerate
-        );
+        return implode($this->serviceGenerator->infy_nl_tab(1, 2), $fieldsGenerate);
     }
 
     private function generateBoolean($tableName, $field)
     {
         $formTemplate = $this->getFormTemplate('switch');
-        $formTemplate = $this->replaceLabelForm(
-            $tableName,
-            $field,
-            $formTemplate
-        );
+        $formTemplate = $this->replaceLabelForm($tableName, $field, $formTemplate);
         $formTemplate = $this->checkRequired($field, $formTemplate);
         $formTemplate = $this->replaceFormField($field, $formTemplate);
         return $formTemplate;
@@ -242,38 +186,21 @@ class FormGenerator extends BaseGenerator
     private function generateDateTime($fileName, $tableName, $field)
     {
         $formTemplate = $this->getFormTemplate($fileName);
-        $formTemplate = $this->replaceLabelForm(
-            $tableName,
-            $field,
-            $formTemplate
-        );
+        $formTemplate = $this->replaceLabelForm($tableName, $field, $formTemplate);
         $formTemplate = $this->checkRequired($field, $formTemplate);
         $formTemplate = $this->replaceFormField($field, $formTemplate);
         return $formTemplate;
     }
 
-    private function generateInput(
-        $fileName,
-        $tableName,
-        $field,
-        $index,
-        $dbType = ''
-    ) {
+    private function generateInput($fileName, $tableName, $field, $index, $dbType = '')
+    {
         $formTemplate = $this->getFormTemplate($fileName);
-        $formTemplate = $this->replaceLabelForm(
-            $tableName,
-            $field,
-            $formTemplate
-        );
+        $formTemplate = $this->replaceLabelForm($tableName, $field, $formTemplate);
         $formTemplate = $this->checkRequired($field, $formTemplate);
         $formTemplate = $this->replaceAutoFocus($index, $formTemplate);
         $formTemplate = $this->replaceFormField($field, $formTemplate);
         if ($dbType === $this->dbType['string']) {
-            $formTemplate = str_replace(
-                '{{MAX_LENGTH}}',
-                $field['length_varchar'],
-                $formTemplate
-            );
+            $formTemplate = str_replace('{{MAX_LENGTH}}', $field['length_varchar'], $formTemplate);
         }
         return $formTemplate;
     }
@@ -281,11 +208,7 @@ class FormGenerator extends BaseGenerator
     private function generateTinymce($tableName, $field)
     {
         $formTemplate = $this->getFormTemplate('tinymce');
-        $formTemplate = $this->replaceLabelForm(
-            $tableName,
-            $field,
-            $formTemplate
-        );
+        $formTemplate = $this->replaceLabelForm($tableName, $field, $formTemplate);
         $formTemplate = $this->checkRequired($field, $formTemplate);
         $formTemplate = $this->replaceFormField($field, $formTemplate);
 
@@ -295,28 +218,16 @@ class FormGenerator extends BaseGenerator
     private function generateEnum($tableName, $field)
     {
         $formTemplate = $this->getFormTemplate('select');
-        $formTemplate = $this->replaceLabelForm(
-            $tableName,
-            $field,
-            $formTemplate
-        );
+        $formTemplate = $this->replaceLabelForm($tableName, $field, $formTemplate);
         $formTemplate = $this->checkRequired($field, $formTemplate);
         $formTemplate = $this->replaceFormField($field, $formTemplate);
         $formTemplate = str_replace(
             '{{$LIST_SELECT$}}',
             $this->serviceGenerator->modelNameNotPluralFe($field['field_name']),
-            $formTemplate
+            $formTemplate,
         );
-        $formTemplate = str_replace(
-            '{{$LABEL_OPTION$}}',
-            'item',
-            $formTemplate
-        );
-        $formTemplate = str_replace(
-            '{{$VALUE_OPTION$}}',
-            'item',
-            $formTemplate
-        );
+        $formTemplate = str_replace('{{$LABEL_OPTION$}}', 'item', $formTemplate);
+        $formTemplate = str_replace('{{$VALUE_OPTION$}}', 'item', $formTemplate);
 
         return $formTemplate;
     }
@@ -324,17 +235,13 @@ class FormGenerator extends BaseGenerator
     private function generateJson($tableName, $field)
     {
         $formTemplate = $this->getFormTemplate('json');
-        $formTemplate = $this->replaceLabelForm(
-            $tableName,
-            $field,
-            $formTemplate
-        );
+        $formTemplate = $this->replaceLabelForm($tableName, $field, $formTemplate);
         $formTemplate = $this->checkRequired($field, $formTemplate);
         $formTemplate = $this->replaceFormField($field, $formTemplate);
         $formTemplate = str_replace(
             '{{$REF_JSON$}}',
             $this->serviceGenerator->modelNameNotPluralFe($field['field_name']),
-            $formTemplate
+            $formTemplate,
         );
         return $formTemplate;
     }
@@ -342,17 +249,13 @@ class FormGenerator extends BaseGenerator
     private function generateFile($tableName, $field)
     {
         $formTemplate = $this->getFormTemplate('upload');
-        $formTemplate = $this->replaceLabelForm(
-            $tableName,
-            $field,
-            $formTemplate
-        );
+        $formTemplate = $this->replaceLabelForm($tableName, $field, $formTemplate);
         $formTemplate = $this->checkRequired($field, $formTemplate);
         $formTemplate = $this->replaceFormField($field, $formTemplate);
         $formTemplate = str_replace(
             '{{$NAME_FUNC$}}',
             $this->serviceGenerator->modelNameNotPluralFe($field['field_name']),
-            $formTemplate
+            $formTemplate,
         );
         return $formTemplate;
     }
@@ -360,22 +263,14 @@ class FormGenerator extends BaseGenerator
     private function getFormTemplate($nameForm)
     {
         $pathTemplate = 'Forms/';
-        $templateData = $this->serviceGenerator->get_template(
-            $nameForm,
-            $pathTemplate,
-            'vuejs'
-        );
+        $templateData = $this->serviceGenerator->get_template($nameForm, $pathTemplate, 'vuejs');
 
         return $templateData;
     }
 
     private function checkRequired($field, $formTemplate)
     {
-        $formTemplate = str_replace(
-            $this->propNameForm,
-            'prop="' . $field['field_name'] . '"',
-            $formTemplate
-        );
+        $formTemplate = str_replace($this->propNameForm, 'prop="' . $field['field_name'] . '"', $formTemplate);
         return $formTemplate;
     }
 
@@ -384,24 +279,16 @@ class FormGenerator extends BaseGenerator
         return str_replace(
             $this->labelNameForm,
             '$t(\'table.' . $tableName . '.' . $field['field_name'] . '\')',
-            $formTemplate
+            $formTemplate,
         );
     }
 
     private function replaceAutoFocus($index, $formTemplate)
     {
         if ($index === 1) {
-            $formTemplate = str_replace(
-                '{{$AUTO_FOCUS_INPUT$}}',
-                'autofocus',
-                $formTemplate
-            );
+            $formTemplate = str_replace('{{$AUTO_FOCUS_INPUT$}}', 'autofocus', $formTemplate);
         } else {
-            $formTemplate = str_replace(
-                '{{$AUTO_FOCUS_INPUT$}}',
-                '',
-                $formTemplate
-            );
+            $formTemplate = str_replace('{{$AUTO_FOCUS_INPUT$}}', '', $formTemplate);
         }
 
         return $formTemplate;
@@ -409,10 +296,6 @@ class FormGenerator extends BaseGenerator
 
     private function replaceFormField($field, $formTemplate)
     {
-        return str_replace(
-            '{{$FORM_FIELD$}}',
-            $field['field_name'],
-            $formTemplate
-        );
+        return str_replace('{{$FORM_FIELD$}}', $field['field_name'], $formTemplate);
     }
 }

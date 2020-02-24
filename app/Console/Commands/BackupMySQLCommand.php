@@ -52,7 +52,7 @@ class BackupMySQLCommand extends Command
                 break;
 
             default:
-                $this->error("Invalid Option !!");
+                $this->error('Invalid Option !!');
                 break;
         }
     }
@@ -65,7 +65,7 @@ class BackupMySQLCommand extends Command
     private function takeSnapShot()
     {
         set_time_limit(0);
-        $dbName = env('DB_DATABASE') . '_' . date("Y-m-d_Hi");
+        $dbName = env('DB_DATABASE') . '_' . date('Y-m-d_Hi');
         // define target file
         $tempLocation = '/tmp/' . $dbName . '.sql';
 
@@ -78,19 +78,14 @@ class BackupMySQLCommand extends Command
                 ' ' .
                 env('DB_DATABASE') .
                 ' > ' .
-                $tempLocation
+                $tempLocation,
         );
         $process->run();
 
         try {
             if ($process->isSuccessful()) {
                 $zip = new ZipArchive();
-                if (
-                    $zip->open(
-                        storage_path("app/mysql/{$dbName}.zip"),
-                        ZipArchive::CREATE
-                    ) === true
-                ) {
+                if ($zip->open(storage_path("app/mysql/{$dbName}.zip"), ZipArchive::CREATE) === true) {
                     // Add files to the zip file
                     $zip->addFile($tempLocation, $dbName . '.sql');
                     // All files are added, so close the zip file.
@@ -125,14 +120,14 @@ class BackupMySQLCommand extends Command
     {
         $snapshot = $this->option('snapshot');
         if (!$snapshot) {
-            $this->error("snapshot option is required.");
+            $this->error('snapshot option is required.');
         }
 
         try {
             $zip = new ZipArchive();
             $res = $zip->open(storage_path("app/mysql/{$snapshot}.zip"));
             if ($res === true) {
-                $zip->extractTo(storage_path("app/mysql/"));
+                $zip->extractTo(storage_path('app/mysql/'));
                 $zip->close();
             } else {
                 throw new Exception('Extract failed');
@@ -140,42 +135,37 @@ class BackupMySQLCommand extends Command
             // get file from s3
             $s3 = \Storage::disk();
             $found = $s3->get('/mysql/' . $snapshot . '.sql');
-            $tempLocation =
-                '/tmp/' . env('DB_DATABASE') . '_' . date("Y-m-d_Hi") . '.sql';
+            $tempLocation = '/tmp/' . env('DB_DATABASE') . '_' . date('Y-m-d_Hi') . '.sql';
 
             // create a temp file
             $bytes_written = File::put($tempLocation, $found);
             if ($bytes_written === false) {
-                $this->info("Error writing to file: " . $tempLocation);
+                $this->info('Error writing to file: ' . $tempLocation);
             }
 
             // run the cli job
             $process = new Process(
-                "mysql -h " .
+                'mysql -h ' .
                     env('DB_HOST') .
-                    " -u " .
+                    ' -u ' .
                     env('DB_USERNAME') .
-                    " -p" .
+                    ' -p' .
                     env('DB_PASSWORD') .
-                    " " .
+                    ' ' .
                     env('DB_DATABASE') .
-                    " < {$tempLocation}"
+                    " < {$tempLocation}",
             );
             $process->run();
 
             @unlink($tempLocation);
             @unlink(storage_path('app/mysql/' . $snapshot . '.sql'));
             if ($process->isSuccessful()) {
-                $this->info("Restored snapshot: " . $snapshot);
+                $this->info('Restored snapshot: ' . $snapshot);
             } else {
                 throw new ProcessFailedException($process);
             }
         } catch (\Exception $e) {
-            $this->info(
-                'File Not Found: ' . $e->getMessage(),
-                $e->getFile(),
-                $e->getLine()
-            );
+            $this->info('File Not Found: ' . $e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
 }

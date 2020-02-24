@@ -35,25 +35,14 @@ class RequestGenerator extends BaseGenerator
     {
         $now = Carbon::now();
         $pathTemplate = 'Requests/';
-        $templateData = $this->serviceGenerator->get_template(
-            "store",
-            $pathTemplate
-        );
-        $templateData = str_replace(
-            '{{DATE}}',
-            $now->toDateTimeString(),
-            $templateData
-        );
-        $templateData = str_replace(
-            '{{MODEL_CLASS}}',
-            $model['name'],
-            $templateData
-        );
+        $templateData = $this->serviceGenerator->get_template('store', $pathTemplate);
+        $templateData = str_replace('{{DATE}}', $now->toDateTimeString(), $templateData);
+        $templateData = str_replace('{{MODEL_CLASS}}', $model['name'], $templateData);
         $templateData = $this->serviceGenerator->replaceNotDelete(
             $this->notDelete['rule'],
             $this->generateFields($fields),
             3,
-            $templateData
+            $templateData,
         );
 
         //create sort delete
@@ -81,58 +70,26 @@ class RequestGenerator extends BaseGenerator
                     case $dbType['bigInteger']:
                     case $dbType['float']:
                     case $dbType['double']:
-                        $fieldsGenerate[] =
-                            "'" .
-                            $field['field_name'] .
-                            "'" .
-                            ' => ' .
-                            "'$required|numeric'" .
-                            ',';
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|numeric'" . ',';
                         break;
                     case $dbType['boolean']:
-                        $fieldsGenerate[] =
-                            "'" .
-                            $field['field_name'] .
-                            "'" .
-                            ' => ' .
-                            "'$required|boolean'" .
-                            ',';
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|boolean'" . ',';
                         break;
                     case $dbType['date']:
                         $fieldsGenerate[] =
-                            "'" .
-                            $field['field_name'] .
-                            "'" .
-                            ' => ' .
-                            "'$required|date_format:Y-m-d'" .
-                            ',';
+                            "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:Y-m-d'" . ',';
                         break;
                     case $dbType['dateTime']:
                         $fieldsGenerate[] =
-                            "'" .
-                            $field['field_name'] .
-                            "'" .
-                            ' => ' .
-                            "'$required|date_format:Y-m-d H:i:s'" .
-                            ',';
+                            "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:Y-m-d H:i:s'" . ',';
                         break;
                     case $dbType['time']:
                         $fieldsGenerate[] =
-                            "'" .
-                            $field['field_name'] .
-                            "'" .
-                            ' => ' .
-                            "'$required|date_format:H:i:s'" .
-                            ',';
+                            "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:H:i:s'" . ',';
                         break;
                     case $dbType['year']:
                         $fieldsGenerate[] =
-                            "'" .
-                            $field['field_name'] .
-                            "'" .
-                            ' => ' .
-                            "'$required|date_format:Y'" .
-                            ',';
+                            "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:Y'" . ',';
                         break;
                     case $dbType['string']:
                         $fieldsGenerate[] =
@@ -146,13 +103,7 @@ class RequestGenerator extends BaseGenerator
                     case $dbType['text']:
                     case $dbType['longtext']:
                     case $dbType['file']:
-                        $fieldsGenerate[] =
-                            "'" .
-                            $field['field_name'] .
-                            "'" .
-                            ' => ' .
-                            "'$required|string'" .
-                            ',';
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|string'" . ',';
                         break;
                     case $dbType['enum']:
                         $enum = 'in:';
@@ -163,30 +114,15 @@ class RequestGenerator extends BaseGenerator
                                 $enum .= "$value" . ',';
                             }
                         }
-                        $fieldsGenerate[] =
-                            "'" .
-                            $field['field_name'] .
-                            "'" .
-                            ' => ' .
-                            "'$required|$enum'" .
-                            ',';
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|$enum'" . ',';
                         break;
                     case $dbType['json']:
-                        $fieldsGenerate[] =
-                            "'" .
-                            $field['field_name'] .
-                            "'" .
-                            ' => ' .
-                            "'$required|json'" .
-                            ',';
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|json'" . ',';
                         break;
                 }
             }
         }
 
-        return implode(
-            $this->serviceGenerator->infy_nl_tab(1, 3),
-            $fieldsGenerate
-        );
+        return implode($this->serviceGenerator->infy_nl_tab(1, 3), $fieldsGenerate);
     }
 }

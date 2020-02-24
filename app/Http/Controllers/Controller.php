@@ -24,9 +24,9 @@ class Controller extends BaseController
         return response()->json(
             [
                 'success' => true,
-                'data' => $data
+                'data' => $data,
             ],
-            $status
+            $status,
         );
     }
 
@@ -42,9 +42,9 @@ class Controller extends BaseController
             [
                 'success' => true,
                 'data' => $data['data'],
-                'count' => $data['total']
+                'count' => $data['total'],
             ],
-            $status
+            $status,
         );
     }
 
@@ -61,9 +61,9 @@ class Controller extends BaseController
                 'success' => false,
                 'message' => $message,
                 'file' => $file,
-                'line' => $line
+                'line' => $line,
             ],
-            $status
+            $status,
         );
     }
 
@@ -78,9 +78,9 @@ class Controller extends BaseController
         return response()->json(
             [
                 'success' => true,
-                'message' => $message
+                'message' => $message,
             ],
-            $status
+            $status,
         );
     }
 
@@ -95,9 +95,9 @@ class Controller extends BaseController
         return response()->json(
             [
                 'success' => true,
-                'name' => $string
+                'name' => $string,
             ],
-            $status
+            $status,
         );
     }
 }

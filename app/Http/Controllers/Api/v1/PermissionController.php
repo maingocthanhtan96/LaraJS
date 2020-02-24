@@ -26,9 +26,7 @@ class PermissionController extends Controller
             return $q->where('name', 'LIKE', "%$keyword%");
         });
 
-        return PermissionResource::collection(
-            $permissionQuery->paginate($limit)
-        );
+        return PermissionResource::collection($permissionQuery->paginate($limit));
     }
 
     /**
@@ -87,20 +85,14 @@ class PermissionController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(
-        StorePermissionRequest $request,
-        Permission $permission
-    ) {
+    public function update(StorePermissionRequest $request, Permission $permission)
+    {
         try {
             $permission->update($request->only(['name', 'description']));
 
             return $this->jsonData(new PermissionResource($permission));
         } catch (\Exception $e) {
-            return $this->jsonError(
-                $e->getMessage(),
-                $e->getFile(),
-                $e->getLine()
-            );
+            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
 
@@ -117,11 +109,7 @@ class PermissionController extends Controller
 
             return $this->jsonSuccess(trans('messages.delete'));
         } catch (\Exception $e) {
-            return $this->jsonError(
-                $e->getMessage(),
-                $e->getFile(),
-                $e->getLine()
-            );
+            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
 }

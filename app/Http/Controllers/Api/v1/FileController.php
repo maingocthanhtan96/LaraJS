@@ -50,9 +50,7 @@ class FileController extends Controller
                 if (file_exists(public_path($file))) {
                     unlink(public_path($file));
                 } else {
-                    return (new self())->jsonError(
-                        trans('error.file_not_found')
-                    );
+                    return (new self())->jsonError(trans('error.file_not_found'));
                 }
             }
             return (new self())->jsonSuccess(trans('messages.delete'));
@@ -76,9 +74,7 @@ class FileController extends Controller
                     if (file_exists(public_path($fileOld))) {
                         unlink(public_path($fileOld));
                     } else {
-                        return (new self())->jsonError(
-                            trans('error.file_not_found')
-                        );
+                        return (new self())->jsonError(trans('error.file_not_found'));
                     }
                 }
 

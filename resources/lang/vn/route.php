@@ -11,5 +11,5 @@ return [
     'generator_relationship' => 'Relationship',
     'dashboard' => 'Bảng điều khiển',
     'administrators' => 'Administrators',
-    'role_permission' => 'Role Permission'
+    'role_permission' => 'Role Permission',
 ];

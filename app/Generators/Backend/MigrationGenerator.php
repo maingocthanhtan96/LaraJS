@@ -31,37 +31,22 @@ class MigrationGenerator extends BaseGenerator
     {
         $now = Carbon::now();
         $pathTemplate = 'Databases/Migrations/';
-        $templateData = $this->serviceGenerator->get_template(
-            "migration",
-            $pathTemplate
-        );
-        $templateData = str_replace(
-            '{{FIELDS}}',
-            $this->generateFields($fields, $model),
-            $templateData
-        );
-        $templateData = str_replace(
-            '{{DATE_TIME}}',
-            $now->toDateTimeString(),
-            $templateData
-        );
+        $templateData = $this->serviceGenerator->get_template('migration', $pathTemplate);
+        $templateData = str_replace('{{FIELDS}}', $this->generateFields($fields, $model), $templateData);
+        $templateData = str_replace('{{DATE_TIME}}', $now->toDateTimeString(), $templateData);
 
         $templateData = str_replace(
             '{{TABLE_NAME_TITLE}}',
             $this->serviceGenerator->modelNamePlural($model['name']),
-            $templateData
+            $templateData,
         );
         $templateData = str_replace(
             '{{TABLE_NAME}}',
             $this->serviceGenerator->tableName($model['name']),
-            $templateData
+            $templateData,
         );
         $fileName =
-            date('Y_m_d_His') .
-            '_' .
-            'create_' .
-            $this->serviceGenerator->tableName($model['name']) .
-            '_table.php';
+            date('Y_m_d_His') . '_' . 'create_' . $this->serviceGenerator->tableName($model['name']) . '_table.php';
 
         $this->serviceFile->createFile($this->path, $fileName, $templateData);
     }
@@ -77,12 +62,7 @@ class MigrationGenerator extends BaseGenerator
             $table = '';
             foreach ($configDBType as $typeLaravel => $typeDB) {
                 if ($field['db_type'] === $configDBType['string']) {
-                    $table .=
-                        '$table->string("' .
-                        trim($field['field_name']) .
-                        '", ' .
-                        $field['length_varchar'] .
-                        ')';
+                    $table .= '$table->string("' . trim($field['field_name']) . '", ' . $field['length_varchar'] . ')';
                     break;
                 }
 
@@ -95,39 +75,25 @@ class MigrationGenerator extends BaseGenerator
                             $enum .= "'$value'" . ',';
                         }
                     }
-                    $table .=
-                        '$table->enum("' .
-                        trim($field['field_name']) .
-                        '", [' .
-                        $enum .
-                        '])';
+                    $table .= '$table->enum("' . trim($field['field_name']) . '", [' . $enum . '])';
                     break;
                 }
 
                 if ($field['db_type'] === $configDBType['file']) {
-                    $table .=
-                        '$table->text("' . trim($field['field_name']) . '")';
+                    $table .= '$table->text("' . trim($field['field_name']) . '")';
                     break;
                 }
 
                 if ($field['db_type'] === $typeDB) {
-                    $table .=
-                        '$table->' .
-                        $typeLaravel .
-                        '("' .
-                        trim($field['field_name']) .
-                        '")';
+                    $table .= '$table->' . $typeLaravel . '("' . trim($field['field_name']) . '")';
                     break;
                 }
             }
 
             if ($field['default_value'] === $configDefaultValue['null']) {
                 $table .= '->nullable()';
-            } elseif (
-                $field['default_value'] === $configDefaultValue['as_define']
-            ) {
-                $table .=
-                    '->nullable()->default("' . $field['as_define'] . '")';
+            } elseif ($field['default_value'] === $configDefaultValue['as_define']) {
+                $table .= '->nullable()->default("' . $field['as_define'] . '")';
             }
             if ($index > 0) {
                 $table .= ';';
@@ -135,18 +101,10 @@ class MigrationGenerator extends BaseGenerator
             }
         }
         $fieldsGenerate[] = '$table->timestamps();';
-        if (
-            $this->serviceGenerator->getOptions(
-                config('generator.model.options.sort_deletes'),
-                $model['options']
-            )
-        ) {
+        if ($this->serviceGenerator->getOptions(config('generator.model.options.sort_deletes'), $model['options'])) {
             $fieldsGenerate[] = '$table->softDeletes();';
         }
 
-        return implode(
-            $this->serviceGenerator->infy_nl_tab(1, 3),
-            $fieldsGenerate
-        );
+        return implode($this->serviceGenerator->infy_nl_tab(1, 3), $fieldsGenerate);
     }
 }
