@@ -2,7 +2,7 @@
   <el-container
     class="blue-grey lighten-5 h-screen justify-center items-center"
   >
-    <el-row>
+    <el-row class="forgot-password">
       <el-col :xs="24" :sm="24" :lg="24" :xl="24">
         <el-card>
           <div slot="header" class="text-center">
@@ -87,3 +87,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scope>
+.forgot-password {
+  width: 50rem;
+}
+</style>

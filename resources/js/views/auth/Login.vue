@@ -78,7 +78,7 @@
               <el-checkbox>{{ $t('auth.login.remember') }}</el-checkbox>
             </el-col>
             <el-col :span="12" class="text-right">
-              <router-link :to="{ name: 'reset_password' }" class="text-black">
+              <router-link :to="{ name: 'reset-password' }" class="text-black">
                 {{ $t('auth.login.forgot_password') }}
               </router-link>
             </el-col>
