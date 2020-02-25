@@ -126,7 +126,20 @@
 .zoom-out-enter,
 .zoom-out-leave-to {
   opacity: 0;
-  transform: scale(0);
+  transform: scale3d(0.3, 0.3, 0.3);
+}
+
+// ///////////////////////////////////////////////
+// Zoom In
+// ///////////////////////////////////////////////
+.zoom-in-enter-active,
+.zoom-in-leave-active {
+  transition: opacity 0.35s ease-in-out, transform 0.45s ease-out;
+}
+.zoom-in-enter,
+.zoom-in-leave-to {
+  opacity: 0;
+  transform: scale3d(1.2, 1.2, 1.2);
 }
 
 // ///////////////////////////////////////////////

@@ -39,11 +39,11 @@ module.exports = {
 
   /**
    * @type {string} fade / fade-transform-left / fade-transform-left / zoom-fade / slide-fade / zoom-out / fade-bottom / fade-bottom-2x / fade-top / fade-top-2x
-   * @default fade-transform
+   * @default fade-transform-left
    * @description transition change page
    */
-  routerTransitionTo: 'fade-transform-right',
-  routerTransitionFrom: 'fade-transform-left',
+  routerTransitionTo: 'zoom-in',
+  routerTransitionFrom: 'zoom-out',
 
   /**
    * @type {string} name
