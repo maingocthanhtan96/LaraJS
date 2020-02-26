@@ -25,9 +25,10 @@ stages:
 unit_test:
   stage: test
   script:
-    - cp .env.example .env
+    - cp .env.test.example .env
     - composer install
     - php artisan key:generate
+    - php artisan migrate
     - vendor/bin/phpunit
 
 deploy_dev:
