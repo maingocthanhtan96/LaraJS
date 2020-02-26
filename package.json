@@ -13,6 +13,7 @@
         "prod.js": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --env.mixfile=webpack-js.mix --config=node_modules/laravel-mix/setup/webpack.config.js",
         "prod.js.report": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --report --env.mixfile=webpack-js.mix --config=node_modules/laravel-mix/setup/webpack.config.js",
         "eslint:fix": "eslint resources/js/**/*.{js,vue} --fix",
+        "prettier:fix": "prettier --write resources/js/**/*.{js,vue}",
         "prettier:php": "prettier --write --parser=php"
     },
     "husky": {
@@ -53,7 +54,6 @@
         "eslint-plugin-eslint-plugin": "^2.1.0",
         "eslint-plugin-prettier": "^3.1.2",
         "eslint-plugin-vue": "^5.2.3",
-        "eslint-plugin-vue-libs": "github:vuejs/eslint-plugin-vue-libs",
         "husky": "^4.2.3",
         "laravel-mix": "^4.1.4",
         "laravel-mix-eslint": "^0.1.3",

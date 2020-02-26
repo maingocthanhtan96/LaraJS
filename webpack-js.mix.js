@@ -28,7 +28,7 @@ mix
     'axios',
     'element-ui',
     'nprogress',
-    'echarts'
+    'echarts',
   ])
   .webpackConfig(config)
   .mergeManifest();
@@ -39,15 +39,15 @@ if (mix.inProduction()) {
   if (process.env.LARAJS_USE_ESLINT === 'true') {
     mix.eslint({
       fix: true,
-      cache: false
+      cache: false,
     });
   }
   // Development settings
-  // mix.browserSync({
-  //   proxy: process.env.APP_URL,
-  //   files: ['resources/js/**/*']
-  // });
+  mix.browserSync({
+    proxy: process.env.APP_URL,
+    files: ['resources/js/**/*'],
+  });
   mix.sourceMaps().webpackConfig({
-    devtool: 'cheap-eval-source-map' // Fastest for development
+    devtool: 'cheap-eval-source-map', // Fastest for development
   });
 }

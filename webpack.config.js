@@ -14,14 +14,14 @@ const plugins = [];
 if (report) {
   plugins.push(
     new BundleAnalyzerPlugin({
-      openAnalyzer: true
+      openAnalyzer: true,
     })
   );
 }
 plugins.push(
   new ChunkRenamePlugin({
     initialChunksWithEntry: true,
-    '/js/vendor': '/js/vendor.js'
+    '/js/vendor': '/js/vendor.js',
   })
 );
 
@@ -30,8 +30,8 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       vue$: 'vue/dist/vue.esm.js',
-      '@': path.join(__dirname, '/resources/js')
-    }
+      '@': path.join(__dirname, '/resources/js'),
+    },
   },
   module: {
     rules: [
@@ -40,20 +40,20 @@ module.exports = {
         loader: 'svg-sprite-loader',
         include: [resolve('icons')],
         options: {
-          symbolId: 'icon-[name]'
-        }
+          symbolId: 'icon-[name]',
+        },
       },
       {
         test: /\.(js)$/,
         use: 'babel-loader',
-        exclude: /node_modules/
-      }
-    ]
+        exclude: /node_modules/,
+      },
+    ],
   },
   output: {
     chunkFilename: mix.inProduction()
       ? 'js/chunks/[name].[chunkhash].js'
-      : 'js/chunks/[name].js'
+      : 'js/chunks/[name].js',
   },
-  plugins: plugins
+  plugins: plugins,
 };

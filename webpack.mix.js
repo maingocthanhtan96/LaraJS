@@ -35,7 +35,7 @@ mix
           /^vue-/,
           /^dropzone/,
           /^json/,
-          /^larajs-/
+          /^larajs-/,
         ],
         whitelistPatternsChildren: [
           /^el-/,
@@ -44,24 +44,24 @@ mix
           /^vue-/,
           /^dropzone/,
           /^json/,
-          /^larajs-/
+          /^larajs-/,
         ],
         // Include any special characters you're using in this regular expression
-        defaultExtractor: content => content.match(/[A-Za-z0-9-_:/]+/g) || []
-      })
+        defaultExtractor: content => content.match(/[A-Za-z0-9-_:/]+/g) || [],
+      }),
     ],
-    clearConsole: true // in watch mode, clears console after every build
+    clearConsole: true, // in watch mode, clears console after every build
   })
   .sass('resources/js/styles/index.scss', 'public/css/app.css', {
-    implementation: require('node-sass')
+    implementation: require('node-sass'),
   });
 mix.webpackConfig(config);
 mix.webpackConfig({
   output: {
     chunkFilename: mix.inProduction()
       ? 'js/chunks/[name].[chunkhash].js'
-      : 'js/chunks/[name].js'
-  }
+      : 'js/chunks/[name].js',
+  },
 });
 
 if (mix.inProduction()) {
@@ -70,7 +70,7 @@ if (mix.inProduction()) {
   if (process.env.LARAJS_USE_ESLINT === 'true') {
     mix.eslint({
       fix: true,
-      cache: false
+      cache: false,
     });
   }
   // Development settings
@@ -79,6 +79,6 @@ if (mix.inProduction()) {
   //   files: ['resources/js/**/*']
   // });
   mix.sourceMaps().webpackConfig({
-    devtool: 'cheap-eval-source-map' // Fastest for development
+    devtool: 'cheap-eval-source-map', // Fastest for development
   });
 }

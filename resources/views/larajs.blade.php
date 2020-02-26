@@ -10,11 +10,13 @@
     <title>{{ config('app.name', 'Larajs') }}</title>
 
     <link href="{{ mix('css/app.css') }}" type="text/css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
     <link rel="shortcut icon" href="{{asset('images/logo-tanmnt.png')}}"/>
 </head>
 <body>
 
+<noscript>
+    <strong>We're sorry but Larajs, HTML & Laravel Admin Dashboard Template doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+</noscript>
 <div id="app"></div>
 
 <script src="{{ mix('js/manifest.js') }}"></script>

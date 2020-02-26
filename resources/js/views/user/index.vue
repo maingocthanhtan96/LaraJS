@@ -55,11 +55,7 @@
                 width="70px"
               >
                 <template slot-scope="{ $index }">
-                  {{
-                    (table.listQuery.page - 1) * table.listQuery.limit +
-                      $index +
-                      1
-                  }}
+                  {{ numericalOrder($index) }}
                 </template>
               </el-table-column>
               <el-table-column
@@ -112,17 +108,17 @@
                 align="center"
                 class-name="small-padding fixed-width"
               >
-                <template slot-scope="props">
+                <template slot-scope="{ row, $index }">
                   <router-link
                     v-permission="['edit']"
-                    :to="{ name: 'user-edit', params: { id: props.row.id } }"
+                    :to="{ name: 'user-edit', params: { id: row.id } }"
                   >
                     <i class="el-icon-edit el-link el-link--primary mr-2" />
                   </router-link>
                   <a
                     v-permission="['delete']"
                     class="cursor-pointer"
-                    @click.stop="remove(props.row.id, props.index)"
+                    @click.stop="remove(row.id, numericalOrder($index))"
                   >
                     <i class="el-icon-delete el-link el-link--danger" />
                   </a>
@@ -245,6 +241,10 @@ export default {
     },
     parseTime(date, format = '{y}-{m}-{d}') {
       return this.$options.filters.parseTime(date, format);
+    },
+    numericalOrder(index) {
+      const table = this.table.listQuery;
+      return (table.page - 1) * table.limit + index + 1;
     },
   },
 };
