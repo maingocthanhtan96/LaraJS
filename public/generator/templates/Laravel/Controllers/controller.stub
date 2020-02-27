@@ -42,27 +42,21 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 			$limit = $request->get('limit', {{LIMIT}});
 			$ascending = $request->get('ascending', 0);
 			$orderBy = $request->get('orderBy', '');
-			$query = $request->get('query', '');
+			$search = $request->get('search', '');
 			$betweenDate = $request->get('created_at', []);
 
-			$columns = {{COLUMN_SORT}};
-			$columnOrder = [];
-			$columnSearch = {{COLUMN_SEARCH}};
-			$with = {{COLUMN_RELATIONSHIP}};
-			$qs = new QueryService(new {{MODAL_CLASS}});
-			${{MODAL_CLASS_PARAM}} = $qs->queryTable(
-                $columns,
-                $columnOrder,
-                $query,
-                $columnSearch,
-                $with,
-                $betweenDate,
-                $limit,
-                $ascending,
-                $orderBy
-            );
+			$queryService = new QueryService(new {{MODAL_CLASS}});
+			$queryService->order = {{COLUMN_SORT}};
+            $queryService->orderRelationship = [];
+            $queryService->columnSearch = {{COLUMN_SEARCH}};
+            $queryService->withRelationship = {{COLUMN_RELATIONSHIP}};
+            $queryService->search = $search;
+            $queryService->betweenDate = $betweenDate;
+            $queryService->limit = $limit;
+            $queryService->ascending = $ascending;
+            $queryService->orderBy = $orderBy;
 
-			return $this->jsonTable(${{MODAL_CLASS_PARAM}});
+			return $this->jsonTable($queryService->queryTable());
 		} catch (\Exception $e) {
 			return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
 		}

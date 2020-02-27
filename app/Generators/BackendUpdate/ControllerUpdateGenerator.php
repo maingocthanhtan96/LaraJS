@@ -18,8 +18,8 @@ class ControllerUpdateGenerator extends BaseGenerator
     /** @var string */
     public $path;
 
-    const COLUMNS = '$columns';
-    const COLUMNS_SEARCH = '$columnSearch';
+    const QS_ORDER = '$queryService->order';
+    const QS_COLUMNS_SEARCH = '$queryService->columnSearch';
 
     public function __construct($model, $updateFields)
     {
@@ -89,20 +89,27 @@ class ControllerUpdateGenerator extends BaseGenerator
         if (empty($updateFields)) {
             return $templateDataReal;
         }
+
         $templateColumns = $this->serviceGenerator->searchTemplate(
-            self::COLUMNS,
+            self::QS_ORDER,
             '];',
-            strlen(self::COLUMNS) + 4,
-            -4 - strlen(self::COLUMNS),
+            strlen(self::QS_ORDER) + 4,
+            -strlen(self::QS_ORDER) - 4,
             $templateDataReal,
+            self::QS_ORDER . ' =',
         );
         $templateColumnsSearch = $this->serviceGenerator->searchTemplate(
-            self::COLUMNS_SEARCH,
+            self::QS_COLUMNS_SEARCH,
             '];',
-            strlen(self::COLUMNS_SEARCH) + 4,
-            -4 - strlen(self::COLUMNS_SEARCH),
+            strlen(self::QS_COLUMNS_SEARCH) + 4,
+            -strlen(self::QS_COLUMNS_SEARCH) - 4,
             $templateDataReal,
+            self::QS_COLUMNS_SEARCH . ' =',
         );
+
+        if (!$templateColumns || !$templateColumnsSearch) {
+            return false;
+        }
 
         $comma = ', ';
         $commaSearch = ', ';
@@ -124,8 +131,8 @@ class ControllerUpdateGenerator extends BaseGenerator
                 $columnsSearch .= $commaSearch . "'" . $update['field_name'] . "'";
             }
         }
-        $selfColumns = self::COLUMNS;
-        $selfColumnsSearch = self::COLUMNS_SEARCH;
+        $selfColumns = self::QS_ORDER;
+        $selfColumnsSearch = self::QS_COLUMNS_SEARCH;
         $templateDataReal = str_replace(
             "$selfColumns = [" . $templateColumns . ']',
             "$selfColumns = [" . $templateColumns . $columns . ']',
@@ -148,20 +155,28 @@ class ControllerUpdateGenerator extends BaseGenerator
         $fieldsGeneratorColumn = [];
         $fieldsGeneratorColumnSearch = [];
         $templateColumns = $this->serviceGenerator->searchTemplate(
-            self::COLUMNS,
+            self::QS_ORDER,
             '];',
-            strlen(self::COLUMNS) + 4,
-            -4 - strlen(self::COLUMNS),
+            strlen(self::QS_ORDER) + 4,
+            -strlen(self::QS_ORDER) - 4,
             $templateDataReal,
+            self::QS_ORDER . ' =',
         );
-        $arrayColumns = explode(',', $templateColumns);
+
         $templateColumnsSearch = $this->serviceGenerator->searchTemplate(
-            self::COLUMNS_SEARCH,
+            self::QS_COLUMNS_SEARCH,
             '];',
-            strlen(self::COLUMNS_SEARCH) + 4,
-            -4 - strlen(self::COLUMNS_SEARCH),
+            strlen(self::QS_COLUMNS_SEARCH) + 4,
+            -strlen(self::QS_COLUMNS_SEARCH) - 4,
             $templateDataReal,
+            self::QS_COLUMNS_SEARCH . ' =',
         );
+
+        if (!$templateColumns || !$templateColumnsSearch) {
+            return false;
+        }
+
+        $arrayColumns = explode(',', $templateColumns);
         $arrayColumnsSearch = explode(',', $templateColumnsSearch);
         $arrayChange = \Arr::pluck($changeFields, 'field_name');
 
@@ -182,7 +197,7 @@ class ControllerUpdateGenerator extends BaseGenerator
             }
             foreach ($arrayColumnsSearch as $search) {
                 $search = trim($search);
-                $trimSort = $this->serviceGenerator->trimQuotes($sort);
+                $trimSort = $this->serviceGenerator->trimQuotes($search);
                 if ($change['field_name'] === $trimSort) {
                     if ($change['search']) {
                         $fieldsGeneratorColumnSearch[] = "'" . $change['field_name'] . "'";
@@ -199,8 +214,8 @@ class ControllerUpdateGenerator extends BaseGenerator
             }
         }
 
-        $selfColumns = self::COLUMNS;
-        $selfColumnsSearch = self::COLUMNS_SEARCH;
+        $selfColumns = self::QS_ORDER;
+        $selfColumnsSearch = self::QS_COLUMNS_SEARCH;
         $templateDataReal = str_replace(
             "$selfColumns = [" . $templateColumns . ']',
             "$selfColumns = [" .

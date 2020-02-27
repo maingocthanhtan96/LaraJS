@@ -80,6 +80,9 @@ class LangUpdateGenerator extends BaseGenerator
             strlen($tableName) - 10,
             $templateDataReal,
         );
+        if (!$template || !$templateReplace) {
+            return false;
+        }
         $arTemplate = explode(',', trim($template));
         $arRename = \Arr::pluck($renameFields, 'field_name_new.field_name');
         $arRenameOld = \Arr::pluck($renameFields, 'field_name_old.field_name');
@@ -143,6 +146,9 @@ class LangUpdateGenerator extends BaseGenerator
             strlen($tableName) - 10,
             $templateDataReal,
         );
+        if (!$template || !$templateReplace) {
+            return false;
+        }
         $arTemplate = explode(',', trim($template));
         $fieldsGenerate[] = " '" . $tableName . "' => [";
         foreach ($arTemplate as $tpl) {
@@ -184,6 +190,9 @@ class LangUpdateGenerator extends BaseGenerator
             strlen($tableName) - 10,
             $templateDataReal,
         );
+        if (!$template || !$templateReplace) {
+            return false;
+        }
         $arTemplate = explode(',', trim($template));
         $dropUpdate = \Arr::pluck($dropUpdate, 'field_name');
         $fieldsGenerate[] = " '" . $tableName . "' => [";

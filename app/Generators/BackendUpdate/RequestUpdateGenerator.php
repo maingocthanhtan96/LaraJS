@@ -86,6 +86,10 @@ class RequestUpdateGenerator extends BaseGenerator
             -4 - strlen(self::COLUMNS),
             $templateDataReal,
         );
+        if (!$templateColumns) {
+            return false;
+        }
+
         $arrayColumns = explode(PHP_EOL, $templateColumns);
         $arrayChange = \Arr::pluck($changeFields, 'field_name');
 
@@ -176,6 +180,9 @@ class RequestUpdateGenerator extends BaseGenerator
             -4 - strlen(self::COLUMNS),
             $templateDataReal,
         );
+        if (!$templateColumns) {
+            return false;
+        }
         $arrayColumns = explode(PHP_EOL, $templateColumns);
         $arrayChange = \Arr::pluck($dropFields, 'field_name');
 

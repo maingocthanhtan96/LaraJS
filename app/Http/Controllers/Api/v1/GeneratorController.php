@@ -57,27 +57,21 @@ class GeneratorController extends Controller
             $limit = $request->get('limit', 25);
             $ascending = $request->get('ascending', 0);
             $orderBy = $request->get('orderBy', '');
-            $query = $request->get('query', '');
+            $search = $request->get('search', '');
             $betweenDate = $request->get('created_at', []);
 
-            $columns = ['id' => 'id', 'created_at' => 'created_at'];
-            $columnOrder = [];
-            $columnSearch = ['table'];
-            $with = [];
-            $qs = new QueryService(new Generator());
-            $generator = $qs->queryTable(
-                $columns,
-                $columnOrder,
-                $query,
-                $columnSearch,
-                $with,
-                $betweenDate,
-                $limit,
-                $ascending,
-                $orderBy,
-            );
+            $queryService = new QueryService(new Generator());
+            $queryService->order = ['id', 'created_at'];
+            $queryService->orderRelationship = [];
+            $queryService->columnSearch = ['table'];
+            $queryService->withRelationship = [];
+            $queryService->search = $search;
+            $queryService->betweenDate = $betweenDate;
+            $queryService->limit = $limit;
+            $queryService->ascending = $ascending;
+            $queryService->orderBy = $orderBy;
 
-            return $this->jsonTable($generator);
+            return $this->jsonTable($queryService->queryTable());
         } catch (\Exception $e) {
             return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }

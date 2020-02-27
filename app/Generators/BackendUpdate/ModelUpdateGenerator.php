@@ -64,6 +64,9 @@ class ModelUpdateGenerator extends BaseGenerator
             -strlen($fieldAble),
             $templateDataReal,
         );
+        if (!$template) {
+            return false;
+        }
         $arTemplate = explode(',', trim($template));
 
         foreach ($arTemplate as $tpl) {

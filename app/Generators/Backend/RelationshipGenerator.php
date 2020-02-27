@@ -578,9 +578,15 @@ class RelationshipGenerator extends BaseGenerator
         $configOptions = config('generator.relationship.options');
         foreach ($options as $option) {
             if ($option === $configOptions['sort']) {
-                $columns = '$columns = [';
-                $columnWith = '$columnOrder = [';
-                $templateColumns = $this->serviceGenerator->searchTemplate($columns, '];', 0, 0, $templateDataReal);
+                $columns = '$queryService->order = [';
+                $columnWith = '$queryService->orderRelationship = [';
+                $templateColumns = $this->serviceGenerator->searchTemplate(
+                    $columns,
+                    '];',
+                    strlen($columns),
+                    -strlen($columns),
+                    $templateDataReal,
+                );
                 $templateColumnWith = $this->serviceGenerator->searchTemplate(
                     $columnWith,
                     '];',
@@ -588,6 +594,9 @@ class RelationshipGenerator extends BaseGenerator
                     0,
                     $templateDataReal,
                 );
+                if (!$templateColumns || !$templateColumnWith) {
+                    return false;
+                }
                 $commaColumns = ',';
                 if (\Str::endsWith($templateColumns, ',') || strlen($templateColumns) === strlen($columns)) {
                     $commaColumns = '';
@@ -634,7 +643,7 @@ class RelationshipGenerator extends BaseGenerator
                     );
                 }
             } elseif ($option === $configOptions['show']) {
-                $columnsWith = '$with = [';
+                $columnsWith = '$queryService->withRelationship = [';
                 $templateColumnWith = $this->serviceGenerator->searchTemplate(
                     $columnsWith,
                     '];',
@@ -642,6 +651,9 @@ class RelationshipGenerator extends BaseGenerator
                     0,
                     $templateDataReal,
                 );
+                if (!$templateColumnWith) {
+                    return false;
+                }
                 $commaColumnWith = ',';
                 if (\Str::endsWith($templateColumnWith, ',') || strlen($templateColumnWith) === strlen($columnsWith)) {
                     $commaColumnWith = '';
@@ -661,7 +673,7 @@ class RelationshipGenerator extends BaseGenerator
                     $templateDataReal,
                 );
             } elseif ($option === $configOptions['search']) {
-                $columnSearch = '$columnSearch = [';
+                $columnSearch = '$queryService->columnSearch = [';
                 $templateColumnSearch = $this->serviceGenerator->searchTemplate(
                     $columnSearch,
                     '];',
@@ -669,6 +681,9 @@ class RelationshipGenerator extends BaseGenerator
                     0,
                     $templateDataReal,
                 );
+                if (!$templateColumnSearch) {
+                    return false;
+                }
                 $commaSearch = ',';
                 if (
                     \Str::endsWith($templateColumnSearch, ',') ||
@@ -914,6 +929,9 @@ class RelationshipGenerator extends BaseGenerator
             -strlen($fieldAble),
             $templateDataReal,
         );
+        if (!$template) {
+            return false;
+        }
         $arTemplate = explode(',', trim($template));
         foreach ($arTemplate as $tpl) {
             if (strlen($tpl) > 0) {

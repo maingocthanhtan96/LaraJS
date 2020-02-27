@@ -85,6 +85,9 @@ class SwaggerUpdateGenerator extends BaseGenerator
             -strlen(self::REQUIRED),
             $templateScheme,
         );
+        if (!$templateScheme || !$templateRequired) {
+            return false;
+        }
         //end required
 
         foreach ($renameFields as $rename) {
@@ -135,6 +138,9 @@ class SwaggerUpdateGenerator extends BaseGenerator
             -strlen(self::REQUIRED),
             $templateScheme,
         );
+        if (!$templateScheme || !$templateRequired) {
+            return false;
+        }
         $arrayFields = explode(',', $templateRequired);
         $newFields = [];
         foreach ($arrayFields as $field) {
@@ -165,6 +171,9 @@ class SwaggerUpdateGenerator extends BaseGenerator
                     strlen($searchEnd) * 2,
                     $templateDataReal,
                 );
+                if (!$templateColumns) {
+                    return false;
+                }
                 $templateColumnsOld = $templateColumns;
                 $templateColumns = str_replace(
                     $this->changeDefault($dataOld[$change['id']]),
@@ -225,6 +234,9 @@ class SwaggerUpdateGenerator extends BaseGenerator
             -strlen(self::REQUIRED),
             $templateScheme,
         );
+        if (!$templateScheme || !$templateRequired) {
+            return false;
+        }
         $arrayFields = explode(',', $templateRequired);
         $fieldRequiredDrop = \Arr::pluck($dropFields, 'field_name');
         $fieldRequires = '';
@@ -247,6 +259,9 @@ class SwaggerUpdateGenerator extends BaseGenerator
                 strlen($searchEnd) * 2,
                 $templateDataReal,
             );
+            if (!$templateColumns) {
+                return false;
+            }
             $templateDataReal = str_replace($templateColumns, '', $templateDataReal);
         }
 
@@ -273,6 +288,9 @@ class SwaggerUpdateGenerator extends BaseGenerator
             -strlen(self::REQUIRED),
             $templateScheme,
         );
+        if (!$templateScheme || !$templateRequired) {
+            return false;
+        }
         $fieldRequired = \Arr::pluck($updateFields, 'default_value', 'field_name');
 
         $fieldRequires = '';

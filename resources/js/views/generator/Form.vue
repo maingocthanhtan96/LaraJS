@@ -756,11 +756,11 @@ export default {
               type: 'success',
             });
             this.loading = false;
-            // window.location.href = '/administrator/generator';
+            window.location.href = '/administrators/generator';
           })
           .catch(() => {
             this.loading = false;
-            // window.location.href = '/administrator/generator';
+            window.location.href = '/administrators/generator';
           });
       } else {
         this.loading = false;
@@ -797,11 +797,11 @@ export default {
               message: this.$t('messages.update'),
               type: 'success',
             });
-            // window.location.href = '/administrator/generator/index';
+            window.location.href = '/administrators/generator';
           })
           .catch(() => {
             this.loading = false;
-            // window.location.href = '/administrator/generator/index';
+            window.location.href = '/administrators/generator';
           });
       } else {
         this.loading = false;

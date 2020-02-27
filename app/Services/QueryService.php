@@ -3,11 +3,70 @@
 namespace App\Service;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 
 class QueryService extends BaseService
 {
+    /**
+     * Eloquent model
+     * @var $_model
+     */
     protected $_model;
+
+    /**
+     * Order column
+     * @var array
+     */
+    public $order = [];
+    /**
+     * Order relationship ship
+     * @var array
+     */
+    public $orderRelationship = [];
+    /**
+     * Column to search using whereLike
+     * @var array
+     */
+    public $columnSearch = [];
+    /**
+     * Relationship with other tables
+     * @var array
+     */
+    public $withRelationship = [];
+    /**
+     * Paragraph search in column
+     * @var string
+     */
+    public $search = '';
+    /**
+     * Start date - End date
+     * @var array
+     */
+    public $betweenDate = [];
+    /**
+     * Limit record
+     * @var int
+     */
+    public $limit = 25;
+    /**
+     * ascending = 0, descending = 1
+     * @var int
+     */
+    public $ascending = 0;
+    /**
+     * Column to order
+     * @var string
+     */
+    public $orderBy = 'created_at';
+    /**
+     * Always order this column
+     * @var string
+     */
+    public $defaultOrderBy = 'created_at';
+    /**
+     * Always order
+     * @var string
+     */
+    public $defaultDescending = 'desc';
 
     /**
      * QueryService constructor.
@@ -21,66 +80,46 @@ class QueryService extends BaseService
 
     /**
      * Query table
-     * @param array $columns
-     * @param array $columnOrder
-     * @param string $search
-     * @param array $columnSearch
-     * @param array $with
-     * @param array $betweenDate
-     * @param int $limit
-     * @param int $ascending
-     * @param string $orderBy
-     * @param string $defaultOrderBy
-     * @param string $defaultDescending
      * @return mixed
      * @author tanmnt
      */
-    public function queryTable(
-        $columns = [],
-        $columnOrder = [],
-        $search = '',
-        $columnSearch = [],
-        $with = [],
-        $betweenDate = [],
-        $limit = 25,
-        $ascending = 0,
-        $orderBy = 'created_at',
-        $defaultOrderBy = 'created_at',
-        $defaultDescending = 'desc'
-    ) {
-        $ascending = $ascending == 0 ? 'asc' : 'desc';
+    public function queryTable()
+    {
+        $this->ascending = +$this->ascending === 0 ? 'asc' : 'desc';
 
         $query = $this->_model::query();
-        if (count(Arr::wrap($with)) > 0) {
-            $query = $query->with(Arr::wrap($with));
+        if (count(Arr::wrap($this->withRelationship)) > 0) {
+            $query = $query->with(Arr::wrap($this->withRelationship));
         }
 
-        foreach (Arr::wrap($columns) as $col) {
-            $query->when($col === $orderBy, function ($q) use ($col, $ascending) {
-                $q->orderBy($col, $ascending);
+        foreach (Arr::wrap($this->order) as $col) {
+            $query->when($col === $this->orderBy, function ($q) use ($col) {
+                $q->orderBy($col, $this->ascending);
             });
         }
 
-        foreach (Arr::wrap($columnOrder) as $value => $col) {
-            $query->when($value === $orderBy, function ($q) use ($col, $ascending) {
-                $q->orderBy($col, $ascending);
+        foreach (Arr::wrap($this->orderRelationship) as $value => $col) {
+            $query->when($value === $this->orderBy, function ($q) use ($col) {
+                $q->orderBy($col, $this->ascending);
             });
         }
 
-        $query->when($search, function ($q) use ($search, $columnSearch) {
-            $q->whereLike($columnSearch, $search);
+        $query->when($this->search, function ($q) {
+            $q->whereLike($this->columnSearch, $this->search);
         });
 
-        $query->when(!empty($betweenDate[0]), function ($q) use ($betweenDate) {
-            $q->whereDate('created_at', '>=', $betweenDate[0]);
+        $query->when(isset($this->betweenDate[0]), function ($q) {
+            $q->whereDate('created_at', '>=', $this->betweenDate[0]);
         });
 
-        $query->when(!empty($betweenDate[1]), function ($q) use ($betweenDate) {
-            $q->whereDate('created_at', '<=', $betweenDate[1]);
+        $query->when(isset($this->betweenDate[1]), function ($q) {
+            $q->whereDate('created_at', '<=', $this->betweenDate[1]);
         });
 
-        $query = $query->orderBy($defaultOrderBy, $defaultDescending);
+        $query->when($this->defaultOrderBy && $this->defaultDescending, function ($q) {
+            $q->orderBy($this->defaultOrderBy, $this->defaultDescending);
+        });
 
-        return $query->paginate($limit)->toArray();
+        return $query->paginate($this->limit)->toArray();
     }
 }

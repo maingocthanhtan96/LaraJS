@@ -19,7 +19,7 @@
             <el-col :xs="24" :sm="10" :md="6">
               <label>{{ $t('table.texts.filter') }}</label>
               <el-input
-                v-model="table.listQuery.query"
+                v-model="table.listQuery.search"
                 :placeholder="$t('table.texts.filterPlaceholder')"
               />
             </el-col>
@@ -153,7 +153,7 @@ export default {
     return {
       table: {
         listQuery: {
-          query: '',
+          search: '',
           limit: 25,
           ascending: 1,
           page: 1,
@@ -171,7 +171,7 @@ export default {
     };
   },
   watch: {
-    'table.listQuery.query': debounce(function() {
+    'table.listQuery.search': debounce(function() {
       this.handleFilter();
     }, 500),
   },

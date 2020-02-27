@@ -424,13 +424,20 @@ class GeneratorService extends BaseService
      * @param number $plusEnd
      * @param string $templateDataReal
      *
+     * @param string $searchOther
      * @return string
      */
-    public function searchTemplate($search, $char, $plusStart, $plusEnd, $templateDataReal)
+    public function searchTemplate($search, $char, $plusStart, $plusEnd, $templateDataReal, $searchOther = '')
     {
-        $template = substr($templateDataReal, stripos($templateDataReal, $search));
-        $length = stripos($template, $char);
-        return substr($templateDataReal, stripos($templateDataReal, $search) + $plusStart, $length + $plusEnd);
+        if (!$searchOther) {
+            $searchOther = $search;
+        }
+        if (strpos($templateDataReal, $searchOther)) {
+            $template = substr($templateDataReal, stripos($templateDataReal, $search));
+            $length = stripos($template, $char);
+            return substr($templateDataReal, stripos($templateDataReal, $search) + $plusStart, $length + $plusEnd);
+        }
+        return false;
     }
 
     /**

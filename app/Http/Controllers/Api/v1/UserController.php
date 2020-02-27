@@ -50,27 +50,21 @@ class UserController extends Controller
             $limit = $request->get('limit', 25);
             $ascending = $request->get('ascending', 0);
             $orderBy = $request->get('orderBy', '');
-            $query = $request->get('query', '');
+            $search = $request->get('search', '');
             $betweenDate = $request->get('created_at', []);
 
-            $columns = ['id', 'created_at'];
-            $columnOrder = [];
-            $columnSearch = ['name', 'email'];
-            $with = ['roles'];
-            $qs = new QueryService(new User());
-            $users = $qs->queryTable(
-                $columns,
-                $columnOrder,
-                $query,
-                $columnSearch,
-                $with,
-                $betweenDate,
-                $limit,
-                $ascending,
-                $orderBy,
-            );
+            $queryService = new QueryService(new User());
+            $queryService->order = ['id', 'created_at'];
+            $queryService->orderRelationship = [];
+            $queryService->columnSearch = ['name', 'email'];
+            $queryService->withRelationship = ['roles'];
+            $queryService->search = $search;
+            $queryService->betweenDate = $betweenDate;
+            $queryService->limit = $limit;
+            $queryService->ascending = $ascending;
+            $queryService->orderBy = $orderBy;
 
-            return $this->jsonTable($users);
+            return $this->jsonTable($queryService->queryTable());
         } catch (\Exception $e) {
             return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
