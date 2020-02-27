@@ -54,13 +54,13 @@ class UserController extends Controller
             $betweenDate = $request->get('created_at', []);
 
             $columns = ['id', 'created_at'];
-            $columnsWith = [];
+            $columnOrder = [];
             $columnSearch = ['name', 'email'];
             $with = ['roles'];
             $qs = new QueryService(new User());
             $users = $qs->queryTable(
                 $columns,
-                $columnsWith,
+                $columnOrder,
                 $query,
                 $columnSearch,
                 $with,

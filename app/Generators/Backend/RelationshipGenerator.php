@@ -579,7 +579,7 @@ class RelationshipGenerator extends BaseGenerator
         foreach ($options as $option) {
             if ($option === $configOptions['sort']) {
                 $columns = '$columns = [';
-                $columnWith = '$columnsWith = [';
+                $columnWith = '$columnOrder = [';
                 $templateColumns = $this->serviceGenerator->searchTemplate($columns, '];', 0, 0, $templateDataReal);
                 $templateColumnWith = $this->serviceGenerator->searchTemplate(
                     $columnWith,
@@ -592,7 +592,7 @@ class RelationshipGenerator extends BaseGenerator
                 if (\Str::endsWith($templateColumns, ',') || strlen($templateColumns) === strlen($columns)) {
                     $commaColumns = '';
                 }
-                $columnDidGenerate = '"' . \Str::snake($modelRelationship) . self::_ID . '"';
+                $columnDidGenerate = "'" . \Str::snake($modelRelationship) . self::_ID . "'";
                 $templateDataReal = str_replace(
                     "$templateColumns]",
                     "$templateColumns" . "$commaColumns" . "$columnDidGenerate]",
@@ -611,7 +611,7 @@ class RelationshipGenerator extends BaseGenerator
                 );
                 //columnWith
 
-                $sortRelationship = '"' . $funcRelationship . '"' . ' => ' . $columnDidGenerate . ',';
+                $sortRelationship = "'" . $funcRelationship . "'" . ' => ' . $columnDidGenerate . ',';
                 if (strlen($templateColumnWith) === strlen($columnWith)) {
                     $templateDataReal = str_replace(
                         "$templateColumnWith]",
@@ -650,7 +650,7 @@ class RelationshipGenerator extends BaseGenerator
                     $relationship === $this->relationship['has_one'] ||
                     $relationship === $this->relationship['has_many']
                 ) {
-                    $withRelationship = '"' . $this->serviceGenerator->modelNameNotPluralFe($modelRelationship) . '"';
+                    $withRelationship = "'" . $this->serviceGenerator->modelNameNotPluralFe($modelRelationship) . "'";
                 } else {
                     $withRelationship = "'" . $this->serviceGenerator->modelNamePluralFe($modelRelationship) . "'";
                 }
@@ -677,9 +677,9 @@ class RelationshipGenerator extends BaseGenerator
                     $commaSearch = '';
                 }
                 if ($relationship === $this->relationship['belongs_to_many']) {
-                    $columnDidGenerate = '"' . \Str::camel($modelRelationship) . '.' . $columnRelationship . '"';
+                    $columnDidGenerate = "'" . \Str::camel($modelRelationship) . '.' . $columnRelationship . "'";
                 } else {
-                    $columnDidGenerate = '"' . \Str::snake($modelRelationship) . self::_ID . '"';
+                    $columnDidGenerate = "'" . \Str::snake($modelRelationship) . self::_ID . "'";
                 }
                 $templateDataReal = str_replace(
                     "$templateColumnSearch]",

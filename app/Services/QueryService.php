@@ -22,10 +22,11 @@ class QueryService extends BaseService
     /**
      * Query table
      * @param array $columns
-     * @param array $columnsWith
+     * @param array $columnOrder
      * @param string $search
      * @param array $columnSearch
      * @param array $with
+     * @param array $betweenDate
      * @param int $limit
      * @param int $ascending
      * @param string $orderBy
@@ -36,7 +37,7 @@ class QueryService extends BaseService
      */
     public function queryTable(
         $columns = [],
-        $columnsWith = [],
+        $columnOrder = [],
         $search = '',
         $columnSearch = [],
         $with = [],
@@ -60,7 +61,7 @@ class QueryService extends BaseService
             });
         }
 
-        foreach (Arr::wrap($columnsWith) as $value => $col) {
+        foreach (Arr::wrap($columnOrder) as $value => $col) {
             $query->when($value === $orderBy, function ($q) use ($col, $ascending) {
                 $q->orderBy($col, $ascending);
             });

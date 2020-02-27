@@ -49,7 +49,7 @@ sudo apt-get update && sudo apt install docker.io -y && sudo apt-get install doc
 # Run docker compose
 cd laradock && sudo cp nginx/sites/larajs.conf.example nginx/sites/larajs.conf && sudo cp env-example .env
 
-sudo docker-compose up -d nginx php-fpm mariadb workspace
+sudo docker-compose up -d nginx php-fpm mysql workspace
 
 # Access to docker workspace
 sudo docker-compose exec workspace bash
