@@ -1,10 +1,10 @@
-import { SET_ERRORS, CLEAR_ERRORS } from '../store/muation-types';
+import { SET_ERRORS, CLEAR_ERRORS } from '@/store/muation-types';
 
 import { Message } from 'element-ui';
 
 import axios from 'axios';
 
-import store from '../store';
+import store from '@/store';
 
 import router from '@/router';
 

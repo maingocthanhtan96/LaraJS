@@ -6,6 +6,7 @@ import store from '@/store';
 import i18n from '@/lang';
 import '@/icons';
 import '@/middleware';
+import '@/utils/error-log';
 import permission from '@/directive/permission';
 
 // start third party

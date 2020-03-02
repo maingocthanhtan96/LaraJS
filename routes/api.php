@@ -22,6 +22,11 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('/reset-password', 'AuthController@callResetPassword');
         // Login
         Route::post('/login', 'AuthController@login')->name('login');
+        // Logs
+        Route::group(['prefix' => 'logs'], function () {
+            Route::post('error', 'LogController@error');
+            Route::post('warn', 'LogController@warn');
+        });
 
         Route::group(['middleware' => 'auth:api'], function () {
             Route::get('/user-info', 'UserController@userInfo');
