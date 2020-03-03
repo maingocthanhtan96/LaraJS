@@ -17,3 +17,7 @@ export const LOGOUT = 'logout';
 // middleware.js
 export const GENERATE_ROUTES = 'generateRoutes';
 export const SET_ROUTERS = 'setRouters';
+
+// errorLog.js
+export const ADD_ERROR_LOG = 'addErrorLog';
+export const ADD_WARN_LOG = 'addWarnLog';

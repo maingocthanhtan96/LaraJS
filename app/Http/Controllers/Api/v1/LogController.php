@@ -13,10 +13,9 @@ class LogController extends Controller
         $url = $request->get('url');
         $info = $request->get('info');
 
-        \Log::error(PHP_EOL);
-        \Log::error('Message: ' . $err);
-        \Log::error('Info: ' . $info);
-        \Log::error('Url: ' . $url);
+        \Log::error('======ERROR-FRONTEND-ERROR======');
+        $errors = 'Message: ' . $err . PHP_EOL . 'Info: ' . $info . PHP_EOL . 'Url: ' . $url;
+        \Log::error($errors);
 
         return $this->jsonSuccess(trans('messages.success'));
     }
@@ -27,10 +26,9 @@ class LogController extends Controller
         $url = $request->get('url');
         $trace = $request->get('trace');
 
-        \Log::warning(PHP_EOL);
-        \Log::warning('Message: ' . $err);
-        \Log::warning('Trace: ' . $trace);
-        \Log::warning('Url: ' . $url);
+        \Log::warning('======ERROR-FRONTEND-WARN======');
+        $errors = 'Message: ' . $err . PHP_EOL . 'Trace: ' . $trace . PHP_EOL . 'Url: ' . $url;
+        \Log::warning($errors);
 
         return $this->jsonSuccess(trans('messages.success'));
     }

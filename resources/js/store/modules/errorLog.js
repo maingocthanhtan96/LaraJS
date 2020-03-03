@@ -1,4 +1,5 @@
 import request from '@/utils/request';
+import { ADD_ERROR_LOG, ADD_WARN_LOG } from '@/store/muation-types';
 
 const state = {
   logs: [],
@@ -14,7 +15,7 @@ const mutations = {
 };
 
 const actions = {
-  addErrorLog({ commit }, log) {
+  [ADD_ERROR_LOG]({ commit }, log) {
     return request({
       url: '/logs/error',
       method: 'post',
@@ -25,7 +26,7 @@ const actions = {
       },
     });
   },
-  addWarnLog({ commit }, log) {
+  [ADD_WARN_LOG]({ commit }, log) {
     return request({
       url: '/logs/warn',
       method: 'post',

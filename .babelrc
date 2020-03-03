@@ -4,8 +4,10 @@
             "@babel/preset-env",
             {
                 "corejs": "3",
-                "useBuiltIns": "entry"
-            }
+                "useBuiltIns": "entry",
+                "targets": { "browsers": ["last 2 versions", "ie >= 7"] }
+            },
+            "@vue/app"
         ]
     ],
     "plugins": [
