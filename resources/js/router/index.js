@@ -76,6 +76,7 @@ const createRouter = () =>
   new VueRouter({
     linkActiveClass: 'active', // active class
     mode: 'history',
+    base: '/be',
     routes: constantRouterMap,
     scrollBehavior: to => {
       if (to.hash) {
