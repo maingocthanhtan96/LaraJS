@@ -3,6 +3,12 @@
     text-decoration: none !important;
   }
 }
+@mixin hoverSidebar() {
+  font-weight: bold;
+  color: $menuActiveText !important;
+  transform: translateX(0.5rem);
+  transition: all .25s ease;
+}
 
 #app {
   // Main container
@@ -48,7 +54,7 @@
       .el-scrollbar__view {
         .menu-wrapper {
           &:hover {
-            background-color: $menuHover !important;
+            background-color: $bgSidebar !important;
           }
 
           .is-active {
@@ -107,7 +113,11 @@
           width: calc(#{$sideBarWidth} - 7rem);
         }
       }
+      &:hover {
+        background-color: $bgSidebar !important;
+      }
     }
+
 
     .el-submenu__title {
       span {
@@ -118,14 +128,13 @@
     }
 
     // menu hover
-    .submenu-title-noDropdown,
-    .el-submenu__title {
-      //display: flex;
-      //justify-content: flex-start;
-      //align-items: center;
-
+    .submenu-title-noDropdown {
       &:hover {
-        background-color: $menuHover !important;
+        @include hoverSidebar();
+      }
+    }
+    .el-submenu__title {
+      &:hover {
         font-weight: bold;
         color: $menuActiveText !important;
       }
@@ -134,18 +143,15 @@
     .is-active > .el-submenu__title {
       color: $subMenuActiveText !important;
       font-weight: bold;
-      background: $activeSidebar !important;
     }
 
     & .nest-menu .el-submenu > .el-submenu__title,
     & .el-submenu .el-menu-item {
       min-width: $sideBarWidth !important;
-      background-color: $bgSidebarItem !important;
+      //background-color: $bgSidebarItem !important;
 
       &:hover {
-        background-color: $menuHover !important;
-        font-weight: bold;
-        color: $menuActiveText !important;
+        @include hoverSidebar();
       }
     }
   }
@@ -160,7 +166,7 @@
     }
 
     .svg-icon {
-      margin-right: 0px;
+      margin-right: 0;
     }
 
     .submenu-title-noDropdown {
@@ -257,9 +263,7 @@
     align-items: center;
 
     &:hover {
-      background-color: $menuHover !important;
-      font-weight: bold;
-      color: $menuActiveText !important;
+      @include hoverSidebar();
       text-decoration: none;
     }
   }
