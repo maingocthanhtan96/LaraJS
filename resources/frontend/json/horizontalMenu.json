@@ -1,0 +1,13 @@
+{"menu": [
+    {"url":"dashboard-analytics", "name":"Dashboard", "slug":"dashboard", "icon":"feather icon-home", "i18n":"Dashboard"},
+    {"url":"#","name":"Starter kit","slug":"starter kit","icon":"feather icon-zap", "i18n":"Starter kit", "dropdown":"1",
+        "submenu":[
+          {"url":"sk-layout-2-columns", "name":"2 Columns", "i18n":"nav.sk_layout_2_columns"},
+          {"url":"sk-layout-fixed-navbar", "name":"Fixed Navbar", "i18n":"nav.sk_layout_fixed_navbar"},
+          {"url":"sk-layout-floating-navbar", "name":"Floating Navbar", "i18n":"nav.sk_layout_floating_navbar"},
+          {"url":"sk-layout-fixed", "name":"Fixed Layout", "i18n":"nav.sk_layout_fixed"}
+        ]
+    },
+    {"url":"https://pixinvent.ticksy.com/","name":"Raise Support", "i18n":"Raise Support" ,"slug":"support-raise-support","icon":"feather icon-life-buoy"},
+    {"url":"https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/documentation/documentation-laravel.html","name":"Documentation","i18n":"Documentation" ,"slug":"documentation","icon":"feather icon-folder"}
+]}

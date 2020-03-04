@@ -1,0 +1,56 @@
+{
+    "menu": [
+        {
+            "url": "/",
+            "name": "Dashboard",
+            "slug": "dashboard",
+            "badge": "2",
+            "badgeClass": "badge badge-warning badge-pill float-right",
+            "icon": "feather icon-home"
+        },
+        {
+            "url": "",
+            "name": "Starter kit",
+            "icon": "feather icon-zap",
+            "submenu": [
+                {
+                    "url": "sk-layout-2-columns",
+                    "name": "2 Columns",
+                    "i18n": "nav.sk_layout_2_columns"
+                },
+                {
+                    "url": "sk-layout-fixed-navbar",
+                    "name": "Fixed Navbar",
+                    "i18n": "nav.sk_layout_fixed_navbar"
+                },
+                {
+                    "url": "sk-layout-floating-navbar",
+                    "name": "Floating Navbar",
+                    "i18n": "nav.sk_layout_floating_navbar"
+                },
+                {
+                    "url": "sk-layout-fixed",
+                    "name": "Fixed Layout",
+                    "i18n": "nav.sk_layout_fixed"
+                }
+            ]
+        },
+        {
+            "url": "",
+            "navheader": "Support",
+            "icon": ""
+        },
+        {
+            "url": "https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/documentation/documentation-laravel.html",
+            "name": "Documentation",
+            "icon": "feather icon-folder",
+            "i18n": "nav.documentation"
+        },
+        {
+            "url": "https://pixinvent.ticksy.com/",
+            "name": "Raise Support",
+            "icon": "feather icon-life-buoy",
+            "i18n": "nav.raise_support"
+        }
+    ]
+}
