@@ -224,5 +224,7 @@ return [
         'Acl' => App\Larajs\Acl::class,
         'Constant' => App\Larajs\Constant::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'FrontendHelper' => App\Helpers\FrontendHelper::class,
+
     ],
 ];
