@@ -1,5 +1,7 @@
 const mix = require('laravel-mix');
 const exec = require('child_process').exec;
+const tailwindcss = require('tailwindcss');
+require('laravel-mix-merge-manifest');
 require('dotenv').config();
 
 /*
@@ -70,7 +72,16 @@ mix.js('resources/frontend/js/core/app-menu.js', 'public/frontend/js/core')
   .sass('resources/frontend/sass/colors.scss', 'public/frontend/css')
   .sass('resources/frontend/sass/components.scss', 'public/frontend/css')
   .sass('resources/frontend/sass/custom-rtl.scss', 'public/frontend/css')
-  .sass('resources/frontend/sass/custom-laravel.scss', 'public/frontend/css');
+  .sass('resources/frontend/sass/custom-laravel.scss', 'public/frontend/css')
+  .sass('resources/frontend/tailwind/tailwind.scss', 'public/frontend/css')
+  .options({
+    processCssUrls: false,
+    postCss: [ tailwindcss('resources/frontend/tailwind/tailwind.js') ],
+  })
+  .browserSync({
+    proxy: 'http://local.larajs.com'
+  })
+  .mergeManifest();
 
 mix.then(() => {
   if (process.env.MIX_CONTENT_DIRECTION === "rtl") {

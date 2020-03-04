@@ -1,15 +1,15 @@
-@extends('layouts/contentLayoutMaster')
+@extends('frontend.layouts.contentLayoutMaster')
 
 @section('title', 'Dashboard Analytics')
 
 @section('vendor-style')
 <!-- vendor css files -->
-<link rel="stylesheet" href="{{ asset(mix('vendors/css/charts/apexcharts.css')) }}">
+<link rel="stylesheet" href="{{ asset(mix('frontend/vendors/css/charts/apexcharts.css')) }}">
 @endsection
 @section('page-style')
 <!-- Page css files -->
-<link rel="stylesheet" href="{{ asset(mix('css/pages/dashboard-analytics.css')) }}">
-<link rel="stylesheet" href="{{ asset(mix('css/pages/card-analytics.css')) }}">
+<link rel="stylesheet" href="{{ asset(mix('frontend/css/pages/dashboard-analytics.css')) }}">
+<link rel="stylesheet" href="{{ asset(mix('frontend/css/pages/card-analytics.css')) }}">
 @endsection
 
 @section('content')
@@ -20,8 +20,8 @@
       <div class="card bg-analytics text-white">
         <div class="card-content">
           <div class="card-body text-center">
-            <img src="{{ asset('images/elements/decore-left.png') }}" class="img-left" alt="card-img-left">
-            <img src="{{ asset('images/elements/decore-right.png')}}" class="img-right" alt="card-img-right">
+            <img src="{{ asset('frontend/images/elements/decore-left.png') }}" class="img-left" alt="card-img-left">
+            <img src="{{ asset('frontend/images/elements/decore-right.png')}}" class="img-right" alt="card-img-right">
             <div class="avatar avatar-xl bg-primary shadow mt-0">
               <div class="avatar-content">
                 <i class="feather icon-award white font-large-1"></i>
@@ -342,22 +342,22 @@
                       <li data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom"
                         data-original-title="Vinnie Mostowy" class="avatar pull-up">
                         <img class="media-object rounded-circle"
-                          src="{{ asset('images/portrait/small/avatar-s-11.jpg')}}" alt="Avatar" height="30" width="30">
+                          src="{{ asset('frontend/images/portrait/small/avatar-s-11.jpg')}}" alt="Avatar" height="30" width="30">
                       </li>
                       <li data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom"
                         data-original-title="Elicia Rieske" class="avatar pull-up">
                         <img class="media-object rounded-circle"
-                          src="{{ asset('images/portrait/small/avatar-s-7.jpg')}}" alt="Avatar" height="30" width="30">
+                          src="{{ asset('frontend/images/portrait/small/avatar-s-7.jpg')}}" alt="Avatar" height="30" width="30">
                       </li>
                       <li data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom"
                         data-original-title="Julee Rossignol" class="avatar pull-up">
                         <img class="media-object rounded-circle"
-                          src="{{ asset('images/portrait/small/avatar-s-10.jpg')}}" alt="Avatar" height="30" width="30">
+                          src="{{ asset('frontend/images/portrait/small/avatar-s-10.jpg')}}" alt="Avatar" height="30" width="30">
                       </li>
                       <li data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom"
                         data-original-title="Darcey Nooner" class="avatar pull-up">
                         <img class="media-object rounded-circle"
-                          src="{{ asset('images/portrait/small/avatar-s-8.jpg')}}" alt="Avatar" height="30" width="30">
+                          src="{{ asset('frontend/images/portrait/small/avatar-s-8.jpg')}}" alt="Avatar" height="30" width="30">
                       </li>
                     </ul>
                   </td>
@@ -380,17 +380,17 @@
                       <li data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom"
                         data-original-title="Trina Lynes" class="avatar pull-up">
                         <img class="media-object rounded-circle"
-                          src="{{ asset('images/portrait/small/avatar-s-1.jpg')}}" alt="Avatar" height="30" width="30">
+                          src="{{ asset('frontend/images/portrait/small/avatar-s-1.jpg')}}" alt="Avatar" height="30" width="30">
                       </li>
                       <li data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom"
                         data-original-title="Lilian Nenez" class="avatar pull-up">
                         <img class="media-object rounded-circle"
-                          src="{{ asset('images/portrait/small/avatar-s-2.jpg')}}" alt="Avatar" height="30" width="30">
+                          src="{{ asset('frontend/images/portrait/small/avatar-s-2.jpg')}}" alt="Avatar" height="30" width="30">
                       </li>
                       <li data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom"
                         data-original-title="Alberto Glotzbach" class="avatar pull-up">
                         <img class="media-object rounded-circle"
-                          src="{{ asset('images/portrait/small/avatar-s-3.jpg')}}" alt="Avatar" height="30" width="30">
+                          src="{{ asset('frontend/images/portrait/small/avatar-s-3.jpg')}}" alt="Avatar" height="30" width="30">
                       </li>
                     </ul>
                   </td>
@@ -413,27 +413,27 @@
                       <li data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom"
                         data-original-title="Lai Lewandowski" class="avatar pull-up">
                         <img class="media-object rounded-circle"
-                          src="{{ asset('images/portrait/small/avatar-s-6.jpg')}}" alt="Avatar" height="30" width="30">
+                          src="{{ asset('frontend/images/portrait/small/avatar-s-6.jpg')}}" alt="Avatar" height="30" width="30">
                       </li>
                       <li data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom"
                         data-original-title="Elicia Rieske" class="avatar pull-up">
                         <img class="media-object rounded-circle"
-                          src="{{ asset('images/portrait/small/avatar-s-7.jpg')}}" alt="Avatar" height="30" width="30">
+                          src="{{ asset('frontend/images/portrait/small/avatar-s-7.jpg')}}" alt="Avatar" height="30" width="30">
                       </li>
                       <li data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom"
                         data-original-title="Darcey Nooner" class="avatar pull-up">
                         <img class="media-object rounded-circle"
-                          src="{{ asset('images/portrait/small/avatar-s-8.jpg')}}" alt="Avatar" height="30" width="30">
+                          src="{{ asset('frontend/images/portrait/small/avatar-s-8.jpg')}}" alt="Avatar" height="30" width="30">
                       </li>
                       <li data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom"
                         data-original-title="Julee Rossignol" class="avatar pull-up">
                         <img class="media-object rounded-circle"
-                          src="{{ asset('images/portrait/small/avatar-s-10.jpg')}}" alt="Avatar" height="30" width="30">
+                          src="{{ asset('frontend/images/portrait/small/avatar-s-10.jpg')}}" alt="Avatar" height="30" width="30">
                       </li>
                       <li data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom"
                         data-original-title="Jeffrey Gerondale" class="avatar pull-up">
                         <img class="media-object rounded-circle"
-                          src="{{ asset('images/portrait/small/avatar-s-9.jpg')}}" alt="Avatar" height="30" width="30">
+                          src="{{ asset('frontend/images/portrait/small/avatar-s-9.jpg')}}" alt="Avatar" height="30" width="30">
                       </li>
                     </ul>
                   </td>
@@ -456,12 +456,12 @@
                       <li data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom"
                         data-original-title="Vinnie Mostowy" class="avatar pull-up">
                         <img class="media-object rounded-circle"
-                          src="{{ asset('images/portrait/small/avatar-s-5.jpg')}}" alt="Avatar" height="30" width="30">
+                          src="{{ asset('frontend/images/portrait/small/avatar-s-5.jpg')}}" alt="Avatar" height="30" width="30">
                       </li>
                       <li data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom"
                         data-original-title="Elicia Rieske" class="avatar pull-up">
                         <img class="media-object rounded-circle"
-                          src="{{ asset('images/portrait/small/avatar-s-7.jpg')}}" alt="Avatar" height="30" width="30">
+                          src="{{ asset('frontend/images/portrait/small/avatar-s-7.jpg')}}" alt="Avatar" height="30" width="30">
                       </li>
                     </ul>
                   </td>
@@ -489,9 +489,9 @@
 
 @section('vendor-script')
 <!-- vendor files -->
-<script src="{{ asset(mix('vendors/js/charts/apexcharts.min.js')) }}"></script>
+<script src="{{ asset(mix('frontend/vendors/js/charts/apexcharts.min.js')) }}"></script>
 @endsection
 @section('page-script')
 <!-- Page js files -->
-<script src="{{ asset(mix('js/scripts/pages/dashboard-analytics.js')) }}"></script>
+<script src="{{ asset(mix('frontend/js/scripts/pages/dashboard-analytics.js')) }}"></script>
 @endsection

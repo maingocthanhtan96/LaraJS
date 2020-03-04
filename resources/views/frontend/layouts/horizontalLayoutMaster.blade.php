@@ -1,5 +1,5 @@
 @php
-$configData = Helper::applClasses();
+$configData = FrontendHelper::applClasses();
 @endphp
 
 <body
@@ -7,14 +7,14 @@ $configData = Helper::applClasses();
     data-menu="horizontal-menu" data-col="2-columns" data-open="hover">
 
     {{-- Include Sidebar --}}
-    @include('panels.sidebar')
+    @include('frontend.panels.sidebar')
 
     <!-- BEGIN: Header-->
     {{-- Include Navbar --}}
-    @include('panels.navbar')
+    @include('frontend.panels.navbar')
 
     {{-- Include Sidebar --}}
-    @include('panels.horizontalMenu')
+    @include('frontend.panels.horizontalMenu')
 
     <!-- BEGIN: Content-->
     <div class="app-content content">
@@ -42,7 +42,7 @@ $configData = Helper::applClasses();
         <div class="content-wrapper">
             {{-- Include Breadcrumb --}}
             @if($configData['pageHeader'] == true)
-            @include('panels.breadcrumb')
+            @include('frontend.panels.breadcrumb')
             @endif
             <div class="content-body">
                 {{-- Include Page Content --}}
@@ -59,10 +59,10 @@ $configData = Helper::applClasses();
     <div class="drag-target"></div>
 
     {{-- include footer --}}
-    @include('panels/footer')
+    @include('frontend.panels.footer')
 
     {{-- include default scripts --}}
-    @include('panels/scripts')
+    @include('frontend.panels.scripts')
 
 </body>
 

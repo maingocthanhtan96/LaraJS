@@ -12,7 +12,7 @@ class StaterkitController extends Controller
         $breadcrumbs = [
             ['link'=>"sk-layout-2-columns",'name'=>"Home"],['link'=>"",'name'=>"Starter Kit"], ['name'=>"1 Column"]
         ];
-        return view('/pages/sk-layout-1-column', [
+        return view('frontend.pages.sk-layout-1-column', [
             'breadcrumbs' => $breadcrumbs
         ]);
     }
@@ -22,7 +22,7 @@ class StaterkitController extends Controller
         $breadcrumbs = [
             ['link'=>"sk-layout-2-columns",'name'=>"Home"],['link'=>"",'name'=>"Starter Kit"], ['name'=>"2 Columns"]
         ];
-        return view('/pages/sk-layout-2-columns', [
+        return view('frontend.pages.sk-layout-2-columns', [
             'breadcrumbs' => $breadcrumbs
         ]);
     }
@@ -36,7 +36,7 @@ class StaterkitController extends Controller
         $breadcrumbs = [
             ['link'=>"sk-layout-2-columns",'name'=>"Home"],['link'=>"",'name'=>"Starter Kit"], ['name'=>"Fixed Navbar"]
         ];
-        return view('/pages/sk-layout-fixed-navbar', [
+        return view('frontend.pages.sk-layout-fixed-navbar', [
           'pageConfigs' => $pageConfigs,
           'breadcrumbs' => $breadcrumbs
       ]);
@@ -47,7 +47,7 @@ class StaterkitController extends Controller
         $breadcrumbs = [
             ['link'=>"sk-layout-2-columns",'name'=>"Home"],['link'=>"",'name'=>"Starter Kit"], ['name'=>"Floating Navbar"]
         ];
-        return view('/pages/sk-layout-floating-navbar', [
+        return view('frontend.pages.sk-layout-floating-navbar', [
             'breadcrumbs' => $breadcrumbs
         ]);
     }
@@ -62,7 +62,7 @@ class StaterkitController extends Controller
         $breadcrumbs = [
             ['link'=>"sk-layout-2-columns",'name'=>"Home"],['link'=>"",'name'=>"Starter Kit"], ['name'=>"Fixed Layout"]
         ];
-        return view('/pages/sk-layout-fixed', [
+        return view('frontend.pages.sk-layout-fixed', [
             'pageConfigs' => $pageConfigs,
             'breadcrumbs' => $breadcrumbs
         ]);
@@ -77,7 +77,7 @@ class StaterkitController extends Controller
         $breadcrumbs = [
             ['link'=>"sk-layout-2-columns",'name'=>"Home"],['link'=>"",'name'=>"Starter Kit"], ['name'=>"Static Layout"]
         ];
-        return view('/pages/sk-layout-static', [
+        return view('frontend.pages.sk-layout-static', [
             'pageConfigs' => $pageConfigs,
             'breadcrumbs' => $breadcrumbs
         ]);

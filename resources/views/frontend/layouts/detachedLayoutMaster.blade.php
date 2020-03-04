@@ -1,5 +1,5 @@
 @isset($pageConfigs)
-{!! Helper::updatePageConfig($pageConfigs) !!}
+{!! FrontendHelper::updatePageConfig($pageConfigs) !!}
 @endisset
 
 <!DOCTYPE html>
@@ -16,20 +16,20 @@
     <link rel="shortcut icon" type="image/x-icon" href="images/logo/favicon.ico">
 
     {{-- Include core + vendor Styles --}}
-    @include('panels/styles')
+    @include('frontend.panels.styles')
 
 </head>
 
-{{-- {!! Helper::applClasses() !!} --}}
+{{-- {!! FrontendHelper::applClasses() !!} --}}
 @php
-$configData = Helper::applClasses();
+$configData = FrontendHelper::applClasses();
 @endphp
 
 <body
     class="vertical-layout vertical-menu-modern 2-columns {{ $configData['blankPageClass'] }} {{ $configData['bodyClass'] }} {{($configData['theme'] === 'light') ? '' : $configData['layoutTheme'] }} {{ $configData['verticalMenuNavbarType'] }} {{ $configData['sidebarClass'] }} {{ $configData['footerType'] }}  footer-light"
     data-menu="vertical-menu-modern" data-col="2-columns">
     {{-- Include Sidebar --}}
-    @include('panels.sidebar')
+    @include('frontend.panels.sidebar')
 
     <!-- BEGIN: Content-->
     <div class="app-content content">
@@ -38,12 +38,12 @@ $configData = Helper::applClasses();
         <div class="header-navbar-shadow"></div>
 
         {{-- Include Navbar --}}
-        @include('panels.navbar')
+        @include('frontend.panels.navbar')
 
         <div class="content-wrapper">
             {{-- Include Breadcrumb --}}
             @if($configData['pageHeader'] == true)
-            @include('panels.breadcrumb')
+            @include('frontend.panels.breadcrumb')
             @endif
             <div class="{{ $configData['sidebarPositionClass'] }}">
                 <div class="sidebar">
@@ -64,10 +64,10 @@ $configData = Helper::applClasses();
     <div class="drag-target"></div>
 
     {{-- include footer --}}
-    @include('panels/footer')
+    @include('frontend.panels.footer')
 
     {{-- include default scripts --}}
-    @include('panels/scripts')
+    @include('frontend.panels.scripts')
 
 </body>
 

@@ -1,5 +1,5 @@
 @php
-$configData = Helper::applClasses();
+$configData = FrontendHelper::applClasses();
 @endphp
 <div
   class="main-menu menu-fixed {{($configData['theme'] === 'light') ? "menu-light" : "menu-dark"}} menu-accordion menu-shadow"
@@ -52,7 +52,7 @@ $configData = Helper::applClasses();
           @endif
         </a>
         @if(isset($menu->submenu))
-        @include('panels/submenu', ['menu' => $menu->submenu])
+        @include('frontend.panels.submenu', ['menu' => $menu->submenu])
         @endif
       </li>
       @endif

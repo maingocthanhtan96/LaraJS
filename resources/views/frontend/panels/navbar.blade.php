@@ -139,7 +139,7 @@
                 data-toggle="dropdown">
                 <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">John
                     Doe</span><span class="user-status">Available</span></div><span><img class="round"
-                    src="{{asset('images/portrait/small/avatar-s-11.jpg') }}" alt="avatar" height="40"
+                    src="{{asset('frontend/images/portrait/small/avatar-s-11.jpg') }}" alt="avatar" height="40"
                     width="40" /></span>
               </a>
               <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="javascript:void(0)"><i
@@ -168,7 +168,7 @@
     <li class="auto-suggestion d-flex align-items-center cursor-pointer">
       <a class="d-flex align-items-center justify-content-between w-100" href="#">
         <div class="d-flex">
-          <div class="ml-0 mr-50"><img src="{{ asset('images/icons/xls.png') }}" alt="png" height="32" />
+          <div class="ml-0 mr-50"><img src="{{ asset('frontend/images/icons/xls.png') }}" alt="png" height="32" />
           </div>
           <div class="search-data">
             <p class="search-data-title mb-0">Two new item submitted</p><small class="text-muted">Marketing
@@ -180,7 +180,7 @@
     <li class="auto-suggestion d-flex align-items-center cursor-pointer">
       <a class="d-flex align-items-center justify-content-between w-100" href="#">
         <div class="d-flex">
-          <div class="ml-0 mr-50"><img src="{{ asset('images/icons/jpg.png') }}" alt="png" height="32" />
+          <div class="ml-0 mr-50"><img src="{{ asset('frontend/images/icons/jpg.png') }}" alt="png" height="32" />
           </div>
           <div class="search-data">
             <p class="search-data-title mb-0">52 JPG file Generated</p><small class="text-muted">FontEnd
@@ -192,7 +192,7 @@
     <li class="auto-suggestion d-flex align-items-center cursor-pointer">
       <a class="d-flex align-items-center justify-content-between w-100" href="#">
         <div class="d-flex">
-          <div class="ml-0 mr-50"><img src="{{ asset('images/icons/pdf.png') }}" alt="png" height="32" />
+          <div class="ml-0 mr-50"><img src="{{ asset('frontend/images/icons/pdf.png') }}" alt="png" height="32" />
           </div>
           <div class="search-data">
             <p class="search-data-title mb-0">25 PDF File Uploaded</p><small class="text-muted">Digital
@@ -204,7 +204,7 @@
     <li class="auto-suggestion d-flex align-items-center cursor-pointer">
       <a class="d-flex align-items-center justify-content-between w-100" href="#">
         <div class="d-flex">
-          <div class="ml-0 mr-50"><img src="{{ asset('images/icons/doc.png') }}" alt="png" height="32" />
+          <div class="ml-0 mr-50"><img src="{{ asset('frontend/images/icons/doc.png') }}" alt="png" height="32" />
           </div>
           <div class="search-data">
             <p class="search-data-title mb-0">Anna_Strong.doc</p><small class="text-muted">Web
@@ -221,7 +221,7 @@
     <li class="auto-suggestion d-flex align-items-center cursor-pointer">
       <a class="d-flex align-items-center justify-content-between py-50 w-100" href="#">
         <div class="d-flex align-items-center">
-          <div class="avatar mr-50"><img src="{{ asset('images/portrait/small/avatar-s-8.jpg') }}" alt="png"
+          <div class="avatar mr-50"><img src="{{ asset('frontend/images/portrait/small/avatar-s-8.jpg') }}" alt="png"
               height="32" /></div>
           <div class="search-data">
             <p class="search-data-title mb-0">John Doe</p><small class="text-muted">UI designer</small>
@@ -232,7 +232,7 @@
     <li class="auto-suggestion d-flex align-items-center cursor-pointer">
       <a class="d-flex align-items-center justify-content-between py-50 w-100" href="#">
         <div class="d-flex align-items-center">
-          <div class="avatar mr-50"><img src="{{ asset('images/portrait/small/avatar-s-1.jpg') }}" alt="png"
+          <div class="avatar mr-50"><img src="{{ asset('frontend/images/portrait/small/avatar-s-1.jpg') }}" alt="png"
               height="32" /></div>
           <div class="search-data">
             <p class="search-data-title mb-0">Michal Clark</p><small class="text-muted">FontEnd
@@ -244,7 +244,7 @@
     <li class="auto-suggestion d-flex align-items-center cursor-pointer">
       <a class="d-flex align-items-center justify-content-between py-50 w-100" href="#">
         <div class="d-flex align-items-center">
-          <div class="avatar mr-50"><img src="{{ asset('images/portrait/small/avatar-s-14.jpg') }}" alt="png"
+          <div class="avatar mr-50"><img src="{{ asset('frontend/images/portrait/small/avatar-s-14.jpg') }}" alt="png"
               height="32" /></div>
           <div class="search-data">
             <p class="search-data-title mb-0">Milena Gibson</p><small class="text-muted">Digital Marketing
@@ -256,7 +256,7 @@
     <li class="auto-suggestion d-flex align-items-center cursor-pointer">
       <a class="d-flex align-items-center justify-content-between py-50 w-100" href="#">
         <div class="d-flex align-items-center">
-          <div class="avatar mr-50"><img src="{{ asset('images/portrait/small/avatar-s-6.jpg') }}" alt="png"
+          <div class="avatar mr-50"><img src="{{ asset('frontend/images/portrait/small/avatar-s-6.jpg') }}" alt="png"
               height="32" /></div>
           <div class="search-data">
             <p class="search-data-title mb-0">Anna Strong</p><small class="text-muted">Web Designer</small>

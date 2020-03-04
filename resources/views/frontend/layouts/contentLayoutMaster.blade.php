@@ -1,5 +1,5 @@
 @isset($pageConfigs)
-{!! Helper::updatePageConfig($pageConfigs) !!}
+{!! FrontendHelper::updatePageConfig($pageConfigs) !!}
 @endisset
 
 <!DOCTYPE html>
@@ -16,15 +16,15 @@
     <link rel="shortcut icon" type="image/x-icon" href="images/logo/favicon.ico">
 
     {{-- Include core + vendor Styles --}}
-    @include('panels/styles')
+    @include('frontend.panels.styles')
 
 </head>
 
-{{-- {!! Helper::applClasses() !!} --}}
+{{-- {!! FrontendHelper::applClasses() !!} --}}
 @php
-$configData = Helper::applClasses();
+$configData = FrontendHelper::applClasses();
 @endphp
 @isset($configData["mainLayoutType"])
-@extends((( $configData["mainLayoutType"] === 'horizontal') ? 'layouts.horizontalLayoutMaster' :
-'layouts.verticalLayoutMaster' ))
+@extends((( $configData["mainLayoutType"] === 'horizontal') ? 'frontend.layouts.horizontalLayoutMaster' :
+'frontend.layouts.verticalLayoutMaster' ))
 @endisset

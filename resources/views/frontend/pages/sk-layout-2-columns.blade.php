@@ -1,10 +1,10 @@
-@extends('layouts/contentLayoutMaster')
+@extends('frontend.layouts.contentLayoutMaster')
 
 @section('title', '2 Columns')
 
 @section('vendor-style')
         <!-- vendor css files -->
-        <link rel="stylesheet" href="{{ asset(mix('vendors/css/ui/prism.min.css')) }}">
+        <link rel="stylesheet" href="{{ asset(mix('frontend/vendors/css/ui/prism.min.css')) }}">
 @endsection
 @section('content')
 <!-- Description -->
@@ -110,5 +110,5 @@
 @endsection
 @section('vendor-script')
         <!-- vendor files -->
-        <script src="{{ asset(mix('vendors/js/ui/prism.min.js')) }}"></script>
+        <script src="{{ asset(mix('frontend/vendors/js/ui/prism.min.js')) }}"></script>
 @endsection

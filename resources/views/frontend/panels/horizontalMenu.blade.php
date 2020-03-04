@@ -46,7 +46,7 @@
             <span data-i18n="{{ $translation }}">{{ $menu->name }}</span>
           </a>
           @if(isset($menu->submenu))
-          @include('panels/horizontalSubmenu', ['menu' => $menu->submenu])
+          @include('frontend.panels.horizontalSubmenu', ['menu' => $menu->submenu])
           @endif
         </li>
         @endforeach

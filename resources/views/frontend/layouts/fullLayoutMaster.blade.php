@@ -1,5 +1,5 @@
 @isset($pageConfigs)
-{!! Helper::updatePageConfig($pageConfigs) !!}
+{!! FrontendHelper::updatePageConfig($pageConfigs) !!}
 @endisset
 
 <!DOCTYPE html>
@@ -16,13 +16,13 @@
     <link rel="shortcut icon" type="image/x-icon" href="images/logo/favicon.ico">
 
     {{-- Include core + vendor Styles --}}
-    @include('panels/styles')
+    @include('frontend.panels.styles')
 
 </head>
 
-{{-- {!! Helper::applClasses() !!} --}}
+{{-- {!! FrontendHelper::applClasses() !!} --}}
 @php
-$configData = Helper::applClasses();
+$configData = FrontendHelper::applClasses();
 @endphp
 
 <body
@@ -34,14 +34,14 @@ $configData = Helper::applClasses();
     <div class="header-navbar-shadow"></div>
 
     {{-- Include Navbar --}}
-    @include('panels.sk-back-header')
+    @include('frontend.panels.sk-back-header')
 
     <!-- BEGIN: Content-->
     <div class="app-content content">
         <div class="content-wrapper">
             {{-- Include Breadcrumb --}}
             @if($configData['pageHeader'] == true && isset($configData['pageHeader']))
-            @include('panels.breadcrumb')
+            @include('frontend.panels.breadcrumb')
             @endif
 
             <div class="content-body">
@@ -53,10 +53,10 @@ $configData = Helper::applClasses();
     <!-- End: Content-->
 
     {{-- include footer --}}
-    @include('panels/footer')
+    @include('frontend.panels.footer')
 
     {{-- include default scripts --}}
-    @include('panels/scripts')
+    @include('frontend.panels.scripts')
 
 </body>
 
