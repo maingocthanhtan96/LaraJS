@@ -51,3 +51,26 @@ function strpos_x($haystack, $needle, $number)
         return error_log('Error: Value for parameter $number is out of range');
     }
 }
+
+function getBetweenContent($content, $start, $end)
+{
+    $r = explode($start, $content);
+    if (isset($r[1])) {
+        $r = explode($end, $r[1]);
+        return $r[0];
+    }
+    return '';
+}
+
+function writeLogException(\Exception $e = null)
+{
+    \Log::error(
+        '➤Message ex::' .
+            $e->getMessage() .
+            PHP_EOL .
+            '#0 More exception::' .
+            getBetweenContent($e->getTraceAsString(), '#0', '#10') .
+            PHP_EOL .
+            PHP_EOL,
+    );
+}

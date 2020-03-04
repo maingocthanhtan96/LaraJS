@@ -3,10 +3,10 @@ server {
     # listen [::]:80;
 
     # For https
-    listen 443 ssl default_server;
-    listen [::]:443 ssl default_server ipv6only=on;
-    ssl_certificate /etc/nginx/ssl/live/[local.larajs.com]/fullchain.pem;
-    ssl_certificate_key /etc/nginx/ssl/live/[local.larajs.com]/privkey.pem;
+    #listen 443 ssl default_server;
+    #listen [::]:443 ssl default_server ipv6only=on;
+    #ssl_certificate /etc/nginx/ssl/live/[local.larajs.com]/fullchain.pem;
+    #ssl_certificate_key /etc/nginx/ssl/live/[local.larajs.com]/privkey.pem;
 
     server_name [local.larajs.com];
     root [/var/www/larajs/public];
@@ -34,7 +34,7 @@ server {
     }
 
     location /.well-known/acme-challenge/ {
-        root /var/www/letsencrypt/;
+        #root /var/www/letsencrypt/;
         log_not_found off;
     }
 
