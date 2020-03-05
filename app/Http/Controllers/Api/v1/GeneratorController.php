@@ -73,6 +73,7 @@ class GeneratorController extends Controller
 
             return $this->jsonTable($queryService->queryTable());
         } catch (\Exception $e) {
+            writeLogException($e);
             return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
@@ -82,7 +83,8 @@ class GeneratorController extends Controller
         try {
             return $this->jsonData($generator);
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage(), 404);
+            writeLogException($e);
+            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
 
@@ -101,6 +103,7 @@ class GeneratorController extends Controller
             $this->_runCommand($model);
             return $this->jsonSuccess(trans('messages.success'));
         } catch (\Exception $e) {
+            writeLogException($e);
             return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
@@ -128,6 +131,7 @@ class GeneratorController extends Controller
             $this->_runCommand();
             return $this->jsonSuccess(trans('messages.success'));
         } catch (\Exception $e) {
+            writeLogException($e);
             return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
@@ -136,17 +140,21 @@ class GeneratorController extends Controller
     {
         $serviceGenerator = new GeneratorService();
         $name = $request->get('name', '');
-        if ($name) {
-            $name = $serviceGenerator->tableName($name);
-            if (Schema::hasTable($name)) {
-                //table exist
-                return $this->jsonSuccess(1);
+        try {
+            if ($name) {
+                $name = $serviceGenerator->tableName($name);
+                if (Schema::hasTable($name)) {
+                    //table exist
+                    return $this->jsonSuccess(1);
+                }
+                // table not exist
+                return $this->jsonSuccess(2);
+            } else {
+                //name null
+                return $this->jsonSuccess(3);
             }
-            // table not exist
-            return $this->jsonSuccess(2);
-        } else {
-            //name null
-            return $this->jsonSuccess(3);
+        } catch (\Exception $e) {
+            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
 
@@ -164,6 +172,7 @@ class GeneratorController extends Controller
             $this->_runCommand();
             return $this->jsonSuccess(trans('messages.success'));
         } catch (\Exception $e) {
+            writeLogException($e);
             return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
@@ -176,6 +185,7 @@ class GeneratorController extends Controller
 
             return $this->jsonData($diagram);
         } catch (\Exception $e) {
+            writeLogException($e);
             return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
@@ -200,6 +210,7 @@ class GeneratorController extends Controller
             }
             return $this->jsonData($modelData);
         } catch (\Exception $e) {
+            writeLogException($e);
             return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }

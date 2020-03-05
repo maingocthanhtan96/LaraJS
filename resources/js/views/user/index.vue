@@ -227,10 +227,8 @@ export default {
       ).then(async () => {
         this.table.loading = true;
         await userResource.destroy(id);
-        const index = this.$refs.table_user.data.findIndex(
-          value => value.id === id
-        );
-        this.$refs.table_user.data.splice(index, 1);
+        const index = this.table.list.findIndex(value => value.id === id);
+        this.table.list.splice(index, 1);
         this.$message({
           showClose: true,
           message: this.$t('messages.delete'),

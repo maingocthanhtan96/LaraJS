@@ -12,6 +12,7 @@ namespace App\Http\Controllers\Api\v1;
 use App\Models\{{MODAL_CLASS}};
 use App\Service\QueryService;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Store{{MODAL_CLASS}}Request;
 use App\Larajs\Acl;
@@ -75,7 +76,7 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 			${{MODAL_CLASS_PARAM}} = {{MODAL_CLASS}}::create($request->all());
 			//{{CONTROLLER_RELATIONSHIP_MTM_CREATE_NOT_DELETE_THIS_LINE}}
 
-			return $this->jsonData(${{MODAL_CLASS_PARAM}}, 201);
+			return $this->jsonData(${{MODAL_CLASS_PARAM}}, Response::HTTP_CREATED);
 		} catch (\Exception $e) {
 		    writeLogException($e);
 			return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
@@ -95,7 +96,8 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 
 			return $this->jsonData(${{MODAL_CLASS_PARAM}});
 		} catch (\Exception $e) {
-			return $this->jsonError($e->getMessage(), 404);
+		    writeLogException($e);
+			return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
 		}
 	}
 
@@ -131,7 +133,7 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 	        //{{CONTROLLER_RELATIONSHIP_MTM_DELETE_NOT_DELETE_THIS_LINE}}
 			${{MODAL_CLASS_PARAM}}->delete();
 
-		    return $this->jsonSuccess(trans('messages.delete'), 204);
+		    return $this->jsonSuccess(trans('messages.delete'), Response::HTTP_NO_CONTENT);
 	    } catch (\Exception $e) {
 	        writeLogException($e);
 	    	return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());

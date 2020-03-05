@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Http\Response;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -19,7 +20,7 @@ class Controller extends BaseController
      * @return \Illuminate\Http\JsonResponse
      * @author tanmnt
      */
-    public function jsonData($data = [], $status = 200)
+    public function jsonData($data = [], $status = Response::HTTP_OK)
     {
         return response()->json(
             [
@@ -36,7 +37,7 @@ class Controller extends BaseController
      * @return \Illuminate\Http\JsonResponse
      * @author tanmnt
      */
-    public function jsonTable($data, $status = 200)
+    public function jsonTable($data, $status = Response::HTTP_OK)
     {
         return response()->json(
             [
@@ -50,11 +51,13 @@ class Controller extends BaseController
 
     /**
      * @param $message
+     * @param string $file
+     * @param string $line
      * @param int $status
      * @return \Illuminate\Http\JsonResponse
      * @author tanmnt
      */
-    public function jsonError($message, $file = '', $line = '', $status = 500)
+    public function jsonError($message, $file = '', $line = 0, $status = Response::HTTP_INTERNAL_SERVER_ERROR)
     {
         return response()->json(
             [
@@ -73,7 +76,7 @@ class Controller extends BaseController
      * @return \Illuminate\Http\JsonResponse
      * @author tanmnt
      */
-    public function jsonSuccess($message, $status = 200)
+    public function jsonSuccess($message, $status = Response::HTTP_OK)
     {
         return response()->json(
             [
@@ -90,7 +93,7 @@ class Controller extends BaseController
      * @return \Illuminate\Http\JsonResponse
      * @author tanmnt
      */
-    public function jsonString(string $string, $status = 200)
+    public function jsonString(string $string, $status = Response::HTTP_OK)
     {
         return response()->json(
             [

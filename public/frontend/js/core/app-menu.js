@@ -93,923 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-/*=========================================================================================
-  File Name: app-menu.js
-  Description: Menu navigation, custom scrollbar, hover scroll bar, multilevel menu
-  initialization and manipulations
-  ----------------------------------------------------------------------------------------
-  Item Name:  Vusax - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: hhttp://www.themeforest.net/user/pixinvent
-==========================================================================================*/
-(function (window, document, $) {
-  'use strict';
-
-  var vh = window.innerHeight * 0.01;
-  document.documentElement.style.setProperty('--vh', "".concat(vh, "px"));
-  $.app = $.app || {};
-  var $body = $('body');
-  var $window = $(window);
-  var menuWrapper_el = $('div[data-menu="menu-wrapper"]').html();
-  var menuWrapperClasses = $('div[data-menu="menu-wrapper"]').attr('class'); // Main menu
-
-  $.app.menu = {
-    expanded: null,
-    collapsed: null,
-    hidden: null,
-    container: null,
-    horizontalMenu: false,
-    is_touch_device: function is_touch_device() {
-      var prefixes = ' -webkit- -moz- -o- -ms- '.split(' ');
-
-      var mq = function mq(query) {
-        return window.matchMedia(query).matches;
-      };
-
-      if ('ontouchstart' in window || window.DocumentTouch && document instanceof DocumentTouch) {
-        return true;
-      } // include the 'heartz' as a way to have a non matching MQ to help terminate the join
-      // https://git.io/vznFH
-
-
-      var query = ['(', prefixes.join('touch-enabled),('), 'heartz', ')'].join('');
-      return mq(query);
-    },
-    manualScroller: {
-      obj: null,
-      init: function init() {
-        var scroll_theme = $('.main-menu').hasClass('menu-dark') ? 'light' : 'dark';
-
-        if (!$.app.menu.is_touch_device()) {
-          this.obj = new PerfectScrollbar(".main-menu-content", {
-            suppressScrollX: true,
-            wheelPropagation: false
-          });
-        } else {
-          $(".main-menu").addClass("menu-native-scroll");
-        }
-      },
-      update: function update() {
-        if (this.obj) {
-          // Scroll to currently active menu on page load if data-scroll-to-active is true
-          if ($('.main-menu').data('scroll-to-active') === true) {
-            var activeEl, menu, activeElHeight;
-            activeEl = document.querySelector('.main-menu-content li.active');
-
-            if ($body.hasClass('menu-collapsed')) {
-              if ($('.main-menu-content li.sidebar-group-active').length) {
-                activeEl = document.querySelector('.main-menu-content li.sidebar-group-active');
-              }
-            } else {
-              menu = document.querySelector('.main-menu-content');
-
-              if (activeEl) {
-                activeElHeight = activeEl.getBoundingClientRect().top + menu.scrollTop;
-              } // If active element's top position is less than 2/3 (66%) of menu height than do not scroll
-
-
-              if (activeElHeight > parseInt(menu.clientHeight * 2 / 3)) {
-                var start = menu.scrollTop,
-                    change = activeElHeight - start - parseInt(menu.clientHeight / 2);
-              }
-            }
-
-            setTimeout(function () {
-              $.app.menu.container.stop().animate({
-                scrollTop: change
-              }, 300);
-              $('.main-menu').data('scroll-to-active', 'false');
-            }, 300);
-          }
-
-          this.obj.update();
-        }
-      },
-      enable: function enable() {
-        if (!$('.main-menu-content').hasClass('ps')) {
-          this.init();
-        }
-      },
-      disable: function disable() {
-        if (this.obj) {
-          this.obj.destroy();
-        }
-      },
-      updateHeight: function updateHeight() {
-        if (($body.data('menu') == 'vertical-menu' || $body.data('menu') == 'vertical-menu-modern' || $body.data('menu') == 'vertical-overlay-menu') && $('.main-menu').hasClass('menu-fixed')) {
-          $('.main-menu-content').css('height', $(window).height() - $('.header-navbar').height() - $('.main-menu-header').outerHeight() - $('.main-menu-footer').outerHeight());
-          this.update();
-        }
-      }
-    },
-    init: function init(compactMenu) {
-      if ($('.main-menu-content').length > 0) {
-        this.container = $('.main-menu-content');
-        var menuObj = this;
-        var defMenu = '';
-
-        if (compactMenu === true) {
-          defMenu = 'collapsed';
-        }
-
-        if ($body.data('menu') == 'vertical-menu-modern') {
-          var menuToggle = '';
-
-          if (menuToggle === "false") {
-            this.change('collapsed');
-          } else {
-            this.change(defMenu);
-          }
-        } else {
-          this.change(defMenu);
-        }
-      }
-    },
-    drillDownMenu: function drillDownMenu(screenSize) {
-      if ($('.drilldown-menu').length) {
-        if (screenSize == 'sm' || screenSize == 'xs') {
-          if ($('#navbar-mobile').attr('aria-expanded') == 'true') {
-            $('.drilldown-menu').slidingMenu({
-              backLabel: true
-            });
-          }
-        } else {
-          $('.drilldown-menu').slidingMenu({
-            backLabel: true
-          });
-        }
-      }
-    },
-    change: function change(defMenu) {
-      var currentBreakpoint = Unison.fetch.now(); // Current Breakpoint
-
-      this.reset();
-      var menuType = $body.data('menu');
-
-      if (currentBreakpoint) {
-        switch (currentBreakpoint.name) {
-          case 'xl':
-            if (menuType === 'vertical-overlay-menu') {
-              this.hide();
-            } else {
-              if (defMenu === 'collapsed') this.collapse(defMenu);else this.expand();
-            }
-
-            break;
-
-          case 'lg':
-            if (menuType === 'vertical-overlay-menu' || menuType === 'vertical-menu-modern' || menuType === 'horizontal-menu') {
-              this.hide();
-            } else {
-              this.collapse();
-            }
-
-            break;
-
-          case 'md':
-          case 'sm':
-            this.hide();
-            break;
-
-          case 'xs':
-            this.hide();
-            break;
-        }
-      } // On the small and extra small screen make them overlay menu
-
-
-      if (menuType === 'vertical-menu' || menuType === 'vertical-menu-modern') {
-        this.toOverlayMenu(currentBreakpoint.name, menuType);
-      }
-
-      if ($body.is('.horizontal-layout') && !$body.hasClass('.horizontal-menu-demo')) {
-        this.changeMenu(currentBreakpoint.name);
-        $('.menu-toggle').removeClass('is-active');
-      } // Initialize drill down menu for vertical layouts, for horizontal layouts drilldown menu is intitialized in changemenu function
-
-
-      if (menuType != 'horizontal-menu') {
-        // Drill down menu
-        // ------------------------------
-        this.drillDownMenu(currentBreakpoint.name);
-      } // Dropdown submenu on large screen on hover For Large screen only
-      // ---------------------------------------------------------------
-
-
-      if (currentBreakpoint.name == 'xl') {
-        $('body[data-open="hover"] .header-navbar .dropdown').on('mouseenter', function () {
-          if (!$(this).hasClass('show')) {
-            $(this).addClass('show');
-          } else {
-            $(this).removeClass('show');
-          }
-        }).on('mouseleave', function (event) {
-          $(this).removeClass('show');
-        });
-        $('body[data-open="hover"] .dropdown a').on('click', function (e) {
-          if (menuType == 'horizontal-menu') {
-            var $this = $(this);
-
-            if ($this.hasClass('dropdown-toggle')) {
-              return false;
-            }
-          }
-        });
-      } // Added data attribute brand-center for navbar-brand-center
-      // TODO:AJ: Shift this feature in JADE.
-
-
-      if ($('.header-navbar').hasClass('navbar-brand-center')) {
-        $('.header-navbar').attr('data-nav', 'brand-center');
-      }
-
-      if (currentBreakpoint.name == 'sm' || currentBreakpoint.name == 'xs') {
-        $('.header-navbar[data-nav=brand-center]').removeClass('navbar-brand-center');
-      } else {
-        $('.header-navbar[data-nav=brand-center]').addClass('navbar-brand-center');
-      } // On screen width change, current active menu in horizontal
-
-
-      if (currentBreakpoint.name == 'xl' && menuType == 'horizontal-menu') {
-        $(".main-menu-content").find('li.active').parents('li').addClass('sidebar-group-active active');
-      }
-
-      if (currentBreakpoint.name !== 'xl' && menuType == 'horizontal-menu') {
-        $("#navbar-type").toggleClass('d-none d-xl-block');
-      } // Dropdown submenu on small screen on click
-      // --------------------------------------------------
-
-
-      $('ul.dropdown-menu [data-toggle=dropdown]').on('click', function (event) {
-        if ($(this).siblings('ul.dropdown-menu').length > 0) {
-          event.preventDefault();
-        }
-
-        event.stopPropagation();
-        $(this).parent().siblings().removeClass('show');
-        $(this).parent().toggleClass('show');
-      }); // Horizontal layout submenu drawer scrollbar
-
-      if (menuType == 'horizontal-menu') {
-        $('li.dropdown-submenu').on('mouseenter', function () {
-          if (!$(this).parent('.dropdown').hasClass('show')) {
-            $(this).removeClass('openLeft');
-          }
-
-          var dd = $(this).find('.dropdown-menu');
-
-          if (dd.length > 0) {
-            var pageHeight = $(window).height(),
-                ddTop = $(this).position().top,
-                ddLeft = dd.offset().left,
-                ddWidth = dd.width(),
-                ddHeight = dd.height();
-
-            if (pageHeight - ddTop - ddHeight - 28 < 1) {
-              var maxHeight = pageHeight - ddTop - 170;
-              $(this).find('.dropdown-menu').css({
-                'max-height': maxHeight + 'px',
-                'overflow-y': 'auto',
-                'overflow-x': 'hidden'
-              });
-              var menu_content = new PerfectScrollbar('li.dropdown-submenu.show .dropdown-menu', {
-                wheelPropagation: false
-              });
-            } // Add class to horizontal sub menu if screen width is small
-
-
-            if (ddLeft + ddWidth - (window.innerWidth - 16) >= 0) {
-              $(this).addClass('openLeft');
-            }
-          }
-        });
-        $('.theme-layouts').find('.semi-dark').hide();
-        $('#customizer-navbar-colors').hide();
-      }
-      /********************************************
-      *             Searchable Menu               *
-      ********************************************/
-
-
-      function searchMenu(list) {
-        var input = $(".menu-search");
-        $(input).change(function () {
-          var filter = $(this).val();
-
-          if (filter) {
-            // Hide Main Navigation Headers
-            $('.navigation-header').hide(); // this finds all links in a list that contain the input,
-            // and hide the ones not containing the input while showing the ones that do
-
-            $(list).find("li a:not(:Contains(" + filter + "))").hide().parent().hide(); // $(list).find("li a:Contains(" + filter + ")").show().parents('li').show().addClass('open').closest('li').children('a').show();
-
-            var searchFilter = $(list).find("li a:Contains(" + filter + ")");
-
-            if (searchFilter.parent().hasClass('has-sub')) {
-              searchFilter.show().parents('li').show().addClass('open').closest('li').children('a').show().children('li').show(); // searchFilter.parents('li').find('li').show().children('a').show();
-
-              if (searchFilter.siblings('ul').length > 0) {
-                searchFilter.siblings('ul').children('li').show().children('a').show();
-              }
-            } else {
-              searchFilter.show().parents('li').show().addClass('open').closest('li').children('a').show();
-            }
-          } else {
-            // return to default
-            $('.navigation-header').show();
-            $(list).find("li a").show().parent().show().removeClass('open');
-          }
-
-          $.app.menu.manualScroller.update();
-          return false;
-        }).keyup(function () {
-          // fire the above change event after every letter
-          $(this).change();
-        });
-      }
-
-      if (menuType === 'vertical-menu' || menuType === 'vertical-overlay-menu') {
-        // custom css expression for a case-insensitive contains()
-        jQuery.expr[':'].Contains = function (a, i, m) {
-          return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
-        };
-
-        searchMenu($("#main-menu-navigation"));
-      }
-    },
-    transit: function transit(callback1, callback2) {
-      var menuObj = this;
-      $body.addClass('changing-menu');
-      callback1.call(menuObj);
-
-      if ($body.hasClass('vertical-layout')) {
-        if ($body.hasClass('menu-open') || $body.hasClass('menu-expanded')) {
-          $('.menu-toggle').addClass('is-active'); // Show menu header search when menu is normally visible
-
-          if ($body.data('menu') === 'vertical-menu') {
-            if ($('.main-menu-header')) {
-              $('.main-menu-header').show();
-            }
-          }
-        } else {
-          $('.menu-toggle').removeClass('is-active'); // Hide menu header search when only menu icons are visible
-
-          if ($body.data('menu') === 'vertical-menu') {
-            if ($('.main-menu-header')) {
-              $('.main-menu-header').hide();
-            }
-          }
-        }
-      }
-
-      setTimeout(function () {
-        callback2.call(menuObj);
-        $body.removeClass('changing-menu');
-        menuObj.update();
-      }, 500);
-    },
-    open: function open() {
-      this.transit(function () {
-        $body.removeClass('menu-hide menu-collapsed').addClass('menu-open');
-        this.hidden = false;
-        this.expanded = true;
-
-        if ($body.hasClass('vertical-overlay-menu')) {
-          $('.sidenav-overlay').removeClass('d-none').addClass('d-block');
-          $('body').css('overflow', 'hidden');
-        }
-      }, function () {
-        if (!$('.main-menu').hasClass('menu-native-scroll') && $('.main-menu').hasClass('menu-fixed')) {
-          this.manualScroller.enable();
-          $('.main-menu-content').css('height', $(window).height() - $('.header-navbar').height() - $('.main-menu-header').outerHeight() - $('.main-menu-footer').outerHeight()); // this.manualScroller.update();
-        }
-
-        if (!$body.hasClass('vertical-overlay-menu')) {
-          $('.sidenav-overlay').removeClass('d-block d-none');
-          $('body').css('overflow', 'auto');
-        }
-      });
-    },
-    hide: function hide() {
-      this.transit(function () {
-        $body.removeClass('menu-open menu-expanded').addClass('menu-hide');
-        this.hidden = true;
-        this.expanded = false;
-
-        if ($body.hasClass('vertical-overlay-menu')) {
-          $('.sidenav-overlay').removeClass('d-block').addClass('d-none');
-          $('body').css('overflow', 'auto');
-        }
-      }, function () {
-        if (!$('.main-menu').hasClass('menu-native-scroll') && $('.main-menu').hasClass('menu-fixed')) {
-          this.manualScroller.enable();
-        }
-
-        if (!$body.hasClass('vertical-overlay-menu')) {
-          $('.sidenav-overlay').removeClass('d-block d-none');
-          $('body').css('overflow', 'auto');
-        }
-      });
-    },
-    expand: function expand() {
-      if (this.expanded === false) {
-        if ($body.data('menu') == 'vertical-menu-modern') {
-          $('.modern-nav-toggle').find('.toggle-icon').removeClass('feather icon-circle').addClass('feather icon-disc');
-        }
-
-        this.transit(function () {
-          $body.removeClass('menu-collapsed').addClass('menu-expanded');
-          this.collapsed = false;
-          this.expanded = true;
-          $('.sidenav-overlay').removeClass('d-block d-none');
-        }, function () {
-          if ($('.main-menu').hasClass('menu-native-scroll') || $body.data('menu') == 'horizontal-menu') {
-            this.manualScroller.disable();
-          } else {
-            if ($('.main-menu').hasClass('menu-fixed')) this.manualScroller.enable();
-          }
-
-          if (($body.data('menu') == 'vertical-menu' || $body.data('menu') == 'vertical-menu-modern') && $('.main-menu').hasClass('menu-fixed')) {
-            $('.main-menu-content').css('height', $(window).height() - $('.header-navbar').height() - $('.main-menu-header').outerHeight() - $('.main-menu-footer').outerHeight()); // this.manualScroller.update();
-          }
-        });
-      }
-    },
-    collapse: function collapse(defMenu) {
-      if (this.collapsed === false) {
-        if ($body.data('menu') == 'vertical-menu-modern') {
-          $('.modern-nav-toggle').find('.toggle-icon').removeClass('feather icon-disc').addClass('feather icon-circle');
-        }
-
-        this.transit(function () {
-          $body.removeClass('menu-expanded').addClass('menu-collapsed');
-          this.collapsed = true;
-          this.expanded = false;
-          $('.content-overlay').removeClass('d-block d-none');
-        }, function () {
-          if ($body.data('menu') == 'horizontal-menu' && $body.hasClass('vertical-overlay-menu')) {
-            if ($('.main-menu').hasClass('menu-fixed')) this.manualScroller.enable();
-          }
-
-          if (($body.data('menu') == 'vertical-menu' || $body.data('menu') == 'vertical-menu-modern') && $('.main-menu').hasClass('menu-fixed')) {
-            $('.main-menu-content').css('height', $(window).height() - $('.header-navbar').height()); // this.manualScroller.update();
-          }
-
-          if ($body.data('menu') == 'vertical-menu-modern') {
-            if ($('.main-menu').hasClass('menu-fixed')) this.manualScroller.enable();
-          }
-        });
-      }
-    },
-    toOverlayMenu: function toOverlayMenu(screen, menuType) {
-      var menu = $body.data('menu');
-
-      if (menuType == 'vertical-menu-modern') {
-        if (screen == 'lg' || screen == 'md' || screen == 'sm' || screen == 'xs') {
-          if ($body.hasClass(menu)) {
-            $body.removeClass(menu).addClass('vertical-overlay-menu');
-          }
-        } else {
-          if ($body.hasClass('vertical-overlay-menu')) {
-            $body.removeClass('vertical-overlay-menu').addClass(menu);
-          }
-        }
-      } else {
-        if (screen == 'sm' || screen == 'xs') {
-          if ($body.hasClass(menu)) {
-            $body.removeClass(menu).addClass('vertical-overlay-menu');
-          }
-        } else {
-          if ($body.hasClass('vertical-overlay-menu')) {
-            $body.removeClass('vertical-overlay-menu').addClass(menu);
-          }
-        }
-      }
-    },
-    changeMenu: function changeMenu(screen) {
-      // Replace menu html
-      $('div[data-menu="menu-wrapper"]').html('');
-      $('div[data-menu="menu-wrapper"]').html(menuWrapper_el);
-      var menuWrapper = $('div[data-menu="menu-wrapper"]'),
-          menuContainer = $('div[data-menu="menu-container"]'),
-          menuNavigation = $('ul[data-menu="menu-navigation"]'),
-
-      /*megaMenu           = $('li[data-menu="megamenu"]'),
-      megaMenuCol        = $('li[data-mega-col]'),*/
-      dropdownMenu = $('li[data-menu="dropdown"]'),
-          dropdownSubMenu = $('li[data-menu="dropdown-submenu"]');
-
-      if (screen === 'xl') {
-        // Change body classes
-        $body.removeClass('vertical-layout vertical-overlay-menu fixed-navbar').addClass($body.data('menu')); // Remove navbar-fix-top class on large screens
-
-        $('nav.header-navbar').removeClass('fixed-top'); // Change menu wrapper, menu container, menu navigation classes
-
-        menuWrapper.removeClass().addClass(menuWrapperClasses); // Intitialize drill down menu for horizontal layouts
-        // --------------------------------------------------
-
-        this.drillDownMenu(screen);
-        $('a.dropdown-item.nav-has-children').on('click', function () {
-          event.preventDefault();
-          event.stopPropagation();
-        });
-        $('a.dropdown-item.nav-has-parent').on('click', function () {
-          event.preventDefault();
-          event.stopPropagation();
-        });
-      } else {
-        // Change body classes
-        $body.removeClass($body.data('menu')).addClass('vertical-layout vertical-overlay-menu fixed-navbar'); // Add navbar-fix-top class on small screens
-
-        $('nav.header-navbar').addClass('fixed-top'); // Change menu wrapper, menu container, menu navigation classes
-
-        menuWrapper.removeClass().addClass('main-menu menu-light menu-fixed menu-shadow'); // menuContainer.removeClass().addClass('main-menu-content');
-
-        menuNavigation.removeClass().addClass('navigation navigation-main'); // If Dropdown Menu
-
-        dropdownMenu.removeClass('dropdown').addClass('has-sub');
-        dropdownMenu.find('a').removeClass('dropdown-toggle nav-link');
-        dropdownMenu.children('ul').find('a').removeClass('dropdown-item');
-        dropdownMenu.find('ul').removeClass('dropdown-menu');
-        dropdownSubMenu.removeClass().addClass('has-sub');
-        $.app.nav.init(); // Dropdown submenu on small screen on click
-        // --------------------------------------------------
-
-        $('ul.dropdown-menu [data-toggle=dropdown]').on('click', function (event) {
-          event.preventDefault();
-          event.stopPropagation();
-          $(this).parent().siblings().removeClass('open');
-          $(this).parent().toggleClass('open');
-        });
-        $(".main-menu-content").find('li.active').parents('li').addClass('sidebar-group-active');
-        $(".main-menu-content").find("li.active").closest("li.nav-item").addClass("open");
-      }
-    },
-    toggle: function toggle() {
-      var currentBreakpoint = Unison.fetch.now(); // Current Breakpoint
-
-      var collapsed = this.collapsed;
-      var expanded = this.expanded;
-      var hidden = this.hidden;
-      var menu = $body.data('menu');
-
-      switch (currentBreakpoint.name) {
-        case 'xl':
-          if (expanded === true) {
-            if (menu == 'vertical-overlay-menu') {
-              this.hide();
-            } else {
-              this.collapse();
-            }
-          } else {
-            if (menu == 'vertical-overlay-menu') {
-              this.open();
-            } else {
-              this.expand();
-            }
-          }
-
-          break;
-
-        case 'lg':
-          if (expanded === true) {
-            if (menu == 'vertical-overlay-menu' || menu == 'vertical-menu-modern' || menu == 'horizontal-menu') {
-              this.hide();
-            } else {
-              this.collapse();
-            }
-          } else {
-            if (menu == 'vertical-overlay-menu' || menu == 'vertical-menu-modern' || menu == 'horizontal-menu') {
-              this.open();
-            } else {
-              this.expand();
-            }
-          }
-
-          break;
-
-        case 'md':
-        case 'sm':
-          if (hidden === true) {
-            this.open();
-          } else {
-            this.hide();
-          }
-
-          break;
-
-        case 'xs':
-          if (hidden === true) {
-            this.open();
-          } else {
-            this.hide();
-          }
-
-          break;
-      } // Re-init sliding menu to update width
-
-
-      this.drillDownMenu(currentBreakpoint.name);
-    },
-    update: function update() {
-      this.manualScroller.update();
-    },
-    reset: function reset() {
-      this.expanded = false;
-      this.collapsed = false;
-      this.hidden = false;
-      $body.removeClass('menu-hide menu-open menu-collapsed menu-expanded');
-    }
-  }; // Navigation Menu
-
-  $.app.nav = {
-    container: $('.navigation-main'),
-    initialized: false,
-    navItem: $('.navigation-main').find('li').not('.navigation-category'),
-    config: {
-      speed: 300
-    },
-    init: function init(config) {
-      this.initialized = true; // Set to true when initialized
-
-      $.extend(this.config, config);
-      this.bind_events();
-    },
-    bind_events: function bind_events() {
-      var menuObj = this;
-      $('.navigation-main').on('mouseenter.app.menu', 'li', function () {
-        var $this = $(this);
-        $('.hover', '.navigation-main').removeClass('hover');
-
-        if ($body.hasClass('menu-collapsed') && $body.data('menu') != 'vertical-menu-modern') {
-          $('.main-menu-content').children('span.menu-title').remove();
-          $('.main-menu-content').children('a.menu-title').remove();
-          $('.main-menu-content').children('ul.menu-content').remove(); // Title
-
-          var menuTitle = $this.find('span.menu-title').clone(),
-              tempTitle,
-              tempLink;
-
-          if (!$this.hasClass('has-sub')) {
-            tempTitle = $this.find('span.menu-title').text();
-            tempLink = $this.children('a').attr('href');
-
-            if (tempTitle !== '') {
-              menuTitle = $("<a>");
-              menuTitle.attr("href", tempLink);
-              menuTitle.attr("title", tempTitle);
-              menuTitle.text(tempTitle);
-              menuTitle.addClass("menu-title");
-            }
-          } // menu_header_height = ($('.main-menu-header').length) ? $('.main-menu-header').height() : 0,
-          // fromTop = menu_header_height + $this.position().top + parseInt($this.css( "border-top" ),10);
-
-
-          var fromTop;
-
-          if ($this.css("border-top")) {
-            fromTop = $this.position().top + parseInt($this.css("border-top"), 10);
-          } else {
-            fromTop = $this.position().top;
-          }
-
-          if ($body.data('menu') !== 'vertical-compact-menu') {
-            menuTitle.appendTo('.main-menu-content').css({
-              position: 'fixed',
-              top: fromTop
-            });
-          } // Content
-
-
-          if ($this.hasClass('has-sub') && $this.hasClass('nav-item')) {
-            var menuContent = $this.children('ul:first');
-            menuObj.adjustSubmenu($this);
-          }
-        }
-
-        $this.addClass('hover');
-      }).on('mouseleave.app.menu', 'li', function () {// $(this).removeClass('hover');
-      }).on('active.app.menu', 'li', function (e) {
-        $(this).addClass('active');
-        e.stopPropagation();
-      }).on('deactive.app.menu', 'li.active', function (e) {
-        $(this).removeClass('active');
-        e.stopPropagation();
-      }).on('open.app.menu', 'li', function (e) {
-        var $listItem = $(this);
-        $listItem.addClass('open');
-        menuObj.expand($listItem); // If menu collapsible then do not take any action
-
-        if ($('.main-menu').hasClass('menu-collapsible')) {
-          return false;
-        } // If menu accordion then close all except clicked once
-        else {
-            $listItem.siblings('.open').find('li.open').trigger('close.app.menu');
-            $listItem.siblings('.open').trigger('close.app.menu');
-          }
-
-        e.stopPropagation();
-      }).on('close.app.menu', 'li.open', function (e) {
-        var $listItem = $(this);
-        $listItem.removeClass('open');
-        menuObj.collapse($listItem);
-        e.stopPropagation();
-      }).on('click.app.menu', 'li', function (e) {
-        var $listItem = $(this);
-
-        if ($listItem.is('.disabled')) {
-          e.preventDefault();
-        } else {
-          if ($body.hasClass('menu-collapsed') && $body.data('menu') != 'vertical-menu-modern') {
-            e.preventDefault();
-          } else {
-            if ($listItem.has('ul').length) {
-              if ($listItem.is('.open')) {
-                $listItem.trigger('close.app.menu');
-              } else {
-                $listItem.trigger('open.app.menu');
-              }
-            } else {
-              if (!$listItem.is('.active')) {
-                $listItem.siblings('.active').trigger('deactive.app.menu');
-                $listItem.trigger('active.app.menu');
-              }
-            }
-          }
-        }
-
-        e.stopPropagation();
-      });
-      $('.navbar-header, .main-menu').on('mouseenter', modernMenuExpand).on('mouseleave', modernMenuCollapse);
-
-      function modernMenuExpand() {
-        if ($body.data('menu') == 'vertical-menu-modern') {
-          $('.main-menu, .navbar-header').addClass('expanded');
-
-          if ($body.hasClass('menu-collapsed')) {
-            if ($('.main-menu li.open').length === 0) {
-              $(".main-menu-content").find('li.active').parents('li').addClass('open');
-            }
-
-            var $listItem = $('.main-menu li.menu-collapsed-open'),
-                $subList = $listItem.children('ul');
-            $subList.hide().slideDown(200, function () {
-              $(this).css('display', '');
-            });
-            $listItem.addClass('open').removeClass('menu-collapsed-open'); // $.app.menu.changeLogo('expand');
-          }
-        }
-      }
-
-      function modernMenuCollapse() {
-        if ($body.hasClass('menu-collapsed') && $body.data('menu') == 'vertical-menu-modern') {
-          setTimeout(function () {
-            if ($('.main-menu:hover').length === 0 && $('.navbar-header:hover').length === 0) {
-              $('.main-menu, .navbar-header').removeClass('expanded');
-
-              if ($body.hasClass('menu-collapsed')) {
-                var $listItem = $('.main-menu li.open'),
-                    $subList = $listItem.children('ul');
-                $listItem.addClass('menu-collapsed-open');
-                $subList.show().slideUp(200, function () {
-                  $(this).css('display', '');
-                });
-                $listItem.removeClass('open'); // $.app.menu.changeLogo();
-              }
-            }
-          }, 1);
-        }
-      }
-
-      $('.main-menu-content').on('mouseleave', function () {
-        if ($body.hasClass('menu-collapsed')) {
-          $('.main-menu-content').children('span.menu-title').remove();
-          $('.main-menu-content').children('a.menu-title').remove();
-          $('.main-menu-content').children('ul.menu-content').remove();
-        }
-
-        $('.hover', '.navigation-main').removeClass('hover');
-      }); // If list item has sub menu items then prevent redirection.
-
-      $('.navigation-main li.has-sub > a').on('click', function (e) {
-        e.preventDefault();
-      });
-      $('ul.menu-content').on('click', 'li', function (e) {
-        var $listItem = $(this);
-
-        if ($listItem.is('.disabled')) {
-          e.preventDefault();
-        } else {
-          if ($listItem.has('ul')) {
-            if ($listItem.is('.open')) {
-              $listItem.removeClass('open');
-              menuObj.collapse($listItem);
-            } else {
-              $listItem.addClass('open');
-              menuObj.expand($listItem); // If menu collapsible then do not take any action
-
-              if ($('.main-menu').hasClass('menu-collapsible')) {
-                return false;
-              } // If menu accordion then close all except clicked once
-              else {
-                  $listItem.siblings('.open').find('li.open').trigger('close.app.menu');
-                  $listItem.siblings('.open').trigger('close.app.menu');
-                }
-
-              e.stopPropagation();
-            }
-          } else {
-            if (!$listItem.is('.active')) {
-              $listItem.siblings('.active').trigger('deactive.app.menu');
-              $listItem.trigger('active.app.menu');
-            }
-          }
-        }
-
-        e.stopPropagation();
-      });
-    },
-
-    /**
-     * Ensure an admin submenu is within the visual viewport.
-     * @param {jQuery} $menuItem The parent menu item containing the submenu.
-     */
-    adjustSubmenu: function adjustSubmenu($menuItem) {
-      var menuHeaderHeight,
-          menutop,
-          topPos,
-          winHeight,
-          bottomOffset,
-          subMenuHeight,
-          popOutMenuHeight,
-          borderWidth,
-          scroll_theme,
-          $submenu = $menuItem.children('ul:first'),
-          ul = $submenu.clone(true);
-      menuHeaderHeight = $('.main-menu-header').height();
-      menutop = $menuItem.position().top;
-      winHeight = $window.height() - $('.header-navbar').height();
-      borderWidth = 0;
-      subMenuHeight = $submenu.height();
-
-      if (parseInt($menuItem.css("border-top"), 10) > 0) {
-        borderWidth = parseInt($menuItem.css("border-top"), 10);
-      }
-
-      popOutMenuHeight = winHeight - menutop - $menuItem.height() - 30;
-      scroll_theme = $('.main-menu').hasClass('menu-dark') ? 'light' : 'dark';
-      topPos = menutop + $menuItem.height() + borderWidth;
-      ul.addClass('menu-popout').appendTo('.main-menu-content').css({
-        'top': topPos,
-        'position': 'fixed',
-        'max-height': popOutMenuHeight
-      });
-      var menu_content = new PerfectScrollbar('.main-menu-content > ul.menu-content', {
-        wheelPropagation: false
-      });
-    },
-    collapse: function collapse($listItem, callback) {
-      var $subList = $listItem.children('ul');
-      $subList.show().slideUp($.app.nav.config.speed, function () {
-        $(this).css('display', '');
-        $(this).find('> li').removeClass('is-shown');
-
-        if (callback) {
-          callback();
-        }
-
-        $.app.nav.container.trigger('collapsed.app.menu');
-      });
-    },
-    expand: function expand($listItem, callback) {
-      var $subList = $listItem.children('ul');
-      var $children = $subList.children('li').addClass('is-hidden');
-      $subList.hide().slideDown($.app.nav.config.speed, function () {
-        $(this).css('display', '');
-
-        if (callback) {
-          callback();
-        }
-
-        $.app.nav.container.trigger('expanded.app.menu');
-      });
-      setTimeout(function () {
-        $children.addClass('is-shown');
-        $children.removeClass('is-hidden');
-      }, 0);
-    },
-    refresh: function refresh() {
-      $.app.nav.container.find('.open').removeClass('open');
-    }
-  };
-})(window, document, jQuery); // We listen to the resize event
-
-
-window.addEventListener('resize', function () {
-  // We execute the same script as before
-  var vh = window.innerHeight * 0.01;
-  document.documentElement.style.setProperty('--vh', "".concat(vh, "px"));
-});
+eval("/*=========================================================================================\n  File Name: app-menu.js\n  Description: Menu navigation, custom scrollbar, hover scroll bar, multilevel menu\n  initialization and manipulations\n  ----------------------------------------------------------------------------------------\n  Item Name:  Vusax - Vuejs, HTML & Laravel Admin Dashboard Template\n  Author: Pixinvent\n  Author URL: hhttp://www.themeforest.net/user/pixinvent\n==========================================================================================*/\n(function (window, document, $) {\n  'use strict';\n\n  var vh = window.innerHeight * 0.01;\n  document.documentElement.style.setProperty('--vh', \"\".concat(vh, \"px\"));\n  $.app = $.app || {};\n  var $body = $('body');\n  var $window = $(window);\n  var menuWrapper_el = $('div[data-menu=\"menu-wrapper\"]').html();\n  var menuWrapperClasses = $('div[data-menu=\"menu-wrapper\"]').attr('class'); // Main menu\n\n  $.app.menu = {\n    expanded: null,\n    collapsed: null,\n    hidden: null,\n    container: null,\n    horizontalMenu: false,\n    is_touch_device: function is_touch_device() {\n      var prefixes = ' -webkit- -moz- -o- -ms- '.split(' ');\n\n      var mq = function mq(query) {\n        return window.matchMedia(query).matches;\n      };\n\n      if ('ontouchstart' in window || window.DocumentTouch && document instanceof DocumentTouch) {\n        return true;\n      } // include the 'heartz' as a way to have a non matching MQ to help terminate the join\n      // https://git.io/vznFH\n\n\n      var query = ['(', prefixes.join('touch-enabled),('), 'heartz', ')'].join('');\n      return mq(query);\n    },\n    manualScroller: {\n      obj: null,\n      init: function init() {\n        var scroll_theme = $('.main-menu').hasClass('menu-dark') ? 'light' : 'dark';\n\n        if (!$.app.menu.is_touch_device()) {\n          this.obj = new PerfectScrollbar('.main-menu-content', {\n            suppressScrollX: true,\n            wheelPropagation: false\n          });\n        } else {\n          $('.main-menu').addClass('menu-native-scroll');\n        }\n      },\n      update: function update() {\n        if (this.obj) {\n          // Scroll to currently active menu on page load if data-scroll-to-active is true\n          if ($('.main-menu').data('scroll-to-active') === true) {\n            var activeEl, menu, activeElHeight;\n            activeEl = document.querySelector('.main-menu-content li.active');\n\n            if ($body.hasClass('menu-collapsed')) {\n              if ($('.main-menu-content li.sidebar-group-active').length) {\n                activeEl = document.querySelector('.main-menu-content li.sidebar-group-active');\n              }\n            } else {\n              menu = document.querySelector('.main-menu-content');\n\n              if (activeEl) {\n                activeElHeight = activeEl.getBoundingClientRect().top + menu.scrollTop;\n              } // If active element's top position is less than 2/3 (66%) of menu height than do not scroll\n\n\n              if (activeElHeight > parseInt(menu.clientHeight * 2 / 3)) {\n                var start = menu.scrollTop,\n                    change = activeElHeight - start - parseInt(menu.clientHeight / 2);\n              }\n            }\n\n            setTimeout(function () {\n              $.app.menu.container.stop().animate({\n                scrollTop: change\n              }, 300);\n              $('.main-menu').data('scroll-to-active', 'false');\n            }, 300);\n          }\n\n          this.obj.update();\n        }\n      },\n      enable: function enable() {\n        if (!$('.main-menu-content').hasClass('ps')) {\n          this.init();\n        }\n      },\n      disable: function disable() {\n        if (this.obj) {\n          this.obj.destroy();\n        }\n      },\n      updateHeight: function updateHeight() {\n        if (($body.data('menu') == 'vertical-menu' || $body.data('menu') == 'vertical-menu-modern' || $body.data('menu') == 'vertical-overlay-menu') && $('.main-menu').hasClass('menu-fixed')) {\n          $('.main-menu-content').css('height', $(window).height() - $('.header-navbar').height() - $('.main-menu-header').outerHeight() - $('.main-menu-footer').outerHeight());\n          this.update();\n        }\n      }\n    },\n    init: function init(compactMenu) {\n      if ($('.main-menu-content').length > 0) {\n        this.container = $('.main-menu-content');\n        var menuObj = this;\n        var defMenu = '';\n\n        if (compactMenu === true) {\n          defMenu = 'collapsed';\n        }\n\n        if ($body.data('menu') == 'vertical-menu-modern') {\n          var menuToggle = '';\n\n          if (menuToggle === 'false') {\n            this.change('collapsed');\n          } else {\n            this.change(defMenu);\n          }\n        } else {\n          this.change(defMenu);\n        }\n      }\n    },\n    drillDownMenu: function drillDownMenu(screenSize) {\n      if ($('.drilldown-menu').length) {\n        if (screenSize == 'sm' || screenSize == 'xs') {\n          if ($('#navbar-mobile').attr('aria-expanded') == 'true') {\n            $('.drilldown-menu').slidingMenu({\n              backLabel: true\n            });\n          }\n        } else {\n          $('.drilldown-menu').slidingMenu({\n            backLabel: true\n          });\n        }\n      }\n    },\n    change: function change(defMenu) {\n      var currentBreakpoint = Unison.fetch.now(); // Current Breakpoint\n\n      this.reset();\n      var menuType = $body.data('menu');\n\n      if (currentBreakpoint) {\n        switch (currentBreakpoint.name) {\n          case 'xl':\n            if (menuType === 'vertical-overlay-menu') {\n              this.hide();\n            } else {\n              if (defMenu === 'collapsed') this.collapse(defMenu);else this.expand();\n            }\n\n            break;\n\n          case 'lg':\n            if (menuType === 'vertical-overlay-menu' || menuType === 'vertical-menu-modern' || menuType === 'horizontal-menu') {\n              this.hide();\n            } else {\n              this.collapse();\n            }\n\n            break;\n\n          case 'md':\n          case 'sm':\n            this.hide();\n            break;\n\n          case 'xs':\n            this.hide();\n            break;\n        }\n      } // On the small and extra small screen make them overlay menu\n\n\n      if (menuType === 'vertical-menu' || menuType === 'vertical-menu-modern') {\n        this.toOverlayMenu(currentBreakpoint.name, menuType);\n      }\n\n      if ($body.is('.horizontal-layout') && !$body.hasClass('.horizontal-menu-demo')) {\n        this.changeMenu(currentBreakpoint.name);\n        $('.menu-toggle').removeClass('is-active');\n      } // Initialize drill down menu for vertical layouts, for horizontal layouts drilldown menu is intitialized in changemenu function\n\n\n      if (menuType != 'horizontal-menu') {\n        // Drill down menu\n        // ------------------------------\n        this.drillDownMenu(currentBreakpoint.name);\n      } // Dropdown submenu on large screen on hover For Large screen only\n      // ---------------------------------------------------------------\n\n\n      if (currentBreakpoint.name == 'xl') {\n        $('body[data-open=\"hover\"] .header-navbar .dropdown').on('mouseenter', function () {\n          if (!$(this).hasClass('show')) {\n            $(this).addClass('show');\n          } else {\n            $(this).removeClass('show');\n          }\n        }).on('mouseleave', function (event) {\n          $(this).removeClass('show');\n        });\n        $('body[data-open=\"hover\"] .dropdown a').on('click', function (e) {\n          if (menuType == 'horizontal-menu') {\n            var $this = $(this);\n\n            if ($this.hasClass('dropdown-toggle')) {\n              return false;\n            }\n          }\n        });\n      } // Added data attribute brand-center for navbar-brand-center\n      // TODO:AJ: Shift this feature in JADE.\n\n\n      if ($('.header-navbar').hasClass('navbar-brand-center')) {\n        $('.header-navbar').attr('data-nav', 'brand-center');\n      }\n\n      if (currentBreakpoint.name == 'sm' || currentBreakpoint.name == 'xs') {\n        $('.header-navbar[data-nav=brand-center]').removeClass('navbar-brand-center');\n      } else {\n        $('.header-navbar[data-nav=brand-center]').addClass('navbar-brand-center');\n      } // On screen width change, current active menu in horizontal\n\n\n      if (currentBreakpoint.name == 'xl' && menuType == 'horizontal-menu') {\n        $('.main-menu-content').find('li.active').parents('li').addClass('sidebar-group-active active');\n      }\n\n      if (currentBreakpoint.name !== 'xl' && menuType == 'horizontal-menu') {\n        $('#navbar-type').toggleClass('d-none d-xl-block');\n      } // Dropdown submenu on small screen on click\n      // --------------------------------------------------\n\n\n      $('ul.dropdown-menu [data-toggle=dropdown]').on('click', function (event) {\n        if ($(this).siblings('ul.dropdown-menu').length > 0) {\n          event.preventDefault();\n        }\n\n        event.stopPropagation();\n        $(this).parent().siblings().removeClass('show');\n        $(this).parent().toggleClass('show');\n      }); // Horizontal layout submenu drawer scrollbar\n\n      if (menuType == 'horizontal-menu') {\n        $('li.dropdown-submenu').on('mouseenter', function () {\n          if (!$(this).parent('.dropdown').hasClass('show')) {\n            $(this).removeClass('openLeft');\n          }\n\n          var dd = $(this).find('.dropdown-menu');\n\n          if (dd.length > 0) {\n            var pageHeight = $(window).height(),\n                ddTop = $(this).position().top,\n                ddLeft = dd.offset().left,\n                ddWidth = dd.width(),\n                ddHeight = dd.height();\n\n            if (pageHeight - ddTop - ddHeight - 28 < 1) {\n              var maxHeight = pageHeight - ddTop - 170;\n              $(this).find('.dropdown-menu').css({\n                'max-height': maxHeight + 'px',\n                'overflow-y': 'auto',\n                'overflow-x': 'hidden'\n              });\n              var menu_content = new PerfectScrollbar('li.dropdown-submenu.show .dropdown-menu', {\n                wheelPropagation: false\n              });\n            } // Add class to horizontal sub menu if screen width is small\n\n\n            if (ddLeft + ddWidth - (window.innerWidth - 16) >= 0) {\n              $(this).addClass('openLeft');\n            }\n          }\n        });\n        $('.theme-layouts').find('.semi-dark').hide();\n        $('#customizer-navbar-colors').hide();\n      }\n      /********************************************\n       *             Searchable Menu               *\n       ********************************************/\n\n\n      function searchMenu(list) {\n        var input = $('.menu-search');\n        $(input).change(function () {\n          var filter = $(this).val();\n\n          if (filter) {\n            // Hide Main Navigation Headers\n            $('.navigation-header').hide(); // this finds all links in a list that contain the input,\n            // and hide the ones not containing the input while showing the ones that do\n\n            $(list).find('li a:not(:Contains(' + filter + '))').hide().parent().hide(); // $(list).find(\"li a:Contains(\" + filter + \")\").show().parents('li').show().addClass('open').closest('li').children('a').show();\n\n            var searchFilter = $(list).find('li a:Contains(' + filter + ')');\n\n            if (searchFilter.parent().hasClass('has-sub')) {\n              searchFilter.show().parents('li').show().addClass('open').closest('li').children('a').show().children('li').show(); // searchFilter.parents('li').find('li').show().children('a').show();\n\n              if (searchFilter.siblings('ul').length > 0) {\n                searchFilter.siblings('ul').children('li').show().children('a').show();\n              }\n            } else {\n              searchFilter.show().parents('li').show().addClass('open').closest('li').children('a').show();\n            }\n          } else {\n            // return to default\n            $('.navigation-header').show();\n            $(list).find('li a').show().parent().show().removeClass('open');\n          }\n\n          $.app.menu.manualScroller.update();\n          return false;\n        }).keyup(function () {\n          // fire the above change event after every letter\n          $(this).change();\n        });\n      }\n\n      if (menuType === 'vertical-menu' || menuType === 'vertical-overlay-menu') {\n        // custom css expression for a case-insensitive contains()\n        jQuery.expr[':'].Contains = function (a, i, m) {\n          return (a.textContent || a.innerText || '').toUpperCase().indexOf(m[3].toUpperCase()) >= 0;\n        };\n\n        searchMenu($('#main-menu-navigation'));\n      }\n    },\n    transit: function transit(callback1, callback2) {\n      var menuObj = this;\n      $body.addClass('changing-menu');\n      callback1.call(menuObj);\n\n      if ($body.hasClass('vertical-layout')) {\n        if ($body.hasClass('menu-open') || $body.hasClass('menu-expanded')) {\n          $('.menu-toggle').addClass('is-active'); // Show menu header search when menu is normally visible\n\n          if ($body.data('menu') === 'vertical-menu') {\n            if ($('.main-menu-header')) {\n              $('.main-menu-header').show();\n            }\n          }\n        } else {\n          $('.menu-toggle').removeClass('is-active'); // Hide menu header search when only menu icons are visible\n\n          if ($body.data('menu') === 'vertical-menu') {\n            if ($('.main-menu-header')) {\n              $('.main-menu-header').hide();\n            }\n          }\n        }\n      }\n\n      setTimeout(function () {\n        callback2.call(menuObj);\n        $body.removeClass('changing-menu');\n        menuObj.update();\n      }, 500);\n    },\n    open: function open() {\n      this.transit(function () {\n        $body.removeClass('menu-hide menu-collapsed').addClass('menu-open');\n        this.hidden = false;\n        this.expanded = true;\n\n        if ($body.hasClass('vertical-overlay-menu')) {\n          $('.sidenav-overlay').removeClass('d-none').addClass('d-block');\n          $('body').css('overflow', 'hidden');\n        }\n      }, function () {\n        if (!$('.main-menu').hasClass('menu-native-scroll') && $('.main-menu').hasClass('menu-fixed')) {\n          this.manualScroller.enable();\n          $('.main-menu-content').css('height', $(window).height() - $('.header-navbar').height() - $('.main-menu-header').outerHeight() - $('.main-menu-footer').outerHeight()); // this.manualScroller.update();\n        }\n\n        if (!$body.hasClass('vertical-overlay-menu')) {\n          $('.sidenav-overlay').removeClass('d-block d-none');\n          $('body').css('overflow', 'auto');\n        }\n      });\n    },\n    hide: function hide() {\n      this.transit(function () {\n        $body.removeClass('menu-open menu-expanded').addClass('menu-hide');\n        this.hidden = true;\n        this.expanded = false;\n\n        if ($body.hasClass('vertical-overlay-menu')) {\n          $('.sidenav-overlay').removeClass('d-block').addClass('d-none');\n          $('body').css('overflow', 'auto');\n        }\n      }, function () {\n        if (!$('.main-menu').hasClass('menu-native-scroll') && $('.main-menu').hasClass('menu-fixed')) {\n          this.manualScroller.enable();\n        }\n\n        if (!$body.hasClass('vertical-overlay-menu')) {\n          $('.sidenav-overlay').removeClass('d-block d-none');\n          $('body').css('overflow', 'auto');\n        }\n      });\n    },\n    expand: function expand() {\n      if (this.expanded === false) {\n        if ($body.data('menu') == 'vertical-menu-modern') {\n          $('.modern-nav-toggle').find('.toggle-icon').removeClass('feather icon-circle').addClass('feather icon-disc');\n        }\n\n        this.transit(function () {\n          $body.removeClass('menu-collapsed').addClass('menu-expanded');\n          this.collapsed = false;\n          this.expanded = true;\n          $('.sidenav-overlay').removeClass('d-block d-none');\n        }, function () {\n          if ($('.main-menu').hasClass('menu-native-scroll') || $body.data('menu') == 'horizontal-menu') {\n            this.manualScroller.disable();\n          } else {\n            if ($('.main-menu').hasClass('menu-fixed')) this.manualScroller.enable();\n          }\n\n          if (($body.data('menu') == 'vertical-menu' || $body.data('menu') == 'vertical-menu-modern') && $('.main-menu').hasClass('menu-fixed')) {\n            $('.main-menu-content').css('height', $(window).height() - $('.header-navbar').height() - $('.main-menu-header').outerHeight() - $('.main-menu-footer').outerHeight()); // this.manualScroller.update();\n          }\n        });\n      }\n    },\n    collapse: function collapse(defMenu) {\n      if (this.collapsed === false) {\n        if ($body.data('menu') == 'vertical-menu-modern') {\n          $('.modern-nav-toggle').find('.toggle-icon').removeClass('feather icon-disc').addClass('feather icon-circle');\n        }\n\n        this.transit(function () {\n          $body.removeClass('menu-expanded').addClass('menu-collapsed');\n          this.collapsed = true;\n          this.expanded = false;\n          $('.content-overlay').removeClass('d-block d-none');\n        }, function () {\n          if ($body.data('menu') == 'horizontal-menu' && $body.hasClass('vertical-overlay-menu')) {\n            if ($('.main-menu').hasClass('menu-fixed')) this.manualScroller.enable();\n          }\n\n          if (($body.data('menu') == 'vertical-menu' || $body.data('menu') == 'vertical-menu-modern') && $('.main-menu').hasClass('menu-fixed')) {\n            $('.main-menu-content').css('height', $(window).height() - $('.header-navbar').height()); // this.manualScroller.update();\n          }\n\n          if ($body.data('menu') == 'vertical-menu-modern') {\n            if ($('.main-menu').hasClass('menu-fixed')) this.manualScroller.enable();\n          }\n        });\n      }\n    },\n    toOverlayMenu: function toOverlayMenu(screen, menuType) {\n      var menu = $body.data('menu');\n\n      if (menuType == 'vertical-menu-modern') {\n        if (screen == 'lg' || screen == 'md' || screen == 'sm' || screen == 'xs') {\n          if ($body.hasClass(menu)) {\n            $body.removeClass(menu).addClass('vertical-overlay-menu');\n          }\n        } else {\n          if ($body.hasClass('vertical-overlay-menu')) {\n            $body.removeClass('vertical-overlay-menu').addClass(menu);\n          }\n        }\n      } else {\n        if (screen == 'sm' || screen == 'xs') {\n          if ($body.hasClass(menu)) {\n            $body.removeClass(menu).addClass('vertical-overlay-menu');\n          }\n        } else {\n          if ($body.hasClass('vertical-overlay-menu')) {\n            $body.removeClass('vertical-overlay-menu').addClass(menu);\n          }\n        }\n      }\n    },\n    changeMenu: function changeMenu(screen) {\n      // Replace menu html\n      $('div[data-menu=\"menu-wrapper\"]').html('');\n      $('div[data-menu=\"menu-wrapper\"]').html(menuWrapper_el);\n      var menuWrapper = $('div[data-menu=\"menu-wrapper\"]'),\n          menuContainer = $('div[data-menu=\"menu-container\"]'),\n          menuNavigation = $('ul[data-menu=\"menu-navigation\"]'),\n\n      /*megaMenu           = $('li[data-menu=\"megamenu\"]'),\n      megaMenuCol        = $('li[data-mega-col]'),*/\n      dropdownMenu = $('li[data-menu=\"dropdown\"]'),\n          dropdownSubMenu = $('li[data-menu=\"dropdown-submenu\"]');\n\n      if (screen === 'xl') {\n        // Change body classes\n        $body.removeClass('vertical-layout vertical-overlay-menu fixed-navbar').addClass($body.data('menu')); // Remove navbar-fix-top class on large screens\n\n        $('nav.header-navbar').removeClass('fixed-top'); // Change menu wrapper, menu container, menu navigation classes\n\n        menuWrapper.removeClass().addClass(menuWrapperClasses); // Intitialize drill down menu for horizontal layouts\n        // --------------------------------------------------\n\n        this.drillDownMenu(screen);\n        $('a.dropdown-item.nav-has-children').on('click', function () {\n          event.preventDefault();\n          event.stopPropagation();\n        });\n        $('a.dropdown-item.nav-has-parent').on('click', function () {\n          event.preventDefault();\n          event.stopPropagation();\n        });\n      } else {\n        // Change body classes\n        $body.removeClass($body.data('menu')).addClass('vertical-layout vertical-overlay-menu fixed-navbar'); // Add navbar-fix-top class on small screens\n\n        $('nav.header-navbar').addClass('fixed-top'); // Change menu wrapper, menu container, menu navigation classes\n\n        menuWrapper.removeClass().addClass('main-menu menu-light menu-fixed menu-shadow'); // menuContainer.removeClass().addClass('main-menu-content');\n\n        menuNavigation.removeClass().addClass('navigation navigation-main'); // If Dropdown Menu\n\n        dropdownMenu.removeClass('dropdown').addClass('has-sub');\n        dropdownMenu.find('a').removeClass('dropdown-toggle nav-link');\n        dropdownMenu.children('ul').find('a').removeClass('dropdown-item');\n        dropdownMenu.find('ul').removeClass('dropdown-menu');\n        dropdownSubMenu.removeClass().addClass('has-sub');\n        $.app.nav.init(); // Dropdown submenu on small screen on click\n        // --------------------------------------------------\n\n        $('ul.dropdown-menu [data-toggle=dropdown]').on('click', function (event) {\n          event.preventDefault();\n          event.stopPropagation();\n          $(this).parent().siblings().removeClass('open');\n          $(this).parent().toggleClass('open');\n        });\n        $('.main-menu-content').find('li.active').parents('li').addClass('sidebar-group-active');\n        $('.main-menu-content').find('li.active').closest('li.nav-item').addClass('open');\n      }\n    },\n    toggle: function toggle() {\n      var currentBreakpoint = Unison.fetch.now(); // Current Breakpoint\n\n      var collapsed = this.collapsed;\n      var expanded = this.expanded;\n      var hidden = this.hidden;\n      var menu = $body.data('menu');\n\n      switch (currentBreakpoint.name) {\n        case 'xl':\n          if (expanded === true) {\n            if (menu == 'vertical-overlay-menu') {\n              this.hide();\n            } else {\n              this.collapse();\n            }\n          } else {\n            if (menu == 'vertical-overlay-menu') {\n              this.open();\n            } else {\n              this.expand();\n            }\n          }\n\n          break;\n\n        case 'lg':\n          if (expanded === true) {\n            if (menu == 'vertical-overlay-menu' || menu == 'vertical-menu-modern' || menu == 'horizontal-menu') {\n              this.hide();\n            } else {\n              this.collapse();\n            }\n          } else {\n            if (menu == 'vertical-overlay-menu' || menu == 'vertical-menu-modern' || menu == 'horizontal-menu') {\n              this.open();\n            } else {\n              this.expand();\n            }\n          }\n\n          break;\n\n        case 'md':\n        case 'sm':\n          if (hidden === true) {\n            this.open();\n          } else {\n            this.hide();\n          }\n\n          break;\n\n        case 'xs':\n          if (hidden === true) {\n            this.open();\n          } else {\n            this.hide();\n          }\n\n          break;\n      } // Re-init sliding menu to update width\n\n\n      this.drillDownMenu(currentBreakpoint.name);\n    },\n    update: function update() {\n      this.manualScroller.update();\n    },\n    reset: function reset() {\n      this.expanded = false;\n      this.collapsed = false;\n      this.hidden = false;\n      $body.removeClass('menu-hide menu-open menu-collapsed menu-expanded');\n    }\n  }; // Navigation Menu\n\n  $.app.nav = {\n    container: $('.navigation-main'),\n    initialized: false,\n    navItem: $('.navigation-main').find('li').not('.navigation-category'),\n    config: {\n      speed: 300\n    },\n    init: function init(config) {\n      this.initialized = true; // Set to true when initialized\n\n      $.extend(this.config, config);\n      this.bind_events();\n    },\n    bind_events: function bind_events() {\n      var menuObj = this;\n      $('.navigation-main').on('mouseenter.app.menu', 'li', function () {\n        var $this = $(this);\n        $('.hover', '.navigation-main').removeClass('hover');\n\n        if ($body.hasClass('menu-collapsed') && $body.data('menu') != 'vertical-menu-modern') {\n          $('.main-menu-content').children('span.menu-title').remove();\n          $('.main-menu-content').children('a.menu-title').remove();\n          $('.main-menu-content').children('ul.menu-content').remove(); // Title\n\n          var menuTitle = $this.find('span.menu-title').clone(),\n              tempTitle,\n              tempLink;\n\n          if (!$this.hasClass('has-sub')) {\n            tempTitle = $this.find('span.menu-title').text();\n            tempLink = $this.children('a').attr('href');\n\n            if (tempTitle !== '') {\n              menuTitle = $('<a>');\n              menuTitle.attr('href', tempLink);\n              menuTitle.attr('title', tempTitle);\n              menuTitle.text(tempTitle);\n              menuTitle.addClass('menu-title');\n            }\n          } // menu_header_height = ($('.main-menu-header').length) ? $('.main-menu-header').height() : 0,\n          // fromTop = menu_header_height + $this.position().top + parseInt($this.css( \"border-top\" ),10);\n\n\n          var fromTop;\n\n          if ($this.css('border-top')) {\n            fromTop = $this.position().top + parseInt($this.css('border-top'), 10);\n          } else {\n            fromTop = $this.position().top;\n          }\n\n          if ($body.data('menu') !== 'vertical-compact-menu') {\n            menuTitle.appendTo('.main-menu-content').css({\n              position: 'fixed',\n              top: fromTop\n            });\n          } // Content\n\n\n          if ($this.hasClass('has-sub') && $this.hasClass('nav-item')) {\n            var menuContent = $this.children('ul:first');\n            menuObj.adjustSubmenu($this);\n          }\n        }\n\n        $this.addClass('hover');\n      }).on('mouseleave.app.menu', 'li', function () {// $(this).removeClass('hover');\n      }).on('active.app.menu', 'li', function (e) {\n        $(this).addClass('active');\n        e.stopPropagation();\n      }).on('deactive.app.menu', 'li.active', function (e) {\n        $(this).removeClass('active');\n        e.stopPropagation();\n      }).on('open.app.menu', 'li', function (e) {\n        var $listItem = $(this);\n        $listItem.addClass('open');\n        menuObj.expand($listItem); // If menu collapsible then do not take any action\n\n        if ($('.main-menu').hasClass('menu-collapsible')) {\n          return false;\n        } // If menu accordion then close all except clicked once\n        else {\n            $listItem.siblings('.open').find('li.open').trigger('close.app.menu');\n            $listItem.siblings('.open').trigger('close.app.menu');\n          }\n\n        e.stopPropagation();\n      }).on('close.app.menu', 'li.open', function (e) {\n        var $listItem = $(this);\n        $listItem.removeClass('open');\n        menuObj.collapse($listItem);\n        e.stopPropagation();\n      }).on('click.app.menu', 'li', function (e) {\n        var $listItem = $(this);\n\n        if ($listItem.is('.disabled')) {\n          e.preventDefault();\n        } else {\n          if ($body.hasClass('menu-collapsed') && $body.data('menu') != 'vertical-menu-modern') {\n            e.preventDefault();\n          } else {\n            if ($listItem.has('ul').length) {\n              if ($listItem.is('.open')) {\n                $listItem.trigger('close.app.menu');\n              } else {\n                $listItem.trigger('open.app.menu');\n              }\n            } else {\n              if (!$listItem.is('.active')) {\n                $listItem.siblings('.active').trigger('deactive.app.menu');\n                $listItem.trigger('active.app.menu');\n              }\n            }\n          }\n        }\n\n        e.stopPropagation();\n      });\n      $('.navbar-header, .main-menu').on('mouseenter', modernMenuExpand).on('mouseleave', modernMenuCollapse);\n\n      function modernMenuExpand() {\n        if ($body.data('menu') == 'vertical-menu-modern') {\n          $('.main-menu, .navbar-header').addClass('expanded');\n\n          if ($body.hasClass('menu-collapsed')) {\n            if ($('.main-menu li.open').length === 0) {\n              $('.main-menu-content').find('li.active').parents('li').addClass('open');\n            }\n\n            var $listItem = $('.main-menu li.menu-collapsed-open'),\n                $subList = $listItem.children('ul');\n            $subList.hide().slideDown(200, function () {\n              $(this).css('display', '');\n            });\n            $listItem.addClass('open').removeClass('menu-collapsed-open'); // $.app.menu.changeLogo('expand');\n          }\n        }\n      }\n\n      function modernMenuCollapse() {\n        if ($body.hasClass('menu-collapsed') && $body.data('menu') == 'vertical-menu-modern') {\n          setTimeout(function () {\n            if ($('.main-menu:hover').length === 0 && $('.navbar-header:hover').length === 0) {\n              $('.main-menu, .navbar-header').removeClass('expanded');\n\n              if ($body.hasClass('menu-collapsed')) {\n                var $listItem = $('.main-menu li.open'),\n                    $subList = $listItem.children('ul');\n                $listItem.addClass('menu-collapsed-open');\n                $subList.show().slideUp(200, function () {\n                  $(this).css('display', '');\n                });\n                $listItem.removeClass('open'); // $.app.menu.changeLogo();\n              }\n            }\n          }, 1);\n        }\n      }\n\n      $('.main-menu-content').on('mouseleave', function () {\n        if ($body.hasClass('menu-collapsed')) {\n          $('.main-menu-content').children('span.menu-title').remove();\n          $('.main-menu-content').children('a.menu-title').remove();\n          $('.main-menu-content').children('ul.menu-content').remove();\n        }\n\n        $('.hover', '.navigation-main').removeClass('hover');\n      }); // If list item has sub menu items then prevent redirection.\n\n      $('.navigation-main li.has-sub > a').on('click', function (e) {\n        e.preventDefault();\n      });\n      $('ul.menu-content').on('click', 'li', function (e) {\n        var $listItem = $(this);\n\n        if ($listItem.is('.disabled')) {\n          e.preventDefault();\n        } else {\n          if ($listItem.has('ul')) {\n            if ($listItem.is('.open')) {\n              $listItem.removeClass('open');\n              menuObj.collapse($listItem);\n            } else {\n              $listItem.addClass('open');\n              menuObj.expand($listItem); // If menu collapsible then do not take any action\n\n              if ($('.main-menu').hasClass('menu-collapsible')) {\n                return false;\n              } // If menu accordion then close all except clicked once\n              else {\n                  $listItem.siblings('.open').find('li.open').trigger('close.app.menu');\n                  $listItem.siblings('.open').trigger('close.app.menu');\n                }\n\n              e.stopPropagation();\n            }\n          } else {\n            if (!$listItem.is('.active')) {\n              $listItem.siblings('.active').trigger('deactive.app.menu');\n              $listItem.trigger('active.app.menu');\n            }\n          }\n        }\n\n        e.stopPropagation();\n      });\n    },\n\n    /**\n     * Ensure an admin submenu is within the visual viewport.\n     * @param {jQuery} $menuItem The parent menu item containing the submenu.\n     */\n    adjustSubmenu: function adjustSubmenu($menuItem) {\n      var menuHeaderHeight,\n          menutop,\n          topPos,\n          winHeight,\n          bottomOffset,\n          subMenuHeight,\n          popOutMenuHeight,\n          borderWidth,\n          scroll_theme,\n          $submenu = $menuItem.children('ul:first'),\n          ul = $submenu.clone(true);\n      menuHeaderHeight = $('.main-menu-header').height();\n      menutop = $menuItem.position().top;\n      winHeight = $window.height() - $('.header-navbar').height();\n      borderWidth = 0;\n      subMenuHeight = $submenu.height();\n\n      if (parseInt($menuItem.css('border-top'), 10) > 0) {\n        borderWidth = parseInt($menuItem.css('border-top'), 10);\n      }\n\n      popOutMenuHeight = winHeight - menutop - $menuItem.height() - 30;\n      scroll_theme = $('.main-menu').hasClass('menu-dark') ? 'light' : 'dark';\n      topPos = menutop + $menuItem.height() + borderWidth;\n      ul.addClass('menu-popout').appendTo('.main-menu-content').css({\n        top: topPos,\n        position: 'fixed',\n        'max-height': popOutMenuHeight\n      });\n      var menu_content = new PerfectScrollbar('.main-menu-content > ul.menu-content', {\n        wheelPropagation: false\n      });\n    },\n    collapse: function collapse($listItem, callback) {\n      var $subList = $listItem.children('ul');\n      $subList.show().slideUp($.app.nav.config.speed, function () {\n        $(this).css('display', '');\n        $(this).find('> li').removeClass('is-shown');\n\n        if (callback) {\n          callback();\n        }\n\n        $.app.nav.container.trigger('collapsed.app.menu');\n      });\n    },\n    expand: function expand($listItem, callback) {\n      var $subList = $listItem.children('ul');\n      var $children = $subList.children('li').addClass('is-hidden');\n      $subList.hide().slideDown($.app.nav.config.speed, function () {\n        $(this).css('display', '');\n\n        if (callback) {\n          callback();\n        }\n\n        $.app.nav.container.trigger('expanded.app.menu');\n      });\n      setTimeout(function () {\n        $children.addClass('is-shown');\n        $children.removeClass('is-hidden');\n      }, 0);\n    },\n    refresh: function refresh() {\n      $.app.nav.container.find('.open').removeClass('open');\n    }\n  };\n})(window, document, jQuery); // We listen to the resize event\n\n\nwindow.addEventListener('resize', function () {\n  // We execute the same script as before\n  var vh = window.innerHeight * 0.01;\n  document.documentElement.style.setProperty('--vh', \"\".concat(vh, \"px\"));\n});//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9yZXNvdXJjZXMvZnJvbnRlbmQvanMvY29yZS9hcHAtbWVudS5qcy5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL3Jlc291cmNlcy9mcm9udGVuZC9qcy9jb3JlL2FwcC1tZW51LmpzPzMxNDkiXSwic291cmNlc0NvbnRlbnQiOlsiLyo9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PVxuICBGaWxlIE5hbWU6IGFwcC1tZW51LmpzXG4gIERlc2NyaXB0aW9uOiBNZW51IG5hdmlnYXRpb24sIGN1c3RvbSBzY3JvbGxiYXIsIGhvdmVyIHNjcm9sbCBiYXIsIG11bHRpbGV2ZWwgbWVudVxuICBpbml0aWFsaXphdGlvbiBhbmQgbWFuaXB1bGF0aW9uc1xuICAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tXG4gIEl0ZW0gTmFtZTogIFZ1c2F4IC0gVnVlanMsIEhUTUwgJiBMYXJhdmVsIEFkbWluIERhc2hib2FyZCBUZW1wbGF0ZVxuICBBdXRob3I6IFBpeGludmVudFxuICBBdXRob3IgVVJMOiBoaHR0cDovL3d3dy50aGVtZWZvcmVzdC5uZXQvdXNlci9waXhpbnZlbnRcbj09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PSovXG4oZnVuY3Rpb24gKHdpbmRvdywgZG9jdW1lbnQsICQpIHtcbiAgJ3VzZSBzdHJpY3QnO1xuXG4gIHZhciB2aCA9IHdpbmRvdy5pbm5lckhlaWdodCAqIDAuMDE7XG4gIGRvY3VtZW50LmRvY3VtZW50RWxlbWVudC5zdHlsZS5zZXRQcm9wZXJ0eSgnLS12aCcsIFwiXCIuY29uY2F0KHZoLCBcInB4XCIpKTtcbiAgJC5hcHAgPSAkLmFwcCB8fCB7fTtcbiAgdmFyICRib2R5ID0gJCgnYm9keScpO1xuICB2YXIgJHdpbmRvdyA9ICQod2luZG93KTtcbiAgdmFyIG1lbnVXcmFwcGVyX2VsID0gJCgnZGl2W2RhdGEtbWVudT1cIm1lbnUtd3JhcHBlclwiXScpLmh0bWwoKTtcbiAgdmFyIG1lbnVXcmFwcGVyQ2xhc3NlcyA9ICQoJ2RpdltkYXRhLW1lbnU9XCJtZW51LXdyYXBwZXJcIl0nKS5hdHRyKCdjbGFzcycpOyAvLyBNYWluIG1lbnVcblxuICAkLmFwcC5tZW51ID0ge1xuICAgIGV4cGFuZGVkOiBudWxsLFxuICAgIGNvbGxhcHNlZDogbnVsbCxcbiAgICBoaWRkZW46IG51bGwsXG4gICAgY29udGFpbmVyOiBudWxsLFxuICAgIGhvcml6b250YWxNZW51OiBmYWxzZSxcbiAgICBpc190b3VjaF9kZXZpY2U6IGZ1bmN0aW9uIGlzX3RvdWNoX2RldmljZSgpIHtcbiAgICAgIHZhciBwcmVmaXhlcyA9ICcgLXdlYmtpdC0gLW1vei0gLW8tIC1tcy0gJy5zcGxpdCgnICcpO1xuXG4gICAgICB2YXIgbXEgPSBmdW5jdGlvbiBtcShxdWVyeSkge1xuICAgICAgICByZXR1cm4gd2luZG93Lm1hdGNoTWVkaWEocXVlcnkpLm1hdGNoZXM7XG4gICAgICB9O1xuXG4gICAgICBpZiAoJ29udG91Y2hzdGFydCcgaW4gd2luZG93IHx8IHdpbmRvdy5Eb2N1bWVudFRvdWNoICYmIGRvY3VtZW50IGluc3RhbmNlb2YgRG9jdW1lbnRUb3VjaCkge1xuICAgICAgICByZXR1cm4gdHJ1ZTtcbiAgICAgIH0gLy8gaW5jbHVkZSB0aGUgJ2hlYXJ0eicgYXMgYSB3YXkgdG8gaGF2ZSBhIG5vbiBtYXRjaGluZyBNUSB0byBoZWxwIHRlcm1pbmF0ZSB0aGUgam9pblxuICAgICAgLy8gaHR0cHM6Ly9naXQuaW8vdnpuRkhcblxuXG4gICAgICB2YXIgcXVlcnkgPSBbJygnLCBwcmVmaXhlcy5qb2luKCd0b3VjaC1lbmFibGVkKSwoJyksICdoZWFydHonLCAnKSddLmpvaW4oJycpO1xuICAgICAgcmV0dXJuIG1xKHF1ZXJ5KTtcbiAgICB9LFxuICAgIG1hbnVhbFNjcm9sbGVyOiB7XG4gICAgICBvYmo6IG51bGwsXG4gICAgICBpbml0OiBmdW5jdGlvbiBpbml0KCkge1xuICAgICAgICB2YXIgc2Nyb2xsX3RoZW1lID0gJCgnLm1haW4tbWVudScpLmhhc0NsYXNzKCdtZW51LWRhcmsnKSA/ICdsaWdodCcgOiAnZGFyayc7XG5cbiAgICAgICAgaWYgKCEkLmFwcC5tZW51LmlzX3RvdWNoX2RldmljZSgpKSB7XG4gICAgICAgICAgdGhpcy5vYmogPSBuZXcgUGVyZmVjdFNjcm9sbGJhcignLm1haW4tbWVudS1jb250ZW50Jywge1xuICAgICAgICAgICAgc3VwcHJlc3NTY3JvbGxYOiB0cnVlLFxuICAgICAgICAgICAgd2hlZWxQcm9wYWdhdGlvbjogZmFsc2VcbiAgICAgICAgICB9KTtcbiAgICAgICAgfSBlbHNlIHtcbiAgICAgICAgICAkKCcubWFpbi1tZW51JykuYWRkQ2xhc3MoJ21lbnUtbmF0aXZlLXNjcm9sbCcpO1xuICAgICAgICB9XG4gICAgICB9LFxuICAgICAgdXBkYXRlOiBmdW5jdGlvbiB1cGRhdGUoKSB7XG4gICAgICAgIGlmICh0aGlzLm9iaikge1xuICAgICAgICAgIC8vIFNjcm9sbCB0byBjdXJyZW50bHkgYWN0aXZlIG1lbnUgb24gcGFnZSBsb2FkIGlmIGRhdGEtc2Nyb2xsLXRvLWFjdGl2ZSBpcyB0cnVlXG4gICAgICAgICAgaWYgKCQoJy5tYWluLW1lbnUnKS5kYXRhKCdzY3JvbGwtdG8tYWN0aXZlJykgPT09IHRydWUpIHtcbiAgICAgICAgICAgIHZhciBhY3RpdmVFbCwgbWVudSwgYWN0aXZlRWxIZWlnaHQ7XG4gICAgICAgICAgICBhY3RpdmVFbCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoJy5tYWluLW1lbnUtY29udGVudCBsaS5hY3RpdmUnKTtcblxuICAgICAgICAgICAgaWYgKCRib2R5Lmhhc0NsYXNzKCdtZW51LWNvbGxhcHNlZCcpKSB7XG4gICAgICAgICAgICAgIGlmICgkKCcubWFpbi1tZW51LWNvbnRlbnQgbGkuc2lkZWJhci1ncm91cC1hY3RpdmUnKS5sZW5ndGgpIHtcbiAgICAgICAgICAgICAgICBhY3RpdmVFbCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoJy5tYWluLW1lbnUtY29udGVudCBsaS5zaWRlYmFyLWdyb3VwLWFjdGl2ZScpO1xuICAgICAgICAgICAgICB9XG4gICAgICAgICAgICB9IGVsc2Uge1xuICAgICAgICAgICAgICBtZW51ID0gZG9jdW1lbnQucXVlcnlTZWxlY3RvcignLm1haW4tbWVudS1jb250ZW50Jyk7XG5cbiAgICAgICAgICAgICAgaWYgKGFjdGl2ZUVsKSB7XG4gICAgICAgICAgICAgICAgYWN0aXZlRWxIZWlnaHQgPSBhY3RpdmVFbC5nZXRCb3VuZGluZ0NsaWVudFJlY3QoKS50b3AgKyBtZW51LnNjcm9sbFRvcDtcbiAgICAgICAgICAgICAgfSAvLyBJZiBhY3RpdmUgZWxlbWVudCdzIHRvcCBwb3NpdGlvbiBpcyBsZXNzIHRoYW4gMi8zICg2NiUpIG9mIG1lbnUgaGVpZ2h0IHRoYW4gZG8gbm90IHNjcm9sbFxuXG5cbiAgICAgICAgICAgICAgaWYgKGFjdGl2ZUVsSGVpZ2h0ID4gcGFyc2VJbnQobWVudS5jbGllbnRIZWlnaHQgKiAyIC8gMykpIHtcbiAgICAgICAgICAgICAgICB2YXIgc3RhcnQgPSBtZW51LnNjcm9sbFRvcCxcbiAgICAgICAgICAgICAgICAgICAgY2hhbmdlID0gYWN0aXZlRWxIZWlnaHQgLSBzdGFydCAtIHBhcnNlSW50KG1lbnUuY2xpZW50SGVpZ2h0IC8gMik7XG4gICAgICAgICAgICAgIH1cbiAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgc2V0VGltZW91dChmdW5jdGlvbiAoKSB7XG4gICAgICAgICAgICAgICQuYXBwLm1lbnUuY29udGFpbmVyLnN0b3AoKS5hbmltYXRlKHtcbiAgICAgICAgICAgICAgICBzY3JvbGxUb3A6IGNoYW5nZVxuICAgICAgICAgICAgICB9LCAzMDApO1xuICAgICAgICAgICAgICAkKCcubWFpbi1tZW51JykuZGF0YSgnc2Nyb2xsLXRvLWFjdGl2ZScsICdmYWxzZScpO1xuICAgICAgICAgICAgfSwgMzAwKTtcbiAgICAgICAgICB9XG5cbiAgICAgICAgICB0aGlzLm9iai51cGRhdGUoKTtcbiAgICAgICAgfVxuICAgICAgfSxcbiAgICAgIGVuYWJsZTogZnVuY3Rpb24gZW5hYmxlKCkge1xuICAgICAgICBpZiAoISQoJy5tYWluLW1lbnUtY29udGVudCcpLmhhc0NsYXNzKCdwcycpKSB7XG4gICAgICAgICAgdGhpcy5pbml0KCk7XG4gICAgICAgIH1cbiAgICAgIH0sXG4gICAgICBkaXNhYmxlOiBmdW5jdGlvbiBkaXNhYmxlKCkge1xuICAgICAgICBpZiAodGhpcy5vYmopIHtcbiAgICAgICAgICB0aGlzLm9iai5kZXN0cm95KCk7XG4gICAgICAgIH1cbiAgICAgIH0sXG4gICAgICB1cGRhdGVIZWlnaHQ6IGZ1bmN0aW9uIHVwZGF0ZUhlaWdodCgpIHtcbiAgICAgICAgaWYgKCgkYm9keS5kYXRhKCdtZW51JykgPT0gJ3ZlcnRpY2FsLW1lbnUnIHx8ICRib2R5LmRhdGEoJ21lbnUnKSA9PSAndmVydGljYWwtbWVudS1tb2Rlcm4nIHx8ICRib2R5LmRhdGEoJ21lbnUnKSA9PSAndmVydGljYWwtb3ZlcmxheS1tZW51JykgJiYgJCgnLm1haW4tbWVudScpLmhhc0NsYXNzKCdtZW51LWZpeGVkJykpIHtcbiAgICAgICAgICAkKCcubWFpbi1tZW51LWNvbnRlbnQnKS5jc3MoJ2hlaWdodCcsICQod2luZG93KS5oZWlnaHQoKSAtICQoJy5oZWFkZXItbmF2YmFyJykuaGVpZ2h0KCkgLSAkKCcubWFpbi1tZW51LWhlYWRlcicpLm91dGVySGVpZ2h0KCkgLSAkKCcubWFpbi1tZW51LWZvb3RlcicpLm91dGVySGVpZ2h0KCkpO1xuICAgICAgICAgIHRoaXMudXBkYXRlKCk7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9LFxuICAgIGluaXQ6IGZ1bmN0aW9uIGluaXQoY29tcGFjdE1lbnUpIHtcbiAgICAgIGlmICgkKCcubWFpbi1tZW51LWNvbnRlbnQnKS5sZW5ndGggPiAwKSB7XG4gICAgICAgIHRoaXMuY29udGFpbmVyID0gJCgnLm1haW4tbWVudS1jb250ZW50Jyk7XG4gICAgICAgIHZhciBtZW51T2JqID0gdGhpcztcbiAgICAgICAgdmFyIGRlZk1lbnUgPSAnJztcblxuICAgICAgICBpZiAoY29tcGFjdE1lbnUgPT09IHRydWUpIHtcbiAgICAgICAgICBkZWZNZW51ID0gJ2NvbGxhcHNlZCc7XG4gICAgICAgIH1cblxuICAgICAgICBpZiAoJGJvZHkuZGF0YSgnbWVudScpID09ICd2ZXJ0aWNhbC1tZW51LW1vZGVybicpIHtcbiAgICAgICAgICB2YXIgbWVudVRvZ2dsZSA9ICcnO1xuXG4gICAgICAgICAgaWYgKG1lbnVUb2dnbGUgPT09ICdmYWxzZScpIHtcbiAgICAgICAgICAgIHRoaXMuY2hhbmdlKCdjb2xsYXBzZWQnKTtcbiAgICAgICAgICB9IGVsc2Uge1xuICAgICAgICAgICAgdGhpcy5jaGFuZ2UoZGVmTWVudSk7XG4gICAgICAgICAgfVxuICAgICAgICB9IGVsc2Uge1xuICAgICAgICAgIHRoaXMuY2hhbmdlKGRlZk1lbnUpO1xuICAgICAgICB9XG4gICAgICB9XG4gICAgfSxcbiAgICBkcmlsbERvd25NZW51OiBmdW5jdGlvbiBkcmlsbERvd25NZW51KHNjcmVlblNpemUpIHtcbiAgICAgIGlmICgkKCcuZHJpbGxkb3duLW1lbnUnKS5sZW5ndGgpIHtcbiAgICAgICAgaWYgKHNjcmVlblNpemUgPT0gJ3NtJyB8fCBzY3JlZW5TaXplID09ICd4cycpIHtcbiAgICAgICAgICBpZiAoJCgnI25hdmJhci1tb2JpbGUnKS5hdHRyKCdhcmlhLWV4cGFuZGVkJykgPT0gJ3RydWUnKSB7XG4gICAgICAgICAgICAkKCcuZHJpbGxkb3duLW1lbnUnKS5zbGlkaW5nTWVudSh7XG4gICAgICAgICAgICAgIGJhY2tMYWJlbDogdHJ1ZVxuICAgICAgICAgICAgfSk7XG4gICAgICAgICAgfVxuICAgICAgICB9IGVsc2Uge1xuICAgICAgICAgICQoJy5kcmlsbGRvd24tbWVudScpLnNsaWRpbmdNZW51KHtcbiAgICAgICAgICAgIGJhY2tMYWJlbDogdHJ1ZVxuICAgICAgICAgIH0pO1xuICAgICAgICB9XG4gICAgICB9XG4gICAgfSxcbiAgICBjaGFuZ2U6IGZ1bmN0aW9uIGNoYW5nZShkZWZNZW51KSB7XG4gICAgICB2YXIgY3VycmVudEJyZWFrcG9pbnQgPSBVbmlzb24uZmV0Y2gubm93KCk7IC8vIEN1cnJlbnQgQnJlYWtwb2ludFxuXG4gICAgICB0aGlzLnJlc2V0KCk7XG4gICAgICB2YXIgbWVudVR5cGUgPSAkYm9keS5kYXRhKCdtZW51Jyk7XG5cbiAgICAgIGlmIChjdXJyZW50QnJlYWtwb2ludCkge1xuICAgICAgICBzd2l0Y2ggKGN1cnJlbnRCcmVha3BvaW50Lm5hbWUpIHtcbiAgICAgICAgICBjYXNlICd4bCc6XG4gICAgICAgICAgICBpZiAobWVudVR5cGUgPT09ICd2ZXJ0aWNhbC1vdmVybGF5LW1lbnUnKSB7XG4gICAgICAgICAgICAgIHRoaXMuaGlkZSgpO1xuICAgICAgICAgICAgfSBlbHNlIHtcbiAgICAgICAgICAgICAgaWYgKGRlZk1lbnUgPT09ICdjb2xsYXBzZWQnKSB0aGlzLmNvbGxhcHNlKGRlZk1lbnUpO2Vsc2UgdGhpcy5leHBhbmQoKTtcbiAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgYnJlYWs7XG5cbiAgICAgICAgICBjYXNlICdsZyc6XG4gICAgICAgICAgICBpZiAobWVudVR5cGUgPT09ICd2ZXJ0aWNhbC1vdmVybGF5LW1lbnUnIHx8IG1lbnVUeXBlID09PSAndmVydGljYWwtbWVudS1tb2Rlcm4nIHx8IG1lbnVUeXBlID09PSAnaG9yaXpvbnRhbC1tZW51Jykge1xuICAgICAgICAgICAgICB0aGlzLmhpZGUoKTtcbiAgICAgICAgICAgIH0gZWxzZSB7XG4gICAgICAgICAgICAgIHRoaXMuY29sbGFwc2UoKTtcbiAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgYnJlYWs7XG5cbiAgICAgICAgICBjYXNlICdtZCc6XG4gICAgICAgICAgY2FzZSAnc20nOlxuICAgICAgICAgICAgdGhpcy5oaWRlKCk7XG4gICAgICAgICAgICBicmVhaztcblxuICAgICAgICAgIGNhc2UgJ3hzJzpcbiAgICAgICAgICAgIHRoaXMuaGlkZSgpO1xuICAgICAgICAgICAgYnJlYWs7XG4gICAgICAgIH1cbiAgICAgIH0gLy8gT24gdGhlIHNtYWxsIGFuZCBleHRyYSBzbWFsbCBzY3JlZW4gbWFrZSB0aGVtIG92ZXJsYXkgbWVudVxuXG5cbiAgICAgIGlmIChtZW51VHlwZSA9PT0gJ3ZlcnRpY2FsLW1lbnUnIHx8IG1lbnVUeXBlID09PSAndmVydGljYWwtbWVudS1tb2Rlcm4nKSB7XG4gICAgICAgIHRoaXMudG9PdmVybGF5TWVudShjdXJyZW50QnJlYWtwb2ludC5uYW1lLCBtZW51VHlwZSk7XG4gICAgICB9XG5cbiAgICAgIGlmICgkYm9keS5pcygnLmhvcml6b250YWwtbGF5b3V0JykgJiYgISRib2R5Lmhhc0NsYXNzKCcuaG9yaXpvbnRhbC1tZW51LWRlbW8nKSkge1xuICAgICAgICB0aGlzLmNoYW5nZU1lbnUoY3VycmVudEJyZWFrcG9pbnQubmFtZSk7XG4gICAgICAgICQoJy5tZW51LXRvZ2dsZScpLnJlbW92ZUNsYXNzKCdpcy1hY3RpdmUnKTtcbiAgICAgIH0gLy8gSW5pdGlhbGl6ZSBkcmlsbCBkb3duIG1lbnUgZm9yIHZlcnRpY2FsIGxheW91dHMsIGZvciBob3Jpem9udGFsIGxheW91dHMgZHJpbGxkb3duIG1lbnUgaXMgaW50aXRpYWxpemVkIGluIGNoYW5nZW1lbnUgZnVuY3Rpb25cblxuXG4gICAgICBpZiAobWVudVR5cGUgIT0gJ2hvcml6b250YWwtbWVudScpIHtcbiAgICAgICAgLy8gRHJpbGwgZG93biBtZW51XG4gICAgICAgIC8vIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLVxuICAgICAgICB0aGlzLmRyaWxsRG93bk1lbnUoY3VycmVudEJyZWFrcG9pbnQubmFtZSk7XG4gICAgICB9IC8vIERyb3Bkb3duIHN1Ym1lbnUgb24gbGFyZ2Ugc2NyZWVuIG9uIGhvdmVyIEZvciBMYXJnZSBzY3JlZW4gb25seVxuICAgICAgLy8gLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tXG5cblxuICAgICAgaWYgKGN1cnJlbnRCcmVha3BvaW50Lm5hbWUgPT0gJ3hsJykge1xuICAgICAgICAkKCdib2R5W2RhdGEtb3Blbj1cImhvdmVyXCJdIC5oZWFkZXItbmF2YmFyIC5kcm9wZG93bicpLm9uKCdtb3VzZWVudGVyJywgZnVuY3Rpb24gKCkge1xuICAgICAgICAgIGlmICghJCh0aGlzKS5oYXNDbGFzcygnc2hvdycpKSB7XG4gICAgICAgICAgICAkKHRoaXMpLmFkZENsYXNzKCdzaG93Jyk7XG4gICAgICAgICAgfSBlbHNlIHtcbiAgICAgICAgICAgICQodGhpcykucmVtb3ZlQ2xhc3MoJ3Nob3cnKTtcbiAgICAgICAgICB9XG4gICAgICAgIH0pLm9uKCdtb3VzZWxlYXZlJywgZnVuY3Rpb24gKGV2ZW50KSB7XG4gICAgICAgICAgJCh0aGlzKS5yZW1vdmVDbGFzcygnc2hvdycpO1xuICAgICAgICB9KTtcbiAgICAgICAgJCgnYm9keVtkYXRhLW9wZW49XCJob3ZlclwiXSAuZHJvcGRvd24gYScpLm9uKCdjbGljaycsIGZ1bmN0aW9uIChlKSB7XG4gICAgICAgICAgaWYgKG1lbnVUeXBlID09ICdob3Jpem9udGFsLW1lbnUnKSB7XG4gICAgICAgICAgICB2YXIgJHRoaXMgPSAkKHRoaXMpO1xuXG4gICAgICAgICAgICBpZiAoJHRoaXMuaGFzQ2xhc3MoJ2Ryb3Bkb3duLXRvZ2dsZScpKSB7XG4gICAgICAgICAgICAgIHJldHVybiBmYWxzZTtcbiAgICAgICAgICAgIH1cbiAgICAgICAgICB9XG4gICAgICAgIH0pO1xuICAgICAgfSAvLyBBZGRlZCBkYXRhIGF0dHJpYnV0ZSBicmFuZC1jZW50ZXIgZm9yIG5hdmJhci1icmFuZC1jZW50ZXJcbiAgICAgIC8vIFRPRE86QUo6IFNoaWZ0IHRoaXMgZmVhdHVyZSBpbiBKQURFLlxuXG5cbiAgICAgIGlmICgkKCcuaGVhZGVyLW5hdmJhcicpLmhhc0NsYXNzKCduYXZiYXItYnJhbmQtY2VudGVyJykpIHtcbiAgICAgICAgJCgnLmhlYWRlci1uYXZiYXInKS5hdHRyKCdkYXRhLW5hdicsICdicmFuZC1jZW50ZXInKTtcbiAgICAgIH1cblxuICAgICAgaWYgKGN1cnJlbnRCcmVha3BvaW50Lm5hbWUgPT0gJ3NtJyB8fCBjdXJyZW50QnJlYWtwb2ludC5uYW1lID09ICd4cycpIHtcbiAgICAgICAgJCgnLmhlYWRlci1uYXZiYXJbZGF0YS1uYXY9YnJhbmQtY2VudGVyXScpLnJlbW92ZUNsYXNzKCduYXZiYXItYnJhbmQtY2VudGVyJyk7XG4gICAgICB9IGVsc2Uge1xuICAgICAgICAkKCcuaGVhZGVyLW5hdmJhcltkYXRhLW5hdj1icmFuZC1jZW50ZXJdJykuYWRkQ2xhc3MoJ25hdmJhci1icmFuZC1jZW50ZXInKTtcbiAgICAgIH0gLy8gT24gc2NyZWVuIHdpZHRoIGNoYW5nZSwgY3VycmVudCBhY3RpdmUgbWVudSBpbiBob3Jpem9udGFsXG5cblxuICAgICAgaWYgKGN1cnJlbnRCcmVha3BvaW50Lm5hbWUgPT0gJ3hsJyAmJiBtZW51VHlwZSA9PSAnaG9yaXpvbnRhbC1tZW51Jykge1xuICAgICAgICAkKCcubWFpbi1tZW51LWNvbnRlbnQnKS5maW5kKCdsaS5hY3RpdmUnKS5wYXJlbnRzKCdsaScpLmFkZENsYXNzKCdzaWRlYmFyLWdyb3VwLWFjdGl2ZSBhY3RpdmUnKTtcbiAgICAgIH1cblxuICAgICAgaWYgKGN1cnJlbnRCcmVha3BvaW50Lm5hbWUgIT09ICd4bCcgJiYgbWVudVR5cGUgPT0gJ2hvcml6b250YWwtbWVudScpIHtcbiAgICAgICAgJCgnI25hdmJhci10eXBlJykudG9nZ2xlQ2xhc3MoJ2Qtbm9uZSBkLXhsLWJsb2NrJyk7XG4gICAgICB9IC8vIERyb3Bkb3duIHN1Ym1lbnUgb24gc21hbGwgc2NyZWVuIG9uIGNsaWNrXG4gICAgICAvLyAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLVxuXG5cbiAgICAgICQoJ3VsLmRyb3Bkb3duLW1lbnUgW2RhdGEtdG9nZ2xlPWRyb3Bkb3duXScpLm9uKCdjbGljaycsIGZ1bmN0aW9uIChldmVudCkge1xuICAgICAgICBpZiAoJCh0aGlzKS5zaWJsaW5ncygndWwuZHJvcGRvd24tbWVudScpLmxlbmd0aCA+IDApIHtcbiAgICAgICAgICBldmVudC5wcmV2ZW50RGVmYXVsdCgpO1xuICAgICAgICB9XG5cbiAgICAgICAgZXZlbnQuc3RvcFByb3BhZ2F0aW9uKCk7XG4gICAgICAgICQodGhpcykucGFyZW50KCkuc2libGluZ3MoKS5yZW1vdmVDbGFzcygnc2hvdycpO1xuICAgICAgICAkKHRoaXMpLnBhcmVudCgpLnRvZ2dsZUNsYXNzKCdzaG93Jyk7XG4gICAgICB9KTsgLy8gSG9yaXpvbnRhbCBsYXlvdXQgc3VibWVudSBkcmF3ZXIgc2Nyb2xsYmFyXG5cbiAgICAgIGlmIChtZW51VHlwZSA9PSAnaG9yaXpvbnRhbC1tZW51Jykge1xuICAgICAgICAkKCdsaS5kcm9wZG93bi1zdWJtZW51Jykub24oJ21vdXNlZW50ZXInLCBmdW5jdGlvbiAoKSB7XG4gICAgICAgICAgaWYgKCEkKHRoaXMpLnBhcmVudCgnLmRyb3Bkb3duJykuaGFzQ2xhc3MoJ3Nob3cnKSkge1xuICAgICAgICAgICAgJCh0aGlzKS5yZW1vdmVDbGFzcygnb3BlbkxlZnQnKTtcbiAgICAgICAgICB9XG5cbiAgICAgICAgICB2YXIgZGQgPSAkKHRoaXMpLmZpbmQoJy5kcm9wZG93bi1tZW51Jyk7XG5cbiAgICAgICAgICBpZiAoZGQubGVuZ3RoID4gMCkge1xuICAgICAgICAgICAgdmFyIHBhZ2VIZWlnaHQgPSAkKHdpbmRvdykuaGVpZ2h0KCksXG4gICAgICAgICAgICAgICAgZGRUb3AgPSAkKHRoaXMpLnBvc2l0aW9uKCkudG9wLFxuICAgICAgICAgICAgICAgIGRkTGVmdCA9IGRkLm9mZnNldCgpLmxlZnQsXG4gICAgICAgICAgICAgICAgZGRXaWR0aCA9IGRkLndpZHRoKCksXG4gICAgICAgICAgICAgICAgZGRIZWlnaHQgPSBkZC5oZWlnaHQoKTtcblxuICAgICAgICAgICAgaWYgKHBhZ2VIZWlnaHQgLSBkZFRvcCAtIGRkSGVpZ2h0IC0gMjggPCAxKSB7XG4gICAgICAgICAgICAgIHZhciBtYXhIZWlnaHQgPSBwYWdlSGVpZ2h0IC0gZGRUb3AgLSAxNzA7XG4gICAgICAgICAgICAgICQodGhpcykuZmluZCgnLmRyb3Bkb3duLW1lbnUnKS5jc3Moe1xuICAgICAgICAgICAgICAgICdtYXgtaGVpZ2h0JzogbWF4SGVpZ2h0ICsgJ3B4JyxcbiAgICAgICAgICAgICAgICAnb3ZlcmZsb3cteSc6ICdhdXRvJyxcbiAgICAgICAgICAgICAgICAnb3ZlcmZsb3cteCc6ICdoaWRkZW4nXG4gICAgICAgICAgICAgIH0pO1xuICAgICAgICAgICAgICB2YXIgbWVudV9jb250ZW50ID0gbmV3IFBlcmZlY3RTY3JvbGxiYXIoJ2xpLmRyb3Bkb3duLXN1Ym1lbnUuc2hvdyAuZHJvcGRvd24tbWVudScsIHtcbiAgICAgICAgICAgICAgICB3aGVlbFByb3BhZ2F0aW9uOiBmYWxzZVxuICAgICAgICAgICAgICB9KTtcbiAgICAgICAgICAgIH0gLy8gQWRkIGNsYXNzIHRvIGhvcml6b250YWwgc3ViIG1lbnUgaWYgc2NyZWVuIHdpZHRoIGlzIHNtYWxsXG5cblxuICAgICAgICAgICAgaWYgKGRkTGVmdCArIGRkV2lkdGggLSAod2luZG93LmlubmVyV2lkdGggLSAxNikgPj0gMCkge1xuICAgICAgICAgICAgICAkKHRoaXMpLmFkZENsYXNzKCdvcGVuTGVmdCcpO1xuICAgICAgICAgICAgfVxuICAgICAgICAgIH1cbiAgICAgICAgfSk7XG4gICAgICAgICQoJy50aGVtZS1sYXlvdXRzJykuZmluZCgnLnNlbWktZGFyaycpLmhpZGUoKTtcbiAgICAgICAgJCgnI2N1c3RvbWl6ZXItbmF2YmFyLWNvbG9ycycpLmhpZGUoKTtcbiAgICAgIH1cbiAgICAgIC8qKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKlxuICAgICAgICogICAgICAgICAgICAgU2VhcmNoYWJsZSBNZW51ICAgICAgICAgICAgICAgKlxuICAgICAgICoqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqL1xuXG5cbiAgICAgIGZ1bmN0aW9uIHNlYXJjaE1lbnUobGlzdCkge1xuICAgICAgICB2YXIgaW5wdXQgPSAkKCcubWVudS1zZWFyY2gnKTtcbiAgICAgICAgJChpbnB1dCkuY2hhbmdlKGZ1bmN0aW9uICgpIHtcbiAgICAgICAgICB2YXIgZmlsdGVyID0gJCh0aGlzKS52YWwoKTtcblxuICAgICAgICAgIGlmIChmaWx0ZXIpIHtcbiAgICAgICAgICAgIC8vIEhpZGUgTWFpbiBOYXZpZ2F0aW9uIEhlYWRlcnNcbiAgICAgICAgICAgICQoJy5uYXZpZ2F0aW9uLWhlYWRlcicpLmhpZGUoKTsgLy8gdGhpcyBmaW5kcyBhbGwgbGlua3MgaW4gYSBsaXN0IHRoYXQgY29udGFpbiB0aGUgaW5wdXQsXG4gICAgICAgICAgICAvLyBhbmQgaGlkZSB0aGUgb25lcyBub3QgY29udGFpbmluZyB0aGUgaW5wdXQgd2hpbGUgc2hvd2luZyB0aGUgb25lcyB0aGF0IGRvXG5cbiAgICAgICAgICAgICQobGlzdCkuZmluZCgnbGkgYTpub3QoOkNvbnRhaW5zKCcgKyBmaWx0ZXIgKyAnKSknKS5oaWRlKCkucGFyZW50KCkuaGlkZSgpOyAvLyAkKGxpc3QpLmZpbmQoXCJsaSBhOkNvbnRhaW5zKFwiICsgZmlsdGVyICsgXCIpXCIpLnNob3coKS5wYXJlbnRzKCdsaScpLnNob3coKS5hZGRDbGFzcygnb3BlbicpLmNsb3Nlc3QoJ2xpJykuY2hpbGRyZW4oJ2EnKS5zaG93KCk7XG5cbiAgICAgICAgICAgIHZhciBzZWFyY2hGaWx0ZXIgPSAkKGxpc3QpLmZpbmQoJ2xpIGE6Q29udGFpbnMoJyArIGZpbHRlciArICcpJyk7XG5cbiAgICAgICAgICAgIGlmIChzZWFyY2hGaWx0ZXIucGFyZW50KCkuaGFzQ2xhc3MoJ2hhcy1zdWInKSkge1xuICAgICAgICAgICAgICBzZWFyY2hGaWx0ZXIuc2hvdygpLnBhcmVudHMoJ2xpJykuc2hvdygpLmFkZENsYXNzKCdvcGVuJykuY2xvc2VzdCgnbGknKS5jaGlsZHJlbignYScpLnNob3coKS5jaGlsZHJlbignbGknKS5zaG93KCk7IC8vIHNlYXJjaEZpbHRlci5wYXJlbnRzKCdsaScpLmZpbmQoJ2xpJykuc2hvdygpLmNoaWxkcmVuKCdhJykuc2hvdygpO1xuXG4gICAgICAgICAgICAgIGlmIChzZWFyY2hGaWx0ZXIuc2libGluZ3MoJ3VsJykubGVuZ3RoID4gMCkge1xuICAgICAgICAgICAgICAgIHNlYXJjaEZpbHRlci5zaWJsaW5ncygndWwnKS5jaGlsZHJlbignbGknKS5zaG93KCkuY2hpbGRyZW4oJ2EnKS5zaG93KCk7XG4gICAgICAgICAgICAgIH1cbiAgICAgICAgICAgIH0gZWxzZSB7XG4gICAgICAgICAgICAgIHNlYXJjaEZpbHRlci5zaG93KCkucGFyZW50cygnbGknKS5zaG93KCkuYWRkQ2xhc3MoJ29wZW4nKS5jbG9zZXN0KCdsaScpLmNoaWxkcmVuKCdhJykuc2hvdygpO1xuICAgICAgICAgICAgfVxuICAgICAgICAgIH0gZWxzZSB7XG4gICAgICAgICAgICAvLyByZXR1cm4gdG8gZGVmYXVsdFxuICAgICAgICAgICAgJCgnLm5hdmlnYXRpb24taGVhZGVyJykuc2hvdygpO1xuICAgICAgICAgICAgJChsaXN0KS5maW5kKCdsaSBhJykuc2hvdygpLnBhcmVudCgpLnNob3coKS5yZW1vdmVDbGFzcygnb3BlbicpO1xuICAgICAgICAgIH1cblxuICAgICAgICAgICQuYXBwLm1lbnUubWFudWFsU2Nyb2xsZXIudXBkYXRlKCk7XG4gICAgICAgICAgcmV0dXJuIGZhbHNlO1xuICAgICAgICB9KS5rZXl1cChmdW5jdGlvbiAoKSB7XG4gICAgICAgICAgLy8gZmlyZSB0aGUgYWJvdmUgY2hhbmdlIGV2ZW50IGFmdGVyIGV2ZXJ5IGxldHRlclxuICAgICAgICAgICQodGhpcykuY2hhbmdlKCk7XG4gICAgICAgIH0pO1xuICAgICAgfVxuXG4gICAgICBpZiAobWVudVR5cGUgPT09ICd2ZXJ0aWNhbC1tZW51JyB8fCBtZW51VHlwZSA9PT0gJ3ZlcnRpY2FsLW92ZXJsYXktbWVudScpIHtcbiAgICAgICAgLy8gY3VzdG9tIGNzcyBleHByZXNzaW9uIGZvciBhIGNhc2UtaW5zZW5zaXRpdmUgY29udGFpbnMoKVxuICAgICAgICBqUXVlcnkuZXhwclsnOiddLkNvbnRhaW5zID0gZnVuY3Rpb24gKGEsIGksIG0pIHtcbiAgICAgICAgICByZXR1cm4gKGEudGV4dENvbnRlbnQgfHwgYS5pbm5lclRleHQgfHwgJycpLnRvVXBwZXJDYXNlKCkuaW5kZXhPZihtWzNdLnRvVXBwZXJDYXNlKCkpID49IDA7XG4gICAgICAgIH07XG5cbiAgICAgICAgc2VhcmNoTWVudSgkKCcjbWFpbi1tZW51LW5hdmlnYXRpb24nKSk7XG4gICAgICB9XG4gICAgfSxcbiAgICB0cmFuc2l0OiBmdW5jdGlvbiB0cmFuc2l0KGNhbGxiYWNrMSwgY2FsbGJhY2syKSB7XG4gICAgICB2YXIgbWVudU9iaiA9IHRoaXM7XG4gICAgICAkYm9keS5hZGRDbGFzcygnY2hhbmdpbmctbWVudScpO1xuICAgICAgY2FsbGJhY2sxLmNhbGwobWVudU9iaik7XG5cbiAgICAgIGlmICgkYm9keS5oYXNDbGFzcygndmVydGljYWwtbGF5b3V0JykpIHtcbiAgICAgICAgaWYgKCRib2R5Lmhhc0NsYXNzKCdtZW51LW9wZW4nKSB8fCAkYm9keS5oYXNDbGFzcygnbWVudS1leHBhbmRlZCcpKSB7XG4gICAgICAgICAgJCgnLm1lbnUtdG9nZ2xlJykuYWRkQ2xhc3MoJ2lzLWFjdGl2ZScpOyAvLyBTaG93IG1lbnUgaGVhZGVyIHNlYXJjaCB3aGVuIG1lbnUgaXMgbm9ybWFsbHkgdmlzaWJsZVxuXG4gICAgICAgICAgaWYgKCRib2R5LmRhdGEoJ21lbnUnKSA9PT0gJ3ZlcnRpY2FsLW1lbnUnKSB7XG4gICAgICAgICAgICBpZiAoJCgnLm1haW4tbWVudS1oZWFkZXInKSkge1xuICAgICAgICAgICAgICAkKCcubWFpbi1tZW51LWhlYWRlcicpLnNob3coKTtcbiAgICAgICAgICAgIH1cbiAgICAgICAgICB9XG4gICAgICAgIH0gZWxzZSB7XG4gICAgICAgICAgJCgnLm1lbnUtdG9nZ2xlJykucmVtb3ZlQ2xhc3MoJ2lzLWFjdGl2ZScpOyAvLyBIaWRlIG1lbnUgaGVhZGVyIHNlYXJjaCB3aGVuIG9ubHkgbWVudSBpY29ucyBhcmUgdmlzaWJsZVxuXG4gICAgICAgICAgaWYgKCRib2R5LmRhdGEoJ21lbnUnKSA9PT0gJ3ZlcnRpY2FsLW1lbnUnKSB7XG4gICAgICAgICAgICBpZiAoJCgnLm1haW4tbWVudS1oZWFkZXInKSkge1xuICAgICAgICAgICAgICAkKCcubWFpbi1tZW51LWhlYWRlcicpLmhpZGUoKTtcbiAgICAgICAgICAgIH1cbiAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICAgIH1cblxuICAgICAgc2V0VGltZW91dChmdW5jdGlvbiAoKSB7XG4gICAgICAgIGNhbGxiYWNrMi5jYWxsKG1lbnVPYmopO1xuICAgICAgICAkYm9keS5yZW1vdmVDbGFzcygnY2hhbmdpbmctbWVudScpO1xuICAgICAgICBtZW51T2JqLnVwZGF0ZSgpO1xuICAgICAgfSwgNTAwKTtcbiAgICB9LFxuICAgIG9wZW46IGZ1bmN0aW9uIG9wZW4oKSB7XG4gICAgICB0aGlzLnRyYW5zaXQoZnVuY3Rpb24gKCkge1xuICAgICAgICAkYm9keS5yZW1vdmVDbGFzcygnbWVudS1oaWRlIG1lbnUtY29sbGFwc2VkJykuYWRkQ2xhc3MoJ21lbnUtb3BlbicpO1xuICAgICAgICB0aGlzLmhpZGRlbiA9IGZhbHNlO1xuICAgICAgICB0aGlzLmV4cGFuZGVkID0gdHJ1ZTtcblxuICAgICAgICBpZiAoJGJvZHkuaGFzQ2xhc3MoJ3ZlcnRpY2FsLW92ZXJsYXktbWVudScpKSB7XG4gICAgICAgICAgJCgnLnNpZGVuYXYtb3ZlcmxheScpLnJlbW92ZUNsYXNzKCdkLW5vbmUnKS5hZGRDbGFzcygnZC1ibG9jaycpO1xuICAgICAgICAgICQoJ2JvZHknKS5jc3MoJ292ZXJmbG93JywgJ2hpZGRlbicpO1xuICAgICAgICB9XG4gICAgICB9LCBmdW5jdGlvbiAoKSB7XG4gICAgICAgIGlmICghJCgnLm1haW4tbWVudScpLmhhc0NsYXNzKCdtZW51LW5hdGl2ZS1zY3JvbGwnKSAmJiAkKCcubWFpbi1tZW51JykuaGFzQ2xhc3MoJ21lbnUtZml4ZWQnKSkge1xuICAgICAgICAgIHRoaXMubWFudWFsU2Nyb2xsZXIuZW5hYmxlKCk7XG4gICAgICAgICAgJCgnLm1haW4tbWVudS1jb250ZW50JykuY3NzKCdoZWlnaHQnLCAkKHdpbmRvdykuaGVpZ2h0KCkgLSAkKCcuaGVhZGVyLW5hdmJhcicpLmhlaWdodCgpIC0gJCgnLm1haW4tbWVudS1oZWFkZXInKS5vdXRlckhlaWdodCgpIC0gJCgnLm1haW4tbWVudS1mb290ZXInKS5vdXRlckhlaWdodCgpKTsgLy8gdGhpcy5tYW51YWxTY3JvbGxlci51cGRhdGUoKTtcbiAgICAgICAgfVxuXG4gICAgICAgIGlmICghJGJvZHkuaGFzQ2xhc3MoJ3ZlcnRpY2FsLW92ZXJsYXktbWVudScpKSB7XG4gICAgICAgICAgJCgnLnNpZGVuYXYtb3ZlcmxheScpLnJlbW92ZUNsYXNzKCdkLWJsb2NrIGQtbm9uZScpO1xuICAgICAgICAgICQoJ2JvZHknKS5jc3MoJ292ZXJmbG93JywgJ2F1dG8nKTtcbiAgICAgICAgfVxuICAgICAgfSk7XG4gICAgfSxcbiAgICBoaWRlOiBmdW5jdGlvbiBoaWRlKCkge1xuICAgICAgdGhpcy50cmFuc2l0KGZ1bmN0aW9uICgpIHtcbiAgICAgICAgJGJvZHkucmVtb3ZlQ2xhc3MoJ21lbnUtb3BlbiBtZW51LWV4cGFuZGVkJykuYWRkQ2xhc3MoJ21lbnUtaGlkZScpO1xuICAgICAgICB0aGlzLmhpZGRlbiA9IHRydWU7XG4gICAgICAgIHRoaXMuZXhwYW5kZWQgPSBmYWxzZTtcblxuICAgICAgICBpZiAoJGJvZHkuaGFzQ2xhc3MoJ3ZlcnRpY2FsLW92ZXJsYXktbWVudScpKSB7XG4gICAgICAgICAgJCgnLnNpZGVuYXYtb3ZlcmxheScpLnJlbW92ZUNsYXNzKCdkLWJsb2NrJykuYWRkQ2xhc3MoJ2Qtbm9uZScpO1xuICAgICAgICAgICQoJ2JvZHknKS5jc3MoJ292ZXJmbG93JywgJ2F1dG8nKTtcbiAgICAgICAgfVxuICAgICAgfSwgZnVuY3Rpb24gKCkge1xuICAgICAgICBpZiAoISQoJy5tYWluLW1lbnUnKS5oYXNDbGFzcygnbWVudS1uYXRpdmUtc2Nyb2xsJykgJiYgJCgnLm1haW4tbWVudScpLmhhc0NsYXNzKCdtZW51LWZpeGVkJykpIHtcbiAgICAgICAgICB0aGlzLm1hbnVhbFNjcm9sbGVyLmVuYWJsZSgpO1xuICAgICAgICB9XG5cbiAgICAgICAgaWYgKCEkYm9keS5oYXNDbGFzcygndmVydGljYWwtb3ZlcmxheS1tZW51JykpIHtcbiAgICAgICAgICAkKCcuc2lkZW5hdi1vdmVybGF5JykucmVtb3ZlQ2xhc3MoJ2QtYmxvY2sgZC1ub25lJyk7XG4gICAgICAgICAgJCgnYm9keScpLmNzcygnb3ZlcmZsb3cnLCAnYXV0bycpO1xuICAgICAgICB9XG4gICAgICB9KTtcbiAgICB9LFxuICAgIGV4cGFuZDogZnVuY3Rpb24gZXhwYW5kKCkge1xuICAgICAgaWYgKHRoaXMuZXhwYW5kZWQgPT09IGZhbHNlKSB7XG4gICAgICAgIGlmICgkYm9keS5kYXRhKCdtZW51JykgPT0gJ3ZlcnRpY2FsLW1lbnUtbW9kZXJuJykge1xuICAgICAgICAgICQoJy5tb2Rlcm4tbmF2LXRvZ2dsZScpLmZpbmQoJy50b2dnbGUtaWNvbicpLnJlbW92ZUNsYXNzKCdmZWF0aGVyIGljb24tY2lyY2xlJykuYWRkQ2xhc3MoJ2ZlYXRoZXIgaWNvbi1kaXNjJyk7XG4gICAgICAgIH1cblxuICAgICAgICB0aGlzLnRyYW5zaXQoZnVuY3Rpb24gKCkge1xuICAgICAgICAgICRib2R5LnJlbW92ZUNsYXNzKCdtZW51LWNvbGxhcHNlZCcpLmFkZENsYXNzKCdtZW51LWV4cGFuZGVkJyk7XG4gICAgICAgICAgdGhpcy5jb2xsYXBzZWQgPSBmYWxzZTtcbiAgICAgICAgICB0aGlzLmV4cGFuZGVkID0gdHJ1ZTtcbiAgICAgICAgICAkKCcuc2lkZW5hdi1vdmVybGF5JykucmVtb3ZlQ2xhc3MoJ2QtYmxvY2sgZC1ub25lJyk7XG4gICAgICAgIH0sIGZ1bmN0aW9uICgpIHtcbiAgICAgICAgICBpZiAoJCgnLm1haW4tbWVudScpLmhhc0NsYXNzKCdtZW51LW5hdGl2ZS1zY3JvbGwnKSB8fCAkYm9keS5kYXRhKCdtZW51JykgPT0gJ2hvcml6b250YWwtbWVudScpIHtcbiAgICAgICAgICAgIHRoaXMubWFudWFsU2Nyb2xsZXIuZGlzYWJsZSgpO1xuICAgICAgICAgIH0gZWxzZSB7XG4gICAgICAgICAgICBpZiAoJCgnLm1haW4tbWVudScpLmhhc0NsYXNzKCdtZW51LWZpeGVkJykpIHRoaXMubWFudWFsU2Nyb2xsZXIuZW5hYmxlKCk7XG4gICAgICAgICAgfVxuXG4gICAgICAgICAgaWYgKCgkYm9keS5kYXRhKCdtZW51JykgPT0gJ3ZlcnRpY2FsLW1lbnUnIHx8ICRib2R5LmRhdGEoJ21lbnUnKSA9PSAndmVydGljYWwtbWVudS1tb2Rlcm4nKSAmJiAkKCcubWFpbi1tZW51JykuaGFzQ2xhc3MoJ21lbnUtZml4ZWQnKSkge1xuICAgICAgICAgICAgJCgnLm1haW4tbWVudS1jb250ZW50JykuY3NzKCdoZWlnaHQnLCAkKHdpbmRvdykuaGVpZ2h0KCkgLSAkKCcuaGVhZGVyLW5hdmJhcicpLmhlaWdodCgpIC0gJCgnLm1haW4tbWVudS1oZWFkZXInKS5vdXRlckhlaWdodCgpIC0gJCgnLm1haW4tbWVudS1mb290ZXInKS5vdXRlckhlaWdodCgpKTsgLy8gdGhpcy5tYW51YWxTY3JvbGxlci51cGRhdGUoKTtcbiAgICAgICAgICB9XG4gICAgICAgIH0pO1xuICAgICAgfVxuICAgIH0sXG4gICAgY29sbGFwc2U6IGZ1bmN0aW9uIGNvbGxhcHNlKGRlZk1lbnUpIHtcbiAgICAgIGlmICh0aGlzLmNvbGxhcHNlZCA9PT0gZmFsc2UpIHtcbiAgICAgICAgaWYgKCRib2R5LmRhdGEoJ21lbnUnKSA9PSAndmVydGljYWwtbWVudS1tb2Rlcm4nKSB7XG4gICAgICAgICAgJCgnLm1vZGVybi1uYXYtdG9nZ2xlJykuZmluZCgnLnRvZ2dsZS1pY29uJykucmVtb3ZlQ2xhc3MoJ2ZlYXRoZXIgaWNvbi1kaXNjJykuYWRkQ2xhc3MoJ2ZlYXRoZXIgaWNvbi1jaXJjbGUnKTtcbiAgICAgICAgfVxuXG4gICAgICAgIHRoaXMudHJhbnNpdChmdW5jdGlvbiAoKSB7XG4gICAgICAgICAgJGJvZHkucmVtb3ZlQ2xhc3MoJ21lbnUtZXhwYW5kZWQnKS5hZGRDbGFzcygnbWVudS1jb2xsYXBzZWQnKTtcbiAgICAgICAgICB0aGlzLmNvbGxhcHNlZCA9IHRydWU7XG4gICAgICAgICAgdGhpcy5leHBhbmRlZCA9IGZhbHNlO1xuICAgICAgICAgICQoJy5jb250ZW50LW92ZXJsYXknKS5yZW1vdmVDbGFzcygnZC1ibG9jayBkLW5vbmUnKTtcbiAgICAgICAgfSwgZnVuY3Rpb24gKCkge1xuICAgICAgICAgIGlmICgkYm9keS5kYXRhKCdtZW51JykgPT0gJ2hvcml6b250YWwtbWVudScgJiYgJGJvZHkuaGFzQ2xhc3MoJ3ZlcnRpY2FsLW92ZXJsYXktbWVudScpKSB7XG4gICAgICAgICAgICBpZiAoJCgnLm1haW4tbWVudScpLmhhc0NsYXNzKCdtZW51LWZpeGVkJykpIHRoaXMubWFudWFsU2Nyb2xsZXIuZW5hYmxlKCk7XG4gICAgICAgICAgfVxuXG4gICAgICAgICAgaWYgKCgkYm9keS5kYXRhKCdtZW51JykgPT0gJ3ZlcnRpY2FsLW1lbnUnIHx8ICRib2R5LmRhdGEoJ21lbnUnKSA9PSAndmVydGljYWwtbWVudS1tb2Rlcm4nKSAmJiAkKCcubWFpbi1tZW51JykuaGFzQ2xhc3MoJ21lbnUtZml4ZWQnKSkge1xuICAgICAgICAgICAgJCgnLm1haW4tbWVudS1jb250ZW50JykuY3NzKCdoZWlnaHQnLCAkKHdpbmRvdykuaGVpZ2h0KCkgLSAkKCcuaGVhZGVyLW5hdmJhcicpLmhlaWdodCgpKTsgLy8gdGhpcy5tYW51YWxTY3JvbGxlci51cGRhdGUoKTtcbiAgICAgICAgICB9XG5cbiAgICAgICAgICBpZiAoJGJvZHkuZGF0YSgnbWVudScpID09ICd2ZXJ0aWNhbC1tZW51LW1vZGVybicpIHtcbiAgICAgICAgICAgIGlmICgkKCcubWFpbi1tZW51JykuaGFzQ2xhc3MoJ21lbnUtZml4ZWQnKSkgdGhpcy5tYW51YWxTY3JvbGxlci5lbmFibGUoKTtcbiAgICAgICAgICB9XG4gICAgICAgIH0pO1xuICAgICAgfVxuICAgIH0sXG4gICAgdG9PdmVybGF5TWVudTogZnVuY3Rpb24gdG9PdmVybGF5TWVudShzY3JlZW4sIG1lbnVUeXBlKSB7XG4gICAgICB2YXIgbWVudSA9ICRib2R5LmRhdGEoJ21lbnUnKTtcblxuICAgICAgaWYgKG1lbnVUeXBlID09ICd2ZXJ0aWNhbC1tZW51LW1vZGVybicpIHtcbiAgICAgICAgaWYgKHNjcmVlbiA9PSAnbGcnIHx8IHNjcmVlbiA9PSAnbWQnIHx8IHNjcmVlbiA9PSAnc20nIHx8IHNjcmVlbiA9PSAneHMnKSB7XG4gICAgICAgICAgaWYgKCRib2R5Lmhhc0NsYXNzKG1lbnUpKSB7XG4gICAgICAgICAgICAkYm9keS5yZW1vdmVDbGFzcyhtZW51KS5hZGRDbGFzcygndmVydGljYWwtb3ZlcmxheS1tZW51Jyk7XG4gICAgICAgICAgfVxuICAgICAgICB9IGVsc2Uge1xuICAgICAgICAgIGlmICgkYm9keS5oYXNDbGFzcygndmVydGljYWwtb3ZlcmxheS1tZW51JykpIHtcbiAgICAgICAgICAgICRib2R5LnJlbW92ZUNsYXNzKCd2ZXJ0aWNhbC1vdmVybGF5LW1lbnUnKS5hZGRDbGFzcyhtZW51KTtcbiAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICAgIH0gZWxzZSB7XG4gICAgICAgIGlmIChzY3JlZW4gPT0gJ3NtJyB8fCBzY3JlZW4gPT0gJ3hzJykge1xuICAgICAgICAgIGlmICgkYm9keS5oYXNDbGFzcyhtZW51KSkge1xuICAgICAgICAgICAgJGJvZHkucmVtb3ZlQ2xhc3MobWVudSkuYWRkQ2xhc3MoJ3ZlcnRpY2FsLW92ZXJsYXktbWVudScpO1xuICAgICAgICAgIH1cbiAgICAgICAgfSBlbHNlIHtcbiAgICAgICAgICBpZiAoJGJvZHkuaGFzQ2xhc3MoJ3ZlcnRpY2FsLW92ZXJsYXktbWVudScpKSB7XG4gICAgICAgICAgICAkYm9keS5yZW1vdmVDbGFzcygndmVydGljYWwtb3ZlcmxheS1tZW51JykuYWRkQ2xhc3MobWVudSk7XG4gICAgICAgICAgfVxuICAgICAgICB9XG4gICAgICB9XG4gICAgfSxcbiAgICBjaGFuZ2VNZW51OiBmdW5jdGlvbiBjaGFuZ2VNZW51KHNjcmVlbikge1xuICAgICAgLy8gUmVwbGFjZSBtZW51IGh0bWxcbiAgICAgICQoJ2RpdltkYXRhLW1lbnU9XCJtZW51LXdyYXBwZXJcIl0nKS5odG1sKCcnKTtcbiAgICAgICQoJ2RpdltkYXRhLW1lbnU9XCJtZW51LXdyYXBwZXJcIl0nKS5odG1sKG1lbnVXcmFwcGVyX2VsKTtcbiAgICAgIHZhciBtZW51V3JhcHBlciA9ICQoJ2RpdltkYXRhLW1lbnU9XCJtZW51LXdyYXBwZXJcIl0nKSxcbiAgICAgICAgICBtZW51Q29udGFpbmVyID0gJCgnZGl2W2RhdGEtbWVudT1cIm1lbnUtY29udGFpbmVyXCJdJyksXG4gICAgICAgICAgbWVudU5hdmlnYXRpb24gPSAkKCd1bFtkYXRhLW1lbnU9XCJtZW51LW5hdmlnYXRpb25cIl0nKSxcblxuICAgICAgLyptZWdhTWVudSAgICAgICAgICAgPSAkKCdsaVtkYXRhLW1lbnU9XCJtZWdhbWVudVwiXScpLFxuICAgICAgbWVnYU1lbnVDb2wgICAgICAgID0gJCgnbGlbZGF0YS1tZWdhLWNvbF0nKSwqL1xuICAgICAgZHJvcGRvd25NZW51ID0gJCgnbGlbZGF0YS1tZW51PVwiZHJvcGRvd25cIl0nKSxcbiAgICAgICAgICBkcm9wZG93blN1Yk1lbnUgPSAkKCdsaVtkYXRhLW1lbnU9XCJkcm9wZG93bi1zdWJtZW51XCJdJyk7XG5cbiAgICAgIGlmIChzY3JlZW4gPT09ICd4bCcpIHtcbiAgICAgICAgLy8gQ2hhbmdlIGJvZHkgY2xhc3Nlc1xuICAgICAgICAkYm9keS5yZW1vdmVDbGFzcygndmVydGljYWwtbGF5b3V0IHZlcnRpY2FsLW92ZXJsYXktbWVudSBmaXhlZC1uYXZiYXInKS5hZGRDbGFzcygkYm9keS5kYXRhKCdtZW51JykpOyAvLyBSZW1vdmUgbmF2YmFyLWZpeC10b3AgY2xhc3Mgb24gbGFyZ2Ugc2NyZWVuc1xuXG4gICAgICAgICQoJ25hdi5oZWFkZXItbmF2YmFyJykucmVtb3ZlQ2xhc3MoJ2ZpeGVkLXRvcCcpOyAvLyBDaGFuZ2UgbWVudSB3cmFwcGVyLCBtZW51IGNvbnRhaW5lciwgbWVudSBuYXZpZ2F0aW9uIGNsYXNzZXNcblxuICAgICAgICBtZW51V3JhcHBlci5yZW1vdmVDbGFzcygpLmFkZENsYXNzKG1lbnVXcmFwcGVyQ2xhc3Nlcyk7IC8vIEludGl0aWFsaXplIGRyaWxsIGRvd24gbWVudSBmb3IgaG9yaXpvbnRhbCBsYXlvdXRzXG4gICAgICAgIC8vIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tXG5cbiAgICAgICAgdGhpcy5kcmlsbERvd25NZW51KHNjcmVlbik7XG4gICAgICAgICQoJ2EuZHJvcGRvd24taXRlbS5uYXYtaGFzLWNoaWxkcmVuJykub24oJ2NsaWNrJywgZnVuY3Rpb24gKCkge1xuICAgICAgICAgIGV2ZW50LnByZXZlbnREZWZhdWx0KCk7XG4gICAgICAgICAgZXZlbnQuc3RvcFByb3BhZ2F0aW9uKCk7XG4gICAgICAgIH0pO1xuICAgICAgICAkKCdhLmRyb3Bkb3duLWl0ZW0ubmF2LWhhcy1wYXJlbnQnKS5vbignY2xpY2snLCBmdW5jdGlvbiAoKSB7XG4gICAgICAgICAgZXZlbnQucHJldmVudERlZmF1bHQoKTtcbiAgICAgICAgICBldmVudC5zdG9wUHJvcGFnYXRpb24oKTtcbiAgICAgICAgfSk7XG4gICAgICB9IGVsc2Uge1xuICAgICAgICAvLyBDaGFuZ2UgYm9keSBjbGFzc2VzXG4gICAgICAgICRib2R5LnJlbW92ZUNsYXNzKCRib2R5LmRhdGEoJ21lbnUnKSkuYWRkQ2xhc3MoJ3ZlcnRpY2FsLWxheW91dCB2ZXJ0aWNhbC1vdmVybGF5LW1lbnUgZml4ZWQtbmF2YmFyJyk7IC8vIEFkZCBuYXZiYXItZml4LXRvcCBjbGFzcyBvbiBzbWFsbCBzY3JlZW5zXG5cbiAgICAgICAgJCgnbmF2LmhlYWRlci1uYXZiYXInKS5hZGRDbGFzcygnZml4ZWQtdG9wJyk7IC8vIENoYW5nZSBtZW51IHdyYXBwZXIsIG1lbnUgY29udGFpbmVyLCBtZW51IG5hdmlnYXRpb24gY2xhc3Nlc1xuXG4gICAgICAgIG1lbnVXcmFwcGVyLnJlbW92ZUNsYXNzKCkuYWRkQ2xhc3MoJ21haW4tbWVudSBtZW51LWxpZ2h0IG1lbnUtZml4ZWQgbWVudS1zaGFkb3cnKTsgLy8gbWVudUNvbnRhaW5lci5yZW1vdmVDbGFzcygpLmFkZENsYXNzKCdtYWluLW1lbnUtY29udGVudCcpO1xuXG4gICAgICAgIG1lbnVOYXZpZ2F0aW9uLnJlbW92ZUNsYXNzKCkuYWRkQ2xhc3MoJ25hdmlnYXRpb24gbmF2aWdhdGlvbi1tYWluJyk7IC8vIElmIERyb3Bkb3duIE1lbnVcblxuICAgICAgICBkcm9wZG93bk1lbnUucmVtb3ZlQ2xhc3MoJ2Ryb3Bkb3duJykuYWRkQ2xhc3MoJ2hhcy1zdWInKTtcbiAgICAgICAgZHJvcGRvd25NZW51LmZpbmQoJ2EnKS5yZW1vdmVDbGFzcygnZHJvcGRvd24tdG9nZ2xlIG5hdi1saW5rJyk7XG4gICAgICAgIGRyb3Bkb3duTWVudS5jaGlsZHJlbigndWwnKS5maW5kKCdhJykucmVtb3ZlQ2xhc3MoJ2Ryb3Bkb3duLWl0ZW0nKTtcbiAgICAgICAgZHJvcGRvd25NZW51LmZpbmQoJ3VsJykucmVtb3ZlQ2xhc3MoJ2Ryb3Bkb3duLW1lbnUnKTtcbiAgICAgICAgZHJvcGRvd25TdWJNZW51LnJlbW92ZUNsYXNzKCkuYWRkQ2xhc3MoJ2hhcy1zdWInKTtcbiAgICAgICAgJC5hcHAubmF2LmluaXQoKTsgLy8gRHJvcGRvd24gc3VibWVudSBvbiBzbWFsbCBzY3JlZW4gb24gY2xpY2tcbiAgICAgICAgLy8gLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS1cblxuICAgICAgICAkKCd1bC5kcm9wZG93bi1tZW51IFtkYXRhLXRvZ2dsZT1kcm9wZG93bl0nKS5vbignY2xpY2snLCBmdW5jdGlvbiAoZXZlbnQpIHtcbiAgICAgICAgICBldmVudC5wcmV2ZW50RGVmYXVsdCgpO1xuICAgICAgICAgIGV2ZW50LnN0b3BQcm9wYWdhdGlvbigpO1xuICAgICAgICAgICQodGhpcykucGFyZW50KCkuc2libGluZ3MoKS5yZW1vdmVDbGFzcygnb3BlbicpO1xuICAgICAgICAgICQodGhpcykucGFyZW50KCkudG9nZ2xlQ2xhc3MoJ29wZW4nKTtcbiAgICAgICAgfSk7XG4gICAgICAgICQoJy5tYWluLW1lbnUtY29udGVudCcpLmZpbmQoJ2xpLmFjdGl2ZScpLnBhcmVudHMoJ2xpJykuYWRkQ2xhc3MoJ3NpZGViYXItZ3JvdXAtYWN0aXZlJyk7XG4gICAgICAgICQoJy5tYWluLW1lbnUtY29udGVudCcpLmZpbmQoJ2xpLmFjdGl2ZScpLmNsb3Nlc3QoJ2xpLm5hdi1pdGVtJykuYWRkQ2xhc3MoJ29wZW4nKTtcbiAgICAgIH1cbiAgICB9LFxuICAgIHRvZ2dsZTogZnVuY3Rpb24gdG9nZ2xlKCkge1xuICAgICAgdmFyIGN1cnJlbnRCcmVha3BvaW50ID0gVW5pc29uLmZldGNoLm5vdygpOyAvLyBDdXJyZW50IEJyZWFrcG9pbnRcblxuICAgICAgdmFyIGNvbGxhcHNlZCA9IHRoaXMuY29sbGFwc2VkO1xuICAgICAgdmFyIGV4cGFuZGVkID0gdGhpcy5leHBhbmRlZDtcbiAgICAgIHZhciBoaWRkZW4gPSB0aGlzLmhpZGRlbjtcbiAgICAgIHZhciBtZW51ID0gJGJvZHkuZGF0YSgnbWVudScpO1xuXG4gICAgICBzd2l0Y2ggKGN1cnJlbnRCcmVha3BvaW50Lm5hbWUpIHtcbiAgICAgICAgY2FzZSAneGwnOlxuICAgICAgICAgIGlmIChleHBhbmRlZCA9PT0gdHJ1ZSkge1xuICAgICAgICAgICAgaWYgKG1lbnUgPT0gJ3ZlcnRpY2FsLW92ZXJsYXktbWVudScpIHtcbiAgICAgICAgICAgICAgdGhpcy5oaWRlKCk7XG4gICAgICAgICAgICB9IGVsc2Uge1xuICAgICAgICAgICAgICB0aGlzLmNvbGxhcHNlKCk7XG4gICAgICAgICAgICB9XG4gICAgICAgICAgfSBlbHNlIHtcbiAgICAgICAgICAgIGlmIChtZW51ID09ICd2ZXJ0aWNhbC1vdmVybGF5LW1lbnUnKSB7XG4gICAgICAgICAgICAgIHRoaXMub3BlbigpO1xuICAgICAgICAgICAgfSBlbHNlIHtcbiAgICAgICAgICAgICAgdGhpcy5leHBhbmQoKTtcbiAgICAgICAgICAgIH1cbiAgICAgICAgICB9XG5cbiAgICAgICAgICBicmVhaztcblxuICAgICAgICBjYXNlICdsZyc6XG4gICAgICAgICAgaWYgKGV4cGFuZGVkID09PSB0cnVlKSB7XG4gICAgICAgICAgICBpZiAobWVudSA9PSAndmVydGljYWwtb3ZlcmxheS1tZW51JyB8fCBtZW51ID09ICd2ZXJ0aWNhbC1tZW51LW1vZGVybicgfHwgbWVudSA9PSAnaG9yaXpvbnRhbC1tZW51Jykge1xuICAgICAgICAgICAgICB0aGlzLmhpZGUoKTtcbiAgICAgICAgICAgIH0gZWxzZSB7XG4gICAgICAgICAgICAgIHRoaXMuY29sbGFwc2UoKTtcbiAgICAgICAgICAgIH1cbiAgICAgICAgICB9IGVsc2Uge1xuICAgICAgICAgICAgaWYgKG1lbnUgPT0gJ3ZlcnRpY2FsLW92ZXJsYXktbWVudScgfHwgbWVudSA9PSAndmVydGljYWwtbWVudS1tb2Rlcm4nIHx8IG1lbnUgPT0gJ2hvcml6b250YWwtbWVudScpIHtcbiAgICAgICAgICAgICAgdGhpcy5vcGVuKCk7XG4gICAgICAgICAgICB9IGVsc2Uge1xuICAgICAgICAgICAgICB0aGlzLmV4cGFuZCgpO1xuICAgICAgICAgICAgfVxuICAgICAgICAgIH1cblxuICAgICAgICAgIGJyZWFrO1xuXG4gICAgICAgIGNhc2UgJ21kJzpcbiAgICAgICAgY2FzZSAnc20nOlxuICAgICAgICAgIGlmIChoaWRkZW4gPT09IHRydWUpIHtcbiAgICAgICAgICAgIHRoaXMub3BlbigpO1xuICAgICAgICAgIH0gZWxzZSB7XG4gICAgICAgICAgICB0aGlzLmhpZGUoKTtcbiAgICAgICAgICB9XG5cbiAgICAgICAgICBicmVhaztcblxuICAgICAgICBjYXNlICd4cyc6XG4gICAgICAgICAgaWYgKGhpZGRlbiA9PT0gdHJ1ZSkge1xuICAgICAgICAgICAgdGhpcy5vcGVuKCk7XG4gICAgICAgICAgfSBlbHNlIHtcbiAgICAgICAgICAgIHRoaXMuaGlkZSgpO1xuICAgICAgICAgIH1cblxuICAgICAgICAgIGJyZWFrO1xuICAgICAgfSAvLyBSZS1pbml0IHNsaWRpbmcgbWVudSB0byB1cGRhdGUgd2lkdGhcblxuXG4gICAgICB0aGlzLmRyaWxsRG93bk1lbnUoY3VycmVudEJyZWFrcG9pbnQubmFtZSk7XG4gICAgfSxcbiAgICB1cGRhdGU6IGZ1bmN0aW9uIHVwZGF0ZSgpIHtcbiAgICAgIHRoaXMubWFudWFsU2Nyb2xsZXIudXBkYXRlKCk7XG4gICAgfSxcbiAgICByZXNldDogZnVuY3Rpb24gcmVzZXQoKSB7XG4gICAgICB0aGlzLmV4cGFuZGVkID0gZmFsc2U7XG4gICAgICB0aGlzLmNvbGxhcHNlZCA9IGZhbHNlO1xuICAgICAgdGhpcy5oaWRkZW4gPSBmYWxzZTtcbiAgICAgICRib2R5LnJlbW92ZUNsYXNzKCdtZW51LWhpZGUgbWVudS1vcGVuIG1lbnUtY29sbGFwc2VkIG1lbnUtZXhwYW5kZWQnKTtcbiAgICB9XG4gIH07IC8vIE5hdmlnYXRpb24gTWVudVxuXG4gICQuYXBwLm5hdiA9IHtcbiAgICBjb250YWluZXI6ICQoJy5uYXZpZ2F0aW9uLW1haW4nKSxcbiAgICBpbml0aWFsaXplZDogZmFsc2UsXG4gICAgbmF2SXRlbTogJCgnLm5hdmlnYXRpb24tbWFpbicpLmZpbmQoJ2xpJykubm90KCcubmF2aWdhdGlvbi1jYXRlZ29yeScpLFxuICAgIGNvbmZpZzoge1xuICAgICAgc3BlZWQ6IDMwMFxuICAgIH0sXG4gICAgaW5pdDogZnVuY3Rpb24gaW5pdChjb25maWcpIHtcbiAgICAgIHRoaXMuaW5pdGlhbGl6ZWQgPSB0cnVlOyAvLyBTZXQgdG8gdHJ1ZSB3aGVuIGluaXRpYWxpemVkXG5cbiAgICAgICQuZXh0ZW5kKHRoaXMuY29uZmlnLCBjb25maWcpO1xuICAgICAgdGhpcy5iaW5kX2V2ZW50cygpO1xuICAgIH0sXG4gICAgYmluZF9ldmVudHM6IGZ1bmN0aW9uIGJpbmRfZXZlbnRzKCkge1xuICAgICAgdmFyIG1lbnVPYmogPSB0aGlzO1xuICAgICAgJCgnLm5hdmlnYXRpb24tbWFpbicpLm9uKCdtb3VzZWVudGVyLmFwcC5tZW51JywgJ2xpJywgZnVuY3Rpb24gKCkge1xuICAgICAgICB2YXIgJHRoaXMgPSAkKHRoaXMpO1xuICAgICAgICAkKCcuaG92ZXInLCAnLm5hdmlnYXRpb24tbWFpbicpLnJlbW92ZUNsYXNzKCdob3ZlcicpO1xuXG4gICAgICAgIGlmICgkYm9keS5oYXNDbGFzcygnbWVudS1jb2xsYXBzZWQnKSAmJiAkYm9keS5kYXRhKCdtZW51JykgIT0gJ3ZlcnRpY2FsLW1lbnUtbW9kZXJuJykge1xuICAgICAgICAgICQoJy5tYWluLW1lbnUtY29udGVudCcpLmNoaWxkcmVuKCdzcGFuLm1lbnUtdGl0bGUnKS5yZW1vdmUoKTtcbiAgICAgICAgICAkKCcubWFpbi1tZW51LWNvbnRlbnQnKS5jaGlsZHJlbignYS5tZW51LXRpdGxlJykucmVtb3ZlKCk7XG4gICAgICAgICAgJCgnLm1haW4tbWVudS1jb250ZW50JykuY2hpbGRyZW4oJ3VsLm1lbnUtY29udGVudCcpLnJlbW92ZSgpOyAvLyBUaXRsZVxuXG4gICAgICAgICAgdmFyIG1lbnVUaXRsZSA9ICR0aGlzLmZpbmQoJ3NwYW4ubWVudS10aXRsZScpLmNsb25lKCksXG4gICAgICAgICAgICAgIHRlbXBUaXRsZSxcbiAgICAgICAgICAgICAgdGVtcExpbms7XG5cbiAgICAgICAgICBpZiAoISR0aGlzLmhhc0NsYXNzKCdoYXMtc3ViJykpIHtcbiAgICAgICAgICAgIHRlbXBUaXRsZSA9ICR0aGlzLmZpbmQoJ3NwYW4ubWVudS10aXRsZScpLnRleHQoKTtcbiAgICAgICAgICAgIHRlbXBMaW5rID0gJHRoaXMuY2hpbGRyZW4oJ2EnKS5hdHRyKCdocmVmJyk7XG5cbiAgICAgICAgICAgIGlmICh0ZW1wVGl0bGUgIT09ICcnKSB7XG4gICAgICAgICAgICAgIG1lbnVUaXRsZSA9ICQoJzxhPicpO1xuICAgICAgICAgICAgICBtZW51VGl0bGUuYXR0cignaHJlZicsIHRlbXBMaW5rKTtcbiAgICAgICAgICAgICAgbWVudVRpdGxlLmF0dHIoJ3RpdGxlJywgdGVtcFRpdGxlKTtcbiAgICAgICAgICAgICAgbWVudVRpdGxlLnRleHQodGVtcFRpdGxlKTtcbiAgICAgICAgICAgICAgbWVudVRpdGxlLmFkZENsYXNzKCdtZW51LXRpdGxlJyk7XG4gICAgICAgICAgICB9XG4gICAgICAgICAgfSAvLyBtZW51X2hlYWRlcl9oZWlnaHQgPSAoJCgnLm1haW4tbWVudS1oZWFkZXInKS5sZW5ndGgpID8gJCgnLm1haW4tbWVudS1oZWFkZXInKS5oZWlnaHQoKSA6IDAsXG4gICAgICAgICAgLy8gZnJvbVRvcCA9IG1lbnVfaGVhZGVyX2hlaWdodCArICR0aGlzLnBvc2l0aW9uKCkudG9wICsgcGFyc2VJbnQoJHRoaXMuY3NzKCBcImJvcmRlci10b3BcIiApLDEwKTtcblxuXG4gICAgICAgICAgdmFyIGZyb21Ub3A7XG5cbiAgICAgICAgICBpZiAoJHRoaXMuY3NzKCdib3JkZXItdG9wJykpIHtcbiAgICAgICAgICAgIGZyb21Ub3AgPSAkdGhpcy5wb3NpdGlvbigpLnRvcCArIHBhcnNlSW50KCR0aGlzLmNzcygnYm9yZGVyLXRvcCcpLCAxMCk7XG4gICAgICAgICAgfSBlbHNlIHtcbiAgICAgICAgICAgIGZyb21Ub3AgPSAkdGhpcy5wb3NpdGlvbigpLnRvcDtcbiAgICAgICAgICB9XG5cbiAgICAgICAgICBpZiAoJGJvZHkuZGF0YSgnbWVudScpICE9PSAndmVydGljYWwtY29tcGFjdC1tZW51Jykge1xuICAgICAgICAgICAgbWVudVRpdGxlLmFwcGVuZFRvKCcubWFpbi1tZW51LWNvbnRlbnQnKS5jc3Moe1xuICAgICAgICAgICAgICBwb3NpdGlvbjogJ2ZpeGVkJyxcbiAgICAgICAgICAgICAgdG9wOiBmcm9tVG9wXG4gICAgICAgICAgICB9KTtcbiAgICAgICAgICB9IC8vIENvbnRlbnRcblxuXG4gICAgICAgICAgaWYgKCR0aGlzLmhhc0NsYXNzKCdoYXMtc3ViJykgJiYgJHRoaXMuaGFzQ2xhc3MoJ25hdi1pdGVtJykpIHtcbiAgICAgICAgICAgIHZhciBtZW51Q29udGVudCA9ICR0aGlzLmNoaWxkcmVuKCd1bDpmaXJzdCcpO1xuICAgICAgICAgICAgbWVudU9iai5hZGp1c3RTdWJtZW51KCR0aGlzKTtcbiAgICAgICAgICB9XG4gICAgICAgIH1cblxuICAgICAgICAkdGhpcy5hZGRDbGFzcygnaG92ZXInKTtcbiAgICAgIH0pLm9uKCdtb3VzZWxlYXZlLmFwcC5tZW51JywgJ2xpJywgZnVuY3Rpb24gKCkgey8vICQodGhpcykucmVtb3ZlQ2xhc3MoJ2hvdmVyJyk7XG4gICAgICB9KS5vbignYWN0aXZlLmFwcC5tZW51JywgJ2xpJywgZnVuY3Rpb24gKGUpIHtcbiAgICAgICAgJCh0aGlzKS5hZGRDbGFzcygnYWN0aXZlJyk7XG4gICAgICAgIGUuc3RvcFByb3BhZ2F0aW9uKCk7XG4gICAgICB9KS5vbignZGVhY3RpdmUuYXBwLm1lbnUnLCAnbGkuYWN0aXZlJywgZnVuY3Rpb24gKGUpIHtcbiAgICAgICAgJCh0aGlzKS5yZW1vdmVDbGFzcygnYWN0aXZlJyk7XG4gICAgICAgIGUuc3RvcFByb3BhZ2F0aW9uKCk7XG4gICAgICB9KS5vbignb3Blbi5hcHAubWVudScsICdsaScsIGZ1bmN0aW9uIChlKSB7XG4gICAgICAgIHZhciAkbGlzdEl0ZW0gPSAkKHRoaXMpO1xuICAgICAgICAkbGlzdEl0ZW0uYWRkQ2xhc3MoJ29wZW4nKTtcbiAgICAgICAgbWVudU9iai5leHBhbmQoJGxpc3RJdGVtKTsgLy8gSWYgbWVudSBjb2xsYXBzaWJsZSB0aGVuIGRvIG5vdCB0YWtlIGFueSBhY3Rpb25cblxuICAgICAgICBpZiAoJCgnLm1haW4tbWVudScpLmhhc0NsYXNzKCdtZW51LWNvbGxhcHNpYmxlJykpIHtcbiAgICAgICAgICByZXR1cm4gZmFsc2U7XG4gICAgICAgIH0gLy8gSWYgbWVudSBhY2NvcmRpb24gdGhlbiBjbG9zZSBhbGwgZXhjZXB0IGNsaWNrZWQgb25jZVxuICAgICAgICBlbHNlIHtcbiAgICAgICAgICAgICRsaXN0SXRlbS5zaWJsaW5ncygnLm9wZW4nKS5maW5kKCdsaS5vcGVuJykudHJpZ2dlcignY2xvc2UuYXBwLm1lbnUnKTtcbiAgICAgICAgICAgICRsaXN0SXRlbS5zaWJsaW5ncygnLm9wZW4nKS50cmlnZ2VyKCdjbG9zZS5hcHAubWVudScpO1xuICAgICAgICAgIH1cblxuICAgICAgICBlLnN0b3BQcm9wYWdhdGlvbigpO1xuICAgICAgfSkub24oJ2Nsb3NlLmFwcC5tZW51JywgJ2xpLm9wZW4nLCBmdW5jdGlvbiAoZSkge1xuICAgICAgICB2YXIgJGxpc3RJdGVtID0gJCh0aGlzKTtcbiAgICAgICAgJGxpc3RJdGVtLnJlbW92ZUNsYXNzKCdvcGVuJyk7XG4gICAgICAgIG1lbnVPYmouY29sbGFwc2UoJGxpc3RJdGVtKTtcbiAgICAgICAgZS5zdG9wUHJvcGFnYXRpb24oKTtcbiAgICAgIH0pLm9uKCdjbGljay5hcHAubWVudScsICdsaScsIGZ1bmN0aW9uIChlKSB7XG4gICAgICAgIHZhciAkbGlzdEl0ZW0gPSAkKHRoaXMpO1xuXG4gICAgICAgIGlmICgkbGlzdEl0ZW0uaXMoJy5kaXNhYmxlZCcpKSB7XG4gICAgICAgICAgZS5wcmV2ZW50RGVmYXVsdCgpO1xuICAgICAgICB9IGVsc2Uge1xuICAgICAgICAgIGlmICgkYm9keS5oYXNDbGFzcygnbWVudS1jb2xsYXBzZWQnKSAmJiAkYm9keS5kYXRhKCdtZW51JykgIT0gJ3ZlcnRpY2FsLW1lbnUtbW9kZXJuJykge1xuICAgICAgICAgICAgZS5wcmV2ZW50RGVmYXVsdCgpO1xuICAgICAgICAgIH0gZWxzZSB7XG4gICAgICAgICAgICBpZiAoJGxpc3RJdGVtLmhhcygndWwnKS5sZW5ndGgpIHtcbiAgICAgICAgICAgICAgaWYgKCRsaXN0SXRlbS5pcygnLm9wZW4nKSkge1xuICAgICAgICAgICAgICAgICRsaXN0SXRlbS50cmlnZ2VyKCdjbG9zZS5hcHAubWVudScpO1xuICAgICAgICAgICAgICB9IGVsc2Uge1xuICAgICAgICAgICAgICAgICRsaXN0SXRlbS50cmlnZ2VyKCdvcGVuLmFwcC5tZW51Jyk7XG4gICAgICAgICAgICAgIH1cbiAgICAgICAgICAgIH0gZWxzZSB7XG4gICAgICAgICAgICAgIGlmICghJGxpc3RJdGVtLmlzKCcuYWN0aXZlJykpIHtcbiAgICAgICAgICAgICAgICAkbGlzdEl0ZW0uc2libGluZ3MoJy5hY3RpdmUnKS50cmlnZ2VyKCdkZWFjdGl2ZS5hcHAubWVudScpO1xuICAgICAgICAgICAgICAgICRsaXN0SXRlbS50cmlnZ2VyKCdhY3RpdmUuYXBwLm1lbnUnKTtcbiAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgfVxuICAgICAgICAgIH1cbiAgICAgICAgfVxuXG4gICAgICAgIGUuc3RvcFByb3BhZ2F0aW9uKCk7XG4gICAgICB9KTtcbiAgICAgICQoJy5uYXZiYXItaGVhZGVyLCAubWFpbi1tZW51Jykub24oJ21vdXNlZW50ZXInLCBtb2Rlcm5NZW51RXhwYW5kKS5vbignbW91c2VsZWF2ZScsIG1vZGVybk1lbnVDb2xsYXBzZSk7XG5cbiAgICAgIGZ1bmN0aW9uIG1vZGVybk1lbnVFeHBhbmQoKSB7XG4gICAgICAgIGlmICgkYm9keS5kYXRhKCdtZW51JykgPT0gJ3ZlcnRpY2FsLW1lbnUtbW9kZXJuJykge1xuICAgICAgICAgICQoJy5tYWluLW1lbnUsIC5uYXZiYXItaGVhZGVyJykuYWRkQ2xhc3MoJ2V4cGFuZGVkJyk7XG5cbiAgICAgICAgICBpZiAoJGJvZHkuaGFzQ2xhc3MoJ21lbnUtY29sbGFwc2VkJykpIHtcbiAgICAgICAgICAgIGlmICgkKCcubWFpbi1tZW51IGxpLm9wZW4nKS5sZW5ndGggPT09IDApIHtcbiAgICAgICAgICAgICAgJCgnLm1haW4tbWVudS1jb250ZW50JykuZmluZCgnbGkuYWN0aXZlJykucGFyZW50cygnbGknKS5hZGRDbGFzcygnb3BlbicpO1xuICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICB2YXIgJGxpc3RJdGVtID0gJCgnLm1haW4tbWVudSBsaS5tZW51LWNvbGxhcHNlZC1vcGVuJyksXG4gICAgICAgICAgICAgICAgJHN1Ykxpc3QgPSAkbGlzdEl0ZW0uY2hpbGRyZW4oJ3VsJyk7XG4gICAgICAgICAgICAkc3ViTGlzdC5oaWRlKCkuc2xpZGVEb3duKDIwMCwgZnVuY3Rpb24gKCkge1xuICAgICAgICAgICAgICAkKHRoaXMpLmNzcygnZGlzcGxheScsICcnKTtcbiAgICAgICAgICAgIH0pO1xuICAgICAgICAgICAgJGxpc3RJdGVtLmFkZENsYXNzKCdvcGVuJykucmVtb3ZlQ2xhc3MoJ21lbnUtY29sbGFwc2VkLW9wZW4nKTsgLy8gJC5hcHAubWVudS5jaGFuZ2VMb2dvKCdleHBhbmQnKTtcbiAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICAgIH1cblxuICAgICAgZnVuY3Rpb24gbW9kZXJuTWVudUNvbGxhcHNlKCkge1xuICAgICAgICBpZiAoJGJvZHkuaGFzQ2xhc3MoJ21lbnUtY29sbGFwc2VkJykgJiYgJGJvZHkuZGF0YSgnbWVudScpID09ICd2ZXJ0aWNhbC1tZW51LW1vZGVybicpIHtcbiAgICAgICAgICBzZXRUaW1lb3V0KGZ1bmN0aW9uICgpIHtcbiAgICAgICAgICAgIGlmICgkKCcubWFpbi1tZW51OmhvdmVyJykubGVuZ3RoID09PSAwICYmICQoJy5uYXZiYXItaGVhZGVyOmhvdmVyJykubGVuZ3RoID09PSAwKSB7XG4gICAgICAgICAgICAgICQoJy5tYWluLW1lbnUsIC5uYXZiYXItaGVhZGVyJykucmVtb3ZlQ2xhc3MoJ2V4cGFuZGVkJyk7XG5cbiAgICAgICAgICAgICAgaWYgKCRib2R5Lmhhc0NsYXNzKCdtZW51LWNvbGxhcHNlZCcpKSB7XG4gICAgICAgICAgICAgICAgdmFyICRsaXN0SXRlbSA9ICQoJy5tYWluLW1lbnUgbGkub3BlbicpLFxuICAgICAgICAgICAgICAgICAgICAkc3ViTGlzdCA9ICRsaXN0SXRlbS5jaGlsZHJlbigndWwnKTtcbiAgICAgICAgICAgICAgICAkbGlzdEl0ZW0uYWRkQ2xhc3MoJ21lbnUtY29sbGFwc2VkLW9wZW4nKTtcbiAgICAgICAgICAgICAgICAkc3ViTGlzdC5zaG93KCkuc2xpZGVVcCgyMDAsIGZ1bmN0aW9uICgpIHtcbiAgICAgICAgICAgICAgICAgICQodGhpcykuY3NzKCdkaXNwbGF5JywgJycpO1xuICAgICAgICAgICAgICAgIH0pO1xuICAgICAgICAgICAgICAgICRsaXN0SXRlbS5yZW1vdmVDbGFzcygnb3BlbicpOyAvLyAkLmFwcC5tZW51LmNoYW5nZUxvZ28oKTtcbiAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgfVxuICAgICAgICAgIH0sIDEpO1xuICAgICAgICB9XG4gICAgICB9XG5cbiAgICAgICQoJy5tYWluLW1lbnUtY29udGVudCcpLm9uKCdtb3VzZWxlYXZlJywgZnVuY3Rpb24gKCkge1xuICAgICAgICBpZiAoJGJvZHkuaGFzQ2xhc3MoJ21lbnUtY29sbGFwc2VkJykpIHtcbiAgICAgICAgICAkKCcubWFpbi1tZW51LWNvbnRlbnQnKS5jaGlsZHJlbignc3Bhbi5tZW51LXRpdGxlJykucmVtb3ZlKCk7XG4gICAgICAgICAgJCgnLm1haW4tbWVudS1jb250ZW50JykuY2hpbGRyZW4oJ2EubWVudS10aXRsZScpLnJlbW92ZSgpO1xuICAgICAgICAgICQoJy5tYWluLW1lbnUtY29udGVudCcpLmNoaWxkcmVuKCd1bC5tZW51LWNvbnRlbnQnKS5yZW1vdmUoKTtcbiAgICAgICAgfVxuXG4gICAgICAgICQoJy5ob3ZlcicsICcubmF2aWdhdGlvbi1tYWluJykucmVtb3ZlQ2xhc3MoJ2hvdmVyJyk7XG4gICAgICB9KTsgLy8gSWYgbGlzdCBpdGVtIGhhcyBzdWIgbWVudSBpdGVtcyB0aGVuIHByZXZlbnQgcmVkaXJlY3Rpb24uXG5cbiAgICAgICQoJy5uYXZpZ2F0aW9uLW1haW4gbGkuaGFzLXN1YiA+IGEnKS5vbignY2xpY2snLCBmdW5jdGlvbiAoZSkge1xuICAgICAgICBlLnByZXZlbnREZWZhdWx0KCk7XG4gICAgICB9KTtcbiAgICAgICQoJ3VsLm1lbnUtY29udGVudCcpLm9uKCdjbGljaycsICdsaScsIGZ1bmN0aW9uIChlKSB7XG4gICAgICAgIHZhciAkbGlzdEl0ZW0gPSAkKHRoaXMpO1xuXG4gICAgICAgIGlmICgkbGlzdEl0ZW0uaXMoJy5kaXNhYmxlZCcpKSB7XG4gICAgICAgICAgZS5wcmV2ZW50RGVmYXVsdCgpO1xuICAgICAgICB9IGVsc2Uge1xuICAgICAgICAgIGlmICgkbGlzdEl0ZW0uaGFzKCd1bCcpKSB7XG4gICAgICAgICAgICBpZiAoJGxpc3RJdGVtLmlzKCcub3BlbicpKSB7XG4gICAgICAgICAgICAgICRsaXN0SXRlbS5yZW1vdmVDbGFzcygnb3BlbicpO1xuICAgICAgICAgICAgICBtZW51T2JqLmNvbGxhcHNlKCRsaXN0SXRlbSk7XG4gICAgICAgICAgICB9IGVsc2Uge1xuICAgICAgICAgICAgICAkbGlzdEl0ZW0uYWRkQ2xhc3MoJ29wZW4nKTtcbiAgICAgICAgICAgICAgbWVudU9iai5leHBhbmQoJGxpc3RJdGVtKTsgLy8gSWYgbWVudSBjb2xsYXBzaWJsZSB0aGVuIGRvIG5vdCB0YWtlIGFueSBhY3Rpb25cblxuICAgICAgICAgICAgICBpZiAoJCgnLm1haW4tbWVudScpLmhhc0NsYXNzKCdtZW51LWNvbGxhcHNpYmxlJykpIHtcbiAgICAgICAgICAgICAgICByZXR1cm4gZmFsc2U7XG4gICAgICAgICAgICAgIH0gLy8gSWYgbWVudSBhY2NvcmRpb24gdGhlbiBjbG9zZSBhbGwgZXhjZXB0IGNsaWNrZWQgb25jZVxuICAgICAgICAgICAgICBlbHNlIHtcbiAgICAgICAgICAgICAgICAgICRsaXN0SXRlbS5zaWJsaW5ncygnLm9wZW4nKS5maW5kKCdsaS5vcGVuJykudHJpZ2dlcignY2xvc2UuYXBwLm1lbnUnKTtcbiAgICAgICAgICAgICAgICAgICRsaXN0SXRlbS5zaWJsaW5ncygnLm9wZW4nKS50cmlnZ2VyKCdjbG9zZS5hcHAubWVudScpO1xuICAgICAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgICBlLnN0b3BQcm9wYWdhdGlvbigpO1xuICAgICAgICAgICAgfVxuICAgICAgICAgIH0gZWxzZSB7XG4gICAgICAgICAgICBpZiAoISRsaXN0SXRlbS5pcygnLmFjdGl2ZScpKSB7XG4gICAgICAgICAgICAgICRsaXN0SXRlbS5zaWJsaW5ncygnLmFjdGl2ZScpLnRyaWdnZXIoJ2RlYWN0aXZlLmFwcC5tZW51Jyk7XG4gICAgICAgICAgICAgICRsaXN0SXRlbS50cmlnZ2VyKCdhY3RpdmUuYXBwLm1lbnUnKTtcbiAgICAgICAgICAgIH1cbiAgICAgICAgICB9XG4gICAgICAgIH1cblxuICAgICAgICBlLnN0b3BQcm9wYWdhdGlvbigpO1xuICAgICAgfSk7XG4gICAgfSxcblxuICAgIC8qKlxuICAgICAqIEVuc3VyZSBhbiBhZG1pbiBzdWJtZW51IGlzIHdpdGhpbiB0aGUgdmlzdWFsIHZpZXdwb3J0LlxuICAgICAqIEBwYXJhbSB7alF1ZXJ5fSAkbWVudUl0ZW0gVGhlIHBhcmVudCBtZW51IGl0ZW0gY29udGFpbmluZyB0aGUgc3VibWVudS5cbiAgICAgKi9cbiAgICBhZGp1c3RTdWJtZW51OiBmdW5jdGlvbiBhZGp1c3RTdWJtZW51KCRtZW51SXRlbSkge1xuICAgICAgdmFyIG1lbnVIZWFkZXJIZWlnaHQsXG4gICAgICAgICAgbWVudXRvcCxcbiAgICAgICAgICB0b3BQb3MsXG4gICAgICAgICAgd2luSGVpZ2h0LFxuICAgICAgICAgIGJvdHRvbU9mZnNldCxcbiAgICAgICAgICBzdWJNZW51SGVpZ2h0LFxuICAgICAgICAgIHBvcE91dE1lbnVIZWlnaHQsXG4gICAgICAgICAgYm9yZGVyV2lkdGgsXG4gICAgICAgICAgc2Nyb2xsX3RoZW1lLFxuICAgICAgICAgICRzdWJtZW51ID0gJG1lbnVJdGVtLmNoaWxkcmVuKCd1bDpmaXJzdCcpLFxuICAgICAgICAgIHVsID0gJHN1Ym1lbnUuY2xvbmUodHJ1ZSk7XG4gICAgICBtZW51SGVhZGVySGVpZ2h0ID0gJCgnLm1haW4tbWVudS1oZWFkZXInKS5oZWlnaHQoKTtcbiAgICAgIG1lbnV0b3AgPSAkbWVudUl0ZW0ucG9zaXRpb24oKS50b3A7XG4gICAgICB3aW5IZWlnaHQgPSAkd2luZG93LmhlaWdodCgpIC0gJCgnLmhlYWRlci1uYXZiYXInKS5oZWlnaHQoKTtcbiAgICAgIGJvcmRlcldpZHRoID0gMDtcbiAgICAgIHN1Yk1lbnVIZWlnaHQgPSAkc3VibWVudS5oZWlnaHQoKTtcblxuICAgICAgaWYgKHBhcnNlSW50KCRtZW51SXRlbS5jc3MoJ2JvcmRlci10b3AnKSwgMTApID4gMCkge1xuICAgICAgICBib3JkZXJXaWR0aCA9IHBhcnNlSW50KCRtZW51SXRlbS5jc3MoJ2JvcmRlci10b3AnKSwgMTApO1xuICAgICAgfVxuXG4gICAgICBwb3BPdXRNZW51SGVpZ2h0ID0gd2luSGVpZ2h0IC0gbWVudXRvcCAtICRtZW51SXRlbS5oZWlnaHQoKSAtIDMwO1xuICAgICAgc2Nyb2xsX3RoZW1lID0gJCgnLm1haW4tbWVudScpLmhhc0NsYXNzKCdtZW51LWRhcmsnKSA/ICdsaWdodCcgOiAnZGFyayc7XG4gICAgICB0b3BQb3MgPSBtZW51dG9wICsgJG1lbnVJdGVtLmhlaWdodCgpICsgYm9yZGVyV2lkdGg7XG4gICAgICB1bC5hZGRDbGFzcygnbWVudS1wb3BvdXQnKS5hcHBlbmRUbygnLm1haW4tbWVudS1jb250ZW50JykuY3NzKHtcbiAgICAgICAgdG9wOiB0b3BQb3MsXG4gICAgICAgIHBvc2l0aW9uOiAnZml4ZWQnLFxuICAgICAgICAnbWF4LWhlaWdodCc6IHBvcE91dE1lbnVIZWlnaHRcbiAgICAgIH0pO1xuICAgICAgdmFyIG1lbnVfY29udGVudCA9IG5ldyBQZXJmZWN0U2Nyb2xsYmFyKCcubWFpbi1tZW51LWNvbnRlbnQgPiB1bC5tZW51LWNvbnRlbnQnLCB7XG4gICAgICAgIHdoZWVsUHJvcGFnYXRpb246IGZhbHNlXG4gICAgICB9KTtcbiAgICB9LFxuICAgIGNvbGxhcHNlOiBmdW5jdGlvbiBjb2xsYXBzZSgkbGlzdEl0ZW0sIGNhbGxiYWNrKSB7XG4gICAgICB2YXIgJHN1Ykxpc3QgPSAkbGlzdEl0ZW0uY2hpbGRyZW4oJ3VsJyk7XG4gICAgICAkc3ViTGlzdC5zaG93KCkuc2xpZGVVcCgkLmFwcC5uYXYuY29uZmlnLnNwZWVkLCBmdW5jdGlvbiAoKSB7XG4gICAgICAgICQodGhpcykuY3NzKCdkaXNwbGF5JywgJycpO1xuICAgICAgICAkKHRoaXMpLmZpbmQoJz4gbGknKS5yZW1vdmVDbGFzcygnaXMtc2hvd24nKTtcblxuICAgICAgICBpZiAoY2FsbGJhY2spIHtcbiAgICAgICAgICBjYWxsYmFjaygpO1xuICAgICAgICB9XG5cbiAgICAgICAgJC5hcHAubmF2LmNvbnRhaW5lci50cmlnZ2VyKCdjb2xsYXBzZWQuYXBwLm1lbnUnKTtcbiAgICAgIH0pO1xuICAgIH0sXG4gICAgZXhwYW5kOiBmdW5jdGlvbiBleHBhbmQoJGxpc3RJdGVtLCBjYWxsYmFjaykge1xuICAgICAgdmFyICRzdWJMaXN0ID0gJGxpc3RJdGVtLmNoaWxkcmVuKCd1bCcpO1xuICAgICAgdmFyICRjaGlsZHJlbiA9ICRzdWJMaXN0LmNoaWxkcmVuKCdsaScpLmFkZENsYXNzKCdpcy1oaWRkZW4nKTtcbiAgICAgICRzdWJMaXN0LmhpZGUoKS5zbGlkZURvd24oJC5hcHAubmF2LmNvbmZpZy5zcGVlZCwgZnVuY3Rpb24gKCkge1xuICAgICAgICAkKHRoaXMpLmNzcygnZGlzcGxheScsICcnKTtcblxuICAgICAgICBpZiAoY2FsbGJhY2spIHtcbiAgICAgICAgICBjYWxsYmFjaygpO1xuICAgICAgICB9XG5cbiAgICAgICAgJC5hcHAubmF2LmNvbnRhaW5lci50cmlnZ2VyKCdleHBhbmRlZC5hcHAubWVudScpO1xuICAgICAgfSk7XG4gICAgICBzZXRUaW1lb3V0KGZ1bmN0aW9uICgpIHtcbiAgICAgICAgJGNoaWxkcmVuLmFkZENsYXNzKCdpcy1zaG93bicpO1xuICAgICAgICAkY2hpbGRyZW4ucmVtb3ZlQ2xhc3MoJ2lzLWhpZGRlbicpO1xuICAgICAgfSwgMCk7XG4gICAgfSxcbiAgICByZWZyZXNoOiBmdW5jdGlvbiByZWZyZXNoKCkge1xuICAgICAgJC5hcHAubmF2LmNvbnRhaW5lci5maW5kKCcub3BlbicpLnJlbW92ZUNsYXNzKCdvcGVuJyk7XG4gICAgfVxuICB9O1xufSkod2luZG93LCBkb2N1bWVudCwgalF1ZXJ5KTsgLy8gV2UgbGlzdGVuIHRvIHRoZSByZXNpemUgZXZlbnRcblxuXG53aW5kb3cuYWRkRXZlbnRMaXN0ZW5lcigncmVzaXplJywgZnVuY3Rpb24gKCkge1xuICAvLyBXZSBleGVjdXRlIHRoZSBzYW1lIHNjcmlwdCBhcyBiZWZvcmVcbiAgdmFyIHZoID0gd2luZG93LmlubmVySGVpZ2h0ICogMC4wMTtcbiAgZG9jdW1lbnQuZG9jdW1lbnRFbGVtZW50LnN0eWxlLnNldFByb3BlcnR5KCctLXZoJywgXCJcIi5jb25jYXQodmgsIFwicHhcIikpO1xufSk7Il0sIm1hcHBpbmdzIjoiQUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBIiwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/frontend/js/core/app-menu.js\n");
 
 /***/ }),
 
@@ -1020,7 +104,7 @@ window.addEventListener('resize', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+eval("throw new Error(\"Module build failed (from ./node_modules/css-loader/index.js):\\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\\n\\n    background-image: url($file-2x);\\n   ^\\n      Invalid CSS after \\\"...ackground-image\\\": expected \\\"{\\\", was \\\": url($file-2x);\\\"\\n      in /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/bootstrap/mixins/_image.scss (line 31, column 5)\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/webpack/lib/NormalModule.js:316:20\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:367:11\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:233:18\\n    at context.callback (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:111:13)\\n    at Object.callback (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/sass-loader/dist/index.js:89:7)\\n    at Object.done [as callback] (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/neo-async/async.js:8067:18)\\n    at options.error (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/node-sass/lib/index.js:294:32)\");//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9yZXNvdXJjZXMvZnJvbnRlbmQvc2Fzcy9ib290c3RyYXAtZXh0ZW5kZWQuc2Nzcy5qcyIsInNvdXJjZXMiOltdLCJtYXBwaW5ncyI6IiIsInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./resources/frontend/sass/bootstrap-extended.scss\n");
 
 /***/ }),
 
@@ -1031,7 +115,7 @@ window.addEventListener('resize', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+eval("throw new Error(\"Module build failed (from ./node_modules/css-loader/index.js):\\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\\n\\n    background-image: url($file-2x);\\n   ^\\n      Invalid CSS after \\\"...ackground-image\\\": expected \\\"{\\\", was \\\": url($file-2x);\\\"\\n      in /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/bootstrap/mixins/_image.scss (line 31, column 5)\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/webpack/lib/NormalModule.js:316:20\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:367:11\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:233:18\\n    at context.callback (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:111:13)\\n    at Object.callback (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/sass-loader/dist/index.js:89:7)\\n    at Object.done [as callback] (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/neo-async/async.js:8067:18)\\n    at options.error (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/node-sass/lib/index.js:294:32)\");//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9yZXNvdXJjZXMvZnJvbnRlbmQvc2Fzcy9ib290c3RyYXAuc2Nzcy5qcyIsInNvdXJjZXMiOltdLCJtYXBwaW5ncyI6IiIsInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./resources/frontend/sass/bootstrap.scss\n");
 
 /***/ }),
 
@@ -1042,7 +126,7 @@ window.addEventListener('resize', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9yZXNvdXJjZXMvZnJvbnRlbmQvc2Fzcy9jb2xvcnMuc2Nzcy5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL3Jlc291cmNlcy9mcm9udGVuZC9zYXNzL2NvbG9ycy5zY3NzPzI3NzEiXSwic291cmNlc0NvbnRlbnQiOlsiLy8gcmVtb3ZlZCBieSBleHRyYWN0LXRleHQtd2VicGFjay1wbHVnaW4iXSwibWFwcGluZ3MiOiJBQUFBIiwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/frontend/sass/colors.scss\n");
 
 /***/ }),
 
@@ -1053,7 +137,7 @@ window.addEventListener('resize', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+eval("throw new Error(\"Module build failed (from ./node_modules/css-loader/index.js):\\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\\n\\n    background-image: url($file-2x);\\n   ^\\n      Invalid CSS after \\\"...ackground-image\\\": expected \\\"{\\\", was \\\": url($file-2x);\\\"\\n      in /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/bootstrap/mixins/_image.scss (line 31, column 5)\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/webpack/lib/NormalModule.js:316:20\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:367:11\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:233:18\\n    at context.callback (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:111:13)\\n    at Object.callback (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/sass-loader/dist/index.js:89:7)\\n    at Object.done [as callback] (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/neo-async/async.js:8067:18)\\n    at options.error (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/node-sass/lib/index.js:294:32)\");//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9yZXNvdXJjZXMvZnJvbnRlbmQvc2Fzcy9jb21wb25lbnRzLnNjc3MuanMiLCJzb3VyY2VzIjpbXSwibWFwcGluZ3MiOiIiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./resources/frontend/sass/components.scss\n");
 
 /***/ }),
 
@@ -1064,7 +148,7 @@ window.addEventListener('resize', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9yZXNvdXJjZXMvZnJvbnRlbmQvc2Fzcy9jb3JlL2NvbG9ycy9wYWxldHRlLWdyYWRpZW50LnNjc3MuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvZnJvbnRlbmQvc2Fzcy9jb3JlL2NvbG9ycy9wYWxldHRlLWdyYWRpZW50LnNjc3M/N2JhMiJdLCJzb3VyY2VzQ29udGVudCI6WyIvLyByZW1vdmVkIGJ5IGV4dHJhY3QtdGV4dC13ZWJwYWNrLXBsdWdpbiJdLCJtYXBwaW5ncyI6IkFBQUEiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./resources/frontend/sass/core/colors/palette-gradient.scss\n");
 
 /***/ }),
 
@@ -1075,7 +159,7 @@ window.addEventListener('resize', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9yZXNvdXJjZXMvZnJvbnRlbmQvc2Fzcy9jb3JlL2NvbG9ycy9wYWxldHRlLW5vdWkuc2Nzcy5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL3Jlc291cmNlcy9mcm9udGVuZC9zYXNzL2NvcmUvY29sb3JzL3BhbGV0dGUtbm91aS5zY3NzPzM0M2MiXSwic291cmNlc0NvbnRlbnQiOlsiLy8gcmVtb3ZlZCBieSBleHRyYWN0LXRleHQtd2VicGFjay1wbHVnaW4iXSwibWFwcGluZ3MiOiJBQUFBIiwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/frontend/sass/core/colors/palette-noui.scss\n");
 
 /***/ }),
 
@@ -1086,7 +170,7 @@ window.addEventListener('resize', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9yZXNvdXJjZXMvZnJvbnRlbmQvc2Fzcy9jb3JlL2NvbG9ycy9wYWxldHRlLXZhcmlhYmxlcy5zY3NzLmpzIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vLy4vcmVzb3VyY2VzL2Zyb250ZW5kL3Nhc3MvY29yZS9jb2xvcnMvcGFsZXR0ZS12YXJpYWJsZXMuc2Nzcz81NDc0Il0sInNvdXJjZXNDb250ZW50IjpbIi8vIHJlbW92ZWQgYnkgZXh0cmFjdC10ZXh0LXdlYnBhY2stcGx1Z2luIl0sIm1hcHBpbmdzIjoiQUFBQSIsInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./resources/frontend/sass/core/colors/palette-variables.scss\n");
 
 /***/ }),
 
@@ -1097,7 +181,7 @@ window.addEventListener('resize', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+eval("throw new Error(\"Module build failed (from ./node_modules/css-loader/index.js):\\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\\n\\n    background-image: url($file-2x);\\n   ^\\n      Invalid CSS after \\\"...ackground-image\\\": expected \\\"{\\\", was \\\": url($file-2x);\\\"\\n      in /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/bootstrap/mixins/_image.scss (line 31, column 5)\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/webpack/lib/NormalModule.js:316:20\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:367:11\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:233:18\\n    at context.callback (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:111:13)\\n    at Object.callback (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/sass-loader/dist/index.js:89:7)\\n    at Object.done [as callback] (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/neo-async/async.js:8067:18)\\n    at options.error (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/node-sass/lib/index.js:294:32)\");//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9yZXNvdXJjZXMvZnJvbnRlbmQvc2Fzcy9jb3JlL21lbnUvbWVudS10eXBlcy9ob3Jpem9udGFsLW1lbnUuc2Nzcy5qcyIsInNvdXJjZXMiOltdLCJtYXBwaW5ncyI6IiIsInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./resources/frontend/sass/core/menu/menu-types/horizontal-menu.scss\n");
 
 /***/ }),
 
@@ -1108,7 +192,7 @@ window.addEventListener('resize', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+eval("throw new Error(\"Module build failed (from ./node_modules/css-loader/index.js):\\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\\n\\n    background-image: url($file-2x);\\n   ^\\n      Invalid CSS after \\\"...ackground-image\\\": expected \\\"{\\\", was \\\": url($file-2x);\\\"\\n      in /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/bootstrap/mixins/_image.scss (line 31, column 5)\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/webpack/lib/NormalModule.js:316:20\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:367:11\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:233:18\\n    at context.callback (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:111:13)\\n    at Object.callback (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/sass-loader/dist/index.js:89:7)\\n    at Object.done [as callback] (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/neo-async/async.js:8067:18)\\n    at options.error (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/node-sass/lib/index.js:294:32)\");//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9yZXNvdXJjZXMvZnJvbnRlbmQvc2Fzcy9jb3JlL21lbnUvbWVudS10eXBlcy92ZXJ0aWNhbC1tZW51LnNjc3MuanMiLCJzb3VyY2VzIjpbXSwibWFwcGluZ3MiOiIiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./resources/frontend/sass/core/menu/menu-types/vertical-menu.scss\n");
 
 /***/ }),
 
@@ -1119,7 +203,7 @@ window.addEventListener('resize', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+eval("throw new Error(\"Module build failed (from ./node_modules/css-loader/index.js):\\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\\n\\n    background-image: url($file-2x);\\n   ^\\n      Invalid CSS after \\\"...ackground-image\\\": expected \\\"{\\\", was \\\": url($file-2x);\\\"\\n      in /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/bootstrap/mixins/_image.scss (line 31, column 5)\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/webpack/lib/NormalModule.js:316:20\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:367:11\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:233:18\\n    at context.callback (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:111:13)\\n    at Object.callback (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/sass-loader/dist/index.js:89:7)\\n    at Object.done [as callback] (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/neo-async/async.js:8067:18)\\n    at options.error (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/node-sass/lib/index.js:294:32)\");//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9yZXNvdXJjZXMvZnJvbnRlbmQvc2Fzcy9jb3JlL21lbnUvbWVudS10eXBlcy92ZXJ0aWNhbC1vdmVybGF5LW1lbnUuc2Nzcy5qcyIsInNvdXJjZXMiOltdLCJtYXBwaW5ncyI6IiIsInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./resources/frontend/sass/core/menu/menu-types/vertical-overlay-menu.scss\n");
 
 /***/ }),
 
@@ -1130,7 +214,7 @@ window.addEventListener('resize', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9yZXNvdXJjZXMvZnJvbnRlbmQvc2Fzcy9jb3JlL21peGlucy9hbGVydC5zY3NzLmpzIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vLy4vcmVzb3VyY2VzL2Zyb250ZW5kL3Nhc3MvY29yZS9taXhpbnMvYWxlcnQuc2Nzcz8wZjcxIl0sInNvdXJjZXNDb250ZW50IjpbIi8vIHJlbW92ZWQgYnkgZXh0cmFjdC10ZXh0LXdlYnBhY2stcGx1Z2luIl0sIm1hcHBpbmdzIjoiQUFBQSIsInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./resources/frontend/sass/core/mixins/alert.scss\n");
 
 /***/ }),
 
@@ -1141,7 +225,7 @@ window.addEventListener('resize', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9yZXNvdXJjZXMvZnJvbnRlbmQvc2Fzcy9jb3JlL21peGlucy9oZXgycmdiLnNjc3MuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvZnJvbnRlbmQvc2Fzcy9jb3JlL21peGlucy9oZXgycmdiLnNjc3M/YTczYSJdLCJzb3VyY2VzQ29udGVudCI6WyIvLyByZW1vdmVkIGJ5IGV4dHJhY3QtdGV4dC13ZWJwYWNrLXBsdWdpbiJdLCJtYXBwaW5ncyI6IkFBQUEiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./resources/frontend/sass/core/mixins/hex2rgb.scss\n");
 
 /***/ }),
 
@@ -1152,7 +236,7 @@ window.addEventListener('resize', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9yZXNvdXJjZXMvZnJvbnRlbmQvc2Fzcy9jb3JlL21peGlucy9tYWluLW1lbnUtbWl4aW4uc2Nzcy5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL3Jlc291cmNlcy9mcm9udGVuZC9zYXNzL2NvcmUvbWl4aW5zL21haW4tbWVudS1taXhpbi5zY3NzPzE4ZWYiXSwic291cmNlc0NvbnRlbnQiOlsiLy8gcmVtb3ZlZCBieSBleHRyYWN0LXRleHQtd2VicGFjay1wbHVnaW4iXSwibWFwcGluZ3MiOiJBQUFBIiwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/frontend/sass/core/mixins/main-menu-mixin.scss\n");
 
 /***/ }),
 
@@ -1163,7 +247,7 @@ window.addEventListener('resize', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9yZXNvdXJjZXMvZnJvbnRlbmQvc2Fzcy9jb3JlL21peGlucy90cmFuc2l0aW9ucy5zY3NzLmpzIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vLy4vcmVzb3VyY2VzL2Zyb250ZW5kL3Nhc3MvY29yZS9taXhpbnMvdHJhbnNpdGlvbnMuc2Nzcz9hYWExIl0sInNvdXJjZXNDb250ZW50IjpbIi8vIHJlbW92ZWQgYnkgZXh0cmFjdC10ZXh0LXdlYnBhY2stcGx1Z2luIl0sIm1hcHBpbmdzIjoiQUFBQSIsInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./resources/frontend/sass/core/mixins/transitions.scss\n");
 
 /***/ }),
 
@@ -1174,7 +258,7 @@ window.addEventListener('resize', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+eval("throw new Error(\"Module build failed (from ./node_modules/css-loader/index.js):\\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\\n\\n    background-image: url($file-2x);\\n   ^\\n      Invalid CSS after \\\"...ackground-image\\\": expected \\\"{\\\", was \\\": url($file-2x);\\\"\\n      in /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/bootstrap/mixins/_image.scss (line 31, column 5)\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/webpack/lib/NormalModule.js:316:20\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:367:11\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:233:18\\n    at context.callback (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:111:13)\\n    at Object.callback (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/sass-loader/dist/index.js:89:7)\\n    at Object.done [as callback] (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/neo-async/async.js:8067:18)\\n    at options.error (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/node-sass/lib/index.js:294:32)\");//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9yZXNvdXJjZXMvZnJvbnRlbmQvc2Fzcy9jdXN0b20tbGFyYXZlbC5zY3NzLmpzIiwic291cmNlcyI6W10sIm1hcHBpbmdzIjoiIiwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/frontend/sass/custom-laravel.scss\n");
 
 /***/ }),
 
@@ -1185,7 +269,7 @@ window.addEventListener('resize', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+eval("throw new Error(\"Module build failed (from ./node_modules/css-loader/index.js):\\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\\n\\n    background-image: url($file-2x);\\n   ^\\n      Invalid CSS after \\\"...ackground-image\\\": expected \\\"{\\\", was \\\": url($file-2x);\\\"\\n      in /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/bootstrap/mixins/_image.scss (line 31, column 5)\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/webpack/lib/NormalModule.js:316:20\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:367:11\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:233:18\\n    at context.callback (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:111:13)\\n    at Object.callback (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/sass-loader/dist/index.js:89:7)\\n    at Object.done [as callback] (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/neo-async/async.js:8067:18)\\n    at options.error (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/node-sass/lib/index.js:294:32)\");//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9yZXNvdXJjZXMvZnJvbnRlbmQvc2Fzcy9jdXN0b20tcnRsLnNjc3MuanMiLCJzb3VyY2VzIjpbXSwibWFwcGluZ3MiOiIiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./resources/frontend/sass/custom-rtl.scss\n");
 
 /***/ }),
 
@@ -1196,7 +280,7 @@ window.addEventListener('resize', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+eval("throw new Error(\"Module build failed (from ./node_modules/css-loader/index.js):\\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\\n\\n    background-image: url($file-2x);\\n   ^\\n      Invalid CSS after \\\"...ackground-image\\\": expected \\\"{\\\", was \\\": url($file-2x);\\\"\\n      in /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/bootstrap/mixins/_image.scss (line 31, column 5)\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/webpack/lib/NormalModule.js:316:20\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:367:11\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:233:18\\n    at context.callback (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:111:13)\\n    at Object.callback (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/sass-loader/dist/index.js:89:7)\\n    at Object.done [as callback] (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/neo-async/async.js:8067:18)\\n    at options.error (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/node-sass/lib/index.js:294:32)\");//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9yZXNvdXJjZXMvZnJvbnRlbmQvc2Fzcy9wYWdlcy9jYXJkLWFuYWx5dGljcy5zY3NzLmpzIiwic291cmNlcyI6W10sIm1hcHBpbmdzIjoiIiwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/frontend/sass/pages/card-analytics.scss\n");
 
 /***/ }),
 
@@ -1207,7 +291,7 @@ window.addEventListener('resize', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+eval("throw new Error(\"Module build failed (from ./node_modules/css-loader/index.js):\\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\\n\\n    background-image: url($file-2x);\\n   ^\\n      Invalid CSS after \\\"...ackground-image\\\": expected \\\"{\\\", was \\\": url($file-2x);\\\"\\n      in /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/bootstrap/mixins/_image.scss (line 31, column 5)\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/webpack/lib/NormalModule.js:316:20\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:367:11\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:233:18\\n    at context.callback (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:111:13)\\n    at Object.callback (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/sass-loader/dist/index.js:89:7)\\n    at Object.done [as callback] (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/neo-async/async.js:8067:18)\\n    at options.error (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/node-sass/lib/index.js:294:32)\");//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9yZXNvdXJjZXMvZnJvbnRlbmQvc2Fzcy9wYWdlcy9kYXNoYm9hcmQtYW5hbHl0aWNzLnNjc3MuanMiLCJzb3VyY2VzIjpbXSwibWFwcGluZ3MiOiIiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./resources/frontend/sass/pages/dashboard-analytics.scss\n");
 
 /***/ }),
 
@@ -1218,7 +302,7 @@ window.addEventListener('resize', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+eval("throw new Error(\"Module build failed (from ./node_modules/css-loader/index.js):\\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\\n\\n    background-image: url($file-2x);\\n   ^\\n      Invalid CSS after \\\"...ackground-image\\\": expected \\\"{\\\", was \\\": url($file-2x);\\\"\\n      in /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/bootstrap/mixins/_image.scss (line 31, column 5)\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/webpack/lib/NormalModule.js:316:20\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:367:11\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:233:18\\n    at context.callback (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:111:13)\\n    at Object.callback (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/sass-loader/dist/index.js:89:7)\\n    at Object.done [as callback] (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/neo-async/async.js:8067:18)\\n    at options.error (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/node-sass/lib/index.js:294:32)\");//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9yZXNvdXJjZXMvZnJvbnRlbmQvc2Fzcy9wbHVnaW5zL3RvdXIvdG91ci5zY3NzLmpzIiwic291cmNlcyI6W10sIm1hcHBpbmdzIjoiIiwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/frontend/sass/plugins/tour/tour.scss\n");
 
 /***/ }),
 
@@ -1229,7 +313,7 @@ window.addEventListener('resize', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+eval("throw new Error(\"Module build failed (from ./node_modules/css-loader/index.js):\\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\\n\\n    background-image: url($file-2x);\\n   ^\\n      Invalid CSS after \\\"...ackground-image\\\": expected \\\"{\\\", was \\\": url($file-2x);\\\"\\n      in /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/bootstrap/mixins/_image.scss (line 31, column 5)\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/webpack/lib/NormalModule.js:316:20\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:367:11\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:233:18\\n    at context.callback (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:111:13)\\n    at Object.callback (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/sass-loader/dist/index.js:89:7)\\n    at Object.done [as callback] (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/neo-async/async.js:8067:18)\\n    at options.error (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/node-sass/lib/index.js:294:32)\");//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9yZXNvdXJjZXMvZnJvbnRlbmQvc2Fzcy90aGVtZXMvZGFyay1sYXlvdXQuc2Nzcy5qcyIsInNvdXJjZXMiOltdLCJtYXBwaW5ncyI6IiIsInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./resources/frontend/sass/themes/dark-layout.scss\n");
 
 /***/ }),
 
@@ -1240,7 +324,7 @@ window.addEventListener('resize', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+eval("throw new Error(\"Module build failed (from ./node_modules/css-loader/index.js):\\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\\n\\n    background-image: url($file-2x);\\n   ^\\n      Invalid CSS after \\\"...ackground-image\\\": expected \\\"{\\\", was \\\": url($file-2x);\\\"\\n      in /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/bootstrap/mixins/_image.scss (line 31, column 5)\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/webpack/lib/NormalModule.js:316:20\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:367:11\\n    at /Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:233:18\\n    at context.callback (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/loader-runner/lib/LoaderRunner.js:111:13)\\n    at Object.callback (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/sass-loader/dist/index.js:89:7)\\n    at Object.done [as callback] (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/neo-async/async.js:8067:18)\\n    at options.error (/Applications/MAMP/htdocs/tanmnt/larajs/node_modules/node-sass/lib/index.js:294:32)\");//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9yZXNvdXJjZXMvZnJvbnRlbmQvc2Fzcy90aGVtZXMvc2VtaS1kYXJrLWxheW91dC5zY3NzLmpzIiwic291cmNlcyI6W10sIm1hcHBpbmdzIjoiIiwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/frontend/sass/themes/semi-dark-layout.scss\n");
 
 /***/ }),
 
@@ -1251,7 +335,7 @@ window.addEventListener('resize', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9yZXNvdXJjZXMvZnJvbnRlbmQvdGFpbHdpbmQvdGFpbHdpbmQuc2Nzcy5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL3Jlc291cmNlcy9mcm9udGVuZC90YWlsd2luZC90YWlsd2luZC5zY3NzPzI1NTMiXSwic291cmNlc0NvbnRlbnQiOlsiLy8gcmVtb3ZlZCBieSBleHRyYWN0LXRleHQtd2VicGFjay1wbHVnaW4iXSwibWFwcGluZ3MiOiJBQUFBIiwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/frontend/tailwind/tailwind.scss\n");
 
 /***/ }),
 
@@ -1262,29 +346,29 @@ window.addEventListener('resize', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/MAMP/htdocs/larajs/resources/frontend/js/core/app-menu.js */"./resources/frontend/js/core/app-menu.js");
-__webpack_require__(/*! /Applications/MAMP/htdocs/larajs/resources/frontend/sass/plugins/tour/tour.scss */"./resources/frontend/sass/plugins/tour/tour.scss");
-__webpack_require__(/*! /Applications/MAMP/htdocs/larajs/resources/frontend/sass/themes/dark-layout.scss */"./resources/frontend/sass/themes/dark-layout.scss");
-__webpack_require__(/*! /Applications/MAMP/htdocs/larajs/resources/frontend/sass/themes/semi-dark-layout.scss */"./resources/frontend/sass/themes/semi-dark-layout.scss");
-__webpack_require__(/*! /Applications/MAMP/htdocs/larajs/resources/frontend/sass/pages/card-analytics.scss */"./resources/frontend/sass/pages/card-analytics.scss");
-__webpack_require__(/*! /Applications/MAMP/htdocs/larajs/resources/frontend/sass/pages/dashboard-analytics.scss */"./resources/frontend/sass/pages/dashboard-analytics.scss");
-__webpack_require__(/*! /Applications/MAMP/htdocs/larajs/resources/frontend/sass/core/colors/palette-gradient.scss */"./resources/frontend/sass/core/colors/palette-gradient.scss");
-__webpack_require__(/*! /Applications/MAMP/htdocs/larajs/resources/frontend/sass/core/colors/palette-noui.scss */"./resources/frontend/sass/core/colors/palette-noui.scss");
-__webpack_require__(/*! /Applications/MAMP/htdocs/larajs/resources/frontend/sass/core/colors/palette-variables.scss */"./resources/frontend/sass/core/colors/palette-variables.scss");
-__webpack_require__(/*! /Applications/MAMP/htdocs/larajs/resources/frontend/sass/core/menu/menu-types/horizontal-menu.scss */"./resources/frontend/sass/core/menu/menu-types/horizontal-menu.scss");
-__webpack_require__(/*! /Applications/MAMP/htdocs/larajs/resources/frontend/sass/core/menu/menu-types/vertical-menu.scss */"./resources/frontend/sass/core/menu/menu-types/vertical-menu.scss");
-__webpack_require__(/*! /Applications/MAMP/htdocs/larajs/resources/frontend/sass/core/menu/menu-types/vertical-overlay-menu.scss */"./resources/frontend/sass/core/menu/menu-types/vertical-overlay-menu.scss");
-__webpack_require__(/*! /Applications/MAMP/htdocs/larajs/resources/frontend/sass/core/mixins/alert.scss */"./resources/frontend/sass/core/mixins/alert.scss");
-__webpack_require__(/*! /Applications/MAMP/htdocs/larajs/resources/frontend/sass/core/mixins/hex2rgb.scss */"./resources/frontend/sass/core/mixins/hex2rgb.scss");
-__webpack_require__(/*! /Applications/MAMP/htdocs/larajs/resources/frontend/sass/core/mixins/main-menu-mixin.scss */"./resources/frontend/sass/core/mixins/main-menu-mixin.scss");
-__webpack_require__(/*! /Applications/MAMP/htdocs/larajs/resources/frontend/sass/core/mixins/transitions.scss */"./resources/frontend/sass/core/mixins/transitions.scss");
-__webpack_require__(/*! /Applications/MAMP/htdocs/larajs/resources/frontend/sass/bootstrap.scss */"./resources/frontend/sass/bootstrap.scss");
-__webpack_require__(/*! /Applications/MAMP/htdocs/larajs/resources/frontend/sass/bootstrap-extended.scss */"./resources/frontend/sass/bootstrap-extended.scss");
-__webpack_require__(/*! /Applications/MAMP/htdocs/larajs/resources/frontend/sass/colors.scss */"./resources/frontend/sass/colors.scss");
-__webpack_require__(/*! /Applications/MAMP/htdocs/larajs/resources/frontend/sass/components.scss */"./resources/frontend/sass/components.scss");
-__webpack_require__(/*! /Applications/MAMP/htdocs/larajs/resources/frontend/sass/custom-rtl.scss */"./resources/frontend/sass/custom-rtl.scss");
-__webpack_require__(/*! /Applications/MAMP/htdocs/larajs/resources/frontend/sass/custom-laravel.scss */"./resources/frontend/sass/custom-laravel.scss");
-module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/larajs/resources/frontend/tailwind/tailwind.scss */"./resources/frontend/tailwind/tailwind.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/js/core/app-menu.js */"./resources/frontend/js/core/app-menu.js");
+__webpack_require__(/*! /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/plugins/tour/tour.scss */"./resources/frontend/sass/plugins/tour/tour.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/themes/dark-layout.scss */"./resources/frontend/sass/themes/dark-layout.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/themes/semi-dark-layout.scss */"./resources/frontend/sass/themes/semi-dark-layout.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/pages/card-analytics.scss */"./resources/frontend/sass/pages/card-analytics.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/pages/dashboard-analytics.scss */"./resources/frontend/sass/pages/dashboard-analytics.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/core/colors/palette-gradient.scss */"./resources/frontend/sass/core/colors/palette-gradient.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/core/colors/palette-noui.scss */"./resources/frontend/sass/core/colors/palette-noui.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/core/colors/palette-variables.scss */"./resources/frontend/sass/core/colors/palette-variables.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/core/menu/menu-types/horizontal-menu.scss */"./resources/frontend/sass/core/menu/menu-types/horizontal-menu.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/core/menu/menu-types/vertical-menu.scss */"./resources/frontend/sass/core/menu/menu-types/vertical-menu.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/core/menu/menu-types/vertical-overlay-menu.scss */"./resources/frontend/sass/core/menu/menu-types/vertical-overlay-menu.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/core/mixins/alert.scss */"./resources/frontend/sass/core/mixins/alert.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/core/mixins/hex2rgb.scss */"./resources/frontend/sass/core/mixins/hex2rgb.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/core/mixins/main-menu-mixin.scss */"./resources/frontend/sass/core/mixins/main-menu-mixin.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/core/mixins/transitions.scss */"./resources/frontend/sass/core/mixins/transitions.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/bootstrap.scss */"./resources/frontend/sass/bootstrap.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/bootstrap-extended.scss */"./resources/frontend/sass/bootstrap-extended.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/colors.scss */"./resources/frontend/sass/colors.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/components.scss */"./resources/frontend/sass/components.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/custom-rtl.scss */"./resources/frontend/sass/custom-rtl.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/sass/custom-laravel.scss */"./resources/frontend/sass/custom-laravel.scss");
+module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/tailwind/tailwind.scss */"./resources/frontend/tailwind/tailwind.scss");
 
 
 /***/ })

@@ -38,5 +38,5 @@ $configData = FrontendHelper::applClasses();
         <link rel="stylesheet" href="{{ asset(mix('frontend/css/custom-rtl.css')) }}">
 @endif
 {{--        Tailwind css--}}
-        <link rel="stylesheet" href="{{ asset(mix('frontend/css/tailwind.css')) }}">
+{{--        <link rel="stylesheet" href="{{ asset(mix('frontend/css/tailwind.css')) }}">--}}
 

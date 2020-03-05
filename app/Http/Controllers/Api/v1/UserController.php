@@ -8,6 +8,7 @@ use App\Service\QueryService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
@@ -85,7 +86,7 @@ class UserController extends Controller
             $user->assignRole($request->get('role_id'));
             //{{CONTROLLER_RELATIONSHIP_MTM_CREATE_NOT_DELETE_THIS_LINE}}
 
-            return $this->jsonData($user, 201);
+            return $this->jsonData($user, Response::HTTP_CREATED);
         } catch (\Exception $e) {
             writeLogException($e);
             return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
@@ -108,7 +109,7 @@ class UserController extends Controller
             return $this->jsonData($user);
         } catch (\Exception $e) {
             writeLogException($e);
-            return $this->jsonError($e->getMessage(), 404);
+            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
 
@@ -151,7 +152,7 @@ class UserController extends Controller
             //{{CONTROLLER_RELATIONSHIP_MTM_DELETE_NOT_DELETE_THIS_LINE}}
             $user->delete();
 
-            return $this->jsonSuccess(trans('messages.delete'), 204);
+            return $this->jsonSuccess(trans('messages.delete'));
         } catch (\Exception $e) {
             writeLogException($e);
             return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
