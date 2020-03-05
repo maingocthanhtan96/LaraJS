@@ -115,3 +115,8 @@ password: creator123
 username: editor@larajs.com
 password: editor123
 ```
+
+## Format code with prettier
+** In phpstorm install plugin prettier
+
+** On mac use shot key: shift + option + command + P
