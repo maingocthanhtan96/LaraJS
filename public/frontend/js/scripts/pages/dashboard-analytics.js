@@ -7,7 +7,8 @@
     Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 
-$(window).on('load', function() {
+$(window).on("load", function () {
+
   var $primary = '#7367F0';
   var $danger = '#EA5455';
   var $warning = '#FF9F43';
@@ -20,6 +21,7 @@ $(window).on('load', function() {
   var $label_color = '#e7eef7';
   var $white = '#fff';
 
+
   // Subscribers Gained Chart starts //
   // ----------------------------------
 
@@ -31,23 +33,23 @@ $(window).on('load', function() {
         show: false,
       },
       sparkline: {
-        enabled: true,
+        enabled: true
       },
       grid: {
         show: false,
         padding: {
           left: 0,
-          right: 0,
-        },
+          right: 0
+        }
       },
     },
     colors: [$primary],
     dataLabels: {
-      enabled: false,
+      enabled: false
     },
     stroke: {
       curve: 'smooth',
-      width: 2.5,
+      width: 2.5
     },
     fill: {
       type: 'gradient',
@@ -55,15 +57,13 @@ $(window).on('load', function() {
         shadeIntensity: 0.9,
         opacityFrom: 0.7,
         opacityTo: 0.5,
-        stops: [0, 80, 100],
-      },
+        stops: [0, 80, 100]
+      }
     },
-    series: [
-      {
-        name: 'Subscribers',
-        data: [28, 40, 36, 52, 38, 60, 55],
-      },
-    ],
+    series: [{
+      name: 'Subscribers',
+      data: [28, 40, 36, 52, 38, 60, 55]
+    }],
 
     xaxis: {
       labels: {
@@ -71,29 +71,29 @@ $(window).on('load', function() {
       },
       axisBorder: {
         show: false,
-      },
+      }
     },
-    yaxis: [
-      {
-        y: 0,
-        offsetX: 0,
-        offsetY: 0,
-        padding: { left: 0, right: 0 },
-      },
-    ],
+    yaxis: [{
+      y: 0,
+      offsetX: 0,
+      offsetY: 0,
+      padding: { left: 0, right: 0 },
+    }],
     tooltip: {
-      x: { show: false },
+      x: { show: false }
     },
-  };
+  }
 
   var gainedChart = new ApexCharts(
-    document.querySelector('#subscribe-gain-chart'),
+    document.querySelector("#subscribe-gain-chart"),
     gainedChartoptions
   );
 
   gainedChart.render();
 
   // Subscribers Gained Chart ends //
+
+
 
   // Orders Received Chart starts //
   // ----------------------------------
@@ -106,23 +106,23 @@ $(window).on('load', function() {
         show: false,
       },
       sparkline: {
-        enabled: true,
+        enabled: true
       },
       grid: {
         show: false,
         padding: {
           left: 0,
-          right: 0,
-        },
+          right: 0
+        }
       },
     },
     colors: [$warning],
     dataLabels: {
-      enabled: false,
+      enabled: false
     },
     stroke: {
       curve: 'smooth',
-      width: 2.5,
+      width: 2.5
     },
     fill: {
       type: 'gradient',
@@ -130,15 +130,13 @@ $(window).on('load', function() {
         shadeIntensity: 0.9,
         opacityFrom: 0.7,
         opacityTo: 0.5,
-        stops: [0, 80, 100],
-      },
+        stops: [0, 80, 100]
+      }
     },
-    series: [
-      {
-        name: 'Orders',
-        data: [10, 15, 8, 15, 7, 12, 8],
-      },
-    ],
+    series: [{
+      name: 'Orders',
+      data: [10, 15, 8, 15, 7, 12, 8]
+    }],
 
     xaxis: {
       labels: {
@@ -146,29 +144,29 @@ $(window).on('load', function() {
       },
       axisBorder: {
         show: false,
-      },
+      }
     },
-    yaxis: [
-      {
-        y: 0,
-        offsetX: 0,
-        offsetY: 0,
-        padding: { left: 0, right: 0 },
-      },
-    ],
+    yaxis: [{
+      y: 0,
+      offsetX: 0,
+      offsetY: 0,
+      padding: { left: 0, right: 0 },
+    }],
     tooltip: {
-      x: { show: false },
+      x: { show: false }
     },
-  };
+  }
 
   var orderChart = new ApexCharts(
-    document.querySelector('#orders-received-chart'),
+    document.querySelector("#orders-received-chart"),
     orderChartoptions
   );
 
   orderChart.render();
 
   // Orders Received Chart ends //
+
+
 
   // Avg Session Chart Starts
   // ----------------------------------
@@ -182,54 +180,46 @@ $(window).on('load', function() {
     },
     states: {
       hover: {
-        filter: 'none',
-      },
+        filter: 'none'
+      }
     },
-    colors: [
-      $label_color,
-      $label_color,
-      $primary,
-      $label_color,
-      $label_color,
-      $label_color,
-    ],
-    series: [
-      {
-        name: 'Sessions',
-        data: [75, 125, 225, 175, 125, 75, 25],
-      },
-    ],
+    colors: [$label_color, $label_color, $primary, $label_color, $label_color, $label_color],
+    series: [{
+      name: 'Sessions',
+      data: [75, 125, 225, 175, 125, 75, 25]
+    }],
     grid: {
       show: false,
       padding: {
         left: 0,
-        right: 0,
-      },
+        right: 0
+      }
     },
 
     plotOptions: {
       bar: {
         columnWidth: '45%',
         distributed: true,
-        endingShape: 'rounded',
-      },
+        endingShape: 'rounded'
+      }
     },
     tooltip: {
-      x: { show: false },
+      x: { show: false }
     },
     xaxis: {
       type: 'numeric',
-    },
-  };
+    }
+  }
 
   var sessionChart = new ApexCharts(
-    document.querySelector('#avg-session-chart'),
+    document.querySelector("#avg-session-chart"),
     sessionChartoptions
   );
 
   sessionChart.render();
 
   // Avg Session Chart ends //
+
 
   // Support Tracker Chart starts
   // -----------------------------
@@ -251,14 +241,15 @@ $(window).on('load', function() {
         track: {
           background: $white,
           strokeWidth: '100%',
+
         },
         dataLabels: {
           value: {
             offsetY: 30,
             color: '#99a2ac',
-            fontSize: '2rem',
-          },
-        },
+            fontSize: '2rem'
+          }
+        }
       },
     },
     colors: [$danger],
@@ -273,24 +264,26 @@ $(window).on('load', function() {
         inverseColors: true,
         opacityFrom: 1,
         opacityTo: 1,
-        stops: [0, 100],
+        stops: [0, 100]
       },
     },
     stroke: {
-      dashArray: 8,
+      dashArray: 8
     },
     series: [83],
     labels: ['Completed Tickets'],
-  };
+
+  }
 
   var supportChart = new ApexCharts(
-    document.querySelector('#support-tracker-chart'),
+    document.querySelector("#support-tracker-chart"),
     supportChartoptions
   );
 
   supportChart.render();
 
   // Support Tracker Chart ends
+
 
   // Product Order Chart starts
   // -----------------------------
@@ -312,17 +305,17 @@ $(window).on('load', function() {
         inverseColors: false,
         opacityFrom: 1,
         opacityTo: 1,
-        stops: [0, 100],
+        stops: [0, 100]
       },
     },
     stroke: {
-      lineCap: 'round',
+      lineCap: 'round'
     },
     plotOptions: {
       radialBar: {
         size: 165,
         hollow: {
-          size: '20%',
+          size: '20%'
         },
         track: {
           strokeWidth: '100%',
@@ -339,26 +332,28 @@ $(window).on('load', function() {
             show: true,
             label: 'Total',
 
-            formatter: function(w) {
+            formatter: function (w) {
               // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
-              return 42459;
-            },
-          },
-        },
-      },
+              return 42459
+            }
+          }
+        }
+      }
     },
     series: [70, 52, 26],
     labels: ['Finished', 'Pending', 'Rejected'],
-  };
+
+  }
 
   var productChart = new ApexCharts(
-    document.querySelector('#product-order-chart'),
+    document.querySelector("#product-order-chart"),
     productChartoptions
   );
 
   productChart.render();
 
   // Product Order Chart ends //
+
 
   // Sales Chart starts
   // -----------------------------
@@ -372,41 +367,31 @@ $(window).on('load', function() {
         blur: 8,
         left: 1,
         top: 1,
-        opacity: 0.2,
+        opacity: 0.2
       },
       toolbar: {
-        show: false,
+        show: false
       },
     },
     toolbar: { show: false },
-    series: [
-      {
-        name: 'Sales',
-        data: [90, 50, 86, 40, 100, 20],
-      },
-      {
-        name: 'Visit',
-        data: [70, 75, 70, 76, 20, 85],
-      },
-    ],
+    series: [{
+      name: 'Sales',
+      data: [90, 50, 86, 40, 100, 20],
+    }, {
+      name: 'Visit',
+      data: [70, 75, 70, 76, 20, 85],
+    }],
     stroke: {
-      width: 0,
+      width: 0
     },
     colors: [$primary, $info],
     plotOptions: {
       radar: {
         polygons: {
-          strokeColors: [
-            '#e8e8e8',
-            'transparent',
-            'transparent',
-            'transparent',
-            'transparent',
-            'transparent',
-          ],
-          connectorColors: 'transparent',
-        },
-      },
+          strokeColors: ['#e8e8e8', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent'],
+          connectorColors: 'transparent'
+        }
+      }
     },
     fill: {
       type: 'gradient',
@@ -417,7 +402,7 @@ $(window).on('load', function() {
         type: 'horizontal',
         opacityFrom: 1,
         opacityTo: 1,
-        stops: [0, 100, 100, 100],
+        stops: [0, 100, 100, 100]
       },
     },
     markers: {
@@ -431,20 +416,13 @@ $(window).on('load', function() {
       markers: {
         width: 10,
         height: 10,
-      },
+      }
     },
     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
     dataLabels: {
       style: {
-        colors: [
-          $strok_color,
-          $strok_color,
-          $strok_color,
-          $strok_color,
-          $strok_color,
-          $strok_color,
-        ],
-      },
+        colors: [$strok_color, $strok_color, $strok_color, $strok_color, $strok_color, $strok_color]
+      }
     },
     yaxis: {
       show: false,
@@ -452,10 +430,11 @@ $(window).on('load', function() {
     grid: {
       show: false,
     },
-  };
+
+  }
 
   var salesChart = new ApexCharts(
-    document.querySelector('#sales-chart'),
+    document.querySelector("#sales-chart"),
     salesChartoptions
   );
 
