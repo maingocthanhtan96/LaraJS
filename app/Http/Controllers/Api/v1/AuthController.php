@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Http\Response;
 
 class AuthController extends Controller
 {
@@ -19,30 +20,35 @@ class AuthController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse|\Psr\Http\Message\StreamInterface
+     * @return false|string
      * @author tanmnt
      */
     public function login(Request $request)
     {
-        $http = new \GuzzleHttp\Client();
         try {
-            $response = $http->post(config('services.passport.login_endpoint'), [
-                'form_params' => [
-                    'grant_type' => 'password',
-                    'client_id' => config('services.passport.client_id'),
-                    'client_secret' => config('services.passport.client_secret'),
-                    'username' => $request->email,
-                    'password' => $request->password,
-                ],
+            $email = $request->get('email');
+            $password = $request->get('password');
+            $request->request->add([
+                'username' => $email,
+                'password' => $password,
+                'grant_type' => 'password',
+                'client_id' => config('services.passport.client_id'),
+                'client_secret' => config('services.passport.client_secret'),
             ]);
-            return $response->getBody();
-        } catch (\GuzzleHttp\Exception\BadResponseException $e) {
-            if ($e->getCode() === 400) {
-                return $this->jsonError(trans('auth.login_fail'), $e->getCode());
-            } elseif ($e->getCode() === 401) {
-                return $this->jsonError(trans('auth.credentials_incorrect'), $e->getCode());
+
+            $tokenRequest = $request->create(config('services.passport.login_endpoint'), 'post');
+            $response = \Route::dispatch($tokenRequest);
+
+            if ($response->getStatusCode() === Response::HTTP_OK) {
+                return $response->getContent();
+            } elseif ($response->getStatusCode() === Response::HTTP_BAD_REQUEST) {
+                return $this->jsonError(trans('auth.login_fail'), $response->getStatusCode());
+            } elseif ($response->getStatusCode() === Response::HTTP_UNAUTHORIZED) {
+                return $this->jsonError(trans('auth.credentials_incorrect'), $response->getStatusCode());
             }
-            return $this->jsonError(trans('auth.server_error'), $e->getCode());
+        } catch (\Exception $e) {
+            writeLogException($e);
+            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
 
