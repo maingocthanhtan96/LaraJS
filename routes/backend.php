@@ -10,4 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+route('elfinder.tinymce4');
+
 Route::get('/be/{path}', 'LaraJSController')->where('path', '(.*)');

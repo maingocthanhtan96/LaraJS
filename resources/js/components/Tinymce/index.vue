@@ -24,6 +24,7 @@ import editorImage from './components/EditorImage';
 import plugins from './plugins';
 import toolbar from './toolbar';
 import load from './dynamicLoadScript';
+// import elFinderBrowser from './elFinderBrowser';
 
 // why use this cdn, detail see https://github.com/PanJiaChen/tinymce-all-in-one
 const tinymceCDN = '/static/tinymce4.7.5/tinymce.min.js';
@@ -162,6 +163,23 @@ export default {
             _this.fullscreen = e.state;
           });
         },
+        file_picker_callback: function(field_name, url, type, win) {
+          window.tinymce.activeEditor.windowManager.open(
+            {
+              file: '/elfinder/tinymce4', // use an absolute path!
+              title: 'Finder',
+              width: 900,
+              height: 450,
+              resizable: 'yes',
+            },
+            {
+              setUrl: function(url) {
+                win.document.getElementById(field_name).value = url;
+              },
+            }
+          );
+          return false;
+        },
         // 整合七牛上传
         // images_dataimg_filter(img) {
         //   setTimeout(() => {
@@ -220,6 +238,23 @@ export default {
           .get(_this.tinymceId)
           .insertContent(`<img class="wscnph" src="${v.url}" >`);
       });
+    },
+    elFinderBrowser(field_name, url, type, win) {
+      window.tinymce.activeEditor.windowManager.open(
+        {
+          // file: '<?= route('elfinder.tinymce4') ?>',// use an absolute path!
+          title: 'elFinder 2.0',
+          width: 900,
+          height: 450,
+          resizable: 'yes',
+        },
+        {
+          setUrl: function(url) {
+            win.document.getElementById(field_name).value = url;
+          },
+        }
+      );
+      return false;
     },
   },
 };

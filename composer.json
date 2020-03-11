@@ -17,6 +17,7 @@
     ],
     "require": {
         "php": "^7.3",
+        "barryvdh/laravel-elfinder": "^0.4.5",
         "doctrine/dbal": "^2.10.1",
         "fideloper/proxy": "~4.0",
         "guzzlehttp/guzzle": "^6.5.2",
