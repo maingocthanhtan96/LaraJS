@@ -14,9 +14,9 @@ class SetupRolePermissionSeeder extends Seeder
      */
     public function run()
     {
-        foreach (Acl::roles() as $role) {
-            Role::findOrCreate($role, 'api');
-        }
+//        foreach (Acl::roles() as $role) {
+//            Role::findOrCreate($role, 'api');
+//        }
 
         foreach (Acl::permissions() as $permission) {
             Permission::findOrCreate($permission, 'api');

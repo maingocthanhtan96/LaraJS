@@ -22,14 +22,23 @@ stages:
   - dev
   - staging
 
-unit_test:
+dusk:
   stage: test
+  image: chilio/laravel-dusk-ci:php-7.3
   script:
     - cp .env.test.example .env
-    - composer install
+    - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
+    - npm install
+    - npm run prod
+    - configure-laravel
+    - start-nginx-ci-project
     - php artisan key:generate
-    - php artisan migrate
+    - php artisan migrate:fresh --seed
     - vendor/bin/phpunit
+    - php artisan dusk
+  artifacts:
+    paths:
+      - tests/Browser/screenshots
 
 deploy_dev:
   stage: dev

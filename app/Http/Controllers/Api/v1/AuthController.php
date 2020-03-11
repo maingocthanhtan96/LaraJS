@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Api\v1;
 
-use App\Http\Requests\StoreUserRequest;
-use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
@@ -47,7 +45,7 @@ class AuthController extends Controller
                 return $this->jsonError(trans('auth.credentials_incorrect'), $response->getStatusCode());
             }
         } catch (\Exception $e) {
-            writeLogException($e);
+            write_log_exception($e);
             return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
@@ -58,12 +56,17 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        auth()
-            ->user()
-            ->tokens->each(function ($token, $key) {
-                $token->delete();
-            });
-        return response()->json('Logged out successfully', 200);
+        try {
+            auth()
+                ->user()
+                ->tokens->each(function ($token, $key) {
+                    $token->delete();
+                });
+            return response()->json('Logged out successfully', 200);
+        } catch (\Exception $e) {
+            write_log_exception($e);
+            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+        }
     }
 
     /**

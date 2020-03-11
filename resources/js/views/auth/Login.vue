@@ -51,11 +51,17 @@
             label-position="left"
           >
             <el-form-item :label="$t('auth.login.email')" prop="email">
-              <el-input v-model="form.email" type="text" autocomplete="on" />
+              <el-input
+                v-model="form.email"
+                name="email"
+                type="text"
+                autocomplete="on"
+              />
             </el-form-item>
             <el-form-item :label="$t('auth.login.password')" prop="password">
               <el-input
                 v-model="form.password"
+                name="password"
                 type="password"
                 show-password
                 autocomplete="off"
