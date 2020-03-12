@@ -918,7 +918,7 @@ class FormUpdateGenerator extends BaseGenerator
         $formTemplate = $this->replaceFormField($field, $formTemplate);
         $formTemplate = str_replace(
             '{{$NAME_FUNC$}}',
-            $this->serviceGenerator->nameAttribute($field['field_name']),
+            $this->serviceGenerator->modelNameNotPluralFe($field['field_name']),
             $formTemplate,
         );
         return $formTemplate;

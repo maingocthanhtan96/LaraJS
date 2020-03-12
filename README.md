@@ -59,7 +59,7 @@ certbot certonly --webroot -d [local.larajs.site] -w /var/www/letsencrypt --conf
 
 # Init project
 # https://github.com/beyondcode/laravel-er-diagram-generator
-apt-get install graphviz #(For ubuntu)
+apt-get install -y graphviz #(For ubuntu)
 brew install graphviz #(For macos)
 composer install
 composer dump-autoload
