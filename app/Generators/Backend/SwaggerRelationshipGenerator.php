@@ -70,7 +70,7 @@ class SwaggerRelationshipGenerator extends BaseGenerator
                 $templateData,
             );
 
-            $fileName = $model . $modelCurrent . '.php';
+            $fileName = $modelCurrent . $model . '.php';
             $this->serviceFile->createFile($this->path, $fileName, $templateData);
             return $templateData;
         }

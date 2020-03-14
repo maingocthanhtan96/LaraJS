@@ -1,10 +1,7 @@
 /**
-     * Field[deleted_at]
      * @OA\Property(
      *     title="Delete date",
-     *     default="timestamp",
-     *     example="",
-     *     description="",
+     *     readOnly=true
      * )
      * @var dateTime
      */

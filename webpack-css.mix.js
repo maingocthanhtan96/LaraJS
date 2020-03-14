@@ -12,7 +12,7 @@ const purgecss = require('@fullhuman/postcss-purgecss')({
     ...whitelister(['node_modules/element-ui/lib/theme-chalk/index.css']),
   ],
   // Include any special characters you're using in this regular expression
-  defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || [],
+  defaultExtractor: content => content.match(/[\w-/:%]+(?<!:)/g) || [],
 });
 
 mix.extend('mergeManifest', mergeManifest);

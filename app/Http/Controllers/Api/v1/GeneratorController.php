@@ -293,7 +293,7 @@ class GeneratorController extends Controller
         $basePath = base_path();
         Artisan::call('vue-i18n:generate');
         // php artisan generate:erd /Applications/MAMP/htdocs/tanmnt/larajs/resources/js/assets/images/diagram-erd.png
-        exec("cd $basePath && php artisan generate:erd $resourcePath");
+//        exec("cd $basePath && php artisan generate:erd $resourcePath");
         exec("cd $basePath && ./swagger.sh");
     }
 }

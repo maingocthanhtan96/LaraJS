@@ -143,6 +143,10 @@ return [
                     'route' => '//{{LANG_ROUTE_NOT_DELETE_THIS_LINE}}',
                     'table' => '//{{LANG_TABLE_NOT_DELETE_THIS_LINE}}',
                 ],
+                'jp' => [
+                    'route' => '//{{LANG_ROUTE_NOT_DELETE_THIS_LINE}}',
+                    'table' => '//{{LANG_TABLE_NOT_DELETE_THIS_LINE}}',
+                ],
             ],
             'db' => [
                 'seeder' => '//{{SEEDER_NOT_DELETE_THIS_LINE}}',
