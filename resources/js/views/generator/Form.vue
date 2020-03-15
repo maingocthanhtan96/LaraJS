@@ -757,11 +757,11 @@ export default {
               type: 'success',
             });
             this.loading = false;
-            window.location.href = this.redirectLocation;
+            // window.location.href = this.redirectLocation;
           })
           .catch(() => {
             this.loading = false;
-            window.location.href = this.redirectLocation;
+            // window.location.href = this.redirectLocation;
           });
       } else {
         this.loading = false;
@@ -798,11 +798,11 @@ export default {
               message: this.$t('messages.update'),
               type: 'success',
             });
-            window.location.href = this.redirectLocation;
+            // window.location.href = this.redirectLocation;
           })
           .catch(() => {
             this.loading = false;
-            window.location.href = this.redirectLocation;
+            // window.location.href = this.redirectLocation;
           });
       } else {
         this.loading = false;
