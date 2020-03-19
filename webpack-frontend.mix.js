@@ -128,17 +128,6 @@ mix.then(() => {
 if (mix.inProduction()) {
   mix.version();
 } else {
-  if (process.env.LARAJS_USE_ESLINT === 'true') {
-    // mix.eslint({
-    //   fix: true,
-    //   cache: false,
-    // });
-  }
-  // Development settings
-  mix.browserSync({
-    proxy: process.env.APP_URL,
-    files: ['resources/frontend/**/*'],
-  });
   mix.sourceMaps().webpackConfig({
     devtool: 'cheap-eval-source-map', // Fastest for development
   });
