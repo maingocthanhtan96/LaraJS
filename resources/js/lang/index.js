@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
 import enLocale from 'element-ui/lib/locale/lang/en';
-import vnLocale from 'element-ui/lib/locale/lang/vi';
+import viLocale from 'element-ui/lib/locale/lang/vi';
+import jaLocale from 'element-ui/lib/locale/lang/ja';
 import Locale from './vue-i18n-locales.generated';
-// import ElementLocale from 'element-ui/lib/locale';
 
 Vue.use(VueI18n);
 const messages = {
@@ -11,17 +11,20 @@ const messages = {
     ...Locale.en,
     ...enLocale,
   },
-  vn: {
+  vi: {
     ...Locale.vn,
-    ...vnLocale,
+    ...viLocale,
+  },
+  ja: {
+    ...Locale.ja,
+    ...jaLocale,
   },
 };
 
 const i18n = new VueI18n({
-  locale: localStorage.getItem('lang') || 'en',
+  locale: localStorage.getItem('lang') || 'jp',
   messages,
-  fallbackLocale: 'en',
+  fallbackLocale: 'jp',
 });
 
-// ElementLocale.i18n((key, value) => i18n.t(key, value));
 export default i18n;

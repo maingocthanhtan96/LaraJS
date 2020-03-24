@@ -5,37 +5,46 @@
     @command="handleSetLanguage"
   >
     <div>
-      <svg-icon class-name="international-icon" icon-class="language" />
+      <svg-icon class-name="text-4xl" icon-class="language" />
     </div>
     <el-dropdown-menu slot="dropdown">
-      <el-dropdown-item :disabled="language === 'zh'" command="zh">
-        中文
+      <el-dropdown-item
+        :disabled="language === 'ja'"
+        command="ja"
+        icon="flag-icon flag-icon-jp"
+      >
+        日本語
       </el-dropdown-item>
-      <el-dropdown-item :disabled="language === 'en'" command="en">
+      <el-dropdown-item
+        :disabled="language === 'en'"
+        command="en"
+        icon="flag-icon flag-icon-um"
+      >
         English
       </el-dropdown-item>
-      <el-dropdown-item :disabled="language === 'es'" command="es">
-        Español
+      <el-dropdown-item
+        :disabled="language === 'vi'"
+        command="vi"
+        icon="flag-icon flag-icon-vn"
+      >
+        Tiếng Việt
       </el-dropdown-item>
     </el-dropdown-menu>
   </el-dropdown>
 </template>
 
 <script>
+import { SET_LANG } from '@/store/muation-types';
+
 export default {
   computed: {
     language() {
-      return this.$store.getters.language;
+      return this.$store.getters.lang;
     },
   },
   methods: {
     handleSetLanguage(lang) {
-      this.$i18n.locale = lang;
-      this.$store.dispatch('app/setLanguage', lang);
-      this.$message({
-        message: 'Switch Language Success',
-        type: 'success',
-      });
+      this.$store.dispatch(`lang/${SET_LANG}`, lang);
     },
   },
 };

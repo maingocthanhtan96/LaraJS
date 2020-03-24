@@ -9,10 +9,11 @@ const purgecss = require('@fullhuman/postcss-purgecss')({
     'html',
     'body',
     'app',
-    ...whitelister(['node_modules/element-ui/lib/theme-chalk/index.css']),
+    ...whitelister([
+      './node_modules/element-ui/lib/theme-chalk/index.css',
+      './resources/js/styles/transition.scss',
+    ]),
   ],
-  whitelistPatterns: [/^el-/],
-  whitelistPatternsChildren: [/^el-/],
   // Include any special characters you're using in this regular expression
   defaultExtractor: content => content.match(/[\w-/:%]+(?<!:)/g) || [],
 });
@@ -25,7 +26,7 @@ mix
     postCss: [
       require('tailwindcss')('./public/js/tailwind.config.js'),
       require('autoprefixer'),
-      purgecss,
+      mix.inProduction() ? purgecss : require('autoprefixer'),
     ],
     clearConsole: true, // in watch mode, clears console after every build
   })

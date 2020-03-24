@@ -17,32 +17,10 @@
           <svg-icon icon-class="api" class="text-4xl" />
         </a>
       </template>
-      <el-dropdown
+      <lang-select
         v-if="$store.state.settings.showTrans"
         class="language pr-2"
-        trigger="click"
-        @command="handleCommand"
-      >
-        <span class="el-dropdown-link">
-          <svg-icon icon-class="language" class="text-4xl" />
-        </span>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item
-            :class="{ 'bg-blue-400 text-white font-bold': lang === 'vn' }"
-            icon="flag-icon flag-icon-vn"
-            command="vn"
-          >
-            Việt Nam
-          </el-dropdown-item>
-          <el-dropdown-item
-            :class="{ 'bg-blue-400 text-white font-bold': lang === 'en' }"
-            icon="flag-icon flag-icon-my"
-            command="en"
-          >
-            English
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
+      />
       <el-dropdown
         class="avatar-container right-menu-item hover-effect"
         trigger="click"
@@ -68,6 +46,7 @@
 import { mapGetters } from 'vuex';
 import Breadcrumb from '@/components/Breadcrumb';
 import Hamburger from '@/components/Hamburger';
+import LangSelect from '@/components/LangSelect';
 import { LOGOUT, SET_LANG } from '@/store/muation-types';
 import checkPermission from '@/utils/permission'; // Permission checking
 
@@ -75,6 +54,7 @@ export default {
   components: {
     Breadcrumb,
     Hamburger,
+    LangSelect,
   },
   data() {
     return {

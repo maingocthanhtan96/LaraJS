@@ -2,7 +2,7 @@ import { SET_LANG } from '../muation-types';
 import i18n from '@/lang';
 
 const state = {
-  lang: localStorage.getItem('lang') || 'en',
+  lang: localStorage.getItem('lang') || 'ja',
 };
 
 const mutations = {

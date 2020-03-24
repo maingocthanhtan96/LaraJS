@@ -11,35 +11,10 @@
                 :src="require('@/assets/images/logo/logo-tanmnt.png')"
                 width="200"
               />
-              <el-dropdown
-                class="language absolute right-0 top-0"
-                trigger="click"
-                @command="handleCommand"
-              >
-                <span class="el-dropdown-link">
-                  <svg-icon icon-class="language" class="text-4xl" />
-                </span>
-                <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item
-                    :class="{
-                      'bg-blue-400 text-white font-bold': lang === 'vn',
-                    }"
-                    icon="flag-icon flag-icon-vn"
-                    command="vn"
-                  >
-                    Việt Nam
-                  </el-dropdown-item>
-                  <el-dropdown-item
-                    :class="{
-                      'bg-blue-400 text-white font-bold': lang === 'en',
-                    }"
-                    icon="flag-icon flag-icon-my"
-                    command="en"
-                  >
-                    English
-                  </el-dropdown-item>
-                </el-dropdown-menu>
-              </el-dropdown>
+              <lang-select
+                v-if="$store.state.settings.showTrans"
+                class="absolute right-0 top-0"
+              />
             </div>
           </div>
           <el-form
@@ -98,8 +73,12 @@
 <script>
 import { mapGetters } from 'vuex';
 import { SET_LANG, LOGIN } from '@/store/muation-types';
+import LangSelect from '@/components/LangSelect';
 
 export default {
+  components: {
+    LangSelect,
+  },
   data() {
     return {
       form: {
@@ -184,3 +163,12 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+/*.set-language {*/
+/*  color: #fff;*/
+/*  position: absolute;*/
+/*  top: 40px;*/
+/*  right: 35px;*/
+/*}*/
+</style>

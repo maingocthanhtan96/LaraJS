@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use Illuminate\Support\Arr;
+use Carbon\Carbon;
 
 class QueryService extends BaseService
 {
@@ -108,12 +109,11 @@ class QueryService extends BaseService
             $q->whereLike($this->columnSearch, $this->search);
         });
 
-        $query->when(isset($this->betweenDate[0]), function ($q) {
-            $q->whereDate('created_at', '>=', $this->betweenDate[0]);
-        });
-
-        $query->when(isset($this->betweenDate[1]), function ($q) {
-            $q->whereDate('created_at', '<=', $this->betweenDate[1]);
+        $query->when(isset($this->betweenDate[0]) && isset($this->betweenDate[1]), function ($q) {
+            $startDate = Carbon::parse($this->betweenDate[0])->startOfDay();
+            $endDate = Carbon::parse($this->betweenDate[1])->endOfDay();
+            dd($startDate, $endDate);
+            $q->whereBetween("created_at", [$startDate, $endDate]);
         });
 
         $query->when($this->defaultOrderBy && $this->defaultDescending, function ($q) {
