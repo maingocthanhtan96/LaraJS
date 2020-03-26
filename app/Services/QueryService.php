@@ -112,7 +112,6 @@ class QueryService extends BaseService
         $query->when(isset($this->betweenDate[0]) && isset($this->betweenDate[1]), function ($q) {
             $startDate = Carbon::parse($this->betweenDate[0])->startOfDay();
             $endDate = Carbon::parse($this->betweenDate[1])->endOfDay();
-            dd($startDate, $endDate);
             $q->whereBetween("created_at", [$startDate, $endDate]);
         });
 

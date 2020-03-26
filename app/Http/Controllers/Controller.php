@@ -12,8 +12,6 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    protected $limit = 25;
-
     /**
      * @param array $data
      * @param int $status

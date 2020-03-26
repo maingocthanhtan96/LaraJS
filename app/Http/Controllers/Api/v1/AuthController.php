@@ -37,12 +37,16 @@ class AuthController extends Controller
             $tokenRequest = $request->create(config('services.passport.login_endpoint'), 'post');
             $response = \Route::dispatch($tokenRequest);
 
-            if ($response->getStatusCode() === Response::HTTP_OK) {
-                return $response->getContent();
-            } elseif ($response->getStatusCode() === Response::HTTP_BAD_REQUEST) {
-                return $this->jsonError(trans('auth.login_fail'), $response->getStatusCode());
-            } elseif ($response->getStatusCode() === Response::HTTP_UNAUTHORIZED) {
-                return $this->jsonError(trans('auth.credentials_incorrect'), $response->getStatusCode());
+            switch ($response->getStatusCode()) {
+                case Response::HTTP_OK:
+                    return $response->getContent();
+                    break;
+                case Response::HTTP_BAD_REQUEST:
+                    return $this->jsonError(trans('auth.login_fail'), $response->getStatusCode());
+                    break;
+                case Response::HTTP_UNAUTHORIZED:
+                    return $this->jsonError(trans('auth.credentials_incorrect'), $response->getStatusCode());
+                    break;
             }
         } catch (\Exception $e) {
             write_log_exception($e);
