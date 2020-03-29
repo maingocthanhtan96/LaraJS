@@ -97,25 +97,33 @@ class SetupCommand extends Command
      */
     public function handle()
     {
-            list($fileEnvEx, $fileConfig) = $this->__createEnv();
-            $this->__installMigrateSeed();
-            $this->__installPackage();
-            $this->__generateFile();
-            $this->__installPassport($fileEnvEx, $fileConfig);
-            $this->__deployVue();
+        try {
+            list($fileEnvEx, $fileConfig) = $this->_createEnv();
+            $this->_installMigrateSeed();
+            $this->_installPackage();
+            $this->_generateFile();
+            $this->_installPassport($fileEnvEx, $fileConfig);
+            $this->_deployVue();
 
-            Artisan::call('config:clear', [], $this->getOutput());
-            $this->info($this->__textSignature());
+            $this->_outputArtisan('config:clear');
+            $this->info($this->_textSignature());
             $this->comment('SETUP SUCCESSFULLY!');
+        } catch (\Exception $e) {
+            $this->error($e->getMessage());
+            $this->info(">>> Running: Remove env");
+            $this->_outputArtisan('config:clear');
+            File::delete(base_path($this->env));
+            $this->comment("==========Stop setup==========");
+        }
     }
 
-    private function __installMigrateSeed()
+    private function _installMigrateSeed()
     {
         $this->info('>>> Running: migrate and seed');
-        Artisan::call('migrate:fresh --seed', [], $this->getOutput());
+        $this->_outputArtisan('migrate:fresh --seed');
     }
 
-    private function __installPackage()
+    private function _installPackage()
     {
         $this->comment('INSTALL PACKAGE');
         $this->info('>>> Running: npm install');
@@ -123,18 +131,18 @@ class SetupCommand extends Command
         exec('npm rebuild node-sass');
     }
 
-    private function __generateFile()
+    private function _generateFile()
     {
         $this->comment('GENERATE KEY');
-        Artisan::call('key:generate', [], $this->getOutput());
+        $this->_outputArtisan('key:generate');
         $this->comment('GENERATE LANG');
-        Artisan::call('vue-i18n:generate', [], $this->getOutput());
+        $this->_outputArtisan('vue-i18n:generate');
         $this->info('Generate lang successfully.');
         $this->comment('GENERATE IDE');
-        Artisan::call('ide-helper:generate', [], $this->getOutput());
+        $this->_outputArtisan('ide-helper:generate');
     }
 
-    private function __installPassport($fileEnvEx, $fileConfig)
+    private function _installPassport($fileEnvEx, $fileConfig)
     {
         $this->comment('INSTALL PASSPORT');
         $this->info('>>> Running: install passport');
@@ -146,18 +154,18 @@ class SetupCommand extends Command
         $match = reset($match);
         if ($match) {
             preg_match('/\w+$/mi', $match[1], $secret);
-            $this->__createEnvWithPassport($fileEnvEx, $fileConfig, reset($secret));
+            $this->_createEnvWithPassport($fileEnvEx, $fileConfig, reset($secret));
         }
     }
 
-    private function __deployVue()
+    private function _deployVue()
     {
         $this->comment('DEPLOY VUE');
         $this->info('>>> Running: deploy vue');
         exec('npm run dev');
     }
 
-    private function __createEnv()
+    private function _createEnv()
     {
         $this->comment('SETUP DATABASE');
         $this->appUrlStub = '{{APP_URL}}';
@@ -182,20 +190,20 @@ class SetupCommand extends Command
         $this->password = $this->anticipate('What is your password?', [$parPassword], $parPassword);
 
         $fileEnvEx = File::get(base_path($envExample));
-        $fileEnvEx = $this->__replaceEnvConfig($fileEnvEx);
+        $fileEnvEx = $this->_replaceEnvConfig($fileEnvEx);
 
         $fileConfig = File::get($this->cacheConfig);
-        $fileConfig = $this->__replaceEnvConfig($fileConfig);
+        $fileConfig = $this->_replaceEnvConfig($fileConfig);
 
         File::put(base_path($this->env), $fileEnvEx);
         File::put($this->cacheConfig, $fileConfig);
 
-        Artisan::call('config:cache');
+        $this->_outputArtisan('config:cache');
 
         return [$fileEnvEx, $fileConfig];
     }
 
-    private function __replaceEnvConfig($fileEnvEx)
+    private function _replaceEnvConfig($fileEnvEx)
     {
         $fileEnvEx = str_replace($this->appUrlStub, $this->appUrl, $fileEnvEx);
         $fileEnvEx = str_replace($this->dbHostStub, $this->host, $fileEnvEx);
@@ -207,7 +215,7 @@ class SetupCommand extends Command
         return $fileEnvEx;
     }
 
-    private function __createEnvWithPassport($fileEnvEx, $fileConfig, $secret)
+    private function _createEnvWithPassport($fileEnvEx, $fileConfig, $secret)
     {
         $passport = '{{PASSPORT_CLIENT_SECRET}}';
         $fileEnvEx = str_replace($passport, $secret, $fileEnvEx);
@@ -216,10 +224,15 @@ class SetupCommand extends Command
         File::put(base_path($this->env), $fileEnvEx);
         File::put($this->cacheConfig, $fileConfig);
 
-        Artisan::call('config:cache');
+        $this->_outputArtisan('config:cache');
     }
 
-    private function __textSignature()
+    private function _outputArtisan($command, $params = [])
+    {
+        Artisan::call($command, $params, $this->getOutput());
+    }
+
+    private function _textSignature()
     {
         return <<<SIGNATURE
 ██╗      █████╗ ██████╗  █████╗      ██╗███████╗
