@@ -10,8 +10,9 @@ const purgecss = require('@fullhuman/postcss-purgecss')({
     'body',
     'app',
     ...whitelister([
-      './node_modules/element-ui/lib/theme-chalk/index.css',
+      './resources/js/styles/element-variables.scss',
       './resources/js/styles/transition.scss',
+      './resources/js/styles/element-ui.scss',
     ]),
   ],
   // Include any special characters you're using in this regular expression

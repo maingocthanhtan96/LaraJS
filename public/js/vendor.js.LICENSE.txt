@@ -8,7 +8,7 @@
  */
 
 /*!
- * vue-i18n v8.15.5 
+ * vue-i18n v8.15.6 
  * (c) 2020 kazuya kawaguchi
  * Released under the MIT License.
  */
