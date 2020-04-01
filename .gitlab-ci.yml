@@ -1,4 +1,4 @@
-image: registry.gitlab.com/laudaikinhdi/larajs:latest
+image: chilio/laravel-dusk-ci:php-7.3
 
 services:
   - mysql:5.7
