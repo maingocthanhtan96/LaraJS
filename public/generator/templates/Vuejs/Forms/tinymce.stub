@@ -1,5 +1,6 @@
 <el-form-item data-generator="{{$FORM_FIELD$}}" :label="{{$LABEL_NAME_INPUT$}}" {{$PROP_NAME$}} >
             <tinymce
+              name="{{$FORM_FIELD$}}"
               v-model="form.{{$FORM_FIELD$}}"
               :height="300"
             />

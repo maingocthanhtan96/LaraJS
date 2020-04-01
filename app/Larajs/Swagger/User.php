@@ -103,6 +103,12 @@
 class User
 {
     /**
+     * @OA\Property(readOnly=true)
+     * @var integer
+     */
+    protected $id;
+
+    /**
      * Field[name]
      * @OA\Property(
      *     title="Name",
@@ -145,7 +151,7 @@ class User
      *     example="2",
      *     description="You cann't set id as 1(role: admin)",
      * )
-     * @var integer
+     * @var Role
      */
     protected $role_id;
 
@@ -162,36 +168,27 @@ class User
     protected $password;
 
     /**
-     * Field[created_at]
      * @OA\Property(
      *     title="Create date",
-     *     default="timestamp",
-     *     example="",
-     *     description="",
+     *     readOnly=true,
      * )
      * @var dateTime
      */
     protected $created_at;
 
     /**
-     * Field[updated_at]
      * @OA\Property(
      *     title="Update date",
-     *     default="timestamp",
-     *     example="",
-     *     description="",
+     *     readOnly=true
      * )
      * @var dateTime
      */
     protected $updated_at;
 
     /**
-     * Field[deleted_at]
      * @OA\Property(
      *     title="Delete date",
-     *     default="timestamp",
-     *     example="",
-     *     description="",
+     *     readOnly=true
      * )
      * @var dateTime
      */

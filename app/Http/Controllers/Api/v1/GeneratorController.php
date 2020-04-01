@@ -40,6 +40,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schema;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
 
 class GeneratorController extends Controller
 {
@@ -73,7 +75,7 @@ class GeneratorController extends Controller
 
             return $this->jsonTable($queryService->queryTable());
         } catch (\Exception $e) {
-            writeLogException($e);
+            write_log_exception($e);
             return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
@@ -83,7 +85,7 @@ class GeneratorController extends Controller
         try {
             return $this->jsonData($generator);
         } catch (\Exception $e) {
-            writeLogException($e);
+            write_log_exception($e);
             return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
@@ -93,6 +95,8 @@ class GeneratorController extends Controller
         try {
             $fields = $request->get('fields', []);
             $model = $request->get('model', []);
+            // git commit
+            $this->_gitCommit($model['name']);
             $this->_generateBackend($fields, $model);
             $this->_generateFrontend($fields, $model);
             Generator::create([
@@ -103,7 +107,7 @@ class GeneratorController extends Controller
             $this->_runCommand($model);
             return $this->jsonSuccess(trans('messages.success'));
         } catch (\Exception $e) {
-            writeLogException($e);
+            write_log_exception($e);
             return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
@@ -123,6 +127,8 @@ class GeneratorController extends Controller
                 'changeFields' => $changeFields,
                 'dropFields' => $dropFields,
             ];
+            // git commit
+            $this->_gitCommit($model['name']);
             $this->_generateBackendUpdate($generator, $model, $updateFields);
             $this->_generateFrontendUpdate($generator, $model, $updateFields);
             $generator->update([
@@ -131,7 +137,7 @@ class GeneratorController extends Controller
             $this->_runCommand();
             return $this->jsonSuccess(trans('messages.success'));
         } catch (\Exception $e) {
-            writeLogException($e);
+            write_log_exception($e);
             return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
@@ -167,12 +173,14 @@ class GeneratorController extends Controller
             $column = $request->get('column');
             $column2 = $request->get('column2');
             $options = $request->get('options', []);
+            // git commit
+            $this->_gitCommit($model);
             new RelationshipGenerator($relationship, $model, $modelCurrent, $column, $column2, $options);
             new SwaggerRelationshipGenerator($relationship, $model, $modelCurrent);
             $this->_runCommand();
             return $this->jsonSuccess(trans('messages.success'));
         } catch (\Exception $e) {
-            writeLogException($e);
+            write_log_exception($e);
             return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
@@ -185,7 +193,7 @@ class GeneratorController extends Controller
 
             return $this->jsonData($diagram);
         } catch (\Exception $e) {
-            writeLogException($e);
+            write_log_exception($e);
             return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
@@ -210,7 +218,7 @@ class GeneratorController extends Controller
             }
             return $this->jsonData($modelData);
         } catch (\Exception $e) {
-            writeLogException($e);
+            write_log_exception($e);
             return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
@@ -293,7 +301,32 @@ class GeneratorController extends Controller
         $basePath = base_path();
         Artisan::call('vue-i18n:generate');
         // php artisan generate:erd /Applications/MAMP/htdocs/tanmnt/larajs/resources/js/assets/images/diagram-erd.png
-        exec("cd $basePath && php artisan generate:erd $resourcePath");
+        //        exec("cd $basePath && php artisan generate:erd $resourcePath");
         exec("cd $basePath && ./swagger.sh");
+        $this->_gitResetHEAD();
+    }
+
+    private function _gitCommit($model)
+    {
+        $basePath = base_path();
+        $now = \Carbon\Carbon::now()->toDateTimeString();
+        $commit = '"'.$model .' - '. $now.'"';
+        $process = new Process("cd $basePath && git add . && git commit -m $commit");
+
+        $process->run();
+        if(!$process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+        }
+    }
+
+    private function _gitResetHEAD()
+    {
+        $basePath = base_path();
+        $process = new Process("cd $basePath && git reset HEAD^");
+
+        $process->run();
+        if(!$process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+        }
     }
 }

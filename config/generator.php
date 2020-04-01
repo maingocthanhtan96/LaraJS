@@ -135,11 +135,15 @@ return [
                 ],
             ],
             'lang' => [
-                'vn' => [
+                'vi' => [
                     'route' => '//{{LANG_ROUTE_NOT_DELETE_THIS_LINE}}',
                     'table' => '//{{LANG_TABLE_NOT_DELETE_THIS_LINE}}',
                 ],
                 'en' => [
+                    'route' => '//{{LANG_ROUTE_NOT_DELETE_THIS_LINE}}',
+                    'table' => '//{{LANG_TABLE_NOT_DELETE_THIS_LINE}}',
+                ],
+                'ja' => [
                     'route' => '//{{LANG_ROUTE_NOT_DELETE_THIS_LINE}}',
                     'table' => '//{{LANG_TABLE_NOT_DELETE_THIS_LINE}}',
                 ],

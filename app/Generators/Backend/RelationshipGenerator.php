@@ -524,7 +524,7 @@ class RelationshipGenerator extends BaseGenerator
                 $templateTableColumn = str_replace('{{$FIELD_NAME$}}', $fileNameTag, $templateTableColumn);
                 $templateTableColumn = str_replace(
                     '{{$TABLE_MODEL_CLASS$}}',
-                    $this->serviceGenerator->tableNameNotPlural($modelRelationship),
+                    $funcName,
                     $templateTableColumn,
                 );
                 $templateTableColumn = str_replace('{{$ALIGN$}}', 'left', $templateTableColumn);
@@ -543,6 +543,11 @@ class RelationshipGenerator extends BaseGenerator
                 $templateTableColumn = str_replace(
                     '{{$FIELD_NAME_RELATIONSHIP$}}',
                     $funcName . self::_ID,
+                    $templateTableColumn,
+                );
+                $templateTableColumn = str_replace(
+                    '{{$MODEL_RELATIONSHIP$}}',
+                    $this->serviceGenerator->tableNameNotPlural($funcName),
                     $templateTableColumn,
                 );
                 $templateTableColumn = str_replace('{{$FIELD_NAME$}}', $columnRelationship, $templateTableColumn);

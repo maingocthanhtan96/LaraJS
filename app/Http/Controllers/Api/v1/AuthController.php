@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Api\v1;
 
-use App\Http\Requests\StoreUserRequest;
-use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
@@ -39,15 +37,19 @@ class AuthController extends Controller
             $tokenRequest = $request->create(config('services.passport.login_endpoint'), 'post');
             $response = \Route::dispatch($tokenRequest);
 
-            if ($response->getStatusCode() === Response::HTTP_OK) {
-                return $response->getContent();
-            } elseif ($response->getStatusCode() === Response::HTTP_BAD_REQUEST) {
-                return $this->jsonError(trans('auth.login_fail'), $response->getStatusCode());
-            } elseif ($response->getStatusCode() === Response::HTTP_UNAUTHORIZED) {
-                return $this->jsonError(trans('auth.credentials_incorrect'), $response->getStatusCode());
+            switch ($response->getStatusCode()) {
+                case Response::HTTP_OK:
+                    return $response->getContent();
+                    break;
+                case Response::HTTP_BAD_REQUEST:
+                    return $this->jsonError(trans('auth.login_fail'), $response->getStatusCode());
+                    break;
+                case Response::HTTP_UNAUTHORIZED:
+                    return $this->jsonError(trans('auth.credentials_incorrect'), $response->getStatusCode());
+                    break;
             }
         } catch (\Exception $e) {
-            writeLogException($e);
+            write_log_exception($e);
             return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
         }
     }
@@ -58,12 +60,17 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        auth()
-            ->user()
-            ->tokens->each(function ($token, $key) {
-                $token->delete();
-            });
-        return response()->json('Logged out successfully', 200);
+        try {
+            auth()
+                ->user()
+                ->tokens->each(function ($token, $key) {
+                    $token->delete();
+                });
+            return response()->json('Logged out successfully', 200);
+        } catch (\Exception $e) {
+            write_log_exception($e);
+            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+        }
     }
 
     /**

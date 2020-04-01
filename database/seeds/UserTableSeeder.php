@@ -103,7 +103,7 @@ class UserTableSeeder extends Seeder
         ]);
 
         $faker = Faker\Factory::create();
-        $limit = 100;
+        $limit = 10;
         for ($i = 0; $i < $limit; $i++) {
             $userFaker = User::create([
                 'name' => $faker->name,

@@ -143,7 +143,7 @@
                       v-for="(dg, index) in drawDiagram"
                       :key="'diagram_' + index"
                     >
-                      <a>{{ diagram.model }}</a>
+                      <a>{{ dg.model }}</a>
                       <ul class="flex">
                         <li
                           v-for="(item, i) in dg.data"

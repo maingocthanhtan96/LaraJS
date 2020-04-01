@@ -1,4 +1,4 @@
-image: registry.gitlab.com/laudaikinhdi/larajs:latest
+image: chilio/laravel-dusk-ci:php-7.3
 
 services:
   - mysql:5.7
@@ -26,10 +26,14 @@ unit_test:
   stage: test
   script:
     - cp .env.test.example .env
-    - composer install
+    - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
     - php artisan key:generate
     - php artisan migrate
     - vendor/bin/phpunit
+    - php artisan dusk
+  artifacts:
+    paths:
+      - tests/Browser/screenshots
 
 deploy_dev:
   stage: dev

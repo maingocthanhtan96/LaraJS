@@ -90,22 +90,24 @@
   opacity: 0.8;
 }
 
-.el-loading-spinner {
-  left: 50%;
+.el-loading-mask {
+  .el-loading-spinner {
+    left: 50%;
+  }
 }
 
-.el-message {
-  z-index: 999999 !important;
-}
-
-.el-dialog__wrapper {
-  z-index: 2003 !important;
-}
-
-.el-message-box__wrapper {
-  z-index: 2002 !important;
-}
-
-.v-modal {
-  z-index: 2001 !important;
-}
+//.el-message {
+//  z-index: 999999 !important;
+//}
+//
+//.el-dialog__wrapper {
+//  z-index: 2003 !important;
+//}
+//
+//.el-message-box__wrapper {
+//  z-index: 2002 !important;
+//}
+//
+//.v-modal {
+//  z-index: 2001 !important;
+//}

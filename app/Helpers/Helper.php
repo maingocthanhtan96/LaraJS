@@ -52,7 +52,7 @@ function strpos_x($haystack, $needle, $number)
     }
 }
 
-function getBetweenContent($content, $start, $end)
+function get_between_content($content, $start, $end)
 {
     $r = explode($start, $content);
     if (isset($r[1])) {
@@ -62,14 +62,14 @@ function getBetweenContent($content, $start, $end)
     return '';
 }
 
-function writeLogException(\Exception $e = null)
+function write_log_exception(\Exception $e = null)
 {
     \Log::error(
         '➤Message ex::' .
             $e->getMessage() .
             PHP_EOL .
             '#0 More exception::' .
-            getBetweenContent($e->getTraceAsString(), '#0', '#10') .
+            get_between_content($e->getTraceAsString(), '#0', '#10') .
             PHP_EOL .
             PHP_EOL,
     );

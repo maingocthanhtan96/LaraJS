@@ -415,7 +415,7 @@ export function checkNested(obj /*, level1, level2, ... levelN*/) {
   var args = Array.prototype.slice.call(arguments, 1);
 
   for (var i = 0; i < args.length; i++) {
-    if (!obj || !obj.hasOwnProperty(args[i])) {
+    if (!obj || !Object.prototype.hasOwnProperty.call(obj, args[i])) {
       return false;
     }
     obj = obj[args[i]];

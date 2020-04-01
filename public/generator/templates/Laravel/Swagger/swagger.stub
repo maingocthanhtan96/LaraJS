@@ -23,7 +23,7 @@
  *     security={{"authApi":{}}},
  *     @OA\RequestBody(
  *          required=true,
- *          @OA\Parameter(ref="#/components/schemas/{{MODEL_CLASS}}"),
+ *          @OA\JsonContent(ref="#/components/schemas/{{MODEL_CLASS}}"),
  *     ),
  *     @OA\Response(response="200", ref="#/components/responses/OK"),
  *     @OA\Response(response="404", ref="#/components/responses/NotFound"),
@@ -76,27 +76,27 @@
  */
 class {{MODEL_CLASS}}
 {
+    /**
+     * @OA\Property(readOnly=true)
+     * @var integer
+     */
+    protected $id;
+
     //{{SWAGGER_PROPERTY_NOT_DELETE_THIS_LINE}}
 
     /**
-     * Field[created_at]
      * @OA\Property(
      *     title="Create date",
-     *     default="timestamp",
-     *     example="",
-     *     description="",
+     *     readOnly=true
      * )
      * @var dateTime
      */
     protected $created_at;
 
     /**
-     * Field[updated_at]
      * @OA\Property(
      *     title="Update date",
-     *     default="timestamp",
-     *     example="",
-     *     description="",
+     *     readOnly=true
      * )
      * @var dateTime
      */

@@ -8,15 +8,14 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     // Dashboard - Analytics
-    public function dashboardAnalytics(){
+    public function dashboardAnalytics()
+    {
         $pageConfigs = [
-            'pageHeader' => false
+            'pageHeader' => false,
         ];
 
         return view('frontend.pages.dashboard-analytics', [
-            'pageConfigs' => $pageConfigs
+            'pageConfigs' => $pageConfigs,
         ]);
     }
-
 }
-

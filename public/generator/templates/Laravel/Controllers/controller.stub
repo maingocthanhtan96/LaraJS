@@ -59,7 +59,7 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 
 			return $this->jsonTable($queryService->queryTable());
 		} catch (\Exception $e) {
-		    writeLogException($e);
+		    write_log_exception($e);
 			return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
 		}
 	}
@@ -78,7 +78,7 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 
 			return $this->jsonData(${{MODAL_CLASS_PARAM}}, Response::HTTP_CREATED);
 		} catch (\Exception $e) {
-		    writeLogException($e);
+		    write_log_exception($e);
 			return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
 		}
 	}
@@ -96,7 +96,7 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 
 			return $this->jsonData(${{MODAL_CLASS_PARAM}});
 		} catch (\Exception $e) {
-		    writeLogException($e);
+		    write_log_exception($e);
 			return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
 		}
 	}
@@ -116,7 +116,7 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 
 			return $this->jsonData(${{MODAL_CLASS_PARAM}});
 		} catch (\Exception $e) {
-		    writeLogException($e);
+		    write_log_exception($e);
 			return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
 		}
 	}
@@ -135,7 +135,7 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 
 		    return $this->jsonSuccess(trans('messages.delete'), Response::HTTP_NO_CONTENT);
 	    } catch (\Exception $e) {
-	        writeLogException($e);
+	        write_log_exception($e);
 	    	return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
 	    }
     }
