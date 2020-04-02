@@ -8,26 +8,25 @@
           <div slot="header" class="text-center">
             {{ $t('auth.forgot_password') }}
           </div>
-          <div>
-            <el-form ref="forgotForm" :model="form" status-icon :rules="rules">
-              <el-form-item
-                :label="$t('auth.login.email')"
-                prop="email"
-                required
-              >
-                <el-input v-model="form.email" type="text" autocomplete="off" />
-              </el-form-item>
-              <el-form-item class="text-center">
-                <el-button
-                  v-loading.fullscreen.lock="loadingSendEmail"
-                  type="primary"
-                  icon="el-icon-message"
-                  circle
-                  @click="requestResetPassword('forgotForm')"
-                />
-              </el-form-item>
-            </el-form>
-          </div>
+          <el-form
+            ref="forgotForm"
+            :model="form"
+            :rules="rules"
+            status-icon
+            @submit.native.prevent="requestResetPassword('forgotForm')"
+          >
+            <el-form-item :label="$t('auth.login.email')" prop="email" required>
+              <el-input v-model="form.email" type="text" autocomplete="off" />
+            </el-form-item>
+            <el-form-item class="text-center">
+              <el-button
+                v-loading.fullscreen.lock="loadingSendEmail"
+                type="primary"
+                icon="el-icon-message"
+                @click="requestResetPassword('forgotForm')"
+              />
+            </el-form-item>
+          </el-form>
         </el-card>
       </el-col>
     </el-row>
@@ -88,7 +87,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scope>
+<style lang="scss" scoped>
 .forgot-password {
   width: 50rem;
 }

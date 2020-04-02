@@ -32,7 +32,6 @@ unit_test:
     - php artisan key:generate
     - php artisan migrate
     - vendor/bin/phpunit
-    - php artisan dusk
   artifacts:
     paths:
       - tests/Browser/screenshots

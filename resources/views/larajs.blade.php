@@ -10,7 +10,7 @@
     <title>{{ config('app.name', 'Larajs') }}</title>
 
     <link href="{{ mix('css/app.css') }}" type="text/css" rel="stylesheet">
-    <link rel="shortcut icon" href="{{asset('frontend/images/logo-tanmnt.png')}}"/>
+    <link rel="shortcut icon" href="{{asset('/images/logo-tanmnt.png')}}"/>
 </head>
 <body>
 

@@ -9,7 +9,7 @@
             {{ $t('auth.reset_password') }}
           </div>
           <div>
-            <el-form ref="resetForm" :model="form" status-icon :rules="rules">
+            <el-form ref="resetForm" :model="form" :rules="rules" status-icon>
               <el-form-item
                 :label="$t('auth.login.email')"
                 prop="email"
@@ -170,7 +170,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scope>
+<style lang="scss" scoped>
 .reset-password {
   width: 50rem;
 }
