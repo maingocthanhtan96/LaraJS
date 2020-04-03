@@ -157,8 +157,7 @@ class SeederUpdateGenerator extends BaseGenerator
                     ',';
                 break;
             case $this->dbType['json']:
-                $json =
-                    '{"menu": {"id": "file","value": "File","popup": {"menuitem": [{"value": "New", "onclick": "CreateNewDoc()"},{"value": "Open", "onclick":"OpenDoc()"},{"value": "Close", "onclick": "CloseDoc()"}]}}';
+                $json = '[{}]';
                 $fieldsGenerate = "'" . $change['field_name'] . "'" . ' => ' . "'" . $json . "'" . ',';
                 break;
             case $this->dbType['file']:

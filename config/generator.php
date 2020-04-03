@@ -157,6 +157,7 @@ return [
             'swagger' => [
                 'property' => '//{{SWAGGER_PROPERTY_NOT_DELETE_THIS_LINE}}',
                 'soft_deletes' => '//{{SWAGGER_SOFT_DELETES_NOT_DELETE_THIS_LINE}}',
+                'json_content' => ' *              x="{{SWAGGER_PROPERTY_JSON_CONTENT_NOT_DELETE_THIS_LINE}}"',
             ],
         ],
         'vuejs' => [

@@ -23,7 +23,9 @@
  *     security={{"authApi":{}}},
  *     @OA\RequestBody(
  *          required=true,
- *          @OA\JsonContent(ref="#/components/schemas/{{MODEL_CLASS}}"),
+ *          @OA\JsonContent(
+ *              x="{{SWAGGER_PROPERTY_JSON_CONTENT_NOT_DELETE_THIS_LINE}}"
+ *          )
  *     ),
  *     @OA\Response(response="200", ref="#/components/responses/OK"),
  *     @OA\Response(response="404", ref="#/components/responses/NotFound"),
@@ -48,7 +50,9 @@
  *     @OA\Parameter(ref="#/components/parameters/id"),
  *     @OA\RequestBody(
  *          required=true,
- *          @OA\JsonContent(ref="#/components/schemas/{{MODEL_CLASS}}"),
+ *          @OA\JsonContent(
+ *              x="{{SWAGGER_PROPERTY_JSON_CONTENT_NOT_DELETE_THIS_LINE}}"
+ *          )
  *     ),
  *     @OA\Response(response="200", ref="#/components/responses/OK"),
  *     @OA\Response(response="404", ref="#/components/responses/NotFound"),
@@ -77,30 +81,18 @@
 class {{MODEL_CLASS}}
 {
     /**
-     * @OA\Property(readOnly=true)
-     * @var integer
+     * @OA\Property(property="id", type="AUTO_INCREMENT", description="")
      */
-    protected $id;
 
     //{{SWAGGER_PROPERTY_NOT_DELETE_THIS_LINE}}
 
     /**
-     * @OA\Property(
-     *     title="Create date",
-     *     readOnly=true
-     * )
-     * @var dateTime
+     * @OA\Property(property="created_at", type="TIMESTAMP", default="NULL", description="")
      */
-    protected $created_at;
 
     /**
-     * @OA\Property(
-     *     title="Update date",
-     *     readOnly=true
-     * )
-     * @var dateTime
+     * @OA\Property(property="updated_at", type="TIMESTAMP", default="NULL", description="")
      */
-    protected $updated_at;
 
     //{{SWAGGER_SOFT_DELETES_NOT_DELETE_THIS_LINE}}
 }

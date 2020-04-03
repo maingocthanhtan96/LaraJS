@@ -1,8 +1,3 @@
 /**
-     * @OA\Property(
-     *     title="Delete date",
-     *     readOnly=true
-     * )
-     * @var dateTime
+     * @OA\Property(property="deleted_at", type="TIMESTAMP", default="NULL", description="")
      */
-    protected $deleted_at;

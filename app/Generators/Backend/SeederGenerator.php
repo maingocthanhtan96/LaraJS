@@ -96,8 +96,7 @@ class SeederGenerator extends BaseGenerator
                             ',';
                         break;
                     case $dbType['json']:
-                        $json =
-                            '{"menu": {"id": "file","value": "File","popup": {"menuitem": [{"value": "New", "onclick": "CreateNewDoc()"},{"value": "Open", "onclick":"OpenDoc()"},{"value": "Close", "onclick": "CloseDoc()"}]}}';
+                        $json = '[{}]';
                         $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'" . $json . "'" . ',';
                         break;
                     case $dbType['file']:

@@ -117,7 +117,33 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/User"
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "tanmnt"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "tanmnt@larajs.com"
+                                    },
+                                    "avatar": {
+                                        "type": "string",
+                                        "example": "/images/logo-tanmnt.png"
+                                    },
+                                    "role_id": {
+                                        "type": "number",
+                                        "example": "2"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "secret"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "example": "secret"
+                                    }
+                                },
+                                "type": "object"
                             }
                         }
                     }
@@ -183,7 +209,33 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/User"
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "tanmnt"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "tanmnt@larajs.com"
+                                    },
+                                    "avatar": {
+                                        "type": "string",
+                                        "example": "/images/logo-tanmnt.png"
+                                    },
+                                    "role_id": {
+                                        "type": "number",
+                                        "example": "2"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "secret"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "example": "secret"
+                                    }
+                                },
+                                "type": "object"
                             }
                         }
                     }
@@ -236,6 +288,50 @@
     },
     "components": {
         "schemas": {
+            "Role": {
+                "title": "Role",
+                "required": [
+                    "name",
+                    "guard_name"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": true
+                    },
+                    "name": {
+                        "title": "Name",
+                        "description": "",
+                        "type": "string",
+                        "default": "None"
+                    },
+                    "guard_name": {
+                        "title": "Guard name",
+                        "description": "",
+                        "type": "string",
+                        "default": "None"
+                    },
+                    "description": {
+                        "title": "Description",
+                        "description": "",
+                        "type": "string",
+                        "default": "None"
+                    },
+                    "created_at": {
+                        "title": "Create date",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true
+                    },
+                    "updated_at": {
+                        "title": "Update date",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": true
+                    }
+                },
+                "type": "object"
+            },
             "User": {
                 "title": "User",
                 "required": [
@@ -245,6 +341,10 @@
                     "role_id"
                 ],
                 "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": true
+                    },
                     "name": {
                         "title": "Name",
                         "description": "",
@@ -268,9 +368,9 @@
                     "role_id": {
                         "title": "Role",
                         "description": "You cann't set id as 1(role: admin)",
-                        "type": "integer",
                         "default": "None",
-                        "example": "2"
+                        "example": "2",
+                        "$ref": "#/components/schemas/Role"
                     },
                     "password": {
                         "title": "Password",
@@ -281,27 +381,18 @@
                     },
                     "created_at": {
                         "title": "Create date",
-                        "description": "",
                         "type": "string",
-                        "format": "date-time",
-                        "default": "timestamp",
-                        "example": ""
+                        "format": "date-time"
                     },
                     "updated_at": {
                         "title": "Update date",
-                        "description": "",
                         "type": "string",
-                        "format": "date-time",
-                        "default": "timestamp",
-                        "example": ""
+                        "format": "date-time"
                     },
                     "deleted_at": {
                         "title": "Delete date",
-                        "description": "",
                         "type": "string",
-                        "format": "date-time",
-                        "default": "timestamp",
-                        "example": ""
+                        "format": "date-time"
                     }
                 },
                 "type": "object"

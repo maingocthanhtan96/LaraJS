@@ -11,61 +11,22 @@
 class Role
 {
     /**
-     * @OA\Property(readOnly=true)
-     * @var integer
-     */
-    protected $id;
-
-    /**
-     * Field[name]
-     * @OA\Property(
-     *     title="Name",
-     *     default="None",
-     *     description="",
-     * )
-     * @var string
-     */
-    protected $name;
-
-    /**
-     * Field[guard_name]
-     * @OA\Property(
-     *     title="Guard name",
-     *     default="None",
-     *     description="",
-     * )
-     * @var string
-     */
-    protected $guard_name;
-
-    /**
-     * Field[description]
-     * @OA\Property(
-     *     title="Description",
-     *     default="None",
-     *     description="",
-     * )
-     * @var string
-     */
-    protected $description;
-
-    //{{SWAGGER_PROPERTY_NOT_DELETE_THIS_LINE}}
-
-    /**
-     * @OA\Property(
-     *     title="Create date",
-     *     readOnly=true
-     * )
-     * @var dateTime
-     */
-    protected $created_at;
-
-    /**
-     * @OA\Property(
-     *     title="Update date",
-     *     readOnly=true
-     * )
-     * @var dateTime
-     */
-    protected $updated_at;
+ * @OA\Property(property="id", type="AUTO_INCREMENT", description=""),
+ */
+/**
+ * @OA\Property(property="name", type="VARCHAR", default="None", description="")
+ */
+/**
+ * @OA\Property(property="guard_name", type="VARCHAR", default="None", description="")
+ */
+/**
+ * @OA\Property(property="description", type="VARCHAR", default="None", description="")
+ */
+//{{SWAGGER_PROPERTY_NOT_DELETE_THIS_LINE}}
+/**
+ * @OA\Property(property="created_at", type="TIMESTAMP", default="NULL", description="")
+ */
+/**
+ * @OA\Property(property="updated_at", type="TIMESTAMP", default="NULL", description="")
+ */
 }

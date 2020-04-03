@@ -47,7 +47,15 @@
  *     security={{"authApi":{}}},
  *     @OA\RequestBody(
  *          required=true,
- *          @OA\JsonContent(ref="#/components/schemas/User")
+ *          @OA\JsonContent(
+ *              @OA\Property(property="name", type="string", example="tanmnt", description=""),
+ *              @OA\Property(property="email", type="string", example="tanmnt@larajs.com", description=""),
+ *              @OA\Property(property="avatar", type="string", example="/images/logo-tanmnt.png", description=""),
+ *              @OA\Property(property="role_id", type="number", example="2", description=""),
+ *              @OA\Property(property="password", type="string", example="secret", description=""),
+ *              @OA\Property(property="password_confirmation", type="string", example="secret", description=""),
+ *              x="{{SWAGGER_PROPERTY_JSON_CONTENT_NOT_DELETE_THIS_LINE}}"
+ *          )
  *      ),
  *     @OA\Response(response="200", ref="#/components/responses/OK"),
  *     @OA\Response(response="404", ref="#/components/responses/NotFound"),
@@ -73,7 +81,15 @@
  *     @OA\Parameter(ref="#/components/parameters/id"),
  *     @OA\RequestBody(
  *         required=true,
- *         @OA\JsonContent(ref="#/components/schemas/User")
+ *         @OA\JsonContent(
+ *              @OA\Property(property="name", type="string", example="tanmnt"),
+ *              @OA\Property(property="email", type="string", example="tanmnt@larajs.com"),
+ *              @OA\Property(property="avatar", type="string", example="/images/logo-tanmnt.png"),
+ *              @OA\Property(property="role_id", type="number", example="2"),
+ *              @OA\Property(property="password", type="string", example="secret"),
+ *              @OA\Property(property="password_confirmation", type="string", example="secret"),
+ *              x="{{SWAGGER_PROPERTY_JSON_CONTENT_NOT_DELETE_THIS_LINE}}"
+ *         )
  *     ),
  *     @OA\Response(response="200", ref="#/components/responses/OK"),
  *     @OA\Response(response="404", ref="#/components/responses/NotFound"),
@@ -97,102 +113,38 @@
  * @OA\Schema(
  *     type="object",
  *     title="User",
- *     required={"name", "email", "password", "role_id"},
+ *     required={"id", "name", "email", "password", "role_id"},
  * )
  */
 class User
 {
     /**
-     * @OA\Property(readOnly=true)
-     * @var integer
-     */
-    protected $id;
-
-    /**
-     * Field[name]
-     * @OA\Property(
-     *     title="Name",
-     *     default="None",
-     *     description="",
-     * )
-     * @var string
-     */
-    protected $name;
-
-    /**
-     * Field[email]
-     * @OA\Property(
-     *     title="Email",
-     *     default="None",
-     *     example="example@larajs.com",
-     *     description="",
-     * )
-     * @var string
-     */
-    protected $email;
-
-    /**
-     * Field[avatar]
-     * @OA\Property(
-     *     title="Avatar",
-     *     default="None",
-     *     example="https://lorempixel.com/150/150/?57749",
-     *     description="",
-     * )
-     * @var string
-     */
-    protected $avatar;
-
-    /**
-     * Field[role_id]
-     * @OA\Property(
-     *     title="Role",
-     *     default="None",
-     *     example="2",
-     *     description="You cann't set id as 1(role: admin)",
-     * )
-     * @var Role
-     */
-    protected $role_id;
-
-    /**
-     * Field[password]
-     * @OA\Property(
-     *     title="Password",
-     *     default="None",
-     *     example="larajs",
-     *     description="",
-     * )
-     * @var string
-     */
-    protected $password;
-
-    /**
-     * @OA\Property(
-     *     title="Create date",
-     *     readOnly=true,
-     * )
-     * @var dateTime
-     */
-    protected $created_at;
-
-    /**
-     * @OA\Property(
-     *     title="Update date",
-     *     readOnly=true
-     * )
-     * @var dateTime
-     */
-    protected $updated_at;
-
-    /**
-     * @OA\Property(
-     *     title="Delete date",
-     *     readOnly=true
-     * )
-     * @var dateTime
-     */
-    protected $deleted_at;
-
-    //{{SWAGGER_PROPERTY_NOT_DELETE_THIS_LINE}}
+ * @OA\Property(property="id", type="AUTO_INCREMENT", description=""),
+ */
+/**
+ * @OA\Property(property="name", type="VARCHAR", default="None", description="")
+ */
+/**
+ * @OA\Property(property="email", type="VARCHAR", default="None", description="")
+ */
+/**
+ * @OA\Property(property="avatar", type="VARCHAR", default="None", description="")
+ */
+/**
+ * @OA\Property(property="role_id", default="None", description="You cann't set id as 1(role: admin)")
+ * @var Role
+ */
+/**
+ * @OA\Property(property="password", type="VARCHAR", default="None", description="")
+ */
+//{{SWAGGER_PROPERTY_NOT_DELETE_THIS_LINE}}
+/**
+ * @OA\Property(property="created_at", type="TIMESTAMP", default="NULL", description="")
+ */
+/**
+ * @OA\Property(property="updated_at", type="TIMESTAMP", default="NULL", description="")
+ */
+/**
+ * @OA\Property(property="deleted_at", type="TIMESTAMP", default="NULL", description="")
+ */
 }
