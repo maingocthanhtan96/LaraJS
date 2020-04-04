@@ -4,8 +4,8 @@ namespace App\Generators\BackendUpdate;
 
 use App\Generators\BaseGenerator;
 use App\Models\Generator;
-use App\Service\FileService;
-use App\Service\GeneratorService;
+use App\Services\FileService;
+use App\Services\GeneratorService;
 use Carbon\Carbon;
 
 class MigrationUpdateGenerator extends BaseGenerator

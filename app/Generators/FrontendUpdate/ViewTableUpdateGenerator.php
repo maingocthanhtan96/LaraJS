@@ -3,8 +3,8 @@
 namespace App\Generators\FrontendUpdate;
 
 use App\Generators\BaseGenerator;
-use App\Service\FileService;
-use App\Service\GeneratorService;
+use App\Services\FileService;
+use App\Services\GeneratorService;
 
 class ViewTableUpdateGenerator extends BaseGenerator
 {

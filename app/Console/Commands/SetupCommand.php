@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Service\FileService;
-use App\Service\GeneratorService;
+use App\Services\FileService;
+use App\Services\GeneratorService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
@@ -164,6 +164,7 @@ class SetupCommand extends Command
         $this->comment('DEPLOY VUE');
         $this->info('>>> Running: deploy vue');
         exec('npm run dev');
+        exec('npm run dev-fe');
     }
 
     private function _deploySwagger()

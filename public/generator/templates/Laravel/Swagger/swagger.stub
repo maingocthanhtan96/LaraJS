@@ -81,7 +81,7 @@
 class {{MODEL_CLASS}}
 {
     /**
-     * @OA\Property(property="id", type="AUTO_INCREMENT", description="")
+     * @OA\Property(property="id", type="BIGINT", description="AUTO_INCREMENT")
      */
 
     //{{SWAGGER_PROPERTY_NOT_DELETE_THIS_LINE}}

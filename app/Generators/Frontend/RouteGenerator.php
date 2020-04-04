@@ -3,8 +3,8 @@
 namespace App\Generators\Frontend;
 
 use App\Generators\BaseGenerator;
-use App\Service\FileService;
-use App\Service\GeneratorService;
+use App\Services\FileService;
+use App\Services\GeneratorService;
 use Carbon\Carbon;
 
 class RouteGenerator extends BaseGenerator

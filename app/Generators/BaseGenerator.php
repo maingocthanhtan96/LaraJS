@@ -2,7 +2,7 @@
 
 namespace App\Generators;
 
-use App\Service\FileService;
+use App\Services\FileService;
 
 class BaseGenerator
 {

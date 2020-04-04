@@ -4,8 +4,8 @@ namespace App\Generators\Backend;
 
 use App\Generators\BaseGenerator;
 use App\Models\Generator;
-use App\Service\FileService;
-use App\Service\GeneratorService;
+use App\Services\FileService;
+use App\Services\GeneratorService;
 use Carbon\Carbon;
 
 class RelationshipGenerator extends BaseGenerator
@@ -522,11 +522,7 @@ class RelationshipGenerator extends BaseGenerator
                 );
                 $fileNameTag = $funcName . '.' . $columnRelationship;
                 $templateTableColumn = str_replace('{{$FIELD_NAME$}}', $fileNameTag, $templateTableColumn);
-                $templateTableColumn = str_replace(
-                    '{{$TABLE_MODEL_CLASS$}}',
-                    $funcName,
-                    $templateTableColumn,
-                );
+                $templateTableColumn = str_replace('{{$TABLE_MODEL_CLASS$}}', $funcName, $templateTableColumn);
                 $templateTableColumn = str_replace('{{$ALIGN$}}', 'left', $templateTableColumn);
                 $templateTableColumn = str_replace(
                     '{{$MODEL_RELATIONSHIP$}}',

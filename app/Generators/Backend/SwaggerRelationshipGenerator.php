@@ -3,8 +3,8 @@
 namespace App\Generators\Backend;
 
 use App\Generators\BaseGenerator;
-use App\Service\FileService;
-use App\Service\GeneratorService;
+use App\Services\FileService;
+use App\Services\GeneratorService;
 use Carbon\Carbon;
 
 class SwaggerRelationshipGenerator extends BaseGenerator
@@ -24,8 +24,10 @@ class SwaggerRelationshipGenerator extends BaseGenerator
     /** @var string */
     public $relationship;
 
-    const DB_TYPE_INTEGER = 'integer';
+    const DB_TYPE_INTEGER = 'BIGINT';
     const REF_UPPER = 'Ref';
+    const OA_SCHEME = '@OA\Schema(';
+    const REQUIRED = 'required={';
 
     public function __construct($relationship, $model, $modelCurrent)
     {
@@ -44,10 +46,38 @@ class SwaggerRelationshipGenerator extends BaseGenerator
         $templateData = $this->serviceGenerator->getFile('swagger', 'laravel', $fileName);
         // Model Relationship
         if ($relationship === $this->relationship['has_one'] || $relationship === $this->relationship['has_many']) {
+            // Required
+            $templateScheme = $this->serviceGenerator->searchTemplate(
+                self::OA_SCHEME,
+                ')',
+                -strlen(self::OA_SCHEME) + 4,
+                strlen(self::OA_SCHEME) + 2,
+                $templateData,
+            );
+            $templateRequired = $this->serviceGenerator->searchTemplate(
+                self::REQUIRED,
+                '}',
+                strlen(self::REQUIRED),
+                -strlen(self::REQUIRED),
+                $templateScheme,
+            );
+            if (!$templateScheme || !$templateRequired) {
+                return $templateData;
+            }
+            $fieldRequires = '"' . \Str::snake($modelCurrent) . '_id' . '"';
+            $templateRequiredNew = $templateRequired . ', ' . $fieldRequires;
+            $templateData = str_replace($templateRequired, rtrim($templateRequiredNew, ', '), $templateData);
+            // end required
             $templateData = $this->serviceGenerator->replaceNotDelete(
                 $this->notDelete['property'],
-                $this->generateField(\Str::snake($model) . '_id', $relationship),
+                $this->generateField($modelCurrent, $relationship),
                 1,
+                $templateData,
+            );
+            $templateData = $this->serviceGenerator->replaceNotDelete(
+                $this->notDelete['json_content'],
+                $this->generateField($modelCurrent, $relationship, true),
+                0,
                 $templateData,
             );
         } else {
@@ -59,18 +89,18 @@ class SwaggerRelationshipGenerator extends BaseGenerator
             $templateData = str_replace('{{RELATIONSHIP}}', $relationship, $templateData);
             $templateData = $this->serviceGenerator->replaceNotDelete(
                 $this->notDelete['property'],
-                $this->generateField(\Str::snake($model) . '_id', $relationship),
+                $this->generateField($model, $relationship),
                 1,
                 $templateData,
             );
             $templateData = $this->serviceGenerator->replaceNotDelete(
                 $this->notDelete['property'],
-                $this->generateField(\Str::snake($modelCurrent) . '_id', $relationship),
+                $this->generateField($modelCurrent, $relationship),
                 1,
                 $templateData,
             );
 
-            $fileName = $modelCurrent . $model . '.php';
+            $fileName = self::REF_UPPER . $modelCurrent . $model . '.php';
             $this->serviceFile->createFile($this->path, $fileName, $templateData);
             return $templateData;
         }
@@ -81,17 +111,19 @@ class SwaggerRelationshipGenerator extends BaseGenerator
         return $templateData;
     }
 
-    private function generateField($field, $relationship)
+    private function generateField($modelRelationship, $relationship, $isPropertyJson = false)
     {
-        $templateProperty = $this->serviceGenerator->get_template('property', 'Swagger/');
-        $templateProperty = str_replace('{{FIELD}}', $field, $templateProperty);
-        $templateProperty = str_replace('{{FIELD_TRANS}}', $field, $templateProperty);
-        $templateProperty = str_replace('{{DEFAULT_VALUE}}', 'NONE', $templateProperty);
-        $templateProperty = str_replace('{{DB_TYPE}}', self::DB_TYPE_INTEGER, $templateProperty);
-        $templateProperty = str_replace('{{EXAMPLE}}', 1, $templateProperty);
-        if ($relationship === $this->relationship['has_one'] || $relationship === $this->relationship['has_many']) {
-            $templateProperty = str_replace('description=""', 'description="' . $relationship . '"', $templateProperty);
+        if ($isPropertyJson) {
+            $templateProperty = $this->serviceGenerator->get_template('propertyJson', 'Swagger/');
+            $templateProperty = str_replace('{{EXAMPLE}}', 1, $templateProperty);
+            $templateProperty = str_replace('{{DB_TYPE}}', self::DB_TYPE_INTEGER, $templateProperty);
+        } else {
+            $templateProperty = $this->serviceGenerator->get_template('propertyRelationship', 'Swagger/');
+            $templateProperty = str_replace('{{MODEL_RELATIONSHIP}}', $modelRelationship, $templateProperty);
         }
+        $templateProperty = str_replace('{{FIELD}}', \Str::snake($modelRelationship) . '_id', $templateProperty);
+        $templateProperty = str_replace('{{DEFAULT_VALUE}}', 'NONE', $templateProperty);
+        $templateProperty = str_replace('description=""', 'description="' . $relationship . '"', $templateProperty);
 
         return $templateProperty;
     }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
-use App\Service\QueryService;
+use App\Services\QueryService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
