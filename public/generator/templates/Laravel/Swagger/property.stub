@@ -1,11 +1,3 @@
 /**
-     * Field[{{FIELD}}]
-     * @OA\Property(
-     *     title="{{FIELD_TRANS}}",
-     *     default="{{DEFAULT_VALUE}}",
-     *     example="{{EXAMPLE}}",
-     *     description="",
-     * )
-     * @var {{DB_TYPE}}
+     * <###> @OA\Property(property="{{FIELD}}", type="{{DB_TYPE}}", default="{{DEFAULT_VALUE}}", description="")
      */
-    protected ${{FIELD}};

@@ -9,37 +9,23 @@
  * @OA\Schema(
  *     type="object",
  *     title="{{MODEL_CLASS}}",
- *     required={"{{REQUIRED_FIELD_1}}", "{{REQUIRED_FIELD_2}}"},
+ *     required={"id", "{{REQUIRED_FIELD_1}}", "{{REQUIRED_FIELD_2}}"},
  *     description="{{RELATIONSHIP}}",
  * )
  */
 class {{MODEL_CLASS}}
 {
     /**
-     * @OA\Property(readOnly=true)
-     * @var integer
+     * @OA\Property(property="id", type="BIGINT", description="AUTO_INCREMENT")
      */
-    protected $id;
 
     //{{SWAGGER_PROPERTY_NOT_DELETE_THIS_LINE}}
 
     /**
-     * @OA\Property(
-     *     title="Create date",
-     *     readOnly=true
-     * )
-     * @var dateTime
+     * @OA\Property(property="created_at", type="TIMESTAMP", default="NULL", description="")
      */
-    protected $created_at;
 
     /**
-     * @OA\Property(
-     *     title="Update date",
-     *     readOnly=true
-     * )
-     * @var dateTime
+     * @OA\Property(property="updated_at", type="TIMESTAMP", default="NULL", description="")
      */
-    protected $updated_at;
-
-    //{{SWAGGER_SOFT_DELETES_NOT_DELETE_THIS_LINE}}
 }

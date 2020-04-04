@@ -22,9 +22,9 @@ const messages = {
 };
 
 const i18n = new VueI18n({
-  locale: localStorage.getItem('lang') || 'jp',
+  locale: localStorage.getItem('lang') || 'ja',
   messages,
-  fallbackLocale: 'jp',
+  fallbackLocale: 'en',
 });
 
 export default i18n;

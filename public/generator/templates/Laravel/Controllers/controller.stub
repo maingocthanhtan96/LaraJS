@@ -10,7 +10,7 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Models\{{MODAL_CLASS}};
-use App\Service\QueryService;
+use App\Services\QueryService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;

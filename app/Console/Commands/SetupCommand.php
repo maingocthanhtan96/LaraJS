@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Service\FileService;
-use App\Service\GeneratorService;
+use App\Services\FileService;
+use App\Services\GeneratorService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
@@ -104,16 +104,17 @@ class SetupCommand extends Command
             $this->_generateFile();
             $this->_installPassport($fileEnvEx, $fileConfig);
             $this->_deployVue();
+            $this->_deploySwagger();
 
             $this->_outputArtisan('config:clear');
             $this->info($this->_textSignature());
             $this->comment('SETUP SUCCESSFULLY!');
         } catch (\Exception $e) {
             $this->error($e->getMessage());
-            $this->info(">>> Running: Remove env");
+            $this->info('>>> Running: Remove env');
             $this->_outputArtisan('config:clear');
             File::delete(base_path($this->env));
-            $this->comment("==========Stop setup==========");
+            $this->comment('==========Stop setup==========');
         }
     }
 
@@ -163,6 +164,14 @@ class SetupCommand extends Command
         $this->comment('DEPLOY VUE');
         $this->info('>>> Running: deploy vue');
         exec('npm run dev');
+        exec('npm run dev-fe');
+    }
+
+    private function _deploySwagger()
+    {
+        $this->comment('DEPLOY SWAGGER');
+        $this->info('>>> Running: deploy swagger');
+        exec('./swagger.sh');
     }
 
     private function _createEnv()

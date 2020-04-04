@@ -3,8 +3,8 @@
 namespace App\Generators\BackendUpdate;
 
 use App\Generators\BaseGenerator;
-use App\Service\FileService;
-use App\Service\GeneratorService;
+use App\Services\FileService;
+use App\Services\GeneratorService;
 use Carbon\Carbon;
 
 class SeederUpdateGenerator extends BaseGenerator
@@ -157,8 +157,7 @@ class SeederUpdateGenerator extends BaseGenerator
                     ',';
                 break;
             case $this->dbType['json']:
-                $json =
-                    '{"menu": {"id": "file","value": "File","popup": {"menuitem": [{"value": "New", "onclick": "CreateNewDoc()"},{"value": "Open", "onclick":"OpenDoc()"},{"value": "Close", "onclick": "CloseDoc()"}]}}';
+                $json = '[{}]';
                 $fieldsGenerate = "'" . $change['field_name'] . "'" . ' => ' . "'" . $json . "'" . ',';
                 break;
             case $this->dbType['file']:
