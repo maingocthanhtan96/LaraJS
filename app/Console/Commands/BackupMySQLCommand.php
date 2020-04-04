@@ -70,16 +70,16 @@ class BackupMySQLCommand extends Command
         $tempLocation = '/tmp/' . $dbName . '.sql';
 
         // run the cli job
-        $process = new Process(
-            'mysqldump -u' .
-                env('DB_USERNAME') .
-                ' -p' .
-                env('DB_PASSWORD') .
-                ' ' .
-                env('DB_DATABASE') .
-                ' > ' .
-                $tempLocation,
-        );
+        $process = new Process([
+            'mysqldump -u ' .
+            env('DB_USERNAME') .
+            ' -p ' .
+            env('DB_PASSWORD') .
+            ' ' .
+            env('DB_DATABASE') .
+            ' > ' .
+            $tempLocation,
+        ]);
         $process->run();
 
         try {
@@ -108,7 +108,7 @@ class BackupMySQLCommand extends Command
 
             @unlink($tempLocation);
         } catch (\Exception $e) {
-            $this->info($e->getMessage(), $e->getFile(), $e->getLine());
+            $this->error($e->getMessage());
         }
     }
 
@@ -144,17 +144,17 @@ class BackupMySQLCommand extends Command
             }
 
             // run the cli job
-            $process = new Process(
+            $process = new Process([
                 'mysql -h ' .
-                    env('DB_HOST') .
-                    ' -u ' .
-                    env('DB_USERNAME') .
-                    ' -p' .
-                    env('DB_PASSWORD') .
-                    ' ' .
-                    env('DB_DATABASE') .
-                    " < {$tempLocation}",
-            );
+                env('DB_HOST') .
+                ' -u ' .
+                env('DB_USERNAME') .
+                ' -p' .
+                env('DB_PASSWORD') .
+                ' ' .
+                env('DB_DATABASE') .
+                " < {$tempLocation}",
+            ]);
             $process->run();
 
             @unlink($tempLocation);
@@ -165,7 +165,7 @@ class BackupMySQLCommand extends Command
                 throw new ProcessFailedException($process);
             }
         } catch (\Exception $e) {
-            $this->info('File Not Found: ' . $e->getMessage(), $e->getFile(), $e->getLine());
+            $this->info('File Not Found: ' . $e->getMessage());
         }
     }
 }

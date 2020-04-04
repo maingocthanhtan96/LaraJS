@@ -97,14 +97,15 @@ class GeneratorController extends Controller
             $model = $request->get('model', []);
             // git commit
             $this->_gitCommit($model['name']);
+            dd(1);
             $this->_generateBackend($fields, $model);
-            //            $this->_generateFrontend($fields, $model);
-            //            Generator::create([
-            //                'field' => json_encode($fields),
-            //                'model' => json_encode($model),
-            //                'table' => $this->serviceGenerator->tableName($model['name']),
-            //            ]);
-            //            $this->_runCommand($model);
+            $this->_generateFrontend($fields, $model);
+            Generator::create([
+                'field' => json_encode($fields),
+                'model' => json_encode($model),
+                'table' => $this->serviceGenerator->tableName($model['name']),
+            ]);
+            $this->_runCommand($model);
             return $this->jsonSuccess(trans('messages.success'));
         } catch (\Exception $e) {
             write_log_exception($e);
@@ -130,11 +131,11 @@ class GeneratorController extends Controller
             // git commit
             $this->_gitCommit($model['name']);
             $this->_generateBackendUpdate($generator, $model, $updateFields);
-            //            $this->_generateFrontendUpdate($generator, $model, $updateFields);
-            //            $generator->update([
-            //                'field' => json_encode($fields),
-            //            ]);
-            //            $this->_runCommand();
+            $this->_generateFrontendUpdate($generator, $model, $updateFields);
+            $generator->update([
+                'field' => json_encode($fields),
+            ]);
+            $this->_runCommand();
             return $this->jsonSuccess(trans('messages.success'));
         } catch (\Exception $e) {
             write_log_exception($e);
@@ -238,14 +239,14 @@ class GeneratorController extends Controller
 
     private function _generateBackend($fields, $model)
     {
-        //        new MigrationGenerator($fields, $model);
-        //        new ControllerGenerator($fields, $model);
-        //        new SeederGenerator($fields, $model);
-        //        new ModelGenerator($fields, $model);
-        //        new RepositoryGenerator($fields, $model);
-        //        new LangGenerator($fields, $model);
-        //        new RouteGenerator($model);
-        //        new RequestGenerator($fields, $model);
+        new MigrationGenerator($fields, $model);
+        new ControllerGenerator($fields, $model);
+        new SeederGenerator($fields, $model);
+        new ModelGenerator($fields, $model);
+        new RepositoryGenerator($fields, $model);
+        new LangGenerator($fields, $model);
+        new RouteGenerator($model);
+        new RequestGenerator($fields, $model);
         new SwaggerGenerator($fields, $model);
     }
 
@@ -264,12 +265,12 @@ class GeneratorController extends Controller
 
     private function _generateBackendUpdate($generator, $model, $updateFields)
     {
-        //        new MigrationUpdateGenerator($generator, $model, $updateFields);
-        //        new ModelUpdateGenerator($model, $updateFields);
-        //        new SeederUpdateGenerator($generator, $model, $updateFields);
-        //        new ControllerUpdateGenerator($model, $updateFields);
-        //        new LangUpdateGenerator($model, $updateFields);
-        //        new RequestUpdateGenerator($generator, $model, $updateFields);
+        new MigrationUpdateGenerator($generator, $model, $updateFields);
+        new ModelUpdateGenerator($model, $updateFields);
+        new SeederUpdateGenerator($generator, $model, $updateFields);
+        new ControllerUpdateGenerator($model, $updateFields);
+        new LangUpdateGenerator($model, $updateFields);
+        new RequestUpdateGenerator($generator, $model, $updateFields);
         new SwaggerUpdateGenerator($generator, $model, $updateFields);
     }
 
@@ -308,25 +309,32 @@ class GeneratorController extends Controller
 
     private function _gitCommit($model)
     {
-        //        $basePath = base_path();
-        //        $now = \Carbon\Carbon::now()->toDateTimeString();
-        //        $commit = '"'.$model .' - '. $now.'"';
-        //        $process = new Process(["cd $basePath && git add . && git commit -m $commit"]);
-        //
-        //        $process->run();
-        //        if(!$process->isSuccessful()) {
-        //            throw new ProcessFailedException($process);
-        //        }
+        $basePath = base_path();
+        $now = \Carbon\Carbon::now()->toDateTimeString();
+        $commit = '"' . $model . ' - ' . $now . '"';
+
+        $gitAdd = new Process(['git', 'add', '.'], $basePath);
+        $gitAdd->run();
+        if (!$gitAdd->isSuccessful()) {
+            throw new ProcessFailedException($gitAdd);
+        }
+
+        $gitCommit = new Process(['git', 'commit', "-m $commit"], $basePath);
+        $gitCommit->run();
+        if (!$gitCommit->isSuccessful()) {
+            throw new ProcessFailedException($gitCommit);
+        }
+        $this->_gitResetHEAD();
     }
 
     private function _gitResetHEAD()
     {
-        //        $basePath = base_path();
-        //        $process = new Process("cd $basePath && git reset HEAD^");
-        //
-        //        $process->run();
-        //        if(!$process->isSuccessful()) {
-        //            throw new ProcessFailedException($process);
-        //        }
+        $basePath = base_path();
+        $gitResetHEAD = new Process(['git', 'reset', 'HEAD^'], $basePath);
+
+        $gitResetHEAD->run();
+        if (!$gitResetHEAD->isSuccessful()) {
+            throw new ProcessFailedException($gitResetHEAD);
+        }
     }
 }
