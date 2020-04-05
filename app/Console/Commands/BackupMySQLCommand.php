@@ -71,13 +71,11 @@ class BackupMySQLCommand extends Command
 
         // run the cli job
         $process = new Process([
-            'mysqldump -u ' .
-            env('DB_USERNAME') .
-            ' -p ' .
-            env('DB_PASSWORD') .
-            ' ' .
-            env('DB_DATABASE') .
-            ' > ' .
+            'mysqldump',
+            '-u' . env('DB_USERNAME'),
+            '-p' . env('DB_PASSWORD'),
+            env('DB_DATABASE'),
+            '>',
             $tempLocation,
         ]);
         $process->run();
@@ -145,15 +143,16 @@ class BackupMySQLCommand extends Command
 
             // run the cli job
             $process = new Process([
-                'mysql -h ' .
-                env('DB_HOST') .
-                ' -u ' .
-                env('DB_USERNAME') .
-                ' -p' .
-                env('DB_PASSWORD') .
-                ' ' .
-                env('DB_DATABASE') .
-                " < {$tempLocation}",
+                'mysql',
+                '-h',
+                env('DB_HOST'),
+                '-u',
+                env('DB_USERNAME'),
+                '-p',
+                env('DB_PASSWORD'),
+                env('DB_DATABASE'),
+                '<',
+                $tempLocation,
             ]);
             $process->run();
 
