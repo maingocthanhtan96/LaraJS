@@ -97,7 +97,6 @@ class GeneratorController extends Controller
             $model = $request->get('model', []);
             // git commit
             $this->_gitCommit($model['name']);
-            dd(1);
             $this->_generateBackend($fields, $model);
             $this->_generateFrontend($fields, $model);
             Generator::create([
