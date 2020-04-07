@@ -1,5 +1,7 @@
 <?php
 
+$API_VERSION = env('API_VERSION_GENERATOR', 'v1') . '/';
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -25,13 +27,13 @@ return [
             'model' => app_path('Models/'),
             'repositories' => app_path('Repositories/'),
             'api_routes' => base_path('routes/api.php'),
-            'api_controller' => app_path('Http/Controllers/Api/v1/'),
+            'api_controller' => app_path('Http/Controllers/Api/' . $API_VERSION),
             'lang' => base_path('resources/lang/'),
             'request' => app_path('Http/Requests/'),
             'swagger' => app_path('Larajs/Swagger/'),
         ],
         'vuejs' => [
-            'api' => base_path('resources/js/api/'),
+            'api' => base_path('resources/js/api/' . $API_VERSION),
             'views' => base_path('resources/js/views/'),
             'router_modules' => base_path('resources/js/router/modules/'),
             'router' => base_path('resources/js/router/'),
@@ -103,7 +105,7 @@ return [
     'namespace' => [
         'model' => 'App\Models',
         'repository' => 'App\Repositories',
-        'api_controller' => 'App\Http\Controllers\Api\v1',
+        'api_controller' => 'App\Http\Controllers\Api\\' . trim($API_VERSION, '/'),
     ],
 
     /*

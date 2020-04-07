@@ -66,7 +66,7 @@ Route::group(['namespace' => 'Api'], function () {
     });
 });
 
-Route::group(['prefix' => 'v1', 'namespace' => 'Api/v1'], function () {
+Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1'], function () {
     Route::group(['middleware' => 'auth:api'], function () {
         Route::group(['middleware' => 'role:' . Acl::ROLE_ADMIN], function () {
             //{{ROUTE_ADMIN_NOT_DELETE_THIS_LINE}}

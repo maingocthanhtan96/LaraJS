@@ -46,14 +46,14 @@ class RouteGenerator extends BaseGenerator
             $templateDataReal = $this->serviceGenerator->replaceNotDelete(
                 $notDelete['admin'],
                 $templateData,
-                4,
+                3,
                 $templateDataReal,
             );
         } else {
             $templateDataReal = $this->serviceGenerator->replaceNotDelete(
                 $notDelete['user'],
                 $templateData,
-                3,
+                2,
                 $templateDataReal,
             );
         }

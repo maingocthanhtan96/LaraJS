@@ -33,8 +33,8 @@
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>
-            <p @click="logout">Log Out</p>
+          <el-dropdown-item @click.native="logout">
+            Log Out
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -47,7 +47,7 @@ import { mapGetters } from 'vuex';
 import Breadcrumb from '@/components/Breadcrumb';
 import Hamburger from '@/components/Hamburger';
 import LangSelect from '@/components/LangSelect';
-import { LOGOUT, SET_LANG } from '@/store/muation-types';
+import { LOGOUT } from '@/store/muation-types';
 import checkPermission from '@/utils/permission'; // Permission checking
 
 export default {
@@ -71,13 +71,6 @@ export default {
   },
   methods: {
     checkPermission,
-    handleCommand(command) {
-      if (command === 'logout') {
-        this.logout();
-      } else if (command === 'vn' || command === 'en') {
-        this.$store.dispatch(`lang/${SET_LANG}`, command);
-      }
-    },
     logout() {
       this.$store.dispatch(`user/${LOGOUT}`).then(() => {
         this.$router.push({ name: 'login' });

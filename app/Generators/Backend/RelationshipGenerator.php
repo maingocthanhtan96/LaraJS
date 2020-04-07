@@ -355,6 +355,7 @@ class RelationshipGenerator extends BaseGenerator
         $stubAPI = $this->serviceGenerator->get_template('apiRelationship', 'Api/', 'vuejs');
         $templateAPI = str_replace('{{$FUNCTION$}}', $model, $stubAPI);
         $templateAPI = str_replace('{{$MODEL$}}', $this->serviceGenerator->urlResource($model), $templateAPI);
+        $templateAPI = str_replace('{{$API_VERSION$}}', env('API_VERSION_GENERATOR', 'v1'), $templateAPI);
         $templateAPI = str_replace(
             '{{$MODEL_RELATIONSHIP$}}',
             $this->serviceGenerator->urlResource($model),
