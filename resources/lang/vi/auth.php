@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Authentication Language Lines
@@ -32,5 +31,5 @@ return [
     ],
     'forgot_password' => 'Quên mật khẩu',
     'reset_password' => 'Đặt lại mật khẩu',
-    'logout' => "Đăng xuất"
+    'logout' => 'Đăng xuất',
 ];

@@ -5,5 +5,5 @@ return [
     'cancel' => 'Bỏ qua',
     'create' => 'Tạo',
     'edit' => 'Sửa',
-    'update' => 'Cập nhật'
+    'update' => 'Cập nhật',
 ];

@@ -8,5 +8,5 @@ return [
     'warning' => 'Cảnh báo',
     'success' => 'Thành công',
     'error' => 'Lỗi',
-    'info' => 'Thông báo'
+    'info' => 'Thông báo',
 ];

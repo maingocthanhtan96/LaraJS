@@ -17,7 +17,7 @@ return [
     'search' => 'Tìm Kiếm',
     'sort' => 'Sắp xếp',
     'show' => 'Hiển thị',
-    'delete' => "Xóa",
+    'delete' => 'Xóa',
 
     //form modal
     'form_model_name' => 'Tên Modal',
