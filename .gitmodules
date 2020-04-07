@@ -1,1 +1,3 @@
-
+[submodule "laradock-larajs"]
+	path = laradock-larajs
+	url = https://github.com/laudaikinhdi/laradock-larajs.git

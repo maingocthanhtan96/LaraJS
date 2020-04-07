@@ -119,26 +119,32 @@
                             "schema": {
                                 "properties": {
                                     "name": {
+                                        "description": "",
                                         "type": "string",
                                         "example": "tanmnt"
                                     },
                                     "email": {
+                                        "description": "",
                                         "type": "string",
                                         "example": "tanmnt@larajs.com"
                                     },
                                     "avatar": {
+                                        "description": "",
                                         "type": "string",
                                         "example": "/images/logo-tanmnt.png"
                                     },
                                     "role_id": {
+                                        "description": "",
                                         "type": "number",
                                         "example": "2"
                                     },
                                     "password": {
+                                        "description": "",
                                         "type": "string",
                                         "example": "secret"
                                     },
                                     "password_confirmation": {
+                                        "description": "",
                                         "type": "string",
                                         "example": "secret"
                                     }
@@ -296,38 +302,33 @@
                 ],
                 "properties": {
                     "id": {
-                        "type": "integer",
-                        "readOnly": true
+                        "description": "",
+                        "type": "AUTO_INCREMENT"
                     },
                     "name": {
-                        "title": "Name",
                         "description": "",
-                        "type": "string",
+                        "type": "VARCHAR",
                         "default": "None"
                     },
                     "guard_name": {
-                        "title": "Guard name",
                         "description": "",
-                        "type": "string",
+                        "type": "VARCHAR",
                         "default": "None"
                     },
                     "description": {
-                        "title": "Description",
                         "description": "",
-                        "type": "string",
+                        "type": "VARCHAR",
                         "default": "None"
                     },
                     "created_at": {
-                        "title": "Create date",
-                        "type": "string",
-                        "format": "date-time",
-                        "readOnly": true
+                        "description": "",
+                        "type": "TIMESTAMP",
+                        "default": "NULL"
                     },
                     "updated_at": {
-                        "title": "Update date",
-                        "type": "string",
-                        "format": "date-time",
-                        "readOnly": true
+                        "description": "",
+                        "type": "TIMESTAMP",
+                        "default": "NULL"
                     }
                 },
                 "type": "object"
@@ -335,6 +336,7 @@
             "User": {
                 "title": "User",
                 "required": [
+                    "id",
                     "name",
                     "email",
                     "password",
@@ -342,57 +344,48 @@
                 ],
                 "properties": {
                     "id": {
-                        "type": "integer",
-                        "readOnly": true
+                        "description": "",
+                        "type": "AUTO_INCREMENT"
                     },
                     "name": {
-                        "title": "Name",
                         "description": "",
-                        "type": "string",
+                        "type": "VARCHAR",
                         "default": "None"
                     },
                     "email": {
-                        "title": "Email",
                         "description": "",
-                        "type": "string",
-                        "default": "None",
-                        "example": "example@larajs.com"
+                        "type": "VARCHAR",
+                        "default": "None"
                     },
                     "avatar": {
-                        "title": "Avatar",
                         "description": "",
-                        "type": "string",
-                        "default": "None",
-                        "example": "https://lorempixel.com/150/150/?57749"
+                        "type": "VARCHAR",
+                        "default": "None"
                     },
                     "role_id": {
-                        "title": "Role",
                         "description": "You cann't set id as 1(role: admin)",
                         "default": "None",
-                        "example": "2",
                         "$ref": "#/components/schemas/Role"
                     },
                     "password": {
-                        "title": "Password",
                         "description": "",
-                        "type": "string",
-                        "default": "None",
-                        "example": "larajs"
+                        "type": "VARCHAR",
+                        "default": "None"
                     },
                     "created_at": {
-                        "title": "Create date",
-                        "type": "string",
-                        "format": "date-time"
+                        "description": "",
+                        "type": "TIMESTAMP",
+                        "default": "NULL"
                     },
                     "updated_at": {
-                        "title": "Update date",
-                        "type": "string",
-                        "format": "date-time"
+                        "description": "",
+                        "type": "TIMESTAMP",
+                        "default": "NULL"
                     },
                     "deleted_at": {
-                        "title": "Delete date",
-                        "type": "string",
-                        "format": "date-time"
+                        "description": "",
+                        "type": "TIMESTAMP",
+                        "default": "NULL"
                     }
                 },
                 "type": "object"

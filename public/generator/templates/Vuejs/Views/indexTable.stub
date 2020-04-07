@@ -3,7 +3,7 @@
     <el-col :span="24">
       <el-card>
         <div slot="header" class="flex justify-end items-center">
-          <router-link v-permission="['create']" :to="{name: '{{$NAME_ROUTE$}}-create'}" class="pan-btn blue-btn" tag="button">
+          <router-link v-permission="['create']" :to="{name: '{{$NAME_ROUTE$}}Create'}" class="pan-btn blue-btn" tag="button">
             <i class="el-icon-plus mr-2" />{{this.$t('button.create')}}
           </router-link>
         </div>
@@ -51,7 +51,7 @@
                 </el-table-column>
                 <el-table-column :label="$t('table.actions')" align="center" class-name="small-padding fixed-width">
                   <template slot-scope="{ row, $index }">
-                    <router-link v-permission="['edit']" :to="{name: '{{$NAME_ROUTE$}}-edit', params: {id: row.id}}"><i class="el-icon-edit el-link el-link--primary mr-2"></i></router-link>
+                    <router-link v-permission="['edit']" :to="{name: '{{$NAME_ROUTE$}}Edit', params: {id: row.id}}"><i class="el-icon-edit el-link el-link--primary mr-2"></i></router-link>
                     <a v-permission="['delete']" class="cursor-pointer" @click.stop="remove(row.id, numericalOrder($index))"><i class="el-icon-delete el-link el-link--danger"></i></a>
                   </template>
                 </el-table-column>
@@ -67,7 +67,7 @@
   import dateRangePicker from '@/plugins/mixins/dateRangePicker';
   import Pagination from '@/components/Pagination'; // Secondary package based on el-pagination
   import {debounce} from '@/utils';
-  import {{$MODEL_CLASS$}}Resource from '@/api/{{$NAME_ROUTE$}}';
+  import {{$MODEL_CLASS$}}Resource from '@/api/{{$NAME_ROUTE_API$}}';
   const {{$CONST_MODEL_CLASS$}}Resource = new {{$MODEL_CLASS$}}Resource();
 
   export default {

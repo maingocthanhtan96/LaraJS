@@ -22,9 +22,6 @@ const state = {
 };
 
 const mutations = {
-  [LOGIN](state, token) {
-    state.token = token;
-  },
   [SET_ROLES](state, roles) {
     state.roles = roles;
   },

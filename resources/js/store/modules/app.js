@@ -3,12 +3,6 @@ import Cookies from 'js-cookie';
 
 const state = {
   errors: {},
-  table: {
-    page: 1,
-    limit: 25,
-  },
-  isCollapse: false,
-  collapse: '199px',
   sidebar: {
     opened: Cookies.get('sidebarStatus')
       ? !!+Cookies.get('sidebarStatus')
@@ -16,7 +10,6 @@ const state = {
     withoutAnimation: false,
   },
   device: 'desktop',
-  size: Cookies.get('size') || 'medium',
 };
 
 const mutations = {

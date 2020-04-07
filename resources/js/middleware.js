@@ -1,11 +1,11 @@
 import router from './router';
 import store from './store';
 import { Message } from 'element-ui';
-import NProgress from 'nprogress'; // progress bar
 import { getToken } from '@/utils/auth'; // get token from cookie
 import getPageTitle from '@/utils/get-page-title';
 import { matchInArray } from '@/utils';
 import { USER_INFO, GENERATE_ROUTES, FED_LOGOUT } from '@/store/muation-types';
+import NProgress from 'nprogress'; // progress bar
 
 NProgress.configure({ showSpinner: true }); // NProgress Configuration
 
@@ -23,12 +23,6 @@ router.beforeEach(async (to, from, next) => {
 
   // determine whether the user has logged in
   const hasToken = getToken();
-  // remove localstorage vue-table-2
-  // Object.keys(localStorage).forEach(val => {
-  //   if (!val.endsWith('_local')) {
-  //     localStorage.removeItem(val);
-  //   }
-  // });
   if (hasToken) {
     if (to.path === '/login') {
       // if is logged in, redirect to the home page

@@ -49,6 +49,11 @@ class RouteGenerator extends BaseGenerator
         );
         $templateData = str_replace(
             '{{$NAME_ROUTE_MODEL_CLASS$}}',
+            $this->serviceGenerator->modelNameNotPlural($model['name']),
+            $templateData,
+        );
+        $templateData = str_replace(
+            '{{$MODEL_CLASS$}}',
             $this->serviceGenerator->nameAttribute($model['name']),
             $templateData,
         );

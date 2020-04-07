@@ -42,6 +42,7 @@ console.warn = (...args) => {
   warn(...args);
 };
 
+// Vue.config.performance = process.env.MIX_APP_ENV !== 'production';
 Vue.config.productionTip = false;
 new Vue({
   i18n,

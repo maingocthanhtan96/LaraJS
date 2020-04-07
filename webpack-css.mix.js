@@ -2,6 +2,12 @@ const mix = require('laravel-mix');
 const mergeManifest = require('./mergeManifest');
 const whitelister = require('purgecss-whitelister');
 
+class TailwindExtractor {
+  static extract(content) {
+    return content.match(/[\w-/:%]+(?<!:)/g) || [];
+  }
+}
+
 const purgecss = require('@fullhuman/postcss-purgecss')({
   // Specify the paths to all of the template files in your project
   content: ['./resources/js/**/*.{vue,js}'],
@@ -16,7 +22,13 @@ const purgecss = require('@fullhuman/postcss-purgecss')({
     ]),
   ],
   // Include any special characters you're using in this regular expression
-  defaultExtractor: content => content.match(/[\w-/:%]+(?<!:)/g) || [],
+  extractors: [
+    {
+      extractor: TailwindExtractor,
+      extensions: ['html', 'vue'],
+    },
+  ],
+  defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || [],
 });
 
 mix.extend('mergeManifest', mergeManifest);

@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'Larajs',
+  title: 'LaraJS',
 
   /**
    * @type {string} url pages

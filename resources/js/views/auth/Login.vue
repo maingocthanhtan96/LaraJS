@@ -164,11 +164,4 @@ export default {
 };
 </script>
 
-<style scoped>
-/*.set-language {*/
-/*  color: #fff;*/
-/*  position: absolute;*/
-/*  top: 40px;*/
-/*  right: 35px;*/
-/*}*/
-</style>
+<style scoped></style>

@@ -61,7 +61,7 @@ export default {};
   -webkit-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
   transform: translateX(-50%);
-  background: url('~@/assets/images/bg.jpg') no-repeat;
+  background: url('~@/assets/images/bg-error.jpg') no-repeat;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-size: cover;

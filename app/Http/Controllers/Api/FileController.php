@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\v1;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\StoreAvatarRequest;
 use App\Http\Requests\StoreFileRequest;

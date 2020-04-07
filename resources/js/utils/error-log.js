@@ -9,7 +9,7 @@ import { ADD_ERROR_LOG, ADD_WARN_LOG } from '@/store/muation-types';
 const { errorLog: needErrorLog } = settings;
 
 function checkNeed() {
-  const env = process.env.MIX_APP_DEBUG;
+  const env = process.env.MIX_APP_ENV;
   if (isString(needErrorLog)) {
     return env === needErrorLog;
   }

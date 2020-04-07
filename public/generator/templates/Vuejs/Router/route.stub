@@ -17,7 +17,7 @@ const {{$NAME_CONST$}} = {
     {
       path: '/{{$PATH_ROUTE_MODEL_CLASS$}}',
       name: '{{$NAME_ROUTE_MODEL_CLASS$}}',
-      component: () => import('@/views/{{$NAME_ROUTE_MODEL_CLASS$}}'),
+      component: () => import('@/views/{{$MODEL_CLASS$}}'),
       meta: {
         title: '{{$TITLE_ROUTE_MODEL_CLASS$}}',
         icon: 'list',
@@ -28,9 +28,9 @@ const {{$NAME_CONST$}} = {
     },
     {
       path: 'create',
-      name: '{{$NAME_ROUTE_MODEL_CLASS$}}-create',
+      name: '{{$NAME_ROUTE_MODEL_CLASS$}}Create',
       hidden: true,
-      component: () => import('@/views/{{$NAME_ROUTE_MODEL_CLASS$}}/form'),
+      component: () => import('@/views/{{$MODEL_CLASS$}}/Form'),
       meta: {
         activeMenu: '/{{$PATH_ROUTE_MODEL_CLASS$}}',
         title: '{{$TITLE_ROUTE_MODEL_CLASS$}}_create',
@@ -40,9 +40,9 @@ const {{$NAME_CONST$}} = {
     },
     {
       path: 'edit/:id(\\d+)',
-      name: '{{$NAME_ROUTE_MODEL_CLASS$}}-edit',
+      name: '{{$NAME_ROUTE_MODEL_CLASS$}}Edit',
       hidden: true,
-      component: () => import('@/views/{{$NAME_ROUTE_MODEL_CLASS$}}/form'),
+      component: () => import('@/views/{{$MODEL_CLASS$}}/Form'),
       meta: {
         activeMenu: '/{{$PATH_ROUTE_MODEL_CLASS$}}',
         title: '{{$TITLE_ROUTE_MODEL_CLASS$}}_edit',

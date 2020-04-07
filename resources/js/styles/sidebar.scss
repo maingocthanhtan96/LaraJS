@@ -7,7 +7,7 @@
   font-weight: bold;
   color: $menuActiveText !important;
   transform: translateX(0.5rem);
-  transition: all .25s ease;
+  transition: all 0.25s ease;
 }
 
 #app {
@@ -75,7 +75,7 @@
     }
 
     .el-scrollbar__bar.is-vertical {
-      right: 0px;
+      right: 0;
     }
 
     .is-horizontal {
@@ -117,7 +117,6 @@
         background-color: $bgSidebar !important;
       }
     }
-
 
     .el-submenu__title {
       span {

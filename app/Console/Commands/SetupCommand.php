@@ -162,8 +162,9 @@ class SetupCommand extends Command
     private function _deployVue()
     {
         $this->comment('DEPLOY VUE');
-        $this->info('>>> Running: deploy vue');
+        $this->info('>>> Running: deploy backend');
         exec('npm run dev');
+        $this->info('>>> Running: deploy frontend');
         exec('npm run dev-fe');
     }
 

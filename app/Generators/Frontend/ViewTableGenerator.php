@@ -46,8 +46,13 @@ class ViewTableGenerator extends BaseGenerator
             $templateData,
         );
         $templateData = str_replace(
-            '{{$NAME_ROUTE$}}',
+            '{{$NAME_ROUTE_API$}}',
             $this->serviceGenerator->nameAttribute($model['name']),
+            $templateData,
+        );
+        $templateData = str_replace(
+            '{{$NAME_ROUTE$}}',
+            $this->serviceGenerator->modelNameNotPlural($model['name']),
             $templateData,
         );
         $templateData = str_replace(
