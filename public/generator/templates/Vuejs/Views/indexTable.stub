@@ -67,7 +67,7 @@
   import dateRangePicker from '@/plugins/mixins/dateRangePicker';
   import Pagination from '@/components/Pagination'; // Secondary package based on el-pagination
   import {debounce} from '@/utils';
-  import {{$MODEL_CLASS$}}Resource from '@/api/{{$NAME_ROUTE_API$}}';
+  import {{$MODEL_CLASS$}}Resource from '@/api/{{$API_VERSION$}}/{{$NAME_ROUTE_API$}}';
   const {{$CONST_MODEL_CLASS$}}Resource = new {{$MODEL_CLASS$}}Resource();
 
   export default {

@@ -69,6 +69,7 @@ class FormGenerator extends BaseGenerator
             $this->serviceGenerator->modelNameNotPlural($model['name']),
             $templateData,
         );
+        $templateData = str_replace('{{$API_VERSION$}}', env('API_VERSION_GENERATOR', 'v1'), $templateData);
         $templateData = str_replace(
             '{{$CONST_MODEL_CLASS$}}',
             $this->serviceGenerator->modelNameNotPluralFe($model['name']),

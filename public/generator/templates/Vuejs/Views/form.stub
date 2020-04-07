@@ -32,7 +32,7 @@
 
 <script>
 import { scrollTo } from '@/utils/scroll-to';
-import {{$MODEL_CLASS$}}Resource from '@/api/{{$NAME_ROUTE$}}';
+import {{$MODEL_CLASS$}}Resource from '@/api/{{$API_VERSION$}}/{{$NAME_ROUTE$}}';
 // {{$IMPORT_COMPONENT_NOT_DELETE_THIS_LINE$}}
 
 const {{$CONST_MODEL_CLASS$}}Resource = new {{$MODEL_CLASS$}}Resource();

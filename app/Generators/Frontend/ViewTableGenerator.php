@@ -66,6 +66,7 @@ class ViewTableGenerator extends BaseGenerator
             $templateData,
         );
         $templateData = str_replace('{{$LIMIT$}}', $model['limit'], $templateData);
+        $templateData = str_replace('{{$API_VERSION$}}', env('API_VERSION_GENERATOR', 'v1'), $templateData);
         $templateData = $this->serviceGenerator->replaceNotDelete(
             $this->notDelete['templates'],
             $this->generateHandler($fields, $model),
