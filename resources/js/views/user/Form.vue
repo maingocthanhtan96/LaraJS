@@ -102,7 +102,7 @@
                 round
                 type="primary"
                 icon="el-icon-edit mr-2"
-                @click="update('users')"
+                @click="() => update('users')"
               >
                 {{ $t('button.edit') }}
               </el-button>
@@ -113,7 +113,7 @@
                 round
                 type="success"
                 icon="el-icon-plus mr-2"
-                @click="store('users')"
+                @click="() => store('users')"
               >
                 {{ $t('button.create') }}
               </el-button>

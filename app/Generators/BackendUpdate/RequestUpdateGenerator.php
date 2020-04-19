@@ -87,7 +87,7 @@ class RequestUpdateGenerator extends BaseGenerator
             $templateDataReal,
         );
         if (!$templateColumns) {
-            return false;
+            return $templateDataReal;
         }
 
         $arrayColumns = explode(PHP_EOL, $templateColumns);
@@ -181,7 +181,7 @@ class RequestUpdateGenerator extends BaseGenerator
             $templateDataReal,
         );
         if (!$templateColumns) {
-            return false;
+            return $templateDataReal;
         }
         $arrayColumns = explode(PHP_EOL, $templateColumns);
         $arrayChange = \Arr::pluck($dropFields, 'field_name');

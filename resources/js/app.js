@@ -27,10 +27,10 @@ Object.keys(filters).forEach(key => {
 Vue.directive('permission', permission);
 
 // register plugins
-const mixinPlugins = require.context('@/plugins', true, /\.js$/);
+const mixinPlugins = require.context('@/plugins', false, /\.js$/);
 mixinPlugins.keys().forEach(file => {
-  const mixin = file.replace(/^\.\/(.*)\w*$/, '$1');
-  Vue.use(require(`./plugins/${mixin}`).default);
+  const plugin = file.replace(/^\.\/(.*)\w*$/, '$1');
+  Vue.use(require(`@/plugins/${plugin}`).default);
 });
 
 // disable show warning async validator
@@ -42,7 +42,7 @@ console.warn = (...args) => {
   warn(...args);
 };
 
-// Vue.config.performance = process.env.MIX_APP_ENV !== 'production';
+Vue.config.performance = process.env.MIX_APP_ENV !== 'production';
 Vue.config.productionTip = false;
 new Vue({
   i18n,

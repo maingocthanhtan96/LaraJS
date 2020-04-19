@@ -52,7 +52,7 @@
                 <el-table-column :label="$t('table.actions')" align="center" class-name="small-padding fixed-width">
                   <template slot-scope="{ row, $index }">
                     <router-link v-permission="['edit']" :to="{name: '{{$NAME_ROUTE$}}Edit', params: {id: row.id}}"><i class="el-icon-edit el-link el-link--primary mr-2"></i></router-link>
-                    <a v-permission="['delete']" class="cursor-pointer" @click.stop="remove(row.id, numericalOrder($index))"><i class="el-icon-delete el-link el-link--danger"></i></a>
+                    <a v-permission="['delete']" class="cursor-pointer" @click.stop="() => remove(row.id, numericalOrder($index))"><i class="el-icon-delete el-link el-link--danger"></i></a>
                   </template>
                 </el-table-column>
               </el-table>

@@ -66,11 +66,15 @@ class AppServiceProvider extends ServiceProvider
     {
         // Enable pagination
         if (!Collection::hasMacro('paginate')) {
-            $pathInfo = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '';
+            $pathInfo = isset($_SERVER['PATH_INFO'])
+                ? $_SERVER['PATH_INFO']
+                : (isset($_SERVER['REQUEST_URI'])
+                    ? parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
+                    : '');
             $hostInfo = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '';
-            $actual_link =
+            $actualLink =
                 (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . "://$hostInfo$pathInfo";
-            Collection::macro('paginate', function ($perPage = 15, $page = null, $options = []) use ($actual_link) {
+            Collection::macro('paginate', function ($perPage = 15, $page = null, $options = []) use ($actualLink) {
                 $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
                 return (new LengthAwarePaginator(
                     $this->forPage($page, $perPage)
@@ -80,7 +84,7 @@ class AppServiceProvider extends ServiceProvider
                     $perPage,
                     $page,
                     $options,
-                ))->withPath($actual_link);
+                ))->withPath($actualLink);
             });
         }
     }

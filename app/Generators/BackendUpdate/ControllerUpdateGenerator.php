@@ -108,7 +108,7 @@ class ControllerUpdateGenerator extends BaseGenerator
         );
 
         if (!$templateColumns || !$templateColumnsSearch) {
-            return false;
+            return $templateDataReal;
         }
 
         $comma = ', ';
@@ -173,7 +173,7 @@ class ControllerUpdateGenerator extends BaseGenerator
         );
 
         if (!$templateColumns || !$templateColumnsSearch) {
-            return false;
+            return $templateDataReal;
         }
 
         $arrayColumns = explode(',', $templateColumns);

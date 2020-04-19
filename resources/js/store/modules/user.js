@@ -41,7 +41,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       login(payload)
         .then(res => {
-          const token = res.data.access_token;
+          const token = Object.freeze(res.data.access_token);
           setToken(token);
           commit(SET_TOKEN, token);
           resolve(res);
@@ -55,7 +55,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       userInfo(state.token)
         .then(res => {
-          const { data } = res.data;
+          const { data } = Object.freeze(res.data);
           if (!data) {
             reject('Verification failed, please Login again.');
           }
@@ -86,7 +86,7 @@ const actions = {
   [LOGOUT]({ commit }) {
     return new Promise((resolve, reject) => {
       logout()
-        .then(res => {
+        .then(() => {
           removeToken();
           commit(SET_TOKEN, '');
           commit(SET_ROLES, []);

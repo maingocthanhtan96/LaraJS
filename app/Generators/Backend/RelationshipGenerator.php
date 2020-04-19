@@ -932,7 +932,7 @@ class RelationshipGenerator extends BaseGenerator
             $templateDataReal,
         );
         if (!$template) {
-            return false;
+            return $templateDataReal;
         }
         $arTemplate = explode(',', trim($template));
         foreach ($arTemplate as $tpl) {

@@ -117,7 +117,7 @@
                   <a
                     v-permission="['delete']"
                     class="cursor-pointer"
-                    @click.stop="remove(row.id, numericalOrder($index))"
+                    @click.stop="() => remove(row.id, numericalOrder($index))"
                   >
                     <i class="el-icon-delete el-link el-link--danger" />
                   </a>
