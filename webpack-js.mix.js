@@ -1,6 +1,7 @@
 const mix = require('laravel-mix');
 const config = require('./webpack.config');
 const mergeManifest = require('./mergeManifest');
+const path = require('path');
 require('laravel-mix-eslint');
 
 function resolve(dir) {

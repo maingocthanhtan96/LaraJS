@@ -72,7 +72,7 @@ const actions = {
     return new Promise(resolve => {
       let accessedRouters;
       if (roles.includes(superAdmin)) {
-        accessedRouters = asyncRouterMap;
+        accessedRouters = asyncRouterMap || [];
       } else {
         accessedRouters = filterAsyncRoutes(asyncRouterMap, roles, permissions);
       }

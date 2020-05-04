@@ -5,7 +5,7 @@ use App\Larajs\Acl;
 use App\Models\Role;
 use App\Models\Permission;
 
-class SetupRolePermissionSeeder extends Seeder
+class SetupRolePermissionTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,9 +14,9 @@ class SetupRolePermissionSeeder extends Seeder
      */
     public function run()
     {
-//        foreach (Acl::roles() as $role) {
-//            Role::findOrCreate($role, 'api');
-//        }
+        //        foreach (Acl::roles() as $role) {
+        //            Role::findOrCreate($role, 'api');
+        //        }
 
         foreach (Acl::permissions() as $permission) {
             Permission::findOrCreate($permission, 'api');

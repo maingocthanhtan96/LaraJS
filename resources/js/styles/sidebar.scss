@@ -260,8 +260,11 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-
+    //&:hover {
+    //  background-color: $bgSidebar !important;
+    //}
     &:hover {
+      background-color: $bgSidebar !important;
       @include hoverSidebar();
       text-decoration: none;
     }
@@ -271,6 +274,7 @@
   > .el-menu--popup {
     max-height: 100vh;
     overflow-y: auto;
+    overflow-x: hidden;
 
     &::-webkit-scrollbar-track-piece {
       background: #d3dce6;
