@@ -308,6 +308,7 @@ class RelationshipGenerator extends BaseGenerator
             $this->serviceGenerator->modelNameNotPlural($model) .
             'Resource' .
             " from '@/api/" .
+            env('API_VERSION_GENERATOR', 'v1') .
             $this->serviceGenerator->nameAttribute($model) .
             "';";
         if (!stripos($templateDataReal, $importStub)) {

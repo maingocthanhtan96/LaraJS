@@ -17,7 +17,6 @@
     ],
     "require": {
         "php": "^7.4",
-        "barryvdh/laravel-elfinder": "^0.4.5",
         "doctrine/dbal": "^2.10.1",
         "fideloper/proxy": "~4.2",
         "fruitcake/laravel-cors": "^1.0",
@@ -28,6 +27,7 @@
         "laravel/ui": "^2.0",
         "spatie/laravel-image-optimizer": "^1.5",
         "spatie/laravel-permission": "^3.6",
+        "unisharp/laravel-filemanager": "^2.0",
         "zircote/swagger-php": "^3.0"
     },
     "require-dev": {
