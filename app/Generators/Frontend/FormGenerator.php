@@ -53,8 +53,13 @@ class FormGenerator extends BaseGenerator
             $templateData,
         );
         $templateData = str_replace(
-            '{{$NAME_ROUTE$}}',
+            '{{$NAME_API}}',
             $this->serviceGenerator->nameAttribute($model['name']),
+            $templateData,
+        );
+        $templateData = str_replace(
+            '{{$NAME_ROUTE$}}',
+            $this->serviceGenerator->modelNameNotPlural($model['name']),
             $templateData,
         );
         $templateData = $this->serviceGenerator->replaceNotDelete(
@@ -166,7 +171,11 @@ class FormGenerator extends BaseGenerator
                 }
             } elseif ($field['default_value'] === $defaultValue['as_define']) {
                 $asDefine = $field['as_define'];
-                $fieldForm = "$fieldName: '$asDefine'";
+                if (is_numeric($asDefine)) {
+                    $fieldForm = "$fieldName: $asDefine";
+                } else {
+                    $fieldForm = "$fieldName: '$asDefine'";
+                }
             }
             $fieldForm .= ',';
             $fieldsGenerate[] = $fieldForm;

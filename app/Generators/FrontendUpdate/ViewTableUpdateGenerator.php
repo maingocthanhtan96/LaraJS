@@ -157,7 +157,6 @@ class ViewTableUpdateGenerator extends BaseGenerator
         if (empty($dropFields)) {
             return $templateDataReal;
         }
-
         $selfTemplateEnd = self::TEMPLATE_END;
         foreach ($dropFields as $index => $drop) {
             //replace template index.view
@@ -167,7 +166,7 @@ class ViewTableUpdateGenerator extends BaseGenerator
                 $selfTemplateStart,
                 1,
                 $selfTemplateEnd,
-                -strlen($selfTemplateStart) * 3,
+                -strlen($selfTemplateStart) * 3 + 5,
                 strlen($selfTemplateStart) * 4 - 5,
                 $templateDataReal,
             );

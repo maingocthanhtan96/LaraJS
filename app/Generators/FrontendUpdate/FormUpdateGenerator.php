@@ -830,7 +830,11 @@ class FormUpdateGenerator extends BaseGenerator
                 }
             } elseif ($field['default_value'] === $this->defaultValue['as_define']) {
                 $asDefine = $field['as_define'];
-                $fieldForm = "$fieldName: '$asDefine'";
+                if (is_numeric($asDefine)) {
+                    $fieldForm = "$fieldName: $asDefine";
+                } else {
+                    $fieldForm = "$fieldName: '$asDefine'";
+                }
             }
             $fieldForm .= ',';
             $fieldsGenerate[] = $fieldForm;

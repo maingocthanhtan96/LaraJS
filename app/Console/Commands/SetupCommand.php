@@ -190,7 +190,7 @@ class SetupCommand extends Command
         $parPort = '3306';
         $parDatabase = 'larajs';
         $parUsername = 'root';
-        $parPassword = 'root';
+        $parPassword = '';
         $this->info('>>> Running: create env');
         $this->appUrl = $this->anticipate('What is your url?', [$parAppUrl], $parAppUrl);
         $this->host = $this->anticipate('What is your host?', [$parHost], $parHost);

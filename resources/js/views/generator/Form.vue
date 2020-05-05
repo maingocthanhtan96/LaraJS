@@ -278,13 +278,13 @@
                           </el-select>
                           <el-tooltip
                             v-if="data.db_type === 'BOOLEAN'"
-                            :content="data.as_define === '0' ? 'false' : 'true'"
+                            :content="data.as_define === 0 ? 'false' : 'true'"
                             placement="top"
                           >
                             <el-switch
                               v-model="data.as_define"
-                              active-value="1"
-                              inactive-value="0"
+                              :active-value="1"
+                              :inactive-value="0"
                             />
                           </el-tooltip>
                           <el-date-picker
