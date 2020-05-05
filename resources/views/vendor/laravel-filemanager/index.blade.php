@@ -273,7 +273,8 @@
       init: function() {
         var _this = this; // For the closure
         this.on('success', function(file, response) {
-          if (response == 'OK') {
+           response = JSON.parse(response);
+          if (response[0] === 'OK') {
             loadFolders();
           } else {
             this.defaultOptions.error(file, response.join('\n'));
