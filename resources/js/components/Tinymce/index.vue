@@ -16,7 +16,6 @@
 import plugins from './plugins';
 import toolbar from './toolbar';
 import load from './dynamicLoadScript';
-import { getToken } from '@/utils/auth';
 // import elFinderBrowser from './elFinderBrowser';
 
 // why use this cdn, detail see https://github.com/PanJiaChen/tinymce-all-in-one
