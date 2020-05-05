@@ -11,9 +11,4 @@
 |
 */
 
-route('elfinder.tinymce4');
-
-Route::group(['prefix' => 'laravel-filemanager'], function () {
-    \UniSharp\LaravelFilemanager\Lfm::routes();
-});
 Route::get('/{path}', 'LaraJSController')->where('path', '(.*)');

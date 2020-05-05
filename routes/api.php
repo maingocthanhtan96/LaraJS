@@ -13,6 +13,10 @@ use App\Larajs\Acl;
 |
 */
 
+Route::group(['prefix' => 'laravel-filemanager'], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});
+
 Route::group(['namespace' => 'Api'], function () {
     Route::get('/language/{language}', 'LangController@setLanguage');
     // Send reset password mail

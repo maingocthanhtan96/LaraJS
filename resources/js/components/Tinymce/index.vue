@@ -5,13 +5,6 @@
     :style="{ width: containerWidth }"
   >
     <textarea :id="tinymceId" class="tinymce-textarea" />
-    <div class="editor-custom-btn-container">
-      <editorImage
-        color="#1890ff"
-        class="editor-upload-btn"
-        @successCBK="imageSuccessCBK"
-      />
-    </div>
   </div>
 </template>
 
@@ -20,10 +13,10 @@
  * docs:
  * https://panjiachen.github.io/vue-element-admin-site/feature/component/rich-editor.html#tinymce
  */
-import editorImage from './components/EditorImage';
 import plugins from './plugins';
 import toolbar from './toolbar';
 import load from './dynamicLoadScript';
+import { getToken } from '@/utils/auth';
 // import elFinderBrowser from './elFinderBrowser';
 
 // why use this cdn, detail see https://github.com/PanJiaChen/tinymce-all-in-one
@@ -31,7 +24,6 @@ const tinymceCDN = '/static/tinymce4.7.5/tinymce.min.js';
 
 export default {
   name: 'Tinymce',
-  components: { editorImage },
   props: {
     id: {
       type: String,
@@ -163,56 +155,32 @@ export default {
             _this.fullscreen = e.state;
           });
         },
-        file_picker_callback: function(field_name, url, type, win) {
-          window.tinymce.activeEditor.windowManager.open(
-            {
-              file: '/elfinder/tinymce4', // use an absolute path!
-              title: 'Finder',
-              width: 900,
-              height: 450,
-              resizable: 'yes',
-            },
-            {
-              setUrl: function(url) {
-                win.document.getElementById(field_name).value = url;
-              },
-            }
-          );
-          return false;
+        file_browser_callback: function(field_name, url, type, win) {
+          const x =
+            window.innerWidth ||
+            document.documentElement.clientWidth ||
+            document.getElementsByTagName('body')[0].clientWidth;
+          const y =
+            window.innerHeight ||
+            document.documentElement.clientHeight ||
+            document.getElementsByTagName('body')[0].clientHeight;
+
+          let cmsURL = '/api/laravel-filemanager?field_name=' + field_name;
+          if (type === 'image') {
+            cmsURL = cmsURL + '&type=Images';
+          } else {
+            cmsURL = cmsURL + '&type=Files';
+          }
+
+          window.tinyMCE.activeEditor.windowManager.open({
+            file: cmsURL,
+            title: 'Filemanager',
+            width: x * 0.8,
+            height: y * 0.8,
+            resizable: 'yes',
+            close_previous: 'no',
+          });
         },
-        // 整合七牛上传
-        // images_dataimg_filter(img) {
-        //   setTimeout(() => {
-        //     const $image = $(img);
-        //     $image.removeAttr('width');
-        //     $image.removeAttr('height');
-        //     if ($image[0].height && $image[0].width) {
-        //       $image.attr('data-wscntype', 'image');
-        //       $image.attr('data-wscnh', $image[0].height);
-        //       $image.attr('data-wscnw', $image[0].width);
-        //       $image.addClass('wscnph');
-        //     }
-        //   }, 0);
-        //   return img
-        // },
-        // images_upload_handler(blobInfo, success, failure, progress) {
-        //   progress(0);
-        //   const token = _this.$store.getters.token;
-        //   getToken(token).then(response => {
-        //     const url = response.data.qiniu_url;
-        //     const formData = new FormData();
-        //     formData.append('token', response.data.qiniu_token);
-        //     formData.append('key', response.data.qiniu_key);
-        //     formData.append('file', blobInfo.blob(), url);
-        //     upload(formData).then(() => {
-        //       success(url);
-        //       progress(100);
-        //     })
-        //   }).catch(err => {
-        //     failure('出现未知问题，刷新页面，或者联系程序员')
-        //     console.log(err);
-        //   });
-        // },
       });
     },
     destroyTinymce() {
@@ -230,31 +198,6 @@ export default {
     },
     getContent() {
       window.tinymce.get(this.tinymceId).getContent();
-    },
-    imageSuccessCBK(arr) {
-      const _this = this;
-      arr.forEach(v => {
-        window.tinymce
-          .get(_this.tinymceId)
-          .insertContent(`<img class="wscnph" src="${v.url}" >`);
-      });
-    },
-    elFinderBrowser(field_name, url, type, win) {
-      window.tinymce.activeEditor.windowManager.open(
-        {
-          // file: '<?= route('elfinder.tinymce4') ?>',// use an absolute path!
-          title: 'elFinder 2.0',
-          width: 900,
-          height: 450,
-          resizable: 'yes',
-        },
-        {
-          setUrl: function(url) {
-            win.document.getElementById(field_name).value = url;
-          },
-        }
-      );
-      return false;
     },
   },
 };
