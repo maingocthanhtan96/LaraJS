@@ -172,7 +172,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Barryvdh\Elfinder\ElfinderServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
     ],
 
     /*
@@ -226,5 +226,6 @@ return [
         'Constant' => App\Larajs\Constant::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'FrontendHelper' => App\Helpers\FrontendHelper::class,
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 ];
