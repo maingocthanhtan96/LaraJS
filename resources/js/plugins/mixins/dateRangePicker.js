@@ -1,4 +1,21 @@
 export default {
+  methods: {
+    parseTimeToTz(date, day, format = '{y}-{m}-{d}') {
+      const d = date;
+      let utc = d.getTime() + d.getTimezoneOffset() * 60000;
+
+      if (day) {
+        utc = utc - 86400000 * day;
+      }
+
+      const offsetTz = this.$store.state.settings.offsetTz;
+
+      return this.$options.filters.parseTime(
+        new Date(utc + 3600000 * offsetTz),
+        format
+      );
+    },
+  },
   computed: {
     pickerOptions() {
       return {

@@ -191,7 +191,12 @@ class RelationshipGenerator extends BaseGenerator
             //hasOne or hasMany
             $templateData = $this->_replaceTemplateRelationship($model, $modelCurrent, $templateData);
             $fileName =
-                date('Y_m_d_His') . '_' . 'relationship_' . $this->serviceGenerator->tableName($model) . '_table.php';
+                date('Y_m_d_His') .
+                '_' .
+                'relationship_' .
+                $this->serviceGenerator->tableName($modelCurrent) .
+                $this->serviceGenerator->tableName($model) .
+                '_table.php';
             $this->_generateModel($modelCurrent, $model);
             $this->_generateSeeder($modelCurrent, $model);
             $this->_generateRoute($modelCurrent);
@@ -309,6 +314,7 @@ class RelationshipGenerator extends BaseGenerator
             'Resource' .
             " from '@/api/" .
             env('API_VERSION_GENERATOR', 'v1') .
+            '/' .
             $this->serviceGenerator->nameAttribute($model) .
             "';";
         if (!stripos($templateDataReal, $importStub)) {
@@ -881,7 +887,11 @@ class RelationshipGenerator extends BaseGenerator
 
     private function _replaceTemplateRelationship($model, $modelDif, $templateData)
     {
-        $templateData = str_replace('{{TABLE_NAME_TITLE}}', \Str::plural($model), $templateData);
+        $templateData = str_replace(
+            '{{TABLE_NAME_TITLE}}',
+            \Str::plural($modelDif) . \Str::plural($model),
+            $templateData,
+        );
         $templateData = str_replace('{{TABLE_NAME}}', $this->serviceGenerator->tableName($model), $templateData);
         $templateData = str_replace('{{FOREIGN_KEY}}', \Str::snake($modelDif) . self::_ID, $templateData);
         $templateData = str_replace(

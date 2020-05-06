@@ -105,6 +105,7 @@ class SetupCommand extends Command
             $this->_installPassport($fileEnvEx, $fileConfig);
             $this->_deployVue();
             $this->_deploySwagger();
+            $this->_deployStorage();
 
             $this->_outputArtisan('config:clear');
             $this->info($this->_textSignature());
@@ -173,6 +174,13 @@ class SetupCommand extends Command
         $this->comment('DEPLOY SWAGGER');
         $this->info('>>> Running: deploy swagger');
         exec('./swagger.sh');
+    }
+
+    private function _deployStorage()
+    {
+        $this->comment('DEPLOY Storage');
+        $this->info('>>> Running: deploy storage:link');
+        exec('php artisan storage:link');
     }
 
     private function _createEnv()

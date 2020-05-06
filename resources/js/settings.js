@@ -8,6 +8,12 @@ module.exports = {
   redirect: '/dashboard',
 
   /**
+   * @type {number} offset time zone
+   * @description Redirect before login
+   */
+  offsetTz: 9, // Tokyo
+
+  /**
    * @type {boolean} true | false
    * @description Show translate
    */

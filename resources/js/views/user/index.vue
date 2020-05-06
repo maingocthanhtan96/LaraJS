@@ -157,10 +157,7 @@ export default {
           ascending: 1,
           page: 1,
           orderBy: 'created_at',
-          created_at: [
-            this.parseTime(new Date().getTime() - 86400000 * 30),
-            this.parseTime(new Date()),
-          ],
+          created_at: [],
         },
         list: null,
         total: 0,
@@ -193,8 +190,8 @@ export default {
     },
     changeDateRangePicker(date) {
       if (date) {
-        const startDate = this.parseTime(date[0]);
-        const endDate = this.parseTime(date[1]);
+        const startDate = this.parseTimeToTz(date[0]);
+        const endDate = this.parseTimeToTz(date[1]);
         this.table.listQuery.created_at = [startDate, endDate];
       } else {
         this.table.listQuery.created_at = [];
@@ -235,9 +232,6 @@ export default {
         });
         this.table.loading = false;
       });
-    },
-    parseTime(date, format = '{y}-{m}-{d}') {
-      return this.$options.filters.parseTime(date, format);
     },
     numericalOrder(index) {
       const table = this.table.listQuery;
