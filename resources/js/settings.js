@@ -11,7 +11,7 @@ module.exports = {
    * @type {number} offset time zone
    * @description Redirect before login
    */
-  offsetTz: process.env.MIX_TIME_ZONE || 'Asia/Tokyo', // Tokyo
+  timeZone: process.env.MIX_TIME_ZONE || 'Asia/Tokyo', // Tokyo
 
   /**
    * @type {boolean} true | false

@@ -8,11 +8,9 @@ export default {
         utc = utc - 86400000 * day;
       }
 
-      // const offsetTz = this.$store.state.settings.offsetTz;
+      const timeZone = this.$store.state.settings.timeZone;
       return this.$options.filters.parseTime(
-        new Date(
-          new Date(utc).toLocaleString('en-US', { timeZone: 'Asia/Tokyo' })
-        ),
+        new Date(new Date(utc).toLocaleString('en-US', { timeZone: timeZone })),
         format
       );
     },
