@@ -2,16 +2,17 @@ export default {
   methods: {
     parseTimeToTz(date, day, format = '{y}-{m}-{d}') {
       const d = date;
-      let utc = d.getTime() + d.getTimezoneOffset() * 60000;
+      let utc = d.getTime();
 
       if (day) {
         utc = utc - 86400000 * day;
       }
 
-      const offsetTz = this.$store.state.settings.offsetTz;
-
+      // const offsetTz = this.$store.state.settings.offsetTz;
       return this.$options.filters.parseTime(
-        new Date(utc + 3600000 * offsetTz),
+        new Date(
+          new Date(utc).toLocaleString('en-US', { timeZone: 'Asia/Tokyo' })
+        ),
         format
       );
     },

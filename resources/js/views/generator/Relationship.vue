@@ -276,7 +276,7 @@ export default {
         })
         .catch(() => {
           this.loading = false;
-          location.reload();
+          // location.reload();
         });
     },
     replaceTemplate(model) {

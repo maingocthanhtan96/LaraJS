@@ -66,7 +66,7 @@ return [
     |
     */
 
-    'timezone' => 'Asia/Tokyo',
+    'timezone' => env('TIME_ZONE', 'Asia/Tokyo'),
 
     /*
     |--------------------------------------------------------------------------
@@ -172,7 +172,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Barryvdh\Elfinder\ElfinderServiceProvider::class
+        Barryvdh\Elfinder\ElfinderServiceProvider::class,
     ],
 
     /*
@@ -226,6 +226,5 @@ return [
         'Constant' => App\Larajs\Constant::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'FrontendHelper' => App\Helpers\FrontendHelper::class,
-
     ],
 ];
