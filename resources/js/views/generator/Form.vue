@@ -595,7 +595,7 @@ export default {
                     })
                   )
                 );
-              } else if (/[\s]/.test(value)) {
+              } else if (/[\s_]/.test(value)) {
                 callback(
                   new Error(
                     this.$t('validation.regex', {
