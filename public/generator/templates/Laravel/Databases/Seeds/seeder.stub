@@ -6,7 +6,6 @@
  * Date Time: {{DATE_TIME}}
  */
 
-
 use Illuminate\Database\Seeder;
 
 class {{TABLE_NAME_TITLE}}TableSeeder extends Seeder

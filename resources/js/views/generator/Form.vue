@@ -67,6 +67,11 @@
                         checked
                         :disabled="$route.params.id > 0"
                       />
+                      <el-checkbox
+                        label="User Signature"
+                        checked
+                        :disabled="$route.params.id > 0"
+                      />
                       <el-checkbox label="Datatables" disabled />
                       <el-checkbox
                         label="Role Admin"
@@ -505,6 +510,14 @@ export default {
                     })
                   )
                 );
+              } else if (/[A-Z\s]/.test(value)) {
+                callback(
+                  new Error(
+                    this.$t('validation.regex', {
+                      attribute: this.$t('generator.field_name'),
+                    })
+                  )
+                );
               } else {
                 const arrayIndex = [];
                 for (const val of this.form) {
@@ -578,6 +591,14 @@ export default {
                 callback(
                   new Error(
                     this.$t('validation.required', {
+                      attribute: this.$t('generator.form_model_name'),
+                    })
+                  )
+                );
+              } else if (/[\s]/.test(value)) {
+                callback(
+                  new Error(
+                    this.$t('validation.regex', {
                       attribute: this.$t('generator.form_model_name'),
                     })
                   )

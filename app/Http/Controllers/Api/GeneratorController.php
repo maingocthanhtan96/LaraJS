@@ -96,7 +96,7 @@ class GeneratorController extends Controller
             $fields = $request->get('fields', []);
             $model = $request->get('model', []);
             // git commit
-            $this->_gitCommit($model['name']);
+            //            $this->_gitCommit($model['name']);
             $this->_generateBackend($fields, $model);
             $this->_generateFrontend($fields, $model);
             Generator::create([
@@ -303,7 +303,7 @@ class GeneratorController extends Controller
         // php artisan generate:erd /Applications/MAMP/htdocs/tanmnt/larajs/resources/js/assets/images/diagram-erd.png
         //        exec("cd $basePath && php artisan generate:erd $resourcePath");
         exec("cd $basePath && ./swagger.sh");
-        $this->_gitResetHEAD();
+        //        $this->_gitResetHEAD();
     }
 
     private function _gitCommit($model)

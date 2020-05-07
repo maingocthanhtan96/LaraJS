@@ -45,9 +45,23 @@ class ModelGenerator extends BaseGenerator
         //create sort delete
         $importLaravel = config('generator.import.laravel.use');
         $notDelete = config('generator.not_delete.laravel.model');
+        if ($this->serviceGenerator->getOptions(config('generator.model.options.user_signature'), $model['options'])) {
+            $templateData = $this->serviceGenerator->replaceNotDelete(
+                $notDelete['use_class'],
+                $importLaravel['trait_user_signature']['file'],
+                0,
+                $templateData,
+            );
+            $templateData = $this->serviceGenerator->replaceNotDelete(
+                $notDelete['use'],
+                $importLaravel['trait_user_signature']['name'],
+                1,
+                $templateData,
+            );
+        }
         if ($this->serviceGenerator->getOptions(config('generator.model.options.sort_deletes'), $model['options'])) {
-            $templateData = str_replace($notDelete['use_class'], $importLaravel['file'], $templateData);
-            $templateData = str_replace($notDelete['use'], $importLaravel['name'], $templateData);
+            $templateData = str_replace($notDelete['use_class'], $importLaravel['sort_delete']['file'], $templateData);
+            $templateData = str_replace($notDelete['use'], $importLaravel['sort_delete']['name'], $templateData);
         } else {
             $templateData = str_replace($notDelete['use_class'], '', $templateData);
             $templateData = str_replace($notDelete['use'], '', $templateData);

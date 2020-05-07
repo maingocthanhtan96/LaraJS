@@ -132,18 +132,19 @@ class LangUpdateGenerator extends BaseGenerator
         }
 
         $fieldsGenerate = [];
+        $quoteTable = "'" . $tableName . "' => [";
         $template = $this->serviceGenerator->searchTemplate(
-            $tableName,
+            $quoteTable,
             '],',
-            strlen($tableName) + 6,
-            -6 - strlen($tableName),
+            2 + strlen($quoteTable),
+            -2 - strlen($quoteTable),
             $templateDataReal,
         );
         $templateReplace = $this->serviceGenerator->searchTemplate(
-            $tableName,
+            $quoteTable,
             '],',
-            -strlen($tableName) + 12,
-            strlen($tableName) - 10,
+            -strlen($quoteTable) + 10,
+            strlen($quoteTable) - 6,
             $templateDataReal,
         );
         if (!$template || !$templateReplace) {
@@ -164,7 +165,7 @@ class LangUpdateGenerator extends BaseGenerator
             $fieldsGenerate[] = $name;
         }
         $replace = implode($this->serviceGenerator->infy_nl_tab(1, 2), $fieldsGenerate);
-        $replace .= "\n\t],";
+        $replace .= "\n\t],\n ";
         $templateDataReal = $this->replaceTemplate($templateReplace, $replace, $templateDataReal);
         return $templateDataReal;
     }

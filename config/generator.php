@@ -51,6 +51,7 @@ return [
     'model' => [
         'options' => [
             'sort_deletes' => 'Soft Deletes',
+            'user_signature' => 'User Signature',
             'datatables' => 'Datatables',
             'role_admin' => 'Role Admin',
             'ignore_migrate' => 'Ignore Migrate',
@@ -197,8 +198,14 @@ return [
     'import' => [
         'laravel' => [
             'use' => [
-                'file' => 'use Illuminate\Database\Eloquent\SoftDeletes;',
-                'name' => 'use SoftDeletes;',
+                'sort_delete' => [
+                    'file' => 'use Illuminate\Database\Eloquent\SoftDeletes;',
+                    'name' => 'use SoftDeletes;',
+                ],
+                'trait_user_signature' => [
+                    'file' => 'use App\Traits\UserSignatureTrait;',
+                    'name' => 'use UserSignatureTrait;',
+                ],
             ],
         ],
         'vuejs' => [

@@ -100,6 +100,10 @@ class MigrationGenerator extends BaseGenerator
                 $fieldsGenerate[] = $table;
             }
         }
+        if ($this->serviceGenerator->getOptions(config('generator.model.options.user_signature'), $model['options'])) {
+            $fieldsGenerate[] = '$table->bigInteger(\'created_by\')->nullable();';
+            $fieldsGenerate[] = '$table->bigInteger(\'updated_by\')->nullable();';
+        }
         $fieldsGenerate[] = '$table->timestamps();';
         if ($this->serviceGenerator->getOptions(config('generator.model.options.sort_deletes'), $model['options'])) {
             $fieldsGenerate[] = '$table->softDeletes();';
