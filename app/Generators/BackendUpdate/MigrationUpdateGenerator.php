@@ -55,6 +55,8 @@ class MigrationUpdateGenerator extends BaseGenerator
             $this->serviceGenerator->tableName($model['name']),
             $templateData,
         );
+
+        dd($updateFields);
         $fileName =
             date('Y_m_d_His') . '_' . 'update_' . $this->serviceGenerator->tableName($model['name']) . '_table.php';
 
@@ -94,7 +96,7 @@ class MigrationUpdateGenerator extends BaseGenerator
         $this->serviceFile->createFile($this->path, $fileName, $templateData);
     }
 
-    private function generateFieldsUp($updateFields)
+    private function    generateFieldsUp($updateFields)
     {
         $fieldsGenerate = [];
 

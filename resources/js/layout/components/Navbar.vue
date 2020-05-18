@@ -10,7 +10,7 @@
     <div class="right-menu">
       <template v-if="device !== 'mobile'">
         <a
-          v-if="checkPermission(['develop'])"
+          v-if="checkPermission(['develop']) && $store.state.settings.showAPI"
           :href="hrefDeveloper"
           class="mr-4"
         >

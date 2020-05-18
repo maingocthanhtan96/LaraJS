@@ -21,6 +21,12 @@ module.exports = {
 
   /**
    * @type {boolean} true | false
+   * @description Show translate
+   */
+  showAPI: true,
+
+  /**
+   * @type {boolean} true | false
    * @description Whether need tagsView
    */
   tagsView: true,

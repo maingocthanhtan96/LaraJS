@@ -34,7 +34,7 @@
  * @OA\Get(
  *     path="/{{RESOURCE}}/{id}",
  *     tags={"{{MODEL_CLASS}}"},
- *     summary="Update {{MODEL_CLASS}}",
+ *     summary="Edit {{MODEL_CLASS}}",
  *     security={{"authApi":{}}},
  *     @OA\Parameter(ref="#/components/parameters/id"),
  *     @OA\Response(response="200", ref="#/components/responses/OK"),

@@ -4,7 +4,7 @@
       <el-card>
         <div slot="header" class="flex justify-end items-center">
           <router-link v-permission="['create']" :to="{name: '{{$NAME_ROUTE$}}Create'}" class="pan-btn blue-btn" tag="button">
-            <i class="el-icon-plus mr-2" />{{this.$t('button.create')}}
+            <i class="el-icon-plus mr-2" />{{$t('button.create')}}
           </router-link>
         </div>
         <div class="flex flex-col">

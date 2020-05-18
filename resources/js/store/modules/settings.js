@@ -8,10 +8,12 @@ const {
   redirect,
   timeZone,
   showTrans,
+  showAPI,
   moreTransition,
   routerTransitionTo,
   routerTransitionFrom,
   superAdmin,
+  title,
 } = defaultSettings;
 
 const state = {
@@ -21,10 +23,12 @@ const state = {
   redirect: redirect,
   timeZone: timeZone,
   showTrans: showTrans,
+  showAPI: showAPI,
   moreTransition,
   routerTransitionTo: routerTransitionTo,
   routerTransitionFrom: routerTransitionFrom,
   superAdmin: superAdmin,
+  title: title,
 };
 
 const mutations = {

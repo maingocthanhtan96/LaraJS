@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
-import dashboard from './modules/dashborad';
+import dashboard from './modules/dashboard';
 import administrator from './modules/administrator';
 // {{$IMPORT_ROUTE_NOT_DELETE_THIS_LINE$}}
 
