@@ -96,7 +96,7 @@ class GeneratorController extends Controller
             $fields = $request->get('fields', []);
             $model = $request->get('model', []);
             // git commit
-            //            $this->_gitCommit($model['name']);
+            $this->_gitCommit($model['name']);
             $this->_generateBackend($fields, $model);
             $this->_generateFrontend($fields, $model);
             Generator::create([
@@ -128,13 +128,13 @@ class GeneratorController extends Controller
                 'dropFields' => $dropFields,
             ];
             // git commit
-//            $this->_gitCommit($model['name']);
+            $this->_gitCommit($model['name']);
             $this->_generateBackendUpdate($generator, $model, $updateFields);
             $this->_generateFrontendUpdate($generator, $model, $updateFields);
-//            $generator->update([
-//                'field' => json_encode($fields),
-//            ]);
-//            $this->_runCommand();
+            $generator->update([
+                'field' => json_encode($fields),
+            ]);
+            $this->_runCommand();
             return $this->jsonSuccess(trans('messages.success'));
         } catch (\Exception $e) {
             write_log_exception($e);
@@ -265,22 +265,22 @@ class GeneratorController extends Controller
     private function _generateBackendUpdate($generator, $model, $updateFields)
     {
         new MigrationUpdateGenerator($generator, $model, $updateFields);
-//        new ModelUpdateGenerator($model, $updateFields);
-//        new SeederUpdateGenerator($generator, $model, $updateFields);
-//        new ControllerUpdateGenerator($model, $updateFields);
-//        new LangUpdateGenerator($model, $updateFields);
-//        new RequestUpdateGenerator($generator, $model, $updateFields);
-//        new SwaggerUpdateGenerator($generator, $model, $updateFields);
+        new ModelUpdateGenerator($model, $updateFields);
+        new SeederUpdateGenerator($generator, $model, $updateFields);
+        new ControllerUpdateGenerator($model, $updateFields);
+        new LangUpdateGenerator($model, $updateFields);
+        new RequestUpdateGenerator($generator, $model, $updateFields);
+        new SwaggerUpdateGenerator($generator, $model, $updateFields);
     }
 
     private function _generateFrontendUpdate($generator, $model, $updateFields)
     {
-//        if ($this->serviceGenerator->getOptions(config('generator.model.options.datatables'), $model['options'])) {
-//            new ViewUpdateGenerator($generator, $model, $updateFields);
-//        } else {
-//            new ViewTableUpdateGenerator($generator, $model, $updateFields);
-//        }
-//        new FormUpdateGenerator($generator, $model, $updateFields);
+        if ($this->serviceGenerator->getOptions(config('generator.model.options.datatables'), $model['options'])) {
+            new ViewUpdateGenerator($generator, $model, $updateFields);
+        } else {
+            new ViewTableUpdateGenerator($generator, $model, $updateFields);
+        }
+        new FormUpdateGenerator($generator, $model, $updateFields);
     }
 
     private function _runCommand($model = [])

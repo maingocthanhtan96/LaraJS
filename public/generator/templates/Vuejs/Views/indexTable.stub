@@ -23,8 +23,7 @@
                 :end-placeholder="$t('date.end_date')"
                 :picker-options="pickerOptions"
                 @change="changeDateRangePicker"
-              >
-              </el-date-picker>
+              />
             </el-col>
           </el-col>
           <el-col :span="24" class="table-responsive">
