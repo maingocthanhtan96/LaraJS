@@ -53,10 +53,12 @@ export default {
   mounted() {
     const { id } = this.$route.params;
     if (id) {
+      this.loading = true;
       {{$CONST_MODEL_CLASS$}}Resource.get(id)
         .then(res => {
           const { data } = res.data;
           this.form = data;
+          this.loading = false;
         });
     }
   },
