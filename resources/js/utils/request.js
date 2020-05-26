@@ -27,11 +27,6 @@ service.interceptors.request.use(
     return config;
   },
   error => {
-    // Do something with request error
-    store.dispatch(`errorLog/${ADD_ERROR_LOG}`, {
-      error,
-      url: window.location.href,
-    });
     console.log('Error request: ', error); // for debug
     return Promise.reject(error);
   }
@@ -62,10 +57,6 @@ service.interceptors.response.use(
           duration: 5 * 1000,
         });
       }
-      store.dispatch(`errorLog/${ADD_ERROR_LOG}`, {
-        error: res.data.message,
-        url: window.location.href,
-      });
       console.log('Error response: ', res); // for debug
 
       return Promise.reject(error);
