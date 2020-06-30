@@ -24,7 +24,7 @@ module.exports = {
     {
       files: '*.php',
       options: {
-        printWidth: 120,
+        printWidth: 200,
         tabWidth: 4,
         useTabs: false,
         semi: false,

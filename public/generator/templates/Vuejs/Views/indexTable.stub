@@ -38,8 +38,8 @@
               @sort-change="sortChange"
               >
                 <el-table-column align="center" sortable="custom" prop="id" :label="$t('table.{{$TABLE_MODEL_CLASS$}}.id')" width="70px">
-                  <template slot-scope="{ $index }">
-                    {{ numericalOrder($index) }}
+                  <template slot-scope="{ row }">
+                    {{ row.id }}
                   </template>
                 </el-table-column>
                 <!--{{$TEMPLATES_NOT_DELETE_THIS_LINE$}}-->
@@ -49,9 +49,9 @@
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('table.actions')" align="center" class-name="small-padding fixed-width">
-                  <template slot-scope="{ row, $index }">
+                  <template slot-scope="{ row }">
                     <router-link v-permission="['edit']" :to="{name: '{{$NAME_ROUTE$}}Edit', params: {id: row.id}}"><i class="el-icon-edit el-link el-link--primary mr-2"></i></router-link>
-                    <a v-permission="['delete']" class="cursor-pointer" @click.stop="() => remove(row.id, numericalOrder($index))"><i class="el-icon-delete el-link el-link--danger"></i></a>
+                    <a v-permission="['delete']" class="cursor-pointer" @click.stop="() => remove(row.id)"><i class="el-icon-delete el-link el-link--danger"></i></a>
                   </template>
                 </el-table-column>
               </el-table>
@@ -131,8 +131,8 @@
         }
         this.getList();
       },
-      remove(id, name) {
-        this.$confirm(this.$t('messages.delete_confirm', { attribute: this.$t('table.{{$TABLE_MODEL_CLASS$}}.id') + '#' + name }), this.$t('messages.warning'), {
+      remove(id) {
+        this.$confirm(this.$t('messages.delete_confirm', { attribute: this.$t('table.{{$TABLE_MODEL_CLASS$}}.id') + '#' + id }), this.$t('messages.warning'), {
           confirmButtonText: this.$t('button.ok'),
           cancelButtonClass: this.$t('button.cancel'),
           type: 'warning',
@@ -149,10 +149,6 @@
           });
           this.table.loading = false;
         });
-      },
-      numericalOrder(index) {
-        const table = this.table.listQuery;
-        return (table.page - 1) * table.limit + index + 1;
       },
     },
   };

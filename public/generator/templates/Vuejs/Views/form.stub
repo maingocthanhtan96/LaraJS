@@ -10,16 +10,16 @@
             {{ $t('route.{{$LANG_MODEL_CLASS$}}_create') }}
           </template>
         </div>
-        <el-form ref="{{$REF_MODEL_CLASS$}}" :model="form" :rules="rules" status-icon label-position="top">
+        <el-form ref="{{$REF_MODEL_CLASS$}}" v-loading="loading.form" :model="form" :rules="rules" status-icon label-position="top">
         <!--{{$FROM_ITEM_NOT_DELETE_THIS_LINE$}}-->
           <el-form-item class="flex justify-center">
             <template v-if="$route.params.id">
-              <el-button :loading="loading" round type="primary" icon="el-icon-edit mr-2" @click="() => update('{{$REF_MODEL_CLASS$}}')">
+              <el-button :loading="loading.button" round type="primary" icon="el-icon-edit mr-2" @click="() => update('{{$REF_MODEL_CLASS$}}')">
                 {{ $t('button.edit') }}
               </el-button>
             </template>
             <template v-else>
-              <el-button :loading="loading" round type="success" icon="el-icon-plus mr-2" @click="() => store('{{$REF_MODEL_CLASS$}}')">
+              <el-button :loading="loading.button" round type="success" icon="el-icon-plus mr-2" @click="() => store('{{$REF_MODEL_CLASS$}}')">
                 {{ $t('button.create') }}
               </el-button>
             </template>
@@ -43,7 +43,10 @@ export default {
   },
   data() {
     return {
-      loading: false,
+      loading: {
+        form: false,
+        button: false,
+      },
       form: {
         // {{$FORM_FIELDS_NOT_DELETE_THIS_LINE$}}
       }, // {{$$}}
@@ -53,12 +56,12 @@ export default {
   mounted() {
     const { id } = this.$route.params;
     if (id) {
-      this.loading = true;
+      this.loading.form = true;
       {{$CONST_MODEL_CLASS$}}Resource.get(id)
         .then(res => {
           const { data } = res.data;
           this.form = data;
-          this.loading = false;
+          this.loading.form = false;
         });
     }
   },
@@ -74,7 +77,7 @@ export default {
     // {{$METHODS_NOT_DELETE_THIS_LINE$}}
     store({{$REF_MODEL_CLASS$}}) {
       // {{$FILE_JSON_STRINGIFY_NOT_DELETE_THIS_LINE$}}
-      this.loading = true;
+      this.loading.button = true;
       this.$refs[{{$REF_MODEL_CLASS$}}].validate(async (valid, errors) => {
         if (valid) {
           await {{$CONST_MODEL_CLASS$}}Resource.store(this.form);
@@ -85,17 +88,19 @@ export default {
           });
           // {{$RESET_FIELD_NOT_DELETE_THIS_LINE$}}
           this.$refs[{{$REF_MODEL_CLASS$}}].resetFields();
-          this.loading = false;
+          this.loading.button = false;
         } else {
-          this.loading = false;
-          scrollTo(document.getElementsByName(Object.keys(errors)[0])[0].getBoundingClientRect().top - document.body.getBoundingClientRect().top - 130, 800);
+          this.loading.button = false;
+          if (document.getElementsByName(Object.keys(errors)[0]).length) {
+            scrollTo(document.getElementsByName(Object.keys(errors)[0])[0].getBoundingClientRect().top - document.body.getBoundingClientRect().top - 130, 800);
+          }
           return false;
         }
       });
     },
     update({{$REF_MODEL_CLASS$}}) {
       // {{$FILE_JSON_STRINGIFY_NOT_DELETE_THIS_LINE$}}
-      this.loading = true;
+      this.loading.button = true;
       this.$refs[{{$REF_MODEL_CLASS$}}].validate(async (valid, errors) => {
         if (valid) {
           await {{$CONST_MODEL_CLASS$}}Resource.update(this.$route.params.id, this.form);
@@ -104,11 +109,13 @@ export default {
             message: this.$t('messages.update'),
             type: 'success',
           });
-          this.loading = false;
+          this.loading.button = false;
           this.$router.push({ name: '{{$NAME_ROUTE$}}' });
         } else {
-          this.loading = false;
-          scrollTo(document.getElementsByName(Object.keys(errors)[0])[0].getBoundingClientRect().top - document.body.getBoundingClientRect().top - 130, 800);
+          this.loading.button = false;
+          if (document.getElementsByName(Object.keys(errors)[0]).length) {
+            scrollTo(document.getElementsByName(Object.keys(errors)[0])[0].getBoundingClientRect().top - document.body.getBoundingClientRect().top - 130, 800);
+          }
           return false;
         }
       });

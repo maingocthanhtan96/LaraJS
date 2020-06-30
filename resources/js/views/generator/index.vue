@@ -171,10 +171,7 @@ export default {
           ascending: 1,
           page: 1,
           orderBy: 'created_at',
-          created_at: [
-            this.parseTime(new Date().getTime() - 86400000 * 30),
-            this.parseTime(new Date()),
-          ],
+          created_at: [],
         },
         list: null,
         total: 0,

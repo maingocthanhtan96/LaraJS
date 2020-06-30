@@ -35,6 +35,7 @@ class MigrationUpdateGenerator extends BaseGenerator
     private function generate($generator, $updateFields, $model)
     {
         $now = Carbon::now();
+        $timeName = date('YmdHis');
         $pathTemplate = 'Databases/Migrations/';
         $templateData = $this->serviceGenerator->get_template('migrationUpdate', $pathTemplate);
         $templateData = str_replace('{{FIELDS_UP}}', $this->generateFieldsUp($updateFields), $templateData);
@@ -47,7 +48,7 @@ class MigrationUpdateGenerator extends BaseGenerator
 
         $templateData = str_replace(
             '{{TABLE_NAME_TITLE}}',
-            $this->serviceGenerator->modelNamePlural($model['name']),
+            $this->serviceGenerator->modelNamePlural($model['name']) . $timeName,
             $templateData,
         );
         $templateData = str_replace(
@@ -57,7 +58,7 @@ class MigrationUpdateGenerator extends BaseGenerator
         );
 
         $fileName =
-            date('Y_m_d_His') . '_' . 'update_' . $this->serviceGenerator->tableName($model['name']) . '_table.php';
+            date('Y_m_d_His') . '_' . 'update_' . $this->serviceGenerator->tableName($model['name']) . '_' . $timeName . '_table.php';
 
         $this->serviceFile->createFile($this->path, $fileName, $templateData);
     }
@@ -65,6 +66,7 @@ class MigrationUpdateGenerator extends BaseGenerator
     private function generateChange($generator, $updateFields, $model)
     {
         $now = Carbon::now();
+        $timeName = date('YmdHis');
         $pathTemplate = 'Databases/Migrations/';
         $templateData = $this->serviceGenerator->get_template('migrationChange', $pathTemplate);
         $templateData = str_replace(
@@ -81,7 +83,7 @@ class MigrationUpdateGenerator extends BaseGenerator
 
         $templateData = str_replace(
             '{{TABLE_NAME_TITLE}}',
-            $this->serviceGenerator->modelNamePlural($model['name']),
+            $this->serviceGenerator->modelNamePlural($model['name']) . date('YmdHis') . $timeName,
             $templateData,
         );
         $templateData = str_replace(
@@ -90,7 +92,7 @@ class MigrationUpdateGenerator extends BaseGenerator
             $templateData,
         );
         $fileName =
-            date('Y_m_d_His') . '_' . 'change_' . $this->serviceGenerator->tableName($model['name']) . '_table.php';
+            date('Y_m_d_His') . '_' . 'change_' . $this->serviceGenerator->tableName($model['name']) . '_' . $timeName . '_table.php';
 
         $this->serviceFile->createFile($this->path, $fileName, $templateData);
     }
