@@ -63,7 +63,7 @@
   </el-row>
 </template>
 <script>
-  import dateRangePicker from '@/plugins/mixins/dateRangePicker';
+  import DateRangePicker from '@/plugins/mixins/date-range-picker';
   import Pagination from '@/components/Pagination'; // Secondary package based on el-pagination
   import {debounce} from '@/utils';
   import {{$MODEL_CLASS$}}Resource from '@/api/{{$API_VERSION$}}/{{$NAME_ROUTE_API$}}';
@@ -71,7 +71,7 @@
 
   export default {
     components: { Pagination },
-    mixins: [dateRangePicker],
+    mixins: [DateRangePicker],
     data() {
       return {
         table: {

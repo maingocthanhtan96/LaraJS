@@ -150,7 +150,7 @@
   </el-row>
 </template>
 <script>
-import dateRangePicker from '@/plugins/mixins/dateRangePicker';
+import DateRangePicker from '@/plugins/mixins/date-range-picker';
 import Pagination from '@/components/Pagination'; // Secondary package based on el-pagination
 import GeneratorResource from '@/api/generator';
 import { debounce } from '@/utils';
@@ -159,7 +159,7 @@ const generatorResource = new GeneratorResource();
 
 export default {
   components: { Pagination },
-  mixins: [dateRangePicker],
+  mixins: [DateRangePicker],
   data() {
     return {
       diagram: require('@/assets/images/diagram-erd.png'),

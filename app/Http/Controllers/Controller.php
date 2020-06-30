@@ -86,6 +86,25 @@ class Controller extends BaseController
     }
 
     /**
+     * @param string $message
+     * @param bool $success
+     * @param int $status
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @author tanmnt
+     */
+    public function jsonMessage(string $message, bool $success, $status = Response::HTTP_OK)
+    {
+        return response()->json(
+            [
+                'success' => $success,
+                'message' => $message,
+            ],
+            $status,
+        );
+    }
+
+    /**
      * @param string $string
      * @param int $status
      * @return \Illuminate\Http\JsonResponse

@@ -73,7 +73,11 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 	public function store(Store{{MODAL_CLASS}}Request $request)
 	{
 		try {
-			${{MODAL_CLASS_PARAM}} = {{MODAL_CLASS}}::create($request->all());
+		    ${{MODAL_CLASS_PARAM}} = new {{MODAL_CLASS}}();
+		    foreach ($request->all() as $key => $value) {
+                ${{MODAL_CLASS_PARAM}}->{$key} = $value;
+            }
+            ${{MODAL_CLASS_PARAM}}->save();
 			//{{CONTROLLER_RELATIONSHIP_MTM_CREATE_NOT_DELETE_THIS_LINE}}
 
 			return $this->jsonData(${{MODAL_CLASS_PARAM}}, Response::HTTP_CREATED);
@@ -111,7 +115,10 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 	public function update(Store{{MODAL_CLASS}}Request $request, {{MODAL_CLASS}} ${{MODAL_CLASS_PARAM}})
 	{
 		try {
-			${{MODAL_CLASS_PARAM}}->update($request->all());
+		    foreach ($request->all() as $key => $value) {
+                ${{MODAL_CLASS_PARAM}}->{$key} = $value;
+            }
+            ${{MODAL_CLASS_PARAM}}->save();
             //{{CONTROLLER_RELATIONSHIP_MTM_UPDATE_NOT_DELETE_THIS_LINE}}
 
 			return $this->jsonData(${{MODAL_CLASS_PARAM}});
@@ -133,7 +140,7 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 	        //{{CONTROLLER_RELATIONSHIP_MTM_DELETE_NOT_DELETE_THIS_LINE}}
 			${{MODAL_CLASS_PARAM}}->delete();
 
-		    return $this->jsonSuccess(trans('messages.delete'), Response::HTTP_NO_CONTENT);
+		    return $this->jsonSuccess(trans('messages.delete'));
 	    } catch (\Exception $e) {
 	        write_log_exception($e);
 	    	return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());

@@ -138,7 +138,7 @@
   </el-row>
 </template>
 <script>
-import dateRangePicker from '@/plugins/mixins/dateRangePicker';
+import DateRangePicker from '@/plugins/mixins/date-range-picker';
 import Pagination from '@/components/Pagination'; // Secondary package based on el-pagination
 import { debounce } from '@/utils';
 import UserResource from '@/api/user';
@@ -147,7 +147,7 @@ const userResource = new UserResource();
 
 export default {
   components: { Pagination },
-  mixins: [dateRangePicker],
+  mixins: [DateRangePicker],
   data() {
     return {
       table: {

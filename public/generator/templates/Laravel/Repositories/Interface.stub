@@ -9,7 +9,7 @@
 
 namespace App\Repositories\{{MODEL_CLASS}};
 
-interface {{MODEL_CLASS}}RepositoryInterface
+interface {{MODEL_CLASS}}Interface
 {
 
 }

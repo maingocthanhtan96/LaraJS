@@ -10,7 +10,13 @@
             {{ $t('route.user_create') }}
           </template>
         </div>
-        <el-form ref="users" :model="form" :rules="rules" status-icon>
+        <el-form
+          ref="users"
+          v-loading="loading.form"
+          :model="form"
+          :rules="rules"
+          status-icon
+        >
           <el-form-item
             data-generator="name"
             :label="$t('table.user.name')"
@@ -144,7 +150,10 @@ export default {
   },
   data() {
     return {
-      loading: false,
+      loading: {
+        button: false,
+        form: false,
+      },
       rolesList: [],
       form: {
         name: '',
@@ -298,6 +307,7 @@ export default {
     this.roles();
     const { id } = this.$route.params;
     if (id) {
+      this.loading.form = false;
       userResource.get(id).then(res => {
         const { data } = res.data;
         this.form = data;

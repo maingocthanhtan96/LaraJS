@@ -12,7 +12,7 @@ namespace App\Repositories\{{MODEL_CLASS}};
 use App\Models\{{MODEL_CLASS}};
 use App\Repositories\EloquentRepository;
 
-class {{MODEL_CLASS}}Repository extends EloquentRepository implements {{MODEL_CLASS}}RepositoryInterface
+class {{MODEL_CLASS}}Repository extends EloquentRepository implements {{MODEL_CLASS}}Interface
 {
 	public function getModel()
 	{

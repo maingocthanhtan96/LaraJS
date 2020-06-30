@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Traits;
+
 use Auth;
 
 trait UserSignatureTrait
 {
-    protected static function boot()
+    protected static function bootUserSignatureTrait()
     {
         parent::boot();
         static::creating(function ($model) {
