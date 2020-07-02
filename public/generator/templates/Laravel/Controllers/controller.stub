@@ -57,7 +57,11 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
             $queryService->ascending = $ascending;
             $queryService->orderBy = $orderBy;
 
-			return $this->jsonTable($queryService->queryTable());
+            $query = $queryService->queryTable();
+            $query = $query->paginate($limit);
+            ${{MODAL_CLASS_PARAM}} = $query->toArray();
+
+			return $this->jsonTable(${{MODAL_CLASS_PARAM}});
 		} catch (\Exception $e) {
 		    write_log_exception($e);
 			return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());

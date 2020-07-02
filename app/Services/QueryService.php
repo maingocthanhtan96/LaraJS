@@ -119,6 +119,6 @@ class QueryService extends BaseService
             $q->orderBy($this->defaultOrderBy, $this->defaultDescending);
         });
 
-        return $query->paginate($this->limit)->toArray();
+        return $query;
     }
 }

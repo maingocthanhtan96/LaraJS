@@ -62,11 +62,14 @@ class UserController extends Controller
             $queryService->withRelationship = ['roles'];
             $queryService->search = $search;
             $queryService->betweenDate = $betweenDate;
-            $queryService->limit = $limit;
             $queryService->ascending = $ascending;
             $queryService->orderBy = $orderBy;
 
-            return $this->jsonTable($queryService->queryTable());
+            $query = $queryService->queryTable();
+            $query = $query->paginate($limit);
+            $users = $query->toArray();
+
+            return $this->jsonTable($users);
         } catch (\Exception $e) {
             write_log_exception($e);
             return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
