@@ -53,10 +53,10 @@ class UserController extends Controller
             $ascending = $request->get('ascending', 0);
             $orderBy = $request->get('orderBy', '');
             $search = $request->get('search', '');
-            $betweenDate = $request->get('created_at', []);
+            $betweenDate = $request->get('updated_at', []);
 
             $queryService = new QueryService(new User());
-            $queryService->order = ['id', 'created_at'];
+            $queryService->order = ['id', 'updated_at'];
             $queryService->orderRelationship = [];
             $queryService->columnSearch = ['name', 'email'];
             $queryService->withRelationship = ['roles'];

@@ -2,6 +2,7 @@
 
 return [
     'created_at' => 'Ngày tạo',
+    'updated_at' => 'Ngày cập nhật',
     'start_date' => 'Ngày bắt đầu',
     'end_date' => 'Ngày kết thúc',
     'today' => 'Hôm nay',

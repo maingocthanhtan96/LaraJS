@@ -25,7 +25,7 @@
             <el-col :xs="24" :sm="14" :md="18">
               <br />
               <el-date-picker
-                v-model="table.listQuery.created_at"
+                v-model="table.listQuery.updated_at"
                 class="md:float-right"
                 type="daterange"
                 :start-placeholder="$t('date.start_date')"
@@ -40,7 +40,7 @@
               v-loading="table.loading"
               class="w-full"
               :data="table.list"
-              :default-sort="{ prop: 'created_at', order: 'descending' }"
+              :default-sort="{ prop: 'updated_at', order: 'descending' }"
               border
               fit
               highlight-current-row
@@ -91,15 +91,15 @@
               </el-table-column>
               <!--{{$TEMPLATES_NOT_DELETE_THIS_LINE$}}-->
               <el-table-column
-                data-generator="created_at"
-                prop="created_at"
-                :label="$t('date.created_at')"
+                data-generator="updated_at"
+                prop="updated_at"
+                :label="$t('date.updated_at')"
                 sortable="custom"
                 align="center"
                 header-align="center"
               >
                 <template slot-scope="{ row }">
-                  {{ row.created_at | parseTime('{y}-{m}-{d}') }}
+                  {{ row.updated_at | parseTime('{y}-{m}-{d}') }}
                 </template>
               </el-table-column>
               <el-table-column
@@ -156,8 +156,8 @@ export default {
           limit: 25,
           ascending: 1,
           page: 1,
-          orderBy: 'created_at',
-          created_at: [],
+          orderBy: 'updated_at',
+          updated_at: [],
         },
         list: null,
         total: 0,
@@ -171,7 +171,7 @@ export default {
       this.handleFilter();
     }, 500),
   },
-  mounted() {
+  created() {
     this.getList();
   },
   methods: {
@@ -192,9 +192,9 @@ export default {
       if (date) {
         const startDate = this.parseTimeToTz(date[0]);
         const endDate = this.parseTimeToTz(date[1]);
-        this.table.listQuery.created_at = [startDate, endDate];
+        this.table.listQuery.updated_at = [startDate, endDate];
       } else {
-        this.table.listQuery.created_at = [];
+        this.table.listQuery.updated_at = [];
       }
       this.handleFilter();
     },
