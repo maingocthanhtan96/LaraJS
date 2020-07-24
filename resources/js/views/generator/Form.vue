@@ -119,32 +119,32 @@
                   </div>
                   <div
                     class="divTableCell text-center"
-                    style="max-width: 70px;width: 70px"
+                    style="max-width: 70px; width: 70px;"
                   >
                     <b>{{ $t('generator.search') }}</b>
                   </div>
                   <div
                     class="divTableCell text-center"
-                    style="max-width: 70px;width: 70px"
+                    style="max-width: 70px; width: 70px;"
                   >
                     <b>{{ $t('generator.sort') }}</b>
                   </div>
                   <div
                     class="divTableCell text-center"
-                    style="max-width: 70px;width: 70px"
+                    style="max-width: 70px; width: 70px;"
                   >
                     <b>{{ $t('generator.show') }}</b>
                   </div>
                   <div
                     class="divTableCell text-center"
-                    style="max-width: 70px;width: 70px"
+                    style="max-width: 70px; width: 70px;"
                   >
                     <b>{{ $t('generator.delete') }}</b>
                   </div>
                 </div>
                 <draggable
                   v-model="form"
-                  style="display: contents"
+                  style="display: contents;"
                   :options="{ draggable: '.draggable', animation: 400 }"
                 >
                   <el-form

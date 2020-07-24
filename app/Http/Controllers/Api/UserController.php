@@ -56,6 +56,7 @@ class UserController extends Controller
             $betweenDate = $request->get('updated_at', []);
 
             $queryService = new QueryService(new User());
+            $queryService->select = [];
             $queryService->order = ['id', 'updated_at'];
             $queryService->orderRelationship = [];
             $queryService->columnSearch = ['name', 'email'];

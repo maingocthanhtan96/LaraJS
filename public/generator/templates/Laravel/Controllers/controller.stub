@@ -47,6 +47,7 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 			$betweenDate = $request->get('updated_at', []);
 
 			$queryService = new QueryService(new {{MODAL_CLASS}});
+            $queryService->select = [];
 			$queryService->order = {{COLUMN_SORT}};
             $queryService->orderRelationship = [];
             $queryService->columnSearch = {{COLUMN_SEARCH}};

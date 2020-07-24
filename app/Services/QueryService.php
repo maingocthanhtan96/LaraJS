@@ -14,6 +14,12 @@ class QueryService extends BaseService
     protected $_model;
 
     /**
+     * Select column owner
+     * @var array
+     */
+    public $select = [];
+
+    /**
      * Order column
      * @var array
      */
@@ -89,8 +95,14 @@ class QueryService extends BaseService
         $this->ascending = +$this->ascending === 0 ? 'asc' : 'desc';
 
         $query = $this->_model::query();
-        if (count(Arr::wrap($this->withRelationship)) > 0) {
-            $query = $query->with(Arr::wrap($this->withRelationship));
+        $query->when($this->select, function ($q) {
+            $q->select($this->select);
+        });
+        // if (count(Arr::wrap($this->withRelationship)) > 0) {
+        //     $query = $query->with(Arr::wrap($this->withRelationship));
+        // }
+        foreach (Arr::wrap($this->withRelationship) as $relationship) {
+            $query = $query->selectRelationship($relationship);
         }
 
         foreach (Arr::wrap($this->order) as $col) {

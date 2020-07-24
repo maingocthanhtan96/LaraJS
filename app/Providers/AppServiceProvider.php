@@ -22,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->_whereLike();
         $this->_paginate();
+        $this->_selectRelationship();
     }
 
     /**
@@ -45,10 +46,7 @@ class AppServiceProvider extends ServiceProvider
                         function (Builder $query) use ($attribute, $searchTerm) {
                             [$relationName, $relationAttribute] = explode('.', $attribute);
 
-                            $query->orWhereHas($relationName, function (Builder $query) use (
-                                $relationAttribute,
-                                $searchTerm
-                            ) {
+                            $query->orWhereHas($relationName, function (Builder $query) use ($relationAttribute, $searchTerm) {
                                 $query->where($relationAttribute, 'LIKE', "%{$searchTerm}%");
                             });
                         },
@@ -66,14 +64,9 @@ class AppServiceProvider extends ServiceProvider
     {
         // Enable pagination
         if (!Collection::hasMacro('paginate')) {
-            $pathInfo = isset($_SERVER['PATH_INFO'])
-                ? $_SERVER['PATH_INFO']
-                : (isset($_SERVER['REQUEST_URI'])
-                    ? parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
-                    : '');
+            $pathInfo = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : (isset($_SERVER['REQUEST_URI']) ? parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) : '');
             $hostInfo = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '';
-            $actualLink =
-                (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . "://$hostInfo$pathInfo";
+            $actualLink = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . "://$hostInfo$pathInfo";
             Collection::macro('paginate', function ($perPage = 15, $page = null, $options = []) use ($actualLink) {
                 $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
                 return (new LengthAwarePaginator(
@@ -87,5 +80,26 @@ class AppServiceProvider extends ServiceProvider
                 ))->withPath($actualLink);
             });
         }
+    }
+
+    private function _selectRelationship()
+    {
+        Builder::macro('selectRelationship', function ($relationship) {
+            $this->when(
+                \Str::contains($relationship, ':'),
+                function (Builder $query) use ($relationship) {
+                    list($relationship, $select) = explode(':', $relationship);
+                    $query->with([
+                        'roles' => function ($query) use ($select) {
+                            $query->select(explode(',', $select));
+                        },
+                    ]);
+                },
+                function (Builder $query) use ($relationship) {
+                    $query->with($relationship);
+                },
+            );
+            return $this;
+        });
     }
 }

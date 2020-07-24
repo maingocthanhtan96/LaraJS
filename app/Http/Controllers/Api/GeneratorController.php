@@ -24,14 +24,7 @@ use App\Generators\BackendUpdate\{
     RequestUpdateGenerator,
     SwaggerUpdateGenerator,
 };
-use App\Generators\Frontend\{
-    ApiGenerator,
-    FormGenerator,
-    FormHandlerGenerator,
-    ViewGenerator,
-    RouteGenerator as RouteGeneratorFe,
-    ViewTableGenerator,
-};
+use App\Generators\Frontend\{ApiGenerator, FormGenerator, FormHandlerGenerator, ViewGenerator, RouteGenerator as RouteGeneratorFe, ViewTableGenerator};
 use App\Generators\FrontendUpdate\{FormUpdateGenerator, ViewTableUpdateGenerator, ViewUpdateGenerator};
 use App\Http\Requests\StoreGeneratorRelationshipRequest;
 use App\Services\{GeneratorService, QueryService};
@@ -73,7 +66,11 @@ class GeneratorController extends Controller
             $queryService->ascending = $ascending;
             $queryService->orderBy = $orderBy;
 
-            return $this->jsonTable($queryService->queryTable());
+            $query = $queryService->queryTable();
+            $query = $query->paginate($limit);
+            $generators = $query->toArray();
+
+            return $this->jsonTable($generators);
         } catch (\Exception $e) {
             write_log_exception($e);
             return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
@@ -253,11 +250,7 @@ class GeneratorController extends Controller
     {
         new RouteGeneratorFe($model);
         new ApiGenerator($model);
-        if ($this->serviceGenerator->getOptions(config('generator.model.options.datatables'), $model['options'])) {
-            new ViewGenerator($fields, $model);
-        } else {
-            new ViewTableGenerator($fields, $model);
-        }
+        new ViewTableGenerator($fields, $model);
         new FormGenerator($fields, $model);
         new FormHandlerGenerator($fields, $model);
     }
@@ -275,23 +268,14 @@ class GeneratorController extends Controller
 
     private function _generateFrontendUpdate($generator, $model, $updateFields)
     {
-        if ($this->serviceGenerator->getOptions(config('generator.model.options.datatables'), $model['options'])) {
-            new ViewUpdateGenerator($generator, $model, $updateFields);
-        } else {
-            new ViewTableUpdateGenerator($generator, $model, $updateFields);
-        }
+        new ViewTableUpdateGenerator($generator, $model, $updateFields);
         new FormUpdateGenerator($generator, $model, $updateFields);
     }
 
     private function _runCommand($model = [])
     {
         if (isset($model['options'])) {
-            if (
-                !$this->serviceGenerator->getOptions(
-                    config('generator.model.options.ignore_migrate'),
-                    $model['options'],
-                )
-            ) {
+            if (!$this->serviceGenerator->getOptions(config('generator.model.options.ignore_migrate'), $model['options'])) {
                 Artisan::call('migrate --force');
             }
         } else {

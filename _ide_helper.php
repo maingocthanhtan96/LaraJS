@@ -2,8 +2,8 @@
 // @formatter:off
 
 /**
- * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 7.4.0 on 2020-04-06 10:27:23.
+ * A helper file for Laravel, to provide autocomplete information to your IDE
+ * Generated for Laravel 7.19.1 on 2020-07-25 00:48:40.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -837,6 +837,20 @@ namespace Illuminate\Support\Facades {
         {
             /** @var \Illuminate\Foundation\Application $instance */
             return $instance->getLoadedProviders();
+        }
+
+        /**
+         * Determine if the given service provider is loaded.
+         *
+         * @param string $provider
+         * @return bool
+         * @static
+         */
+
+        public static function providerIsLoaded($provider)
+        {
+            /** @var \Illuminate\Foundation\Application $instance */
+            return $instance->providerIsLoaded($provider);
         }
 
         /**
@@ -1772,15 +1786,15 @@ namespace Illuminate\Support\Facades {
     /**
      *
      *
+     * @method static \Illuminate\Contracts\Auth\Authenticatable loginUsingId(mixed $id, bool $remember = false)
+     * @method static \Symfony\Component\HttpFoundation\Response|null onceBasic(string $field = 'email',array $extraConditions = [])
      * @method static bool attempt(array $credentials = [], bool $remember = false)
      * @method static bool once(array $credentials = [])
-     * @method static void login(\Illuminate\Contracts\Auth\Authenticatable $user, bool $remember = false)
-     * @method static \Illuminate\Contracts\Auth\Authenticatable loginUsingId(mixed $id, bool $remember = false)
      * @method static bool onceUsingId(mixed $id)
      * @method static bool viaRemember()
-     * @method static void logout()
-     * @method static \Symfony\Component\HttpFoundation\Response|null onceBasic(string $field = 'email',array $extraConditions = [])
      * @method static bool|null logoutOtherDevices(string $password, string $attribute = 'password')
+     * @method static void login(\Illuminate\Contracts\Auth\Authenticatable $user, bool $remember = false)
+     * @method static void logout()
      * @see \Illuminate\Auth\AuthManager
      * @see \Illuminate\Contracts\Auth\Factory
      * @see \Illuminate\Contracts\Auth\Guard
@@ -2544,15 +2558,16 @@ namespace Illuminate\Support\Facades {
          * Compile a class component opening.
          *
          * @param string $component
+         * @param string $alias
          * @param string $data
          * @param string $hash
          * @return string
          * @static
          */
 
-        public static function compileClassComponentOpening($component, $data, $hash)
+        public static function compileClassComponentOpening($component, $alias, $data, $hash)
         {
-            return \Illuminate\View\Compilers\BladeCompiler::compileClassComponentOpening($component, $data, $hash);
+            return \Illuminate\View\Compilers\BladeCompiler::compileClassComponentOpening($component, $alias, $data, $hash);
         }
 
         /**
@@ -2579,6 +2594,20 @@ namespace Illuminate\Support\Facades {
         public static function sanitizeComponentAttribute($value)
         {
             return \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($value);
+        }
+
+        /**
+         * Compile Blade echos into valid PHP.
+         *
+         * @param string $value
+         * @return string
+         * @static
+         */
+
+        public static function compileEchos($value)
+        {
+            /** @var \Illuminate\View\Compilers\BladeCompiler $instance */
+            return $instance->compileEchos($value);
         }
     }
 
@@ -2844,7 +2873,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Assert if a job was dispatched based on a truth-test callback.
          *
-         * @param string $command
+         * @param string|\Closure $command
          * @param callable|int|null $callback
          * @return void
          * @static
@@ -2874,7 +2903,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Determine if a job was dispatched based on a truth-test callback.
          *
-         * @param string $command
+         * @param string|\Closure $command
          * @param callable|null $callback
          * @return void
          * @static
@@ -2889,7 +2918,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Assert if a job was dispatched after the response was sent based on a truth-test callback.
          *
-         * @param string $command
+         * @param string|\Closure $command
          * @param callable|int|null $callback
          * @return void
          * @static
@@ -2919,7 +2948,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Determine if a job was dispatched based on a truth-test callback.
          *
-         * @param string $command
+         * @param string|\Closure $command
          * @param callable|null $callback
          * @return void
          * @static
@@ -2993,6 +3022,8 @@ namespace Illuminate\Support\Facades {
     /**
      *
      *
+     * @method static \Illuminate\Contracts\Cache\Lock lock(string $name, int $seconds = 0, mixed $owner = null)
+     * @method static \Illuminate\Contracts\Cache\Lock restoreLock(string $name, string $owner)
      * @see \Illuminate\Cache\CacheManager
      * @see \Illuminate\Cache\Repository
      */
@@ -3881,17 +3912,8 @@ namespace Illuminate\Support\Facades {
          * @static
          */
 
-        public static function make(
-            $name,
-            $value,
-            $minutes = 0,
-            $path = null,
-            $domain = null,
-            $secure = null,
-            $httpOnly = true,
-            $raw = false,
-            $sameSite = null
-        ) {
+        public static function make($name, $value, $minutes = 0, $path = null, $domain = null, $secure = null, $httpOnly = true, $raw = false, $sameSite = null)
+        {
             /** @var \Illuminate\Cookie\CookieJar $instance */
             return $instance->make($name, $value, $minutes, $path, $domain, $secure, $httpOnly, $raw, $sameSite);
         }
@@ -3911,16 +3933,8 @@ namespace Illuminate\Support\Facades {
          * @static
          */
 
-        public static function forever(
-            $name,
-            $value,
-            $path = null,
-            $domain = null,
-            $secure = null,
-            $httpOnly = true,
-            $raw = false,
-            $sameSite = null
-        ) {
+        public static function forever($name, $value, $path = null, $domain = null, $secure = null, $httpOnly = true, $raw = false, $sameSite = null)
+        {
             /** @var \Illuminate\Cookie\CookieJar $instance */
             return $instance->forever($name, $value, $path, $domain, $secure, $httpOnly, $raw, $sameSite);
         }
@@ -3962,7 +3976,7 @@ namespace Illuminate\Support\Facades {
          * @param string $key
          * @param mixed $default
          * @param string|null $path
-         * @return \Symfony\Component\HttpFoundation\Cookie
+         * @return \Symfony\Component\HttpFoundation\Cookie|null
          * @static
          */
 
@@ -4248,6 +4262,21 @@ namespace Illuminate\Support\Facades {
         {
             /** @var \Illuminate\Database\DatabaseManager $instance */
             return $instance->reconnect($name);
+        }
+
+        /**
+         * Set the default database connection for the callback execution.
+         *
+         * @param string $name
+         * @param callable $callback
+         * @return mixed
+         * @static
+         */
+
+        public static function usingConnection($name, $callback)
+        {
+            /** @var \Illuminate\Database\DatabaseManager $instance */
+            return $instance->usingConnection($name, $callback);
         }
 
         /**
@@ -5536,7 +5565,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Assert if an event was dispatched based on a truth-test callback.
          *
-         * @param string $event
+         * @param string|\Closure $event
          * @param callable|int|null $callback
          * @return void
          * @static
@@ -5549,7 +5578,7 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
-         * Assert if a event was dispatched a number of times.
+         * Assert if an event was dispatched a number of times.
          *
          * @param string $event
          * @param int $times
@@ -5566,7 +5595,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Determine if an event was dispatched based on a truth-test callback.
          *
-         * @param string $event
+         * @param string|\Closure $event
          * @param callable|null $callback
          * @return void
          * @static
@@ -5906,6 +5935,20 @@ namespace Illuminate\Support\Facades {
         {
             /** @var \Illuminate\Filesystem\Filesystem $instance */
             return $instance->extension($path);
+        }
+
+        /**
+         * Guess the file extension from the mime-type of a given file.
+         *
+         * @param string $path
+         * @return string|null
+         * @static
+         */
+
+        public static function guessExtension($path)
+        {
+            /** @var \Illuminate\Filesystem\Filesystem $instance */
+            return $instance->guessExtension($path);
         }
 
         /**
@@ -7394,7 +7437,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Assert if a mailable was sent based on a truth-test callback.
          *
-         * @param string $mailable
+         * @param string|\Closure $mailable
          * @param callable|int|null $callback
          * @return void
          * @static
@@ -7437,7 +7480,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Assert if a mailable was queued based on a truth-test callback.
          *
-         * @param string $mailable
+         * @param string|\Closure $mailable
          * @param callable|int|null $callback
          * @return void
          * @static
@@ -7796,7 +7839,7 @@ namespace Illuminate\Support\Facades {
          * Assert if a notification was sent based on a truth-test callback.
          *
          * @param mixed $notifiable
-         * @param string $notification
+         * @param string|\Closure $notification
          * @param callable|null $callback
          * @return void
          * @throws \Exception
@@ -7829,7 +7872,7 @@ namespace Illuminate\Support\Facades {
          * Determine if a notification was sent based on a truth-test callback.
          *
          * @param mixed $notifiable
-         * @param string $notification
+         * @param string|\Closure $notification
          * @param callable|null $callback
          * @return void
          * @throws \Exception
@@ -7947,8 +7990,8 @@ namespace Illuminate\Support\Facades {
     /**
      *
      *
-     * @method static string sendResetLink(array $credentials)
      * @method static mixed reset(array $credentials, \Closure $callback)
+     * @method static string sendResetLink(array $credentials)
      * @see \Illuminate\Auth\Passwords\PasswordBroker
      */
 
@@ -8191,7 +8234,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Assert if a job was pushed based on a truth-test callback.
          *
-         * @param string $job
+         * @param string|\Closure $job
          * @param callable|int|null $callback
          * @return void
          * @static
@@ -8207,7 +8250,7 @@ namespace Illuminate\Support\Facades {
          * Assert if a job was pushed based on a truth-test callback.
          *
          * @param string $queue
-         * @param string $job
+         * @param string|\Closure $job
          * @param callable|null $callback
          * @return void
          * @static
@@ -8253,7 +8296,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Determine if a job was pushed based on a truth-test callback.
          *
-         * @param string $job
+         * @param string|\Closure $job
          * @param callable|null $callback
          * @return void
          * @static
@@ -8701,6 +8744,42 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
+         * Create a new redirect response to a signed named route.
+         *
+         * @param string $route
+         * @param mixed $parameters
+         * @param \DateTimeInterface|\DateInterval|int|null $expiration
+         * @param int $status
+         * @param array $headers
+         * @return \Illuminate\Http\RedirectResponse
+         * @static
+         */
+
+        public static function signedRoute($route, $parameters = [], $expiration = null, $status = 302, $headers = [])
+        {
+            /** @var \Illuminate\Routing\Redirector $instance */
+            return $instance->signedRoute($route, $parameters, $expiration, $status, $headers);
+        }
+
+        /**
+         * Create a new redirect response to a signed named route.
+         *
+         * @param string $route
+         * @param \DateTimeInterface|\DateInterval|int|null $expiration
+         * @param mixed $parameters
+         * @param int $status
+         * @param array $headers
+         * @return \Illuminate\Http\RedirectResponse
+         * @static
+         */
+
+        public static function temporarySignedRoute($route, $expiration, $parameters = [], $status = 302, $headers = [])
+        {
+            /** @var \Illuminate\Routing\Redirector $instance */
+            return $instance->temporarySignedRoute($route, $expiration, $parameters, $status, $headers);
+        }
+
+        /**
          * Create a new redirect response to a controller action.
          *
          * @param string|array $action
@@ -9064,7 +9143,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Get the client user agent.
          *
-         * @return string
+         * @return string|null
          * @static
          */
 
@@ -9174,14 +9253,8 @@ namespace Illuminate\Support\Facades {
          * @static
          */
 
-        public static function duplicate(
-            $query = null,
-            $request = null,
-            $attributes = null,
-            $cookies = null,
-            $files = null,
-            $server = null
-        ) {
+        public static function duplicate($query = null, $request = null, $attributes = null, $cookies = null, $files = null, $server = null)
+        {
             /** @var \Illuminate\Http\Request $instance */
             return $instance->duplicate($query, $request, $attributes, $cookies, $files, $server);
         }
@@ -9423,15 +9496,8 @@ namespace Illuminate\Support\Facades {
          * @static
          */
 
-        public static function initialize(
-            $query = [],
-            $request = [],
-            $attributes = [],
-            $cookies = [],
-            $files = [],
-            $server = [],
-            $content = null
-        ) {
+        public static function initialize($query = [], $request = [], $attributes = [], $cookies = [], $files = [], $server = [], $content = null)
+        {
             //Method inherited from \Symfony\Component\HttpFoundation\Request
             /** @var \Illuminate\Http\Request $instance */
             return $instance->initialize($query, $request, $attributes, $cookies, $files, $server, $content);
@@ -9467,15 +9533,8 @@ namespace Illuminate\Support\Facades {
          * @static
          */
 
-        public static function create(
-            $uri,
-            $method = 'GET',
-            $parameters = [],
-            $cookies = [],
-            $files = [],
-            $server = [],
-            $content = null
-        ) {
+        public static function create($uri, $method = 'GET', $parameters = [], $cookies = [], $files = [], $server = [], $content = null)
+        {
             //Method inherited from \Symfony\Component\HttpFoundation\Request
             return \Illuminate\Http\Request::create($uri, $method, $parameters, $cookies, $files, $server, $content);
         }
@@ -10383,8 +10442,8 @@ namespace Illuminate\Support\Facades {
 
         /**
          * Gets the preferred format for the response by inspecting, in the following order:
-         *   * the request format set using setRequestFormat
-         *   * the values of the Accept HTTP header
+         *   * the request format set using setRequestFormat;
+         *   * the values of the Accept HTTP header.
          *
          * Note that if you use this method, you should send the "Vary: Accept" header
          * in the response to prevent any issues with intermediary HTTP caches.
@@ -10486,6 +10545,20 @@ namespace Illuminate\Support\Facades {
             //Method inherited from \Symfony\Component\HttpFoundation\Request
             /** @var \Illuminate\Http\Request $instance */
             return $instance->isXmlHttpRequest();
+        }
+
+        /**
+         * Checks whether the client browser prefers safe content or not according to RFC8674.
+         *
+         * @see https://tools.ietf.org/html/rfc8674
+         * @static
+         */
+
+        public static function preferSafeContent()
+        {
+            //Method inherited from \Symfony\Component\HttpFoundation\Request
+            /** @var \Illuminate\Http\Request $instance */
+            return $instance->preferSafeContent();
         }
 
         /**
@@ -11400,13 +11473,13 @@ namespace Illuminate\Support\Facades {
     /**
      *
      *
-     * @method static \Illuminate\Routing\RouteRegistrar prefix(string  $prefix)
-     * @method static \Illuminate\Routing\RouteRegistrar where(array  $where)
-     * @method static \Illuminate\Routing\RouteRegistrar middleware(array|string|null $middleware)
      * @method static \Illuminate\Routing\RouteRegistrar as(string $value)
      * @method static \Illuminate\Routing\RouteRegistrar domain(string $value)
+     * @method static \Illuminate\Routing\RouteRegistrar middleware(array|string|null $middleware)
      * @method static \Illuminate\Routing\RouteRegistrar name(string $value)
      * @method static \Illuminate\Routing\RouteRegistrar namespace(string $value)
+     * @method static \Illuminate\Routing\RouteRegistrar prefix(string  $prefix)
+     * @method static \Illuminate\Routing\RouteRegistrar where(array  $where)
      * @see \Illuminate\Routing\Router
      */
 
@@ -11713,6 +11786,22 @@ namespace Illuminate\Support\Facades {
         {
             /** @var \Illuminate\Routing\Router $instance */
             return $instance->addRoute($methods, $uri, $action);
+        }
+
+        /**
+         * Create a new Route object.
+         *
+         * @param array|string $methods
+         * @param string $uri
+         * @param mixed $action
+         * @return \Illuminate\Routing\Route
+         * @static
+         */
+
+        public static function newRoute($methods, $uri, $action)
+        {
+            /** @var \Illuminate\Routing\Router $instance */
+            return $instance->newRoute($methods, $uri, $action);
         }
 
         /**
@@ -12741,6 +12830,32 @@ namespace Illuminate\Support\Facades {
 
     class Session
     {
+        /**
+         * Determine if requests for the same session should wait for each to finish before executing.
+         *
+         * @return bool
+         * @static
+         */
+
+        public static function shouldBlock()
+        {
+            /** @var \Illuminate\Session\SessionManager $instance */
+            return $instance->shouldBlock();
+        }
+
+        /**
+         * Get the name of the cache store / driver that should be used to acquire session locks.
+         *
+         * @return string|null
+         * @static
+         */
+
+        public static function blockDriver()
+        {
+            /** @var \Illuminate\Session\SessionManager $instance */
+            return $instance->blockDriver();
+        }
+
         /**
          * Get the session configuration.
          *
@@ -13792,8 +13907,12 @@ namespace Illuminate\Support\Facades {
          * @static
          */
 
-        public static function prepend($path, $data, $separator = '')
-        {
+        public static function prepend(
+            $path,
+            $data,
+            $separator = '
+'
+        ) {
             /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
             return $instance->prepend($path, $data, $separator);
         }
@@ -13808,8 +13927,12 @@ namespace Illuminate\Support\Facades {
          * @static
          */
 
-        public static function append($path, $data, $separator = '')
-        {
+        public static function append(
+            $path,
+            $data,
+            $separator = '
+'
+        ) {
             /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
             return $instance->append($path, $data, $separator);
         }
@@ -15273,7 +15396,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Start a component rendering process.
          *
-         * @param \Illuminate\View\View|string $view
+         * @param \Illuminate\View\View|\Closure|string $view
          * @param array $data
          * @return void
          * @static
@@ -16258,11 +16381,8 @@ namespace Barryvdh\Debugbar {
          * @static
          */
 
-        public static function getDataAsHeaders(
-            $headerName = 'phpdebugbar',
-            $maxHeaderLength = 4096,
-            $maxTotalHeaderLength = 250000
-        ) {
+        public static function getDataAsHeaders($headerName = 'phpdebugbar', $maxHeaderLength = 4096, $maxTotalHeaderLength = 250000)
+        {
             //Method inherited from \DebugBar\DebugBar
             /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
             return $instance->getDataAsHeaders($headerName, $maxHeaderLength, $maxTotalHeaderLength);
@@ -16278,11 +16398,8 @@ namespace Barryvdh\Debugbar {
          * @static
          */
 
-        public static function sendDataInHeaders(
-            $useOpenHandler = null,
-            $headerName = 'phpdebugbar',
-            $maxHeaderLength = 4096
-        ) {
+        public static function sendDataInHeaders($useOpenHandler = null, $headerName = 'phpdebugbar', $maxHeaderLength = 4096)
+        {
             //Method inherited from \DebugBar\DebugBar
             /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
             return $instance->sendDataInHeaders($useOpenHandler, $headerName, $maxHeaderLength);
@@ -16452,6 +16569,77 @@ namespace App\Helpers {
 
     class FrontendHelper
     {
+    }
+}
+
+namespace Intervention\Image\Facades {
+    /**
+     *
+     *
+     */
+
+    class Image
+    {
+        /**
+         * Overrides configuration settings
+         *
+         * @param array $config
+         * @return self
+         * @static
+         */
+
+        public static function configure($config = [])
+        {
+            /** @var \Intervention\Image\ImageManager $instance */
+            return $instance->configure($config);
+        }
+
+        /**
+         * Initiates an Image instance from different input types
+         *
+         * @param mixed $data
+         * @return \Intervention\Image\Image
+         * @static
+         */
+
+        public static function make($data)
+        {
+            /** @var \Intervention\Image\ImageManager $instance */
+            return $instance->make($data);
+        }
+
+        /**
+         * Creates an empty image canvas
+         *
+         * @param int $width
+         * @param int $height
+         * @param mixed $background
+         * @return \Intervention\Image\Image
+         * @static
+         */
+
+        public static function canvas($width, $height, $background = null)
+        {
+            /** @var \Intervention\Image\ImageManager $instance */
+            return $instance->canvas($width, $height, $background);
+        }
+
+        /**
+         * Create new cached image and run callback
+         * (requires additional package intervention/imagecache)
+         *
+         * @param \Closure $callback
+         * @param int $lifetime
+         * @param boolean $returnObj
+         * @return \Image
+         * @static
+         */
+
+        public static function cache($callback, $lifetime = null, $returnObj = false)
+        {
+            /** @var \Intervention\Image\ImageManager $instance */
+            return $instance->cache($callback, $lifetime, $returnObj);
+        }
     }
 }
 
@@ -16737,77 +16925,6 @@ namespace Facade\Ignition\Facades {
         {
             /** @var \Facade\FlareClient\Flare $instance */
             return $instance->group($groupName, $properties);
-        }
-    }
-}
-
-namespace Intervention\Image\Facades {
-    /**
-     *
-     *
-     */
-
-    class Image
-    {
-        /**
-         * Overrides configuration settings
-         *
-         * @param array $config
-         * @return self
-         * @static
-         */
-
-        public static function configure($config = [])
-        {
-            /** @var \Intervention\Image\ImageManager $instance */
-            return $instance->configure($config);
-        }
-
-        /**
-         * Initiates an Image instance from different input types
-         *
-         * @param mixed $data
-         * @return \Intervention\Image\Image
-         * @static
-         */
-
-        public static function make($data)
-        {
-            /** @var \Intervention\Image\ImageManager $instance */
-            return $instance->make($data);
-        }
-
-        /**
-         * Creates an empty image canvas
-         *
-         * @param int $width
-         * @param int $height
-         * @param mixed $background
-         * @return \Intervention\Image\Image
-         * @static
-         */
-
-        public static function canvas($width, $height, $background = null)
-        {
-            /** @var \Intervention\Image\ImageManager $instance */
-            return $instance->canvas($width, $height, $background);
-        }
-
-        /**
-         * Create new cached image and run callback
-         * (requires additional package intervention/imagecache)
-         *
-         * @param \Closure $callback
-         * @param int $lifetime
-         * @param boolean $returnObj
-         * @return \Image
-         * @static
-         */
-
-        public static function cache($callback, $lifetime = null, $returnObj = false)
-        {
-            /** @var \Intervention\Image\ImageManager $instance */
-            return $instance->cache($callback, $lifetime, $returnObj);
         }
     }
 }
@@ -17712,7 +17829,7 @@ namespace {
         }
 
         /**
-         * Execute a callback over each item while chunking by id.
+         * Execute a callback over each item while chunking by ID.
          *
          * @param callable $callback
          * @param int $count
@@ -17762,7 +17879,7 @@ namespace {
          * Pass the query to a given callback.
          *
          * @param callable $callback
-         * @return \Illuminate\Database\Query\Builder
+         * @return \Illuminate\Database\Eloquent\Builder
          * @static
          */
 
@@ -17930,14 +18047,8 @@ namespace {
          * @static
          */
 
-        public static function hasMorph(
-            $relation,
-            $types,
-            $operator = '>=',
-            $count = 1,
-            $boolean = 'and',
-            $callback = null
-        ) {
+        public static function hasMorph($relation, $types, $operator = '>=', $count = 1, $boolean = 'and', $callback = null)
+        {
             /** @var \Illuminate\Database\Eloquent\Builder $instance */
             return $instance->hasMorph($relation, $types, $operator, $count, $boolean, $callback);
         }
@@ -18104,7 +18215,7 @@ namespace {
         /**
          * Add a subselect expression to the query.
          *
-         * @param \Closure|\Illuminate\Database\Query\Builder|string $query
+         * @param \Closure|$this|string $query
          * @param string $as
          * @return \Illuminate\Database\Query\Builder
          * @throws \InvalidArgumentException
@@ -18257,15 +18368,8 @@ namespace {
          * @static
          */
 
-        public static function joinSub(
-            $query,
-            $as,
-            $first,
-            $operator = null,
-            $second = null,
-            $type = 'inner',
-            $where = false
-        ) {
+        public static function joinSub($query, $as, $first, $operator = null, $second = null, $type = 'inner', $where = false)
+        {
             /** @var \Illuminate\Database\Query\Builder $instance */
             return $instance->joinSub($query, $as, $first, $operator, $second, $type, $where);
         }
@@ -18568,6 +18672,21 @@ namespace {
         }
 
         /**
+         * Add an "or where in raw" clause for integer values to the query.
+         *
+         * @param string $column
+         * @param \Illuminate\Contracts\Support\Arrayable|array $values
+         * @return \Illuminate\Database\Query\Builder
+         * @static
+         */
+
+        public static function orWhereIntegerInRaw($column, $values)
+        {
+            /** @var \Illuminate\Database\Query\Builder $instance */
+            return $instance->orWhereIntegerInRaw($column, $values);
+        }
+
+        /**
          * Add a "where not in raw" clause for integer values to the query.
          *
          * @param string $column
@@ -18581,6 +18700,21 @@ namespace {
         {
             /** @var \Illuminate\Database\Query\Builder $instance */
             return $instance->whereIntegerNotInRaw($column, $values, $boolean);
+        }
+
+        /**
+         * Add an "or where not in raw" clause for integer values to the query.
+         *
+         * @param string $column
+         * @param \Illuminate\Contracts\Support\Arrayable|array $values
+         * @return \Illuminate\Database\Query\Builder
+         * @static
+         */
+
+        public static function orWhereIntegerNotInRaw($column, $values)
+        {
+            /** @var \Illuminate\Database\Query\Builder $instance */
+            return $instance->orWhereIntegerNotInRaw($column, $values);
         }
 
         /**
@@ -19247,7 +19381,7 @@ namespace {
         /**
          * Add an "order by" clause to the query.
          *
-         * @param \Closure|\Illuminate\Database\Query\Builder|string $column
+         * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Query\Expression|string $column
          * @param string $direction
          * @return \Illuminate\Database\Query\Builder
          * @throws \InvalidArgumentException
@@ -20109,11 +20243,11 @@ namespace {
     {
     }
 
-    class Flare extends \Facade\Ignition\Facades\Flare
+    class Image extends \Intervention\Image\Facades\Image
     {
     }
 
-    class Image extends \Intervention\Image\Facades\Image
+    class Flare extends \Facade\Ignition\Facades\Flare
     {
     }
 
