@@ -72,7 +72,6 @@
                         checked
                         :disabled="$route.params.id > 0"
                       />
-                      <el-checkbox label="Datatables" disabled />
                       <el-checkbox
                         label="Role Admin"
                         :disabled="$route.params.id > 0"
@@ -120,32 +119,32 @@
                   </div>
                   <div
                     class="divTableCell text-center"
-                    style="max-width: 70px;width: 70px"
+                    style="max-width: 70px; width: 70px;"
                   >
                     <b>{{ $t('generator.search') }}</b>
                   </div>
                   <div
                     class="divTableCell text-center"
-                    style="max-width: 70px;width: 70px"
+                    style="max-width: 70px; width: 70px;"
                   >
                     <b>{{ $t('generator.sort') }}</b>
                   </div>
                   <div
                     class="divTableCell text-center"
-                    style="max-width: 70px;width: 70px"
+                    style="max-width: 70px; width: 70px;"
                   >
                     <b>{{ $t('generator.show') }}</b>
                   </div>
                   <div
                     class="divTableCell text-center"
-                    style="max-width: 70px;width: 70px"
+                    style="max-width: 70px; width: 70px;"
                   >
                     <b>{{ $t('generator.delete') }}</b>
                   </div>
                 </div>
                 <draggable
                   v-model="form"
-                  style="display: contents"
+                  style="display: contents;"
                   :options="{ draggable: '.draggable', animation: 400 }"
                 >
                   <el-form
@@ -440,7 +439,7 @@ export default {
         {
           id: 1,
           field_name: 'id',
-          field_name_trans: 'No.',
+          field_name_trans: 'ID',
           db_type: 'Increments',
           enum: [],
           length_varchar: 191,
@@ -633,12 +632,11 @@ export default {
             return p.field_name !== this.formTemp[idx].field_name;
           }
         });
-        const changeFields = val.filter((p, idx) => {
+        this.formChange = val.filter((p, idx) => {
           if (this.formTemp[idx]) {
             return !_.isEqual(p, this.formTemp[idx]);
           }
         });
-        this.formChange = changeFields;
         changedFieldName.forEach(val => {
           const index = this.formTemp.findIndex(temp => val.id === temp.id);
           this.formRename.push({

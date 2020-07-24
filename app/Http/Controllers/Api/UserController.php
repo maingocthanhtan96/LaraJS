@@ -53,20 +53,24 @@ class UserController extends Controller
             $ascending = $request->get('ascending', 0);
             $orderBy = $request->get('orderBy', '');
             $search = $request->get('search', '');
-            $betweenDate = $request->get('created_at', []);
+            $betweenDate = $request->get('updated_at', []);
 
             $queryService = new QueryService(new User());
-            $queryService->order = ['id', 'created_at'];
+            $queryService->select = [];
+            $queryService->order = ['id', 'updated_at'];
             $queryService->orderRelationship = [];
             $queryService->columnSearch = ['name', 'email'];
             $queryService->withRelationship = ['roles'];
             $queryService->search = $search;
             $queryService->betweenDate = $betweenDate;
-            $queryService->limit = $limit;
             $queryService->ascending = $ascending;
             $queryService->orderBy = $orderBy;
 
-            return $this->jsonTable($queryService->queryTable());
+            $query = $queryService->queryTable();
+            $query = $query->paginate($limit);
+            $users = $query->toArray();
+
+            return $this->jsonTable($users);
         } catch (\Exception $e) {
             write_log_exception($e);
             return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());

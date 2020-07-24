@@ -36,16 +36,8 @@ class ControllerGenerator extends BaseGenerator
         $templateData = str_replace('{{CONTROLLER_CLASS}}', $model['name'], $templateData);
         $templateData = str_replace('{{MODAL_CLASS}}', $model['name'], $templateData);
         $templateData = str_replace('{{LIMIT}}', $model['limit'], $templateData);
-        $templateData = str_replace(
-            '{{COLUMN_SORT}}',
-            '[' . $this->generateColumnSoft($fields, $model) . ']',
-            $templateData,
-        );
-        $templateData = str_replace(
-            '{{COLUMN_SEARCH}}',
-            '[' . $this->generateColumnSearch($fields) . ']',
-            $templateData,
-        );
+        $templateData = str_replace('{{COLUMN_SORT}}', '[' . $this->generateColumnSoft($fields, $model) . ']', $templateData);
+        $templateData = str_replace('{{COLUMN_SEARCH}}', '[' . $this->generateColumnSearch($fields) . ']', $templateData);
         $templateData = str_replace('{{COLUMN_RELATIONSHIP}}', '[]', $templateData);
         $templateData = str_replace('{{MODAL_CLASS_PARAM}}', \Str::camel($model['name']), $templateData);
 
@@ -76,7 +68,7 @@ class ControllerGenerator extends BaseGenerator
             }
         }
         if ($this->serviceGenerator->getOptions(config('generator.model.options.sort_deletes'), $model['options'])) {
-            $fieldsGenerate[] = "'created_at'";
+            $fieldsGenerate[] = "'updated_at'";
         }
 
         return implode($this->serviceGenerator->infy_nl_tab(0, 0) . ', ', $column);

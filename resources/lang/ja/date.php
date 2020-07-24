@@ -1,7 +1,8 @@
 <?php
 
 return [
-    'created_at' => "Create date",
+    'created_at' => 'Create date',
+    'updated_at' => 'Update date',
     'start_date' => 'Start date',
     'end_date' => 'End date',
     'today' => 'Today',

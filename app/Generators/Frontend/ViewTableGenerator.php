@@ -40,43 +40,17 @@ class ViewTableGenerator extends BaseGenerator
     {
         $pathTemplate = 'Views/';
         $templateData = $this->serviceGenerator->get_template('indexTable', $pathTemplate, 'vuejs');
-        $templateData = str_replace(
-            '{{$CONST_MODEL_CLASS$}}',
-            $this->serviceGenerator->modelNameNotPluralFe($model['name']),
-            $templateData,
-        );
-        $templateData = str_replace(
-            '{{$NAME_ROUTE_API$}}',
-            $this->serviceGenerator->nameAttribute($model['name']),
-            $templateData,
-        );
-        $templateData = str_replace(
-            '{{$NAME_ROUTE$}}',
-            $this->serviceGenerator->modelNameNotPlural($model['name']),
-            $templateData,
-        );
-        $templateData = str_replace(
-            '{{$TABLE_MODEL_CLASS$}}',
-            $this->serviceGenerator->tableNameNotPlural($model['name']),
-            $templateData,
-        );
-        $templateData = str_replace(
-            '{{$MODEL_CLASS$}}',
-            $this->serviceGenerator->modelNamePlural($model['name']),
-            $templateData,
-        );
+        $templateData = str_replace('{{$CONST_MODEL_CLASS$}}', $this->serviceGenerator->modelNameNotPluralFe($model['name']), $templateData);
+        $templateData = str_replace('{{$NAME_ROUTE_API$}}', $this->serviceGenerator->nameAttribute($model['name']), $templateData);
+        $templateData = str_replace('{{$NAME_ROUTE$}}', $this->serviceGenerator->modelNameNotPlural($model['name']), $templateData);
+        $templateData = str_replace('{{$TABLE_MODEL_CLASS$}}', $this->serviceGenerator->tableNameNotPlural($model['name']), $templateData);
+        $templateData = str_replace('{{$MODEL_CLASS$}}', $this->serviceGenerator->modelNamePlural($model['name']), $templateData);
         $templateData = str_replace('{{$LIMIT$}}', $model['limit'], $templateData);
         $templateData = str_replace('{{$API_VERSION$}}', env('API_VERSION_GENERATOR', 'v1'), $templateData);
-        $templateData = $this->serviceGenerator->replaceNotDelete(
-            $this->notDelete['templates'],
-            $this->generateHandler($fields, $model),
-            7,
-            $templateData,
-            2,
-        );
+        $templateData = $this->serviceGenerator->replaceNotDelete($this->notDelete['templates'], $this->generateHandler($fields, $model), 7, $templateData, 2);
         if (!$this->serviceGenerator->getOptions(config('generator.model.options.sort_deletes'), $model['options'])) {
             $selfTemplateEnd = '</el-table-column>';
-            $selfTemplateStart = '<el-table-column data-generator="created_at"';
+            $selfTemplateStart = '<el-table-column data-generator="updated_at"';
             $templateCreatedAt = $this->serviceGenerator->searchTemplateX(
                 $selfTemplateStart,
                 1,
@@ -125,53 +99,25 @@ class ViewTableGenerator extends BaseGenerator
     {
         $fieldsGenerate = [];
         $pathTemplate = 'Handler/';
-        $templateTableColumnLongText = $this->serviceGenerator->get_template(
-            'tableColumnLongText',
-            $pathTemplate,
-            'vuejs',
-        );
-        $templateTableColumnUploadParse = $this->serviceGenerator->get_template(
-            'tableColumnUploadParse',
-            $pathTemplate,
-            'vuejs',
-        );
-        $templateTableColumnBoolean = $this->serviceGenerator->get_template(
-            'tableColumnBoolean',
-            $pathTemplate,
-            'vuejs',
-        );
+        $templateTableColumnLongText = $this->serviceGenerator->get_template('tableColumnLongText', $pathTemplate, 'vuejs');
+        $templateTableColumnUploadParse = $this->serviceGenerator->get_template('tableColumnUploadParse', $pathTemplate, 'vuejs');
+        $templateTableColumnBoolean = $this->serviceGenerator->get_template('tableColumnBoolean', $pathTemplate, 'vuejs');
         $templateTableColumn = $this->serviceGenerator->get_template('tableColumn', $pathTemplate, 'vuejs');
 
         foreach ($fields as $index => $field) {
             if ($field['show'] && $index > 0) {
                 if ($field['db_type'] === $this->dbType['longtext']) {
                     $template = str_replace('{{$FIELD_NAME$}}', $field['field_name'], $templateTableColumnLongText);
-                    $template = str_replace(
-                        '{{$TABLE_MODEL_CLASS$}}',
-                        $this->serviceGenerator->tableNameNotPlural($model['name']),
-                        $template,
-                    );
+                    $template = str_replace('{{$TABLE_MODEL_CLASS$}}', $this->serviceGenerator->tableNameNotPlural($model['name']), $template);
                 } elseif ($field['db_type'] === $this->dbType['file']) {
                     $template = str_replace('{{$FIELD_NAME$}}', $field['field_name'], $templateTableColumnUploadParse);
-                    $template = str_replace(
-                        '{{$TABLE_MODEL_CLASS$}}',
-                        $this->serviceGenerator->tableNameNotPlural($model['name']),
-                        $template,
-                    );
+                    $template = str_replace('{{$TABLE_MODEL_CLASS$}}', $this->serviceGenerator->tableNameNotPlural($model['name']), $template);
                 } elseif ($field['db_type'] === $this->dbType['boolean']) {
                     $template = str_replace('{{$FIELD_NAME$}}', $field['field_name'], $templateTableColumnBoolean);
-                    $template = str_replace(
-                        '{{$TABLE_MODEL_CLASS$}}',
-                        $this->serviceGenerator->tableNameNotPlural($model['name']),
-                        $template,
-                    );
+                    $template = str_replace('{{$TABLE_MODEL_CLASS$}}', $this->serviceGenerator->tableNameNotPlural($model['name']), $template);
                 } else {
                     $template = str_replace('{{$FIELD_NAME$}}', $field['field_name'], $templateTableColumn);
-                    $template = str_replace(
-                        '{{$TABLE_MODEL_CLASS$}}',
-                        $this->serviceGenerator->tableNameNotPlural($model['name']),
-                        $template,
-                    );
+                    $template = str_replace('{{$TABLE_MODEL_CLASS$}}', $this->serviceGenerator->tableNameNotPlural($model['name']), $template);
                     $template = str_replace('{{$ALIGN$}}', $this->generateColumnClassesFields($field), $template);
                 }
 

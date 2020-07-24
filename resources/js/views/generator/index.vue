@@ -31,7 +31,7 @@
             <el-col :xs="24" :sm="14" :md="18">
               <br />
               <el-date-picker
-                v-model="table.listQuery.created_at"
+                v-model="table.listQuery.updated_at"
                 class="md:float-right"
                 type="daterange"
                 :start-placeholder="$t('date.start_date')"
@@ -46,7 +46,7 @@
               v-loading="table.loading"
               class="w-full"
               :data="table.list"
-              :default-sort="{ prop: 'created_at', order: 'descending' }"
+              :default-sort="{ prop: 'updated_at', order: 'descending' }"
               border
               fit
               highlight-current-row
@@ -60,11 +60,7 @@
                 width="70px"
               >
                 <template slot-scope="{ $index }">
-                  {{
-                    (table.listQuery.page - 1) * table.listQuery.limit +
-                      $index +
-                      1
-                  }}
+                  {{ numericalOrder($index) }}
                 </template>
               </el-table-column>
               <el-table-column align="center" label="Table">
@@ -74,15 +70,15 @@
               </el-table-column>
               <!--{{$TEMPLATES_NOT_DELETE_THIS_LINE$}}-->
               <el-table-column
-                data-generator="created_at"
-                prop="created_at"
-                :label="$t('date.created_at')"
+                data-generator="updated_at"
+                prop="updated_at"
+                :label="$t('date.updated_at')"
                 sortable="custom"
                 align="center"
                 header-align="center"
               >
                 <template slot-scope="{ row }">
-                  {{ row.created_at | parseTime('{y}-{m}-{d}') }}
+                  {{ row.updated_at | parseTime('{y}-{m}-{d}') }}
                 </template>
               </el-table-column>
               <el-table-column
@@ -95,10 +91,7 @@
                     :to="{ name: 'generator-edit', params: { id: row.id } }"
                   >
                     <el-tooltip effect="dark" content="Edit" placement="left">
-                      <i
-                        class="el-icon-edit
- el-link el-link--primary mr-4"
-                      />
+                      <i class="el-icon-edit el-link el-link--primary mr-4" />
                     </el-tooltip>
                   </router-link>
                   <router-link
@@ -170,8 +163,8 @@ export default {
           limit: 25,
           ascending: 1,
           page: 1,
-          orderBy: 'created_at',
-          created_at: [],
+          orderBy: 'updated_at',
+          updated_at: [],
         },
         list: null,
         total: 0,
@@ -205,9 +198,9 @@ export default {
       if (date) {
         const startDate = this.parseTime(date[0]);
         const endDate = this.parseTime(date[1]);
-        this.table.listQuery.created_at = [startDate, endDate];
+        this.table.listQuery.updated_at = [startDate, endDate];
       } else {
-        this.table.listQuery.created_at = [];
+        this.table.listQuery.updated_at = [];
       }
       this.handleFilter();
     },
@@ -250,6 +243,10 @@ export default {
     },
     parseTime(date, format = '{y}-{m}-{d}') {
       return this.$options.filters.parseTime(date, format);
+    },
+    numericalOrder(index) {
+      const table = this.table.listQuery;
+      return (table.page - 1) * table.limit + index + 1;
     },
   },
 };

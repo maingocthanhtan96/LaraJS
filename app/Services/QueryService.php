@@ -14,6 +14,12 @@ class QueryService extends BaseService
     protected $_model;
 
     /**
+     * Select column owner
+     * @var array
+     */
+    public $select = [];
+
+    /**
      * Order column
      * @var array
      */
@@ -89,8 +95,14 @@ class QueryService extends BaseService
         $this->ascending = +$this->ascending === 0 ? 'asc' : 'desc';
 
         $query = $this->_model::query();
-        if (count(Arr::wrap($this->withRelationship)) > 0) {
-            $query = $query->with(Arr::wrap($this->withRelationship));
+        $query->when($this->select, function ($q) {
+            $q->select($this->select);
+        });
+        // if (count(Arr::wrap($this->withRelationship)) > 0) {
+        //     $query = $query->with(Arr::wrap($this->withRelationship));
+        // }
+        foreach (Arr::wrap($this->withRelationship) as $relationship) {
+            $query = $query->selectRelationship($relationship);
         }
 
         foreach (Arr::wrap($this->order) as $col) {
@@ -112,13 +124,13 @@ class QueryService extends BaseService
         $query->when(isset($this->betweenDate[0]) && isset($this->betweenDate[1]), function ($q) {
             $startDate = Carbon::parse($this->betweenDate[0])->startOfDay();
             $endDate = Carbon::parse($this->betweenDate[1])->endOfDay();
-            $q->whereBetween('created_at', [$startDate, $endDate]);
+            $q->whereBetween('updated_at', [$startDate, $endDate]);
         });
 
         $query->when($this->defaultOrderBy && $this->defaultDescending, function ($q) {
             $q->orderBy($this->defaultOrderBy, $this->defaultDescending);
         });
 
-        return $query->paginate($this->limit)->toArray();
+        return $query;
     }
 }
