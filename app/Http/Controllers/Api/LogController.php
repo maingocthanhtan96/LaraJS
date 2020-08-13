@@ -17,7 +17,7 @@ class LogController extends Controller
         $errors = 'Message: ' . $err . PHP_EOL . 'Info: ' . $info . PHP_EOL . 'Url: ' . $url;
         \Log::error($errors);
 
-        return $this->jsonSuccess(trans('messages.success'));
+        return $this->jsonMessage(trans('messages.success'));
     }
 
     public function warn(Request $request)
@@ -30,6 +30,6 @@ class LogController extends Controller
         $errors = 'Message: ' . $err . PHP_EOL . 'Trace: ' . $trace . PHP_EOL . 'Url: ' . $url;
         \Log::warning($errors);
 
-        return $this->jsonSuccess(trans('messages.success'));
+        return $this->jsonMessage(trans('messages.success'));
     }
 }

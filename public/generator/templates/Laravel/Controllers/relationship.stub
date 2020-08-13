@@ -9,7 +9,6 @@
 
             return $this->jsonData(${{PARAM_MODEL_RELATIONSHIP}});
         } catch (\Exception $e) {
-            write_log_exception($e);
-            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+            return $this->jsonError($e);
         }
     }

@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Larajs\Acl;
-
 class Role extends \Spatie\Permission\Models\Role
 {
     /**
@@ -12,6 +10,6 @@ class Role extends \Spatie\Permission\Models\Role
      */
     public function isAdmin(): bool
     {
-        return $this->name === Acl::ROLE_ADMIN;
+        return $this->name === \ACL::ROLE_ADMIN;
     }
 }

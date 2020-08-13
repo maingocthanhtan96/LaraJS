@@ -24,11 +24,7 @@ class QueryService extends BaseService
      * @var array
      */
     public $order = [];
-    /**
-     * Order relationship ship
-     * @var array
-     */
-    public $orderRelationship = [];
+
     /**
      * Column to search using whereLike
      * @var array
@@ -107,12 +103,6 @@ class QueryService extends BaseService
 
         foreach (Arr::wrap($this->order) as $col) {
             $query->when($col === $this->orderBy, function ($q) use ($col) {
-                $q->orderBy($col, $this->ascending);
-            });
-        }
-
-        foreach (Arr::wrap($this->orderRelationship) as $value => $col) {
-            $query->when($value === $this->orderBy, function ($q) use ($col) {
                 $q->orderBy($col, $this->ascending);
             });
         }

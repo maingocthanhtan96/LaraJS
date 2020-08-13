@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 7.19.1 on 2020-07-25 00:48:40.
+ * Generated for Laravel 7.19.1 on 2020-07-25 01:09:34.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -15892,14 +15892,14 @@ namespace Illuminate\Support {
     }
 }
 
-namespace App\Larajs {
+namespace App\LaraJS {
     /**
-     * Class Acl
+     * Class ACL
      *
-     * @package App\Larajs
+     * @package App\LaraJS
      */
 
-    class Acl
+    class ACL
     {
     }
 
@@ -20227,11 +20227,11 @@ namespace {
     {
     }
 
-    class Acl extends \App\Larajs\Acl
+    class ACL extends \App\LaraJS\ACL
     {
     }
 
-    class Constant extends \App\Larajs\Constant
+    class Constant extends \App\LaraJS\Constant
     {
     }
 

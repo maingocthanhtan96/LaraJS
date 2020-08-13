@@ -8,14 +8,13 @@ use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Larajs\Acl;
 
 class PermissionController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index(Request $request)
     {
@@ -43,7 +42,7 @@ class PermissionController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(StorePermissionRequest $request)
     {
@@ -52,7 +51,7 @@ class PermissionController extends Controller
 
             return $this->jsonData(new PermissionResource($permission));
         } catch (\Exception $e) {
-            $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+            $this->jsonError($e);
         }
     }
 
@@ -83,7 +82,7 @@ class PermissionController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(StorePermissionRequest $request, Permission $permission)
     {
@@ -92,24 +91,24 @@ class PermissionController extends Controller
 
             return $this->jsonData(new PermissionResource($permission));
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+            return $this->jsonError($e);
         }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param Permission $permission
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Permission $permission)
     {
         try {
             $permission->delete();
 
-            return $this->jsonSuccess(trans('messages.delete'));
+            return $this->jsonMessage(trans('messages.delete'));
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+            return $this->jsonError($e);
         }
     }
 }

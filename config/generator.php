@@ -30,7 +30,7 @@ return [
             'api_controller' => app_path('Http/Controllers/Api/' . $API_VERSION),
             'lang' => base_path('resources/lang/'),
             'request' => app_path('Http/Requests/'),
-            'swagger' => app_path('Larajs/Swagger/'),
+            'swagger' => app_path('LaraJS/Swagger/'),
         ],
         'vuejs' => [
             'api' => base_path('resources/js/api/' . $API_VERSION),

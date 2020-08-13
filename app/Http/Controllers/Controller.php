@@ -48,38 +48,29 @@ class Controller extends BaseController
     }
 
     /**
-     * @param $message
-     * @param string $file
-     * @param string $line
+     * @param $error
      * @param int $status
      * @return \Illuminate\Http\JsonResponse
      * @author tanmnt
      */
-    public function jsonError($message, $file = '', $line = 0, $status = Response::HTTP_INTERNAL_SERVER_ERROR)
+    public function jsonError($error, $status = Response::HTTP_INTERNAL_SERVER_ERROR)
     {
+        $message = $error;
+        $file = '';
+        $line = '';
+        if (is_object($error)) {
+            write_log_exception($error);
+            $message = $error->getMessage();
+            $file = $error->getFile();
+            $line = $error->getLine();
+        }
+
         return response()->json(
             [
                 'success' => false,
                 'message' => $message,
                 'file' => $file,
                 'line' => $line,
-            ],
-            $status,
-        );
-    }
-
-    /**
-     * @param $message
-     * @param int $status
-     * @return \Illuminate\Http\JsonResponse
-     * @author tanmnt
-     */
-    public function jsonSuccess($message, $status = Response::HTTP_OK)
-    {
-        return response()->json(
-            [
-                'success' => true,
-                'message' => $message,
             ],
             $status,
         );
@@ -93,29 +84,12 @@ class Controller extends BaseController
      * @return \Illuminate\Http\JsonResponse
      * @author tanmnt
      */
-    public function jsonMessage(string $message, bool $success, $status = Response::HTTP_OK)
+    public function jsonMessage(string $message, bool $success = true, $status = Response::HTTP_OK)
     {
         return response()->json(
             [
                 'success' => $success,
                 'message' => $message,
-            ],
-            $status,
-        );
-    }
-
-    /**
-     * @param string $string
-     * @param int $status
-     * @return \Illuminate\Http\JsonResponse
-     * @author tanmnt
-     */
-    public function jsonString(string $string, $status = Response::HTTP_OK)
-    {
-        return response()->json(
-            [
-                'success' => true,
-                'name' => $string,
             ],
             $status,
         );

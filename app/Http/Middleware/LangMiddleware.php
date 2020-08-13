@@ -15,11 +15,9 @@ class LangMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (\Session::has('language')) {
-            \App::setLocale(\Session::get('language'));
-        } else {
-            \App::setLocale('en');
-        }
+        $cookie = $request->cookie('language', 'en');
+        \App::setLocale($cookie);
+
         return $next($request);
     }
 }

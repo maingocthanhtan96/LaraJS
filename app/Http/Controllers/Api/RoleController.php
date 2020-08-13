@@ -15,7 +15,7 @@ class RoleController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -24,7 +24,7 @@ class RoleController extends Controller
 
             return $this->jsonData(RoleResource::collection($roles));
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+            return $this->jsonError($e);
         }
     }
 
@@ -41,7 +41,7 @@ class RoleController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(StoreRoleRequest $request)
     {
@@ -50,7 +50,7 @@ class RoleController extends Controller
 
             return $this->jsonData(new RoleResource($role));
         } catch (\Exception $e) {
-            $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+            $this->jsonError($e);
         }
     }
 
@@ -80,14 +80,14 @@ class RoleController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param Role $role
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, Role $role)
     {
         try {
             if (!$role || $role->isAdmin()) {
-                return $this->jsonError('Role not found!', 404);
+                return $this->jsonMessage('Role not found!', false, 404);
             }
             $viewMenu = self::VIEW_MENU;
             $input = $request->all();
@@ -119,27 +119,27 @@ class RoleController extends Controller
 
             return $this->jsonData(new RoleResource($role));
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+            return $this->jsonError($e);
         }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param Role $role
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Role $role)
     {
         try {
             if (!$role || $role->isAdmin()) {
-                return $this->jsonError('Role not found!', 404);
+                return $this->jsonMessage('Role not found!', false, 404);
             }
             $role->delete();
 
-            return $this->jsonSuccess(trans('messages.delete'));
+            return $this->jsonMessage(trans('messages.delete'));
         } catch (\Exception $e) {
-            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+            return $this->jsonError($e);
         }
     }
 }

@@ -8,7 +8,7 @@
         :image="user.avatar + '?imageView2/1/w/80/h/80'"
         class="panThumb"
       />
-      <mallki class-name="mallki-text" text="Larajs" />
+      <mallki class-name="mallki-text" text="LaraJS" />
       <div style="padding-top: 35px;" class="progress-item">
         <span>Laravel</span>
         <el-progress :percentage="90" />

@@ -30,9 +30,9 @@ class FileController extends Controller
                 return (new self())->jsonData($diskLocal->url($fileName));
             }
 
-            return (new self())->jsonError(trans('error.file_not_found'));
+            return (new self())->jsonMessage(trans('error.file_not_found'), false, 500);
         } catch (\Exception $e) {
-            return (new self())->jsonError($e->getMessage());
+            return (new self())->jsonError($e);
         }
     }
 
@@ -50,12 +50,12 @@ class FileController extends Controller
                 if (file_exists(public_path($file))) {
                     unlink(public_path($file));
                 } else {
-                    return (new self())->jsonError(trans('error.file_not_found'));
+                    return (new self())->jsonMessage(trans('error.file_not_found'), false, 500);
                 }
             }
-            return (new self())->jsonSuccess(trans('messages.delete'));
+            return (new self())->jsonMessage(trans('messages.delete'));
         } catch (\Exception $e) {
-            return (new self())->jsonError($e->getMessage());
+            return (new self())->jsonError($e);
         }
     }
 
@@ -74,16 +74,16 @@ class FileController extends Controller
                     if (file_exists(public_path($fileOld))) {
                         unlink(public_path($fileOld));
                     } else {
-                        return (new self())->jsonError(trans('error.file_not_found'));
+                        return (new self())->jsonMessage(trans('error.file_not_found'), false, 500);
                     }
                 }
 
                 return (new self())->jsonData($diskLocal->url($fileName));
             }
 
-            return (new self())->jsonError(trans('error.file_not_found'));
+            return (new self())->jsonMessage(trans('error.file_not_found'), false, 500);
         } catch (\Exception $e) {
-            return (new self())->jsonError($e->getMessage());
+            return (new self())->jsonError($e);
         }
     }
 }

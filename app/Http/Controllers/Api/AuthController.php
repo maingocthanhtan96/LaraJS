@@ -42,15 +42,14 @@ class AuthController extends Controller
                     return $response->getContent();
                     break;
                 case Response::HTTP_BAD_REQUEST:
-                    return $this->jsonError(trans('auth.login_fail'), $response->getStatusCode());
+                    return $this->jsonMessage(trans('auth.login_fail'), false, $response->getStatusCode());
                     break;
                 case Response::HTTP_UNAUTHORIZED:
-                    return $this->jsonError(trans('auth.credentials_incorrect'), $response->getStatusCode());
+                    return $this->jsonMessage(trans('auth.credentials_incorrect'), false, $response->getStatusCode());
                     break;
             }
         } catch (\Exception $e) {
-            write_log_exception($e);
-            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+            return $this->jsonError($e);
         }
     }
 
@@ -68,8 +67,7 @@ class AuthController extends Controller
                 });
             return response()->json('Logged out successfully', 200);
         } catch (\Exception $e) {
-            write_log_exception($e);
-            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+            return $this->jsonError($e);
         }
     }
 
@@ -82,7 +80,7 @@ class AuthController extends Controller
      */
     protected function sendResetLinkResponse(Request $request, $response)
     {
-        return $this->jsonSuccess(trans($response));
+        return $this->jsonMessage(trans($response));
     }
 
     /**
@@ -94,11 +92,13 @@ class AuthController extends Controller
      */
     protected function sendResetLinkFailedResponse(Request $request, $response)
     {
-        return $this->jsonError(trans($response));
+        return $this->jsonMessage(trans($response), false, Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
     /**
      * Send password reset link.
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function forgotPassword(Request $request)
     {
@@ -107,6 +107,8 @@ class AuthController extends Controller
 
     /**
      * Handle reset password
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function callResetPassword(Request $request)
     {
@@ -136,7 +138,7 @@ class AuthController extends Controller
      */
     protected function sendResetResponse(Request $request, $response)
     {
-        return $this->jsonSuccess(trans($response));
+        return $this->jsonMessage(trans($response));
     }
 
     /**
@@ -148,6 +150,6 @@ class AuthController extends Controller
      */
     protected function sendResetFailedResponse(Request $request, $response)
     {
-        return $this->jsonError(trans($response), 401);
+        return $this->jsonMessage(trans($response), false, 401);
     }
 }

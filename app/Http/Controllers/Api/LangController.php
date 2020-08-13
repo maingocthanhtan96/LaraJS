@@ -9,7 +9,9 @@ class LangController extends Controller
 {
     public function setLanguage($language)
     {
-        \Session::put('language', $language);
-        return $language;
+        $week = 10080;
+        $cookie = cookie('language', $language, $week);
+
+        return response('success')->cookie($cookie);
     }
 }

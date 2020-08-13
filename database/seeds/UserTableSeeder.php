@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Larajs\Acl;
 use App\Models\Role;
 use App\Models\User;
 
@@ -65,13 +64,13 @@ class UserTableSeeder extends Seeder
         ]);
 
         // search role
-        $adminRole = Role::findByName(Acl::ROLE_ADMIN);
-        $managerRole = Role::findByName(Acl::ROLE_MANAGER);
-        $visitorRole = Role::findByName(Acl::ROLE_VISITOR);
-        $creatorRole = Role::findByName(Acl::ROLE_CREATOR);
-        $editorRole = Role::findByName(Acl::ROLE_EDITOR);
-        $deleterRole = Role::findByName(Acl::ROLE_DELETER);
-        $developerRole = Role::findByName(Acl::ROLE_DEVELOPER);
+        $adminRole = Role::findByName(\ACL::ROLE_ADMIN);
+        $managerRole = Role::findByName(\ACL::ROLE_MANAGER);
+        $visitorRole = Role::findByName(\ACL::ROLE_VISITOR);
+        $creatorRole = Role::findByName(\ACL::ROLE_CREATOR);
+        $editorRole = Role::findByName(\ACL::ROLE_EDITOR);
+        $deleterRole = Role::findByName(\ACL::ROLE_DELETER);
+        $developerRole = Role::findByName(\ACL::ROLE_DEVELOPER);
         // Setup basic role
         $admin->syncRoles($adminRole);
         $manager->syncRoles($managerRole);
@@ -83,24 +82,18 @@ class UserTableSeeder extends Seeder
 
         // Setup basic permission
         $managerRole->givePermissionTo([
-            Acl::PERMISSION_PERMISSION_MANAGE,
-            Acl::PERMISSION_VISIT,
-            Acl::PERMISSION_CREATE,
-            Acl::PERMISSION_EDIT,
-            Acl::PERMISSION_DELETE,
-            Acl::PERMISSION_VIEW_MENU_ROLE_PERMISSION,
+            \ACL::PERMISSION_PERMISSION_MANAGE,
+            \ACL::PERMISSION_VISIT,
+            \ACL::PERMISSION_CREATE,
+            \ACL::PERMISSION_EDIT,
+            \ACL::PERMISSION_DELETE,
+            \ACL::PERMISSION_VIEW_MENU_ROLE_PERMISSION,
         ]);
-        $visitorRole->givePermissionTo(Acl::PERMISSION_VISIT);
-        $creatorRole->givePermissionTo(Acl::PERMISSION_CREATE);
-        $editorRole->givePermissionTo(Acl::PERMISSION_EDIT);
-        $deleterRole->givePermissionTo(Acl::PERMISSION_DELETE);
-        $developerRole->givePermissionTo([
-            Acl::PERMISSION_VISIT,
-            Acl::PERMISSION_CREATE,
-            Acl::PERMISSION_EDIT,
-            Acl::PERMISSION_DELETE,
-            Acl::PERMISSION_DEVELOP,
-        ]);
+        $visitorRole->givePermissionTo(\ACL::PERMISSION_VISIT);
+        $creatorRole->givePermissionTo(\ACL::PERMISSION_CREATE);
+        $editorRole->givePermissionTo(\ACL::PERMISSION_EDIT);
+        $deleterRole->givePermissionTo(\ACL::PERMISSION_DELETE);
+        $developerRole->givePermissionTo([\ACL::PERMISSION_VISIT, \ACL::PERMISSION_CREATE, \ACL::PERMISSION_EDIT, \ACL::PERMISSION_DELETE, \ACL::PERMISSION_DEVELOP]);
 
         $faker = Faker\Factory::create();
         $limit = 10;
@@ -113,12 +106,7 @@ class UserTableSeeder extends Seeder
                 'remember_token' => \Illuminate\Support\Str::random(10),
                 //{{SEEDER_NOT_DELETE_THIS_LINE}}
             ]);
-            $roleName = $faker->randomElement([
-                Acl::ROLE_VISITOR,
-                Acl::ROLE_CREATOR,
-                Acl::ROLE_EDITOR,
-                Acl::ROLE_DELETER,
-            ]);
+            $roleName = $faker->randomElement([\ACL::ROLE_VISITOR, \ACL::ROLE_CREATOR, \ACL::ROLE_EDITOR, \ACL::ROLE_DELETER]);
             $userFaker->syncRoles($roleName);
         }
     }

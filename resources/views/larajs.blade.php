@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="locale" content="{{ \App::getLocale() }}"/>
-    <title>{{ config('app.name', 'Larajs') }}</title>
+    <title>{{ config('app.name', 'LaraJS') }}</title>
 
     <link href="{{ mix('css/app.css') }}" type="text/css" rel="stylesheet">
     <link rel="shortcut icon" href="{{asset('/images/logo-tanmnt.png')}}"/>
@@ -15,7 +15,7 @@
 <body>
 
 <noscript>
-    <strong>We're sorry but Larajs, HTML & Laravel Admin Dashboard Template doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    <strong>We're sorry but LaraJS, HTML & Laravel Admin Dashboard Template doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
 </noscript>
 <div id="app"></div>
 

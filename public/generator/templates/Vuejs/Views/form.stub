@@ -53,7 +53,7 @@ export default {
       // {{$DATA_NOT_DELETE_THIS_LINE$}}
     };
   },
-  mounted() {
+  created() {
     const { id } = this.$route.params;
     if (id) {
       this.loading.form = true;

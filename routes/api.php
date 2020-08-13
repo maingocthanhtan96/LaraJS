@@ -1,7 +1,5 @@
 <?php
 
-//use App\Larajs\Acl;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -45,7 +43,7 @@ Route::group(['namespace' => 'Api'], function () {
         // permission manage permission
         Route::group(
             [
-                'middleware' => 'permission:' . Acl::PERMISSION_PERMISSION_MANAGE,
+                'middleware' => 'permission:' . \ACL::PERMISSION_PERMISSION_MANAGE,
             ],
             function () {
                 Route::apiResource('roles', 'RoleController');
@@ -54,7 +52,7 @@ Route::group(['namespace' => 'Api'], function () {
         );
 
         // role Admin (Super admin)
-        Route::group(['middleware' => 'role:' . Acl::ROLE_ADMIN], function () {
+        Route::group(['middleware' => 'role:' . \ACL::ROLE_ADMIN], function () {
             Route::group(['prefix' => 'generators'], function () {
                 Route::get('check-model', 'GeneratorController@checkModel');
                 Route::get('check-column', 'GeneratorController@checkColumn');
@@ -72,7 +70,7 @@ Route::group(['namespace' => 'Api'], function () {
 
 Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1'], function () {
     Route::group(['middleware' => 'auth:api'], function () {
-        Route::group(['middleware' => 'role:' . Acl::ROLE_ADMIN], function () {
+        Route::group(['middleware' => 'role:' . \ACL::ROLE_ADMIN], function () {
             //{{ROUTE_ADMIN_NOT_DELETE_THIS_LINE}}
         });
 

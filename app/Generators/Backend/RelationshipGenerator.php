@@ -35,7 +35,7 @@ class RelationshipGenerator extends BaseGenerator
     const _REF_LOWER = 'ref_';
     const SORT_COLUMN = 'sortable="custom"';
     const _ID = '_id';
-    const MOUNTED = 'mounted() {';
+    const MOUNTED = 'created() {';
 
     public function __construct($relationship, $model, $modelCurrent, $column, $column2, $options)
     {
@@ -290,10 +290,8 @@ class RelationshipGenerator extends BaseGenerator
         foreach ($options as $option) {
             if ($option === $configOptions['sort']) {
                 $columns = '$queryService->order = [';
-                $columnWith = '$queryService->orderRelationship = [';
                 $templateColumns = $this->serviceGenerator->searchTemplate($columns, '];', strlen($columns), -strlen($columns), $templateDataReal);
-                $templateColumnWith = $this->serviceGenerator->searchTemplate($columnWith, '];', 0, 0, $templateDataReal);
-                if (!$templateColumns || !$templateColumnWith) {
+                if (!$templateColumns) {
                     return false;
                 }
                 $commaColumns = ',';
@@ -302,28 +300,8 @@ class RelationshipGenerator extends BaseGenerator
                 }
                 $columnDidGenerate = "'" . \Str::snake($modelRelationship) . self::_ID . "'";
                 $templateDataReal = str_replace("$templateColumns]", "$templateColumns" . "$commaColumns" . "$columnDidGenerate]", $templateDataReal);
-                if ($relationship === $this->relationship['has_one']) {
-                    $funcRelationship = \Str::snake($modelRelationship) . '.' . $columnRelationship;
-                } else {
-                    $funcRelationship = $this->serviceGenerator->modelNamePluralFe($modelRelationship) . '.' . $columnRelationship;
-                }
                 $templateDataReal = str_replace("$templateColumns]", "$templateColumns" . "$commaColumns" . "$columnDidGenerate]", $templateDataReal);
                 //columnWith
-
-                $sortRelationship = "'" . $funcRelationship . "'" . ' => ' . $columnDidGenerate . ',';
-                if (strlen($templateColumnWith) === strlen($columnWith)) {
-                    $templateDataReal = str_replace(
-                        "$templateColumnWith]",
-                        "$templateColumnWith" . $this->serviceGenerator->infy_nl_tab(1, 4) . $sortRelationship . $this->serviceGenerator->infy_nl_tab(1, 3) . ']',
-                        $templateDataReal,
-                    );
-                } else {
-                    $templateDataReal = str_replace(
-                        "$templateColumnWith]",
-                        "$templateColumnWith" . $this->serviceGenerator->infy_nl_tab(0, 1) . $sortRelationship . $this->serviceGenerator->infy_nl_tab(1, 3) . ']',
-                        $templateDataReal,
-                    );
-                }
             } elseif ($option === $configOptions['show']) {
                 $columnsWith = '$queryService->withRelationship = [';
                 $templateColumnWith = $this->serviceGenerator->searchTemplate($columnsWith, '];', 0, 0, $templateDataReal);

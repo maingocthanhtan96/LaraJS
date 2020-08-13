@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Larajs\Acl;
-use App\Models\Role;
 use App\Models\Permission;
 
 class SetupRolePermissionTableSeeder extends Seeder
@@ -14,15 +12,15 @@ class SetupRolePermissionTableSeeder extends Seeder
      */
     public function run()
     {
-        //        foreach (Acl::roles() as $role) {
+        //        foreach (\ACL::roles() as $role) {
         //            Role::findOrCreate($role, 'api');
         //        }
 
-        foreach (Acl::permissions() as $permission) {
+        foreach (\ACL::permissions() as $permission) {
             Permission::findOrCreate($permission, 'api');
         }
 
-        foreach (Acl::menuPermissions() as $menuPermission) {
+        foreach (\ACL::menuPermissions() as $menuPermission) {
             Permission::findOrCreate($menuPermission, 'api');
         }
     }

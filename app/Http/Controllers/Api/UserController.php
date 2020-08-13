@@ -18,10 +18,10 @@ class UserController extends Controller
      */
     function __construct()
     {
-        $this->middleware('permission:visit', ['only' => ['index']]);
-        $this->middleware('permission:create', ['only' => ['store']]);
-        $this->middleware('permission:edit', ['only' => ['show', 'update']]);
-        $this->middleware('permission:delete', ['only' => ['destroy']]);
+        $this->middleware('permission:' . \ACL::PERMISSION_VISIT, ['only' => ['index']]);
+        $this->middleware('permission:' . \ACL::PERMISSION_CREATE, ['only' => ['store']]);
+        $this->middleware('permission:' . \ACL::PERMISSION_EDIT, ['only' => ['show', 'update']]);
+        $this->middleware('permission:' . \ACL::PERMISSION_DELETE, ['only' => ['destroy']]);
     }
 
     /** get user information
@@ -35,8 +35,7 @@ class UserController extends Controller
 
             return $this->jsonData(new UserResource($user));
         } catch (\Exception $e) {
-            write_log_exception($e);
-            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+            return $this->jsonError($e);
         }
     }
 
@@ -58,7 +57,6 @@ class UserController extends Controller
             $queryService = new QueryService(new User());
             $queryService->select = [];
             $queryService->order = ['id', 'updated_at'];
-            $queryService->orderRelationship = [];
             $queryService->columnSearch = ['name', 'email'];
             $queryService->withRelationship = ['roles'];
             $queryService->search = $search;
@@ -72,8 +70,7 @@ class UserController extends Controller
 
             return $this->jsonTable($users);
         } catch (\Exception $e) {
-            write_log_exception($e);
-            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+            return $this->jsonError($e);
         }
     }
 
@@ -92,8 +89,7 @@ class UserController extends Controller
 
             return $this->jsonData($user, Response::HTTP_CREATED);
         } catch (\Exception $e) {
-            write_log_exception($e);
-            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+            return $this->jsonError($e);
         }
     }
 
@@ -112,8 +108,7 @@ class UserController extends Controller
 
             return $this->jsonData($user);
         } catch (\Exception $e) {
-            write_log_exception($e);
-            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+            return $this->jsonError($e);
         }
     }
 
@@ -136,8 +131,7 @@ class UserController extends Controller
 
             return $this->jsonData($user);
         } catch (\Exception $e) {
-            write_log_exception($e);
-            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+            return $this->jsonError($e);
         }
     }
 
@@ -151,15 +145,14 @@ class UserController extends Controller
     {
         try {
             if ($user->isAdmin()) {
-                return $this->jsonError(trans('error.is_admin'), 403);
+                return $this->jsonMessage(trans('error.is_admin'), false, 403);
             }
             //{{CONTROLLER_RELATIONSHIP_MTM_DELETE_NOT_DELETE_THIS_LINE}}
             $user->delete();
 
-            return $this->jsonSuccess(trans('messages.delete'));
+            return $this->jsonMessage(trans('messages.delete'));
         } catch (\Exception $e) {
-            write_log_exception($e);
-            return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+            return $this->jsonError($e);
         }
     }
 

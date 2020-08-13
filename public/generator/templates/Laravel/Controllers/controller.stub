@@ -15,7 +15,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Store{{MODAL_CLASS}}Request;
-use App\Larajs\Acl;
 
 class {{CONTROLLER_CLASS}}Controller extends Controller
 {
@@ -25,10 +24,10 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
      */
     function __construct()
     {
-        $this->middleware('permission:' . Acl::PERMISSION_VISIT, ['only' => ['index']]);
-        $this->middleware('permission:' . Acl::PERMISSION_CREATE, ['only' => ['store']]);
-        $this->middleware('permission:' . Acl::PERMISSION_EDIT, ['only' => ['show', 'update']]);
-        $this->middleware('permission:' . Acl::PERMISSION_DELETE, ['only' => ['destroy']]);
+        $this->middleware('permission:' . \ACL::PERMISSION_VISIT, ['only' => ['index']]);
+        $this->middleware('permission:' . \ACL::PERMISSION_CREATE, ['only' => ['store']]);
+        $this->middleware('permission:' . \ACL::PERMISSION_EDIT, ['only' => ['show', 'update']]);
+        $this->middleware('permission:' . \ACL::PERMISSION_DELETE, ['only' => ['destroy']]);
     }
 
 	/**
@@ -49,7 +48,6 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 			$queryService = new QueryService(new {{MODAL_CLASS}});
             $queryService->select = [];
 			$queryService->order = {{COLUMN_SORT}};
-            $queryService->orderRelationship = [];
             $queryService->columnSearch = {{COLUMN_SEARCH}};
             $queryService->withRelationship = {{COLUMN_RELATIONSHIP}};
             $queryService->search = $search;
@@ -64,8 +62,7 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 
 			return $this->jsonTable(${{MODAL_CLASS_PARAM}});
 		} catch (\Exception $e) {
-		    write_log_exception($e);
-			return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+			return $this->jsonError($e);
 		}
 	}
 
@@ -87,8 +84,7 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 
 			return $this->jsonData(${{MODAL_CLASS_PARAM}}, Response::HTTP_CREATED);
 		} catch (\Exception $e) {
-		    write_log_exception($e);
-			return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+			return $this->jsonError($e);
 		}
 	}
 
@@ -105,8 +101,7 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 
 			return $this->jsonData(${{MODAL_CLASS_PARAM}});
 		} catch (\Exception $e) {
-		    write_log_exception($e);
-			return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+			return $this->jsonError($e);
 		}
 	}
 
@@ -128,8 +123,7 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 
 			return $this->jsonData(${{MODAL_CLASS_PARAM}});
 		} catch (\Exception $e) {
-		    write_log_exception($e);
-			return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+			return $this->jsonError($e);
 		}
 	}
 
@@ -145,10 +139,9 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 	        //{{CONTROLLER_RELATIONSHIP_MTM_DELETE_NOT_DELETE_THIS_LINE}}
 			${{MODAL_CLASS_PARAM}}->delete();
 
-		    return $this->jsonSuccess(trans('messages.delete'));
+		    return $this->jsonMessage(trans('messages.delete'));
 	    } catch (\Exception $e) {
-	        write_log_exception($e);
-	    	return $this->jsonError($e->getMessage(), $e->getFile(), $e->getLine());
+	    	return $this->jsonError($e);
 	    }
     }
 

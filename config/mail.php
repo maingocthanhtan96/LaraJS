@@ -56,7 +56,7 @@ return [
 
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'larajs.vue@gmail.com'),
-        'name' => env('MAIL_FROM_NAME', 'Larajs'),
+        'name' => env('MAIL_FROM_NAME', 'LaraJS'),
     ],
 
     /*

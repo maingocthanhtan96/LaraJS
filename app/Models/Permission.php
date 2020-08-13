@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Larajs\Acl;
-
 class Permission extends \Spatie\Permission\Models\Permission
 {
     /**
@@ -14,7 +12,7 @@ class Permission extends \Spatie\Permission\Models\Permission
      */
     public function scopeAllowed($query)
     {
-        return $query->where('name', '!=', Acl::PERMISSION_PERMISSION_MANAGE);
+        return $query->where('name', '!=', \ACL::PERMISSION_PERMISSION_MANAGE);
     }
 
     /**
@@ -22,6 +20,6 @@ class Permission extends \Spatie\Permission\Models\Permission
      */
     public function isPermission(): bool
     {
-        return $this->name === Acl::PERMISSION_PERMISSION_MANAGE;
+        return $this->name === \ACL::PERMISSION_PERMISSION_MANAGE;
     }
 }
