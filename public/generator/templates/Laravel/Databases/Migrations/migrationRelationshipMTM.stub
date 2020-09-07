@@ -25,16 +25,16 @@ class Relationship{{TABLE_NAME_TITLE}}Table extends Migration
             $table->unsignedBigInteger('{{FOREIGN_KEY_2}}');
             $table->timestamps();
 
-            $table->index('{{FOREIGN_KEY_1}}');
-            $table->foreign('{{FOREIGN_KEY_1}}')
-                ->references('id')
-                ->on('{{TABLE_FOREIGN_KEY_1}}')
-                ->onDelete('cascade');
-            $table->index('{{FOREIGN_KEY_2}}');
-            $table->foreign('{{FOREIGN_KEY_2}}')
-                ->references('id')
-               c->on('{{TABLE_FOREIGN_KEY_2}}')
-                ->onDelete('cascade');
+            // $table->index('{{FOREIGN_KEY_1}}');
+            // $table->foreign('{{FOREIGN_KEY_1}}')
+            //     ->references('id')
+            //     ->on('{{TABLE_FOREIGN_KEY_1}}')
+            //     ->onDelete('cascade');
+            // $table->index('{{FOREIGN_KEY_2}}');
+            // $table->foreign('{{FOREIGN_KEY_2}}')
+            //     ->references('id')
+            //     ->on('{{TABLE_FOREIGN_KEY_2}}')
+            //     ->onDelete('cascade');
         });
     }
 

@@ -40,13 +40,12 @@ class AuthController extends Controller
             switch ($response->getStatusCode()) {
                 case Response::HTTP_OK:
                     return $response->getContent();
-                    break;
                 case Response::HTTP_BAD_REQUEST:
                     return $this->jsonMessage(trans('auth.login_fail'), false, $response->getStatusCode());
-                    break;
                 case Response::HTTP_UNAUTHORIZED:
                     return $this->jsonMessage(trans('auth.credentials_incorrect'), false, $response->getStatusCode());
-                    break;
+                default:
+                    return $this->jsonMessage('Login fail', false, $response->getStatusCode());
             }
         } catch (\Exception $e) {
             return $this->jsonError($e);

@@ -22,10 +22,10 @@ class Relationship{{TABLE_NAME_TITLE}}Table extends Migration
         Schema::table('{{TABLE_NAME}}', function (Blueprint $table) {
             $table->unsignedBigInteger('{{FOREIGN_KEY}}')->after('id');
 
-            $table->index('{{FOREIGN_KEY}}');
-            $table->foreign('{{FOREIGN_KEY}}')
-                ->references('id')->on('{{TABLE_FOREIGN_KEY}}')
-                ->onDelete('cascade');
+            // $table->index('{{FOREIGN_KEY}}');
+            // $table->foreign('{{FOREIGN_KEY}}')
+            //     ->references('id')->on('{{TABLE_FOREIGN_KEY}}')
+            //    ->onDelete('cascade');
         });
     }
 

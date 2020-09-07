@@ -14,7 +14,7 @@ class {{MODEL_CLASS}} extends BaseModel
 	//{{USE_NOT_DELETE_THIS_LINE}}
 
     //Declare table name
-    public $table = '{{TABLE_NAME}}';
+    protected $table = '{{TABLE_NAME}}';
     protected $fillable = [
     	{{FIELDS}}
     ];
