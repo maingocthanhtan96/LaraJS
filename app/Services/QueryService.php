@@ -98,7 +98,7 @@ class QueryService extends BaseService
         //     $query = $query->with(Arr::wrap($this->withRelationship));
         // }
         foreach (Arr::wrap($this->withRelationship) as $relationship) {
-            $query = $query->selectRelationship($relationship);
+            $query = $query->with($relationship);
         }
 
         foreach (Arr::wrap($this->order) as $col) {

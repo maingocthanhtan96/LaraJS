@@ -44,6 +44,12 @@ module.exports = {
   sidebarLogo: true,
 
   /**
+   * @type {string}
+   * @description Whether show the logo in sidebar
+   */
+  urlLogo: require('@/assets/images/logo/logo-tanmnt.png'),
+
+  /**
    * @type {boolean} true | false
    * @description Multiple transition
    */

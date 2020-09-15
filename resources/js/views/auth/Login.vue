@@ -7,10 +7,7 @@
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <div class="flex justify-center items-center relative">
-              <img
-                :src="require('@/assets/images/logo/logo-tanmnt.png')"
-                width="200"
-              />
+              <img :src="$store.state.settings.urlLogo" width="200" />
               <lang-select
                 v-if="$store.state.settings.showTrans"
                 class="absolute right-0 top-0"

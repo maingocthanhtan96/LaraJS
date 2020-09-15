@@ -1,4 +1,4 @@
-<el-form-item data-generator="{{$FORM_FIELD$}}" :label="{{$LABEL_NAME_INPUT$}}" {{$PROP_NAME$}} >
+<el-form-item data-generator="{{$FORM_FIELD$}}" :label="{{$LABEL_NAME_INPUT$}}" {{$PROP_NAME$}} :error="errors.{{$FORM_FIELD$}} ? errors.{{$FORM_FIELD$}}[0] : ''" >
             <vue-dropzone
               id="{{$NAME_FUNC$}}VueDropzone"
               :defaultImg="$route.params.id ? form.{{$FORM_FIELD$}} : ''"

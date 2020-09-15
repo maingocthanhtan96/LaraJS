@@ -16,49 +16,49 @@ class UserTableSeeder extends Seeder
         $admin = User::create([
             'name' => 'Thanh Tan',
             'email' => 'admin@larajs.com',
-            'avatar' => '/images/logo-tanmnt.png',
+            'avatar' => env('APP_LOGO'),
             'password' => 'admin123',
             'remember_token' => \Illuminate\Support\Str::random(10),
         ]);
         $manager = User::create([
             'name' => 'Manager',
             'email' => 'manager@larajs.com',
-            'avatar' => '/images/logo-tanmnt.png',
+            'avatar' => env('APP_LOGO'),
             'password' => 'manager123',
             'remember_token' => \Illuminate\Support\Str::random(10),
         ]);
         $visitor = User::create([
             'name' => 'Visitor',
             'email' => 'visitor@larajs.com',
-            'avatar' => '/images/logo-tanmnt.png',
+            'avatar' => env('APP_LOGO'),
             'password' => 'visitor123',
             'remember_token' => \Illuminate\Support\Str::random(10),
         ]);
         $creator = User::create([
             'name' => 'Creator',
             'email' => 'creator@larajs.com',
-            'avatar' => '/images/logo-tanmnt.png',
+            'avatar' => env('APP_LOGO'),
             'password' => 'creator123',
             'remember_token' => \Illuminate\Support\Str::random(10),
         ]);
         $editor = User::create([
             'name' => 'Editor',
             'email' => 'editor@larajs.com',
-            'avatar' => '/images/logo-tanmnt.png',
+            'avatar' => env('APP_LOGO'),
             'password' => 'editor123',
             'remember_token' => \Illuminate\Support\Str::random(10),
         ]);
         $deleter = User::create([
             'name' => 'Deleter',
             'email' => 'deleter@larajs.com',
-            'avatar' => '/images/logo-tanmnt.png',
+            'avatar' => env('APP_LOGO'),
             'password' => 'deleter123',
             'remember_token' => \Illuminate\Support\Str::random(10),
         ]);
         $developer = User::create([
             'name' => 'Developer',
             'email' => 'developer@larajs.com',
-            'avatar' => '/images/logo-tanmnt.png',
+            'avatar' => env('APP_LOGO'),
             'password' => 'developer123',
             'remember_token' => \Illuminate\Support\Str::random(10),
         ]);
@@ -101,7 +101,7 @@ class UserTableSeeder extends Seeder
             $userFaker = User::create([
                 'name' => $faker->name,
                 'email' => $faker->unique()->email,
-                'avatar' => '/images/logo-tanmnt.png',
+                'avatar' => env('APP_LOGO'),
                 'password' => 'secret',
                 'remember_token' => \Illuminate\Support\Str::random(10),
                 //{{SEEDER_NOT_DELETE_THIS_LINE}}

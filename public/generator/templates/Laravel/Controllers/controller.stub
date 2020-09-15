@@ -76,7 +76,7 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 	{
 		try {
 		    ${{MODAL_CLASS_PARAM}} = new {{MODAL_CLASS}}();
-		    foreach ($request->all() as $key => $value) {
+		    foreach ($request->only(${{MODAL_CLASS_PARAM}}->getFillable()) as $key => $value) {
                 ${{MODAL_CLASS_PARAM}}->{$key} = $value;
             }
             ${{MODAL_CLASS_PARAM}}->save();
@@ -115,7 +115,7 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 	public function update(Store{{MODAL_CLASS}}Request $request, {{MODAL_CLASS}} ${{MODAL_CLASS_PARAM}})
 	{
 		try {
-		    foreach ($request->all() as $key => $value) {
+		    foreach ($request->only(${{MODAL_CLASS_PARAM}}->getFillable()) as $key => $value) {
                 ${{MODAL_CLASS_PARAM}}->{$key} = $value;
             }
             ${{MODAL_CLASS_PARAM}}->save();

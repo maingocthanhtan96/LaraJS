@@ -22,7 +22,6 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->_whereLike();
         $this->_paginate();
-        $this->_selectRelationship();
     }
 
     /**

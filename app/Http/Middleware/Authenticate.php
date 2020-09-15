@@ -7,9 +7,11 @@ use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
 class Authenticate extends Middleware
 {
+    const AUTH_ERROR = 'authentication_error';
+
     public function handle($request, Closure $next, ...$guards)
     {
-        if ($this->authenticate($request, $guards) === 'authentication_error') {
+        if ($this->authenticate($request, $guards) === self::AUTH_ERROR) {
             return response()->json(
                 [
                     'success' => false,
@@ -34,7 +36,7 @@ class Authenticate extends Middleware
             }
         }
 
-        return 'authentication_error';
+        return self::AUTH_ERROR;
     }
 
     /**

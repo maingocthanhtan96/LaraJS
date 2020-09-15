@@ -1,7 +1,7 @@
 import { pluralize } from '@/filters';
 
 export function parseTime(time, cFormat) {
-  if (arguments.length === 0) {
+  if (arguments.length === 0 || !time) {
     return null;
   }
 

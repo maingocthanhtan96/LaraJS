@@ -127,7 +127,7 @@ class RelationshipGenerator extends BaseGenerator
         } else {
             //hasOne or hasMany
             $templateData = $this->_replaceTemplateRelationship($model, $modelCurrent, $templateData);
-            $fileName = date('Y_m_d_His') . '_' . 'relationship_' . $this->serviceGenerator->tableName($modelCurrent) . $this->serviceGenerator->tableName($model) . '_table.php';
+            $fileName = date('Y_m_d_His') . '_' . 'relationship_' . $this->serviceGenerator->tableName($modelCurrent) . '_' . $this->serviceGenerator->tableName($model) . '_table.php';
             $this->_generateModel($modelCurrent, $model);
             $this->_generateSeeder($modelCurrent, $model);
             $this->_generateRoute($modelCurrent);
@@ -145,7 +145,7 @@ class RelationshipGenerator extends BaseGenerator
         $notDelete = config('generator.not_delete.vuejs.form');
         $fileName = $this->serviceGenerator->folderPages($modelRelationship) . '/Form.vue';
         $templateDataReal = $this->serviceGenerator->getFile('views', 'vuejs', $fileName);
-        $dataForm = 'form:';
+        $dataForm = 'form: {';
         //create form
         $templateDataForm = $this->serviceGenerator->searchTemplateX($dataForm, 1, $notDelete['this_check'], strlen($dataForm), -strlen($dataForm) - 4, $templateDataReal);
         $dataForms = explode(',', trim($templateDataForm));
