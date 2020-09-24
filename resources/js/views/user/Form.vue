@@ -104,7 +104,7 @@
           <el-form-item class="flex justify-center">
             <template v-if="$route.params.id">
               <el-button
-                :loading="loading"
+                :loading="loading.button"
                 round
                 type="primary"
                 icon="el-icon-edit mr-2"
@@ -115,7 +115,7 @@
             </template>
             <template v-else>
               <el-button
-                :loading="loading"
+                :loading="loading.button"
                 round
                 type="success"
                 icon="el-icon-plus mr-2"
@@ -328,9 +328,9 @@ export default {
             type: 'success',
           });
           this.$refs[users].resetFields();
-          this.loading = false;
+          this.loading.button = false;
         } else {
-          this.loading = false;
+          this.loading.button = false;
           return false;
         }
       });
@@ -352,10 +352,10 @@ export default {
             message: this.$t('messages.update'),
             type: 'success',
           });
-          this.loading = false;
+          this.loading.button = false;
           this.$router.push({ name: 'user' });
         } else {
-          this.loading = false;
+          this.loading.button = false;
           return false;
         }
       });

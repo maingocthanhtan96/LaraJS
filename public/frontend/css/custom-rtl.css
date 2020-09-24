@@ -49,11 +49,11 @@
 }
 
 .dropleft .dropdown-toggle::before {
-  content: '\E844' !important;
+  content: '\e844' !important;
 }
 
 .dropright .dropdown-toggle::after {
-  content: '\E843' !important;
+  content: '\e843' !important;
 }
 
 .input-group .dropdown-menu.show {
@@ -124,18 +124,18 @@ div.dataTables_wrapper div.dataTables_filter {
 }
 
 .pagination .page-item.prev-item .page-link:before {
-  content: "\E844";
+  content: "\e844";
   font-family: 'feather';
 }
 
 .pagination .page-item.next-item .page-link:after {
-  content: "\E843";
+  content: "\e843";
   font-family: 'feather';
 }
 
 .pagination .page-item.prev .page-link:after,
 .pagination .page-item.previous .page-link:after {
-  content: "\E844";
+  content: "\e844";
   font-family: 'feather';
 }
 
@@ -145,7 +145,7 @@ div.dataTables_wrapper div.dataTables_filter {
 }
 
 .pagination .page-item.next .page-link:before {
-  content: "\E843";
+  content: "\e843";
   font-family: 'feather';
 }
 

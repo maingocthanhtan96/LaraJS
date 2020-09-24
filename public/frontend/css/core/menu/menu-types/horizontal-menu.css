@@ -212,7 +212,7 @@
   top: 50%;
   margin-top: -7px;
   right: 1rem;
-  content: "\E844" !important;
+  content: "\e844" !important;
 }
 
 .horizontal-menu .header-navbar.navbar-horizontal .dropdown-menu .dropdown-item {
@@ -423,7 +423,7 @@
 }
 
 .vertical-overlay-menu .main-menu .navigation li.has-sub > a:not(.mm-next):after {
-  content: "\F105";
+  content: "\f105";
   font-family: 'FontAwesome';
   font-size: 1rem;
   display: inline-block;

@@ -19,6 +19,12 @@ html {
   overflow: inherit !important;
 }
 
+//html[theme='dark'] img,
+//picture,
+//video{
+//  filter: invert(1) hue-rotate(180deg);
+//}
+
 #app {
   width: 100%;
   height: 100%;

@@ -914,7 +914,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var core
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/tanmnt/larajs/resources/frontend/js/core/app.js */"./resources/frontend/js/core/app.js");
+module.exports = __webpack_require__(/*! /Applications/Source/tanmnt/larajs/resources/frontend/js/core/app.js */"./resources/frontend/js/core/app.js");
 
 
 /***/ })

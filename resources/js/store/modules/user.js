@@ -41,7 +41,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       login(payload)
         .then(res => {
-          const token = Object.freeze(res.data.access_token);
+          const token = Object.freeze(res.data.data.access_token);
           setToken(token);
           commit(SET_TOKEN, token);
           resolve(res);

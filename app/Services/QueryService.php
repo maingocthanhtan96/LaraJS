@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Carbon\Carbon;
 
@@ -9,7 +10,7 @@ class QueryService extends BaseService
 {
     /**
      * Eloquent model
-     * @var $_model
+     * @var Model $_model
      */
     protected $_model;
 
@@ -37,9 +38,9 @@ class QueryService extends BaseService
     public $withRelationship = [];
     /**
      * Paragraph search in column
-     * @var string
+     * @var ?string
      */
-    public $search = '';
+    public $search;
     /**
      * Start date - End date
      * @var array
@@ -51,10 +52,10 @@ class QueryService extends BaseService
      */
     public $limit = 25;
     /**
-     * ascending = 0, descending = 1
-     * @var int
+     * ascending = '0', descending = '1'
+     * @var string
      */
-    public $ascending = 0;
+    public $ascending = '0';
     /**
      * Column to order
      * @var string
@@ -65,6 +66,11 @@ class QueryService extends BaseService
      * @var string
      */
     public $defaultOrderBy = 'created_at';
+    /**
+     * Always order this column
+     * @var string
+     */
+    public $defaultUpdatedAt = 'updated_at';
     /**
      * Always order
      * @var string
@@ -88,7 +94,7 @@ class QueryService extends BaseService
      */
     public function queryTable()
     {
-        $this->ascending = +$this->ascending === 0 ? 'asc' : 'desc';
+        $this->ascending = $this->ascending === '0' ? 'asc' : 'desc';
 
         $query = $this->_model::query();
         $query->when($this->select, function ($q) {
@@ -114,7 +120,7 @@ class QueryService extends BaseService
         $query->when(isset($this->betweenDate[0]) && isset($this->betweenDate[1]), function ($q) {
             $startDate = Carbon::parse($this->betweenDate[0])->startOfDay();
             $endDate = Carbon::parse($this->betweenDate[1])->endOfDay();
-            $q->whereBetween('updated_at', [$startDate, $endDate]);
+            $q->whereBetween($this->defaultUpdatedAt, [$startDate, $endDate]);
         });
 
         $query->when($this->defaultOrderBy && $this->defaultDescending, function ($q) {

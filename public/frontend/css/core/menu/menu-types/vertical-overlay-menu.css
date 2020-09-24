@@ -49,7 +49,7 @@
 }
 
 .vertical-overlay-menu .main-menu .navigation li.has-sub > a:not(.mm-next):after {
-  content: "\F105";
+  content: "\f105";
   font-family: 'FontAwesome';
   font-size: 1rem;
   display: inline-block;

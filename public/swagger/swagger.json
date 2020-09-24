@@ -7,12 +7,16 @@
             "email": "maingocthanhtan96@gmail.com"
         },
         "license": {
-            "name": "Go to LaraJS",
+            "name": "Go to homepage",
             "url": "/"
         },
         "version": "1.0.0"
     },
     "servers": [
+        {
+            "url": "http://local.larajs.com/api",
+            "description": "Base Api"
+        },
         {
             "url": "http://local.larajs.com/api/v1",
             "description": "Api v1"

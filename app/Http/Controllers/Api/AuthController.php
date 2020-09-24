@@ -36,10 +36,9 @@ class AuthController extends Controller
 
             $tokenRequest = $request->create(config('services.passport.login_endpoint'), 'post');
             $response = \Route::dispatch($tokenRequest);
-
             switch ($response->getStatusCode()) {
                 case Response::HTTP_OK:
-                    return $response->getContent();
+                    return $this->jsonData(json_decode($response->getContent(), true));
                 case Response::HTTP_BAD_REQUEST:
                     return $this->jsonMessage(trans('auth.login_fail'), false, $response->getStatusCode());
                 case Response::HTTP_UNAUTHORIZED:
@@ -64,7 +63,8 @@ class AuthController extends Controller
                 ->tokens->each(function ($token, $key) {
                     $token->delete();
                 });
-            return response()->json('Logged out successfully', 200);
+
+            return $this->jsonMessage('Logged out successfully', 200);
         } catch (\Exception $e) {
             return $this->jsonError($e);
         }

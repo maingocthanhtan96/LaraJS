@@ -1296,7 +1296,7 @@ html [type="button"],
   right: 20px;
   margin-top: -8px;
   font-family: 'feather';
-  content: "\E845";
+  content: "\e845";
   transition: all 300ms linear 0s;
   font-size: 0.9rem;
 }
@@ -1307,7 +1307,7 @@ html [type="button"],
   right: 20px;
   margin-top: -8px;
   font-family: 'feather';
-  content: "\E842";
+  content: "\e842";
   transition: all 300ms linear 0s;
   font-size: 0.9rem;
 }
@@ -1457,7 +1457,7 @@ html [type="button"],
 .dropdown-toggle::after {
   border: none !important;
   font-family: 'feather';
-  content: "\E842" !important;
+  content: "\e842" !important;
   position: relative;
   top: 1px;
   right: 0px;
@@ -1502,7 +1502,7 @@ html [type="button"],
 }
 
 .dropup .dropdown-toggle::after {
-  content: "\E845" !important;
+  content: "\e845" !important;
   vertical-align: 0.05rem;
 }
 
@@ -1544,7 +1544,7 @@ html [type="button"],
 .dropleft .dropdown-toggle::before {
   border: none !important;
   font-family: 'feather';
-  content: "\E843" !important;
+  content: "\e843" !important;
 }
 
 .dropleft .dropdown-menu::before {
@@ -1575,7 +1575,7 @@ html [type="button"],
 .dropright .dropdown-toggle::after {
   border: none !important;
   font-family: 'feather';
-  content: "\E844" !important;
+  content: "\e844" !important;
 }
 
 .dropright .dropdown-menu::before {
@@ -2762,7 +2762,7 @@ body[data-col="1-column"] .header-navbar.floating-nav {
 }
 
 .breadcrumb .breadcrumb-item + .breadcrumb-item:before {
-  content: "\E847";
+  content: "\e847";
   font-family: 'feather';
   color: #626262;
 }
@@ -2812,7 +2812,7 @@ body[data-col="1-column"] .header-navbar.floating-nav {
 }
 
 #component-breadcrumbs .breadcrumb-chevron.breadcrumb .breadcrumb-item + .breadcrumb-item:before {
-  content: "\E844";
+  content: "\e844";
   font-family: 'feather';
   position: relative;
   top: 1px;
@@ -3588,7 +3588,7 @@ _:-ms-lang(x),
 }
 
 .pagination .page-item.prev-item .page-link:before {
-  content: "\E843";
+  content: "\e843";
   font-family: 'feather';
 }
 
@@ -3628,7 +3628,7 @@ _:-ms-lang(x),
 }
 
 .pagination .page-item.next-item .page-link:after {
-  content: "\E844";
+  content: "\e844";
   font-family: 'feather';
 }
 
@@ -3638,12 +3638,12 @@ _:-ms-lang(x),
 }
 
 .pagination .page-item.prev .page-link:before, .pagination .page-item.previous .page-link:before {
-  content: "\E843";
+  content: "\e843";
   font-family: 'feather';
 }
 
 .pagination .page-item.next .page-link:after {
-  content: "\E844";
+  content: "\e844";
   font-family: 'feather';
 }
 

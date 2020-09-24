@@ -12,16 +12,20 @@ use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
+    private $user;
     /**
      * UserController constructor.
+     * @param User $user
      * @author tanmnt
      */
-    function __construct()
+    function __construct(User $user)
     {
         $this->middleware('permission:' . \ACL::PERMISSION_VISIT, ['only' => ['index']]);
         $this->middleware('permission:' . \ACL::PERMISSION_CREATE, ['only' => ['store']]);
         $this->middleware('permission:' . \ACL::PERMISSION_EDIT, ['only' => ['show', 'update']]);
         $this->middleware('permission:' . \ACL::PERMISSION_DELETE, ['only' => ['destroy']]);
+        $this->user = $user;
+        //        dd($this->user);
     }
 
     /** get user information

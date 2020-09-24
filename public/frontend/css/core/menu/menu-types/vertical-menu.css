@@ -92,7 +92,7 @@ body.vertical-layout.vertical-menu-modern.menu-expanded .main-menu .navigation >
 }
 
 body.vertical-layout.vertical-menu-modern.menu-expanded .main-menu .navigation li.has-sub > a:not(.mm-next):after {
-  content: "\F105";
+  content: "\f105";
   font-family: 'FontAwesome';
   font-size: 1.1rem;
   display: inline-block;
@@ -263,7 +263,7 @@ body.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu.expanded .na
 }
 
 body.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu.expanded .navigation li.has-sub > a:not(.mm-next):after {
-  content: "\F105";
+  content: "\f105";
   font-family: 'FontAwesome';
   font-size: 1rem;
   display: inline-block;
@@ -519,7 +519,7 @@ body.vertical-layout.vertical-menu-modern.menu-collapsed.menu-flipped .footer {
 }
 
 .vertical-overlay-menu .main-menu .navigation li.has-sub > a:not(.mm-next):after {
-  content: "\F105";
+  content: "\f105";
   font-family: 'FontAwesome';
   font-size: 1rem;
   display: inline-block;
