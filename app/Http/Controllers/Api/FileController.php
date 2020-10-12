@@ -23,7 +23,7 @@ class FileController extends Controller
             if ($request->file('file')) {
                 $now = Carbon::now();
                 $image = $request->file('file');
-                $folderCreate = "public/uploads/dropzone/$now->year/$now->month/$now->day";
+                $folderCreate = "/uploads/dropzone/$now->year/$now->month/$now->day";
                 $diskLocal = Storage::disk();
                 $fileName = $diskLocal->put($folderCreate, $image);
 
@@ -65,7 +65,7 @@ class FileController extends Controller
             if ($request->file('file')) {
                 $now = Carbon::now();
                 $image = $request->file('file');
-                $folderCreate = "public/uploads/avatars/$now->year/$now->month/$now->day";
+                $folderCreate = "/uploads/avatars/$now->year/$now->month/$now->day";
                 $diskLocal = Storage::disk();
                 $fileName = $diskLocal->put($folderCreate, $image);
                 // Remove file old

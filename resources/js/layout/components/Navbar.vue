@@ -58,7 +58,7 @@ export default {
   },
   data() {
     return {
-      hrefDeveloper: `${process.env.MIX_APP_URL}/swagger/index.html`,
+      hrefDeveloper: `/swagger/index.html`,
     };
   },
   computed: {

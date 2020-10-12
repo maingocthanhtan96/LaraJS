@@ -915,6 +915,7 @@ export default {
 .divTableHeading {
   background-color: #eee;
   display: table-header-group;
+  font-weight: bold;
 }
 
 .divTableCell,
@@ -922,12 +923,6 @@ export default {
   border: 1px solid #999999;
   display: table-cell;
   padding: 3px 10px;
-}
-
-.divTableHeading {
-  background-color: #eee;
-  display: table-header-group;
-  font-weight: bold;
 }
 
 .divTableFoot {
