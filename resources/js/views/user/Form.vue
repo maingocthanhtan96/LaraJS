@@ -216,12 +216,12 @@ export default {
               value
                 ? cb()
                 : cb(
-                    new Error(
-                      this.$t('validation.required', {
-                        attribute: this.$t('table.user.name'),
-                      })
-                    )
-                  );
+                  new Error(
+                    this.$t('validation.required', {
+                      attribute: this.$t('table.user.name'),
+                    })
+                  )
+                );
             },
             trigger: 'blur',
           },
@@ -258,12 +258,12 @@ export default {
               value
                 ? cb()
                 : cb(
-                    new Error(
-                      this.$t('validation.required', {
-                        attribute: this.$t('table.user.avatar'),
-                      })
-                    )
-                  );
+                  new Error(
+                    this.$t('validation.required', {
+                      attribute: this.$t('table.user.avatar'),
+                    })
+                  )
+                );
             },
             trigger: 'blur',
           },
@@ -274,12 +274,12 @@ export default {
               value
                 ? cb()
                 : cb(
-                    new Error(
-                      this.$t('validation.required', {
-                        attribute: this.$t('table.user.role'),
-                      })
-                    )
-                  );
+                  new Error(
+                    this.$t('validation.required', {
+                      attribute: this.$t('table.user.role'),
+                    })
+                  )
+                );
             },
             trigger: 'change',
           },

@@ -350,8 +350,8 @@
                         v-model="data.search"
                         :disabled="
                           disabledMethod(index) ||
-                          !data.show ||
-                          notSearch.includes(data.db_type)
+                            !data.show ||
+                            notSearch.includes(data.db_type)
                         "
                       />
                     </div>
@@ -702,7 +702,7 @@ export default {
       const arDbType = ['YEAR', 'TIME', 'DATETIME', 'DATE', 'BOOLEAN', 'ENUM'];
       return arDbType.indexOf(dbType) !== -1;
     },
-    checkModelMethod: _.debounce(function (cb) {
+    checkModelMethod: _.debounce(function(cb) {
       generatorResource.checkModel(this.formModel.name).then(res => {
         const { message } = res.data;
         if (message === 1) {
@@ -720,7 +720,7 @@ export default {
         }
       });
     }, 500),
-    checkColumnMethod: _.debounce(function (cb, column) {
+    checkColumnMethod: _.debounce(function(cb, column) {
       generatorResource.checkColumn(this.formModel.name, column).then(res => {
         const { message } = res.data;
         if (message === 1) {
