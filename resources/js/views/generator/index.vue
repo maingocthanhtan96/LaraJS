@@ -173,7 +173,7 @@ export default {
     };
   },
   watch: {
-    'table.listQuery.search': debounce(function() {
+    'table.listQuery.search': debounce(function () {
       this.handleFilter();
     }, 500),
   },

@@ -37,7 +37,7 @@ export default {
   props: {
     todo: {
       type: Object,
-      default: function() {
+      default: function () {
         return {};
       },
     },
@@ -49,12 +49,15 @@ export default {
   },
   methods: {
     deleteTodo(todo) {
+      // eslint-disable-next-line vue/custom-event-name-casing
       this.$emit('deleteTodo', todo);
     },
     editTodo({ todo, value }) {
+      // eslint-disable-next-line vue/custom-event-name-casing
       this.$emit('editTodo', { todo, value });
     },
     toggleTodo(todo) {
+      // eslint-disable-next-line vue/custom-event-name-casing
       this.$emit('toggleTodo', todo);
     },
     doneEdit(e) {

@@ -2,9 +2,7 @@
   <el-footer class="main-footer">
     <el-card>
       <div class="flex justify-between items-center">
-        <div>
-          Copyright © 2019. All rights reserved.
-        </div>
+        <div>Copyright © 2019. All rights reserved.</div>
         <div>
           Designed by:
           <a href="#" class="no-underline font-bold">Mai Ngọc Thanh Tân</a>

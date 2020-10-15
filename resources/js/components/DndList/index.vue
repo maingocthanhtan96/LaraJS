@@ -16,12 +16,12 @@
           <div class="list-complete-item-handle">
             {{ element.id }}[{{ element.author }}] {{ element.title }}
           </div>
-          <div style="position:absolute;right:0px;">
+          <div style="position: absolute; right: 0px">
             <span
-              style="float: right ;margin-top: -20px;margin-right:5px;"
+              style="float: right; margin-top: -20px; margin-right: 5px"
               @click="deleteEle(element)"
             >
-              <i style="color:#ff4949" class="el-icon-delete" />
+              <i style="color: #ff4949" class="el-icon-delete" />
             </span>
           </div>
         </div>
@@ -91,11 +91,13 @@ export default {
       for (const item of this.list1) {
         if (item.id === ele.id) {
           const index = this.list1.indexOf(item);
+          // eslint-disable-next-line vue/no-mutating-props
           this.list1.splice(index, 1);
           break;
         }
       }
       if (this.isNotInList2(ele)) {
+        // eslint-disable-next-line vue/no-mutating-props
         this.list2.unshift(ele);
       }
     },
@@ -103,11 +105,13 @@ export default {
       for (const item of this.list2) {
         if (item.id === ele.id) {
           const index = this.list2.indexOf(item);
+          // eslint-disable-next-line vue/no-mutating-props
           this.list2.splice(index, 1);
           break;
         }
       }
       if (this.isNotInList1(ele)) {
+        // eslint-disable-next-line vue/no-mutating-props
         this.list1.push(ele);
       }
     },

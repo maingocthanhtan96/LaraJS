@@ -520,7 +520,7 @@ export default {
       const that = this;
       const fr = new FileReader();
 
-      fr.onload = function(e) {
+      fr.onload = function (e) {
         that.sourceImgUrl = fr.result;
         that.startCrop();
       };
@@ -541,7 +541,7 @@ export default {
       const sim = sourceImgMasking;
       const img = new Image();
       img.src = sourceImgUrl;
-      img.onload = function() {
+      img.onload = function () {
         const nWidth = img.naturalWidth;
         const nHeight = img.naturalHeight;
         const nRatio = nWidth / nHeight;
@@ -644,7 +644,7 @@ export default {
         if (scale.rotateRight) {
           const degree = ++scale.degree;
           that.createImg(degree);
-          setTimeout(function() {
+          setTimeout(function () {
             rotate();
           }, 60);
         }
@@ -662,7 +662,7 @@ export default {
         if (scale.rotateLeft) {
           const degree = --scale.degree;
           that.createImg(degree);
-          setTimeout(function() {
+          setTimeout(function () {
             rotate();
           }, 60);
         }
@@ -686,7 +686,7 @@ export default {
         if (scale.zoomAddOn) {
           const range = scale.range >= 100 ? 100 : ++scale.range;
           that.zoomImg(range);
-          setTimeout(function() {
+          setTimeout(function () {
             zoom();
           }, 60);
         }
@@ -708,7 +708,7 @@ export default {
         if (scale.zoomSubOn) {
           const range = scale.range <= 0 ? 0 : --scale.range;
           that.zoomImg(range);
-          setTimeout(function() {
+          setTimeout(function () {
             zoom();
           }, 60);
         }
@@ -768,7 +768,7 @@ export default {
       scale.width = nWidth;
       scale.height = nHeight;
       scale.range = newRange;
-      setTimeout(function() {
+      setTimeout(function () {
         if (scale.range === newRange) {
           that.createImg();
         }
@@ -844,7 +844,7 @@ export default {
         });
       }
       // Monitor progress callback
-      const uploadProgress = function(event) {
+      const uploadProgress = function (event) {
         if (event.lengthComputable) {
           that.progress = (100 * Math.round(event.loaded)) / event.total;
         }

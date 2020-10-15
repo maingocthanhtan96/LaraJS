@@ -10,7 +10,7 @@
             tag="button"
           >
             <i class="el-icon-plus mr-2" />
-            {{ this.$t('button.create') }}
+            {{ $t('button.create') }}
           </router-link>
         </div>
         <div class="flex flex-col">
@@ -167,7 +167,7 @@ export default {
     };
   },
   watch: {
-    'table.listQuery.search': debounce(function() {
+    'table.listQuery.search': debounce(function () {
       this.handleFilter();
     }, 500),
   },

@@ -16,7 +16,7 @@
       Drop excel file here or
       <el-button
         :loading="loading"
-        style="margin-left:16px;"
+        style="margin-left: 16px"
         size="mini"
         type="primary"
         @click="handleUpload"

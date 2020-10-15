@@ -2,10 +2,10 @@
   <div v-if="errorLogs.length > 0">
     <el-badge
       :is-dot="true"
-      style="line-height: 25px;margin-top: -5px;"
+      style="line-height: 25px; margin-top: -5px"
       @click.native="dialogTableVisible = true"
     >
-      <el-button style="padding: 8px 10px;" size="small" type="danger">
+      <el-button style="padding: 8px 10px" size="small" type="danger">
         <svg-icon icon-class="bug" />
       </el-button>
     </el-badge>
@@ -27,7 +27,7 @@
             </div>
             <br />
             <div>
-              <span class="message-title" style="padding-right: 10px;">
+              <span class="message-title" style="padding-right: 10px">
                 Info:
               </span>
               <el-tag type="warning">
@@ -36,7 +36,7 @@
             </div>
             <br />
             <div>
-              <span class="message-title" style="padding-right: 16px;">
+              <span class="message-title" style="padding-right: 16px">
                 Url:
               </span>
               <el-tag type="success">

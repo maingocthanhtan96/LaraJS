@@ -18,7 +18,7 @@ function generateArray(table) {
       if (cellValue !== '' && cellValue == +cellValue) cellValue = +cellValue;
 
       //Skip ranges
-      ranges.forEach(function(range) {
+      ranges.forEach(function (range) {
         if (
           R >= range.s.r &&
           R <= range.e.r &&
