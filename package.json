@@ -2,8 +2,8 @@
     "private": true,
     "scripts": {
         "dev": "npm run dev.js && npm run dev.css",
-        "watch": "npm run watch.js && npm run watch.css",
-        "watch-all": "npm run watch.js && npm run watch.css && npm run watch-fe",
+        "watch": "concurrently \"npm run watch.js\" \"npm run watch.css\"",
+        "watch-all": "concurrently \"npm run watch.js\" \"npm run watch.css\" \"npm run watch-fe\"",
         "prod-all": "npm run prod-fe && npm run prod",
         "prod": "npm run prod.js && npm run prod.css",
         "report": "npm run prod.js.report",

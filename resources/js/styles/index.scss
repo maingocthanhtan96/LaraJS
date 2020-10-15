@@ -25,6 +25,10 @@ html {
 //  filter: invert(1) hue-rotate(180deg);
 //}
 
+:focus {
+  outline: 0 !important;
+}
+
 #app {
   width: 100%;
   height: 100%;

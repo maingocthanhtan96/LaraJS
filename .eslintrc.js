@@ -176,7 +176,14 @@ module.exports = {
         after: true,
       },
     ],
-    'space-before-function-paren': [2, 'never'],
+    'space-before-function-paren': [
+      2,
+      {
+        anonymous: 'never',
+        named: 'never',
+        asyncArrow: 'always',
+      },
+    ],
     'space-in-parens': [2, 'never'],
     'space-infix-ops': 2,
     'space-unary-ops': [

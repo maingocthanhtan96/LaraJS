@@ -51,7 +51,7 @@ export default {
     this.$el.innerText = this.content;
   },
   methods: {
-    update: function(event) {
+    update: function (event) {
       if (this.countChars(this.$el.innerText) <= this.maxlength) {
         this.textCurrent = event.target.innerText;
         this.$emit('update', event.target.innerText);
@@ -60,10 +60,10 @@ export default {
       }
     },
     // count japan
-    countChars: function(str) {
+    countChars: function (str) {
       return str.replace(/[\u0080-\u10FFFF]/g, 'x').length;
     },
-    checkEnter: function(event) {
+    checkEnter: function (event) {
       if (!this.enter) {
         return event.preventDefault();
       }

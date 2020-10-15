@@ -1,6 +1,6 @@
 import lazyLoad from './lazyLoad';
 
-const install = function(Vue) {
+const install = function (Vue) {
   Vue.directive('lazy-load-img', lazyLoad);
 };
 
