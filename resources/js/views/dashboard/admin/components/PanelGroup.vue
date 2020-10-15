@@ -6,9 +6,7 @@
           <svg-icon icon-class="peoples" class-name="card-panel-icon" />
         </div>
         <div class="card-panel-description">
-          <div class="card-panel-text">
-            Mai
-          </div>
+          <div class="card-panel-text">Mai</div>
           <count-to
             :start-val="0"
             :end-val="102400"
@@ -24,9 +22,7 @@
           <svg-icon icon-class="message" class-name="card-panel-icon" />
         </div>
         <div class="card-panel-description">
-          <div class="card-panel-text">
-            Ngoc
-          </div>
+          <div class="card-panel-text">Ngoc</div>
           <count-to
             :start-val="0"
             :end-val="81212"
@@ -42,9 +38,7 @@
           <svg-icon icon-class="money" class-name="card-panel-icon" />
         </div>
         <div class="card-panel-description">
-          <div class="card-panel-text">
-            Thanh
-          </div>
+          <div class="card-panel-text">Thanh</div>
           <count-to
             :start-val="0"
             :end-val="9280"
@@ -60,9 +54,7 @@
           <svg-icon icon-class="shopping" class-name="card-panel-icon" />
         </div>
         <div class="card-panel-description">
-          <div class="card-panel-text">
-            Tan
-          </div>
+          <div class="card-panel-text">Tan</div>
           <count-to
             :start-val="0"
             :end-val="13600"
@@ -84,6 +76,7 @@ export default {
   },
   methods: {
     handleSetLineChartData(type) {
+      // eslint-disable-next-line vue/custom-event-name-casing
       this.$emit('handleSetLineChartData', type);
     },
   },

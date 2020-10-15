@@ -119,32 +119,32 @@
                   </div>
                   <div
                     class="divTableCell text-center"
-                    style="max-width: 70px; width: 70px;"
+                    style="max-width: 70px; width: 70px"
                   >
                     <b>{{ $t('generator.search') }}</b>
                   </div>
                   <div
                     class="divTableCell text-center"
-                    style="max-width: 70px; width: 70px;"
+                    style="max-width: 70px; width: 70px"
                   >
                     <b>{{ $t('generator.sort') }}</b>
                   </div>
                   <div
                     class="divTableCell text-center"
-                    style="max-width: 70px; width: 70px;"
+                    style="max-width: 70px; width: 70px"
                   >
                     <b>{{ $t('generator.show') }}</b>
                   </div>
                   <div
                     class="divTableCell text-center"
-                    style="max-width: 70px; width: 70px;"
+                    style="max-width: 70px; width: 70px"
                   >
                     <b>{{ $t('generator.delete') }}</b>
                   </div>
                 </div>
                 <draggable
                   v-model="form"
-                  style="display: contents;"
+                  style="display: contents"
                   :options="{ draggable: '.draggable', animation: 400 }"
                 >
                   <el-form
@@ -350,8 +350,8 @@
                         v-model="data.search"
                         :disabled="
                           disabledMethod(index) ||
-                            !data.show ||
-                            notSearch.includes(data.db_type)
+                          !data.show ||
+                          notSearch.includes(data.db_type)
                         "
                       />
                     </div>
@@ -702,7 +702,7 @@ export default {
       const arDbType = ['YEAR', 'TIME', 'DATETIME', 'DATE', 'BOOLEAN', 'ENUM'];
       return arDbType.indexOf(dbType) !== -1;
     },
-    checkModelMethod: _.debounce(function(cb) {
+    checkModelMethod: _.debounce(function (cb) {
       generatorResource.checkModel(this.formModel.name).then(res => {
         const { message } = res.data;
         if (message === 1) {
@@ -720,7 +720,7 @@ export default {
         }
       });
     }, 500),
-    checkColumnMethod: _.debounce(function(cb, column) {
+    checkColumnMethod: _.debounce(function (cb, column) {
       generatorResource.checkColumn(this.formModel.name, column).then(res => {
         const { message } = res.data;
         if (message === 1) {

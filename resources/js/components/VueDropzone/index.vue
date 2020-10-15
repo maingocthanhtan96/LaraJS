@@ -70,9 +70,11 @@ export default {
   },
   methods: {
     addFile(file) {
+      // eslint-disable-next-line vue/custom-event-name-casing
       this.$emit('addedFile', file);
     },
     removeFile(file, error, xhr) {
+      // eslint-disable-next-line vue/custom-event-name-casing
       this.$emit('removedFile', file, error, xhr);
     },
     success(file, response) {

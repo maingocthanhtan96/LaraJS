@@ -33,9 +33,7 @@
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item @click.native="logout">
-            Log Out
-          </el-dropdown-item>
+          <el-dropdown-item @click.native="logout">Log Out</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
