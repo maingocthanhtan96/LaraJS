@@ -28,7 +28,7 @@ export default {
   props: {
     id: {
       type: String,
-      default: function() {
+      default: function () {
         return (
           'vue-tinymce-' +
           +new Date() +
@@ -161,7 +161,7 @@ export default {
             _this.fullscreen = e.state;
           });
         },
-        file_browser_callback: function(field_name, url, type, win) {
+        file_browser_callback: function (field_name, url, type, win) {
           const x =
             window.innerWidth ||
             document.documentElement.clientWidth ||

@@ -2,9 +2,7 @@
   <div class="dashboard-editor-container">
     <panel-group @handleSetLineChartData="handleSetLineChartData" />
 
-    <el-row
-      style="background: #fff; padding: 16px 16px 0; margin-bottom: 32px;"
-    >
+    <el-row style="background: #fff; padding: 16px 16px 0; margin-bottom: 32px">
       <line-chart :chart-data="lineChartData" />
     </el-row>
 
@@ -33,7 +31,7 @@
         :md="{ span: 24 }"
         :lg="{ span: 12 }"
         :xl="{ span: 12 }"
-        style="padding-right: 8px; margin-bottom: 30px;"
+        style="padding-right: 8px; margin-bottom: 30px"
       />
       <el-col
         :xs="{ span: 24 }"
@@ -41,7 +39,7 @@
         :md="{ span: 12 }"
         :lg="{ span: 6 }"
         :xl="{ span: 6 }"
-        style="margin-bottom: 30px;"
+        style="margin-bottom: 30px"
       >
         <todo-list />
       </el-col>
@@ -51,7 +49,7 @@
         :md="{ span: 12 }"
         :lg="{ span: 6 }"
         :xl="{ span: 6 }"
-        style="margin-bottom: 30px;"
+        style="margin-bottom: 30px"
       >
         <box-card />
       </el-col>

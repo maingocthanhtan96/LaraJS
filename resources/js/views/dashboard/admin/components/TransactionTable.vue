@@ -2,7 +2,7 @@
   <el-table
     v-loading="loading"
     :data="list"
-    style="width: 100%;padding-top: 15px;"
+    style="width: 100%; padding-top: 15px"
   >
     <el-table-column label="Order #" min-width="200">
       <template slot-scope="scope">

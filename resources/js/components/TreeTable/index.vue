@@ -34,7 +34,7 @@
             <el-checkbox
               v-if="
                 scope.row[defaultChildren] &&
-                  scope.row[defaultChildren].length > 0
+                scope.row[defaultChildren].length > 0
               "
               v-model="scope.row._select"
               :style="{ 'padding-left': +scope.row._level * indent + 'px' }"
@@ -111,6 +111,7 @@ export default {
       if (row._parent) {
         row._parent.children.push(data);
       } else {
+        // eslint-disable-next-line vue/no-mutating-props
         this.data.push(data);
       }
     },
@@ -125,13 +126,14 @@ export default {
       if (_parent) {
         _parent.children.splice(_index, 1);
       } else {
+        // eslint-disable-next-line vue/no-mutating-props
         this.data.splice(_index, 1);
       }
     },
     getData() {
       return this.tableData;
     },
-    showRow: function({ row }) {
+    showRow: function ({ row }) {
       const parent = row._parent;
       const show = parent ? parent._expand && parent._show : true;
       row._show = show;
@@ -172,6 +174,7 @@ export default {
           _parent.children.splice(index, 1, item);
           resolve(this.data);
         } else {
+          // eslint-disable-next-line vue/no-mutating-props
           this.data.splice(index, 1, item);
           resolve(this.data);
         }

@@ -170,9 +170,11 @@ export default {
       vm.$emit('dropzone-success', file, vm.dropzone.element);
     });
     this.dropzone.on('addedfile', file => {
+      // eslint-disable-next-line vue/custom-event-name-casing
       vm.$emit('dropzone-fileAdded', file);
     });
     this.dropzone.on('removedfile', file => {
+      // eslint-disable-next-line vue/custom-event-name-casing
       vm.$emit('dropzone-removedFile', file);
     });
     this.dropzone.on('error', (file, error, xhr) => {

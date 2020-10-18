@@ -423,3 +423,16 @@ export function checkNested(obj /*, level1, level2, ... levelN*/) {
   }
   return true;
 }
+
+export function downloadTagA(path, filename) {
+  const element = document.createElement('a');
+  element.setAttribute('href', path);
+  element.setAttribute('download', filename);
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}

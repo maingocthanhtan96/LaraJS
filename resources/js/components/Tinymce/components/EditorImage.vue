@@ -21,16 +21,10 @@
         action="https://httpbin.org/post"
         list-type="picture-card"
       >
-        <el-button size="small" type="primary">
-          Click upload
-        </el-button>
+        <el-button size="small" type="primary">Click upload</el-button>
       </el-upload>
-      <el-button @click="dialogVisible = false">
-        Cancel
-      </el-button>
-      <el-button type="primary" @click="handleSubmit">
-        Confirm
-      </el-button>
+      <el-button @click="dialogVisible = false">Cancel</el-button>
+      <el-button type="primary" @click="handleSubmit">Confirm</el-button>
     </el-dialog>
   </div>
 </template>
@@ -67,6 +61,7 @@ export default {
         );
         return;
       }
+      // eslint-disable-next-line
       this.$emit('successCBK', arr);
       this.listObj = {};
       this.fileList = [];
@@ -101,7 +96,7 @@ export default {
       return new Promise((resolve, reject) => {
         const img = new Image();
         img.src = _URL.createObjectURL(file);
-        img.onload = function() {
+        img.onload = function () {
           _self.listObj[fileName] = {
             hasSuccess: false,
             uid: file.uid,

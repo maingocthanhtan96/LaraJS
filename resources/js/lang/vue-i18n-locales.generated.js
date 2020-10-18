@@ -49,7 +49,7 @@ export default {
     error: {
       is_admin: 'Can not delete admin user',
       file_not_found: 'File not found!',
-      '404': 'Page Not Found. Check if you entered an invalid link!',
+      404: 'Page Not Found. Check if you entered an invalid link!',
     },
     date: {
       created_at: 'Create date',
@@ -333,7 +333,7 @@ export default {
     error: {
       is_admin: 'Can not delete admin user',
       file_not_found: 'File not found!',
-      '404': 'Page Not Found. Check if you entered an invalid link!',
+      404: 'Page Not Found. Check if you entered an invalid link!',
     },
     date: {
       created_at: 'Create date',
@@ -607,8 +607,7 @@ export default {
     error: {
       is_admin: 'Không thể xóa Admin',
       file_not_found: 'File không tồn tại!',
-      '404':
-        'Không tìm thấy trang. Kiểm tra nếu bạn nhập một liên kết không hợp lệ!',
+      404: 'Không tìm thấy trang. Kiểm tra nếu bạn nhập một liên kết không hợp lệ!',
     },
     date: {
       created_at: 'Ngày tạo',

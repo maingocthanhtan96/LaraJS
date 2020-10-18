@@ -10,7 +10,7 @@
             tag="button"
           >
             <i class="el-icon-plus mr-2" />
-            {{ this.$t('button.create') }}
+            {{ $t('button.create') }}
           </router-link>
         </div>
         <div class="flex flex-col">

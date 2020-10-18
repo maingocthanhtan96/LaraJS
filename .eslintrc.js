@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
   root: true,
   parserOptions: {
@@ -9,31 +11,9 @@ module.exports = {
     node: true,
     es6: true,
   },
-  extends: [
-    'plugin:vue/recommended',
-    'eslint:recommended',
-    'plugin:prettier/recommended',
-    'prettier/vue',
-  ],
-  // add your custom rules here
-  // it is base on https://github.com/vuejs/eslint-config-vue
+  extends: ['plugin:vue/recommended', 'eslint:recommended'],
   rules: {
-    'prettier/prettier': ['error'],
-    'vue/max-attributes-per-line': [
-      2,
-      {
-        singleline: 20,
-        multiline: {
-          max: 1,
-          allowFirstLine: false,
-        },
-      },
-    ],
-    'vue/singleline-html-element-content-newline': 'off',
-    'vue/multiline-html-element-content-newline': 'off',
-    'vue/name-property-casing': ['error', 'PascalCase'],
-    'vue/no-v-html': 'off',
-    'accessor-pairs': 2,
+    'array-bracket-spacing': [2, 'never'],
     'arrow-spacing': [
       2,
       {
@@ -42,13 +22,7 @@ module.exports = {
       },
     ],
     'block-spacing': [2, 'always'],
-    'brace-style': [
-      2,
-      '1tbs',
-      {
-        allowSingleLine: true,
-      },
-    ],
+    'brace-style': [2, '1tbs'],
     camelcase: [
       0,
       {
@@ -56,13 +30,12 @@ module.exports = {
       },
     ],
     'comma-dangle': [
-      2,
+      'error',
       {
-        arrays: 'always-multiline',
+        functions: 'never',
         objects: 'always-multiline',
+        arrays: 'always-multiline',
         imports: 'always-multiline',
-        exports: 'always-multiline',
-        functions: 'ignore',
       },
     ],
     'comma-spacing': [
@@ -72,24 +45,19 @@ module.exports = {
         after: true,
       },
     ],
-    'comma-style': [2, 'last'],
-    'constructor-super': 2,
-    curly: [2, 'multi-line'],
+    'comma-style': ['error', 'last'],
+    curly: [2, 'all'],
     'dot-location': [2, 'property'],
     'eol-last': 2,
     eqeqeq: ['error', 'always', { null: 'ignore' }],
-    'generator-star-spacing': [
+    'handle-callback-err': [2, '^(err|error)$'],
+    indent: [
+      2,
       2,
       {
-        before: true,
-        after: true,
+        SwitchCase: 1,
       },
     ],
-    'handle-callback-err': [2, '^(err|error)$'],
-    // 'indent': [2, 2, {
-    //   'SwitchCase': 1
-    // }],
-    'vue/html-self-closing': ['off'],
     'jsx-quotes': [2, 'prefer-single'],
     'key-spacing': [
       2,
@@ -116,30 +84,13 @@ module.exports = {
     'no-array-constructor': 2,
     'no-caller': 2,
     'no-console': 'off',
-    'no-class-assign': 2,
-    'no-cond-assign': 2,
-    'no-const-assign': 2,
-    'no-control-regex': 0,
-    'no-delete-var': 2,
-    'no-dupe-args': 2,
-    'no-dupe-class-members': 2,
-    'no-dupe-keys': 2,
-    'no-duplicate-case': 2,
-    'no-empty-character-class': 2,
-    'no-empty-pattern': 2,
+    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
     'no-eval': 2,
-    'no-ex-assign': 2,
     'no-extend-native': 2,
-    'no-extra-bind': 2,
-    'no-extra-boolean-cast': 2,
     'no-extra-parens': [2, 'functions'],
-    'no-fallthrough': 2,
     'no-floating-decimal': 2,
-    'no-func-assign': 2,
     'no-implied-eval': 2,
     'no-inner-declarations': [2, 'functions'],
-    'no-invalid-regexp': 2,
-    'no-irregular-whitespace': 2,
     'no-iterator': 2,
     'no-label-var': 2,
     'no-labels': [
@@ -150,9 +101,7 @@ module.exports = {
       },
     ],
     'no-lone-blocks': 2,
-    'no-mixed-spaces-and-tabs': 2,
     'no-multi-spaces': 2,
-    'no-multi-str': 2,
     'no-multiple-empty-lines': [
       2,
       {
@@ -163,28 +112,17 @@ module.exports = {
     'no-negated-in-lhs': 2,
     'no-new-object': 2,
     'no-new-require': 2,
-    'no-new-symbol': 2,
     'no-new-wrappers': 2,
-    'no-obj-calls': 2,
-    'no-octal': 2,
     'no-octal-escape': 2,
     'no-path-concat': 2,
     'no-proto': 2,
-    'no-redeclare': 2,
-    'no-regex-spaces': 2,
     'no-return-assign': [2, 'except-parens'],
-    'no-self-assign': 2,
     'no-self-compare': 2,
     'no-sequences': 2,
-    'no-shadow-restricted-names': 2,
     'no-spaced-func': 2,
-    'no-sparse-arrays': 2,
-    'no-this-before-super': 2,
     'no-throw-literal': 2,
     'no-trailing-spaces': 2,
-    'no-undef': 2,
     'no-undef-init': 2,
-    'no-unexpected-multiline': 2,
     'no-unmodified-loop-condition': 2,
     'no-unneeded-ternary': [
       2,
@@ -192,8 +130,6 @@ module.exports = {
         defaultAssignment: false,
       },
     ],
-    'no-unreachable': 2,
-    'no-unsafe-finally': 2,
     'no-unused-vars': [
       2,
       {
@@ -202,15 +138,15 @@ module.exports = {
       },
     ],
     'no-useless-call': 2,
+    'no-useless-escape': 0,
     'no-useless-computed-key': 2,
     'no-useless-constructor': 2,
-    'no-useless-escape': 0,
     'no-whitespace-before-property': 2,
-    'no-with': 2,
-    'one-var': [
+    'object-curly-spacing': [
       2,
+      'always',
       {
-        initialized: 'never',
+        objectsInObjects: false,
       },
     ],
     'operator-linebreak': [
@@ -232,7 +168,7 @@ module.exports = {
         allowTemplateLiterals: true,
       },
     ],
-    semi: [2, 'always'],
+    semi: ['error', 'always'],
     'semi-spacing': [
       2,
       {
@@ -240,7 +176,6 @@ module.exports = {
         after: true,
       },
     ],
-    'space-before-blocks': [2, 'always'],
     'space-before-function-paren': [
       2,
       {
@@ -274,20 +209,24 @@ module.exports = {
       },
     ],
     'template-curly-spacing': [2, 'never'],
-    'use-isnan': 2,
-    'valid-typeof': 2,
     'wrap-iife': [2, 'any'],
     'yield-star-spacing': [2, 'both'],
     yoda: [2, 'never'],
     'prefer-const': 2,
-    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
-    'object-curly-spacing': [
+    'vue/max-attributes-per-line': [
       2,
-      'always',
       {
-        objectsInObjects: false,
+        singleline: 10,
+        multiline: {
+          max: 1,
+          allowFirstLine: false,
+        },
       },
     ],
-    'array-bracket-spacing': [2, 'never'],
+    'vue/name-property-casing': ['error', 'PascalCase'],
+    'vue/no-v-html': 'off',
+    'vue/multiline-html-element-content-newline': 'off',
+    'vue/singleline-html-element-content-newline': 'off',
+    'vue/html-self-closing': 'off',
   },
 };
