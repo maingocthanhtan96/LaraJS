@@ -367,8 +367,6 @@
                         "default": "None"
                     },
                     "role_id": {
-                        "description": "You cann't set id as 1(role: admin)",
-                        "default": "None",
                         "$ref": "#/components/schemas/Role"
                     },
                     "password": {

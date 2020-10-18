@@ -7,7 +7,7 @@
 }
 
 .bg-white .card-header,
-  .bg-white .card-footer {
+.bg-white .card-footer {
   background-color: transparent;
 }
 
@@ -251,7 +251,7 @@ input:focus ~ .bg-white {
 }
 
 .bg-black .card-header,
-  .bg-black .card-footer {
+.bg-black .card-footer {
   background-color: transparent;
 }
 
@@ -495,7 +495,7 @@ input:focus ~ .bg-black {
 }
 
 .bg-dark .card-header,
-  .bg-dark .card-footer {
+.bg-dark .card-footer {
   background-color: transparent;
 }
 
@@ -801,7 +801,7 @@ input:focus ~ .bg-dark {
 }
 
 .bg-light .card-header,
-  .bg-light .card-footer {
+.bg-light .card-footer {
   background-color: transparent;
 }
 
@@ -1479,7 +1479,7 @@ input:focus ~ .bg-primary {
 }
 
 .bg-primary .card-header,
-  .bg-primary .card-footer {
+.bg-primary .card-footer {
   background-color: transparent;
 }
 
@@ -2653,7 +2653,7 @@ input:focus ~ .bg-secondary {
 }
 
 .bg-secondary .card-header,
-  .bg-secondary .card-footer {
+.bg-secondary .card-footer {
   background-color: transparent;
 }
 
@@ -3579,7 +3579,7 @@ input:focus ~ .bg-success {
 }
 
 .bg-success .card-header,
-  .bg-success .card-footer {
+.bg-success .card-footer {
   background-color: transparent;
 }
 
@@ -4753,7 +4753,7 @@ input:focus ~ .bg-info {
 }
 
 .bg-info .card-header,
-  .bg-info .card-footer {
+.bg-info .card-footer {
   background-color: transparent;
 }
 
@@ -5927,7 +5927,7 @@ input:focus ~ .bg-warning {
 }
 
 .bg-warning .card-header,
-  .bg-warning .card-footer {
+.bg-warning .card-footer {
   background-color: transparent;
 }
 
@@ -7101,7 +7101,7 @@ input:focus ~ .bg-danger {
 }
 
 .bg-danger .card-header,
-  .bg-danger .card-footer {
+.bg-danger .card-footer {
   background-color: transparent;
 }
 
