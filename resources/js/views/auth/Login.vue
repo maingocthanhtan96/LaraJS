@@ -94,6 +94,7 @@ export default {
         },
       ],
       redirect: undefined,
+      otherQuery: {},
     };
   },
   computed: {
@@ -125,7 +126,11 @@ export default {
   watch: {
     $route: {
       handler: function(route) {
-        this.redirect = route.query && route.query.redirect;
+        const query = route.query;
+        if (query) {
+          this.redirect = query.redirect;
+          this.otherQuery = this.getOtherQuery(query);
+        }
       },
       immediate: true,
     },
@@ -144,9 +149,7 @@ export default {
             .dispatch(`user/${LOGIN}`, this.form)
             .then(() => {
               this.loading = false;
-              this.$router.push({
-                path: this.redirect || this.$store.state.settings.redirect,
-              });
+              this.$router.replace({ path: this.redirect || this.$store.state.settings.redirect, query: this.otherQuery }, onAbort => {});
             })
             .catch(() => {
               this.loading = false;
@@ -156,6 +159,14 @@ export default {
           return false;
         }
       });
+    },
+    getOtherQuery(query) {
+      return Object.keys(query).reduce((acc, cur) => {
+        if (cur !== 'redirect') {
+          acc[cur] = query[cur];
+        }
+        return acc;
+      }, {});
     },
   },
 };

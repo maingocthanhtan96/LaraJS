@@ -8,7 +8,7 @@ const dashboard = {
   children: [
     {
       path: '/dashboard',
-      name: 'dashboard',
+      name: 'Dashboard',
       component: () => import('@/views/dashboard'),
       meta: {
         title: 'dashboard',
