@@ -26,7 +26,7 @@ class MigrationUpdateGenerator extends BaseGenerator
         $this->path = config('generator.path.laravel.migration');
 
         $this->generate($generator, $updateFields, $model);
-        if (!empty($updateFields['changeFields'])) {
+        if (count($updateFields['changeFields']) > 0) {
             sleep(1); // sleep 1 second to create migrate run after
             $this->generateChange($generator, $updateFields, $model);
         }
@@ -69,9 +69,10 @@ class MigrationUpdateGenerator extends BaseGenerator
         $timeName = date('YmdHis');
         $pathTemplate = 'Databases/Migrations/';
         $templateData = $this->serviceGenerator->get_template('migrationChange', $pathTemplate);
+        $generateFieldChangeUp = $this->generateFieldsChangeUp($generator, $updateFields);
         $templateData = str_replace(
             '{{FIELDS_UP}}',
-            $this->generateFieldsChangeUp($generator, $updateFields),
+            $generateFieldChangeUp,
             $templateData,
         );
         $templateData = str_replace(
@@ -94,7 +95,9 @@ class MigrationUpdateGenerator extends BaseGenerator
         $fileName =
             date('Y_m_d_His') . '_' . 'change_' . $this->serviceGenerator->tableName($model['name']) . '_' . $timeName . '_table.php';
 
-        $this->serviceFile->createFile($this->path, $fileName, $templateData);
+        if ($generateFieldChangeUp) {
+            $this->serviceFile->createFile($this->path, $fileName, $templateData);
+        }
     }
 
     private function generateFieldsUp($updateFields)
@@ -141,6 +144,9 @@ class MigrationUpdateGenerator extends BaseGenerator
                 $table .= '->nullable()';
             } elseif ($field['default_value'] === $configDefaultValue['as_define']) {
                 $table .= '->nullable()->default("' . $field['as_define'] . '")';
+            }
+            if ($field['options']['comment']) {
+                $table .= '->comment("'.$field['options']['comment'].'")';
             }
             if ($table) {
                 $table .= $afterColumn . '; // Update';
@@ -256,7 +262,7 @@ class MigrationUpdateGenerator extends BaseGenerator
         foreach ($updateFields['changeFields'] as $change) {
             foreach ($formFields as $index => $field) {
                 if ($change['id'] === $field['id']) {
-                    if ($change['db_type'] !== $field['db_type']) {
+                    if ($change['db_type'] !== $field['db_type'] || $change['options']['comment'] !== $field['options']['comment']) {
                         $tableChange = '';
                         foreach ($configDBType as $typeLaravel => $typeDB) {
                             if ($change['db_type'] === $configDBType['string']) {
@@ -285,6 +291,9 @@ class MigrationUpdateGenerator extends BaseGenerator
                             $tableChange .= '->nullable()';
                         } elseif ($change['default_value'] === $configDefaultValue['as_define']) {
                             $tableChange .= '->nullable()->default("' . $change['as_define'] . '")';
+                        }
+                        if ($change['options']['comment']) {
+                            $tableChange .= '->comment("'.$change['options']['comment'].'")';
                         }
                         $tableChange .= '->change(); // Change';
                         $fieldsGenerate[] = $tableChange;
@@ -308,7 +317,7 @@ class MigrationUpdateGenerator extends BaseGenerator
         foreach ($updateFields['changeFields'] as $changeNew) {
             foreach ($formFields as $change) {
                 if ($change['id'] === $changeNew['id']) {
-                    if ($change['db_type'] !== $changeNew['db_type']) {
+                    if ($change['db_type'] !== $changeNew['db_type'] || $change['options']['comment'] !== $changeNew['options']['comment']) {
                         $tableChange = '';
                         foreach ($configDBType as $typeLaravel => $typeDB) {
                             if ($change['db_type'] === $configDBType['string']) {
@@ -339,6 +348,9 @@ class MigrationUpdateGenerator extends BaseGenerator
                             $tableChange .= '->nullable()';
                         } elseif ($change['default_value'] === $configDefaultValue['as_define']) {
                             $tableChange .= '->nullable()->default("' . $change['as_define'] . '")';
+                        }
+                        if ($change['options']['comment']) {
+                            $tableChange .= '->comment("'.$change['options']['comment'].'")';
                         }
                         if ($tableChange) {
                             $tableChange .= '->change(); // Reverse change';

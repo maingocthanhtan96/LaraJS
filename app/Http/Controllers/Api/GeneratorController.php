@@ -87,7 +87,6 @@ class GeneratorController extends Controller
     public function store(Request $request)
     {
         try {
-            dd($request->all());
             $fields = $request->get('fields', []);
             $model = $request->get('model', []);
             // git commit

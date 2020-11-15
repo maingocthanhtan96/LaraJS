@@ -95,6 +95,9 @@ class MigrationGenerator extends BaseGenerator
             } elseif ($field['default_value'] === $configDefaultValue['as_define']) {
                 $table .= '->nullable()->default("' . $field['as_define'] . '")';
             }
+            if ($field['options']['comment']) {
+                $table .= '->comment("'.$field['options']['comment'].'")';
+            }
             if ($index > 0) {
                 $table .= ';';
                 $fieldsGenerate[] = $table;

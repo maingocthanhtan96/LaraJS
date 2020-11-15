@@ -150,10 +150,6 @@ export default {
   },
   data() {
     return {
-      loading: {
-        button: false,
-        form: false,
-      },
       rolesList: [],
       form: {
         name: '',
@@ -162,6 +158,10 @@ export default {
         role_id: '',
         password: '',
         password_confirmation: '',
+      },
+      loading: {
+        button: false,
+        form: false,
       },
       fileOld: '',
       imageCropperShow: false,

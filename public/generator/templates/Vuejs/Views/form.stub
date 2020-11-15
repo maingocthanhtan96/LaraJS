@@ -43,13 +43,13 @@ export default {
   },
   data() {
     return {
+      form: {
+        // {{$FORM_FIELDS_NOT_DELETE_THIS_LINE$}}
+      }, // {{$$}}
       loading: {
         form: false,
         button: false,
       },
-      form: {
-        // {{$FORM_FIELDS_NOT_DELETE_THIS_LINE$}}
-      }, // {{$$}}
       // {{$DATA_NOT_DELETE_THIS_LINE$}}
     };
   },

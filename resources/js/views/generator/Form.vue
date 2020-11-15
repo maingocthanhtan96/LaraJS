@@ -460,6 +460,9 @@ export default {
           search: false,
           sort: true,
           show: true,
+          options: {
+            comment: '',
+          },
         },
       ],
       formModel: {
