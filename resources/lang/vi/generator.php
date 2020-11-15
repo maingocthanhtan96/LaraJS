@@ -18,10 +18,11 @@ return [
     'sort' => 'Sắp xếp',
     'show' => 'Hiển thị',
     'delete' => 'Xóa',
+    'comment' => 'Giải thích',
 
     //form modal
-    'form_model_name' => 'Tên Modal',
-    'form_model_name_trans' => 'Tên Modal Hiển Thị',
+    'form_model_name' => 'Tên Modal (Ex: CategoryPost)',
+    'form_model_name_trans' => 'Tên Modal Hiển Thị (Ex: Category Post)',
     'limit' => 'Giới hạn',
     'options' => 'Tùy chỉnh',
 

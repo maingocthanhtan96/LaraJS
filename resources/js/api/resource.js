@@ -10,7 +10,7 @@ class Resource {
 
   list(query) {
     return request({
-      url: '/' + this.uri,
+      url: this.uri,
       method: 'get',
       params: query,
     });
@@ -18,14 +18,14 @@ class Resource {
 
   get(id) {
     return request({
-      url: '/' + this.uri + '/' + id,
+      url: this.uri + '/' + id,
       method: 'get',
     });
   }
 
   store(resource) {
     return request({
-      url: '/' + this.uri,
+      url: this.uri,
       method: 'post',
       data: resource,
     });
@@ -33,7 +33,7 @@ class Resource {
 
   update(id, resource) {
     return request({
-      url: '/' + this.uri + '/' + id,
+      url: this.uri + '/' + id,
       method: 'put',
       data: resource,
     });
@@ -41,7 +41,7 @@ class Resource {
 
   destroy(id) {
     return request({
-      url: '/' + this.uri + '/' + id,
+      url: this.uri + '/' + id,
       method: 'delete',
     });
   }

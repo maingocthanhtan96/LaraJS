@@ -166,6 +166,7 @@ class SwaggerGenerator extends BaseGenerator
                         $fieldsGenerate[] = $templateProperty;
                         break;
                     case $this->dbType['dateTime']:
+                    case $this->dbType['timestamp']:
                         $templateProperty = str_replace('{{DB_TYPE}}', $field['db_type'], $templateProperty);
                         $templateProperty = str_replace(
                             '{{EXAMPLE}}',

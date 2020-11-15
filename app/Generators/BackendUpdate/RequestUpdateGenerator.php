@@ -255,6 +255,7 @@ class RequestUpdateGenerator extends BaseGenerator
                         "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:Y-m-d'" . ',';
                     break;
                 case $this->dbType['dateTime']:
+                case $this->dbType['timestamp']:
                     $fieldsGenerate[] =
                         "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:Y-m-d H:i:s'" . ',';
                     break;
@@ -316,6 +317,7 @@ class RequestUpdateGenerator extends BaseGenerator
                 $field = 'date_format:Y-m-d';
                 break;
             case $this->dbType['dateTime']:
+            case $this->dbType['timestamp']:
                 $field = 'date_format:Y-m-d H:i:s';
                 break;
             case $this->dbType['time']:

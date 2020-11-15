@@ -300,6 +300,7 @@ class ViewTableUpdateGenerator extends BaseGenerator
             case $this->dbType['boolean']:
             case $this->dbType['date']:
             case $this->dbType['dateTime']:
+            case $this->dbType['timestamp']:
             case $this->dbType['time']:
             case $this->dbType['year']:
             case $this->dbType['enum']:

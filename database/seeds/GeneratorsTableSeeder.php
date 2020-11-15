@@ -29,6 +29,9 @@ class GeneratorsTableSeeder extends Seeder
             'search' => false,
             'sort' => true,
             'show' => true,
+            'options' => [
+                'comment' => ''
+            ]
         ];
         $fields[] = [
             'id' => 2,
@@ -42,6 +45,9 @@ class GeneratorsTableSeeder extends Seeder
             'search' => true,
             'sort' => false,
             'show' => true,
+            'options' => [
+                'comment' => ''
+            ]
         ];
         $fields[] = [
             'id' => 3,
@@ -55,6 +61,9 @@ class GeneratorsTableSeeder extends Seeder
             'search' => true,
             'sort' => false,
             'show' => true,
+            'options' => [
+                'comment' => ''
+            ]
         ];
 
         \App\Models\Generator::create([

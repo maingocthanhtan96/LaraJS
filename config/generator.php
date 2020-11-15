@@ -73,6 +73,7 @@ return [
         'boolean' => 'BOOLEAN',
         'date' => 'DATE',
         'dateTime' => 'DATETIME',
+        'timestamp' => 'TIMESTAMP',
         'time' => 'TIME',
         'year' => 'YEAR',
         'string' => 'VARCHAR',

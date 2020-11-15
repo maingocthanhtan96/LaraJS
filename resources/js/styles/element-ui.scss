@@ -100,9 +100,9 @@
 //  z-index: 999999 !important;
 //}
 //
-//.el-dialog__wrapper {
-//  z-index: 2003 !important;
-//}
+.el-dialog__wrapper {
+  z-index: 99999 !important;
+}
 //
 //.el-message-box__wrapper {
 //  z-index: 2002 !important;

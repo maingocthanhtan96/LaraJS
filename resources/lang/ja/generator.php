@@ -18,10 +18,11 @@ return [
     'sort' => 'Sort',
     'show' => 'Show',
     'delete' => "Delete",
+    'comment' => 'Comment',
 
     //form modal
-    'form_model_name' => 'Model Name',
-    'form_model_name_trans' => 'Model Name Trans',
+    'form_model_name' => 'Model Name (Ex: CategoryPost)',
+    'form_model_name_trans' => 'Model Name Trans (Ex: Category Post)',
     'limit' => 'Limit',
     'options' => 'Options',
 

@@ -80,6 +80,7 @@ class RequestGenerator extends BaseGenerator
                             "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:Y-m-d'" . ',';
                         break;
                     case $dbType['dateTime']:
+                    case $dbType['timestamp']:
                         $fieldsGenerate[] =
                             "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:Y-m-d H:i:s'" . ',';
                         break;

@@ -25,7 +25,7 @@
                     <el-input
                       v-model="formModel.name"
                       :placeholder="
-                        $t('generator.form_model_name') + ' (Ex: CategoryPost)'
+                        $t('generator.form_model_name')
                       "
                       :disabled="disabledModel()"
                     />
@@ -160,7 +160,10 @@
                     }"
                     status-icon
                   >
-                    <div class="divTableCell text-center align-middle">
+                    <div
+                      class="divTableCell text-center align-middle"
+                      @click="showDialogOptions(data.id)"
+                    >
                       {{ index + 1 }}
                     </div>
                     <div class="divTableCell text-center align-middle pt-8">
@@ -413,6 +416,14 @@
         </section>
       </el-card>
     </el-col>
+    <el-dialog v-if="form.length > 1" title="Options" :visible.sync="dialogVisibleOptions" width="50%">
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <label class="el-form-item__label">{{ $t('generator.comment') }}</label>
+          <el-input v-model="optionsComputed.comment" :placeholder="$t('generator.comment')" />
+        </el-col>
+      </el-row>
+    </el-dialog>
   </el-row>
 </template>
 
@@ -470,7 +481,7 @@ export default {
         },
         {
           label: 'Date and time',
-          options: ['DATE', 'DATETIME', 'TIME', 'YEAR'],
+          options: ['DATE', 'DATETIME', 'TIMESTAMP', 'TIME', 'YEAR'],
         },
         {
           label: 'String',
@@ -493,6 +504,8 @@ export default {
       notSoft: ['FILE', 'JSON'],
       loading: false,
       redirectLocation: '/be/administrators/generator',
+      dialogVisibleOptions: false,
+      idOptionsDB: 0,
     };
   },
   computed: {
@@ -620,6 +633,10 @@ export default {
         ],
       };
     },
+    optionsComputed() {
+      const form = this.form.find(val => val.id === this.idOptionsDB);
+      return form?.options || {};
+    },
   },
   watch: {
     form: {
@@ -683,6 +700,10 @@ export default {
     }
   },
   methods: {
+    showDialogOptions(id) {
+      this.dialogVisibleOptions = true;
+      this.idOptionsDB = id;
+    },
     changeDBType(index, dbType) {
       // not As define
       if (this.notAs.includes(dbType)) {
@@ -838,6 +859,7 @@ export default {
       for (let i = 0; i < this.form.length; i++) {
         newID = this.form[i].id + 1;
       }
+      this.idOptionsDB = newID;
       this.form.push({
         id: newID,
         field_name: '',
@@ -851,6 +873,9 @@ export default {
         search: true,
         sort: true,
         show: true,
+        options: {
+          comment: '',
+        },
       });
       this.afterColumn.push({ id: newID, val: '' });
     },

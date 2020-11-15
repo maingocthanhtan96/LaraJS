@@ -113,6 +113,7 @@ class FormGenerator extends BaseGenerator
                     $fieldsGenerate[] = $this->generateDateTime('date', $tableName, $field);
                     break;
                 case $this->dbType['dateTime']:
+                case $this->dbType['timestamp']:
                     $fieldsGenerate[] = $this->generateDateTime('dateTime', $tableName, $field);
                     break;
                 case $this->dbType['time']:

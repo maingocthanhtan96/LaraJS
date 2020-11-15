@@ -130,6 +130,7 @@ class SeederUpdateGenerator extends BaseGenerator
                 $fieldsGenerate = "'" . $change['field_name'] . "'" . ' => ' . '$faker->date("Y-m-d")' . ',';
                 break;
             case $this->dbType['dateTime']:
+            case $this->dbType['timestamp']:
                 $fieldsGenerate = "'" . $change['field_name'] . "'" . ' => ' . '$faker->dateTime' . ',';
                 break;
             case $this->dbType['time']:

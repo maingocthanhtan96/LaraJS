@@ -70,6 +70,7 @@ class SeederGenerator extends BaseGenerator
                         $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . '$faker->date("Y-m-d")' . ',';
                         break;
                     case $dbType['dateTime']:
+                    case $dbType['timestamp']:
                         $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . '$faker->dateTime' . ',';
                         break;
                     case $dbType['time']:

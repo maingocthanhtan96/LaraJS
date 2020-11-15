@@ -383,6 +383,7 @@ class SwaggerUpdateGenerator extends BaseGenerator
                 $example = Carbon::now()->toDateString();
                 break;
             case $this->dbType['dateTime']:
+            case $this->dbType['timestamp']:
                 $example = Carbon::now()->toDateTimeString();
                 break;
             case $this->dbType['time']:
@@ -465,6 +466,7 @@ class SwaggerUpdateGenerator extends BaseGenerator
                     $fieldsGenerate[] = $templateProperty;
                     break;
                 case $this->dbType['dateTime']:
+                case $this->dbType['timestamp']:
                     $templateProperty = str_replace('{{DB_TYPE}}', $field['db_type'], $templateProperty);
                     $templateProperty = str_replace(
                         '{{EXAMPLE}}',
