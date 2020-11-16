@@ -50,7 +50,7 @@ class GeneratorController extends Controller
     {
         try {
             $limit = $request->get('limit', 25);
-            $ascending = $request->get('ascending', 0);
+            $ascending = $request->get('ascending', '0');
             $orderBy = $request->get('orderBy', '');
             $search = $request->get('search', '');
             $betweenDate = $request->get('created_at', []);

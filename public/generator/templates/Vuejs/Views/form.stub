@@ -53,16 +53,15 @@ export default {
       // {{$DATA_NOT_DELETE_THIS_LINE$}}
     };
   },
-  created() {
+  async created() {
     const { id } = this.$route.params;
     if (id) {
       this.loading.form = true;
-      {{$CONST_MODEL_CLASS$}}Resource.get(id)
-        .then(res => {
-          const { data } = res.data;
-          this.form = data;
-          this.loading.form = false;
-        });
+      const {
+        data: { data: {{$CONST_MODEL_CLASS$}} },
+      } = await {{$CONST_MODEL_CLASS$}}Resource.get(id);
+      this.form = {{$CONST_MODEL_CLASS$}};
+      this.loading.form = false;
     }
   },
   computed: {

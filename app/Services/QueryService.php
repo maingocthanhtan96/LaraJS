@@ -12,70 +12,70 @@ class QueryService extends BaseService
      * Eloquent model
      * @var Model $_model
      */
-    protected $_model;
+    protected Model $_model;
 
     /**
      * Select column owner
      * @var array
      */
-    public $select = [];
+    public array $select = [];
 
     /**
      * Order column
      * @var array
      */
-    public $order = [];
+    public array $order = [];
 
     /**
      * Column to search using whereLike
      * @var array
      */
-    public $columnSearch = [];
+    public array $columnSearch = [];
     /**
      * Relationship with other tables
      * @var array
      */
-    public $withRelationship = [];
+    public array $withRelationship = [];
     /**
      * Paragraph search in column
      * @var ?string
      */
-    public $search;
+    public ?string $search;
     /**
      * Start date - End date
      * @var array
      */
-    public $betweenDate = [];
+    public array $betweenDate = [];
     /**
      * Limit record
      * @var int
      */
-    public $limit = 25;
+    public int $limit = 25;
     /**
      * ascending = '0', descending = '1'
      * @var string
      */
-    public $ascending = '0';
+    public string $ascending = '0';
     /**
      * Column to order
      * @var string
      */
-    public $orderBy = 'created_at';
+    public string $orderBy = 'created_at';
     /**
      * Always order this column
      * @var string
      */
-    public $defaultOrderBy = 'created_at';
+    public string $defaultOrderBy = 'created_at';
     /**
      * Always order this column
      * @var string
      */
-    public $defaultUpdatedAt = 'updated_at';
+    public string $defaultUpdatedAt = 'updated_at';
     /**
      * Always order
      * @var string
      */
-    public $defaultDescending = 'desc';
+    public string $defaultDescending = 'desc';
 
     /**
      * QueryService constructor.

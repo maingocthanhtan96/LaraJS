@@ -8,7 +8,6 @@ trait UserSignatureTrait
 {
     protected static function bootUserSignatureTrait()
     {
-        parent::boot();
         static::creating(function ($model) {
             $user = Auth::user();
             if ($user) {

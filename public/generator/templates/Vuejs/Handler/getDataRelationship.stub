@@ -1,4 +1,4 @@
-{{$MODEL$}}Resource.get{{$MODEL_UPPERCASE$}}()
-      .then(res => {
-        this.{{$MODEL_RELATIONSHIP$}}List = res.data.data;
-      });
+const {
+        data: { data: {{$MODEL$}} },
+      } = await {{$MODEL$}}Resource.get{{$MODEL_UPPERCASE$}}()
+      this.{{$MODEL_RELATIONSHIP$}}List = {{$MODEL$}};
