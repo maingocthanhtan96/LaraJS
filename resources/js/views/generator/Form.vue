@@ -24,9 +24,7 @@
                   >
                     <el-input
                       v-model="formModel.name"
-                      :placeholder="
-                        $t('generator.form_model_name')
-                      "
+                      :placeholder="$t('generator.form_model_name')"
                       :disabled="disabledModel()"
                     />
                   </el-form-item>
@@ -69,7 +67,6 @@
                       />
                       <el-checkbox
                         label="User Signature"
-                        checked
                         :disabled="$route.params.id > 0"
                       />
                       <el-checkbox
@@ -353,8 +350,8 @@
                         v-model="data.search"
                         :disabled="
                           disabledMethod(index) ||
-                            !data.show ||
-                            notSearch.includes(data.db_type)
+                          !data.show ||
+                          notSearch.includes(data.db_type)
                         "
                       />
                     </div>
@@ -416,11 +413,21 @@
         </section>
       </el-card>
     </el-col>
-    <el-dialog v-if="form.length > 1" title="Options" :visible.sync="dialogVisibleOptions" width="50%">
+    <el-dialog
+      v-if="form.length > 1"
+      title="Options"
+      :visible.sync="dialogVisibleOptions"
+      width="50%"
+    >
       <el-row :gutter="20">
         <el-col :span="12">
-          <label class="el-form-item__label">{{ $t('generator.comment') }}</label>
-          <el-input v-model="optionsComputed.comment" :placeholder="$t('generator.comment')" />
+          <label class="el-form-item__label">
+            {{ $t('generator.comment') }}
+          </label>
+          <el-input
+            v-model="optionsComputed.comment"
+            :placeholder="$t('generator.comment')"
+          />
         </el-col>
       </el-row>
     </el-dialog>
@@ -726,7 +733,7 @@ export default {
       const arDbType = ['YEAR', 'TIME', 'DATETIME', 'DATE', 'BOOLEAN', 'ENUM'];
       return arDbType.indexOf(dbType) !== -1;
     },
-    checkModelMethod: _.debounce(function(cb) {
+    checkModelMethod: _.debounce(function (cb) {
       generatorResource.checkModel(this.formModel.name).then(res => {
         const { message } = res.data;
         if (message === 1) {
@@ -744,7 +751,7 @@ export default {
         }
       });
     }, 500),
-    checkColumnMethod: _.debounce(function(cb, column) {
+    checkColumnMethod: _.debounce(function (cb, column) {
       generatorResource.checkColumn(this.formModel.name, column).then(res => {
         const { message } = res.data;
         if (message === 1) {

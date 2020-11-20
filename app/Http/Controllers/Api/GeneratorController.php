@@ -13,7 +13,7 @@ use App\Generators\Backend\{
     SeederGenerator,
     RelationshipGenerator,
     SwaggerGenerator,
-    SwaggerRelationshipGenerator,
+    SwaggerRelationshipGenerator
 };
 use App\Generators\BackendUpdate\{
     ControllerUpdateGenerator,
@@ -22,7 +22,7 @@ use App\Generators\BackendUpdate\{
     ModelUpdateGenerator,
     SeederUpdateGenerator,
     RequestUpdateGenerator,
-    SwaggerUpdateGenerator,
+    SwaggerUpdateGenerator
 };
 use App\Generators\Frontend\{ApiGenerator, FormGenerator, FormHandlerGenerator, ViewGenerator, RouteGenerator as RouteGeneratorFe, ViewTableGenerator};
 use App\Generators\FrontendUpdate\{FormUpdateGenerator, ViewTableUpdateGenerator, ViewUpdateGenerator};
@@ -287,21 +287,21 @@ class GeneratorController extends Controller
 
     private function _gitCommit($model)
     {
-//        $basePath = base_path();
-//        $now = \Carbon\Carbon::now()->toDateTimeString();
-//        $commit = '"' . $model . ' - ' . $now . '"';
-//
-//        $gitAdd = new Process(['git', 'add', '.'], $basePath);
-//        $gitAdd->run();
-//        if (!$gitAdd->isSuccessful()) {
-//            throw new ProcessFailedException($gitAdd);
-//        }
-//
-//        $gitCommit = new Process(['git', 'commit', "-m $commit"], $basePath);
-//        $gitCommit->run();
-//        if (!$gitCommit->isSuccessful()) {
-//            throw new ProcessFailedException($gitCommit);
-//        }
+        $basePath = base_path();
+        $now = \Carbon\Carbon::now()->toDateTimeString();
+        $commit = '"' . $model . ' - ' . $now . '"';
+
+        $gitAdd = new Process(['git', 'add', '.'], $basePath);
+        $gitAdd->run();
+        if (!$gitAdd->isSuccessful()) {
+            throw new ProcessFailedException($gitAdd);
+        }
+
+        $gitCommit = new Process(['git', 'commit', "-m $commit"], $basePath);
+        $gitCommit->run();
+        if (!$gitCommit->isSuccessful()) {
+            throw new ProcessFailedException($gitCommit);
+        }
     }
 
     private function _gitResetHEAD()
