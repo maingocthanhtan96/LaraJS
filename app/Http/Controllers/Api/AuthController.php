@@ -60,7 +60,7 @@ class AuthController extends Controller
         try {
             auth()
                 ->user()
-                ->tokens->each(function ($token, $key) {
+                ->tokens->each(function ($token) {
                     $token->delete();
                 });
 

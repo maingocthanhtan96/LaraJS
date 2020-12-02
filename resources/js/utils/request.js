@@ -8,7 +8,7 @@ import store from '@/store';
 
 import router from '@/router';
 
-import { getToken, setToken } from './auth';
+import { getToken, setToken, removeToken } from './auth';
 
 // Create axios instance
 const service = axios.create({
@@ -47,6 +47,10 @@ service.interceptors.response.use(
     if (res) {
       if (res.status === 404) {
         router.replace({ path: '/404' });
+      }
+      if (res.status === 401) {
+        removeToken();
+        router.replace({ path: '/login' });
       }
       if (res.data.errors) {
         store.dispatch(`app/${SET_ERRORS}`, res.data.errors);

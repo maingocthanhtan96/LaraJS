@@ -12,7 +12,6 @@
             ref="forgotForm"
             :model="form"
             :rules="rules"
-            status-icon
             @submit.native.prevent="requestResetPassword('forgotForm')"
           >
             <el-form-item :label="$t('auth.login.email')" prop="email" required>

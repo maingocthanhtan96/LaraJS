@@ -10,7 +10,7 @@
             {{ $t('route.{{$LANG_MODEL_CLASS$}}_create') }}
           </template>
         </div>
-        <el-form ref="{{$REF_MODEL_CLASS$}}" v-loading="loading.form" :model="form" :rules="rules" status-icon label-position="top">
+        <el-form ref="{{$REF_MODEL_CLASS$}}" v-loading="loading.form" :model="form" :rules="rules" label-position="top">
         <!--{{$FROM_ITEM_NOT_DELETE_THIS_LINE$}}-->
           <el-form-item class="flex justify-center">
             <template v-if="$route.params.id">

@@ -14,6 +14,9 @@ import { login, userInfo, logout } from '@/api/auth';
 import { getToken, removeToken, setToken } from '@/utils/auth';
 import { resetRouter } from '@/router';
 
+const DEFAULT_EXPIRE = 1;
+const REMEMBER_ME_EXPIRE = 30;
+
 const state = {
   token: getToken() || null,
   roles: [],
@@ -42,7 +45,10 @@ const actions = {
       login(payload)
         .then(res => {
           const token = Object.freeze(res.data.data.access_token);
-          setToken(token);
+          setToken(
+            token,
+            payload.remember_me ? REMEMBER_ME_EXPIRE : DEFAULT_EXPIRE
+          );
           commit(SET_TOKEN, token);
           resolve(res);
         })
@@ -76,7 +82,6 @@ const actions = {
   },
   [FED_LOGOUT]({ commit }) {
     return new Promise(resolve => {
-      removeToken();
       commit(SET_TOKEN, '');
       commit(SET_ROLES, []);
       removeToken();

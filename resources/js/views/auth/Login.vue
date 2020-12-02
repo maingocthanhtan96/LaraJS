@@ -17,7 +17,6 @@
           <el-form
             ref="login"
             :model="form"
-            status-icon
             :rules="rules"
             label-width="120px"
             label-position="left"
@@ -53,7 +52,9 @@
               </el-button>
             </el-col>
             <el-col :span="12">
-              <el-checkbox>{{ $t('auth.login.remember') }}</el-checkbox>
+              <el-checkbox v-model="form.remember_me">
+                {{ $t('auth.login.remember') }}
+              </el-checkbox>
             </el-col>
             <el-col :span="12" class="text-right">
               <router-link :to="{ name: 'reset-password' }" class="text-black">
@@ -81,6 +82,7 @@ export default {
       form: {
         email: '',
         password: '',
+        remember_me: false,
       },
       loading: false,
       languages: [
@@ -125,7 +127,7 @@ export default {
   },
   watch: {
     $route: {
-      handler: function(route) {
+      handler: function (route) {
         const query = route.query;
         if (query) {
           this.redirect = query.redirect;
@@ -149,7 +151,13 @@ export default {
             .dispatch(`user/${LOGIN}`, this.form)
             .then(() => {
               this.loading = false;
-              this.$router.replace({ path: this.redirect || this.$store.state.settings.redirect, query: this.otherQuery }, onAbort => {});
+              this.$router.replace(
+                {
+                  path: this.redirect || this.$store.state.settings.redirect,
+                  query: this.otherQuery,
+                },
+                onAbort => {}
+              );
             })
             .catch(() => {
               this.loading = false;

@@ -15,7 +15,6 @@
                 :model="formModel"
                 :rules="modalRules"
                 label-position="top"
-                status-icon
               >
                 <el-col :span="9" class="mr-4">
                   <el-form-item
@@ -155,7 +154,6 @@
                       draggable:
                         !disabledMethod(index) && index >= formTemp.length,
                     }"
-                    status-icon
                   >
                     <div
                       class="divTableCell text-center align-middle"
