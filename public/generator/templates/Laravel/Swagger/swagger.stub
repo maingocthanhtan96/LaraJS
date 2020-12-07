@@ -23,8 +23,12 @@
  *     security={{"authApi":{}}},
  *     @OA\RequestBody(
  *          required=true,
- *          @OA\JsonContent(
- *              x="{{SWAGGER_PROPERTY_JSON_CONTENT_NOT_DELETE_THIS_LINE}}"
+ *          @OA\MediaType(
+ *              mediaType="multipart/form-data",
+ *              @OA\Schema (
+ *                  required={{REQUIRED_FIELDS}},
+ *                  x="{{SWAGGER_PROPERTY_JSON_CONTENT_NOT_DELETE_THIS_LINE}}"
+ *              )
  *          )
  *     ),
  *     @OA\Response(response="200", ref="#/components/responses/OK"),
@@ -50,8 +54,11 @@
  *     @OA\Parameter(ref="#/components/parameters/id"),
  *     @OA\RequestBody(
  *          required=true,
- *          @OA\JsonContent(
- *              x="{{SWAGGER_PROPERTY_JSON_CONTENT_NOT_DELETE_THIS_LINE}}"
+ *          @OA\MediaType(
+ *              @OA\Schema (
+ *                  required={{REQUIRED_FIELDS}},
+ *                  x="{{SWAGGER_PROPERTY_JSON_CONTENT_NOT_DELETE_THIS_LINE}}"
+ *              )
  *          )
  *     ),
  *     @OA\Response(response="200", ref="#/components/responses/OK"),

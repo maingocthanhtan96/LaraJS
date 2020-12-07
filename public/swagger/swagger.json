@@ -119,8 +119,9 @@
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
+                                "required": [],
                                 "properties": {
                                     "name": {
                                         "description": "",
@@ -217,8 +218,9 @@
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
+                                "required": [],
                                 "properties": {
                                     "name": {
                                         "type": "string",

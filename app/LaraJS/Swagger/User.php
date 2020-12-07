@@ -47,14 +47,18 @@
  *     security={{"authApi":{}}},
  *     @OA\RequestBody(
  *          required=true,
- *          @OA\JsonContent(
- *              @OA\Property(property="name", type="string", example="tanmnt", description=""),
- *              @OA\Property(property="email", type="string", example="tanmnt@larajs.com", description=""),
- *              @OA\Property(property="avatar", type="string", example="/images/logo-tanmnt.png", description=""),
- *              @OA\Property(property="role_id", type="number", example="2", description=""),
- *              @OA\Property(property="password", type="string", example="secret", description=""),
- *              @OA\Property(property="password_confirmation", type="string", example="secret", description=""),
- *              x="{{SWAGGER_PROPERTY_JSON_CONTENT_NOT_DELETE_THIS_LINE}}"
+ *          @OA\MediaType(
+ *              mediaType="multipart/form-data",
+ *              @OA\Schema (
+ *                  required={},
+ *                  @OA\Property(property="name", type="string", example="tanmnt", description=""),
+ *                  @OA\Property(property="email", type="string", example="tanmnt@larajs.com", description=""),
+ *                  @OA\Property(property="avatar", type="string", example="/images/logo-tanmnt.png", description=""),
+ *                  @OA\Property(property="role_id", type="number", example="2", description=""),
+ *                  @OA\Property(property="password", type="string", example="secret", description=""),
+ *                  @OA\Property(property="password_confirmation", type="string", example="secret", description=""),
+ *                  x="{{SWAGGER_PROPERTY_JSON_CONTENT_NOT_DELETE_THIS_LINE}}"*
+ *              )
  *          )
  *      ),
  *     @OA\Response(response="200", ref="#/components/responses/OK"),
@@ -81,14 +85,18 @@
  *     @OA\Parameter(ref="#/components/parameters/id"),
  *     @OA\RequestBody(
  *         required=true,
- *         @OA\JsonContent(
- *              @OA\Property(property="name", type="string", example="tanmnt"),
- *              @OA\Property(property="email", type="string", example="tanmnt@larajs.com"),
- *              @OA\Property(property="avatar", type="string", example="/images/logo-tanmnt.png"),
- *              @OA\Property(property="role_id", type="number", example="2"),
- *              @OA\Property(property="password", type="string", example="secret"),
- *              @OA\Property(property="password_confirmation", type="string", example="secret"),
- *              x="{{SWAGGER_PROPERTY_JSON_CONTENT_NOT_DELETE_THIS_LINE}}"
+ *         @OA\MediaType(
+ *              mediaType="multipart/form-data",
+ *              @OA\Schema (
+ *                  required={},
+ *                  @OA\Property(property="name", type="string", example="tanmnt"),
+ *                  @OA\Property(property="email", type="string", example="tanmnt@larajs.com"),
+ *                  @OA\Property(property="avatar", type="string", example="/images/logo-tanmnt.png"),
+ *                  @OA\Property(property="role_id", type="number", example="2"),
+ *                  @OA\Property(property="password", type="string", example="secret"),
+ *                  @OA\Property(property="password_confirmation", type="string", example="secret"),
+ *                  x="{{SWAGGER_PROPERTY_JSON_CONTENT_NOT_DELETE_THIS_LINE}}"
+ *              )
  *         )
  *     ),
  *     @OA\Response(response="200", ref="#/components/responses/OK"),
@@ -119,32 +127,32 @@
 class User
 {
     /**
-     * @OA\Property(property="id", type="AUTO_INCREMENT", description=""),
-     */
-    /**
-     * @OA\Property(property="name", type="VARCHAR", default="None", description="")
-     */
-    /**
-     * @OA\Property(property="email", type="VARCHAR", default="None", description="")
-     */
-    /**
-     * @OA\Property(property="avatar", type="VARCHAR", default="None", description="")
-     */
-    /**
-     * @OA\Property(property="role_id", default="None", description="You cann't set id as 1(role: admin)")
-     * @var Role
-     */
-    /**
-     * @OA\Property(property="password", type="VARCHAR", default="None", description="")
-     */
-    //{{SWAGGER_PROPERTY_NOT_DELETE_THIS_LINE}}
-    /**
-     * @OA\Property(property="created_at", type="TIMESTAMP", default="NULL", description="")
-     */
-    /**
-     * @OA\Property(property="updated_at", type="TIMESTAMP", default="NULL", description="")
-     */
-    /**
-     * @OA\Property(property="deleted_at", type="TIMESTAMP", default="NULL", description="")
-     */
+ * @OA\Property(property="id", type="AUTO_INCREMENT", description=""),
+ */
+/**
+ * @OA\Property(property="name", type="VARCHAR", default="None", description="")
+ */
+/**
+ * @OA\Property(property="email", type="VARCHAR", default="None", description="")
+ */
+/**
+ * @OA\Property(property="avatar", type="VARCHAR", default="None", description="")
+ */
+/**
+ * @OA\Property(property="role_id", default="None", description="You cann't set id as 1(role: admin)")
+ * @var Role
+ */
+/**
+ * @OA\Property(property="password", type="VARCHAR", default="None", description="")
+ */
+//{{SWAGGER_PROPERTY_NOT_DELETE_THIS_LINE}}
+/**
+ * @OA\Property(property="created_at", type="TIMESTAMP", default="NULL", description="")
+ */
+/**
+ * @OA\Property(property="updated_at", type="TIMESTAMP", default="NULL", description="")
+ */
+/**
+ * @OA\Property(property="deleted_at", type="TIMESTAMP", default="NULL", description="")
+ */
 }
