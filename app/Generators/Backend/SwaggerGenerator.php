@@ -54,19 +54,10 @@ class SwaggerGenerator extends BaseGenerator
         $templateData = $this->serviceGenerator->get_template('swagger', $pathTemplate);
         $templateData = str_replace('{{DATE}}', $now->toDateTimeString(), $templateData);
         // Generate JsonContent
-        $templateData = $this->serviceGenerator->replaceNotDelete(
-            $this->notDelete['json_content'],
-            $this->generateFields($fields, true),
-            0,
-            $templateData,
-        );
+        $templateData = $this->serviceGenerator->replaceNotDelete($this->notDelete['json_content'], $this->generateFields($fields, true), 0, $templateData, 0);
 
         $templateData = str_replace('{{MODEL_CLASS}}', $model['name'], $templateData);
-        $templateData = str_replace(
-            '{{RESOURCE}}',
-            $this->serviceGenerator->urlResource($model['name']),
-            $templateData,
-        );
+        $templateData = str_replace('{{RESOURCE}}', $this->serviceGenerator->urlResource($model['name']), $templateData);
         $templateSoftDeletes = '';
         if ($this->serviceGenerator->getOptions(config('generator.model.options.sort_deletes'), $model['options'])) {
             $templateSoftDeletes = $this->serviceGenerator->get_template('SoftDeletes', $pathTemplate);
@@ -86,22 +77,13 @@ class SwaggerGenerator extends BaseGenerator
             }
         }
         if ($fieldRequires) {
-            $templateData = str_replace(
-                '{{REQUIRED_FIELDS}}',
-                '{' . '"' . self::FIELD_ID . '", ' . rtrim($fieldRequires, ', ') . '}',
-                $templateData,
-            );
+            $templateData = str_replace('{{REQUIRED_FIELDS}}', '{' . '"' . self::FIELD_ID . '", ' . rtrim($fieldRequires, ', ') . '}', $templateData);
         } else {
             $templateData = str_replace('{{REQUIRED_FIELDS}}', '{' . '"' . self::FIELD_ID . '"' . '}', $templateData);
         }
         // end required
 
-        $templateData = $this->serviceGenerator->replaceNotDelete(
-            $this->notDelete['property'],
-            $this->generateFields($fields),
-            1,
-            $templateData,
-        );
+        $templateData = $this->serviceGenerator->replaceNotDelete($this->notDelete['property'], $this->generateFields($fields), 1, $templateData);
         //create sort delete
         $fileName = $model['name'] . '.php';
         $this->serviceFile->createFile($this->path, $fileName, $templateData);
@@ -134,21 +116,13 @@ class SwaggerGenerator extends BaseGenerator
                     case $this->dbType['integer']:
                     case $this->dbType['bigInteger']:
                         $templateProperty = str_replace('{{DB_TYPE}}', $field['db_type'], $templateProperty);
-                        $templateProperty = str_replace(
-                            '{{EXAMPLE}}',
-                            $faker->numberBetween(1000, 9000),
-                            $templateProperty,
-                        );
+                        $templateProperty = str_replace('{{EXAMPLE}}', $faker->numberBetween(1000, 9000), $templateProperty);
                         $fieldsGenerate[] = $templateProperty;
                         break;
                     case $this->dbType['float']:
                     case $this->dbType['double']:
                         $templateProperty = str_replace('{{DB_TYPE}}', $field['db_type'], $templateProperty);
-                        $templateProperty = str_replace(
-                            '{{EXAMPLE}}',
-                            $faker->randomFloat(2, 1000, 9000),
-                            $templateProperty,
-                        );
+                        $templateProperty = str_replace('{{EXAMPLE}}', $faker->randomFloat(2, 1000, 9000), $templateProperty);
                         $fieldsGenerate[] = $templateProperty;
                         break;
                     case $this->dbType['boolean']:
@@ -158,30 +132,18 @@ class SwaggerGenerator extends BaseGenerator
                         break;
                     case $this->dbType['date']:
                         $templateProperty = str_replace('{{DB_TYPE}}', $this->dbType['date'], $templateProperty);
-                        $templateProperty = str_replace(
-                            '{{EXAMPLE}}',
-                            Carbon::now()->toDateString(),
-                            $templateProperty,
-                        );
+                        $templateProperty = str_replace('{{EXAMPLE}}', Carbon::now()->toDateString(), $templateProperty);
                         $fieldsGenerate[] = $templateProperty;
                         break;
                     case $this->dbType['dateTime']:
                     case $this->dbType['timestamp']:
                         $templateProperty = str_replace('{{DB_TYPE}}', $field['db_type'], $templateProperty);
-                        $templateProperty = str_replace(
-                            '{{EXAMPLE}}',
-                            Carbon::now()->toDateTimeString(),
-                            $templateProperty,
-                        );
+                        $templateProperty = str_replace('{{EXAMPLE}}', Carbon::now()->toDateTimeString(), $templateProperty);
                         $fieldsGenerate[] = $templateProperty;
                         break;
                     case $this->dbType['time']:
                         $templateProperty = str_replace('{{DB_TYPE}}', $field['db_type'], $templateProperty);
-                        $templateProperty = str_replace(
-                            '{{EXAMPLE}}',
-                            Carbon::now()->toTimeString(),
-                            $templateProperty,
-                        );
+                        $templateProperty = str_replace('{{EXAMPLE}}', Carbon::now()->toTimeString(), $templateProperty);
                         $fieldsGenerate[] = $templateProperty;
                         break;
                     case $this->dbType['year']:
@@ -202,11 +164,7 @@ class SwaggerGenerator extends BaseGenerator
                         break;
                     case $this->dbType['file']:
                         $templateProperty = str_replace('{{DB_TYPE}}', $field['db_type'], $templateProperty);
-                        $templateProperty = str_replace(
-                            '{{EXAMPLE}}',
-                            "['https://lorempixel.com/150/150/?77253', 'https://lorempixel.com/150/150/?77253']",
-                            $templateProperty,
-                        );
+                        $templateProperty = str_replace('{{EXAMPLE}}', "['https://lorempixel.com/150/150/?77253', 'https://lorempixel.com/150/150/?77253']", $templateProperty);
                         $fieldsGenerate[] = $templateProperty;
                         break;
                     case $this->dbType['enum']:
