@@ -60,8 +60,11 @@ class RelationshipGenerator extends BaseGenerator
         $pathTemplate = 'Models/';
         $template = $this->serviceGenerator->get_template('relationship', $pathTemplate);
         // Model Relationship
-        if ($relationship === $this->relationship['has_one'] || $relationship === $this->relationship['has_many']) {
+        if ($relationship === $this->relationship['has_one']) {
             $templateModel = str_replace('{{FUNCTION_NAME}}', \Str::camel($model), $template);
+            $templateInverse = str_replace('{{FUNCTION_NAME}}', \Str::camel($modelCurrent), $template);
+        } elseif ($relationship === $this->relationship['has_many']) {
+            $templateModel = str_replace('{{FUNCTION_NAME}}', $this->serviceGenerator->modelNamePluralFe($model), $template);
             $templateInverse = str_replace('{{FUNCTION_NAME}}', \Str::camel($modelCurrent), $template);
         } else {
             $templateModel = str_replace('{{FUNCTION_NAME}}', $this->serviceGenerator->modelNamePluralFe($model), $template);
@@ -77,13 +80,13 @@ class RelationshipGenerator extends BaseGenerator
             $templateModel = str_replace(
                 '{{FIELD_RELATIONSHIP}}',
                 "'" . self::_REF_LOWER . \Str::snake($modelCurrent) . '_' . \Str::snake($model) . "', " . "'" . \Str::snake($modelCurrent) . "_id', " . "'" . \Str::snake($model) . "_id'",
-                $templateModel,
+                $templateModel
             );
             $templateModel = str_replace(", 'id'", '', $templateModel);
             $templateInverse = str_replace(
                 '{{FIELD_RELATIONSHIP}}',
                 "'" . self::_REF_LOWER . \Str::snake($modelCurrent) . '_' . \Str::snake($model) . "', " . "'" . \Str::snake($model) . "_id', " . "'" . \Str::snake($modelCurrent) . "_id'",
-                $templateInverse,
+                $templateInverse
             );
             $templateInverse = str_replace(", 'id'", '', $templateInverse);
         } else {
@@ -163,7 +166,7 @@ class RelationshipGenerator extends BaseGenerator
         $templateDataReal = str_replace(
             "$dataForm {" . $this->serviceGenerator->infy_nl_tab(1, 0) . $templateDataForm . '},',
             "$dataForm {" . $this->replaceTemplate($fieldsGenerateDataForm, 2, 3, 2) . '},',
-            $templateDataReal,
+            $templateDataReal
         );
         //create form item
         $templateDataReal = $this->serviceGenerator->replaceNotDelete(
@@ -171,7 +174,7 @@ class RelationshipGenerator extends BaseGenerator
             $this->_generateSelect(\Str::snake($model), \Str::snake($model) . self::_ID, $columnRelationship, $relationship),
             3,
             $templateDataReal,
-            4,
+            4
         );
 
         //create rules
@@ -517,7 +520,7 @@ class RelationshipGenerator extends BaseGenerator
         $templateData = str_replace(
             $fakerCreate,
             $fakerCreate . $this->serviceGenerator->infy_nl_tab(1, 2) . $fieldRelationshipModel . $this->serviceGenerator->infy_nl_tab(1, 2) . $fieldRelationshipModelCurrent,
-            $templateData,
+            $templateData
         );
         $templateData = str_replace('{{DATE_TIME}}', $now->toDateTimeString(), $templateData);
         $templateData = str_replace('{{TABLE_NAME_TITLE}}', self::REF_UPPER . $modelCurrent . $model, $templateData);
@@ -537,7 +540,7 @@ class RelationshipGenerator extends BaseGenerator
                 '$faker->randomElement(' .
                 $paramModelCurrent .
                 '),',
-            $templateData,
+            $templateData
         );
         $templateData = str_replace($notDelete['seeder'], '', $templateData);
         $path = config('generator.path.laravel.seeder');
