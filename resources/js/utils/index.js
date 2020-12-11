@@ -273,7 +273,7 @@ export function getTime(type) {
 export function debounce(func, wait, immediate) {
   let timeout, args, context, timestamp, result;
 
-  const later = function() {
+  const later = function () {
     // According to the last trigger interval
     const last = new Date().getTime() - timestamp;
 
@@ -292,7 +292,7 @@ export function debounce(func, wait, immediate) {
     }
   };
 
-  return function(...args) {
+  return function (...args) {
     context = this;
     timestamp = new Date().getTime();
     const callNow = immediate && !timeout;
@@ -435,4 +435,19 @@ export function downloadTagA(path, filename) {
   element.click();
 
   document.body.removeChild(element);
+}
+
+/**
+ * swap data
+ * @param data
+ * @param x
+ * @param y
+ * @returns {*}
+ */
+export function swap(data, x, y) {
+  const origin = data[x];
+  data[x] = data[y];
+  data[y] = origin;
+
+  return data;
 }
