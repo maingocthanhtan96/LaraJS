@@ -39,21 +39,9 @@ class LangUpdateGenerator extends BaseGenerator
         foreach ($langs as $key => $langComment) {
             foreach ($nameLangs as $nameLang) {
                 $templateDataReal = $this->serviceGenerator->getFile('lang', 'laravel', $key . '/table.php');
-                $templateDataReal = $this->generateFieldsRename(
-                    $tableName,
-                    $updateFields['renameFields'],
-                    $templateDataReal,
-                );
-                $templateDataReal = $this->generateFieldsDrop(
-                    $tableName,
-                    $updateFields['dropFields'],
-                    $templateDataReal,
-                );
-                $templateDataReal = $this->generateFieldsUpdate(
-                    $tableName,
-                    $updateFields['updateFields'],
-                    $templateDataReal,
-                );
+                $templateDataReal = $this->generateFieldsRename($tableName, $updateFields['renameFields'], $templateDataReal);
+                $templateDataReal = $this->generateFieldsDrop($tableName, $updateFields['dropFields'], $templateDataReal);
+                $templateDataReal = $this->generateFieldsUpdate($tableName, $updateFields['updateFields'], $templateDataReal);
                 $this->serviceFile->createFileReal($this->path . $key . '/' . $nameLang . '.php', $templateDataReal);
             }
         }
@@ -66,20 +54,9 @@ class LangUpdateGenerator extends BaseGenerator
         }
 
         $fieldsGenerate = [];
-        $template = $this->serviceGenerator->searchTemplate(
-            $tableName,
-            '],',
-            strlen($tableName) + 6,
-            -6 - strlen($tableName),
-            $templateDataReal,
-        );
-        $templateReplace = $this->serviceGenerator->searchTemplate(
-            $tableName,
-            '],',
-            -strlen($tableName) + 12,
-            strlen($tableName) - 10,
-            $templateDataReal,
-        );
+        $quoteTable = "'" . $tableName . "' => [";
+        $template = $this->serviceGenerator->searchTemplate($quoteTable, '],', 2 + strlen($quoteTable), -2 - strlen($quoteTable), $templateDataReal);
+        $templateReplace = $this->serviceGenerator->searchTemplate($tableName, '],', -strlen($quoteTable) + 20, strlen($quoteTable) - 16, $templateDataReal);
         if (!$template || !$templateReplace) {
             return $templateDataReal;
         }
@@ -97,22 +74,10 @@ class LangUpdateGenerator extends BaseGenerator
                     $fieldName = $this->serviceGenerator->trimQuotes($fieldName);
                     $fieldNameTrans = $this->serviceGenerator->trimQuotes($fieldNameTrans);
                     if ($rename['field_name_old']['field_name'] === $fieldName) {
-                        $fieldsGenerate[] =
-                            "'" .
-                            $rename['field_name_new']['field_name'] .
-                            "'" .
-                            ' => ' .
-                            "'" .
-                            $fieldNameTrans .
-                            "'" .
-                            ',';
+                        $fieldsGenerate[] = "'" . $rename['field_name_new']['field_name'] . "'" . ' => ' . "'" . $fieldNameTrans . "'" . ',';
                     } else {
                         $name = "'" . $fieldName . "'" . ' => ' . "'" . $fieldNameTrans . "'" . ',';
-                        if (
-                            !in_array($name, $fieldsGenerate) &&
-                            !in_array($fieldName, $arRename) &&
-                            !in_array($fieldName, $arRenameOld)
-                        ) {
+                        if (!in_array($name, $fieldsGenerate) && !in_array($fieldName, $arRename) && !in_array($fieldName, $arRenameOld)) {
                             $fieldsGenerate[] = $name;
                         }
                     }
@@ -133,20 +98,8 @@ class LangUpdateGenerator extends BaseGenerator
 
         $fieldsGenerate = [];
         $quoteTable = "'" . $tableName . "' => [";
-        $template = $this->serviceGenerator->searchTemplate(
-            $quoteTable,
-            '],',
-            2 + strlen($quoteTable),
-            -2 - strlen($quoteTable),
-            $templateDataReal,
-        );
-        $templateReplace = $this->serviceGenerator->searchTemplate(
-            $quoteTable,
-            '],',
-            -strlen($quoteTable) + 10,
-            strlen($quoteTable) - 6,
-            $templateDataReal,
-        );
+        $template = $this->serviceGenerator->searchTemplate($quoteTable, '],', 2 + strlen($quoteTable), -2 - strlen($quoteTable), $templateDataReal);
+        $templateReplace = $this->serviceGenerator->searchTemplate($quoteTable, '],', -strlen($quoteTable) + 20, strlen($quoteTable) - 16, $templateDataReal);
         if (!$template || !$templateReplace) {
             return $templateDataReal;
         }
@@ -177,20 +130,9 @@ class LangUpdateGenerator extends BaseGenerator
         }
 
         $fieldsGenerate = [];
-        $template = $this->serviceGenerator->searchTemplate(
-            $tableName,
-            '],',
-            strlen($tableName) + 6,
-            -6 - strlen($tableName),
-            $templateDataReal,
-        );
-        $templateReplace = $this->serviceGenerator->searchTemplate(
-            $tableName,
-            '],',
-            -strlen($tableName) + 12,
-            strlen($tableName) - 10,
-            $templateDataReal,
-        );
+        $quoteTable = "'" . $tableName . "' => [";
+        $template = $this->serviceGenerator->searchTemplate($quoteTable, '],', 2 + strlen($quoteTable), -2 - strlen($quoteTable), $templateDataReal);
+        $templateReplace = $this->serviceGenerator->searchTemplate($tableName, '],', -strlen($quoteTable) + 20, strlen($quoteTable) - 16, $templateDataReal);
         if (!$template || !$templateReplace) {
             return $templateDataReal;
         }

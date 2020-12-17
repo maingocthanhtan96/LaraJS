@@ -147,6 +147,8 @@ class GeneratorController extends Controller
      */
     public function destroy(Generator $generator): \Illuminate\Http\JsonResponse
     {
+        //Applications/Source/tanmnt/larajs/app/Repositories/TestGeneratorRepository.php
+        ///Applications/Source/tanmnt/larajs/app/Repositories/TestGenerator/TestGeneratorRepository.php
         try {
             $model = json_decode($generator->model, true);
             $files = json_decode($generator->files, true);
@@ -172,7 +174,9 @@ class GeneratorController extends Controller
 
             // START - search route
             $templateDataRouteReal = $this->serviceGenerator->getFile('api_routes', 'laravel');
-            $templateDataRoute = $generatorService->searchTemplate("/*<==> {$model['name']} Route -", "'{$model['name']}Controller');", 0, 18, $templateDataRouteReal);
+            $startRoute = "/*<==> {$model['name']} Route -";
+            $endRoute = "'{$model['name']}Controller');";
+            $templateDataRoute = $generatorService->searchTemplate($startRoute, $endRoute, -strlen($startRoute) + 22, strlen($endRoute) + 8, $templateDataRouteReal);
 
             $templateDataRouteReal = str_replace($templateDataRoute, '', $templateDataRouteReal);
             $fileService->createFileReal(config('generator.path.laravel.api_routes'), $templateDataRouteReal);
@@ -180,17 +184,22 @@ class GeneratorController extends Controller
             // START - search lang
             $nameLanguages = ['route', 'table'];
             $languages = config('generator.not_delete.laravel.lang');
+            $tableName = $this->serviceGenerator->tableNameNotPlural($model['name']);
             foreach ($languages as $key => $langComment) {
                 foreach ($nameLanguages as $nameLang) {
                     $templateDataLangReal = $this->serviceGenerator->getFile('lang', 'laravel', $key . '/' . $nameLang . '.php');
-                    $templateDataLang = $generatorService->searchTemplate(
-                        "// START - {$generatorService->tableNameNotPlural($model['name'])}",
-                        "// END - {$generatorService->tableNameNotPlural($model['name'])}",
-                        0,
-                        14,
-                        $templateDataLangReal
-                    );
-                    $templateDataLangReal = str_replace($templateDataLang, '', $templateDataLangReal);
+                    if ($nameLang === 'route') {
+                        $startRouteTable = "// START - {$generatorService->tableNameNotPlural($model['name'])}";
+                        $endRouteTable = "// END - {$generatorService->tableNameNotPlural($model['name'])}";
+                        $templateDataLangRoute = $generatorService->searchTemplate($startRouteTable, $endRouteTable, -strlen($startRouteTable) + 22, strlen($endRouteTable) + 8, $templateDataLangReal);
+                        $templateDataLangReal = str_replace($templateDataLangRoute, '', $templateDataLangReal);
+                    }
+
+                    if ($nameLang === 'table') {
+                        $quoteTable = "'" . $tableName . "' => [";
+                        $templateDataLangTable = $this->serviceGenerator->searchTemplate($quoteTable, '],', -strlen($quoteTable) + 20, strlen($quoteTable) - 16, $templateDataLangReal);
+                        $templateDataLangReal = str_replace($templateDataLangTable, '', $templateDataLangReal);
+                    }
                     $fileService->createFileReal(config('generator.path.laravel.lang') . $key . '/' . $nameLang . '.php', $templateDataLangReal);
                 }
             }
@@ -341,11 +350,11 @@ class GeneratorController extends Controller
         $configGeneratorVueJS = config('generator')['path']['vuejs'];
 
         $files['api_controller'] = $configGeneratorLaravel['api_controller'] . $model['name'] . 'Controller.php';
-        $files['request'] = $configGeneratorLaravel['request'] . $model['name'] . 'Request.php';
+        $files['request'] = $configGeneratorLaravel['request'] . 'Store' . $model['name'] . 'Request.php';
         $files['swagger'] = $configGeneratorLaravel['swagger'] . $model['name'] . '.php';
         $files['model'] = $configGeneratorLaravel['model'] . $model['name'] . '.php';
-        $files['repositories']['interface'] = $configGeneratorLaravel['repositories'] . $model['name'] . 'Interface.php';
-        $files['repositories']['repository'] = $configGeneratorLaravel['repositories'] . $model['name'] . 'Repository.php';
+        $files['repositories']['interface'] = $configGeneratorLaravel['repositories'] . $model['name'] . '/' . $model['name'] . 'Interface.php';
+        $files['repositories']['repository'] = $configGeneratorLaravel['repositories'] . $model['name'] . '/' . $model['name'] . 'Repository.php';
         $files['migration'] = $configGeneratorLaravel['migration'] . $generateBackend['migration']['file'];
         $files['seeder'] = $configGeneratorLaravel['seeder'] . $model['name'] . 'TableSeeder.php';
 
