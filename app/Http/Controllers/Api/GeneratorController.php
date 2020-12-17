@@ -157,6 +157,9 @@ class GeneratorController extends Controller
 
             //            $this->_gitCommit($model['name']);
             // START - Remove File
+            if (file_exists($files['migration'])) {
+                Artisan::call("migrate:rollback --path={$files['migration']}");
+            }
             foreach ($files as $key => $file) {
                 if (is_array($file)) {
                     foreach ($file as $keyInside => $fileInside) {
