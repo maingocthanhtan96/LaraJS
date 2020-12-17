@@ -9,14 +9,17 @@ use Carbon\Carbon;
 
 class MigrationGenerator extends BaseGenerator
 {
-    /** @var $service */
-    public $serviceGenerator;
+    /** @var GeneratorService $service */
+    public GeneratorService $serviceGenerator;
 
-    /** @var $service */
-    public $serviceFile;
+    /** @var FileService $service */
+    public FileService $serviceFile;
 
     /** @var string */
     public $path;
+
+    /** @var string */
+    public string $file;
 
     public function __construct($fields, $model)
     {
@@ -24,10 +27,10 @@ class MigrationGenerator extends BaseGenerator
         $this->serviceFile = new FileService();
         $this->path = config('generator.path.laravel.migration');
 
-        $this->generate($fields, $model);
+        $this->file = $this->generate($fields, $model);
     }
 
-    private function generate($fields, $model)
+    private function generate($fields, $model): string
     {
         $now = Carbon::now();
         $pathTemplate = 'Databases/Migrations/';
@@ -35,20 +38,13 @@ class MigrationGenerator extends BaseGenerator
         $templateData = str_replace('{{FIELDS}}', $this->generateFields($fields, $model), $templateData);
         $templateData = str_replace('{{DATE_TIME}}', $now->toDateTimeString(), $templateData);
 
-        $templateData = str_replace(
-            '{{TABLE_NAME_TITLE}}',
-            $this->serviceGenerator->modelNamePlural($model['name']),
-            $templateData,
-        );
-        $templateData = str_replace(
-            '{{TABLE_NAME}}',
-            $this->serviceGenerator->tableName($model['name']),
-            $templateData,
-        );
-        $fileName =
-            date('Y_m_d_His') . '_' . 'create_' . $this->serviceGenerator->tableName($model['name']) . '_table.php';
+        $templateData = str_replace('{{TABLE_NAME_TITLE}}', $this->serviceGenerator->modelNamePlural($model['name']), $templateData);
+        $templateData = str_replace('{{TABLE_NAME}}', $this->serviceGenerator->tableName($model['name']), $templateData);
+        $fileName = date('Y_m_d_His') . '_' . 'create_' . $this->serviceGenerator->tableName($model['name']) . '_table.php';
 
         $this->serviceFile->createFile($this->path, $fileName, $templateData);
+
+        return $fileName;
     }
 
     private function generateFields($fields, $model)
@@ -96,7 +92,7 @@ class MigrationGenerator extends BaseGenerator
                 $table .= '->nullable()->default("' . $field['as_define'] . '")';
             }
             if ($field['options']['comment']) {
-                $table .= '->comment("'.$field['options']['comment'].'")';
+                $table .= '->comment("' . $field['options']['comment'] . '")';
             }
             if ($index > 0) {
                 $table .= ';';

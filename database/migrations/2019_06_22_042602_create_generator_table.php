@@ -18,6 +18,7 @@ class CreateGeneratorTable extends Migration
             $table->text('field')->nullable();
             $table->text('model')->nullable();
             $table->string('table');
+            $table->json('files')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

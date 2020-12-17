@@ -27,11 +27,12 @@ use App\Generators\BackendUpdate\{
 use App\Generators\Frontend\{ApiGenerator, FormGenerator, FormHandlerGenerator, ViewGenerator, RouteGenerator as RouteGeneratorFe, ViewTableGenerator};
 use App\Generators\FrontendUpdate\{FormUpdateGenerator, ViewTableUpdateGenerator, ViewUpdateGenerator};
 use App\Http\Requests\StoreGeneratorRelationshipRequest;
-use App\Services\{GeneratorService, QueryService};
+use App\Services\{FileService, GeneratorService, QueryService};
 use App\Models\Generator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
@@ -90,13 +91,16 @@ class GeneratorController extends Controller
             $fields = $request->get('fields', []);
             $model = $request->get('model', []);
             // git commit
-            $this->_gitCommit($model['name']);
-            $this->_generateBackend($fields, $model);
+            //            $this->_gitCommit($model['name']);
+            $generateBackend = $this->_generateBackend($fields, $model);
             $this->_generateFrontend($fields, $model);
+            $files = $this->_generateFile($model, $generateBackend);
+
             Generator::create([
                 'field' => json_encode($fields),
                 'model' => json_encode($model),
                 'table' => $this->serviceGenerator->tableName($model['name']),
+                'files' => json_encode($files),
             ]);
             $this->_runCommand($model);
 
@@ -131,6 +135,54 @@ class GeneratorController extends Controller
             $this->_runCommand();
 
             return $this->jsonMessage(trans('messages.success'));
+        } catch (\Exception $e) {
+            return $this->jsonError($e);
+        }
+    }
+
+    public function destroy(Request $request, Generator $generator)
+    {
+        try {
+            $model = json_decode($generator->model, true);
+            $generatorService = new GeneratorService();
+            $fileService = new FileService();
+            // START - search route
+            $templateDataRouteReal = $this->serviceGenerator->getFile('api_routes', 'laravel');
+            $templateDataRoute = $generatorService->searchTemplate("/*<==> {$model['name']} Route -", "'{$model['name']}Controller');", 0, 18, $templateDataRouteReal);
+
+            $templateDataRouteReal = str_replace($templateDataRoute, '', $templateDataRouteReal);
+            $fileService->createFileReal(config('generator.path.laravel.api_routes'), $templateDataRouteReal);
+            // END - search route
+            // START - search lang
+            $nameLanguages = ['route', 'table'];
+            $languages = config('generator.not_delete.laravel.lang');
+            foreach ($languages as $key => $langComment) {
+                foreach ($nameLanguages as $nameLang) {
+                    $templateDataLangReal = $this->serviceGenerator->getFile('lang', 'laravel', $key . '/' . $nameLang . '.php');
+                    $templateDataLang = $generatorService->searchTemplate(
+                        "// START - {$generatorService->tableNameNotPlural($model['name'])}",
+                        "// END - {$generatorService->tableNameNotPlural($model['name'])}",
+                        0,
+                        14,
+                        $templateDataLangReal
+                    );
+                    $templateDataLangReal = str_replace($templateDataLang, '', $templateDataLangReal);
+                    $fileService->createFileReal(config('generator.path.laravel.lang') . $key . '/' . $nameLang . '.php', $templateDataLangReal);
+                }
+            }
+            // END - search lang
+
+            // START - api route VueJS
+            $pathApiRouteVueJSReal = config('generator.path.vuejs.router') . 'index.js';
+            $templateDataApiRouteVueJSReal = $this->serviceGenerator->getFile('router', 'vuejs', 'index.js');
+            $templateDataApiRouteVueJSReal = str_replace(
+                "import {$generatorService->modelNameNotPluralFe($model['name'])} from './modules/{$generatorService->nameAttribute($model['name'])}';\n",
+                '',
+                $templateDataApiRouteVueJSReal
+            );
+            $templateDataApiRouteVueJSReal = str_replace("{$generatorService->modelNameNotPluralFe($model['name'])},\n", '', $templateDataApiRouteVueJSReal);
+            $fileService->createFileReal($pathApiRouteVueJSReal, $templateDataApiRouteVueJSReal);
+            // END - api route VueJS
         } catch (\Exception $e) {
             return $this->jsonError($e);
         }
@@ -230,7 +282,7 @@ class GeneratorController extends Controller
 
     private function _generateBackend($fields, $model)
     {
-        new MigrationGenerator($fields, $model);
+        $migrationGenerator = new MigrationGenerator($fields, $model);
         new ControllerGenerator($fields, $model);
         new SeederGenerator($fields, $model);
         new ModelGenerator($fields, $model);
@@ -239,6 +291,12 @@ class GeneratorController extends Controller
         new RouteGenerator($model);
         new RequestGenerator($fields, $model);
         new SwaggerGenerator($fields, $model);
+
+        return [
+            'migration' => [
+                'file' => $migrationGenerator->file,
+            ],
+        ];
     }
 
     private function _generateFrontend($fields, $model)
@@ -248,6 +306,29 @@ class GeneratorController extends Controller
         new ViewTableGenerator($fields, $model);
         new FormGenerator($fields, $model);
         new FormHandlerGenerator($fields, $model);
+    }
+
+    private function _generateFile($model, $generateBackend): array
+    {
+        $files = [];
+        $configGeneratorLaravel = config('generator')['path']['laravel'];
+        $configGeneratorVueJS = config('generator')['path']['vuejs'];
+
+        $files['api_controller'] = $configGeneratorLaravel['api_controller'] . $model['name'] . 'Controller.php';
+        $files['request'] = $configGeneratorLaravel['request'] . $model['name'] . 'Request.php';
+        $files['swagger'] = $configGeneratorLaravel['swagger'] . $model['name'] . '.php';
+        $files['model'] = $configGeneratorLaravel['model'] . $model['name'] . '.php';
+        $files['repositories']['interface'] = $configGeneratorLaravel['repositories'] . $model['name'] . 'Interface.php';
+        $files['repositories']['repository'] = $configGeneratorLaravel['repositories'] . $model['name'] . 'Repository.php';
+        $files['migration'] = $configGeneratorLaravel['migration'] . $generateBackend['migration']['file'];
+        $files['seeder'] = $configGeneratorLaravel['seeder'] . $model['name'] . 'TableSeeder.php';
+
+        $files['api'] = $configGeneratorVueJS['api'] . $model['name'] . '.js';
+        $files['router_modules'] = $configGeneratorVueJS['api'] . $model['name'] . '.js';
+        $files['views']['form'] = $configGeneratorVueJS['views'] . lcfirst(\Str::kebab($model['name'])) . '/' . 'Form.vue';
+        $files['views']['index'] = $configGeneratorVueJS['views'] . lcfirst(\Str::kebab($model['name'])) . '/' . 'index.vue';
+
+        return $files;
     }
 
     private function _generateBackendUpdate($generator, $model, $updateFields)
