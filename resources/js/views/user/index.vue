@@ -107,7 +107,7 @@
                 align="center"
                 class-name="small-padding fixed-width"
               >
-                <template slot-scope="{ row, $index }">
+                <template slot-scope="{ row }">
                   <router-link
                     v-permission="['edit']"
                     :to="{ name: 'user-edit', params: { id: row.id } }"
@@ -117,7 +117,7 @@
                   <a
                     v-permission="['delete']"
                     class="cursor-pointer"
-                    @click.stop="() => remove(row.id, numericalOrder($index))"
+                    @click.stop="() => remove(row.id)"
                   >
                     <i class="el-icon-delete el-link el-link--danger" />
                   </a>
@@ -167,7 +167,7 @@ export default {
     };
   },
   watch: {
-    'table.listQuery.search': debounce(function() {
+    'table.listQuery.search': debounce(function () {
       this.handleFilter();
     }, 500),
   },
@@ -208,10 +208,10 @@ export default {
       }
       this.getList();
     },
-    remove(id, name) {
+    remove(id) {
       this.$confirm(
         this.$t('messages.delete_confirm', {
-          attribute: this.$t('table.user.id') + '#' + name,
+          attribute: this.$t('table.user.id') + '#' + id,
         }),
         this.$t('messages.warning'),
         {

@@ -140,12 +140,36 @@ class GeneratorController extends Controller
         }
     }
 
-    public function destroy(Request $request, Generator $generator)
+    /**
+     * @param Request $request
+     * @param Generator $generator
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy(Generator $generator): \Illuminate\Http\JsonResponse
     {
         try {
             $model = json_decode($generator->model, true);
+            $files = json_decode($generator->files, true);
             $generatorService = new GeneratorService();
             $fileService = new FileService();
+
+            //            $this->_gitCommit($model['name']);
+            // START - Remove File
+            foreach ($files as $key => $file) {
+                if (is_array($file)) {
+                    foreach ($file as $keyInside => $fileInside) {
+                        if (file_exists($file[$keyInside])) {
+                            unlink($file[$keyInside]);
+                        }
+                    }
+                } else {
+                    if (file_exists($files[$key])) {
+                        unlink($files[$key]);
+                    }
+                }
+            }
+            // END - Remove File
+
             // START - search route
             $templateDataRouteReal = $this->serviceGenerator->getFile('api_routes', 'laravel');
             $templateDataRoute = $generatorService->searchTemplate("/*<==> {$model['name']} Route -", "'{$model['name']}Controller');", 0, 18, $templateDataRouteReal);
@@ -182,6 +206,8 @@ class GeneratorController extends Controller
             );
             $templateDataApiRouteVueJSReal = str_replace("{$generatorService->modelNameNotPluralFe($model['name'])},\n", '', $templateDataApiRouteVueJSReal);
             $fileService->createFileReal($pathApiRouteVueJSReal, $templateDataApiRouteVueJSReal);
+
+            return $this->jsonMessage(trans('messages.success'));
             // END - api route VueJS
         } catch (\Exception $e) {
             return $this->jsonError($e);

@@ -59,8 +59,8 @@
                 label="No."
                 width="70px"
               >
-                <template slot-scope="{ $index }">
-                  {{ numericalOrder($index) }}
+                <template slot-scope="{ row }">
+                  {{ row.id }}
                 </template>
               </el-table-column>
               <el-table-column align="center" label="Table">
@@ -103,14 +103,28 @@
                     <el-tooltip
                       effect="dark"
                       content="Relationship"
-                      placement="right"
+                      placement="top"
                     >
                       <svg-icon
-                        class="el-link el-link--success"
+                        class="el-link el-link--success mr-4"
                         icon-class="tree"
                       />
                     </el-tooltip>
                   </router-link>
+                  <a
+                    v-if="row.id !== 1"
+                    v-permission="['delete']"
+                    class="cursor-pointer"
+                    @click.stop="() => remove(row.id)"
+                  >
+                    <el-tooltip
+                      effect="dark"
+                      content="Remove"
+                      placement="right"
+                    >
+                      <i class="el-icon-delete el-link el-link--danger" />
+                    </el-tooltip>
+                  </a>
                 </template>
               </el-table-column>
             </el-table>
@@ -173,7 +187,7 @@ export default {
     };
   },
   watch: {
-    'table.listQuery.search': debounce(function() {
+    'table.listQuery.search': debounce(function () {
       this.handleFilter();
     }, 500),
   },
@@ -214,10 +228,10 @@ export default {
       }
       this.getList();
     },
-    remove(id, name) {
+    remove(id) {
       this.$confirm(
         this.$t('messages.delete_confirm', {
-          attribute: this.$t('table.user.id') + '#' + name,
+          attribute: this.$t('table.user.id') + '#' + id,
         }),
         this.$t('messages.warning'),
         {
@@ -229,10 +243,8 @@ export default {
       ).then(async () => {
         this.table.loading = true;
         await generatorResource.destroy(id);
-        const index = this.$refs.table_user.data.findIndex(
-          value => value.id === id
-        );
-        this.$refs.table_user.data.splice(index, 1);
+        const index = this.table.list.findIndex(value => value.id === id);
+        this.table.list.splice(index, 1);
         this.$message({
           showClose: true,
           message: this.$t('messages.delete'),
