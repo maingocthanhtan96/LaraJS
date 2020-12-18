@@ -155,32 +155,31 @@ class GeneratorController extends Controller
 
             //            $this->_gitCommit($model['name']);
             // START - Remove File
-            //            if (file_exists($files['migration'])) {
-            //                $fileMigration = str_replace(base_path(), '', $files['migration']);
-            //                $fileMigration = ltrim($fileMigration, '/');
-            //                Artisan::call("migrate:rollback --path={$fileMigration}");
-            //            }
-            //            foreach ($files as $key => $file) {
-            //                if (is_array($file)) {
-            //                    foreach ($file as $keyInside => $fileInside) {
-            //                        if (file_exists($file[$keyInside])) {
-            //                            unlink($file[$keyInside]);
-            //                        }
-            //                    }
-            //                } else {
-            //                    if (file_exists($files[$key])) {
-            //                        unlink($files[$key]);
-            //                    }
-            //                }
-            //            }
+            if (file_exists($files['migration'])) {
+                $fileMigration = str_replace(base_path(), '', $files['migration']);
+                $fileMigration = ltrim($fileMigration, '/');
+                Artisan::call("migrate:rollback --path={$fileMigration}");
+            }
+            foreach ($files as $key => $file) {
+                if (is_array($file)) {
+                    foreach ($file as $keyInside => $fileInside) {
+                        if (file_exists($file[$keyInside])) {
+                            unlink($file[$keyInside]);
+                        }
+                    }
+                } else {
+                    if (file_exists($files[$key])) {
+                        unlink($files[$key]);
+                    }
+                }
+            }
             // END - Remove File
 
             // START - search route
             $templateDataRouteReal = $this->serviceGenerator->getFile('api_routes', 'laravel');
             $startRoute = "/*<==> {$model['name']} Route -";
             $endRoute = "'{$model['name']}Controller');";
-            $templateDataRoute = $generatorService->searchTemplate($startRoute, $endRoute, -strlen($startRoute) + 22, strlen($endRoute) + 8, $templateDataRouteReal);
-            dd($templateDataRoute);
+            $templateDataRoute = $generatorService->searchTemplate($startRoute, $endRoute, 0, strlen($endRoute), $templateDataRouteReal);
             $templateDataRouteReal = str_replace($templateDataRoute, '', $templateDataRouteReal);
             $fileService->createFileReal(config('generator.path.laravel.api_routes'), $templateDataRouteReal);
             // END - search route
@@ -192,15 +191,15 @@ class GeneratorController extends Controller
                 foreach ($nameLanguages as $nameLang) {
                     $templateDataLangReal = $this->serviceGenerator->getFile('lang', 'laravel', $key . '/' . $nameLang . '.php');
                     if ($nameLang === 'route') {
-                        $startRouteTable = "// START - {$generatorService->tableNameNotPlural($model['name'])}";
-                        $endRouteTable = "// END - {$generatorService->tableNameNotPlural($model['name'])}";
-                        $templateDataLangRoute = $generatorService->searchTemplate($startRouteTable, $endRouteTable, -strlen($startRouteTable) + 22, strlen($endRouteTable) + 8, $templateDataLangReal);
+                        $startRouteTable = "// START - {$generatorService->tableNameNotPlural($model['name'])}\n";
+                        $endRouteTable = "// END - {$generatorService->tableNameNotPlural($model['name'])}\n";
+                        $templateDataLangRoute = $generatorService->searchTemplate($startRouteTable, $endRouteTable, 0, strlen($endRouteTable), $templateDataLangReal);
                         $templateDataLangReal = str_replace($templateDataLangRoute, '', $templateDataLangReal);
                     }
 
                     if ($nameLang === 'table') {
                         $quoteTable = "'" . $tableName . "' => [";
-                        $templateDataLangTable = $this->serviceGenerator->searchTemplate($quoteTable, '],', -strlen($quoteTable) + 20, strlen($quoteTable) - 16, $templateDataLangReal);
+                        $templateDataLangTable = $this->serviceGenerator->searchTemplate($quoteTable, '],', 0, 4, $templateDataLangReal);
                         $templateDataLangReal = str_replace($templateDataLangTable, '', $templateDataLangReal);
                     }
                     $fileService->createFileReal(config('generator.path.laravel.lang') . $key . '/' . $nameLang . '.php', $templateDataLangReal);
@@ -220,7 +219,7 @@ class GeneratorController extends Controller
             $fileService->createFileReal($pathApiRouteVueJSReal, $templateDataApiRouteVueJSReal);
             // END - api route VueJS
 
-            //            $generator->delete();
+            $generator->delete();
 
             return $this->jsonMessage(trans('messages.success'));
         } catch (\Exception $e) {
@@ -363,8 +362,8 @@ class GeneratorController extends Controller
         $files['migration'] = $configGeneratorLaravel['migration'] . $generateBackend['migration']['file'];
         $files['seeder'] = $configGeneratorLaravel['seeder'] . $model['name'] . 'TableSeeder.php';
 
-        $files['api'] = $configGeneratorVueJS['api'] . $model['name'] . '.js';
-        $files['router_modules'] = $configGeneratorVueJS['api'] . $model['name'] . '.js';
+        $files['api'] = $configGeneratorVueJS['api'] . $this->serviceGenerator->folderPages($model['name']) . '.js';
+        $files['router_modules'] = $configGeneratorVueJS['router_modules'] . $this->serviceGenerator->folderPages($model['name']) . '.js';
         $files['views']['form'] = $configGeneratorVueJS['views'] . lcfirst(\Str::kebab($model['name'])) . '/' . 'Form.vue';
         $files['views']['index'] = $configGeneratorVueJS['views'] . lcfirst(\Str::kebab($model['name'])) . '/' . 'index.vue';
 

@@ -48,7 +48,7 @@ Route::group(['namespace' => 'Api'], function () {
             function () {
                 Route::apiResource('roles', 'RoleController');
                 Route::apiResource('permissions', 'PermissionController');
-            },
+            }
         );
 
         // role Admin (Super admin)
