@@ -147,8 +147,6 @@ class GeneratorController extends Controller
      */
     public function destroy(Generator $generator): \Illuminate\Http\JsonResponse
     {
-        //Applications/Source/tanmnt/larajs/app/Repositories/TestGeneratorRepository.php
-        ///Applications/Source/tanmnt/larajs/app/Repositories/TestGenerator/TestGeneratorRepository.php
         try {
             $model = json_decode($generator->model, true);
             $files = json_decode($generator->files, true);
@@ -157,22 +155,24 @@ class GeneratorController extends Controller
 
             //            $this->_gitCommit($model['name']);
             // START - Remove File
-            if (file_exists($files['migration'])) {
-                Artisan::call("migrate:rollback --path={$files['migration']}");
-            }
-            foreach ($files as $key => $file) {
-                if (is_array($file)) {
-                    foreach ($file as $keyInside => $fileInside) {
-                        if (file_exists($file[$keyInside])) {
-                            unlink($file[$keyInside]);
-                        }
-                    }
-                } else {
-                    if (file_exists($files[$key])) {
-                        unlink($files[$key]);
-                    }
-                }
-            }
+            //            if (file_exists($files['migration'])) {
+            //                $fileMigration = str_replace(base_path(), '', $files['migration']);
+            //                $fileMigration = ltrim($fileMigration, '/');
+            //                Artisan::call("migrate:rollback --path={$fileMigration}");
+            //            }
+            //            foreach ($files as $key => $file) {
+            //                if (is_array($file)) {
+            //                    foreach ($file as $keyInside => $fileInside) {
+            //                        if (file_exists($file[$keyInside])) {
+            //                            unlink($file[$keyInside]);
+            //                        }
+            //                    }
+            //                } else {
+            //                    if (file_exists($files[$key])) {
+            //                        unlink($files[$key]);
+            //                    }
+            //                }
+            //            }
             // END - Remove File
 
             // START - search route
@@ -180,7 +180,7 @@ class GeneratorController extends Controller
             $startRoute = "/*<==> {$model['name']} Route -";
             $endRoute = "'{$model['name']}Controller');";
             $templateDataRoute = $generatorService->searchTemplate($startRoute, $endRoute, -strlen($startRoute) + 22, strlen($endRoute) + 8, $templateDataRouteReal);
-
+            dd($templateDataRoute);
             $templateDataRouteReal = str_replace($templateDataRoute, '', $templateDataRouteReal);
             $fileService->createFileReal(config('generator.path.laravel.api_routes'), $templateDataRouteReal);
             // END - search route
@@ -218,9 +218,11 @@ class GeneratorController extends Controller
             );
             $templateDataApiRouteVueJSReal = str_replace("{$generatorService->modelNameNotPluralFe($model['name'])},\n", '', $templateDataApiRouteVueJSReal);
             $fileService->createFileReal($pathApiRouteVueJSReal, $templateDataApiRouteVueJSReal);
+            // END - api route VueJS
+
+            //            $generator->delete();
 
             return $this->jsonMessage(trans('messages.success'));
-            // END - api route VueJS
         } catch (\Exception $e) {
             return $this->jsonError($e);
         }

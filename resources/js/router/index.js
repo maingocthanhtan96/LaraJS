@@ -50,8 +50,9 @@ export const constantRouterMap = [
     hidden: true,
     component: () => import('@/views/auth/ResetPasswordForm'),
   },
-  { path: '/404', hidden: true, component: () => import('@/views/errors/404') },
   { path: '/401', hidden: true, component: () => import('@/views/errors/401') },
+  { path: '/404', hidden: true, component: () => import('@/views/errors/404') },
+  { path: '/500', hidden: true, component: () => import('@/views/errors/500') },
   { path: '/', redirect: '/login', hidden: true },
   {
     path: '/redirect',
