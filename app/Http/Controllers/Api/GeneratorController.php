@@ -91,7 +91,7 @@ class GeneratorController extends Controller
             $fields = $request->get('fields', []);
             $model = $request->get('model', []);
             // git commit
-            //            $this->_gitCommit($model['name']);
+            $this->_gitCommit($model['name']);
             $generateBackend = $this->_generateBackend($fields, $model);
             $this->_generateFrontend($fields, $model);
             $files = $this->_generateFile($model, $generateBackend);
@@ -153,7 +153,7 @@ class GeneratorController extends Controller
             $generatorService = new GeneratorService();
             $fileService = new FileService();
 
-            //            $this->_gitCommit($model['name']);
+            $this->_gitCommit($model['name']);
             // START - Remove File
             if (file_exists($files['migration'])) {
                 $fileMigration = str_replace(base_path(), '', $files['migration']);

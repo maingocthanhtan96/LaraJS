@@ -56,7 +56,7 @@ class LangUpdateGenerator extends BaseGenerator
         $fieldsGenerate = [];
         $quoteTable = "'" . $tableName . "' => [";
         $template = $this->serviceGenerator->searchTemplate($quoteTable, '],', 2 + strlen($quoteTable), -2 - strlen($quoteTable), $templateDataReal);
-        $templateReplace = $this->serviceGenerator->searchTemplate($tableName, '],', -strlen($quoteTable) + 20, strlen($quoteTable) - 16, $templateDataReal);
+        $templateReplace = $this->serviceGenerator->searchTemplate($quoteTable, '],', 0, 4, $templateDataReal);
         if (!$template || !$templateReplace) {
             return $templateDataReal;
         }
@@ -99,7 +99,7 @@ class LangUpdateGenerator extends BaseGenerator
         $fieldsGenerate = [];
         $quoteTable = "'" . $tableName . "' => [";
         $template = $this->serviceGenerator->searchTemplate($quoteTable, '],', 2 + strlen($quoteTable), -2 - strlen($quoteTable), $templateDataReal);
-        $templateReplace = $this->serviceGenerator->searchTemplate($quoteTable, '],', -strlen($quoteTable) + 20, strlen($quoteTable) - 16, $templateDataReal);
+        $templateReplace = $this->serviceGenerator->searchTemplate($quoteTable, '],', 0, 4, $templateDataReal);
         if (!$template || !$templateReplace) {
             return $templateDataReal;
         }
@@ -132,7 +132,7 @@ class LangUpdateGenerator extends BaseGenerator
         $fieldsGenerate = [];
         $quoteTable = "'" . $tableName . "' => [";
         $template = $this->serviceGenerator->searchTemplate($quoteTable, '],', 2 + strlen($quoteTable), -2 - strlen($quoteTable), $templateDataReal);
-        $templateReplace = $this->serviceGenerator->searchTemplate($tableName, '],', -strlen($quoteTable) + 20, strlen($quoteTable) - 16, $templateDataReal);
+        $templateReplace = $this->serviceGenerator->searchTemplate($quoteTable, '],', 0, 4, $templateDataReal);
         if (!$template || !$templateReplace) {
             return $templateDataReal;
         }
