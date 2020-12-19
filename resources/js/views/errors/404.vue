@@ -1,5 +1,5 @@
 <template>
-  <el-container class="h-screen">
+  <el-container class="tw-h-screen">
     <el-main>
       <div id="notfound">
         <div class="notfound">

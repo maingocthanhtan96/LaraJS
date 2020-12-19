@@ -2,7 +2,7 @@
   <el-row>
     <el-col :span="24">
       <el-card>
-        <div slot="header" class="flex justify-end items-center">
+        <div slot="header" class="tw-flex tw-justify-end tw-items-center">
           <router-link
             v-permission="['create']"
             :to="{ name: 'user-create' }"
@@ -13,8 +13,8 @@
             {{ $t('button.create') }}
           </router-link>
         </div>
-        <div class="flex flex-col">
-          <el-col :span="24" class="mb-6">
+        <div class="tw-flex tw-flex-col">
+          <el-col :span="24" class="tw-mb-6">
             <el-col :xs="24" :sm="10" :md="6">
               <label>{{ $t('table.texts.filter') }}</label>
               <el-input
@@ -26,7 +26,7 @@
               <br />
               <el-date-picker
                 v-model="table.listQuery.updated_at"
-                class="md:float-right"
+                class="md:tw-float-right"
                 type="daterange"
                 :start-placeholder="$t('date.start_date')"
                 :end-placeholder="$t('date.end_date')"
@@ -102,11 +102,7 @@
                   {{ row.updated_at | parseTime('{y}-{m}-{d}') }}
                 </template>
               </el-table-column>
-              <el-table-column
-                :label="$t('table.actions')"
-                align="center"
-                class-name="small-padding fixed-width"
-              >
+              <el-table-column :label="$t('table.actions')" align="center">
                 <template slot-scope="{ row }">
                   <router-link
                     v-permission="['edit']"

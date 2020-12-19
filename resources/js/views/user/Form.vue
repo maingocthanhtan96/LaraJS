@@ -100,13 +100,13 @@
             />
           </el-form-item>
           <!--{{$FROM_ITEM_NOT_DELETE_THIS_LINE$}}-->
-          <el-form-item class="flex justify-center">
+          <el-form-item class="tw-flex tw-justify-center">
             <template v-if="$route.params.id">
               <el-button
                 :loading="loading.button"
                 round
                 type="primary"
-                icon="el-icon-edit mr-2"
+                icon="el-icon-edit"
                 @click="() => update('users')"
               >
                 {{ $t('button.edit') }}
@@ -117,7 +117,7 @@
                 :loading="loading.button"
                 round
                 type="success"
-                icon="el-icon-plus mr-2"
+                icon="el-icon-plus"
                 @click="() => store('users')"
               >
                 {{ $t('button.create') }}
@@ -215,12 +215,12 @@ export default {
               value
                 ? cb()
                 : cb(
-                  new Error(
-                    this.$t('validation.required', {
-                      attribute: this.$t('table.user.name'),
-                    })
-                  )
-                );
+                    new Error(
+                      this.$t('validation.required', {
+                        attribute: this.$t('table.user.name'),
+                      })
+                    )
+                  );
             },
             trigger: 'blur',
           },
@@ -257,12 +257,12 @@ export default {
               value
                 ? cb()
                 : cb(
-                  new Error(
-                    this.$t('validation.required', {
-                      attribute: this.$t('table.user.avatar'),
-                    })
-                  )
-                );
+                    new Error(
+                      this.$t('validation.required', {
+                        attribute: this.$t('table.user.avatar'),
+                      })
+                    )
+                  );
             },
             trigger: 'blur',
           },
@@ -273,12 +273,12 @@ export default {
               value
                 ? cb()
                 : cb(
-                  new Error(
-                    this.$t('validation.required', {
-                      attribute: this.$t('table.user.role'),
-                    })
-                  )
-                );
+                    new Error(
+                      this.$t('validation.required', {
+                        attribute: this.$t('table.user.role'),
+                      })
+                    )
+                  );
             },
             trigger: 'change',
           },

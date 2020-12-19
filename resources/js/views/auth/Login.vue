@@ -1,16 +1,16 @@
 <template>
   <el-container
-    class="blue-grey lighten-5 h-screen justify-center items-center"
+    class="tw-blue-grey tw-lighten-5 tw-h-screen tw-justify-center tw-items-center"
   >
     <el-row>
       <el-col :span="24">
         <el-card class="box-card">
           <div slot="header" class="clearfix">
-            <div class="flex justify-center items-center relative">
+            <div class="tw-flex tw-justify-center tw-items-center tw-relative">
               <img :src="$store.state.settings.urlLogo" width="200" />
               <lang-select
                 v-if="$store.state.settings.showTrans"
-                class="absolute right-0 top-0"
+                class="tw-absolute tw-right-0 tw-top-0"
               />
             </div>
           </div>
@@ -41,11 +41,11 @@
             </el-form-item>
           </el-form>
           <el-row>
-            <el-col :span="24" class="mb-5">
+            <el-col :span="24" class="tw-mb-5">
               <el-button
                 type="primary"
                 :loading="loading"
-                class="w-full"
+                class="tw-w-full"
                 @click.prevent="login"
               >
                 {{ $t('auth.login.login') }}
@@ -56,7 +56,7 @@
                 {{ $t('auth.login.remember') }}
               </el-checkbox>
             </el-col>
-            <el-col :span="12" class="text-right">
+            <el-col :span="12" class="tw-text-right">
               <router-link :to="{ name: 'reset-password' }" class="text-black">
                 {{ $t('auth.login.forgot_password') }}
               </router-link>

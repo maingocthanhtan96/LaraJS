@@ -2,9 +2,9 @@
   <el-row>
     <el-col :span="24">
       <el-card>
-        <div slot="header" class="flex justify-end items-center">
+        <div slot="header" class="tw-flex tw-justify-end tw-items-center">
           <router-link v-permission="['create']" :to="{name: '{{$CONST_MODEL_CLASS$}}Create'}" class="pan-btn blue-btn" tag="button">
-            <i class="el-icon-plus mr-2" />{{this.$t('button.create')}}
+            <i class="el-icon-plus tw-mr-2" />{{this.$t('button.create')}}
           </router-link>
         </div>
         <v-server-table
@@ -19,7 +19,7 @@
           <template slot="id" slot-scope="props">{{ props.index }}</template>
           <!--{{$TEMPLATES_NOT_DELETE_THIS_LINE$}}-->
           <div slot="actions" slot-scope="props" class="flex justify-center items-center">
-            <router-link v-permission="['edit']" :to="{name: '{{$CONST_MODEL_CLASS$}}Edit', params: {id: props.row.id}}"><i class="el-icon-edit el-link el-link--primary mr-2"></i></router-link>
+            <router-link v-permission="['edit']" :to="{name: '{{$CONST_MODEL_CLASS$}}Edit', params: {id: props.row.id}}"><i class="el-icon-edit el-link el-link--primary tw-mr-2"></i></router-link>
             <a v-permission="['delete']" class="cursor-pointer" @click.stop="remove(props.row.id, props.index)"><i class="el-icon-delete el-link el-link--danger"></i></a>
           </div>
         </v-server-table>

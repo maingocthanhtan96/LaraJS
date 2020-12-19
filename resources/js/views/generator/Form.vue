@@ -3,12 +3,12 @@
     <el-col :span="24">
       <el-card>
         <div slot="header">
-          <h1 class="text-4xl">
+          <h1 class="tw-text-4xl">
             <mallki class-name="mallki-text" :text="$t('route.generator')" />
           </h1>
         </div>
         <section class="content-wrapper">
-          <div class="container is-fullhd">
+          <div class="container tw-is-fullhd">
             <div>
               <el-form
                 ref="formModel"
@@ -16,7 +16,7 @@
                 :rules="modalRules"
                 label-position="top"
               >
-                <el-col :span="9" class="mr-4">
+                <el-col :span="9" class="tw-mr-4">
                   <el-form-item
                     :label="$t('generator.form_model_name')"
                     prop="name"
@@ -28,7 +28,7 @@
                     />
                   </el-form-item>
                 </el-col>
-                <el-col :span="9" class="mr-4">
+                <el-col :span="9" class="tw-mr-4">
                   <el-form-item
                     :label="$t('generator.form_model_name_trans')"
                     prop="name_trans"
@@ -149,19 +149,21 @@
                     :ref="`dynamicFieldsForm${index}`"
                     :model="data"
                     :rules="dynamicFieldsRules"
-                    class="divTableRow hover:bg-gray-200"
+                    class="divTableRow hover:tw-bg-gray-200"
                     :class="{
                       draggable:
                         !disabledMethod(index) && index >= formTemp.length,
                     }"
                   >
                     <div
-                      class="divTableCell text-center align-middle"
+                      class="divTableCell tw-text-center tw-align-middle"
                       @click="showDialogOptions(data.id)"
                     >
                       {{ index + 1 }}
                     </div>
-                    <div class="divTableCell text-center align-middle pt-8">
+                    <div
+                      class="divTableCell tw-text-center tw-align-middle tw-pt-8"
+                    >
                       <el-form-item prop="field_name">
                         <el-input
                           v-model="data.field_name"
@@ -170,7 +172,9 @@
                         />
                       </el-form-item>
                     </div>
-                    <div class="divTableCell text-center align-middle pt-8">
+                    <div
+                      class="divTableCell tw-text-center tw-align-middle tw-pt-8"
+                    >
                       <el-form-item prop="field_name_trans">
                         <el-input
                           v-model="data.field_name_trans"
@@ -181,7 +185,9 @@
                         />
                       </el-form-item>
                     </div>
-                    <div class="divTableCell text-center align-middle pt-8">
+                    <div
+                      class="divTableCell tw-text-center tw-align-middle tw-pt-8"
+                    >
                       <el-form-item prop="db_type">
                         <el-select
                           v-model="data.db_type"
@@ -232,7 +238,9 @@
                         </el-form-item>
                       </template>
                     </div>
-                    <div class="divTableCell text-center align-middle pt-8">
+                    <div
+                      class="divTableCell tw-text-center tw-align-middle tw-pt-8"
+                    >
                       <el-form-item prop="default_value">
                         <el-select
                           v-if="notAs.includes(data.db_type)"
@@ -327,7 +335,7 @@
                     </div>
                     <div
                       v-if="$route.params.id > 0"
-                      class="divTableCell text-center align-middle"
+                      class="divTableCell tw-text-center tw-align-middle"
                     >
                       <el-select
                         v-if="disableAfterColumn(data.id)"
@@ -343,7 +351,7 @@
                         />
                       </el-select>
                     </div>
-                    <div class="divTableCell text-center align-middle">
+                    <div class="divTableCell tw-text-center tw-align-middle">
                       <el-checkbox
                         v-model="data.search"
                         :disabled="
@@ -353,19 +361,19 @@
                         "
                       />
                     </div>
-                    <div class="divTableCell text-center align-middle">
+                    <div class="divTableCell tw-text-center tw-align-middle">
                       <el-checkbox
                         v-model="data.sort"
                         :disabled="!data.show || notSoft.includes(data.db_type)"
                       />
                     </div>
-                    <div class="divTableCell text-center align-middle">
+                    <div class="divTableCell tw-text-center tw-align-middle">
                       <el-checkbox
                         v-model="data.show"
                         @click.native="changeShow(index)"
                       />
                     </div>
-                    <div class="divTableCell text-center align-middle">
+                    <div class="divTableCell tw-text-center tw-align-middle">
                       <el-button
                         v-if="index > 0"
                         type="danger"
@@ -378,12 +386,12 @@
                 </draggable>
               </div>
             </div>
-            <div class="pt-6">
+            <div class="tw-pt-6">
               <el-button v-waves type="success" round @click.prevent="addField">
                 {{ $t('generator.add_field') }}
               </el-button>
             </div>
-            <div class="float-right">
+            <div class="tw-float-right">
               <el-button
                 v-if="$route.params.id"
                 v-waves

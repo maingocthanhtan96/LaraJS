@@ -2,20 +2,22 @@
   <el-row>
     <el-col :span="24">
       <el-card>
-        <div slot="header" class="text-center">
+        <div slot="header" class="tw-text-center">
           <button
-            class="hover:bg-green-600 hover:text-white font-bold border rounded border-green-600 text-green-600 bg-transparent py-3 px-4"
+            class="tw-hover:bg-green-600 tw-hover:text-white tw-font-bold tw-border tw-rounded tw-border-green-600 tw-text-green-600 tw-bg-transparent tw-py-3 tw-px-4"
             @click="dialogVisible = true"
           >
             <svg-icon icon-class="tree" />
           </button>
         </div>
         <section class="section">
-          <div class="flex flex-col items-center">
+          <div class="tw-flex tw-flex-col tw-items-center">
             <el-tag type="success" effect="dark">
               {{ form.model_current }}
             </el-tag>
-            <div class="w-04-rem h-24 bg-indigo-600 draw-arrow-down one" />
+            <div
+              class="w-04-rem tw-h-24 tw-bg-indigo-600 tw-draw-arrow-down one"
+            />
             <el-select
               v-model="form.relationship"
               :class="{ 'error-danger': errors.relationship }"
@@ -29,10 +31,12 @@
                 :value="relationship"
               />
             </el-select>
-            <p v-if="errors.relationship" class="help is-danger text-lg">
+            <p v-if="errors.relationship" class="help is-danger tw-text-lg">
               {{ errors.relationship[0] }}
             </p>
-            <div class="w-04-rem h-24 bg-indigo-600 draw-arrow-down two" />
+            <div
+              class="w-04-rem tw-h-24 tw-bg-indigo-600 draw-arrow-down two"
+            />
             <el-select
               v-model="form.model"
               :class="{ 'error-danger': errors.model }"
@@ -48,14 +52,18 @@
                 :value="model"
               />
             </el-select>
-            <p v-if="errors.model" class="help is-danger text-lg">
+            <p v-if="errors.model" class="help is-danger tw-text-lg">
               {{ errors.model[0] }}
             </p>
-            <div class="w-04-rem h-24 bg-indigo-600 draw-arrow-down three" />
+            <div
+              class="w-04-rem tw-h-24 tw-bg-indigo-600 draw-arrow-down three"
+            />
             <div class="z-10">
               <pre-code-tag :content="markdown" />
             </div>
-            <div class="w-04-rem h-24 bg-indigo-600 draw-arrow-down four" />
+            <div
+              class="w-04-rem tw-h-24 tw-bg-indigo-600 draw-arrow-down four"
+            />
             <el-select
               v-model="form.column"
               :class="{ 'error-danger': errors.column }"
@@ -73,7 +81,7 @@
             </el-select>
             <template v-if="form.relationship === 'belongsToMany'">
               <div
-                class="w-04-rem h-24 bg-indigo-600 draw-arrow-down equivalent"
+                class="w-04-rem tw-h-24 tw-bg-indigo-600 draw-arrow-down equivalent"
               />
               <el-select
                 v-model="form.column2"
@@ -90,10 +98,12 @@
                 />
               </el-select>
             </template>
-            <p v-if="errors.column" class="help is-danger text-lg">
+            <p v-if="errors.column" class="help is-danger tw-text-lg">
               {{ errors.column[0] }}
             </p>
-            <div class="w-04-rem h-24 bg-indigo-600 draw-arrow-down five" />
+            <div
+              class="w-04-rem tw-h-24 tw-bg-indigo-600 draw-arrow-down five"
+            />
             <el-select
               v-model="form.options"
               class="options"
@@ -108,7 +118,9 @@
                 :value="item"
               />
             </el-select>
-            <div class="w-04-rem h-24 bg-indigo-600 draw-arrow-down six" />
+            <div
+              class="w-04-rem tw-h-24 tw-bg-indigo-600 draw-arrow-down six"
+            />
             <el-tooltip
               effect="dark"
               :content="$t('route.generator_relationship')"
@@ -131,20 +143,20 @@
               :fullscreen="true"
               @open="diagram"
             >
-              <div slot="title" class="text-center">
+              <div slot="title" class="tw-text-center">
                 <h3 class="title">
                   Diagram {{ $t('route.generator_relationship') }}
                 </h3>
               </div>
               <div>
-                <div class="tree text-center">
-                  <ul class="inline-block">
+                <div class="tree tw-text-center">
+                  <ul class="tw-inline-block">
                     <li
                       v-for="(dg, index) in drawDiagram"
                       :key="'diagram_' + index"
                     >
                       <a>{{ dg.model }}</a>
-                      <ul class="flex">
+                      <ul class="tw-flex">
                         <li
                           v-for="(item, i) in dg.data"
                           :key="'itemDiagram_' + i"
@@ -152,12 +164,12 @@
                           <a>{{ item.type }}</a>
                           <ul>
                             <li>
-                              <a class="w-64">{{ item.model }}</a>
+                              <a class="tw-w-64">{{ item.model }}</a>
                               <ul
                                 v-if="item.table"
                                 :class="{ 'has-mtm-parent': item.table }"
                               >
-                                <a class="w-64">{{ item.table }}</a>
+                                <a class="tw-w-64">{{ item.table }}</a>
                               </ul>
                               <ul>
                                 <li>

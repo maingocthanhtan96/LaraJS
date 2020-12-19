@@ -5,7 +5,7 @@
     @command="handleSetLanguage"
   >
     <div>
-      <svg-icon class-name="text-4xl" icon-class="language" />
+      <svg-icon class-name="tw-text-4xl" icon-class="language" />
     </div>
     <el-dropdown-menu slot="dropdown">
       <el-dropdown-item
