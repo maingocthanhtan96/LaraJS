@@ -179,7 +179,7 @@ module.exports = {
     'space-before-function-paren': [
       2,
       {
-        anonymous: 'never',
+        anonymous: 'always',
         named: 'never',
         asyncArrow: 'always',
       },

@@ -19,7 +19,7 @@ function checkNeed() {
   return false;
 }
 if (checkNeed()) {
-  Vue.config.errorHandler = function(err, vm, info, a) {
+  Vue.config.errorHandler = function (err, vm, info, a) {
     // Don't ask me why I use Vue.nextTick, it just a hack.
     // detail see https://forum.vuejs.org/t/dispatch-in-vue-config-errorhandler-has-some-problem/23500
     Vue.nextTick(() => {
@@ -32,7 +32,7 @@ if (checkNeed()) {
       console.error(err, info);
     });
   };
-  Vue.config.warnHandler = function(err, vm, trace, a) {
+  Vue.config.warnHandler = function (err, vm, trace, a) {
     // Don't ask me why I use Vue.nextTick, it just a hack.
     // detail see https://forum.vuejs.org/t/dispatch-in-vue-config-errorhandler-has-some-problem/23500
     Vue.nextTick(() => {

@@ -240,10 +240,9 @@ class GeneratorController extends Controller
                 }
                 // table not exist
                 return $this->jsonMessage(2);
-            } else {
-                //name null
-                return $this->jsonMessage(3);
             }
+            //name null
+            return $this->jsonMessage(3);
         } catch (\Exception $e) {
             return $this->jsonError($e);
         }
