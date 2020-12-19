@@ -348,8 +348,8 @@
                         v-model="data.search"
                         :disabled="
                           disabledMethod(index) ||
-                          !data.show ||
-                          notSearch.includes(data.db_type)
+                            !data.show ||
+                            notSearch.includes(data.db_type)
                         "
                       />
                     </div>
