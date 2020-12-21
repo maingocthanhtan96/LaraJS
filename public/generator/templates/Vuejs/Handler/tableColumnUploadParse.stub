@@ -1,8 +1,8 @@
 <el-table-column data-generator="{{$FIELD_NAME$}}" prop="{{$FIELD_NAME$}}" :label="$t('table.{{$TABLE_MODEL_CLASS$}}.{{$FIELD_NAME$}}')" align="center" header-align="center">
                 <template slot-scope="{ row }">
-                  <div class="block" v-for="(img, index) in JSON.parse(row.{{$FIELD_NAME$}})" :key="'{{$FIELD_NAME$}}_' + index">
+                  <div class="tw-block" v-for="(img, index) in JSON.parse(row.{{$FIELD_NAME$}})" :key="'{{$FIELD_NAME$}}_' + index">
                     <el-image
-                      class="w-20 h-20"
+                      class="tw-w-20 tw-h-20"
                       :src="img"
                       fit="cover"
                     />

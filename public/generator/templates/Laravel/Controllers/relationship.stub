@@ -1,8 +1,8 @@
 /**
      * get all data from {{MODEL_RELATIONSHIP}}
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function get{{MODEL_RELATIONSHIP}}()
+    public function get{{MODEL_RELATIONSHIP}}(): JsonResponse
     {
         try {
             ${{PARAM_MODEL_RELATIONSHIP}} = {{MODEL_RELATIONSHIP}}::all();

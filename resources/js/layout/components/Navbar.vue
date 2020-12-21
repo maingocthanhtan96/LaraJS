@@ -3,7 +3,7 @@
     <hamburger
       id="hamburger-container"
       :is-active="sidebar.opened"
-      class="hamburger-container d-flex items-center"
+      class="hamburger-container tw-d-flex tw-items-center"
       @toggleClick="toggleSideBar"
     />
     <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
@@ -12,14 +12,14 @@
         <a
           v-if="checkPermission(['develop']) && $store.state.settings.showAPI"
           :href="hrefDeveloper"
-          class="mr-4"
+          class="tw-mr-4"
         >
-          <svg-icon icon-class="api" class="text-4xl" />
+          <svg-icon icon-class="api" class="tw-text-4xl" />
         </a>
       </template>
       <lang-select
         v-if="$store.state.settings.showTrans"
-        class="language pr-2"
+        class="language tw-pr-2"
       />
       <el-dropdown
         class="avatar-container right-menu-item hover-effect"

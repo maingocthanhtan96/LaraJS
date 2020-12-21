@@ -2,10 +2,10 @@
   <el-row>
     <el-col :span="24">
       <el-card>
-        <div slot="header" class="flex justify-between items-center">
+        <div slot="header" class="tw-flex tw-justify-between tw-items-center">
           <div />
           <button
-            class="hover:bg-green-600 hover:text-white font-bold border rounded border-green-600 text-green-600 bg-transparent py-3 px-4"
+            class="hover:tw-bg-green-600 hover:tw-text-white tw-font-bold tw-border tw-rounded tw-border-green-600 tw-text-green-600 tw-bg-transparent tw-py-3 tw-px-4"
             @click="dialogVisible = true"
           >
             <svg-icon icon-class="tree-table" />
@@ -15,12 +15,12 @@
             class="pan-btn blue-btn"
             tag="button"
           >
-            <i class="el-icon-plus mr-2" />
+            <i class="el-icon-plus tw-mr-2" />
             Create
           </router-link>
         </div>
-        <div class="flex flex-col">
-          <el-col :span="24" class="mb-6">
+        <div class="tw-flex tw-flex-col">
+          <el-col :span="24" class="tw-mb-6">
             <el-col :xs="24" :sm="10" :md="6">
               <label>{{ $t('table.texts.filter') }}</label>
               <el-input
@@ -32,7 +32,7 @@
               <br />
               <el-date-picker
                 v-model="table.listQuery.updated_at"
-                class="md:float-right"
+                class="md:tw-float-right"
                 type="daterange"
                 :start-placeholder="$t('date.start_date')"
                 :end-placeholder="$t('date.end_date')"
@@ -59,8 +59,8 @@
                 label="No."
                 width="70px"
               >
-                <template slot-scope="{ $index }">
-                  {{ numericalOrder($index) }}
+                <template slot-scope="{ row }">
+                  {{ row.id }}
                 </template>
               </el-table-column>
               <el-table-column align="center" label="Table">
@@ -91,7 +91,9 @@
                     :to="{ name: 'generator-edit', params: { id: row.id } }"
                   >
                     <el-tooltip effect="dark" content="Edit" placement="left">
-                      <i class="el-icon-edit el-link el-link--primary mr-4" />
+                      <i
+                        class="el-icon-edit el-link el-link--primary tw-mr-4"
+                      />
                     </el-tooltip>
                   </router-link>
                   <router-link
@@ -103,14 +105,28 @@
                     <el-tooltip
                       effect="dark"
                       content="Relationship"
-                      placement="right"
+                      placement="top"
                     >
                       <svg-icon
-                        class="el-link el-link--success"
+                        class="el-link el-link--success tw-mr-4"
                         icon-class="tree"
                       />
                     </el-tooltip>
                   </router-link>
+                  <a
+                    v-if="row.id !== 1"
+                    v-permission="['delete']"
+                    class="cursor-pointer"
+                    @click.stop="() => remove(row.id)"
+                  >
+                    <el-tooltip
+                      effect="dark"
+                      content="Remove"
+                      placement="right"
+                    >
+                      <i class="el-icon-delete el-link el-link--danger" />
+                    </el-tooltip>
+                  </a>
                 </template>
               </el-table-column>
             </el-table>
@@ -125,7 +141,7 @@
         </div>
       </el-card>
     </el-col>
-    <div class="container is-fullhd">
+    <div class="container tw-is-fullhd">
       <el-dialog :visible.sync="dialogVisible" :fullscreen="true">
         <div slot="title" class="text-center">
           <h3 class="title">
@@ -173,7 +189,7 @@ export default {
     };
   },
   watch: {
-    'table.listQuery.search': debounce(function() {
+    'table.listQuery.search': debounce(function () {
       this.handleFilter();
     }, 500),
   },
@@ -214,10 +230,10 @@ export default {
       }
       this.getList();
     },
-    remove(id, name) {
+    remove(id) {
       this.$confirm(
         this.$t('messages.delete_confirm', {
-          attribute: this.$t('table.user.id') + '#' + name,
+          attribute: this.$t('table.user.id') + '#' + id,
         }),
         this.$t('messages.warning'),
         {
@@ -229,10 +245,8 @@ export default {
       ).then(async () => {
         this.table.loading = true;
         await generatorResource.destroy(id);
-        const index = this.$refs.table_user.data.findIndex(
-          value => value.id === id
-        );
-        this.$refs.table_user.data.splice(index, 1);
+        const index = this.table.list.findIndex(value => value.id === id);
+        this.table.list.splice(index, 1);
         this.$message({
           showClose: true,
           message: this.$t('messages.delete'),

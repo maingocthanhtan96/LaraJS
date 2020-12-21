@@ -14,6 +14,7 @@ use App\Services\QueryService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use App\Http\Requests\Store{{MODAL_CLASS}}Request;
 
 class {{CONTROLLER_CLASS}}Controller extends Controller
@@ -33,10 +34,10 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 	/**
 	 * lists
 	 * @param Request $request
-	 * @return \Illuminate\Http\JsonResponse
+	 * @return JsonResponse
 	 * @author tanmnt
 	 */
-	public function index(Request $request)
+	public function index(Request $request): JsonResponse
 	{
 		try {
 			$limit = $request->get('limit', {{LIMIT}});
@@ -69,10 +70,10 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 	/**
 	 * create
 	 * @param Request $request
-	 * @return \Illuminate\Http\JsonResponse
+	 * @return JsonResponse
 	 * @author tanmnt
 	 */
-	public function store(Store{{MODAL_CLASS}}Request $request)
+	public function store(Store{{MODAL_CLASS}}Request $request): JsonResponse
 	{
 		try {
 		    ${{MODAL_CLASS_PARAM}} = new {{MODAL_CLASS}}();
@@ -91,10 +92,10 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 	/**
 	 * get once by id
 	 * @param Request $request
-	 * @return \Illuminate\Http\JsonResponse
+	 * @return JsonResponse
 	 * @author tanmnt
 	 */
-	public function show({{MODAL_CLASS}} ${{MODAL_CLASS_PARAM}})
+	public function show({{MODAL_CLASS}} ${{MODAL_CLASS_PARAM}}): JsonResponse
 	{
 		try {
 		    //{{CONTROLLER_RELATIONSHIP_MTM_SHOW_NOT_DELETE_THIS_LINE}}
@@ -109,10 +110,10 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 	 * update once by id
 	 * @param Request $request
 	 * @param User $user
-	 * @return \Illuminate\Http\JsonResponse
+	 * @return JsonResponse
 	 * @author tanmnt
 	 */
-	public function update(Store{{MODAL_CLASS}}Request $request, {{MODAL_CLASS}} ${{MODAL_CLASS_PARAM}})
+	public function update(Store{{MODAL_CLASS}}Request $request, {{MODAL_CLASS}} ${{MODAL_CLASS_PARAM}}): JsonResponse
 	{
 		try {
 		    foreach ($request->only(${{MODAL_CLASS_PARAM}}->getFillable()) as $key => $value) {
@@ -133,7 +134,7 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 	 * @return \Illuminate\Http\JsonResponse
 	 * @author tanmnt
 	 */
-    public function destroy({{MODAL_CLASS}} ${{MODAL_CLASS_PARAM}})
+    public function destroy({{MODAL_CLASS}} ${{MODAL_CLASS_PARAM}}): JsonResponse
     {
 	    try {
 	        //{{CONTROLLER_RELATIONSHIP_MTM_DELETE_NOT_DELETE_THIS_LINE}}

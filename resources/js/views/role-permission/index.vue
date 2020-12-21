@@ -5,7 +5,7 @@
         <div slot="header">
           <h3>{{ $t('route.role_permission') }}</h3>
         </div>
-        <div class="text-right mb-8">
+        <div class="tw-text-right tw-mb-8">
           <el-button
             type="primary"
             icon="el-icon-plus"
@@ -81,7 +81,7 @@
           </el-table>
           <!-- end table role -->
           <!-- table permission -->
-          <div class="my-8 text-right">
+          <div class="tw-my-8 tw-text-right">
             <el-button
               type="primary"
               icon="el-icon-plus"
@@ -93,7 +93,7 @@
           <el-input
             v-model="query.keyword"
             :placeholder="$t('table.rolePermission.name')"
-            class="filter-item w-64 mb-4"
+            class="tw-w-64 tw-mb-4"
             @keyup.enter.native="getPermissions"
           />
           <el-table
@@ -180,9 +180,9 @@
                 </el-form-item>
               </el-form>
             </div>
-            <div class="flex justify-between items-start">
+            <div class="tw-flex tw-justify-between tw-items-start">
               <el-form
-                class="w-6/12"
+                class="tw-w-6/12"
                 :model="currentRole"
                 label-width="80px"
                 label-position="top"
@@ -200,7 +200,7 @@
                 </el-form-item>
               </el-form>
               <el-form
-                class="w-6/12"
+                class="tw-w-6/12"
                 :model="currentRole"
                 label-width="80px"
                 label-position="top"
@@ -239,7 +239,7 @@
             :visible.sync="dialogCreateRoleVisible"
             center
           >
-            <div class="flex justify-between items-start">
+            <div class="tw-flex tw-justify-between tw-items-start">
               <el-form
                 ref="formRole"
                 :model="formRole"

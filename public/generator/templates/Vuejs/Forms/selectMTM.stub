@@ -5,7 +5,7 @@
 	              multiple
 	              filterable
 	              :placeholder="{{$LABEL_NAME_INPUT$}}"
-	              class="w-full"
+	              class="tw-w-full"
               >
 	              <el-option
 	                v-for="(item, index) in {{$LIST_SELECT$}}List"

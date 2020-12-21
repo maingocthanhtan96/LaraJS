@@ -1,7 +1,7 @@
 <template data-generator="{{$FIELD_NAME$}}" slot="{{$FIELD_NAME$}}" slot-scope="{ row }">
             <template v-for="(item) in row.{{$MODEL_RELATIONSHIP$}}">
               <el-tag
-                class="mr-2"
+                class="tw-mr-2"
                 :key="'{{$FIELD_NAME$}}_' + item.id"
                 size="medium"
               >
