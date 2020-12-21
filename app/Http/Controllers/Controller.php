@@ -18,14 +18,14 @@ class Controller extends BaseController
      * @return \Illuminate\Http\JsonResponse
      * @author tanmnt
      */
-    public function jsonData($data = [], $status = Response::HTTP_OK)
+    public function jsonData($data = [], $status = Response::HTTP_OK): \Illuminate\Http\JsonResponse
     {
         return response()->json(
             [
                 'success' => true,
                 'data' => $data,
             ],
-            $status,
+            $status
         );
     }
 
@@ -35,7 +35,7 @@ class Controller extends BaseController
      * @return \Illuminate\Http\JsonResponse
      * @author tanmnt
      */
-    public function jsonTable($data, $status = Response::HTTP_OK)
+    public function jsonTable($data, $status = Response::HTTP_OK): \Illuminate\Http\JsonResponse
     {
         return response()->json(
             [
@@ -43,7 +43,7 @@ class Controller extends BaseController
                 'data' => $data['data'],
                 'count' => $data['total'],
             ],
-            $status,
+            $status
         );
     }
 
@@ -53,7 +53,7 @@ class Controller extends BaseController
      * @return \Illuminate\Http\JsonResponse
      * @author tanmnt
      */
-    public function jsonError($error, $status = Response::HTTP_INTERNAL_SERVER_ERROR)
+    public function jsonError($error, $status = Response::HTTP_INTERNAL_SERVER_ERROR): \Illuminate\Http\JsonResponse
     {
         $message = $error;
         $file = '';
@@ -72,7 +72,7 @@ class Controller extends BaseController
                 'file' => $file,
                 'line' => $line,
             ],
-            $status,
+            $status
         );
     }
 
@@ -84,14 +84,14 @@ class Controller extends BaseController
      * @return \Illuminate\Http\JsonResponse
      * @author tanmnt
      */
-    public function jsonMessage($message, bool $success = true, $status = Response::HTTP_OK)
+    public function jsonMessage($message, bool $success = true, $status = Response::HTTP_OK): \Illuminate\Http\JsonResponse
     {
         return response()->json(
             [
                 'success' => $success,
                 'message' => $message,
             ],
-            $status,
+            $status
         );
     }
 }
