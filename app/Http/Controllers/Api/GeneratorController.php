@@ -170,13 +170,13 @@ class GeneratorController extends Controller
             $generatorService = new GeneratorService();
             $fileService = new FileService();
 
-            //            $this->_gitCommit($model['name']);
+            $this->_gitCommit($model['name']);
             // START - Remove File
-            if (file_exists($files['migration'])) {
-                $fileMigration = str_replace(base_path(), '', $files['migration']);
-                $fileMigration = ltrim($fileMigration, '/');
-                Artisan::call("migrate:rollback --path={$fileMigration}");
-            }
+            //            if (file_exists($files['migration'])) {
+            //                $fileMigration = str_replace(base_path(), '', $files['migration']);
+            //                $fileMigration = ltrim($fileMigration, '/');
+            //                Artisan::call("migrate:rollback --path={$fileMigration}");
+            //            }
             foreach ($files as $key => $file) {
                 if (is_array($file)) {
                     foreach ($file as $keyInside => $fileInside) {

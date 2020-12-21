@@ -356,8 +356,8 @@
                         v-model="data.search"
                         :disabled="
                           disabledMethod(index) ||
-                            !data.show ||
-                            notSearch.includes(data.db_type)
+                          !data.show ||
+                          notSearch.includes(data.db_type)
                         "
                       />
                     </div>
@@ -813,7 +813,7 @@ export default {
               type: 'success',
             });
             this.loading = false;
-            // window.location.href = this.redirectLocation;
+            window.location.href = this.redirectLocation;
           })
           .catch(() => {
             this.loading = false;
@@ -854,7 +854,7 @@ export default {
               message: this.$t('messages.update'),
               type: 'success',
             });
-            // window.location.href = this.redirectLocation;
+            window.location.href = this.redirectLocation;
           })
           .catch(() => {
             this.loading = false;
