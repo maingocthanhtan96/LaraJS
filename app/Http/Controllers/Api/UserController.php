@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
 use App\Services\QueryService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
@@ -25,7 +26,7 @@ class UserController extends Controller
     }
 
     /** get user information
-     * @return UserResource|\Illuminate\Http\JsonResponse
+     * @return UserResource|JsonResponse
      * @author tanmnt
      */
     public function userInfo()
@@ -42,10 +43,10 @@ class UserController extends Controller
     /**
      * lists
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      * @author tanmnt
      */
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         try {
             $limit = $request->get('limit', 25);
@@ -77,10 +78,10 @@ class UserController extends Controller
     /**
      * create
      * @param StoreUserRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      * @author
      */
-    public function store(StoreUserRequest $request)
+    public function store(StoreUserRequest $request): JsonResponse
     {
         try {
             $user = User::create($request->all());
@@ -96,10 +97,10 @@ class UserController extends Controller
     /**
      * get once by id
      * @param User $user
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      * @author tanmnt
      */
-    public function show(User $user)
+    public function show(User $user): JsonResponse
     {
         try {
             $user['role_id'] = $user->roles->toArray()[0] ? $user->roles->toArray()[0]['id'] : '';
@@ -116,10 +117,10 @@ class UserController extends Controller
      * update once by id
      * @param StoreUserRequest $request
      * @param User $user
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      * @author tanmnt
      */
-    public function update(StoreUserRequest $request, User $user)
+    public function update(StoreUserRequest $request, User $user): JsonResponse
     {
         try {
             $user->update($request->all());
@@ -138,10 +139,10 @@ class UserController extends Controller
     /**
      * delete once by id
      * @param User $user
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      * @author tanmnt
      */
-    public function destroy(User $user)
+    public function destroy(User $user): JsonResponse
     {
         try {
             if ($user->isAdmin()) {

@@ -1,7 +1,7 @@
 /**
-     * @return {{RELATION}}
+     * @return \Illuminate\Database\Eloquent\Relations\{{RELATION}}
      **/
-    public function {{FUNCTION_NAME}}(): {{RELATION}}
+    public function {{FUNCTION_NAME}}(): \Illuminate\Database\Eloquent\Relations\{{RELATION}}
     {
         return $this->{{RELATION}}({{RELATION_MODEL_CLASS}}::class, {{FIELD_RELATIONSHIP}}, 'id');
     }

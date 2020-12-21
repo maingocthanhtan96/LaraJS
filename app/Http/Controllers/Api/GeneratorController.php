@@ -29,10 +29,10 @@ use App\Generators\FrontendUpdate\{FormUpdateGenerator, ViewTableUpdateGenerator
 use App\Http\Requests\StoreGeneratorRelationshipRequest;
 use App\Services\{FileService, GeneratorService, QueryService};
 use App\Models\Generator;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
@@ -47,7 +47,11 @@ class GeneratorController extends Controller
         $this->serviceGenerator = new GeneratorService();
     }
 
-    public function index(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function index(Request $request): JsonResponse
     {
         try {
             $limit = $request->get('limit', 25);
@@ -76,7 +80,11 @@ class GeneratorController extends Controller
         }
     }
 
-    public function show(Generator $generator)
+    /**
+     * @param Generator $generator
+     * @return JsonResponse
+     */
+    public function show(Generator $generator): JsonResponse
     {
         try {
             return $this->jsonData($generator);
@@ -85,7 +93,11 @@ class GeneratorController extends Controller
         }
     }
 
-    public function store(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function store(Request $request): JsonResponse
     {
         try {
             $fields = $request->get('fields', []);
@@ -110,7 +122,12 @@ class GeneratorController extends Controller
         }
     }
 
-    public function update(Request $request, Generator $generator)
+    /**
+     * @param Request $request
+     * @param Generator $generator
+     * @return JsonResponse
+     */
+    public function update(Request $request, Generator $generator): JsonResponse
     {
         try {
             $fields = $request->get('fields', []);
@@ -143,9 +160,9 @@ class GeneratorController extends Controller
     /**
      * @param Request $request
      * @param Generator $generator
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function destroy(Generator $generator): \Illuminate\Http\JsonResponse
+    public function destroy(Generator $generator): JsonResponse
     {
         try {
             $model = json_decode($generator->model, true);
@@ -227,7 +244,11 @@ class GeneratorController extends Controller
         }
     }
 
-    public function checkModel(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function checkModel(Request $request): JsonResponse
     {
         $serviceGenerator = new GeneratorService();
         $name = $request->get('name', '');
@@ -248,7 +269,11 @@ class GeneratorController extends Controller
         }
     }
 
-    public function generateRelationship(StoreGeneratorRelationshipRequest $request)
+    /**
+     * @param StoreGeneratorRelationshipRequest $request
+     * @return JsonResponse
+     */
+    public function generateRelationship(StoreGeneratorRelationshipRequest $request): JsonResponse
     {
         try {
             $relationship = $request->get('relationship');
@@ -269,7 +294,11 @@ class GeneratorController extends Controller
         }
     }
 
-    public function generateDiagram(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function generateDiagram(Request $request): JsonResponse
     {
         try {
             $model = $request->get('model');
@@ -281,7 +310,11 @@ class GeneratorController extends Controller
         }
     }
 
-    public function getModels(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getModels(Request $request): JsonResponse
     {
         try {
             $table = $request->get('model', []);
@@ -305,7 +338,11 @@ class GeneratorController extends Controller
         }
     }
 
-    public function getColumns(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getColumns(Request $request): JsonResponse
     {
         try {
             $table = $request->get('table');
@@ -318,7 +355,12 @@ class GeneratorController extends Controller
         }
     }
 
-    private function _generateBackend($fields, $model)
+    /**
+     * @param $fields
+     * @param $model
+     * @return array[]
+     */
+    private function _generateBackend($fields, $model): array
     {
         $migrationGenerator = new MigrationGenerator($fields, $model);
         new ControllerGenerator($fields, $model);
@@ -337,6 +379,10 @@ class GeneratorController extends Controller
         ];
     }
 
+    /**
+     * @param $fields
+     * @param $model
+     */
     private function _generateFrontend($fields, $model)
     {
         new RouteGeneratorFe($model);
@@ -346,6 +392,11 @@ class GeneratorController extends Controller
         new FormHandlerGenerator($fields, $model);
     }
 
+    /**
+     * @param $model
+     * @param $generateBackend
+     * @return array
+     */
     private function _generateFile($model, $generateBackend): array
     {
         $files = [];
@@ -369,6 +420,11 @@ class GeneratorController extends Controller
         return $files;
     }
 
+    /**
+     * @param $generator
+     * @param $model
+     * @param $updateFields
+     */
     private function _generateBackendUpdate($generator, $model, $updateFields)
     {
         new MigrationUpdateGenerator($generator, $model, $updateFields);
@@ -380,12 +436,20 @@ class GeneratorController extends Controller
         new SwaggerUpdateGenerator($generator, $model, $updateFields);
     }
 
+    /**
+     * @param $generator
+     * @param $model
+     * @param $updateFields
+     */
     private function _generateFrontendUpdate($generator, $model, $updateFields)
     {
         new ViewTableUpdateGenerator($generator, $model, $updateFields);
         new FormUpdateGenerator($generator, $model, $updateFields);
     }
 
+    /**
+     * @param array $model
+     */
     private function _runCommand($model = [])
     {
         if (isset($model['options'])) {
@@ -404,6 +468,9 @@ class GeneratorController extends Controller
         //        $this->_gitResetHEAD();
     }
 
+    /**
+     * @param $model
+     */
     private function _gitCommit($model)
     {
         $basePath = base_path();
