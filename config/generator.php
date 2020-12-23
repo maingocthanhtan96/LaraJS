@@ -55,6 +55,7 @@ return [
             'datatables' => 'Datatables',
             'role_admin' => 'Role Admin',
             'ignore_migrate' => 'Ignore Migrate',
+            'only_migrate' => 'Only Migrate',
             'test_cases' => 'Test Cases',
         ],
     ],

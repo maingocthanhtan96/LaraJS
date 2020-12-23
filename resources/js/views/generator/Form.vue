@@ -83,6 +83,14 @@
                           :disabled="$route.params.id > 0"
                         />
                       </el-tooltip>
+                      <el-tooltip
+                        class="item"
+                        effect="light"
+                        content="Only generate migrate"
+                        placement="top"
+                      >
+                        <el-checkbox label="Only Migrate" />
+                      </el-tooltip>
                       <el-checkbox label="Test Cases" disabled />
                     </el-checkbox-group>
                   </el-form-item>
@@ -155,12 +163,19 @@
                         !disabledMethod(index) && index >= formTemp.length,
                     }"
                   >
-                    <div
-                      class="divTableCell tw-text-center tw-align-middle"
-                      @click="showDialogOptions(data.id)"
-                    >
-                      {{ index + 1 }}
-                    </div>
+                    <template v-if="index === 0">
+                      <div class="divTableCell tw-text-center tw-align-middle">
+                        {{ index + 1 }}
+                      </div>
+                    </template>
+                    <template v-else>
+                      <div
+                        class="divTableCell tw-text-center tw-align-middle tw-text-blue-500"
+                        @click="showDialogOptions(data.id)"
+                      >
+                        {{ index + 1 }}
+                      </div>
+                    </template>
                     <div
                       class="divTableCell tw-text-center tw-align-middle tw-pt-8"
                     >
@@ -507,10 +522,10 @@ export default {
           label: 'JSON',
           options: ['JSON'],
         },
-        {
-          label: 'FILE',
-          options: ['FILE'],
-        },
+        // {
+        //   label: 'FILE',
+        //   options: ['FILE'],
+        // },
       ],
       defaultValue: ['None', 'NULL', 'As define'],
       defaultValueNotAs: ['None', 'NULL'],
@@ -813,7 +828,7 @@ export default {
               type: 'success',
             });
             this.loading = false;
-            window.location.href = this.redirectLocation;
+            // window.location.href = this.redirectLocation;
           })
           .catch(() => {
             this.loading = false;

@@ -104,9 +104,16 @@ class GeneratorController extends Controller
             $model = $request->get('model', []);
             // git commit
             $this->_gitCommit($model['name']);
-            $generateBackend = $this->_generateBackend($fields, $model);
-            $this->_generateFrontend($fields, $model);
-            $files = $this->_generateFile($model, $generateBackend);
+            if ($this->serviceGenerator->getOptions(config('generator.model.options.ignore_migrate'), $model['options'])) {
+                $migrationGenerator = new MigrationGenerator($fields, $model);
+                $files['migration'] = [
+                    'file' => $migrationGenerator->file,
+                ];
+            } else {
+                $generateBackend = $this->_generateBackend($fields, $model);
+                $this->_generateFrontend($fields, $model);
+                $files = $this->_generateFile($model, $generateBackend);
+            }
 
             Generator::create([
                 'field' => json_encode($fields),
@@ -114,6 +121,7 @@ class GeneratorController extends Controller
                 'table' => $this->serviceGenerator->tableName($model['name']),
                 'files' => json_encode($files),
             ]);
+
             $this->_runCommand($model);
 
             return $this->jsonMessage(trans('messages.success'));
@@ -144,8 +152,12 @@ class GeneratorController extends Controller
             ];
             // git commit
             $this->_gitCommit($model['name']);
-            $this->_generateBackendUpdate($generator, $model, $updateFields);
-            $this->_generateFrontendUpdate($generator, $model, $updateFields);
+            if ($this->serviceGenerator->getOptions(config('generator.model.options.ignore_migrate'), $model['options'])) {
+                new MigrationUpdateGenerator($generator, $model, $updateFields);
+            } else {
+                $this->_generateBackendUpdate($generator, $model, $updateFields);
+                $this->_generateFrontendUpdate($generator, $model, $updateFields);
+            }
             $generator->update([
                 'field' => json_encode($fields),
             ]);
