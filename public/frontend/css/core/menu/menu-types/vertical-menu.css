@@ -164,9 +164,9 @@ body.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu .main-menu-f
 }
 
 body.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu .main-menu-footer,
-  body.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu .main-menu-header .media-body .media-heading,
-  body.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu .main-menu-header .media-body .text-muted,
-  body.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu .main-menu-header .media-right {
+body.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu .main-menu-header .media-body .media-heading,
+body.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu .main-menu-header .media-body .text-muted,
+body.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu .main-menu-header .media-right {
   display: none;
 }
 
@@ -175,7 +175,7 @@ body.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu .main-menu-h
 }
 
 body.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu .navbar-header .brand-text,
-  body.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu .modern-nav-toggle {
+body.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu .modern-nav-toggle {
   display: none;
 }
 
