@@ -1,7 +1,6 @@
 module.exports = {
   prefix: 'tw-',
-  important: true,
-  purge: [],
+  purge: ['../../views/**/*.blade.php'],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {},
