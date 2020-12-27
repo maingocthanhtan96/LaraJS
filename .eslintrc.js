@@ -21,6 +21,17 @@ module.exports = {
         after: true,
       },
     ],
+    'vue/html-indent': [
+      'off',
+      2,
+      {
+        attribute: 1,
+        baseIndent: 1,
+        closeBracket: 0,
+        alignAttributesVertically: true,
+        ignores: [],
+      },
+    ],
     'block-spacing': [2, 'always'],
     'brace-style': [2, '1tbs'],
     camelcase: [

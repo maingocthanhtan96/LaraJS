@@ -31,7 +31,7 @@ function mixAssetsDir(query, cb) {
 }
 
 const sassOptions = {
-  precision: 5,
+  // precision: 5,
 };
 
 mix.extend('mergeManifest', mergeManifest);
@@ -105,7 +105,7 @@ mix
   .options({
     processCssUrls: false,
     postCss: [
-      tailwindcss('resources/frontend/tailwind/tailwind.js'),
+      tailwindcss('resources/frontend/tailwind/tailwind.config.js'),
       require('autoprefixer'),
     ],
   })
