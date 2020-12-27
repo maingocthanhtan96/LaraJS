@@ -44,12 +44,7 @@ git clone https://github.com/laudaikinhdi/larajs.git
 # Install docker
 sudo apt-get update && sudo apt install docker.io -y && sudo apt-get install docker-compose -y
 # Run docker compose
-cd laradock && sudo cp nginx/sites/larajs.conf.example nginx/sites/larajs.conf && sudo cp env-example .env
-
-sudo docker-compose up -d nginx php-fpm mysql workspace
-
-# Access to docker workspace
-sudo docker-compose exec workspace bash
+sail up -d
 
 # Create cerbot
 ## Container nginx (sudo docker-compose exec nginx bash)
