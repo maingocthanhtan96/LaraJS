@@ -76,55 +76,51 @@ export default {
     // {{$METHODS_NOT_DELETE_THIS_LINE$}}
     store({{$REF_MODEL_CLASS$}}) {
       // {{$FILE_JSON_STRINGIFY_NOT_DELETE_THIS_LINE$}}
-      this.loading.button = true;
       this.$refs[{{$REF_MODEL_CLASS$}}].validate(async (valid, errors) => {
-        if (valid) {
-          try {
-            await {{$CONST_MODEL_CLASS$}}Resource.store(this.form);
-            this.$message({
-              showClose: true,
-              message: this.$t('messages.create'),
-              type: 'success',
-            });
-            // {{$RESET_FIELD_NOT_DELETE_THIS_LINE$}}
-            // this.$refs[{{$REF_MODEL_CLASS$}}].resetFields();
-            this.loading.button = false;
-            this.$router.push({ name: '{{$NAME_ROUTE$}}' });
-          } catch(e) {
-            this.loading.button = false;
-          }
-        } else {
-          this.loading.button = false;
+        if (!valid) {
           if (document.getElementsByName(Object.keys(errors)[0]).length) {
             scrollTo(document.getElementsByName(Object.keys(errors)[0])[0].getBoundingClientRect().top - document.body.getBoundingClientRect().top - 130, 800);
           }
           return false;
         }
+        try {
+          this.loading.button = true;
+          await {{$CONST_MODEL_CLASS$}}Resource.store(this.form);
+          this.$message({
+            showClose: true,
+            message: this.$t('messages.create'),
+            type: 'success',
+          });
+          // {{$RESET_FIELD_NOT_DELETE_THIS_LINE$}}
+          // this.$refs[{{$REF_MODEL_CLASS$}}].resetFields();
+          this.loading.button = false;
+          this.$router.push({ name: '{{$NAME_ROUTE$}}' });
+        } catch(e) {
+          this.loading.button = false;
+        }
       });
     },
     update({{$REF_MODEL_CLASS$}}) {
       // {{$FILE_JSON_STRINGIFY_NOT_DELETE_THIS_LINE$}}
-      this.loading.button = true;
       this.$refs[{{$REF_MODEL_CLASS$}}].validate(async (valid, errors) => {
-        if (valid) {
-          try {
-            await {{$CONST_MODEL_CLASS$}}Resource.update(this.$route.params.id, this.form);
-            this.$message({
-              showClose: true,
-              message: this.$t('messages.update'),
-              type: 'success',
-            });
-            this.loading.button = false;
-            this.$router.push({ name: '{{$NAME_ROUTE$}}' });
-          } catch (e) {
-            this.loading.button = false;
-          }
-        } else {
-          this.loading.button = false;
+        if (!valid) {
           if (document.getElementsByName(Object.keys(errors)[0]).length) {
             scrollTo(document.getElementsByName(Object.keys(errors)[0])[0].getBoundingClientRect().top - document.body.getBoundingClientRect().top - 130, 800);
           }
           return false;
+        }
+        try {
+          this.loading.button = true;
+          await {{$CONST_MODEL_CLASS$}}Resource.update(this.$route.params.id, this.form);
+          this.$message({
+            showClose: true,
+            message: this.$t('messages.update'),
+            type: 'success',
+          });
+          this.loading.button = false;
+          this.$router.push({ name: '{{$NAME_ROUTE$}}' });
+        } catch (e) {
+          this.loading.button = false;
         }
       });
     },

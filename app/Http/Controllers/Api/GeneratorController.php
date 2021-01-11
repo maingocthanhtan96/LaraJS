@@ -106,6 +106,7 @@ class GeneratorController extends Controller
             $this->_gitCommit($model['name']);
             if ($this->serviceGenerator->getOptions(config('generator.model.options.ignore_migrate'), $model['options'])) {
                 $migrationGenerator = new MigrationGenerator($fields, $model);
+                new ModelGenerator($fields, $model);
                 $files['migration'] = [
                     'file' => $migrationGenerator->file,
                 ];
@@ -154,6 +155,7 @@ class GeneratorController extends Controller
             $this->_gitCommit($model['name']);
             if ($this->serviceGenerator->getOptions(config('generator.model.options.ignore_migrate'), $model['options'])) {
                 new MigrationUpdateGenerator($generator, $model, $updateFields);
+                new ModelUpdateGenerator($model, $updateFields);
             } else {
                 $this->_generateBackendUpdate($generator, $model, $updateFields);
                 $this->_generateFrontendUpdate($generator, $model, $updateFields);

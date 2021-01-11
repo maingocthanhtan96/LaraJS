@@ -21,7 +21,7 @@
                 data-generator="password"
                 required
                 :label="$t('table.user.password')"
-                :error="errors.password ? errors.password[0] : ''"
+                :error="errors.password && errors.password[0]"
                 prop="password"
               >
                 <el-input

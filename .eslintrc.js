@@ -63,7 +63,7 @@ module.exports = {
     eqeqeq: ['error', 'always', { null: 'ignore' }],
     'handle-callback-err': [2, '^(err|error)$'],
     indent: [
-      2,
+      'off',
       2,
       {
         SwitchCase: 1,

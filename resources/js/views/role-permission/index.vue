@@ -250,7 +250,7 @@
                 <el-form-item
                   required
                   label="Role name"
-                  :error="errors.name ? errors.name[0] : ''"
+                  :error="errors.name && errors.name[0]"
                   prop="name"
                 >
                   <el-input
@@ -295,7 +295,7 @@
                 <el-form-item
                   required
                   label="Permission"
-                  :error="errors.name ? errors.name[0] : ''"
+                  :error="errors.name && errors.name[0]"
                   prop="name"
                 >
                   <el-input

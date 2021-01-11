@@ -86,7 +86,7 @@
                       <el-tooltip
                         class="item"
                         effect="light"
-                        content="Only generate migrate"
+                        content="Only generate migrate and model"
                         placement="top"
                       >
                         <el-checkbox label="Only Migrate" />

@@ -26,7 +26,7 @@
           </el-form-item>
           <el-form-item
             data-generator="email"
-            :error="errors.email ? errors.email[0] + '' : ''"
+            :error="errors.email && errors.email[0]"
             :label="$t('table.user.email')"
             required
             prop="email"
@@ -35,7 +35,7 @@
           </el-form-item>
           <el-form-item
             data-generator="avatar"
-            :error="errors.avatar ? errors.avatar[0] + '' : ''"
+            :error="errors.avatar && errors.avatar[0]"
             :label="$t('table.user.avatar')"
             prop="avatar"
           >
@@ -317,9 +317,9 @@ export default {
     // {{$METHODS_NOT_DELETE_THIS_LINE$}}
     store(users) {
       // {{$FILE_JSON_STRINGIFY_NOT_DELETE_THIS_LINE$}}
-      this.loading = true;
       this.$refs[users].validate(async valid => {
         if (valid) {
+          this.loading = true;
           await userResource.store(this.form);
           this.$message({
             showClose: true,
@@ -328,9 +328,6 @@ export default {
           });
           this.$refs[users].resetFields();
           this.loading.button = false;
-        } else {
-          this.loading.button = false;
-          return false;
         }
       });
     },
@@ -341,9 +338,9 @@ export default {
     },
     update(users) {
       // {{$FILE_JSON_STRINGIFY_NOT_DELETE_THIS_LINE$}}
-      this.loading = true;
       this.$refs[users].validate(async valid => {
         if (valid) {
+          this.loading.button = true;
           delete this.form.password;
           await userResource.update(this.$route.params.id, this.form);
           this.$message({
@@ -353,9 +350,6 @@ export default {
           });
           this.loading.button = false;
           this.$router.push({ name: 'user' });
-        } else {
-          this.loading.button = false;
-          return false;
         }
       });
     },
