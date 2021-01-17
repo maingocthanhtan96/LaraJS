@@ -1,6 +1,6 @@
 <template>
   <el-container
-    class="blue-grey lighten-5 h-screen justify-center items-center"
+    class="tw-blue-grey tw-lighten-5 tw-h-screen tw-justify-center tw-items-center"
   >
     <el-row class="reset-password">
       <el-col :xs="24" :sm="24" :lg="24" :xl="24">
@@ -42,7 +42,7 @@
                   type="password"
                 />
               </el-form-item>
-              <el-form-item class="text-center">
+              <el-form-item class="tw-text-center">
                 <el-button
                   v-loading.fullscreen.lock="loadingResetPassword"
                   type="primary"
