@@ -1,6 +1,6 @@
 const dashboard = {
   path: '/dashboard',
-  component: () => import('@/layout'),
+  component: () => import(/* webpackChunkName: "group-dashboard" */ '@/layout'),
   meta: {
     title: 'dashboard',
     icon: 'dashboard',
@@ -9,7 +9,8 @@ const dashboard = {
     {
       path: '/dashboard',
       name: 'Dashboard',
-      component: () => import('@/views/dashboard'),
+      component: () =>
+        import(/* webpackChunkName: "group-dashboard" */ '@/views/dashboard'),
       meta: {
         title: 'dashboard',
         icon: 'dashboard',
