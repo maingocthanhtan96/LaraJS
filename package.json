@@ -77,6 +77,7 @@
         "script-loader": "^0.7.2",
         "svg-sprite-loader": "^5.0.0",
         "vue-template-compiler": "^2.6.12",
+        "webpack-build-notifier": "^2.1.1",
         "webpack-bundle-analyzer": "^3.9.0",
         "webpack-chunk-rename-plugin": "^1.0.3",
         "webpack-cli": "^3.3.11"

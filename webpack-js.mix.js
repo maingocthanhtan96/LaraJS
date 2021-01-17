@@ -32,6 +32,7 @@ mix
     'echarts',
   ])
   .webpackConfig(config)
+  .disableNotifications()
   .mergeManifest();
 
 if (mix.inProduction()) {

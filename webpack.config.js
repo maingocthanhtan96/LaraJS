@@ -4,6 +4,7 @@ const mix = require('laravel-mix');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin;
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
+const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
 
 function resolve(dir) {
   return path.join(__dirname, '/resources/js', dir);
@@ -23,12 +24,20 @@ plugins.push(
   new ChunkRenamePlugin({
     initialChunksWithEntry: true,
     '/js/vendor': '/js/vendor.js',
-  })
-);
-plugins.push(
+  }),
   // ('en': default)
   new MomentLocalesPlugin({
     localesToKeep: ['ja'],
+  }),
+  // ('en': default)
+  new WebpackBuildNotifierPlugin({
+    title: 'LaraJS',
+    logo: path.resolve('./public/images/logo-tanmnt.png'),
+    // - false: show notification build
+    // - true : show notification fail or first success
+    // - always: show only notification success
+    // - initial: like build always
+    suppressSuccess: true, // don't spam success notifications
   })
 );
 
