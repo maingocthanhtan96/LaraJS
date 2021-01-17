@@ -4,13 +4,6 @@
 /public/css/*.map
 /storage/*.key
 /vendor
-/public/css/app.css
-/public/*.js.map
-/public/js/chunks
-/public/js/app.js
-/public/js/manifest.js
-/public/js/vendor.js
-/public/mix-manifest.json
 /public/uploads
 /v8-compile-cache-0
 .env

@@ -36,32 +36,55 @@ export const constantRouterMap = [
     path: '/login',
     name: 'login',
     hidden: true,
-    component: () => import('@/views/auth/Login'),
+    component: () =>
+      import(/* webpackChunkName: "group-auth" */ '@/views/auth/Login'),
   },
   {
     path: '/reset-password',
     name: 'reset-password',
     hidden: true,
-    component: () => import('@/views/auth/ForgotPassword'),
+    component: () =>
+      import(
+        /* webpackChunkName: "group-auth" */ '@/views/auth/ForgotPassword'
+      ),
   },
   {
     path: '/reset-password/:token',
     name: 'reset-password-form',
     hidden: true,
-    component: () => import('@/views/auth/ResetPasswordForm'),
+    component: () =>
+      import(
+        /* webpackChunkName: "group-auth" */ '@/views/auth/ResetPasswordForm'
+      ),
   },
-  { path: '/401', hidden: true, component: () => import('@/views/errors/401') },
-  { path: '/404', hidden: true, component: () => import('@/views/errors/404') },
-  { path: '/500', hidden: true, component: () => import('@/views/errors/500') },
+  {
+    path: '/401',
+    hidden: true,
+    component: () =>
+      import(/* webpackChunkName: "group-errors" */ '@/views/errors/401'),
+  },
+  {
+    path: '/404',
+    hidden: true,
+    component: () =>
+      import(/* webpackChunkName: "group-errors" */ '@/views/errors/404'),
+  },
+  {
+    path: '/500',
+    hidden: true,
+    component: () =>
+      import(/* webpackChunkName: "group-errors" */ '@/views/errors/500'),
+  },
   { path: '/', redirect: '/login', hidden: true },
   {
     path: '/redirect',
-    component: () => import('@/layout'),
+    component: () => import(/* webpackChunkName: "group-layout" */ '@/layout'),
     hidden: true,
     children: [
       {
         path: ':path*',
-        component: () => import('@/views/redirect'),
+        component: () =>
+          import(/* webpackChunkName: "group-redirect" */ '@/views/redirect'),
       },
     ],
   },

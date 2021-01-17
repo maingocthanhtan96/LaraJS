@@ -3,6 +3,7 @@ const ChunkRenamePlugin = require('webpack-chunk-rename-plugin');
 const mix = require('laravel-mix');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin;
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 
 function resolve(dir) {
   return path.join(__dirname, '/resources/js', dir);
@@ -22,6 +23,12 @@ plugins.push(
   new ChunkRenamePlugin({
     initialChunksWithEntry: true,
     '/js/vendor': '/js/vendor.js',
+  })
+);
+plugins.push(
+  // ('en': default)
+  new MomentLocalesPlugin({
+    localesToKeep: ['ja'],
   })
 );
 
