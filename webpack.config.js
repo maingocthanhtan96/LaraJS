@@ -48,6 +48,9 @@ module.exports = {
       vue$: 'vue/dist/vue.esm.js',
       '@': path.join(__dirname, '/resources/js'),
     },
+    fallback: {
+      path: require.resolve('path-browserify'),
+    },
   },
   module: {
     rules: [
@@ -64,6 +67,10 @@ module.exports = {
         use: 'babel-loader',
         exclude: /node_modules/,
       },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+      },
     ],
   },
   output: {
@@ -72,4 +79,9 @@ module.exports = {
       : 'js/chunks/[name].js',
   },
   plugins: plugins,
+  optimization: {
+    providedExports: false,
+    sideEffects: false,
+    usedExports: false,
+  },
 };
