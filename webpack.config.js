@@ -5,6 +5,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin;
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 function resolve(dir) {
   return path.join(__dirname, '/resources/js', dir);
@@ -37,7 +38,10 @@ plugins.push(
     // - true : show notification fail or first success
     // - always: show only notification success
     // - initial: like build always
-    suppressSuccess: true, // don't spam success notifications
+    suppressSuccess: false, // don't spam success notifications
+  }),
+  new CleanWebpackPlugin({
+    cleanOnceBeforeBuildPatterns: [path.resolve(__dirname, 'public/js/chunks/**/*')],
   })
 );
 
@@ -71,6 +75,27 @@ module.exports = {
         test: /\.vue$/,
         loader: 'vue-loader',
       },
+      // {
+      //   test: /\.scss$/,
+      //   include: resolve('styles'),
+      //   use: [
+      //     {
+      //       loader: 'style-loader',
+      //     },
+      //     {
+      //       loader: 'css-loader',
+      //       options: {
+      //         importLoaders: 1,
+      //         modules: {
+      //           compileType: 'icss',
+      //         },
+      //       },
+      //     },
+      //     {
+      //       loader: 'sass-loader',
+      //     },
+      //   ],
+      // },
     ],
   },
   output: {

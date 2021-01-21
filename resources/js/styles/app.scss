@@ -1,7 +1,7 @@
-@import "~nprogress/nprogress.css"; // progress bar style
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "~nprogress/nprogress.css"; // progress bar style
 @import "variables";
 @import "transition";
 @import "table";

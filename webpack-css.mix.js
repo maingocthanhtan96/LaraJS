@@ -1,6 +1,5 @@
 const mix = require('laravel-mix');
 const path = require('path');
-const tailwindcss = require('tailwindcss');
 const whiteLister = require('purgecss-whitelister');
 require('laravel-mix-purgecss');
 require('laravel-mix-merge-manifest');
@@ -15,10 +14,7 @@ mix
   })
   .options({
     processCssUrls: false,
-    postCss: [
-      tailwindcss('public/js/tailwind.config.js'),
-      require('autoprefixer'),
-    ],
+    postCss: [require('tailwindcss'), require('autoprefixer')],
     autoprefixer: { remove: false },
     clearConsole: true, // in watch mode, clears console after every build
   })

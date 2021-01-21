@@ -153,7 +153,7 @@ export default {
       form: {
         name: '',
         email: '',
-        avatar: require('@/assets/images/avatar-default.png'),
+        avatar: require('@/assets/images/avatar-default.png').default,
         role_id: '',
         password: '',
         password_confirmation: '',
