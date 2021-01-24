@@ -30,7 +30,7 @@
 import BackToTop from '@/components/BackToTop';
 import { AppMain, Navbar, Sidebar } from './components';
 const TagViews = () =>
-  import(/* webpackChunkName: "group-tags-view" */ './components/TagsView');
+  import(/* webpackChunkName: "components/TagsView" */ './components/TagsView');
 import FooterMain from './components/FooterMain';
 import ResizeMixin from './mixin/ResizeHandler';
 import { mapState } from 'vuex';
