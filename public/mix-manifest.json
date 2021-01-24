@@ -89,5 +89,9 @@
     "/js/chunks/administrator/generator/FormCreate.js": "/js/chunks/administrator/generator/FormCreate.js",
     "/js/chunks/auth/ResetPasswordForm.js": "/js/chunks/auth/ResetPasswordForm.js",
     "/js/chunks/administrator/generator/Form.js": "/js/chunks/administrator/generator/Form.js",
-    "/js/chunks/administrator/user/Form.js": "/js/chunks/administrator/user/Form.js"
+    "/js/chunks/administrator/user/Form.js": "/js/chunks/administrator/user/Form.js",
+    "/js/chunks/TestGenerator/test-generator/index.js": "/js/chunks/TestGenerator/test-generator/index.js",
+    "/js/chunks/TestGenerator/test-generator/Form.js": "/js/chunks/TestGenerator/test-generator/Form.js",
+    "/js/chunks/TestGenerator1/test-generator1/index.js": "/js/chunks/TestGenerator1/test-generator1/index.js",
+    "/js/chunks/TestGenerator1/test-generator1/Form.js": "/js/chunks/TestGenerator1/test-generator1/Form.js"
 }

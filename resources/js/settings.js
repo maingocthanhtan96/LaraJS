@@ -50,6 +50,16 @@ module.exports = {
   urlLogo: require('@/assets/images/logo/logo-tanmnt.png').default,
 
   /**
+   * @type {array}
+   * @description No redirect whitelist
+   */
+  whiteList: [
+    /^\/login$/i,
+    /^\/reset-password$/i,
+    /^\/reset-password\/((?:[^\/]+?))(?:\/(?=$))?$/i,
+  ],
+
+  /**
    * @type {boolean} true | false
    * @description Multiple transition
    */

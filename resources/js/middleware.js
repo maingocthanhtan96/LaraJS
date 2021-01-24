@@ -9,11 +9,7 @@ import NProgress from 'nprogress'; // progress bar
 
 NProgress.configure({ showSpinner: true }); // NProgress Configuration
 
-const whiteList = [
-  /^\/login$/i,
-  /^\/reset-password$/i,
-  /^\/reset-password\/((?:[^\/]+?))(?:\/(?=$))?$/i,
-]; // no redirect whitelist
+const whiteList = store.state.settings.whiteList; // no redirect whitelist
 
 router.beforeEach(async (to, from, next) => {
   // start progress bar
