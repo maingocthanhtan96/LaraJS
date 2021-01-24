@@ -8,7 +8,8 @@ import store from '@/store';
 
 import router from '@/router';
 
-import { getToken, setToken } from './auth';
+import { getToken, removeToken, setToken } from './auth';
+import { matchInArray } from '@/utils/index';
 
 // Create axios instance
 const service = axios.create({
@@ -45,16 +46,18 @@ service.interceptors.response.use(
   error => {
     const res = error.response;
     if (res) {
+      const whiteList = store.state.settings.whiteList; // no redirect whitelist
       if (res.status === 404) {
         router.replace({ path: '/404' });
       }
       // if (res.status === 500) {
       //   router.replace({ path: '/500' });
       // }
-      // if (res.status === 401) {
-      //   removeToken();
-      //   router.replace({ path: '/login' });
-      // }
+      const currentUrl = router.history.current.path;
+      if (!matchInArray(currentUrl, whiteList) && res.status === 401) {
+        removeToken();
+        router.replace({ path: '/login' });
+      }
       if (res.data.errors) {
         store.dispatch(`app/${SET_ERRORS}`, res.data.errors);
       } else {

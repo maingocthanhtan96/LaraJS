@@ -1,7 +1,7 @@
 const mix = require('laravel-mix');
 const exec = require('child_process').exec;
 const tailwindcss = require('tailwindcss');
-const mergeManifest = require('./mergeManifest');
+require('laravel-mix-merge-manifest');
 require('laravel-mix-eslint');
 /*
  |--------------------------------------------------------------------------
@@ -33,8 +33,6 @@ function mixAssetsDir(query, cb) {
 const sassOptions = {
   // precision: 5,
 };
-
-mix.extend('mergeManifest', mergeManifest);
 
 // plugins Core stylesheets
 mixAssetsDir('sass/plugins/**/!(_)*.scss', (src, dest) =>
@@ -129,6 +127,6 @@ if (mix.inProduction()) {
   mix.version();
 } else {
   mix.sourceMaps().webpackConfig({
-    devtool: 'cheap-eval-source-map', // Fastest for development
+    devtool: 'eval-cheap-source-map', // Fastest for development
   });
 }

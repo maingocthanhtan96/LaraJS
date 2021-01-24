@@ -47,7 +47,17 @@ module.exports = {
    * @type {string}
    * @description Whether show the logo in sidebar
    */
-  urlLogo: require('@/assets/images/logo/logo-tanmnt.png'),
+  urlLogo: require('@/assets/images/logo/logo-tanmnt.png').default,
+
+  /**
+   * @type {array}
+   * @description No redirect whitelist
+   */
+  whiteList: [
+    /^\/login$/i,
+    /^\/reset-password$/i,
+    /^\/reset-password\/((?:[^\/]+?))(?:\/(?=$))?$/i,
+  ],
 
   /**
    * @type {boolean} true | false

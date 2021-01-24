@@ -159,7 +159,7 @@ export default {
         total: 0,
         loading: false,
       },
-      avatarFail: require('@/assets/images/avatar-default.png'),
+      avatarFail: require('@/assets/images/avatar-default.png').default,
     };
   },
   watch: {

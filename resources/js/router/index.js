@@ -37,7 +37,7 @@ export const constantRouterMap = [
     name: 'login',
     hidden: true,
     component: () =>
-      import(/* webpackChunkName: "group-auth" */ '@/views/auth/Login'),
+      import(/* webpackChunkName: "auth/Login" */ '@/views/auth/Login'),
   },
   {
     path: '/reset-password',
@@ -45,7 +45,7 @@ export const constantRouterMap = [
     hidden: true,
     component: () =>
       import(
-        /* webpackChunkName: "group-auth" */ '@/views/auth/ForgotPassword'
+        /* webpackChunkName: "auth/ForgotPassword" */ '@/views/auth/ForgotPassword'
       ),
   },
   {
@@ -54,37 +54,37 @@ export const constantRouterMap = [
     hidden: true,
     component: () =>
       import(
-        /* webpackChunkName: "group-auth" */ '@/views/auth/ResetPasswordForm'
+        /* webpackChunkName: "auth/ResetPasswordForm" */ '@/views/auth/ResetPasswordForm'
       ),
   },
   {
     path: '/401',
     hidden: true,
     component: () =>
-      import(/* webpackChunkName: "group-errors" */ '@/views/errors/401'),
+      import(/* webpackChunkName: "errors/401" */ '@/views/errors/401'),
   },
   {
     path: '/404',
     hidden: true,
     component: () =>
-      import(/* webpackChunkName: "group-errors" */ '@/views/errors/404'),
+      import(/* webpackChunkName: "errors/404" */ '@/views/errors/404'),
   },
   {
     path: '/500',
     hidden: true,
     component: () =>
-      import(/* webpackChunkName: "group-errors" */ '@/views/errors/500'),
+      import(/* webpackChunkName: "errors/500" */ '@/views/errors/500'),
   },
   { path: '/', redirect: '/login', hidden: true },
   {
     path: '/redirect',
-    component: () => import(/* webpackChunkName: "group-layout" */ '@/layout'),
+    component: () => import(/* webpackChunkName: "group/layout" */ '@/layout'),
     hidden: true,
     children: [
       {
         path: ':path*',
         component: () =>
-          import(/* webpackChunkName: "group-redirect" */ '@/views/redirect'),
+          import(/* webpackChunkName: "redirect/index" */ '@/views/redirect'),
       },
     ],
   },
