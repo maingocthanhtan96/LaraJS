@@ -1,7 +1,7 @@
 <template>
   <el-footer class="main-footer">
     <el-card>
-      <div class="flex justify-between items-center">
+      <div class="tw-flex tw-justify-between tw-items-center">
         <div>Copyright © 2019. All rights reserved.</div>
         <div>
           Designed by:
