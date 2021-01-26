@@ -31,7 +31,6 @@ mix
     'echarts',
   ])
   .webpackConfig(config)
-  .disableNotifications()
   .mergeManifest()
   .vue({ version: 2 });
 

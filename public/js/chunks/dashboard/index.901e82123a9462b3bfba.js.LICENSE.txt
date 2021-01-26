@@ -1,24 +1,3 @@
-/* NProgress, (c) 2013, 2014 Rico Sta. Cruz - http://ricostacruz.com/nprogress
- * @license MIT */
-
-/*!
- * Vue.js v2.6.12
- * (c) 2014-2020 Evan You
- * Released under the MIT License.
- */
-
-/*!
- * vue-i18n v8.22.4 
- * (c) 2021 kazuya kawaguchi
- * Released under the MIT License.
- */
-
-/*!
- * vuex v3.6.0
- * (c) 2020 Evan You
- * @license MIT
- */
-
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
 

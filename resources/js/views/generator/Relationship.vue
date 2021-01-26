@@ -16,7 +16,7 @@
               {{ form.model_current }}
             </el-tag>
             <div
-              class="w-04-rem tw-h-24 tw-bg-indigo-600 tw-draw-arrow-down one"
+              class="w-04-rem tw-h-24 tw-bg-indigo-600 draw-arrow-down one"
             />
             <el-select
               v-model="form.relationship"

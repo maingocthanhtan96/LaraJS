@@ -15,8 +15,8 @@
         "prod.css": "mix --production --mix-config=webpack-css.mix.js",
         "dev.js": "mix --mix-config=webpack-js.mix.js",
         "watch.js": "mix watch --mix-config=webpack-js.mix.js",
-        "prod.js": "mix --production --mix-config=webpack-css.mix.js",
-        "prod.js.report": "mix --production --report --mix-config=webpack-css.mix.js",
+        "prod.js": "mix --production --mix-config=webpack-js.mix.js",
+        "prod.js.report": "mix --production --report --mix-config=webpack-js.mix.js",
         "eslint:fix": "eslint resources/js/**/*.{js,vue} --fix",
         "prettier:fix": "prettier --write resources/js/**/*.{js,vue}",
         "prettier:php": "prettier --write --parser=php"
@@ -87,7 +87,6 @@
         "vue-loader": "^15.9.6",
         "vue-template-compiler": "^2.6.12",
         "webpack": "^5.15.0",
-        "webpack-build-notifier": "^2.1.1",
         "webpack-bundle-analyzer": "^4.3.0",
         "webpack-chunk-rename-plugin": "^1.0.3",
         "webpack-cli": "^4.3.1"

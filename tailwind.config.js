@@ -1,7 +1,7 @@
 module.exports = {
   prefix: 'tw-',
   important: true,
-  purge: [],
+  purge: false,
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {},
