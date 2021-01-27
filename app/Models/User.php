@@ -79,6 +79,7 @@ class User extends Authenticatable
 
     /**
      * Override the mail body for reset password notification mail.
+     * @param $token
      */
     public function sendPasswordResetNotification($token)
     {

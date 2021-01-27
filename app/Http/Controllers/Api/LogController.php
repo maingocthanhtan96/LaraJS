@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class LogController extends Controller
 {
-    public function error(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function error(Request $request): JsonResponse
     {
         $err = $request->get('err');
         $url = $request->get('url');
@@ -20,7 +25,11 @@ class LogController extends Controller
         return $this->jsonMessage(trans('messages.success'));
     }
 
-    public function warn(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function warn(Request $request): JsonResponse
     {
         $err = $request->get('err');
         $url = $request->get('url');

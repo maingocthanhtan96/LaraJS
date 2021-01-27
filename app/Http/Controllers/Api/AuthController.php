@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Contracts\Auth\CanResetPassword;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
@@ -52,10 +55,10 @@ class AuthController extends Controller
     }
 
     /**
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      * @author tanmnt
      */
-    public function logout()
+    public function logout(): JsonResponse
     {
         try {
             auth()
@@ -75,9 +78,9 @@ class AuthController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param string $response
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     * @return RedirectResponse|JsonResponse
      */
-    protected function sendResetLinkResponse(Request $request, $response)
+    protected function sendResetLinkResponse(Request $request, string $response)
     {
         return $this->jsonMessage(trans($response));
     }
@@ -87,9 +90,9 @@ class AuthController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param string $response
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     * @return RedirectResponse|JsonResponse
      */
-    protected function sendResetLinkFailedResponse(Request $request, $response)
+    protected function sendResetLinkFailedResponse(Request $request, string $response)
     {
         return $this->jsonMessage(trans($response), false, Response::HTTP_INTERNAL_SERVER_ERROR);
     }
@@ -97,7 +100,7 @@ class AuthController extends Controller
     /**
      * Send password reset link.
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * @return JsonResponse|RedirectResponse
      */
     public function forgotPassword(Request $request)
     {
@@ -107,7 +110,7 @@ class AuthController extends Controller
     /**
      * Handle reset password
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * @return JsonResponse|RedirectResponse
      */
     public function callResetPassword(Request $request)
     {
@@ -117,11 +120,11 @@ class AuthController extends Controller
     /**
      * Reset the given user's password.
      *
-     * @param \Illuminate\Contracts\Auth\CanResetPassword $user
+     * @param CanResetPassword $user
      * @param string $password
      * @return void
      */
-    protected function resetPassword($user, $password)
+    protected function resetPassword(CanResetPassword $user, string $password)
     {
         $user->password = $password;
         $user->save();
@@ -131,11 +134,11 @@ class AuthController extends Controller
     /**
      * Get the response for a successful password reset.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string  $response
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     * @param \Illuminate\Http\Request $request
+     * @param string $response
+     * @return RedirectResponse|JsonResponse
      */
-    protected function sendResetResponse(Request $request, $response)
+    protected function sendResetResponse(Request $request, string $response)
     {
         return $this->jsonMessage(trans($response));
     }
@@ -143,11 +146,11 @@ class AuthController extends Controller
     /**
      * Get the response for a failed password reset.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string  $response
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     * @param \Illuminate\Http\Request $request
+     * @param string $response
+     * @return RedirectResponse|JsonResponse
      */
-    protected function sendResetFailedResponse(Request $request, $response)
+    protected function sendResetFailedResponse(Request $request, string $response)
     {
         return $this->jsonMessage(trans($response), false, 401);
     }

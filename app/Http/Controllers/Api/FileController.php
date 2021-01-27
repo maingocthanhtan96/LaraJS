@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\StoreAvatarRequest;
 use App\Http\Requests\StoreFileRequest;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -13,11 +14,11 @@ class FileController extends Controller
 {
     /**
      * upload files
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @param StoreFileRequest $request
+     * @return JsonResponse
      * @author tanmnt
      */
-    public static function store(StoreFileRequest $request)
+    public static function store(StoreFileRequest $request): JsonResponse
     {
         try {
             if ($request->file('file')) {
@@ -39,10 +40,10 @@ class FileController extends Controller
     /**
      * remove file
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      * @author
      */
-    public static function remove(Request $request)
+    public static function remove(Request $request): JsonResponse
     {
         try {
             $file = $request->get('file', '');
@@ -59,7 +60,11 @@ class FileController extends Controller
         }
     }
 
-    public static function storeAvatar(StoreAvatarRequest $request)
+    /**
+     * @param StoreAvatarRequest $request
+     * @return JsonResponse
+     */
+    public static function storeAvatar(StoreAvatarRequest $request): JsonResponse
     {
         try {
             if ($request->file('file')) {

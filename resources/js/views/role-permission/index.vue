@@ -350,7 +350,7 @@ import role from '@/directive/role';
 import checkPermission from '@/utils/permission'; // Permission checking
 import checkRole from '@/utils/role'; // Permission checking
 import Pagination from '@/components/Pagination'; // Secondary package based on el-pagination
-import { asyncRouterMap, constantRouterMap } from '@/router';
+import { asyncRouterMap } from '@/router';
 
 const permissionResource = new Resource('permissions');
 const roleResource = new RoleResource();
@@ -480,9 +480,7 @@ export default {
     checkPermission,
     checkRole,
     async getRoutes() {
-      const routes = asyncRouterMap.concat(constantRouterMap);
-      // this.serviceRoutes = routes;
-      this.routes = this.generateRoutes(routes);
+      this.routes = this.generateRoutes(asyncRouterMap);
     },
     generateRoutes(routes, basePath = '/') {
       const res = [];

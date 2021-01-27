@@ -6,17 +6,20 @@ use App\Http\Requests\StorePermissionRequest;
 use App\Http\Resources\PermissionResource;
 use App\Models\Permission;
 use App\Models\Role;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class PermissionController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @param Request $request
+     * @return AnonymousResourceCollection
      */
-    public function index(Request $request)
+    public function index(Request $request): AnonymousResourceCollection
     {
         $limit = $request->get('limit', 25);
         $keyword = $request->get('keyword', '');
@@ -41,10 +44,10 @@ class PermissionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @param StorePermissionRequest $request
+     * @return JsonResponse
      */
-    public function store(StorePermissionRequest $request)
+    public function store(StorePermissionRequest $request): JsonResponse
     {
         try {
             $permission = Permission::create($request->all());
@@ -80,11 +83,11 @@ class PermissionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\JsonResponse
+     * @param StorePermissionRequest $request
+     * @param Permission $permission
+     * @return JsonResponse
      */
-    public function update(StorePermissionRequest $request, Permission $permission)
+    public function update(StorePermissionRequest $request, Permission $permission): JsonResponse
     {
         try {
             $permission->update($request->only(['name', 'description']));
@@ -99,9 +102,9 @@ class PermissionController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Permission $permission
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function destroy(Permission $permission)
+    public function destroy(Permission $permission): JsonResponse
     {
         try {
             $permission->delete();

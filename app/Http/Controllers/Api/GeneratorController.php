@@ -40,7 +40,7 @@ use Symfony\Component\Process\Process;
 class GeneratorController extends Controller
 {
     /*@var service*/
-    private $serviceGenerator;
+    private GeneratorService $serviceGenerator;
 
     public function __construct()
     {
@@ -172,7 +172,6 @@ class GeneratorController extends Controller
     }
 
     /**
-     * @param Request $request
      * @param Generator $generator
      * @return JsonResponse
      */

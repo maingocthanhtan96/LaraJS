@@ -6,18 +6,18 @@ use App\Http\Requests\StoreRoleRequest;
 use App\Http\Resources\RoleResource;
 use App\Models\Permission;
 use App\Models\Role;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class RoleController extends Controller
 {
-    const VIEW_MENU = 'view menu ';
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
         try {
             $roles = Role::all();
@@ -41,9 +41,9 @@ class RoleController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function store(StoreRoleRequest $request)
+    public function store(StoreRoleRequest $request): JsonResponse
     {
         try {
             $role = Role::create($request->all());
@@ -81,15 +81,15 @@ class RoleController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param Role $role
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function update(Request $request, Role $role)
+    public function update(Request $request, Role $role): JsonResponse
     {
         try {
             if (!$role || $role->isAdmin()) {
                 return $this->jsonMessage('Role not found!', false, 404);
             }
-            $viewMenu = self::VIEW_MENU;
+            $viewMenu = Permission::VIEW_MENU;
             $input = $request->all();
             $viewMenuPermissions = [];
             $permissions = $request->get('permissions', []);
@@ -100,16 +100,10 @@ class RoleController extends Controller
                     Permission::findOrCreate($name, 'api');
                 }
             }
-            if (\Auth::user()->isPermission()) {
-                $permissions = Permission::whereIn('id', $permissions['other'])
-                    ->get(['name'])
-                    ->toArray();
-            } else {
-                $permissions = Permission::allowed()
-                    ->whereIn('id', $permissions['other'])
-                    ->get(['name'])
-                    ->toArray();
-            }
+
+            $permissions = Permission::whereIn('id', $permissions['other'])
+                ->get(['name'])
+                ->toArray();
             $permissions = array_merge($viewMenuPermissions, $permissions);
             $role->syncPermissions($permissions);
             $role->update([
@@ -127,9 +121,9 @@ class RoleController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Role $role
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function destroy(Role $role)
+    public function destroy(Role $role): JsonResponse
     {
         try {
             if (!$role || $role->isAdmin()) {
