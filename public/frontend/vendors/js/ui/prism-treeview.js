@@ -1,1 +1,64 @@
-Prism.languages.treeview={"treeview-part":{pattern:/(^|\n).+/,inside:{"entry-line":[{pattern:/\|-- |├── /,alias:"line-h"},{pattern:/\|   |│   /,alias:"line-v"},{pattern:/`-- |└── /,alias:"line-v-last"},{pattern:/ {4}/,alias:"line-v-gap"}],"entry-name":{pattern:/.*\S.*/,inside:{operator:/ -> /}}}}},Prism.hooks.add("wrap",(function(e){if("treeview"===e.language&&("treeview-part"===e.type&&(e.content=e.content.replace(/\n/g,"")+"<br />"),"entry-name"===e.type)){if(/(^|[^\\])\/\s*$/.test(e.content))e.content=e.content.slice(0,-1),e.classes.push("dir");else{/(^|[^\\])[=*|]\s*$/.test(e.content)&&(e.content=e.content.slice(0,-1));for(var t=e.content.toLowerCase().split(".");t.length>1;)t.shift(),e.classes.push("ext-"+t.join("-"))}"."===e.content.charAt(0)&&e.classes.push("dotfile")}}));
+Prism.languages.treeview = {
+	"treeview-part": {
+		pattern: /(^|\n).+/,
+		inside: {
+			"entry-line": [
+				{
+					pattern: /\|-- |├── /,
+					alias: "line-h"
+				},
+				{
+					pattern: /\|   |│   /,
+					alias: "line-v"
+				},
+				{
+					pattern: /`-- |└── /,
+					alias: "line-v-last"
+				},
+				{
+					pattern: / {4}/,
+					alias: "line-v-gap"
+				}
+			],
+			"entry-name": {
+				pattern: /.*\S.*/,
+				inside: {
+					// symlink
+					"operator": / -> /,
+				}
+			}
+		}
+	}
+};
+
+Prism.hooks.add('wrap', function(env) {
+	if (env.language === 'treeview') {
+		// Remove line breaks
+		if(env.type === 'treeview-part') {
+			env.content = env.content.replace(/\n/g,'')+'<br />';
+		}
+		if(env.type === 'entry-name') {
+			if(/(^|[^\\])\/\s*$/.test(env.content)) {
+				env.content = env.content.slice(0,-1);
+				// This is a folder
+				env.classes.push('dir');
+			} else {
+
+				if(/(^|[^\\])[=*|]\s*$/.test(env.content)) {
+					env.content = env.content.slice(0,-1);
+				}
+				
+				var parts = env.content.toLowerCase().split('.');
+				while (parts.length > 1) {
+					parts.shift();
+					// Ex. 'foo.min.js' would become '<span class="token keyword ext-min-js ext-js">foo.min.js</span>'
+					env.classes.push('ext-' + parts.join('-'));
+				}
+			}
+
+			if(env.content.charAt(0)==='.') {
+				env.classes.push('dotfile');
+			}
+		}
+	}
+});
