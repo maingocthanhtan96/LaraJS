@@ -1,0 +1,19 @@
+// bs table
+.table {
+  &.b-table {
+    > tbody {
+      .b-table-row-selected {
+        &.table-active {
+          td {
+            background-color: $table-hover-bg;
+          }
+        }
+      }
+    }
+
+    // Reason: Remove outline on focus
+    th {
+      outline: none;
+    }
+  }
+}

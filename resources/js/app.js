@@ -6,6 +6,7 @@ import router from '@/router';
 import store from '@/store';
 import i18n from '@/lang';
 import '@/icons';
+import '@/global-components';
 import '@/middleware';
 import '@/utils/error-log';
 import permission from '@/directive/permission';

@@ -94,5 +94,8 @@
     "/frontend/css/core/menu/menu-types/horizontal-menu.css": "/frontend/css/core/menu/menu-types/horizontal-menu.css",
     "/frontend/css/core/colors/palette-variables.css": "/frontend/css/core/colors/palette-variables.css",
     "/frontend/css/core/colors/palette-noui.css": "/frontend/css/core/colors/palette-noui.css",
-    "/frontend/css/core/colors/palette-gradient.css": "/frontend/css/core/colors/palette-gradient.css"
+    "/frontend/css/core/colors/palette-gradient.css": "/frontend/css/core/colors/palette-gradient.css",
+    "/frontend/js/main.js": "/frontend/js/main.js",
+    "/frontend/js/app.js": "/frontend/js/app.js",
+    "/frontend/css/app.css": "/frontend/css/app.css"
 }
