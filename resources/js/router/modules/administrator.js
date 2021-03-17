@@ -4,7 +4,7 @@ const administrator = {
   path: '/administrators',
   name: 'administrators',
   redirect: '/administrators/roles',
-  component: () => import(/* webpackChunkName: "group/layout" */ '@/layout'),
+  component: () => import('@/layout'),
   meta: {
     title: 'administrators',
     icon: 'admin',
@@ -14,10 +14,7 @@ const administrator = {
     {
       path: 'roles',
       name: 'roles',
-      component: () =>
-        import(
-          /* webpackChunkName: "administrator/role-permission/index" */ '@/views/role-permission'
-        ),
+      component: () => import('@/views/role-permission'),
       meta: {
         title: 'role_permission',
         icon: 'role',
@@ -27,10 +24,7 @@ const administrator = {
     {
       path: 'generator',
       name: 'generator',
-      component: () =>
-        import(
-          /* webpackChunkName: "administrator/generator/index" */ '@/views/generator'
-        ),
+      component: () => import('@/views/generator'),
       meta: {
         title: 'generator',
         icon: 'tree-table',
@@ -40,10 +34,7 @@ const administrator = {
     {
       path: 'generator/create',
       name: 'generator-create',
-      component: () =>
-        import(
-          /* webpackChunkName: "administrator/generator/Form" */ '@/views/generator/Form'
-        ),
+      component: () => import('@/views/generator/Form'),
       meta: {
         title: 'generator_create',
         icon: 'tree-table',
@@ -56,10 +47,7 @@ const administrator = {
       path: 'generator/edit/:id(\\d+)',
       name: 'generator-edit',
       hidden: true,
-      component: () =>
-        import(
-          /* webpackChunkName: "administrator/generator/Form" */ '@/views/generator/Form'
-        ),
+      component: () => import('@/views/generator/Form'),
       meta: {
         title: 'generator_edit',
         icon: 'tree-table',
@@ -77,10 +65,7 @@ const administrator = {
       path: 'generator/relationship/:id(\\d+)',
       name: 'generator-relationship',
       hidden: true,
-      component: () =>
-        import(
-          /* webpackChunkName: "administrator/generator/Relationship" */ '@/views/generator/Relationship'
-        ),
+      component: () => import('@/views/generator/Relationship'),
       meta: {
         title: 'generator_relationship',
         activeMenu: '/administrators/generator',
@@ -96,10 +81,7 @@ const administrator = {
     {
       path: 'user',
       name: 'user',
-      component: () =>
-        import(
-          /* webpackChunkName: "administrator/user/index" */ '@/views/user'
-        ),
+      component: () => import('@/views/user'),
       meta: {
         title: 'user',
         icon: 'user',
@@ -110,10 +92,7 @@ const administrator = {
       path: 'user/create',
       name: 'user-create',
       hidden: true,
-      component: () =>
-        import(
-          /* webpackChunkName: "administrator/user/Form" */ '@/views/user/Form'
-        ),
+      component: () => import('@/views/user/Form'),
       meta: {
         title: 'user_create',
         activeMenu: '/administrators/user',
@@ -124,10 +103,7 @@ const administrator = {
       path: 'user/edit/:id(\\d+)',
       name: 'user-edit',
       hidden: true,
-      component: () =>
-        import(
-          /* webpackChunkName: "administrator/user/Form" */ '@/views/user/Form'
-        ),
+      component: () => import('@/views/user/Form'),
       meta: {
         title: 'user_edit',
         activeMenu: '/administrators/user',

@@ -36,55 +36,44 @@ export const constantRouterMap = [
     path: '/login',
     name: 'login',
     hidden: true,
-    component: () =>
-      import(/* webpackChunkName: "auth/Login" */ '@/views/auth/Login'),
+    component: () => import('@/views/auth/Login'),
   },
   {
     path: '/reset-password',
     name: 'reset-password',
     hidden: true,
-    component: () =>
-      import(
-        /* webpackChunkName: "auth/ForgotPassword" */ '@/views/auth/ForgotPassword'
-      ),
+    component: () => import('@/views/auth/ForgotPassword'),
   },
   {
     path: '/reset-password/:token',
     name: 'reset-password-form',
     hidden: true,
-    component: () =>
-      import(
-        /* webpackChunkName: "auth/ResetPasswordForm" */ '@/views/auth/ResetPasswordForm'
-      ),
+    component: () => import('@/views/auth/ResetPasswordForm'),
   },
   {
     path: '/401',
     hidden: true,
-    component: () =>
-      import(/* webpackChunkName: "errors/401" */ '@/views/errors/401'),
+    component: () => import('@/views/errors/401'),
   },
   {
     path: '/404',
     hidden: true,
-    component: () =>
-      import(/* webpackChunkName: "errors/404" */ '@/views/errors/404'),
+    component: () => import('@/views/errors/404'),
   },
   {
     path: '/500',
     hidden: true,
-    component: () =>
-      import(/* webpackChunkName: "errors/500" */ '@/views/errors/500'),
+    component: () => import('@/views/errors/500'),
   },
   { path: '/', redirect: '/login', hidden: true },
   {
     path: '/redirect',
-    component: () => import(/* webpackChunkName: "group/layout" */ '@/layout'),
+    component: () => import('@/layout'),
     hidden: true,
     children: [
       {
         path: ':path*',
-        component: () =>
-          import(/* webpackChunkName: "redirect/index" */ '@/views/redirect'),
+        component: () => import('@/views/redirect'),
       },
     ],
   },

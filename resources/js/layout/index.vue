@@ -29,8 +29,7 @@
 <script>
 import BackToTop from '@/components/BackToTop';
 import { AppMain, Navbar, Sidebar } from './components';
-const TagViews = () =>
-  import(/* webpackChunkName: "components/TagsView" */ './components/TagsView');
+const TagViews = () => import('./components/TagsView');
 import FooterMain from './components/FooterMain';
 import ResizeMixin from './mixin/ResizeHandler';
 import { mapState } from 'vuex';

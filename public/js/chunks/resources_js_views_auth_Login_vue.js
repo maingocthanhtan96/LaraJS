@@ -6,7 +6,7 @@
  * or disable the default devtool with "devtool: false".
  * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
  */
-(self["webpackChunk"] = self["webpackChunk"] || []).push([["auth/Login"],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([["resources_js_views_auth_Login_vue"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/LangSelect/index.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************************************************************************************************!*\

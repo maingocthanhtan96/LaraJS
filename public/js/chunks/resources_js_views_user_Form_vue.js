@@ -6,7 +6,7 @@
  * or disable the default devtool with "devtool: false".
  * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
  */
-(self["webpackChunk"] = self["webpackChunk"] || []).push([["administrator/user/Form"],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([["resources_js_views_user_Form_vue"],{
 
 /***/ "./node_modules/@babel/runtime/helpers/assertThisInitialized.js":
 /*!**********************************************************************!*\
