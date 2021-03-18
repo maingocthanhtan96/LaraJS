@@ -8,7 +8,7 @@
         "watch-fe": "mix watch --mix-config=webpack-frontend.mix.js",
         "prod-fe": "mix --production --mix-config=webpack-frontend.mix.js",
         "watch-all": "npm run watch & npm run watch-fe",
-        "prod-all": "npm run prod-fe & npm run prod",
+        "prod-all": "concurrently \"npm run prod-fe\" \"npm run prod\"",
         "dev.css": "mix --mix-config=webpack-css.mix.js",
         "watch.css": "mix watch --mix-config=webpack-css.mix.js",
         "prod.css": "mix --production --mix-config=webpack-css.mix.js",
