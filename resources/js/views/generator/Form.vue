@@ -457,7 +457,9 @@
 
 <script>
 import GeneratorResource from '@/api/generator';
-import _ from 'lodash';
+import isEqual from 'lodash/isEqual';
+import debounce from 'lodash/debounce';
+import cloneDeep from 'lodash/cloneDeep';
 import draggable from 'vuedraggable';
 import Mallki from '@/components/TextHoverEffect/Mallki';
 import waves from '@/directive/waves/index.js'; // v-wave directive
@@ -682,7 +684,7 @@ export default {
         });
         this.formChange = val.filter((p, idx) => {
           if (this.formTemp[idx]) {
-            return !_.isEqual(p, this.formTemp[idx]);
+            return !isEqual(p, this.formTemp[idx]);
           }
         });
         changedFieldName.forEach(val => {
@@ -754,7 +756,7 @@ export default {
       const arDbType = ['YEAR', 'TIME', 'DATETIME', 'DATE', 'BOOLEAN', 'ENUM'];
       return arDbType.indexOf(dbType) !== -1;
     },
-    checkModelMethod: _.debounce(function (cb) {
+    checkModelMethod: debounce(function (cb) {
       generatorResource.checkModel(this.formModel.name).then(res => {
         const { message } = res.data;
         if (message === 1) {
@@ -772,7 +774,7 @@ export default {
         }
       });
     }, 500),
-    checkColumnMethod: _.debounce(function (cb, column) {
+    checkColumnMethod: debounce(function (cb, column) {
       generatorResource.checkColumn(this.formModel.name, column).then(res => {
         const { message } = res.data;
         if (message === 1) {
@@ -851,7 +853,7 @@ export default {
 
       if (flag) {
         // remove form => fields exist
-        const formClone = _.cloneDeep(this.form);
+        const formClone = cloneDeep(this.form);
         formClone.splice(0, this.formTemp.length);
         generatorResource
           .update(this.$route.params.id, {
@@ -946,7 +948,7 @@ export default {
       }
     },
     disableAfterColumn(id) {
-      const formClone = _.cloneDeep(this.form);
+      const formClone = cloneDeep(this.form);
       formClone.splice(0, this.formTemp.length);
       return formClone.some(val => val.id === id);
     },

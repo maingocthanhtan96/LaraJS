@@ -1,17 +1,31 @@
 const mix = require('laravel-mix');
 const path = require('path');
 require('laravel-mix-merge-manifest');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin;
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-/*
- |--------------------------------------------------------------------------
- | Mix Asset Management
- |--------------------------------------------------------------------------
- |
- | Mix provides a clean, fluent API for defining some Webpack build steps
- | for your Laravel applications. By default, we are compiling the CSS
- | file for the application as well as bundling up all the JS files.
- |
- */
+const plugins = [];
+const rawArgv = process.argv.slice(2);
+const report = rawArgv.includes('--report');
+
+if (report) {
+  plugins.push(
+    new BundleAnalyzerPlugin({
+      openAnalyzer: true,
+    })
+  );
+}
+plugins.push(
+  // ('en': default)
+  new MomentLocalesPlugin({
+    localesToKeep: ['ja'],
+  }),
+  new CleanWebpackPlugin({
+    cleanOnceBeforeBuildPatterns: [path.resolve(__dirname, 'public/frontend/js/chunks/**/*')],
+  })
+);
 
 mix
   .js('frontend/src/main.js', 'public/frontend/js/app.js')
@@ -59,8 +73,11 @@ mix
       ],
     },
     output: {
-      chunkFilename: 'frontend/js/chunks/[name].js',
+      chunkFilename: mix.inProduction()
+        ? 'frontend/js/chunks/[name].[chunkhash].js'
+        : 'frontend/js/chunks/[name].js',
     },
+    plugins: plugins,
   })
   .sass('resources/sass/app.scss', 'public/frontend/css')
   .options({

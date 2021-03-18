@@ -202,7 +202,8 @@
 <script>
 import PreCodeTag from '@/components/PreCodeTag';
 import GeneratorResource from '@/api/generator';
-import { camelCase, snakeCase } from 'lodash';
+import camelCase from 'lodash/camelCase';
+import snakeCase from 'lodash/snakeCase';
 
 const generatorResource = new GeneratorResource();
 

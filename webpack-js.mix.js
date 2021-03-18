@@ -28,7 +28,6 @@ mix
     'axios',
     'element-ui',
     'nprogress',
-    'echarts',
   ])
   .webpackConfig(config)
   .mergeManifest()
