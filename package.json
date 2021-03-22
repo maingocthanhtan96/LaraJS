@@ -3,7 +3,7 @@
     "scripts": {
         "dev": "npm run dev.js & npm run dev.css",
         "watch": "npm run watch.js & npm run watch.css",
-        "prod": "npm run prod.js & npm run prod.css",
+        "prod": "concurrently \"npm run prod.js\" \"npm run prod.css\"",
         "dev-fe": "mix --mix-config=webpack-frontend.mix.js",
         "watch-fe": "mix watch --mix-config=webpack-frontend.mix.js",
         "prod-fe": "mix --production --mix-config=webpack-frontend.mix.js",
@@ -78,7 +78,6 @@
         "postcss": "^8.2.8",
         "postcss-rtl": "^1.7.3",
         "prettier": "^2.2.1",
-        "purgecss-whitelister": "^2.4.0",
         "resolve-url-loader": "^3.1.2",
         "sass": "^1.32.8",
         "sass-loader": "^11.0.1",

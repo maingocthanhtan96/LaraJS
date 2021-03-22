@@ -5,7 +5,7 @@
         <div slot="header" class="tw-flex tw-justify-end tw-items-center">
           <router-link
             v-permission="['create']"
-            :to="{ name: 'user-create' }"
+            :to="{ name: 'UserCreate' }"
             class="pan-btn blue-btn"
             tag="button"
           >
@@ -106,7 +106,7 @@
                 <template slot-scope="{ row }">
                   <router-link
                     v-permission="['edit']"
-                    :to="{ name: 'user-edit', params: { id: row.id } }"
+                    :to="{ name: 'UserEdit', params: { id: row.id } }"
                   >
                     <i class="el-icon-edit el-link el-link--primary mr-2" />
                   </router-link>

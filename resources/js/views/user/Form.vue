@@ -100,11 +100,17 @@
             />
           </el-form-item>
           <!--{{$FROM_ITEM_NOT_DELETE_THIS_LINE$}}-->
-          <el-form-item class="tw-flex tw-justify-center">
+          <el-form-item class="tw-flex tw-justify-end">
+            <router-link
+              class="el-button el-button--info is-plain"
+              tag="button"
+              :to="{ name: 'User' }"
+            >
+              {{ $t('button.cancel') }}
+            </router-link>
             <template v-if="$route.params.id">
               <el-button
                 :loading="loading.button"
-                round
                 type="primary"
                 icon="el-icon-edit"
                 @click="() => update('users')"
@@ -115,7 +121,6 @@
             <template v-else>
               <el-button
                 :loading="loading.button"
-                round
                 type="success"
                 icon="el-icon-plus"
                 @click="() => store('users')"

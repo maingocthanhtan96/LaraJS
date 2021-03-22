@@ -1,12 +1,6 @@
 const mix = require('laravel-mix');
-const path = require('path');
-const whiteLister = require('purgecss-whitelister');
 require('laravel-mix-purgecss');
 require('laravel-mix-merge-manifest');
-
-function resolve(dir) {
-  return path.join(__dirname, '/resources/js', dir);
-}
 
 mix
   .sass('resources/js/styles/app.scss', 'public/css', {
@@ -19,13 +13,9 @@ mix
     clearConsole: true, // in watch mode, clears console after every build
   })
   .purgeCss({
-    whitelist: [
-      ...whiteLister([
-        resolve('/styles/element-variables.scss'),
-        resolve('/styles/element-ui.scss'),
-        resolve('/styles/sidebar.scss'),
-      ]),
-    ],
+    safelist: {
+      standard: [/-active$/, /-enter$/, /-leave-to$/, /show$/, /^el-/],
+    },
   })
   .mergeManifest();
 

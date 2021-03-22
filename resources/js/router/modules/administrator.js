@@ -80,7 +80,7 @@ const administrator = {
     },
     {
       path: 'user',
-      name: 'user',
+      name: 'User',
       component: () => import('@/views/user'),
       meta: {
         title: 'user',
@@ -90,7 +90,7 @@ const administrator = {
     },
     {
       path: 'user/create',
-      name: 'user-create',
+      name: 'UserCreate',
       hidden: true,
       component: () => import('@/views/user/Form'),
       meta: {
@@ -101,7 +101,7 @@ const administrator = {
     },
     {
       path: 'user/edit/:id(\\d+)',
-      name: 'user-edit',
+      name: 'UserEdit',
       hidden: true,
       component: () => import('@/views/user/Form'),
       meta: {
