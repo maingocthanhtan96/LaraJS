@@ -27,7 +27,7 @@
                 icon="el-icon-edit"
                 @click="() => update('{{$REF_MODEL_CLASS$}}')"
               >
-                {{ $t('button.edit') }}
+                {{ $t('button.update') }}
               </el-button>
             </template>
             <template v-else>
@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { scrollTo } from '@/utils/scroll-to';
+import GlobalForm from '@/plugins/mixins/global-form';
 import {{$MODEL_CLASS$}}Resource from '@/api/{{$API_VERSION$}}/{{$NAME_API}}';
 // {{$IMPORT_COMPONENT_NOT_DELETE_THIS_LINE$}}
 
@@ -58,6 +58,7 @@ export default {
   components: {
     // {{$IMPORT_COMPONENT_NAME_NOT_DELETE_THIS_LINE$}}
   },
+  mixins: [GlobalForm],
   data() {
     return {
       form: {
@@ -94,51 +95,59 @@ export default {
     store({{$REF_MODEL_CLASS$}}) {
       // {{$FILE_JSON_STRINGIFY_NOT_DELETE_THIS_LINE$}}
       this.$refs[{{$REF_MODEL_CLASS$}}].validate(async (valid, errors) => {
-        if (!valid) {
-          if (document.getElementsByName(Object.keys(errors)[0]).length) {
-            scrollTo(document.getElementsByName(Object.keys(errors)[0])[0].getBoundingClientRect().top - document.body.getBoundingClientRect().top - 130, 800);
+        if (this.scrollToError(valid, errors)) {
+          return;
+        }
+        this.$confirm(this.$t('common.popup.create'), {
+          confirmButtonText: this.$t('button.create'),
+          cancelButtonText: this.$t('button.cancel'),
+          type: 'warning',
+          center: true,
+        }).then(async () => {
+          try {
+            this.loading.button = true;
+            await {{$CONST_MODEL_CLASS$}}Resource.store(this.form);
+            this.$message({
+              showClose: true,
+              message: this.$t('messages.create'),
+              type: 'success',
+            });
+            // {{$RESET_FIELD_NOT_DELETE_THIS_LINE$}}
+            // this.$refs[{{$REF_MODEL_CLASS$}}].resetFields();
+            this.loading.button = false;
+            this.$router.push({ name: '{{$NAME_ROUTE$}}' });
+          } catch(e) {
+            this.loading.button = false;
           }
-          return false;
-        }
-        try {
-          this.loading.button = true;
-          await {{$CONST_MODEL_CLASS$}}Resource.store(this.form);
-          this.$message({
-            showClose: true,
-            message: this.$t('messages.create'),
-            type: 'success',
-          });
-          // {{$RESET_FIELD_NOT_DELETE_THIS_LINE$}}
-          // this.$refs[{{$REF_MODEL_CLASS$}}].resetFields();
-          this.loading.button = false;
-          this.$router.push({ name: '{{$NAME_ROUTE$}}' });
-        } catch(e) {
-          this.loading.button = false;
-        }
+        });
       });
     },
     update({{$REF_MODEL_CLASS$}}) {
       // {{$FILE_JSON_STRINGIFY_NOT_DELETE_THIS_LINE$}}
       this.$refs[{{$REF_MODEL_CLASS$}}].validate(async (valid, errors) => {
-        if (!valid) {
-          if (document.getElementsByName(Object.keys(errors)[0]).length) {
-            scrollTo(document.getElementsByName(Object.keys(errors)[0])[0].getBoundingClientRect().top - document.body.getBoundingClientRect().top - 130, 800);
+        if (this.scrollToError(valid, errors)) {
+          return;
+        }
+        this.$confirm(this.$t('common.popup.update'), {
+          confirmButtonText: this.$t('button.update'),
+          cancelButtonText: this.$t('button.cancel'),
+          type: 'warning',
+          center: true,
+        }).then(async () => {
+          try {
+            this.loading.button = true;
+            await {{$CONST_MODEL_CLASS$}}Resource.update(this.$route.params.id, this.form);
+            this.$message({
+              showClose: true,
+              message: this.$t('messages.update'),
+              type: 'success',
+            });
+            this.loading.button = false;
+            this.$router.push({ name: '{{$NAME_ROUTE$}}' });
+          } catch (e) {
+            this.loading.button = false;
           }
-          return false;
-        }
-        try {
-          this.loading.button = true;
-          await {{$CONST_MODEL_CLASS$}}Resource.update(this.$route.params.id, this.form);
-          this.$message({
-            showClose: true,
-            message: this.$t('messages.update'),
-            type: 'success',
-          });
-          this.loading.button = false;
-          this.$router.push({ name: '{{$NAME_ROUTE$}}' });
-        } catch (e) {
-          this.loading.button = false;
-        }
+        });
       });
     },
   },

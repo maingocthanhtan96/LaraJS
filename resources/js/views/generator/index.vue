@@ -11,7 +11,7 @@
             <svg-icon icon-class="tree-table" />
           </button>
           <router-link
-            :to="{ name: 'generator-create' }"
+            :to="{ name: 'GeneratorCreate' }"
             class="pan-btn blue-btn"
             tag="button"
           >
@@ -88,9 +88,9 @@
               >
                 <template slot-scope="{ row }">
                   <router-link
-                    :to="{ name: 'generator-edit', params: { id: row.id } }"
+                    :to="{ name: 'GeneratorEdit', params: { id: row.id } }"
                   >
-                    <el-tooltip effect="dark" content="Edit" placement="left">
+                    <el-tooltip effect="dark" content="Update" placement="left">
                       <i
                         class="el-icon-edit el-link el-link--primary tw-mr-4"
                       />
@@ -98,7 +98,7 @@
                   </router-link>
                   <router-link
                     :to="{
-                      name: 'generator-relationship',
+                      name: 'GeneratorRelationship',
                       params: { id: row.id },
                     }"
                   >

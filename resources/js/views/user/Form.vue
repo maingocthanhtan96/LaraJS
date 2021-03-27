@@ -115,7 +115,7 @@
                 icon="el-icon-edit"
                 @click="() => update('users')"
               >
-                {{ $t('button.edit') }}
+                {{ $t('button.update') }}
               </el-button>
             </template>
             <template v-else>
@@ -136,6 +136,7 @@
 </template>
 
 <script>
+import GlobalForm from '@/plugins/mixins/global-form';
 import UserResource from '@/api/user';
 import RoleResource from '@/api/role';
 import ImageCropper from '@/components/ImageCropper';
@@ -152,6 +153,7 @@ export default {
     PanThumb,
     // {{$IMPORT_COMPONENT_NAME_NOT_DELETE_THIS_LINE$}}
   },
+  mixins: [GlobalForm],
   data() {
     return {
       rolesList: [],
@@ -322,18 +324,26 @@ export default {
     // {{$METHODS_NOT_DELETE_THIS_LINE$}}
     store(users) {
       // {{$FILE_JSON_STRINGIFY_NOT_DELETE_THIS_LINE$}}
-      this.$refs[users].validate(async valid => {
-        if (valid) {
-          this.loading = true;
+      this.$refs[users].validate(async (valid, errors) => {
+        if (this.scrollToError(valid, errors)) {
+          return;
+        }
+        this.$confirm(this.$t('common.popup.create'), {
+          confirmButtonText: this.$t('button.create'),
+          cancelButtonText: this.$t('button.cancel'),
+          type: 'warning',
+          center: true,
+        }).then(async () => {
+          this.loading.button = true;
           await userResource.store(this.form);
           this.$message({
             showClose: true,
             message: this.$t('messages.create'),
             type: 'success',
           });
-          this.$refs[users].resetFields();
           this.loading.button = false;
-        }
+          this.$router.push({ name: 'User' });
+        });
       });
     },
     roles() {
@@ -343,8 +353,16 @@ export default {
     },
     update(users) {
       // {{$FILE_JSON_STRINGIFY_NOT_DELETE_THIS_LINE$}}
-      this.$refs[users].validate(async valid => {
-        if (valid) {
+      this.$refs[users].validate(async (valid, errors) => {
+        if (this.scrollToError(valid, errors)) {
+          return;
+        }
+        this.$confirm(this.$t('common.popup.update'), {
+          confirmButtonText: this.$t('button.update'),
+          cancelButtonText: this.$t('button.cancel'),
+          type: 'warning',
+          center: true,
+        }).then(async () => {
           this.loading.button = true;
           delete this.form.password;
           await userResource.update(this.$route.params.id, this.form);
@@ -354,8 +372,8 @@ export default {
             type: 'success',
           });
           this.loading.button = false;
-          this.$router.push({ name: 'user' });
-        }
+          this.$router.push({ name: 'User' });
+        });
       });
     },
     cropSuccess(resData) {

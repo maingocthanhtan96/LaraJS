@@ -13,7 +13,7 @@ const administrator = {
   children: [
     {
       path: 'roles',
-      name: 'roles',
+      name: 'Role',
       component: () => import('@/views/role-permission'),
       meta: {
         title: 'role_permission',
@@ -23,7 +23,7 @@ const administrator = {
     },
     {
       path: 'generator',
-      name: 'generator',
+      name: 'Generator',
       component: () => import('@/views/generator'),
       meta: {
         title: 'generator',
@@ -33,7 +33,7 @@ const administrator = {
     },
     {
       path: 'generator/create',
-      name: 'generator-create',
+      name: 'GeneratorCreate',
       component: () => import('@/views/generator/Form'),
       meta: {
         title: 'generator_create',
@@ -45,7 +45,7 @@ const administrator = {
     },
     {
       path: 'generator/edit/:id(\\d+)',
-      name: 'generator-edit',
+      name: 'GeneratorEdit',
       hidden: true,
       component: () => import('@/views/generator/Form'),
       meta: {
@@ -63,7 +63,7 @@ const administrator = {
     },
     {
       path: 'generator/relationship/:id(\\d+)',
-      name: 'generator-relationship',
+      name: 'GeneratorRelationship',
       hidden: true,
       component: () => import('@/views/generator/Relationship'),
       meta: {
