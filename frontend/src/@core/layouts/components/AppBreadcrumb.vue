@@ -1,8 +1,5 @@
 <template>
-  <b-row
-    v-if="$route.meta.breadcrumb || $route.meta.pageTitle"
-    class="content-header"
-  >
+  <b-row v-if="$route.meta.breadcrumb || $route.meta.pageTitle" class="content-header">
     <!-- Content Left -->
     <b-col class="content-header-left mb-2" cols="12" md="9">
       <b-row class="breadcrumbs-top">
@@ -13,11 +10,7 @@
           <div class="breadcrumb-wrapper">
             <b-breadcrumb>
               <b-breadcrumb-item to="/">
-                <feather-icon
-                  icon="HomeIcon"
-                  size="16"
-                  class="align-text-top"
-                />
+                <feather-icon icon="HomeIcon" size="16" class="align-text-top" />
               </b-breadcrumb-item>
               <b-breadcrumb-item
                 v-for="item in $route.meta.breadcrumb"
@@ -34,18 +27,10 @@
     </b-col>
 
     <!-- Content Right -->
-    <b-col
-      class="content-header-right text-md-right d-md-block d-none mb-1"
-      md="3"
-      cols="12"
-    >
+    <b-col class="content-header-right text-md-right d-md-block d-none mb-1" md="3" cols="12">
       <b-dropdown variant="link" no-caret toggle-class="p-0" right>
         <template #button-content>
-          <b-button
-            v-ripple.400="'rgba(255, 255, 255, 0.15)'"
-            variant="primary"
-            class="btn-icon"
-          >
+          <b-button v-ripple.400="'rgba(255, 255, 255, 0.15)'" variant="primary" class="btn-icon">
             <feather-icon icon="SettingsIcon" />
           </b-button>
         </template>
@@ -75,15 +60,7 @@
 </template>
 
 <script>
-import {
-  BBreadcrumb,
-  BBreadcrumbItem,
-  BRow,
-  BCol,
-  BDropdown,
-  BDropdownItem,
-  BButton,
-} from 'bootstrap-vue';
+import { BBreadcrumb, BBreadcrumbItem, BRow, BCol, BDropdown, BDropdownItem, BButton } from 'bootstrap-vue';
 import Ripple from 'vue-ripple-directive';
 
 export default {

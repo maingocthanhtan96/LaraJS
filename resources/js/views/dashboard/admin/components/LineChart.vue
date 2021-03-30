@@ -58,11 +58,7 @@ export default {
 
     // Monitor the sidebar changes
     this.sidebarElm = document.getElementsByClassName('sidebar-container')[0];
-    this.sidebarElm &&
-      this.sidebarElm.addEventListener(
-        'transitionend',
-        this.sidebarResizeHandler
-      );
+    this.sidebarElm && this.sidebarElm.addEventListener('transitionend', this.sidebarResizeHandler);
   },
   beforeDestroy() {
     if (!this.chart) {
@@ -72,11 +68,7 @@ export default {
       window.removeEventListener('resize', this.__resizeHandler);
     }
 
-    this.sidebarElm &&
-      this.sidebarElm.removeEventListener(
-        'transitionend',
-        this.sidebarResizeHandler
-      );
+    this.sidebarElm && this.sidebarElm.removeEventListener('transitionend', this.sidebarResizeHandler);
 
     this.chart.dispose();
     this.chart = null;

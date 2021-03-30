@@ -24,10 +24,7 @@
           :is-last="tour.isLast"
           :labels="tour.labels"
         >
-          <div
-            slot="actions"
-            class="tour-actions d-flex justify-content-between"
-          >
+          <div slot="actions" class="tour-actions d-flex justify-content-between">
             <!-- Skip Button -->
             <b-button
               v-if="tour.currentStep != tour.steps.length - 1"
@@ -41,12 +38,7 @@
             </b-button>
 
             <!-- Previous Button -->
-            <b-button
-              v-if="tour.currentStep"
-              size="sm"
-              variant="outline-primary mr-1"
-              @click="tour.previousStep"
-            >
+            <b-button v-if="tour.currentStep" size="sm" variant="outline-primary mr-1" @click="tour.previousStep">
               <feather-icon icon="ChevronLeftIcon" size="12" />
               <span class="ml-25 align-middle">Previous</span>
             </b-button>

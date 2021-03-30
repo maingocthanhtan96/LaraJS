@@ -15,9 +15,7 @@
             <el-tag type="success" effect="dark">
               {{ form.model_current }}
             </el-tag>
-            <div
-              class="w-04-rem tw-h-24 tw-bg-indigo-600 draw-arrow-down one"
-            />
+            <div class="w-04-rem tw-h-24 tw-bg-indigo-600 draw-arrow-down one" />
             <el-select
               v-model="form.relationship"
               :class="{ 'error-danger': errors.relationship }"
@@ -34,9 +32,7 @@
             <p v-if="errors.relationship" class="help is-danger tw-text-lg">
               {{ errors.relationship[0] }}
             </p>
-            <div
-              class="w-04-rem tw-h-24 tw-bg-indigo-600 draw-arrow-down two"
-            />
+            <div class="w-04-rem tw-h-24 tw-bg-indigo-600 draw-arrow-down two" />
             <el-select
               v-model="form.model"
               :class="{ 'error-danger': errors.model }"
@@ -45,25 +41,16 @@
               placeholder="Model"
               @change="replaceTemplate('display')"
             >
-              <el-option
-                v-for="(model, index) in modelOptions"
-                :key="'model_' + index"
-                :label="model"
-                :value="model"
-              />
+              <el-option v-for="(model, index) in modelOptions" :key="'model_' + index" :label="model" :value="model" />
             </el-select>
             <p v-if="errors.model" class="help is-danger tw-text-lg">
               {{ errors.model[0] }}
             </p>
-            <div
-              class="w-04-rem tw-h-24 tw-bg-indigo-600 draw-arrow-down three"
-            />
+            <div class="w-04-rem tw-h-24 tw-bg-indigo-600 draw-arrow-down three" />
             <div class="z-10">
               <pre-code-tag :content="markdown" />
             </div>
-            <div
-              class="w-04-rem tw-h-24 tw-bg-indigo-600 draw-arrow-down four"
-            />
+            <div class="w-04-rem tw-h-24 tw-bg-indigo-600 draw-arrow-down four" />
             <el-select
               v-model="form.column"
               :class="{ 'error-danger': errors.column }"
@@ -72,17 +59,10 @@
               placeholder="Display Column"
               class="z-10"
             >
-              <el-option
-                v-for="(col, index) in displayColumns"
-                :key="'col_' + index"
-                :label="col"
-                :value="col"
-              />
+              <el-option v-for="(col, index) in displayColumns" :key="'col_' + index" :label="col" :value="col" />
             </el-select>
             <template v-if="form.relationship === 'belongsToMany'">
-              <div
-                class="w-04-rem tw-h-24 tw-bg-indigo-600 draw-arrow-down equivalent"
-              />
+              <div class="w-04-rem tw-h-24 tw-bg-indigo-600 draw-arrow-down equivalent" />
               <el-select
                 v-model="form.column2"
                 :class="{ 'error-danger': errors.column2 }"
@@ -90,20 +70,13 @@
                 filterable
                 placeholder="Display Column 2"
               >
-                <el-option
-                  v-for="(col, index) in displayColumns2"
-                  :key="'col_' + index"
-                  :label="col"
-                  :value="col"
-                />
+                <el-option v-for="(col, index) in displayColumns2" :key="'col_' + index" :label="col" :value="col" />
               </el-select>
             </template>
             <p v-if="errors.column" class="help is-danger tw-text-lg">
               {{ errors.column[0] }}
             </p>
-            <div
-              class="w-04-rem tw-h-24 tw-bg-indigo-600 draw-arrow-down five"
-            />
+            <div class="w-04-rem tw-h-24 tw-bg-indigo-600 draw-arrow-down five" />
             <el-select
               v-model="form.options"
               class="options"
@@ -111,21 +84,10 @@
               placeholder="Options"
               @change="changeOptions(form.options)"
             >
-              <el-option
-                v-for="(item, key) in options"
-                :key="'option_' + key"
-                :label="item"
-                :value="item"
-              />
+              <el-option v-for="(item, key) in options" :key="'option_' + key" :label="item" :value="item" />
             </el-select>
-            <div
-              class="w-04-rem tw-h-24 tw-bg-indigo-600 draw-arrow-down six"
-            />
-            <el-tooltip
-              effect="dark"
-              :content="$t('route.generator_relationship')"
-              placement="bottom"
-            >
+            <div class="w-04-rem tw-h-24 tw-bg-indigo-600 draw-arrow-down six" />
+            <el-tooltip effect="dark" :content="$t('route.generator_relationship')" placement="bottom">
               <el-button
                 v-loading.fullscreen.lock="loading"
                 class="z-10"
@@ -138,37 +100,22 @@
           </div>
           <!--dialog-->
           <div class="container is-fullhd">
-            <el-dialog
-              :visible.sync="dialogVisible"
-              :fullscreen="true"
-              @open="diagram"
-            >
+            <el-dialog :visible.sync="dialogVisible" :fullscreen="true" @open="diagram">
               <div slot="title" class="tw-text-center">
-                <h3 class="title">
-                  Diagram {{ $t('route.generator_relationship') }}
-                </h3>
+                <h3 class="title">Diagram {{ $t('route.generator_relationship') }}</h3>
               </div>
               <div>
                 <div class="tree tw-text-center">
                   <ul class="tw-inline-block">
-                    <li
-                      v-for="(dg, index) in drawDiagram"
-                      :key="'diagram_' + index"
-                    >
+                    <li v-for="(dg, index) in drawDiagram" :key="'diagram_' + index">
                       <a>{{ dg.model }}</a>
                       <ul class="tw-flex">
-                        <li
-                          v-for="(item, i) in dg.data"
-                          :key="'itemDiagram_' + i"
-                        >
+                        <li v-for="(item, i) in dg.data" :key="'itemDiagram_' + i">
                           <a>{{ item.type }}</a>
                           <ul>
                             <li>
                               <a class="tw-w-64">{{ item.model }}</a>
-                              <ul
-                                v-if="item.table"
-                                :class="{ 'has-mtm-parent': item.table }"
-                              >
+                              <ul v-if="item.table" :class="{ 'has-mtm-parent': item.table }">
                                 <a class="tw-w-64">{{ item.table }}</a>
                               </ul>
                               <ul>
@@ -306,9 +253,9 @@ export default {
       public function ${camelCase(this.form.model_current)}() {
         return $this->belongsToMany(${this.form.model_current}::class);
       }`;
-        templateInverse += `<br/>  # I will create a table ${snakeCase(
-          this.form.model_current
-        )}_${snakeCase(this.form.model)}`;
+        templateInverse += `<br/>  # I will create a table ${snakeCase(this.form.model_current)}_${snakeCase(
+          this.form.model
+        )}`;
       }
       if (this.form.relationship && this.form.model) {
         this.markdown = template.concat(templateInverse);

@@ -1,10 +1,5 @@
 <template>
-  <b-nav-item-dropdown
-    class="dropdown-cart mr-25"
-    menu-class="dropdown-menu-media"
-    right
-    @show="fetchItems"
-  >
+  <b-nav-item-dropdown class="dropdown-cart mr-25" menu-class="dropdown-menu-media" right @show="fetchItems">
     <template #button-content>
       <feather-icon
         :badge="$store.state['app-ecommerce'].cartItemsCount"
@@ -18,9 +13,7 @@
     <li class="dropdown-menu-header">
       <div class="dropdown-header d-flex">
         <h4 class="notification-title mb-0 mr-auto">My Cart</h4>
-        <b-badge pill variant="light-primary">
-          {{ $store.state['app-ecommerce'].cartItemsCount }} Items
-        </b-badge>
+        <b-badge pill variant="light-primary">{{ $store.state['app-ecommerce'].cartItemsCount }} Items</b-badge>
       </div>
     </li>
 
@@ -35,11 +28,7 @@
         <template #aside>
           <b-img :src="item.image" :alt="item.name" rounded width="62px" />
         </template>
-        <feather-icon
-          icon="XIcon"
-          class="cart-item-remove cursor-pointer"
-          @click.stop="removeItemFromCart(item.id)"
-        />
+        <feather-icon icon="XIcon" class="cart-item-remove cursor-pointer" @click.stop="removeItemFromCart(item.id)" />
         <div class="media-heading">
           <h6 class="cart-item-title">
             <b-link class="text-body">
@@ -78,15 +67,7 @@
 </template>
 
 <script>
-import {
-  BNavItemDropdown,
-  BBadge,
-  BMedia,
-  BLink,
-  BImg,
-  BFormSpinbutton,
-  BButton,
-} from 'bootstrap-vue';
+import { BNavItemDropdown, BBadge, BMedia, BLink, BImg, BFormSpinbutton, BButton } from 'bootstrap-vue';
 import VuePerfectScrollbar from 'vue-perfect-scrollbar';
 import Ripple from 'vue-ripple-directive';
 
@@ -129,18 +110,13 @@ export default {
       });
     },
     removeItemFromCart(productId) {
-      this.$store
-        .dispatch('app-ecommerce/removeProductFromCart', { productId })
-        .then(() => {
-          const itemIndex = this.items.findIndex(p => p.id === productId);
-          this.items.splice(itemIndex, 1);
+      this.$store.dispatch('app-ecommerce/removeProductFromCart', { productId }).then(() => {
+        const itemIndex = this.items.findIndex(p => p.id === productId);
+        this.items.splice(itemIndex, 1);
 
-          // Update count in cart items state
-          this.$store.commit(
-            'app-ecommerce/UPDATE_CART_ITEMS_COUNT',
-            this.items.length
-          );
-        });
+        // Update count in cart items state
+        this.$store.commit('app-ecommerce/UPDATE_CART_ITEMS_COUNT', this.items.length);
+      });
     },
   },
 };

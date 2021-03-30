@@ -29,9 +29,7 @@ export default {
           url: `${process.env.MIX_BASE_API}/upload-file/store`,
           maxFilesize: 10,
           addRemoveLinks: true,
-          dictDefaultMessage:
-            "<i class='el-icon-upload text-5xl'></i>" +
-            '<br>Drop files here to upload',
+          dictDefaultMessage: "<i class='el-icon-upload text-5xl'></i>" + '<br>Drop files here to upload',
           maxFiles: 10,
           headers: {
             Authorization: 'Bearer ' + token,
@@ -87,10 +85,7 @@ export default {
       }
       val.map((value, index) => {
         if (value) {
-          this.$refs[ref].manuallyAddFile(
-            { size: 12345, name: 'Image ' + (index + 1), nameRemove: value },
-            value
-          );
+          this.$refs[ref].manuallyAddFile({ size: 12345, name: 'Image ' + (index + 1), nameRemove: value }, value);
         }
         return true;
       });

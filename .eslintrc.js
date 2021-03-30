@@ -13,6 +13,7 @@ module.exports = {
   },
   extends: ['plugin:vue/recommended', 'eslint:recommended'],
   rules: {
+    'arrow-parens': [2, 'as-needed'],
     'array-bracket-spacing': [2, 'never'],
     'arrow-spacing': [
       2,

@@ -10,9 +10,7 @@
 
       <!-- Left Text-->
       <b-col lg="8" class="d-none d-lg-flex align-items-center p-5">
-        <div
-          class="w-100 d-lg-flex align-items-center justify-content-center px-5"
-        >
+        <div class="w-100 d-lg-flex align-items-center justify-content-center px-5">
           <b-img fluid :src="imgUrl" alt="Login V2" />
         </div>
       </b-col>
@@ -21,23 +19,15 @@
       <!-- Login-->
       <b-col lg="4" class="d-flex align-items-center auth-bg px-2 p-lg-5">
         <b-col sm="8" md="6" lg="12" class="px-xl-2 mx-auto">
-          <b-card-title title-tag="h2" class="font-weight-bold mb-1">
-            Welcome to Vuexy! 👋
-          </b-card-title>
-          <b-card-text class="mb-2">
-            Please sign-in to your account and start the adventure
-          </b-card-text>
+          <b-card-title title-tag="h2" class="font-weight-bold mb-1">Welcome to Vuexy! 👋</b-card-title>
+          <b-card-text class="mb-2">Please sign-in to your account and start the adventure</b-card-text>
 
           <!-- form -->
           <validation-observer ref="loginValidation">
             <b-form class="auth-login-form mt-2" @submit.prevent>
               <!-- email -->
               <b-form-group label="Email" label-for="login-email">
-                <validation-provider
-                  #default="{ errors }"
-                  name="Email"
-                  rules="required|email"
-                >
+                <validation-provider #default="{ errors }" name="Email" rules="required|email">
                   <b-form-input
                     id="login-email"
                     v-model="userEmail"
@@ -57,15 +47,8 @@
                     <small>Forgot Password?</small>
                   </b-link>
                 </div>
-                <validation-provider
-                  #default="{ errors }"
-                  name="Password"
-                  rules="required"
-                >
-                  <b-input-group
-                    class="input-group-merge"
-                    :class="errors.length > 0 ? 'is-invalid' : null"
-                  >
+                <validation-provider #default="{ errors }" name="Password" rules="required">
+                  <b-input-group class="input-group-merge" :class="errors.length > 0 ? 'is-invalid' : null">
                     <b-form-input
                       id="login-password"
                       v-model="password"
@@ -89,24 +72,11 @@
 
               <!-- checkbox -->
               <b-form-group>
-                <b-form-checkbox
-                  id="remember-me"
-                  v-model="status"
-                  name="checkbox-1"
-                >
-                  Remember Me
-                </b-form-checkbox>
+                <b-form-checkbox id="remember-me" v-model="status" name="checkbox-1">Remember Me</b-form-checkbox>
               </b-form-group>
 
               <!-- submit buttons -->
-              <b-button
-                type="submit"
-                variant="primary"
-                block
-                @click="validationForm"
-              >
-                Sign in
-              </b-button>
+              <b-button type="submit" variant="primary" block @click="validationForm">Sign in</b-button>
             </b-form>
           </validation-observer>
 

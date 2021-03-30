@@ -49,12 +49,7 @@ export default {
     },
   },
   setup(props) {
-    const {
-      isActive,
-      updateIsActive,
-      isOpen,
-      updateGroupOpen,
-    } = useHorizontalNavMenuHeaderGroup(props.item);
+    const { isActive, updateIsActive, isOpen, updateGroupOpen } = useHorizontalNavMenuHeaderGroup(props.item);
 
     const { t } = useI18nUtils();
     const { canViewHorizontalNavMenuHeaderGroup } = useAclUtils();

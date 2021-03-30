@@ -25,10 +25,7 @@ export default {
   mutations: {
     TOGGLE_RTL(state) {
       state.layout.isRTL = !state.layout.isRTL;
-      document.documentElement.setAttribute(
-        'dir',
-        state.layout.isRTL ? 'rtl' : 'ltr'
-      );
+      document.documentElement.setAttribute('dir', state.layout.isRTL ? 'rtl' : 'ltr');
     },
     UPDATE_SKIN(state, skin) {
       state.layout.skin = skin;

@@ -3,12 +3,7 @@
     <el-col :span="24">
       <el-card>
         <div slot="header" class="tw-flex tw-justify-end tw-items-center">
-          <router-link
-            v-permission="['create']"
-            :to="{ name: 'UserCreate' }"
-            class="pan-btn blue-btn"
-            tag="button"
-          >
+          <router-link v-permission="['create']" :to="{ name: 'UserCreate' }" class="pan-btn blue-btn" tag="button">
             <i class="el-icon-plus mr-2" />
             {{ $t('button.create') }}
           </router-link>
@@ -17,10 +12,7 @@
           <el-col :span="24" class="tw-mb-6">
             <el-col :xs="24" :sm="10" :md="6">
               <label>{{ $t('table.texts.filter') }}</label>
-              <el-input
-                v-model="table.listQuery.search"
-                :placeholder="$t('table.texts.filterPlaceholder')"
-              />
+              <el-input v-model="table.listQuery.search" :placeholder="$t('table.texts.filterPlaceholder')" />
             </el-col>
             <el-col :xs="24" :sm="14" :md="18">
               <br />
@@ -46,23 +38,12 @@
               highlight-current-row
               @sort-change="sortChange"
             >
-              <el-table-column
-                align="center"
-                sortable="custom"
-                prop="id"
-                :label="$t('table.user.id')"
-                width="70px"
-              >
+              <el-table-column align="center" sortable="custom" prop="id" :label="$t('table.user.id')" width="70px">
                 <template slot-scope="{ $index }">
                   {{ numericalOrder($index) }}
                 </template>
               </el-table-column>
-              <el-table-column
-                data-generator="name"
-                align="left"
-                header-align="center"
-                :label="$t('table.user.name')"
-              >
+              <el-table-column data-generator="name" align="left" header-align="center" :label="$t('table.user.name')">
                 <template slot-scope="{ row }">
                   {{ row.name }}
                 </template>
@@ -104,17 +85,10 @@
               </el-table-column>
               <el-table-column :label="$t('table.actions')" align="center">
                 <template slot-scope="{ row }">
-                  <router-link
-                    v-permission="['edit']"
-                    :to="{ name: 'UserEdit', params: { id: row.id } }"
-                  >
+                  <router-link v-permission="['edit']" :to="{ name: 'UserEdit', params: { id: row.id } }">
                     <i class="el-icon-edit el-link el-link--primary mr-2" />
                   </router-link>
-                  <a
-                    v-permission="['delete']"
-                    class="cursor-pointer"
-                    @click.stop="() => remove(row.id)"
-                  >
+                  <a v-permission="['delete']" class="cursor-pointer" @click.stop="() => remove(row.id)">
                     <i class="el-icon-delete el-link el-link--danger" />
                   </a>
                 </template>

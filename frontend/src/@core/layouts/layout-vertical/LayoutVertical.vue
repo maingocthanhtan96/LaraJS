@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="vertical-layout h-100"
-    :class="[layoutClasses]"
-    :data-col="isNavMenuHidden ? '1-column' : null"
-  >
+  <div class="vertical-layout h-100" :class="[layoutClasses]" :data-col="isNavMenuHidden ? '1-column' : null">
     <!-- Navbar -->
     <b-navbar
       :toggleable="false"
@@ -15,14 +11,9 @@
         name="navbar"
         :toggleVerticalMenuActive="toggleVerticalMenuActive"
         :navbarBackgroundColor="navbarBackgroundColor"
-        :navbarTypeClass="[
-          ...navbarTypeClass,
-          'header-navbar navbar navbar-shadow align-items-center',
-        ]"
+        :navbarTypeClass="[...navbarTypeClass, 'header-navbar navbar navbar-shadow align-items-center']"
       >
-        <app-navbar-vertical-layout
-          :toggle-vertical-menu-active="toggleVerticalMenuActive"
-        />
+        <app-navbar-vertical-layout :toggle-vertical-menu-active="toggleVerticalMenuActive" />
       </slot>
     </b-navbar>
     <!--/ Navbar -->
@@ -40,11 +31,7 @@
     <!-- /Vertical Nav Menu -->
 
     <!-- Vertical Nav Menu Overlay -->
-    <div
-      class="sidenav-overlay"
-      :class="overlayClasses"
-      @click="isVerticalMenuActive = false"
-    />
+    <div class="sidenav-overlay" :class="overlayClasses" @click="isVerticalMenuActive = false" />
     <!-- /Vertical Nav Menu Overlay -->
 
     <!-- Content -->
@@ -54,9 +41,7 @@
       <component
         :is="layoutContentRenderer"
         :key="
-          layoutContentRenderer === 'layout-content-renderer-left'
-            ? $route.meta.navActiveLink || $route.name
-            : null
+          layoutContentRenderer === 'layout-content-renderer-left' ? $route.meta.navActiveLink || $route.name : null
         "
       >
         <template v-for="(index, name) in $scopedSlots" v-slot:[name]="data">
@@ -116,13 +101,7 @@ export default {
     },
   },
   setup() {
-    const {
-      routerTransition,
-      navbarBackgroundColor,
-      navbarType,
-      footerType,
-      isNavMenuHidden,
-    } = useAppConfig();
+    const { routerTransition, navbarBackgroundColor, navbarType, footerType, isNavMenuHidden } = useAppConfig();
 
     const {
       isVerticalMenuActive,

@@ -25,9 +25,7 @@ export const heightTransition = {
        - Height is assigned and is `String`
        - Incoming value is valid number in `Number` or `String`
       */
-      const heightValue = Number(
-        this.trHeight.substring(0, this.trHeight.length - 2)
-      );
+      const heightValue = Number(this.trHeight.substring(0, this.trHeight.length - 2));
       this.trHeight = `${heightValue + Number(val)}px`;
     },
     trTrimHeight(val) {
@@ -38,9 +36,7 @@ export const heightTransition = {
        - Height is assigned and is `String`
        - Incoming value is valid number in `Number` or `String`
       */
-      const heightValue = Number(
-        this.trHeight.substring(0, this.trHeight.length - 2)
-      );
+      const heightValue = Number(this.trHeight.substring(0, this.trHeight.length - 2));
       this.trHeight = `${heightValue - Number(val)}px`;
     },
     trSetHeight(val) {

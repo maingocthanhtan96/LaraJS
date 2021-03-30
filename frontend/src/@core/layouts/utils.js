@@ -57,9 +57,7 @@ export const isNavLinkActive = link => {
   }
 
   return matchedRoutes.some(
-    route =>
-      route.name === resolveRoutedName ||
-      route.meta.navActiveLink === resolveRoutedName
+    route => route.name === resolveRoutedName || route.meta.navActiveLink === resolveRoutedName
   );
 };
 

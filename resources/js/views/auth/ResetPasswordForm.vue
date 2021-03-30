@@ -1,7 +1,5 @@
 <template>
-  <el-container
-    class="tw-blue-grey tw-lighten-5 tw-h-screen tw-justify-center tw-items-center"
-  >
+  <el-container class="tw-blue-grey tw-lighten-5 tw-h-screen tw-justify-center tw-items-center">
     <el-row class="reset-password">
       <el-col :xs="24" :sm="24" :lg="24" :xl="24">
         <el-card>
@@ -10,11 +8,7 @@
           </div>
           <div>
             <el-form ref="resetForm" :model="form" :rules="rules">
-              <el-form-item
-                :label="$t('auth.login.email')"
-                prop="email"
-                required
-              >
+              <el-form-item :label="$t('auth.login.email')" prop="email" required>
                 <el-input v-model="form.email" type="text" autocomplete="off" />
               </el-form-item>
               <el-form-item
@@ -24,11 +18,7 @@
                 :error="errors.password && errors.password[0]"
                 prop="password"
               >
-                <el-input
-                  v-model="form.password"
-                  show-password
-                  type="password"
-                />
+                <el-input v-model="form.password" show-password type="password" />
               </el-form-item>
               <el-form-item
                 data-generator="password_confirmation"
@@ -36,11 +26,7 @@
                 :label="$t('table.user.password_confirmation')"
                 prop="password_confirmation"
               >
-                <el-input
-                  v-model="form.password_confirmation"
-                  show-password
-                  type="password"
-                />
+                <el-input v-model="form.password_confirmation" show-password type="password" />
               </el-form-item>
               <el-form-item class="tw-text-center">
                 <el-button
@@ -138,9 +124,7 @@ export default {
           },
         ],
         password: [{ validator: password, trigger: ['change', 'blur'] }],
-        password_confirmation: [
-          { validator: passwordConfirm, trigger: ['change', 'blur'] },
-        ],
+        password_confirmation: [{ validator: passwordConfirm, trigger: ['change', 'blur'] }],
       },
     };
   },

@@ -1,11 +1,6 @@
 <template>
   <transition :name="transitionName">
-    <div
-      v-show="visible"
-      :style="customStyle"
-      class="back-to-ceiling"
-      @click="backToTop"
-    >
+    <div v-show="visible" :style="customStyle" class="back-to-ceiling" @click="backToTop">
       <svg
         width="16"
         height="16"

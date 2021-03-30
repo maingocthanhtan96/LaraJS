@@ -2,12 +2,7 @@
   <div class="btn-scroll-to-top" :class="{ show: y > 250 }">
     <!-- We have wrapper because ripple effect give position relative to this absolute positioned btn -->
     <!-- Hence due to that our btn get lost -->
-    <b-button
-      v-ripple.400="'rgba(255, 255, 255, 0.15)'"
-      variant="primary"
-      class="btn-icon"
-      @click="scrollToTop"
-    >
+    <b-button v-ripple.400="'rgba(255, 255, 255, 0.15)'" variant="primary" class="btn-icon" @click="scrollToTop">
       <feather-icon icon="ArrowUpIcon" size="16" />
     </b-button>
   </div>

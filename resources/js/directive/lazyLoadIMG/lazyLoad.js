@@ -1,9 +1,7 @@
 export default {
   inserted: el => {
     function loadImage() {
-      const imageElement = Array.from(el.children).find(
-        el => el.nodeName === 'IMG'
-      );
+      const imageElement = Array.from(el.children).find(el => el.nodeName === 'IMG');
 
       if (imageElement) {
         imageElement.addEventListener('load', () => {

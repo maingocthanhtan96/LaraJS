@@ -14,10 +14,7 @@
           />
           <small v-if="text" class="d-inline-block text-body" v-text="text" />
         </div>
-        <span
-          class="cursor-pointer toastification-close-icon ml-auto"
-          @click="$emit('close-toast')"
-        >
+        <span class="cursor-pointer toastification-close-icon ml-auto" @click="$emit('close-toast')">
           <feather-icon v-if="!hideClose" icon="XIcon" class="text-body" />
         </span>
       </div>

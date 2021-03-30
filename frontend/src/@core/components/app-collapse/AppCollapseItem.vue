@@ -1,10 +1,5 @@
 <template>
-  <b-card
-    no-body
-    :class="{ open: visible }"
-    @mouseenter="collapseOpen"
-    @mouseleave="collapseClose"
-  >
+  <b-card no-body :class="{ open: visible }" @mouseenter="collapseOpen" @mouseleave="collapseClose">
     <b-card-header
       :class="{ collapsed: !visible }"
       :aria-expanded="visible ? 'true' : 'false'"
@@ -18,12 +13,7 @@
       </slot>
     </b-card-header>
 
-    <b-collapse
-      :id="collapseItemID"
-      v-model="visible"
-      :accordion="accordion"
-      role="tabpanel"
-    >
+    <b-collapse :id="collapseItemID" v-model="visible" :accordion="accordion" role="tabpanel">
       <b-card-body>
         <slot />
       </b-card-body>
@@ -61,9 +51,7 @@ export default {
   },
   computed: {
     accordion() {
-      return this.$parent.accordion
-        ? `accordion-${this.$parent.collapseID}`
-        : null;
+      return this.$parent.accordion ? `accordion-${this.$parent.collapseID}` : null;
     },
   },
   created() {

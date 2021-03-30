@@ -75,14 +75,7 @@ export default {
           max: 50,
           dimension: 0,
           inRange: {
-            color: [
-              '#4a657a',
-              '#308e92',
-              '#b1cfa5',
-              '#f5d69f',
-              '#f5898b',
-              '#ef5055',
-            ],
+            color: ['#4a657a', '#308e92', '#b1cfa5', '#f5d69f', '#f5898b', '#ef5055'],
           },
         },
         yAxis: {

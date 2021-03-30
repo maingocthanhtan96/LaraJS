@@ -196,8 +196,7 @@ export default {
       this.dropzone.processQueue();
     },
     pasteImg(event) {
-      const items = (event.clipboardData || event.originalEvent.clipboardData)
-        .items;
+      const items = (event.clipboardData || event.originalEvent.clipboardData).items;
       if (items[0].kind === 'file') {
         this.dropzone.addFile(items[0].getAsFile());
       }

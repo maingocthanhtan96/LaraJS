@@ -53,11 +53,7 @@ module.exports = {
    * @type {array}
    * @description No redirect whitelist
    */
-  whiteList: [
-    /^\/login$/i,
-    /^\/reset-password$/i,
-    /^\/reset-password\/((?:[^\/]+?))(?:\/(?=$))?$/i,
-  ],
+  whiteList: [/^\/login$/i, /^\/reset-password$/i, /^\/reset-password\/((?:[^\/]+?))(?:\/(?=$))?$/i],
 
   /**
    * @type {boolean} true | false

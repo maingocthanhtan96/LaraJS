@@ -1,10 +1,5 @@
 <template>
-  <el-table
-    :data="tableData"
-    :row-style="showRow"
-    v-bind="$attrs"
-    v-on="$listeners"
-  >
+  <el-table :data="tableData" :row-style="showRow" v-bind="$attrs" v-on="$listeners">
     <slot name="selection" />
     <slot name="pre-column" />
     <el-table-column
@@ -18,24 +13,15 @@
       <template slot-scope="scope">
         <slot :scope="scope" :name="item.key">
           <template v-if="item.expand">
-            <span
-              :style="{ 'padding-left': +scope.row._level * indent + 'px' }"
-            />
-            <span
-              v-show="showSperadIcon(scope.row)"
-              class="tree-ctrl"
-              @click="toggleExpanded(scope.$index)"
-            >
+            <span :style="{ 'padding-left': +scope.row._level * indent + 'px' }" />
+            <span v-show="showSperadIcon(scope.row)" class="tree-ctrl" @click="toggleExpanded(scope.$index)">
               <i v-if="!scope.row._expand" class="el-icon-plus" />
               <i v-else class="el-icon-minus" />
             </span>
           </template>
           <template v-if="item.checkbox">
             <el-checkbox
-              v-if="
-                scope.row[defaultChildren] &&
-                scope.row[defaultChildren].length > 0
-              "
+              v-if="scope.row[defaultChildren] && scope.row[defaultChildren].length > 0"
               v-model="scope.row._select"
               :style="{ 'padding-left': +scope.row._level * indent + 'px' }"
               :indeterminate="scope.row._select"
@@ -137,9 +123,7 @@ export default {
       const parent = row._parent;
       const show = parent ? parent._expand && parent._show : true;
       row._show = show;
-      return show
-        ? 'animation:treeTableShow 1s;-webkit-animation:treeTableShow 1s;'
-        : 'display:none;';
+      return show ? 'animation:treeTableShow 1s;-webkit-animation:treeTableShow 1s;' : 'display:none;';
     },
     showSperadIcon(record) {
       return record[this.children] && record[this.children].length > 0;

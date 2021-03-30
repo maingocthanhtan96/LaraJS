@@ -1,11 +1,7 @@
 <template>
   <li class="nav-item nav-search">
     <!-- Icon -->
-    <a
-      href="javascript:void(0)"
-      class="nav-link nav-link-search"
-      @click="showSearchBar = true"
-    >
+    <a href="javascript:void(0)" class="nav-link nav-link-search" @click="showSearchBar = true">
       <feather-icon icon="SearchIcon" size="21" />
     </a>
 
@@ -71,8 +67,7 @@
               :key="index"
               class="suggestion-group-suggestion cursor-pointer"
               :class="{
-                'suggestion-current-selected':
-                  currentSelected === `${grp_index}.${index}`,
+                'suggestion-current-selected': currentSelected === `${grp_index}.${index}`,
               }"
               @mouseenter="currentSelected = `${grp_index}.${index}`"
               @mousedown.prevent="suggestionSelected(grp_name, suggestion)"
@@ -103,10 +98,7 @@
               </template>
             </li>
 
-            <li
-              v-if="!suggestion_list.length && searchQuery"
-              class="suggestion-group-suggestion no-results"
-            >
+            <li v-if="!suggestion_list.length && searchQuery" class="suggestion-group-suggestion no-results">
               <p>No Results Found.</p>
             </li>
           </ul>
@@ -197,9 +189,7 @@ export default {
       /* eslint-disable no-lonely-if, no-plusplus */
 
       // If there's no matching items
-      if (
-        !Object.values(filteredData.value).some(grpItems => grpItems.length)
-      ) {
+      if (!Object.values(filteredData.value).some(grpItems => grpItems.length)) {
         return;
       }
 

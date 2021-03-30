@@ -10,11 +10,7 @@
           >
             <svg-icon icon-class="tree-table" />
           </button>
-          <router-link
-            :to="{ name: 'GeneratorCreate' }"
-            class="pan-btn blue-btn"
-            tag="button"
-          >
+          <router-link :to="{ name: 'GeneratorCreate' }" class="pan-btn blue-btn" tag="button">
             <i class="el-icon-plus tw-mr-2" />
             Create
           </router-link>
@@ -23,10 +19,7 @@
           <el-col :span="24" class="tw-mb-6">
             <el-col :xs="24" :sm="10" :md="6">
               <label>{{ $t('table.texts.filter') }}</label>
-              <el-input
-                v-model="table.listQuery.search"
-                :placeholder="$t('table.texts.filterPlaceholder')"
-              />
+              <el-input v-model="table.listQuery.search" :placeholder="$t('table.texts.filterPlaceholder')" />
             </el-col>
             <el-col :xs="24" :sm="14" :md="18">
               <br />
@@ -52,13 +45,7 @@
               highlight-current-row
               @sort-change="sortChange"
             >
-              <el-table-column
-                align="center"
-                sortable="custom"
-                prop="id"
-                label="No."
-                width="70px"
-              >
+              <el-table-column align="center" sortable="custom" prop="id" label="No." width="70px">
                 <template slot-scope="{ row }">
                   {{ row.id }}
                 </template>
@@ -81,19 +68,11 @@
                   {{ row.updated_at | parseTime('{y}-{m}-{d}') }}
                 </template>
               </el-table-column>
-              <el-table-column
-                :label="$t('table.actions')"
-                align="center"
-                class-name="small-padding fixed-width"
-              >
+              <el-table-column :label="$t('table.actions')" align="center" class-name="small-padding fixed-width">
                 <template slot-scope="{ row }">
-                  <router-link
-                    :to="{ name: 'GeneratorEdit', params: { id: row.id } }"
-                  >
+                  <router-link :to="{ name: 'GeneratorEdit', params: { id: row.id } }">
                     <el-tooltip effect="dark" content="Update" placement="left">
-                      <i
-                        class="el-icon-edit el-link el-link--primary tw-mr-4"
-                      />
+                      <i class="el-icon-edit el-link el-link--primary tw-mr-4" />
                     </el-tooltip>
                   </router-link>
                   <router-link
@@ -102,15 +81,8 @@
                       params: { id: row.id },
                     }"
                   >
-                    <el-tooltip
-                      effect="dark"
-                      content="Relationship"
-                      placement="top"
-                    >
-                      <svg-icon
-                        class="el-link el-link--success tw-mr-4"
-                        icon-class="tree"
-                      />
+                    <el-tooltip effect="dark" content="Relationship" placement="top">
+                      <svg-icon class="el-link el-link--success tw-mr-4" icon-class="tree" />
                     </el-tooltip>
                   </router-link>
                   <a
@@ -119,11 +91,7 @@
                     class="cursor-pointer"
                     @click.stop="() => remove(row.id)"
                   >
-                    <el-tooltip
-                      effect="dark"
-                      content="Remove"
-                      placement="right"
-                    >
+                    <el-tooltip effect="dark" content="Remove" placement="right">
                       <i class="el-icon-delete el-link el-link--danger" />
                     </el-tooltip>
                   </a>
@@ -144,9 +112,7 @@
     <div class="container tw-is-fullhd">
       <el-dialog :visible.sync="dialogVisible" :fullscreen="true">
         <div slot="title" class="text-center">
-          <h3 class="title">
-            Diagram {{ $t('route.generator_relationship') }}
-          </h3>
+          <h3 class="title">Diagram {{ $t('route.generator_relationship') }}</h3>
         </div>
         <div>
           <div class="demo-image__preview">

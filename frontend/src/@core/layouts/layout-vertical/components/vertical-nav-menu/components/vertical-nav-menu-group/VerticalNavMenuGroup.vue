@@ -8,18 +8,10 @@
       'sidebar-group-active': isActive,
     }"
   >
-    <b-link
-      class="d-flex align-items-center"
-      @click="() => updateGroupOpen(!isOpen)"
-    >
+    <b-link class="d-flex align-items-center" @click="() => updateGroupOpen(!isOpen)">
       <feather-icon :icon="item.icon || 'CircleIcon'" />
       <span class="menu-title text-truncate">{{ t(item.title) }}</span>
-      <b-badge
-        v-if="item.tag"
-        pill
-        :variant="item.tagVariant || 'primary'"
-        class="mr-1 ml-auto"
-      >
+      <b-badge v-if="item.tag" pill :variant="item.tagVariant || 'primary'" class="mr-1 ml-auto">
         {{ item.tag }}
       </b-badge>
     </b-link>
@@ -64,12 +56,7 @@ export default {
     },
   },
   setup(props) {
-    const {
-      isOpen,
-      isActive,
-      updateGroupOpen,
-      updateIsActive,
-    } = useVerticalNavMenuGroup(props.item);
+    const { isOpen, isActive, updateGroupOpen, updateIsActive } = useVerticalNavMenuGroup(props.item);
 
     const { t } = useI18nUtils();
     const { canViewVerticalNavMenuGroup } = useAclUtils();

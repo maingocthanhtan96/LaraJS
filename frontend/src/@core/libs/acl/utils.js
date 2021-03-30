@@ -17,8 +17,7 @@ export const can = (action, subject) => {
  * Based on item's action and resource
  * @param {Object} item navigation object item
  */
-export const canViewVerticalNavMenuLink = item =>
-  can(item.action, item.resource);
+export const canViewVerticalNavMenuLink = item => can(item.action, item.resource);
 
 /**
  * Check if user can view item based on it's ability
@@ -43,24 +42,21 @@ export const canViewVerticalNavMenuGroup = item => {
  * Based on item's action and resource
  * @param {Object} item navigation object item
  */
-export const canViewVerticalNavMenuHeader = item =>
-  can(item.action, item.resource);
+export const canViewVerticalNavMenuHeader = item => can(item.action, item.resource);
 
 /**
  * Check if user can view item based on it's ability
  * Based on item's action and resource
  * @param {Object} item navigation object item
  */
-export const canViewHorizontalNavMenuLink = item =>
-  can(item.action, item.resource);
+export const canViewHorizontalNavMenuLink = item => can(item.action, item.resource);
 
 /**
  * Check if user can view item based on it's ability
  * Based on item's action and resource
  * @param {Object} item navigation object item
  */
-export const canViewHorizontalNavMenuHeaderLink = item =>
-  can(item.action, item.resource);
+export const canViewHorizontalNavMenuHeaderLink = item => can(item.action, item.resource);
 
 /**
  * Check if user can view item based on it's ability
@@ -88,9 +84,7 @@ export const canViewHorizontalNavMenuHeaderGroup = item => {
   const hasAnyVisibleChild = item.children.some(grpOrItem => {
     // If it have children => It's grp
     // Call ACL function based on grp/link
-    return grpOrItem.children
-      ? canViewHorizontalNavMenuGroup(grpOrItem)
-      : canViewHorizontalNavMenuLink(grpOrItem);
+    return grpOrItem.children ? canViewHorizontalNavMenuGroup(grpOrItem) : canViewHorizontalNavMenuLink(grpOrItem);
   });
 
   // If resource and action is defined in item => Return based on children visibility (Hide group if no child is visible)

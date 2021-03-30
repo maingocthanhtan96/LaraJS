@@ -45,10 +45,7 @@ const actions = {
       login(payload)
         .then(res => {
           const token = Object.freeze(res.data.data.access_token);
-          setToken(
-            token,
-            payload.remember_me ? REMEMBER_ME_EXPIRE : DEFAULT_EXPIRE
-          );
+          setToken(token, payload.remember_me ? REMEMBER_ME_EXPIRE : DEFAULT_EXPIRE);
           commit(SET_TOKEN, token);
           resolve(res);
         })

@@ -32,15 +32,7 @@ export function parseTime(time, cFormat) {
     let value = formatObj[key];
     // Note: getDay() returns 0 on Sunday
     if (key === 'a') {
-      return [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday',
-      ][value];
+      return ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][value];
     }
     if (result.length > 0 && value < 10) {
       value = '0' + value;
@@ -153,11 +145,7 @@ export function param2Obj(url) {
   }
   return JSON.parse(
     '{"' +
-      decodeURIComponent(search)
-        .replace(/"/g, '\\"')
-        .replace(/&/g, '","')
-        .replace(/=/g, '":"')
-        .replace(/\+/g, ' ') +
+      decodeURIComponent(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"').replace(/\+/g, ' ') +
       '"}'
   );
 }
@@ -210,9 +198,7 @@ export function toggleClass(element, className) {
   if (nameIndex === -1) {
     classString += '' + className;
   } else {
-    classString =
-      classString.substr(0, nameIndex) +
-      classString.substr(nameIndex + className.length);
+    classString = classString.substr(0, nameIndex) + classString.substr(nameIndex + className.length);
   }
 
   element.className = classString;

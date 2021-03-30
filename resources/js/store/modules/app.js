@@ -4,9 +4,7 @@ import Cookies from 'js-cookie';
 const state = {
   errors: {},
   sidebar: {
-    opened: Cookies.get('sidebarStatus')
-      ? !!+Cookies.get('sidebarStatus')
-      : true,
+    opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus') : true,
     withoutAnimation: false,
   },
   device: 'desktop',

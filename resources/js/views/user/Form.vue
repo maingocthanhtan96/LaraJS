@@ -10,18 +10,8 @@
             {{ $t('route.user_create') }}
           </template>
         </div>
-        <el-form
-          ref="users"
-          v-loading="loading.form"
-          :model="form"
-          :rules="rules"
-        >
-          <el-form-item
-            data-generator="name"
-            :label="$t('table.user.name')"
-            required
-            prop="name"
-          >
+        <el-form ref="users" v-loading="loading.form" :model="form" :rules="rules">
+          <el-form-item data-generator="name" :label="$t('table.user.name')" required prop="name">
             <el-input v-model="form.name" autofocus />
           </el-form-item>
           <el-form-item
@@ -40,11 +30,7 @@
             prop="avatar"
           >
             <pan-thumb :image="form.avatar" class-img="bg-white">
-              <el-button
-                type="primary"
-                icon="el-icon-upload"
-                @click="imageCropperShow = true"
-              />
+              <el-button type="primary" icon="el-icon-upload" @click="imageCropperShow = true" />
             </pan-thumb>
             <image-cropper
               v-show="imageCropperShow"
@@ -62,19 +48,9 @@
               @crop-upload-fail="cropError"
             />
           </el-form-item>
-          <el-form-item
-            data-generator="role_id"
-            :label="$t('table.user.role')"
-            required
-            prop="role_id"
-          >
+          <el-form-item data-generator="role_id" :label="$t('table.user.role')" required prop="role_id">
             <el-select v-model="form.role_id" placeholder="Role" class="w-full">
-              <el-option
-                v-for="role in rolesList"
-                :key="'role_' + role.id"
-                :label="role.name"
-                :value="role.id"
-              />
+              <el-option v-for="role in rolesList" :key="'role_' + role.id" :label="role.name" :value="role.id" />
             </el-select>
           </el-form-item>
           <el-form-item
@@ -93,38 +69,20 @@
             :label="$t('table.user.password_confirmation')"
             prop="password_confirmation"
           >
-            <el-input
-              v-model="form.password_confirmation"
-              show-password
-              type="password"
-            />
+            <el-input v-model="form.password_confirmation" show-password type="password" />
           </el-form-item>
           <!--{{$FROM_ITEM_NOT_DELETE_THIS_LINE$}}-->
           <el-form-item class="tw-flex tw-justify-end">
-            <router-link
-              class="el-button el-button--info is-plain"
-              tag="button"
-              :to="{ name: 'User' }"
-            >
+            <router-link class="el-button el-button--info is-plain" tag="button" :to="{ name: 'User' }">
               {{ $t('button.cancel') }}
             </router-link>
             <template v-if="$route.params.id">
-              <el-button
-                :loading="loading.button"
-                type="primary"
-                icon="el-icon-edit"
-                @click="() => update('users')"
-              >
+              <el-button :loading="loading.button" type="primary" icon="el-icon-edit" @click="() => update('users')">
                 {{ $t('button.update') }}
               </el-button>
             </template>
             <template v-else>
-              <el-button
-                :loading="loading.button"
-                type="success"
-                icon="el-icon-plus"
-                @click="() => store('users')"
-              >
+              <el-button :loading="loading.button" type="success" icon="el-icon-plus" @click="() => store('users')">
                 {{ $t('button.create') }}
               </el-button>
             </template>
@@ -301,9 +259,7 @@ export default {
             trigger: ['change', 'blur'],
           },
         ],
-        password_confirmation: [
-          { validator: passwordConfirm, trigger: ['change', 'blur'] },
-        ],
+        password_confirmation: [{ validator: passwordConfirm, trigger: ['change', 'blur'] }],
         // {{$RULES_NOT_DELETE_THIS_LINE$}}
       };
     },

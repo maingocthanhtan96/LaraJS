@@ -10,17 +10,9 @@
         <section class="content-wrapper">
           <div class="container tw-is-fullhd">
             <div>
-              <el-form
-                ref="formModel"
-                :model="formModel"
-                :rules="modalRules"
-                label-position="top"
-              >
+              <el-form ref="formModel" :model="formModel" :rules="modalRules" label-position="top">
                 <el-col :span="9" class="tw-mr-4">
-                  <el-form-item
-                    :label="$t('generator.form_model_name')"
-                    prop="name"
-                  >
+                  <el-form-item :label="$t('generator.form_model_name')" prop="name">
                     <el-input
                       v-model="formModel.name"
                       :placeholder="$t('generator.form_model_name')"
@@ -29,10 +21,7 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="9" class="tw-mr-4">
-                  <el-form-item
-                    :label="$t('generator.form_model_name_trans')"
-                    prop="name_trans"
-                  >
+                  <el-form-item :label="$t('generator.form_model_name_trans')" prop="name_trans">
                     <el-input
                       v-model="formModel.name_trans"
                       :placeholder="$t('generator.form_model_name_trans')"
@@ -42,11 +31,7 @@
                 </el-col>
                 <el-col :span="2">
                   <el-form-item :label="$t('generator.limit')">
-                    <el-select
-                      v-model="formModel.limit"
-                      :placeholder="$t('generator.limit')"
-                      disabled
-                    >
+                    <el-select v-model="formModel.limit" :placeholder="$t('generator.limit')" disabled>
                       <el-option
                         v-for="(limit, index) in limits"
                         :key="'limit_' + index"
@@ -59,36 +44,13 @@
                 <el-col :span="24">
                   <el-form-item :label="$t('generator.options')">
                     <el-checkbox-group v-model="formModel.options">
-                      <el-checkbox
-                        label="Soft Deletes"
-                        checked
-                        :disabled="$route.params.id > 0"
-                      />
-                      <el-checkbox
-                        label="User Signature"
-                        :disabled="$route.params.id > 0"
-                      />
-                      <el-checkbox
-                        label="Role Admin"
-                        :disabled="$route.params.id > 0"
-                      />
-                      <el-tooltip
-                        class="item"
-                        effect="light"
-                        content="Not run artisan migrate"
-                        placement="top"
-                      >
-                        <el-checkbox
-                          label="Ignore Migrate"
-                          :disabled="$route.params.id > 0"
-                        />
+                      <el-checkbox label="Soft Deletes" checked :disabled="$route.params.id > 0" />
+                      <el-checkbox label="User Signature" :disabled="$route.params.id > 0" />
+                      <el-checkbox label="Role Admin" :disabled="$route.params.id > 0" />
+                      <el-tooltip class="item" effect="light" content="Not run artisan migrate" placement="top">
+                        <el-checkbox label="Ignore Migrate" :disabled="$route.params.id > 0" />
                       </el-tooltip>
-                      <el-tooltip
-                        class="item"
-                        effect="light"
-                        content="Only generate migrate and model"
-                        placement="top"
-                      >
+                      <el-tooltip class="item" effect="light" content="Only generate migrate and model" placement="top">
                         <el-checkbox label="Only Migrate" />
                       </el-tooltip>
                       <el-checkbox label="Test Cases" disabled />
@@ -115,34 +77,19 @@
                   <div class="divTableCell text-center">
                     <b>{{ $t('generator.default_value') }}</b>
                   </div>
-                  <div
-                    v-if="$route.params.id > 0"
-                    class="divTableCell text-center"
-                  >
+                  <div v-if="$route.params.id > 0" class="divTableCell text-center">
                     <b>{{ $t('generator.after_column') }}</b>
                   </div>
-                  <div
-                    class="divTableCell text-center"
-                    style="max-width: 70px; width: 70px"
-                  >
+                  <div class="divTableCell text-center" style="max-width: 70px; width: 70px">
                     <b>{{ $t('generator.search') }}</b>
                   </div>
-                  <div
-                    class="divTableCell text-center"
-                    style="max-width: 70px; width: 70px"
-                  >
+                  <div class="divTableCell text-center" style="max-width: 70px; width: 70px">
                     <b>{{ $t('generator.sort') }}</b>
                   </div>
-                  <div
-                    class="divTableCell text-center"
-                    style="max-width: 70px; width: 70px"
-                  >
+                  <div class="divTableCell text-center" style="max-width: 70px; width: 70px">
                     <b>{{ $t('generator.show') }}</b>
                   </div>
-                  <div
-                    class="divTableCell text-center"
-                    style="max-width: 70px; width: 70px"
-                  >
+                  <div class="divTableCell text-center" style="max-width: 70px; width: 70px">
                     <b>{{ $t('generator.delete') }}</b>
                   </div>
                 </div>
@@ -159,8 +106,7 @@
                     :rules="dynamicFieldsRules"
                     class="divTableRow hover:tw-bg-gray-200"
                     :class="{
-                      draggable:
-                        !disabledMethod(index) && index >= formTemp.length,
+                      draggable: !disabledMethod(index) && index >= formTemp.length,
                     }"
                   >
                     <template v-if="index === 0">
@@ -176,9 +122,7 @@
                         {{ index + 1 }}
                       </div>
                     </template>
-                    <div
-                      class="divTableCell tw-text-center tw-align-middle tw-pt-8"
-                    >
+                    <div class="divTableCell tw-text-center tw-align-middle tw-pt-8">
                       <el-form-item prop="field_name">
                         <el-input
                           v-model="data.field_name"
@@ -187,22 +131,16 @@
                         />
                       </el-form-item>
                     </div>
-                    <div
-                      class="divTableCell tw-text-center tw-align-middle tw-pt-8"
-                    >
+                    <div class="divTableCell tw-text-center tw-align-middle tw-pt-8">
                       <el-form-item prop="field_name_trans">
                         <el-input
                           v-model="data.field_name_trans"
                           placeholder="Field Name Trans"
-                          :disabled="
-                            disabledMethod(index) || disableTrans(data.id)
-                          "
+                          :disabled="disabledMethod(index) || disableTrans(data.id)"
                         />
                       </el-form-item>
                     </div>
-                    <div
-                      class="divTableCell tw-text-center tw-align-middle tw-pt-8"
-                    >
+                    <div class="divTableCell tw-text-center tw-align-middle tw-pt-8">
                       <el-form-item prop="db_type">
                         <el-select
                           v-model="data.db_type"
@@ -217,11 +155,7 @@
                             :label="type"
                             :value="type"
                           />
-                          <el-option-group
-                            v-for="(group, i) in dbType"
-                            :key="'group_' + i"
-                            :label="group.label"
-                          >
+                          <el-option-group v-for="(group, i) in dbType" :key="'group_' + i" :label="group.label">
                             <el-option
                               v-for="(item, n) in group.options"
                               :key="'option_' + n"
@@ -245,17 +179,11 @@
                       </template>
                       <template v-if="data.db_type === 'VARCHAR'">
                         <el-form-item prop="length_varchar">
-                          <el-input-number
-                            v-model="data.length_varchar"
-                            :min="1"
-                            :max="191"
-                          />
+                          <el-input-number v-model="data.length_varchar" :min="1" :max="191" />
                         </el-form-item>
                       </template>
                     </div>
-                    <div
-                      class="divTableCell tw-text-center tw-align-middle tw-pt-8"
-                    >
+                    <div class="divTableCell tw-text-center tw-align-middle tw-pt-8">
                       <el-form-item prop="default_value">
                         <el-select
                           v-if="notAs.includes(data.db_type)"
@@ -284,33 +212,21 @@
                           />
                         </el-select>
                       </el-form-item>
-                      <el-form-item
-                        v-if="data.default_value === 'As define'"
-                        prop="as_define"
-                      >
+                      <el-form-item v-if="data.default_value === 'As define'" prop="as_define">
                         <template v-if="showInputDefault(data.db_type)">
                           <el-select
                             v-if="data.db_type === 'ENUM'"
                             v-model="data.as_define"
                             placeholder="Default Value"
                           >
-                            <el-option
-                              v-for="(item, i) in data.enum"
-                              :key="'enum_' + i"
-                              :label="item"
-                              :value="item"
-                            />
+                            <el-option v-for="(item, i) in data.enum" :key="'enum_' + i" :label="item" :value="item" />
                           </el-select>
                           <el-tooltip
                             v-if="data.db_type === 'BOOLEAN'"
                             :content="data.as_define === 0 ? 'false' : 'true'"
                             placement="top"
                           >
-                            <el-switch
-                              v-model="data.as_define"
-                              :active-value="1"
-                              :inactive-value="0"
-                            />
+                            <el-switch v-model="data.as_define" :active-value="1" :inactive-value="0" />
                           </el-tooltip>
                           <el-date-picker
                             v-if="data.db_type === 'DATE'"
@@ -340,18 +256,10 @@
                             value-format="yyyy"
                           />
                         </template>
-                        <el-input
-                          v-else
-                          v-model="data.as_define"
-                          placeholder="Default"
-                          class="max-w-sm pt-5"
-                        />
+                        <el-input v-else v-model="data.as_define" placeholder="Default" class="max-w-sm pt-5" />
                       </el-form-item>
                     </div>
-                    <div
-                      v-if="$route.params.id > 0"
-                      class="divTableCell tw-text-center tw-align-middle"
-                    >
+                    <div v-if="$route.params.id > 0" class="divTableCell tw-text-center tw-align-middle">
                       <el-select
                         v-if="disableAfterColumn(data.id)"
                         v-model="data.after_column"
@@ -369,24 +277,14 @@
                     <div class="divTableCell tw-text-center tw-align-middle">
                       <el-checkbox
                         v-model="data.search"
-                        :disabled="
-                          disabledMethod(index) ||
-                          !data.show ||
-                          notSearch.includes(data.db_type)
-                        "
+                        :disabled="disabledMethod(index) || !data.show || notSearch.includes(data.db_type)"
                       />
                     </div>
                     <div class="divTableCell tw-text-center tw-align-middle">
-                      <el-checkbox
-                        v-model="data.sort"
-                        :disabled="!data.show || notSoft.includes(data.db_type)"
-                      />
+                      <el-checkbox v-model="data.sort" :disabled="!data.show || notSoft.includes(data.db_type)" />
                     </div>
                     <div class="divTableCell tw-text-center tw-align-middle">
-                      <el-checkbox
-                        v-model="data.show"
-                        @click.native="changeShow(index)"
-                      />
+                      <el-checkbox v-model="data.show" @click.native="changeShow(index)" />
                     </div>
                     <div class="divTableCell tw-text-center tw-align-middle">
                       <el-button
@@ -413,9 +311,7 @@
                 v-loading.fullscreen.lock="loading"
                 type="primary"
                 round
-                @click.prevent="
-                  generateUpdate(`dynamicFieldsForm`, 'formModel')
-                "
+                @click.prevent="generateUpdate(`dynamicFieldsForm`, 'formModel')"
               >
                 {{ $t('generator.generate_update') }}
               </el-button>
@@ -434,21 +330,13 @@
         </section>
       </el-card>
     </el-col>
-    <el-dialog
-      v-if="form.length > 1"
-      title="Options"
-      :visible.sync="dialogVisibleOptions"
-      width="50%"
-    >
+    <el-dialog v-if="form.length > 1" title="Options" :visible.sync="dialogVisibleOptions" width="50%">
       <el-row :gutter="20">
         <el-col :span="12">
           <label class="el-form-item__label">
             {{ $t('generator.comment') }}
           </label>
-          <el-input
-            v-model="optionsComputed.comment"
-            :placeholder="$t('generator.comment')"
-          />
+          <el-input v-model="optionsComputed.comment" :placeholder="$t('generator.comment')" />
         </el-col>
       </el-row>
     </el-dialog>
@@ -698,9 +586,7 @@ export default {
           this.afterColumn.forEach((field, indexField) => {
             if (isNaN(field.id)) {
               if (this.formTemp[indexColumn]) {
-                if (
-                  `temp-${this.formTemp[indexColumn].field_name}` === field.id
-                ) {
+                if (`temp-${this.formTemp[indexColumn].field_name}` === field.id) {
                   this.afterColumn[indexField].val = column.field_name;
                 }
               }
@@ -924,9 +810,7 @@ export default {
             this.formTemp.splice(index, 1);
           }
           const formCurrent = this.form[index];
-          const afterIndex = this.afterColumn.findIndex(
-            val => val.val === formCurrent.field_name
-          );
+          const afterIndex = this.afterColumn.findIndex(val => val.val === formCurrent.field_name);
           if (afterIndex !== -1) {
             this.afterColumn.splice(afterIndex, 1);
           }

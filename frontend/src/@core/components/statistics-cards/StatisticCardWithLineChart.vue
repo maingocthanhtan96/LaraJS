@@ -12,13 +12,7 @@
       </b-avatar>
     </b-card-body>
 
-    <vue-apex-charts
-      type="line"
-      height="100"
-      width="100%"
-      :options="chartOptionsComputed"
-      :series="chartData"
-    />
+    <vue-apex-charts type="line" height="100" width="100%" :options="chartOptionsComputed" :series="chartData" />
   </b-card>
 </template>
 
@@ -66,9 +60,7 @@ export default {
       if (this.chartOptions === null) {
         const options = JSON.parse(JSON.stringify(lineChartOptions));
 
-        options.fill.gradient.gradientToColors = [
-          this.gradientToColor(this.color),
-        ];
+        options.fill.gradient.gradientToColors = [this.gradientToColor(this.color)];
         options.colors = [$themeColors[this.color]];
 
         return options;

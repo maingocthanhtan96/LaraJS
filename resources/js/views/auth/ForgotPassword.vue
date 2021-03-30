@@ -1,7 +1,5 @@
 <template>
-  <el-container
-    class="tw-blue-grey tw-lighten-5 tw-h-screen tw-justify-center tw-items-center"
-  >
+  <el-container class="tw-blue-grey tw-lighten-5 tw-h-screen tw-justify-center tw-items-center">
     <el-row class="forgot-password">
       <el-col :xs="24" :sm="24" :lg="24" :xl="24">
         <el-card>

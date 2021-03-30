@@ -49,9 +49,7 @@ export default {
   },
   methods: {
     checkAllSuccess() {
-      return Object.keys(this.listObj).every(
-        item => this.listObj[item].hasSuccess
-      );
+      return Object.keys(this.listObj).every(item => this.listObj[item].hasSuccess);
     },
     handleSubmit() {
       const arr = Object.keys(this.listObj).map(v => this.listObj[v]);

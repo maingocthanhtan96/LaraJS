@@ -18,8 +18,7 @@ import { useWindowSize, useCssVar } from '@vueuse/core';
 import store from '@/store';
 
 const LayoutVertical = () => import('@/layouts/vertical/LayoutVertical.vue');
-const LayoutHorizontal = () =>
-  import('@/layouts/horizontal/LayoutHorizontal.vue');
+const LayoutHorizontal = () => import('@/layouts/horizontal/LayoutHorizontal.vue');
 const LayoutFull = () => import('@/layouts/full/LayoutFull.vue');
 
 export default {
@@ -44,23 +43,11 @@ export default {
   },
   beforeCreate() {
     // Set colors in theme
-    const colors = [
-      'primary',
-      'secondary',
-      'success',
-      'info',
-      'warning',
-      'danger',
-      'light',
-      'dark',
-    ];
+    const colors = ['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'light', 'dark'];
 
     // eslint-disable-next-line no-plusplus
     for (let i = 0, len = colors.length; i < len; i++) {
-      $themeColors[colors[i]] = useCssVar(
-        `--${colors[i]}`,
-        document.documentElement
-      ).value.trim();
+      $themeColors[colors[i]] = useCssVar(`--${colors[i]}`, document.documentElement).value.trim();
     }
 
     // Set Theme Breakpoints
@@ -69,10 +56,7 @@ export default {
     // eslint-disable-next-line no-plusplus
     for (let i = 0, len = breakpoints.length; i < len; i++) {
       $themeBreakpoints[breakpoints[i]] = Number(
-        useCssVar(
-          `--breakpoint-${breakpoints[i]}`,
-          document.documentElement
-        ).value.slice(0, -2)
+        useCssVar(`--breakpoint-${breakpoints[i]}`, document.documentElement).value.slice(0, -2)
       );
     }
 

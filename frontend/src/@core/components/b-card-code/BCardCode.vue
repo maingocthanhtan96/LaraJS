@@ -21,12 +21,7 @@
       <slot />
 
       <!-- Code Content -->
-      <b-collapse
-        :id="parentID"
-        v-model="code_visible"
-        class="card-code"
-        :visible="code_visible"
-      >
+      <b-collapse :id="parentID" v-model="code_visible" class="card-code" :visible="code_visible">
         <b-card-body>
           <prism :language="codeLanguage">
             <slot name="code" />
@@ -40,12 +35,7 @@
       <slot />
 
       <!-- Code Content -->
-      <b-collapse
-        :id="parentID"
-        v-model="code_visible"
-        class="card-code"
-        :visible="code_visible"
-      >
+      <b-collapse :id="parentID" v-model="code_visible" class="card-code" :visible="code_visible">
         <div class="p-1" />
         <prism :language="codeLanguage">
           <slot name="code" />
@@ -56,13 +46,7 @@
 </template>
 
 <script>
-import {
-  BCard,
-  BCardTitle,
-  BCardSubTitle,
-  BCardBody,
-  BCollapse,
-} from 'bootstrap-vue';
+import { BCard, BCardTitle, BCardSubTitle, BCardBody, BCollapse } from 'bootstrap-vue';
 import 'prismjs';
 import 'prismjs/themes/prism-tomorrow.css';
 import Prism from 'vue-prism-component';

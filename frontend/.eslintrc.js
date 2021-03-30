@@ -8,6 +8,7 @@ module.exports = {
     parser: 'babel-eslint',
   },
   rules: {
+    'arrow-parens': [2, 'as-needed'],
     'array-bracket-spacing': [2, 'never'],
     'arrow-spacing': [
       2,

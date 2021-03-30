@@ -1,11 +1,6 @@
 <template>
   <ul id="main-menu-navigation" class="nav navbar-nav">
-    <component
-      :is="resolveNavComponent(item)"
-      v-for="item in items"
-      :key="item.header || item.title"
-      :item="item"
-    />
+    <component :is="resolveNavComponent(item)" v-for="item in items" :key="item.header || item.title" :item="item" />
   </ul>
 </template>
 

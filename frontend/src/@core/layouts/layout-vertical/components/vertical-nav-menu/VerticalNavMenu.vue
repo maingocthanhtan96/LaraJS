@@ -3,9 +3,7 @@
     class="main-menu menu-fixed menu-accordion menu-shadow"
     :class="[
       {
-        expanded:
-          !isVerticalMenuCollapsed ||
-          (isVerticalMenuCollapsed && isMouseHovered),
+        expanded: !isVerticalMenuCollapsed || (isVerticalMenuCollapsed && isMouseHovered),
       },
       skin === 'semi-dark' ? 'menu-dark' : 'menu-light',
     ]"
@@ -36,12 +34,7 @@
           <!-- Toggler Button -->
           <li class="nav-item nav-toggle">
             <b-link class="nav-link modern-nav-toggle">
-              <feather-icon
-                icon="XIcon"
-                size="20"
-                class="d-block d-xl-none"
-                @click="toggleVerticalMenuActive"
-              />
+              <feather-icon icon="XIcon" size="20" class="d-block d-xl-none" @click="toggleVerticalMenuActive" />
               <feather-icon
                 :icon="collapseTogglerIconFeather"
                 size="20"
@@ -69,10 +62,7 @@
         }
       "
     >
-      <vertical-nav-menu-items
-        :items="navMenuItems"
-        class="navigation navigation-main"
-      />
+      <vertical-nav-menu-items :items="navMenuItems" class="navigation navigation-main" />
     </vue-perfect-scrollbar>
     <!-- /main menu content-->
   </div>

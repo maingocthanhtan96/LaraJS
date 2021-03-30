@@ -1,28 +1,17 @@
 <template>
   <li
     class="timeline-item"
-    :class="[
-      `timeline-variant-${variant}`,
-      fillBorder ? `timeline-item-fill-border-${variant}` : null,
-    ]"
+    :class="[`timeline-variant-${variant}`, fillBorder ? `timeline-item-fill-border-${variant}` : null]"
   >
     <div v-if="!icon" class="timeline-item-point" />
-    <div
-      v-else
-      class="timeline-item-icon d-flex align-items-center justify-content-center rounded-circle"
-    >
+    <div v-else class="timeline-item-icon d-flex align-items-center justify-content-center rounded-circle">
       <feather-icon :icon="icon" />
     </div>
 
     <slot>
-      <div
-        class="d-flex flex-sm-row flex-column flex-wrap justify-content-between mb-1 mb-sm-0"
-      >
+      <div class="d-flex flex-sm-row flex-column flex-wrap justify-content-between mb-1 mb-sm-0">
         <h6 v-text="title" />
-        <small
-          class="timeline-item-time text-nowrap text-muted"
-          v-text="time"
-        />
+        <small class="timeline-item-time text-nowrap text-muted" v-text="time" />
       </div>
       <p class="mb-0" v-text="subtitle" />
     </slot>
@@ -164,10 +153,7 @@ $timeline-border-color: $border-color;
   .timeline-item {
     &:last-of-type {
       &:after {
-        background: linear-gradient(
-          $theme-dark-border-color,
-          $theme-dark-card-bg
-        );
+        background: linear-gradient($theme-dark-border-color, $theme-dark-card-bg);
       }
     }
     &:not(:last-of-type) {

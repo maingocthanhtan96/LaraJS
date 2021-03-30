@@ -9,27 +9,14 @@
     <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     <div class="right-menu">
       <template v-if="device !== 'mobile'">
-        <a
-          v-if="checkPermission(['develop']) && $store.state.settings.showAPI"
-          :href="hrefDeveloper"
-          class="tw-mr-4"
-        >
+        <a v-if="checkPermission(['develop']) && $store.state.settings.showAPI" :href="hrefDeveloper" class="tw-mr-4">
           <svg-icon icon-class="api" class="tw-text-4xl" />
         </a>
       </template>
-      <lang-select
-        v-if="$store.state.settings.showTrans"
-        class="language tw-pr-2"
-      />
-      <el-dropdown
-        class="avatar-container right-menu-item hover-effect"
-        trigger="click"
-      >
+      <lang-select v-if="$store.state.settings.showTrans" class="language tw-pr-2" />
+      <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
-          <img
-            :src="user.avatar + '?imageView2/1/w/80/h/80'"
-            class="user-avatar"
-          />
+          <img :src="user.avatar + '?imageView2/1/w/80/h/80'" class="user-avatar" />
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown">

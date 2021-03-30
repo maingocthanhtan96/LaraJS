@@ -23,9 +23,7 @@ export default {
         el.parentNode && el.parentNode.removeChild(el);
       }
     } else {
-      throw new Error(
-        `Permissions are required! Example: v-permission="['editor','manage permission']"`
-      );
+      throw new Error(`Permissions are required! Example: v-permission="['editor','manage permission']"`);
     }
   },
 };

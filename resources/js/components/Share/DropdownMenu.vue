@@ -4,11 +4,7 @@
       <span class="share-dropdown-menu-title" @click.self="clickTitle">
         {{ title }}
       </span>
-      <div
-        v-for="(item, index) of items"
-        :key="index"
-        class="share-dropdown-menu-item"
-      >
+      <div v-for="(item, index) of items" :key="index" class="share-dropdown-menu-item">
         <a v-if="item.href" :href="item.href" target="_blank">
           {{ item.title }}
         </a>

@@ -32,8 +32,8 @@ pre {
   overflow: auto;
 
   code {
-    font-family: 'Inconsolata', 'Monaco', 'Consolas', 'Andale Mono',
-      'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace;
+    font-family: 'Inconsolata', 'Monaco', 'Consolas', 'Andale Mono', 'Bitstream Vera Sans Mono', 'Courier New', Courier,
+      monospace;
     color: #dd6b20;
   }
 }

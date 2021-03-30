@@ -6,50 +6,23 @@
           <h3>{{ $t('route.role_permission') }}</h3>
         </div>
         <div class="tw-text-right tw-mb-8">
-          <el-button
-            type="primary"
-            icon="el-icon-plus"
-            @click="showCreateRole()"
-          >
-            Role
-          </el-button>
+          <el-button type="primary" icon="el-icon-plus" @click="showCreateRole()">Role</el-button>
         </div>
         <div>
           <!-- table role -->
-          <el-table
-            v-loading="loading"
-            highlight-current-row
-            fit
-            border
-            :data="roles"
-          >
-            <el-table-column
-              type="index"
-              align="center"
-              :label="$t('table.rolePermission.id')"
-              width="50px"
-            />
-            <el-table-column
-              align="center"
-              :label="$t('table.rolePermission.name')"
-            >
+          <el-table v-loading="loading" highlight-current-row fit border :data="roles">
+            <el-table-column type="index" align="center" :label="$t('table.rolePermission.id')" width="50px" />
+            <el-table-column align="center" :label="$t('table.rolePermission.name')">
               <template slot-scope="{ row }">
                 {{ row.name }}
               </template>
             </el-table-column>
-            <el-table-column
-              header-align="center"
-              :label="$t('table.rolePermission.description')"
-            >
+            <el-table-column header-align="center" :label="$t('table.rolePermission.description')">
               <template slot-scope="{ row }">
                 {{ row.description }}
               </template>
             </el-table-column>
-            <el-table-column
-              v-if="checkPermission(['manage permission'])"
-              align="center"
-              label="Actions"
-            >
+            <el-table-column v-if="checkPermission(['manage permission'])" align="center" label="Actions">
               <template slot-scope="{ row }">
                 <div v-if="row.name === superAdmin && checkRole([superAdmin])">
                   <el-button
@@ -61,12 +34,7 @@
                   />
                 </div>
                 <div v-if="row.name !== superAdmin">
-                  <el-button
-                    type="primary"
-                    icon="el-icon-edit"
-                    size="small"
-                    @click="handleEditRolePermissions(row.id)"
-                  >
+                  <el-button type="primary" icon="el-icon-edit" size="small" @click="handleEditRolePermissions(row.id)">
                     Edit permission
                   </el-button>
                   <el-button
@@ -82,13 +50,7 @@
           <!-- end table role -->
           <!-- table permission -->
           <div class="tw-my-8 tw-text-right">
-            <el-button
-              type="primary"
-              icon="el-icon-plus"
-              @click="showCreatePermission()"
-            >
-              Permission
-            </el-button>
+            <el-button type="primary" icon="el-icon-plus" @click="showCreatePermission()">Permission</el-button>
           </div>
           <el-input
             v-model="query.keyword"
@@ -96,51 +58,25 @@
             class="tw-w-64 tw-mb-4"
             @keyup.enter.native="getPermissions"
           />
-          <el-table
-            v-loading="loading"
-            highlight-current-row
-            fit
-            border
-            :data="permissions"
-          >
-            <el-table-column
-              type="index"
-              align="center"
-              :label="$t('table.rolePermission.id')"
-              width="50px"
-            />
-            <el-table-column
-              align="center"
-              :label="$t('table.rolePermission.name')"
-            >
+          <el-table v-loading="loading" highlight-current-row fit border :data="permissions">
+            <el-table-column type="index" align="center" :label="$t('table.rolePermission.id')" width="50px" />
+            <el-table-column align="center" :label="$t('table.rolePermission.name')">
               <template slot-scope="{ row }">
                 {{ row.name }}
               </template>
             </el-table-column>
-            <el-table-column
-              header-align="center"
-              :label="$t('table.rolePermission.description')"
-            >
+            <el-table-column header-align="center" :label="$t('table.rolePermission.description')">
               <template slot-scope="{ row }">
                 {{ row.description }}
               </template>
             </el-table-column>
-            <el-table-column
-              v-if="checkPermission(['manage permission'])"
-              align="center"
-              label="Actions"
-            >
+            <el-table-column v-if="checkPermission(['manage permission'])" align="center" label="Actions">
               <template
                 v-if="row.name !== 'manage permission'"
                 v-permission="['manage permission']"
                 slot-scope="{ row }"
               >
-                <el-button
-                  type="primary"
-                  icon="el-icon-edit"
-                  size="small"
-                  @click="handleEditPermissions(row.id)"
-                />
+                <el-button type="primary" icon="el-icon-edit" size="small" @click="handleEditPermissions(row.id)" />
                 <el-button
                   type="danger"
                   icon="el-icon-delete"
@@ -165,13 +101,7 @@
             center
           >
             <div>
-              <el-form
-                ref="formRole"
-                :model="formRole"
-                :rules="roleRules"
-                label-width="110px"
-                label-position="left"
-              >
+              <el-form ref="formRole" :model="formRole" :rules="roleRules" label-width="110px" label-position="left">
                 <el-form-item required label="Role name" prop="name">
                   <el-input v-model="formRole.name" autofocus />
                 </el-form-item>
@@ -181,12 +111,7 @@
               </el-form>
             </div>
             <div class="tw-flex tw-justify-between tw-items-start">
-              <el-form
-                class="tw-w-6/12"
-                :model="currentRole"
-                label-width="80px"
-                label-position="top"
-              >
+              <el-form class="tw-w-6/12" :model="currentRole" label-width="80px" label-position="top">
                 <el-form-item label="Menus">
                   <el-tree
                     ref="menuPermissions"
@@ -199,12 +124,7 @@
                   />
                 </el-form-item>
               </el-form>
-              <el-form
-                class="tw-w-6/12"
-                :model="currentRole"
-                label-width="80px"
-                label-position="top"
-              >
+              <el-form class="tw-w-6/12" :model="currentRole" label-width="80px" label-position="top">
                 <el-form-item label="Permissions">
                   <el-tree
                     ref="otherPermissions"
@@ -219,9 +139,7 @@
               </el-form>
             </div>
             <span slot="footer" class="dialog-footer">
-              <el-button @click="dialogUpdateRoleVisible = false">
-                Cancel
-              </el-button>
+              <el-button @click="dialogUpdateRoleVisible = false">Cancel</el-button>
               <el-button
                 v-if="currentRole.name !== superAdmin"
                 type="primary"
@@ -234,30 +152,11 @@
           </el-dialog>
           <!--end update role permission-->
           <!-- create role -->
-          <el-dialog
-            title="Create role"
-            :visible.sync="dialogCreateRoleVisible"
-            center
-          >
+          <el-dialog title="Create role" :visible.sync="dialogCreateRoleVisible" center>
             <div class="tw-flex tw-justify-between tw-items-start">
-              <el-form
-                ref="formRole"
-                :model="formRole"
-                :rules="roleRules"
-                label-width="110px"
-                label-position="left"
-              >
-                <el-form-item
-                  required
-                  label="Role name"
-                  :error="errors.name && errors.name[0]"
-                  prop="name"
-                >
-                  <el-input
-                    v-model="formRole.name"
-                    autofocus
-                    placeholder="Ex: admin"
-                  />
+              <el-form ref="formRole" :model="formRole" :rules="roleRules" label-width="110px" label-position="left">
+                <el-form-item required label="Role name" :error="errors.name && errors.name[0]" prop="name">
+                  <el-input v-model="formRole.name" autofocus placeholder="Ex: admin" />
                 </el-form-item>
                 <el-form-item label="Description" prop="description">
                   <el-input v-model="formRole.description" type="textarea" />
@@ -265,25 +164,15 @@
               </el-form>
             </div>
             <span slot="footer" class="dialog-footer">
-              <el-button @click="dialogCreateRoleVisible = false">
-                Cancel
-              </el-button>
-              <el-button
-                type="primary"
-                icon="el-icon-plus"
-                @click="createRole('formRole')"
-              >
+              <el-button @click="dialogCreateRoleVisible = false">Cancel</el-button>
+              <el-button type="primary" icon="el-icon-plus" @click="createRole('formRole')">
                 {{ $t('button.create') }}
               </el-button>
             </span>
           </el-dialog>
           <!-- end create role -->
           <!-- create permission -->
-          <el-dialog
-            title="Create permission"
-            :visible.sync="dialogCreatePermissionVisible"
-            center
-          >
+          <el-dialog title="Create permission" :visible.sync="dialogCreatePermissionVisible" center>
             <div>
               <el-form
                 ref="formPermission"
@@ -292,30 +181,16 @@
                 label-width="110px"
                 label-position="left"
               >
-                <el-form-item
-                  required
-                  label="Permission"
-                  :error="errors.name && errors.name[0]"
-                  prop="name"
-                >
-                  <el-input
-                    v-model="formPermission.name"
-                    autofocus
-                    placeholder="Ex: role_permission"
-                  />
+                <el-form-item required label="Permission" :error="errors.name && errors.name[0]" prop="name">
+                  <el-input v-model="formPermission.name" autofocus placeholder="Ex: role_permission" />
                 </el-form-item>
                 <el-form-item label="Description" prop="description">
-                  <el-input
-                    v-model="formPermission.description"
-                    type="textarea"
-                  />
+                  <el-input v-model="formPermission.description" type="textarea" />
                 </el-form-item>
               </el-form>
             </div>
             <span slot="footer" class="dialog-footer">
-              <el-button @click="dialogCreatePermissionVisible = false">
-                Cancel
-              </el-button>
+              <el-button @click="dialogCreatePermissionVisible = false">Cancel</el-button>
               <el-button
                 v-if="+permissionId === 0"
                 type="primary"
@@ -324,12 +199,7 @@
               >
                 {{ $t('button.create') }}
               </el-button>
-              <el-button
-                v-else
-                type="primary"
-                icon="el-icon-check"
-                @click="updatePermission('formPermission')"
-              >
+              <el-button v-else type="primary" icon="el-icon-check" @click="updatePermission('formPermission')">
                 {{ $t('button.update') }}
               </el-button>
             </span>
@@ -422,15 +292,9 @@ export default {
           {
             validator: (rule, value, callback) => {
               if (!value) {
-                return callback(
-                  new Error(
-                    this.$t('validation.required', { attribute: 'Role' })
-                  )
-                );
+                return callback(new Error(this.$t('validation.required', { attribute: 'Role' })));
               } else {
-                const checkExist = this.roles.some(
-                  val => val.name === value && val.id !== this.currentRoleId
-                );
+                const checkExist = this.roles.some(val => val.name === value && val.id !== this.currentRoleId);
                 if (checkExist) {
                   return callback(new Error('Role exist!'));
                 } else {
@@ -449,15 +313,9 @@ export default {
           {
             validator: (rule, value, callback) => {
               if (!value) {
-                return callback(
-                  new Error(
-                    this.$t('validation.required', { attribute: 'Permission' })
-                  )
-                );
+                return callback(new Error(this.$t('validation.required', { attribute: 'Permission' })));
               } else {
-                const checkExist = this.permissions.some(
-                  val => val.name === value && val.id !== this.permissionId
-                );
+                const checkExist = this.permissions.some(val => val.name === value && val.id !== this.permissionId);
                 if (checkExist) {
                   return callback(new Error('Permission exist!'));
                 } else {
@@ -489,10 +347,7 @@ export default {
         if (route.hidden) {
           continue;
         }
-        const onlyOneShowingChild = this.onlyOneShowingChild(
-          route.children,
-          route
-        );
+        const onlyOneShowingChild = this.onlyOneShowingChild(route.children, route);
         if (route.children && onlyOneShowingChild && !route.alwaysShow) {
           route = onlyOneShowingChild;
         }
@@ -550,9 +405,7 @@ export default {
       return {
         id: permission.id,
         name: permission.name,
-        disabled: checkRole([this.superAdmin])
-          ? false
-          : permission.name === 'manage permission',
+        disabled: checkRole([this.superAdmin]) ? false : permission.name === 'manage permission',
       };
     },
     permissionKeys(permissions) {
@@ -567,12 +420,8 @@ export default {
       this.currentRoleId = id;
       this.formRole = Object.assign({}, this.currentRole);
       this.$nextTick(() => {
-        this.$refs.menuPermissions.setCheckedKeys(
-          this.permissionName(this.roleMenuPermissions)
-        );
-        this.$refs.otherPermissions.setCheckedKeys(
-          this.permissionKeys(this.roleOtherPermissions)
-        );
+        this.$refs.menuPermissions.setCheckedKeys(this.permissionName(this.roleMenuPermissions));
+        this.$refs.otherPermissions.setCheckedKeys(this.permissionKeys(this.roleOtherPermissions));
       });
     },
     updateRolePermission(formName) {
@@ -585,18 +434,16 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           // const checkedPermissions = checkedMenu.concat(checkedOther);
-          roleResource
-            .update(this.currentRole.id, { permissions, role: this.formRole })
-            .then(res => {
-              this.$message({
-                message: 'Role ' + this.$t('messages.update'),
-                type: 'success',
-                duration: 5 * 1000,
-              });
-              this.dialogUpdateRoleVisible = false;
-              this.getRoles();
-              this.getPermissions();
+          roleResource.update(this.currentRole.id, { permissions, role: this.formRole }).then(res => {
+            this.$message({
+              message: 'Role ' + this.$t('messages.update'),
+              type: 'success',
+              duration: 5 * 1000,
             });
+            this.dialogUpdateRoleVisible = false;
+            this.getRoles();
+            this.getPermissions();
+          });
         }
       });
     },
@@ -626,15 +473,11 @@ export default {
       });
     },
     handleDeleteRole(id, name) {
-      this.$confirm(
-        this.$t('messages.delete_confirm', { attribute: `[${name}]` }),
-        this.$t('messages.warning'),
-        {
-          confirmButtonText: 'OK',
-          cancelButtonText: 'Cancel',
-          type: 'warning',
-        }
-      ).then(() => {
+      this.$confirm(this.$t('messages.delete_confirm', { attribute: `[${name}]` }), this.$t('messages.warning'), {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+      }).then(() => {
         roleResource.destroy(id).then(res => {
           const index = this.roles.findIndex(val => val.id === id);
           this.roles.splice(index, 1);
@@ -672,15 +515,11 @@ export default {
       });
     },
     handleDeletePermission(id, name) {
-      this.$confirm(
-        this.$t('messages.delete_confirm', { attribute: `[${name}]` }),
-        this.$t('messages.warning'),
-        {
-          confirmButtonText: 'OK',
-          cancelButtonText: 'Cancel',
-          type: 'warning',
-        }
-      ).then(() => {
+      this.$confirm(this.$t('messages.delete_confirm', { attribute: `[${name}]` }), this.$t('messages.warning'), {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+      }).then(() => {
         permissionResource.destroy(id).then(() => {
           this.$notify({
             title: 'Success',
@@ -700,17 +539,15 @@ export default {
     updatePermission(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          permissionResource
-            .update(this.permissionId, this.formPermission)
-            .then(() => {
-              this.$message({
-                message: 'Permissions ' + this.$t('messages.update'),
-                type: 'success',
-                duration: 5 * 1000,
-              });
-              this.dialogCreatePermissionVisible = false;
-              this.getPermissions();
+          permissionResource.update(this.permissionId, this.formPermission).then(() => {
+            this.$message({
+              message: 'Permissions ' + this.$t('messages.update'),
+              type: 'success',
+              duration: 5 * 1000,
             });
+            this.dialogCreatePermissionVisible = false;
+            this.getPermissions();
+          });
         }
       });
     },

@@ -7,12 +7,7 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">Mai</div>
-          <count-to
-            :start-val="0"
-            :end-val="102400"
-            :duration="2600"
-            class="card-panel-num"
-          />
+          <count-to :start-val="0" :end-val="102400" :duration="2600" class="card-panel-num" />
         </div>
       </div>
     </el-col>
@@ -23,12 +18,7 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">Ngoc</div>
-          <count-to
-            :start-val="0"
-            :end-val="81212"
-            :duration="3000"
-            class="card-panel-num"
-          />
+          <count-to :start-val="0" :end-val="81212" :duration="3000" class="card-panel-num" />
         </div>
       </div>
     </el-col>
@@ -39,12 +29,7 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">Thanh</div>
-          <count-to
-            :start-val="0"
-            :end-val="9280"
-            :duration="3200"
-            class="card-panel-num"
-          />
+          <count-to :start-val="0" :end-val="9280" :duration="3200" class="card-panel-num" />
         </div>
       </div>
     </el-col>
@@ -55,12 +40,7 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">Tan</div>
-          <count-to
-            :start-val="0"
-            :end-val="13600"
-            :duration="3600"
-            class="card-panel-num"
-          />
+          <count-to :start-val="0" :end-val="13600" :duration="3600" class="card-panel-num" />
         </div>
       </div>
     </el-col>

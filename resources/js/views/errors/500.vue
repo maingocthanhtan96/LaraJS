@@ -8,12 +8,9 @@
           </div>
           <h2>500 - Server error</h2>
           <p>
-            The page you are looking for might have been removed had its name
-            changed or is temporarily unavailable.
+            The page you are looking for might have been removed had its name changed or is temporarily unavailable.
           </p>
-          <router-link :to="{ path: $store.state.settings.redirect }">
-            Go To Homepage
-          </router-link>
+          <router-link :to="{ path: $store.state.settings.redirect }">Go To Homepage</router-link>
         </div>
       </div>
     </el-main>

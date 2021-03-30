@@ -41,10 +41,7 @@ export default {
               const now = new Date();
               const start = now.getDate() - now.getDay() + 1; // First day is the day of the month - the day of the week
               const end = start + 6; // last day is the first day + 6
-              picker.$emit('pick', [
-                new Date(now.setDate(start)),
-                new Date(now.setDate(end)),
-              ]);
+              picker.$emit('pick', [new Date(now.setDate(start)), new Date(now.setDate(end))]);
             },
           },
           {
@@ -53,10 +50,7 @@ export default {
               const now = new Date();
               const start = now.getDate() - now.getDay() - 7 + 1; // First day is the day of the month - the day of the week
               const end = now.getDate() - now.getDay(); // last day is the first day + 6
-              picker.$emit('pick', [
-                new Date(now.setDate(start)),
-                new Date(now.setDate(end)),
-              ]);
+              picker.$emit('pick', [new Date(now.setDate(start)), new Date(now.setDate(end))]);
             },
           },
           {
@@ -119,10 +113,7 @@ export default {
             text: this.$t('date.this_year'),
             onClick(picker) {
               const now = new Date();
-              picker.$emit('pick', [
-                new Date(now.getFullYear(), 0, 1),
-                new Date(now.getFullYear(), 12, 0),
-              ]);
+              picker.$emit('pick', [new Date(now.getFullYear(), 0, 1), new Date(now.getFullYear(), 12, 0)]);
             },
           },
         ],

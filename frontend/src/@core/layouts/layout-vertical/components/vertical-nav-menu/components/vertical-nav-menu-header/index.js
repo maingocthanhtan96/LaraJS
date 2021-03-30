@@ -17,10 +17,7 @@ export default {
       props: { icon: 'MoreHorizontalIcon', size: '18' },
     });
     if (canViewVerticalNavMenuHeader(this.item)) {
-      return h('li', { class: 'navigation-header text-truncate' }, [
-        span,
-        icon,
-      ]);
+      return h('li', { class: 'navigation-header text-truncate' }, [span, icon]);
     }
     return h();
   },

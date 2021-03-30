@@ -38,12 +38,7 @@
       </div>
 
       <!-- Collapsible Content -->
-      <b-collapse
-        :id="parentID"
-        v-model="content_visible"
-        :visible="content_visible"
-        class="card-content"
-      >
+      <b-collapse :id="parentID" v-model="content_visible" :visible="content_visible" class="card-content">
         <!-- Handle no-body -->
         <slot v-if="$attrs['no-body'] !== undefined" />
         <b-card-body v-else>
@@ -55,14 +50,7 @@
 </template>
 
 <script>
-import {
-  BCard,
-  BCardTitle,
-  BCardSubTitle,
-  BCardBody,
-  BCollapse,
-  BOverlay,
-} from 'bootstrap-vue';
+import { BCard, BCardTitle, BCardSubTitle, BCardBody, BCollapse, BOverlay } from 'bootstrap-vue';
 import BCardActionsContainer from './BCardActionsContainer.vue';
 
 export default {
@@ -125,9 +113,7 @@ export default {
     },
     availableActions() {
       const actions = [];
-      const allFalse =
-        (this.actionCollapse || this.actionRefresh || this.actionClose) ===
-        false;
+      const allFalse = (this.actionCollapse || this.actionRefresh || this.actionClose) === false;
 
       if (this.actionCollapse || allFalse) {
         actions.push('collapse');
@@ -146,11 +132,7 @@ export default {
   },
   methods: {
     removeCard() {
-      this.$set(
-        this.cardStyles,
-        'maxHeight',
-        `${this.$refs.bCard.clientHeight}px`
-      );
+      this.$set(this.cardStyles, 'maxHeight', `${this.$refs.bCard.clientHeight}px`);
       setTimeout(() => {
         this.$set(this.cardStyles, 'maxHeight', '0px');
         this.$set(this.cardStyles, 'overflow', 'hidden');

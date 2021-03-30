@@ -7,9 +7,7 @@ export default function useVerticalNavMenuGroup(item) {
   // ------------------------------------------------
   // isVerticalMenuCollapsed
   // ------------------------------------------------
-  const isVerticalMenuCollapsed = computed(
-    () => store.state.verticalMenu.isVerticalMenuCollapsed
-  );
+  const isVerticalMenuCollapsed = computed(() => store.state.verticalMenu.isVerticalMenuCollapsed);
 
   watch(isVerticalMenuCollapsed, val => {
     /* eslint-disable no-use-before-define */
@@ -101,8 +99,7 @@ export default function useVerticalNavMenuGroup(item) {
   // Other Methods
   // ------------------------------------------------
 
-  const doesHaveChild = title =>
-    item.children.some(child => child.title === title);
+  const doesHaveChild = title => item.children.some(child => child.title === title);
 
   return {
     isOpen,

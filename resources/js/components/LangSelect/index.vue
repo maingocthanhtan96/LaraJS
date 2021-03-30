@@ -1,32 +1,16 @@
 <template>
-  <el-dropdown
-    trigger="click"
-    class="international"
-    @command="handleSetLanguage"
-  >
+  <el-dropdown trigger="click" class="international" @command="handleSetLanguage">
     <div>
       <svg-icon class-name="tw-text-4xl" icon-class="language" />
     </div>
     <el-dropdown-menu slot="dropdown">
-      <el-dropdown-item
-        :disabled="language === 'ja'"
-        command="ja"
-        icon="flag-icon flag-icon-jp"
-      >
+      <el-dropdown-item :disabled="language === 'ja'" command="ja" icon="flag-icon flag-icon-jp">
         日本語
       </el-dropdown-item>
-      <el-dropdown-item
-        :disabled="language === 'en'"
-        command="en"
-        icon="flag-icon flag-icon-um"
-      >
+      <el-dropdown-item :disabled="language === 'en'" command="en" icon="flag-icon flag-icon-um">
         English
       </el-dropdown-item>
-      <el-dropdown-item
-        :disabled="language === 'vi'"
-        command="vi"
-        icon="flag-icon flag-icon-vn"
-      >
+      <el-dropdown-item :disabled="language === 'vi'" command="vi" icon="flag-icon flag-icon-vn">
         Tiếng Việt
       </el-dropdown-item>
     </el-dropdown-menu>

@@ -1,7 +1,6 @@
 import { isToday } from './utils';
 
-export const kFormatter = num =>
-  num > 999 ? `${(num / 1000).toFixed(1)}k` : num;
+export const kFormatter = num => (num > 999 ? `${(num / 1000).toFixed(1)}k` : num);
 
 export const title = (value, replacer = ' ') => {
   if (!value) {
@@ -33,10 +32,7 @@ export const avatarText = value => {
  * @param {String} value date to format
  * @param {Object} formatting Intl object to format with
  */
-export const formatDate = (
-  value,
-  formatting = { month: 'short', day: 'numeric', year: 'numeric' }
-) => {
+export const formatDate = (value, formatting = { month: 'short', day: 'numeric', year: 'numeric' }) => {
   if (!value) {
     return value;
   }

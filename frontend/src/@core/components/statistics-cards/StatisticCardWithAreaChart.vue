@@ -12,13 +12,7 @@
       </div>
     </b-card-body>
 
-    <vue-apex-charts
-      type="area"
-      height="100"
-      width="100%"
-      :options="chartOptionsComputed"
-      :series="chartData"
-    />
+    <vue-apex-charts type="area" height="100" width="100%" :options="chartOptionsComputed" :series="chartData" />
   </b-card>
 </template>
 

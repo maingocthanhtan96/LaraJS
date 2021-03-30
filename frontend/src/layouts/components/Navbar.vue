@@ -10,18 +10,12 @@
     </ul>
 
     <!-- Left Col -->
-    <div
-      class="bookmark-wrapper align-items-center flex-grow-1 d-none d-lg-flex"
-    >
+    <div class="bookmark-wrapper align-items-center flex-grow-1 d-none d-lg-flex">
       <dark-Toggler class="d-none d-lg-block" />
     </div>
 
     <b-navbar-nav class="nav align-items-center ml-auto">
-      <b-nav-item-dropdown
-        right
-        toggle-class="d-flex align-items-center dropdown-user-link"
-        class="dropdown-user"
-      >
+      <b-nav-item-dropdown right toggle-class="d-flex align-items-center dropdown-user-link" class="dropdown-user">
         <template #button-content>
           <div class="d-sm-flex d-none user-nav">
             <p class="user-name font-weight-bolder mb-0">John Doe</p>
@@ -69,14 +63,7 @@
 </template>
 
 <script>
-import {
-  BLink,
-  BNavbarNav,
-  BNavItemDropdown,
-  BDropdownItem,
-  BDropdownDivider,
-  BAvatar,
-} from 'bootstrap-vue';
+import { BLink, BNavbarNav, BNavItemDropdown, BDropdownItem, BDropdownDivider, BAvatar } from 'bootstrap-vue';
 import DarkToggler from '@core/layouts/components/app-navbar/components/DarkToggler.vue';
 
 export default {

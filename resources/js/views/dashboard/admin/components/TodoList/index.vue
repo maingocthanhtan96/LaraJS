@@ -2,12 +2,7 @@
   <section class="todoapp">
     <!-- header -->
     <header class="header">
-      <input
-        class="new-todo"
-        autocomplete="off"
-        placeholder="Todo List"
-        @keyup.enter="addTodo"
-      />
+      <input class="new-todo" autocomplete="off" placeholder="Todo List" @keyup.enter="addTodo" />
     </header>
     <!-- main section -->
     <section v-show="todos.length" class="main">
@@ -38,10 +33,7 @@
       </span>
       <ul class="filters">
         <li v-for="(val, key) in filters" :key="key">
-          <a
-            :class="{ selected: visibility === key }"
-            @click.prevent="visibility = key"
-          >
+          <a :class="{ selected: visibility === key }" @click.prevent="visibility = key">
             {{ key | capitalize }}
           </a>
         </li>

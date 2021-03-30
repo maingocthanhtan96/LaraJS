@@ -30,9 +30,7 @@ export default {
     },
   },
   setup(props) {
-    const { isActive, updateIsActive } = useHorizontalNavMenuHeaderLink(
-      props.item
-    );
+    const { isActive, updateIsActive } = useHorizontalNavMenuHeaderLink(props.item);
 
     const { t } = useI18nUtils();
     const { canViewHorizontalNavMenuHeaderLink } = useAclUtils();

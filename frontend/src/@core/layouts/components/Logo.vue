@@ -7,34 +7,16 @@
     height="24"
   >
     <defs>
-      <linearGradient
-        id="linearGradient-1"
-        x1="100%"
-        y1="10.5120544%"
-        x2="50%"
-        y2="89.4879456%"
-      >
+      <linearGradient id="linearGradient-1" x1="100%" y1="10.5120544%" x2="50%" y2="89.4879456%">
         <stop stop-color="#000000" offset="0%" />
         <stop stop-color="#FFFFFF" offset="100%" />
       </linearGradient>
-      <linearGradient
-        id="linearGradient-2"
-        x1="64.0437835%"
-        y1="46.3276743%"
-        x2="37.373316%"
-        y2="100%"
-      >
+      <linearGradient id="linearGradient-2" x1="64.0437835%" y1="46.3276743%" x2="37.373316%" y2="100%">
         <stop stop-color="#EEEEEE" stop-opacity="0" offset="0%" />
         <stop stop-color="#FFFFFF" offset="100%" />
       </linearGradient>
     </defs>
-    <g
-      id="Page-1"
-      stroke="none"
-      stroke-width="1"
-      fill="none"
-      fill-rule="evenodd"
-    >
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
       <g id="Artboard" transform="translate(-400.000000, -178.000000)">
         <g id="Group" transform="translate(400.000000, 178.000000)">
           <path

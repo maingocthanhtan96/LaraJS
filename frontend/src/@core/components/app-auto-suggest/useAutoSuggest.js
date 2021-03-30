@@ -17,9 +17,7 @@ export default function useAutoSuggest(props) {
    * @param {String} query Query string to filter
    */
   const filterGrp = (grp, query) => {
-    const exactEle = grp.data.filter(item =>
-      item[grp.key].toLowerCase().startsWith(query.toLowerCase())
-    );
+    const exactEle = grp.data.filter(item => item[grp.key].toLowerCase().startsWith(query.toLowerCase()));
     const containEle = grp.data.filter(
       // prettier-ignore
       item => !item[grp.key].toLowerCase().startsWith(query.toLowerCase()) && item[grp.key].toLowerCase().indexOf(query.toLowerCase()) > -1

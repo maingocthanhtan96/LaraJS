@@ -29,10 +29,7 @@
             </slot>
           </li>
 
-          <li
-            v-if="!suggestion_list.length && searchQuery"
-            class="suggestion-group-suggestion no-results"
-          >
+          <li v-if="!suggestion_list.length && searchQuery" class="suggestion-group-suggestion no-results">
             <slot name="noResult" :group_name="grp_name">
               <p>No Results Found.</p>
             </slot>
@@ -63,13 +60,9 @@ export default {
   },
   setup(props, { emit }) {
     // eslint-disable-next-line no-console
-    console.warn(
-      'This component is still in Development. Please do not use it.'
-    );
+    console.warn('This component is still in Development. Please do not use it.');
 
-    const { searchQuery, filteredData, resetsearchQuery } = useAutoSuggest(
-      props
-    );
+    const { searchQuery, filteredData, resetsearchQuery } = useAutoSuggest(props);
 
     const suggestionSelected = suggestion => {
       resetsearchQuery();

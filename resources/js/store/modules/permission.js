@@ -21,9 +21,7 @@ function canAccess(roles, permissions, route) {
       }
 
       if (route.meta.permissions) {
-        hasPermission = permissions.some(permission =>
-          route.meta.permissions.includes(permission)
-        );
+        hasPermission = permissions.some(permission => route.meta.permissions.includes(permission));
       }
     }
 

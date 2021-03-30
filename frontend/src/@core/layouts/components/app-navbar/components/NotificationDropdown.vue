@@ -1,17 +1,7 @@
 <template>
-  <b-nav-item-dropdown
-    class="dropdown-notification mr-25"
-    menu-class="dropdown-menu-media"
-    right
-  >
+  <b-nav-item-dropdown class="dropdown-notification mr-25" menu-class="dropdown-menu-media" right>
     <template #button-content>
-      <feather-icon
-        badge="6"
-        badge-classes="bg-danger"
-        class="text-body"
-        icon="BellIcon"
-        size="21"
-      />
+      <feather-icon badge="6" badge-classes="bg-danger" class="text-body" icon="BellIcon" size="21" />
     </template>
 
     <!-- Header -->
@@ -30,18 +20,10 @@
       tagname="li"
     >
       <!-- Account Notification -->
-      <b-link
-        v-for="notification in notifications"
-        :key="notification.subtitle"
-      >
+      <b-link v-for="notification in notifications" :key="notification.subtitle">
         <b-media>
           <template #aside>
-            <b-avatar
-              size="32"
-              :src="notification.avatar"
-              :text="notification.avatar"
-              :variant="notification.type"
-            />
+            <b-avatar size="32" :src="notification.avatar" :text="notification.avatar" :variant="notification.type" />
           </template>
           <p class="media-heading">
             <span class="font-weight-bolder">
@@ -59,10 +41,7 @@
       </div>
 
       <!-- System Notifications -->
-      <b-link
-        v-for="notification in systemNotifications"
-        :key="notification.subtitle"
-      >
+      <b-link v-for="notification in systemNotifications" :key="notification.subtitle">
         <b-media>
           <template #aside>
             <b-avatar size="32" :variant="notification.type">
@@ -81,27 +60,13 @@
 
     <!-- Cart Footer -->
     <li class="dropdown-menu-footer">
-      <b-button
-        v-ripple.400="'rgba(255, 255, 255, 0.15)'"
-        variant="primary"
-        block
-      >
-        Read all notifications
-      </b-button>
+      <b-button v-ripple.400="'rgba(255, 255, 255, 0.15)'" variant="primary" block>Read all notifications</b-button>
     </li>
   </b-nav-item-dropdown>
 </template>
 
 <script>
-import {
-  BNavItemDropdown,
-  BBadge,
-  BMedia,
-  BLink,
-  BAvatar,
-  BButton,
-  BFormCheckbox,
-} from 'bootstrap-vue';
+import { BNavItemDropdown, BBadge, BMedia, BLink, BAvatar, BButton, BFormCheckbox } from 'bootstrap-vue';
 import VuePerfectScrollbar from 'vue-perfect-scrollbar';
 import Ripple from 'vue-ripple-directive';
 

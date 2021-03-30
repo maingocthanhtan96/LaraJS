@@ -2,11 +2,7 @@
   <div class="heading-elements">
     <ul class="list-inline mb-0">
       <li v-if="availableActions.includes('collapse')">
-        <a
-          data-action="collapse"
-          :class="{ rotate: isCollapsed }"
-          @click="$emit('collapse')"
-        >
+        <a data-action="collapse" :class="{ rotate: isCollapsed }" @click="$emit('collapse')">
           <feather-icon icon="ChevronDownIcon" size="16" />
         </a>
       </li>
