@@ -33,14 +33,9 @@ mix
     resolve: {
       extensions: ['.js', '.vue', '.json'],
       alias: {
-        '@': path.resolve(__dirname, 'frontend/src/'),
-        '@themeConfig': path.resolve(__dirname, 'frontend/themeConfig.js'),
-        '@core': path.resolve(__dirname, 'frontend/src/@core'),
-        '@validations': path.resolve(
-          __dirname,
-          'frontend/src/@core/utils/validations/validations.js'
-        ),
-        '@axios': path.resolve(__dirname, 'frontend/src/libs/axios'),
+        vue$: 'vue/dist/vue.esm.js',
+        '@': path.join(__dirname, '/resources/js/'),
+        '@fe': path.join(__dirname, '/frontend/src/'),
       },
     },
     module: {
@@ -55,6 +50,7 @@ mix
                   includePaths: [
                     'frontend/node_modules',
                     'frontend/src/assets',
+                    'frontend/src/styles',
                   ],
                 },
               },
@@ -79,10 +75,18 @@ mix
     },
     plugins: plugins,
   })
-  .sass('resources/sass/app.scss', 'public/frontend/css')
+  .sass('frontend/src/styles/app.scss', 'public/frontend/css')
   .options({
-    postCss: [require('autoprefixer'), require('postcss-rtl')],
+    postCss: [require('autoprefixer')],
   })
+  .extract([
+    'vue',
+    'vuex',
+    'vue-router',
+    'axios',
+    'bootstrap',
+    'nprogress',
+  ])
   .mergeManifest()
   .vue({ version: 2 });
 

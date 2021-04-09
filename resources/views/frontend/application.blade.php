@@ -21,7 +21,10 @@
 <div id="app">
 </div>
 
-<script src="{{ asset(mix('frontend/js/app.js')) }}"></script>
-
+<!-- Load polyfills to support older browsers -->
+<script src="//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
+<script src="{{ mix('frontend/js/manifest.js') }}"></script>
+<script src="{{ mix('frontend/js/vendor.js')}}"></script>
+<script src="{{ mix('frontend/js/app.js')}}"></script>
 </body>
 </html>

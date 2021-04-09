@@ -1,5 +1,3 @@
-import { SET_ERRORS, CLEAR_ERRORS } from '@/store/muation-types';
-
 import { Message } from 'element-ui';
 
 import axios from 'axios';
@@ -24,7 +22,7 @@ service.interceptors.request.use(
     if (token) {
       config.headers['Authorization'] = 'Bearer ' + token; // Set JWT token
     }
-    store.dispatch(`app/${CLEAR_ERRORS}`);
+    store.dispatch('app/clearErrors');
     return config;
   },
   error => {
@@ -40,7 +38,7 @@ service.interceptors.response.use(
       setToken(response.headers.authorization);
       response.data.token = response.headers.authorization;
     }
-    store.dispatch(`app/${CLEAR_ERRORS}`);
+    store.dispatch('app/clearErrors');
     return response;
   },
   error => {
@@ -59,7 +57,7 @@ service.interceptors.response.use(
         router.replace({ path: '/login' });
       }
       if (res.data.errors) {
-        store.dispatch(`app/${SET_ERRORS}`, res.data.errors);
+        store.dispatch('app/setErrors', res.data.errors);
       } else {
         Message({
           message: res.data.message || 'Error',

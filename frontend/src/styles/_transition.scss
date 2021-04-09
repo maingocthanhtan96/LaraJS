@@ -1,0 +1,35 @@
+// ///////////////////////////////////////////////
+// Fade Left
+// ///////////////////////////////////////////////
+.fade-transform-left-leave-active,
+.fade-transform-left-enter-active {
+  transition: all 0.7s;
+}
+
+.fade-transform-left-enter {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+.fade-transform-left-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+// ///////////////////////////////////////////////
+// Fade Right
+// ///////////////////////////////////////////////
+.fade-transform-right-leave-active,
+.fade-transform-right-enter-active {
+  transition: all 0.7s;
+}
+
+.fade-transform-right-enter {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+.fade-transform-right-leave-to {
+  opacity: 0;
+  transform: translateX(-30px);
+}

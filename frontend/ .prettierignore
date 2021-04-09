@@ -1,4 +1,2 @@
 dist
-dev/assets/vendor
 node_modules
-src/node_modules

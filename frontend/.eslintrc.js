@@ -1,12 +1,17 @@
+'use strict';
+
 module.exports = {
   root: true,
-  env: {
-    node: true,
-  },
-  extends: ['plugin:vue/recommended', '@vue/airbnb'],
   parserOptions: {
     parser: 'babel-eslint',
+    sourceType: 'module',
   },
+  env: {
+    browser: true,
+    node: true,
+    es6: true,
+  },
+  extends: ['plugin:vue/recommended', 'eslint:recommended'],
   rules: {
     'arrow-parens': [2, 'as-needed'],
     'array-bracket-spacing': [2, 'never'],
