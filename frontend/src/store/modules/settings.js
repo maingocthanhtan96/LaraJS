@@ -1,11 +1,12 @@
 import defaultSettings from '@fe/settings';
 
-const { title, routerTransitionTo, routerTransitionFrom } = defaultSettings;
+const { title, redirect, routerTransitionTo, routerTransitionFrom } = defaultSettings;
 
 const state = {
   title,
   routerTransitionTo,
   routerTransitionFrom,
+  redirect,
 };
 const mutations = {};
 const actions = {};

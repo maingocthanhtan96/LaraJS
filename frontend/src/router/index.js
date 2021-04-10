@@ -1,19 +1,36 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '@fe/views/home';
 
 Vue.use(VueRouter);
 
-const routes = [
+export const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home,
+    component: () => import('@fe/layouts'),
+    children: [
+      {
+        path: '/',
+        name: 'Home',
+        component: () => import('@fe/views/home'),
+      },
+    ],
   },
+  {
+    path: '/404',
+    hidden: true,
+    component: () => import('@fe/views/errors/404'),
+  },
+  {
+    path: '/500',
+    hidden: true,
+    component: () => import('@fe/views/errors/500'),
+  },
+  { path: '*', redirect: '/404', hidden: true },
 ];
 
 const router = new VueRouter({
   mode: 'history',
+  linkActiveClass: 'active',
   base: process.env.APP_URL,
   routes,
 });

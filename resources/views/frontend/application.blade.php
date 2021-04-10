@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{ asset(mix('frontend/css/app.css')) }}">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="{{asset(env('APP_LOGO'))}}"/>
+    <link rel="shortcut icon" href="{{asset('images/logo-tanmnt.png')}}"/>
 </head>
 <body>
 <noscript>

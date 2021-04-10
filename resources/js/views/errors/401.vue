@@ -41,7 +41,7 @@ export default {};
 }
 
 .notfound .notfound-404 {
-  height: 32rem;
+  height: 20rem;
   position: relative;
   z-index: -1;
 }

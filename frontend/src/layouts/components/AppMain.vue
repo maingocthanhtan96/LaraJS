@@ -9,6 +9,8 @@
 </template>
 
 <script>
+import { routes } from '@fe/router';
+
 export default {
   name: 'AppMain',
   data() {
@@ -18,27 +20,40 @@ export default {
   },
   computed: {
     cachedViews() {
-      return this.$store.getters.cachedViews;
+      const viewCache = [];
+      this.routeChild(routes, viewCache);
+      return viewCache;
     },
     key() {
       return this.$route.fullPath;
     },
   },
   mounted() {
-    if (this.$store.state.settings.routerTransitionFrom) {
+    const settings = this.$store.state.settings;
+    if (settings.routerTransitionFrom) {
       this.$watch('$route', (to, from) => {
         const toDepth = to.path.split('/').length;
         const fromDepth = from.path.split('/').length;
-        this.transitionName =
-          toDepth < fromDepth
-            ? this.$store.state.settings.routerTransitionTo
-            : this.$store.state.settings.routerTransitionFrom;
+        this.transitionName = toDepth < fromDepth ? settings.routerTransitionTo : settings.routerTransitionFrom;
       });
     }
+  },
+  methods: {
+    routeChild(routes, viewCache) {
+      for (const route of routes) {
+        if (!route?.meta?.noCache) {
+          if (route.children) {
+            this.routeChild(route.children, viewCache);
+          } else {
+            const name = route.name;
+            name && !viewCache.includes(name) && viewCache.push(name);
+          }
+        }
+      }
+      return viewCache;
+    },
   },
 };
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

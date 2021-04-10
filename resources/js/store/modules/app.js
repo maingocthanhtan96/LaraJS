@@ -1,4 +1,3 @@
-import { CLEAR_ERRORS, SET_ERRORS } from '../muation-types';
 import Cookies from 'js-cookie';
 
 const state = {
@@ -11,7 +10,7 @@ const state = {
 };
 
 const mutations = {
-  [SET_ERRORS](state, errors) {
+  setErrors(state, errors) {
     state.errors = errors;
   },
   TOGGLE_SIDEBAR: state => {
@@ -38,11 +37,11 @@ const mutations = {
 };
 
 const actions = {
-  [SET_ERRORS]({ commit, state }, errors) {
-    commit(SET_ERRORS, errors);
+  setErrors({ commit, state }, errors) {
+    commit('setErrors', errors);
   },
-  [CLEAR_ERRORS]({ commit }) {
-    commit(SET_ERRORS, {});
+  clearErrors({ commit }) {
+    commit('setErrors', {});
   },
   toggleSideBar({ commit }) {
     commit('TOGGLE_SIDEBAR');

@@ -25,14 +25,15 @@ export default {
     },
   },
   mounted() {
-    if (this.$store.state.settings.moreTransition) {
+    const settings = this.$store.state.settings;
+    if (settings.routerTransitionFrom) {
       this.$watch('$route', (to, from) => {
         const toDepth = to.path.split('/').length;
         const fromDepth = from.path.split('/').length;
         this.transitionName =
           toDepth < fromDepth
-            ? this.$store.state.settings.routerTransitionTo
-            : this.$store.state.settings.routerTransitionFrom;
+            ? settings.routerTransitionTo
+            : settings.routerTransitionFrom;
       });
     }
   },
