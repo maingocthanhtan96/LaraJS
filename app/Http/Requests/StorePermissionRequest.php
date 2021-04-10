@@ -23,9 +23,12 @@ class StorePermissionRequest extends FormRequest
      */
     public function rules()
     {
-        $id = $this->route()->parameter('permission', 0);
+        $permission = $this->route()->parameter('permission');
+        if ($permission) {
+            $permission = $permission->id;
+        }
         return [
-            'name' => "required|string|unique:permissions,name,$id,id",
+            'name' => "required|string|unique:permissions,name,{$permission},id",
         ];
     }
 }

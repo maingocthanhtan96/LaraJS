@@ -95,8 +95,8 @@
 
 <script>
 import GlobalForm from '@/plugins/mixins/global-form';
-import UserResource from '@/api/user';
-import RoleResource from '@/api/role';
+import UserResource from '@/api/v1/user';
+import RoleResource from '@/api/v1/role';
 import ImageCropper from '@/components/ImageCropper';
 import PanThumb from '@/components/PanThumb';
 import { validEmail } from '@/utils/validate';

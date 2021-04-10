@@ -23,9 +23,12 @@ class StoreRoleRequest extends FormRequest
      */
     public function rules()
     {
-        $id = $this->route()->parameter('role', 0);
+        $role = $this->route()->parameter('role');
+        if ($role) {
+            $role = $role->id;
+        }
         return [
-            'name' => "required|string|unique:roles,name,$id,id",
+            'name' => "required|string|unique:roles,name,{$role},id",
         ];
     }
 }

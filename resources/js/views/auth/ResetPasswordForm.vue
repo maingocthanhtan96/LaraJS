@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { callResetPassword } from '@/api/auth';
+import { callResetPassword } from '@/api/v1/auth';
 import { validEmail } from '@/utils/validate';
 
 export default {

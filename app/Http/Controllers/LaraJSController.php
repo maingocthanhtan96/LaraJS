@@ -2,22 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
+
 class LaraJSController extends Controller
 {
     /**
-     * @return \Illuminate\Contracts\View\Factory\Illuminate\View\View
-     * @author tanmnt
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function __invoke()
     {
-        return view('larajs');
+        return view('LaraJS');
     }
 
     /**
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      * @author tanmnt
      */
-    public function fallbackApi()
+    public function fallbackApi(): JsonResponse
     {
         return response()->json(
             [

@@ -26,7 +26,7 @@ return [
             'seeder' => base_path('database/seeds/'),
             'model' => app_path('Models/'),
             'repositories' => app_path('Repositories/'),
-            'api_routes' => base_path('routes/api.php'),
+            'api_routes' => base_path('routes/api-v1.php'),
             'api_controller' => app_path('Http/Controllers/Api/' . $API_VERSION),
             'lang' => base_path('resources/lang/'),
             'request' => app_path('Http/Requests/'),

@@ -30,7 +30,7 @@
   </el-container>
 </template>
 <script>
-import { sendPasswordResetLink } from '@/api/auth';
+import { sendPasswordResetLink } from '@/api/v1/auth';
 
 export default {
   data() {

@@ -111,7 +111,7 @@
 import DateRangePicker from '@/plugins/mixins/date-range-picker';
 import Pagination from '@/components/Pagination'; // Secondary package based on el-pagination
 import { debounce } from '@/utils';
-import UserResource from '@/api/user';
+import UserResource from '@/api/v1/user';
 
 const userResource = new UserResource();
 

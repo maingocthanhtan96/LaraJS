@@ -213,8 +213,8 @@
 
 <script>
 import path from 'path';
-import Resource from '@/api/resource';
-import RoleResource from '@/api/role';
+import RoleResource from '@/api/v1/role';
+import PermissionResource from '@/api/v1/permission';
 import permission from '@/directive/permission';
 import role from '@/directive/role';
 import checkPermission from '@/utils/permission'; // Permission checking
@@ -222,7 +222,7 @@ import checkRole from '@/utils/role'; // Permission checking
 import Pagination from '@/components/Pagination'; // Secondary package based on el-pagination
 import { asyncRouterMap } from '@/router';
 
-const permissionResource = new Resource('permissions');
+const permissionResource = new PermissionResource();
 const roleResource = new RoleResource();
 
 export default {

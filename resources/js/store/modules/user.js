@@ -9,7 +9,7 @@ import {
   LOGOUT,
 } from '../muation-types';
 
-import { login, userInfo, logout } from '@/api/auth';
+import { login, userInfo, logout } from '@/api/v1/auth';
 
 import { getToken, removeToken, setToken } from '@/utils/auth';
 import { resetRouter } from '@/router';
