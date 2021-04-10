@@ -14,20 +14,20 @@ export default {
   },
   render(h, context) {
     const { icon, title } = context.props;
-    const vnodes = [];
+    const nodes = [];
 
     if (icon) {
-      vnodes.push(<svg-icon icon-class={icon} />);
+      nodes.push(<svg-icon icon-class={icon} />);
     }
 
     if (title) {
-      vnodes.push(
+      nodes.push(
         <span class='truncate inline-block' slot='title'>
           {title}
         </span>
       );
     }
-    return vnodes;
+    return nodes;
   },
 };
 </script>

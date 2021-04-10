@@ -6,7 +6,7 @@ Vue.use(VueRouter);
 export const routes = [
   {
     path: '/',
-    component: () => import('@fe/layouts'),
+    component: () => import('@fe/layout'),
     children: [
       {
         path: '/',
