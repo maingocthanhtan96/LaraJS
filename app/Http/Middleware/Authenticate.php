@@ -9,7 +9,7 @@ class Authenticate extends Middleware
 {
     const AUTH_ERROR = 'authentication_error';
 
-    public function handle($request, Closure $next, ...$guards)
+    public function handle($request, Closure $next, ...$guards): \Illuminate\Http\JsonResponse
     {
         if ($this->authenticate($request, $guards) === self::AUTH_ERROR) {
             return response()->json(
@@ -24,7 +24,7 @@ class Authenticate extends Middleware
         return $next($request);
     }
 
-    protected function authenticate($request, array $guards)
+    protected function authenticate($request, array $guards): string
     {
         if (empty($guards)) {
             $guards = [null];
