@@ -24,56 +24,56 @@ class SetupCommand extends Command
      */
     protected $description = 'Setup LaraJS';
 
-    /** @var $service */
-    public $serviceGenerator;
+    /** @var GeneratorService $service */
+    public GeneratorService $serviceGenerator;
 
-    /** @var $service */
-    public $serviceFile;
-
-    /** @var string */
-    public $basePath;
+    /** @var FileService $service */
+    public FileService $serviceFile;
 
     /** @var string */
-    public $env;
+    public string $basePath;
 
     /** @var string */
-    public $appUrlStub;
+    public string $env;
 
     /** @var string */
-    public $dbHostStub;
+    public string $appUrlStub;
 
     /** @var string */
-    public $dbPortStub;
+    public string $dbHostStub;
 
     /** @var string */
-    public $dbDatabaseStub;
+    public string $dbPortStub;
 
     /** @var string */
-    public $dbUsernameStub;
+    public string $dbDatabaseStub;
 
     /** @var string */
-    public $dbPasswordStub;
+    public string $dbUsernameStub;
 
     /** @var string */
-    public $appUrl;
+    public string $dbPasswordStub;
 
     /** @var string */
-    public $host;
+    public string $appUrl;
 
     /** @var string */
-    public $port;
+    public string $host;
 
     /** @var string */
-    public $database;
+    public string $port;
 
     /** @var string */
-    public $username;
+    public string $database;
 
     /** @var string */
-    public $password;
+    public string $username;
 
     /** @var string */
-    public $cacheConfig;
+    public string $password;
+
+    /** @var string */
+    public string $cacheConfig;
 
     /**
      * Create a new command instance.
@@ -109,6 +109,7 @@ class SetupCommand extends Command
 
             $this->_outputArtisan('config:clear');
             $this->info($this->_textSignature());
+            $this->info('By: Mai Ngọc Thanh Tân');
             $this->comment('SETUP SUCCESSFULLY!');
         } catch (\Exception $e) {
             $this->error($e->getMessage());
@@ -128,9 +129,11 @@ class SetupCommand extends Command
     private function _installPackage()
     {
         $this->comment('INSTALL PACKAGE');
-        $this->info('>>> Running: npm install');
+        $this->info('>>> Running: npm install backend');
         exec('npm install');
         exec('npm rebuild node-sass');
+        $this->info('>>> Running: npm install frontend');
+        exec('cd frontend && npm install');
     }
 
     private function _generateFile()
@@ -183,7 +186,7 @@ class SetupCommand extends Command
         exec('php artisan storage:link');
     }
 
-    private function _createEnv()
+    private function _createEnv(): array
     {
         $this->comment('SETUP DATABASE');
         $this->appUrlStub = '{{APP_URL}}';
@@ -250,8 +253,9 @@ class SetupCommand extends Command
         Artisan::call($command, $params, $this->getOutput());
     }
 
-    private function _textSignature()
+    private function _textSignature(): string
     {
+        // ANSI Shadow
         return <<<SIGNATURE
 ██╗      █████╗ ██████╗  █████╗      ██╗███████╗
 ██║     ██╔══██╗██╔══██╗██╔══██╗     ██║██╔════╝
