@@ -118,9 +118,7 @@ class MigrationUpdateGenerator extends BaseGenerator
             } elseif ($field['default_value'] === $configDefaultValue['as_define']) {
                 $table .= '->nullable()->default("' . $field['as_define'] . '")';
             }
-            if ($field['options']['comment']) {
-                $table .= '->comment("' . $field['options']['comment'] . '")';
-            }
+            $table .= $this->updateOption($field, $table);
             if ($table) {
                 $table .= $afterColumn . '; // Update';
                 $fieldsGenerate[] = $table;
@@ -225,7 +223,7 @@ class MigrationUpdateGenerator extends BaseGenerator
         foreach ($updateFields['changeFields'] as $change) {
             foreach ($formFields as $index => $field) {
                 if ($change['id'] === $field['id']) {
-                    if ($change['db_type'] !== $field['db_type'] || $change['options']['comment'] !== $field['options']['comment']) {
+                    if ($this->hasChange($change, $field)) {
                         $tableChange = '';
                         foreach ($configDBType as $typeLaravel => $typeDB) {
                             if ($change['db_type'] === $configDBType['string']) {
@@ -250,9 +248,7 @@ class MigrationUpdateGenerator extends BaseGenerator
                         } elseif ($change['default_value'] === $configDefaultValue['as_define']) {
                             $tableChange .= '->nullable()->default("' . $change['as_define'] . '")';
                         }
-                        if ($change['options']['comment']) {
-                            $tableChange .= '->comment("' . $change['options']['comment'] . '")';
-                        }
+                        $tableChange .= $this->updateOption($field, $tableChange);
                         $tableChange .= '->change(); // Change';
                         $fieldsGenerate[] = $tableChange;
                     }
@@ -275,7 +271,7 @@ class MigrationUpdateGenerator extends BaseGenerator
         foreach ($updateFields['changeFields'] as $changeNew) {
             foreach ($formFields as $change) {
                 if ($change['id'] === $changeNew['id']) {
-                    if ($change['db_type'] !== $changeNew['db_type'] || $change['options']['comment'] !== $changeNew['options']['comment']) {
+                    if ($this->hasChange($change, $changeNew)) {
                         $tableChange = '';
                         foreach ($configDBType as $typeLaravel => $typeDB) {
                             if ($change['db_type'] === $configDBType['string']) {
@@ -302,9 +298,7 @@ class MigrationUpdateGenerator extends BaseGenerator
                         } elseif ($change['default_value'] === $configDefaultValue['as_define']) {
                             $tableChange .= '->nullable()->default("' . $change['as_define'] . '")';
                         }
-                        if ($change['options']['comment']) {
-                            $tableChange .= '->comment("' . $change['options']['comment'] . '")';
-                        }
+                        $tableChange .= $this->updateOption($change, $tableChange);
                         if ($tableChange) {
                             $tableChange .= '->change(); // Reverse change';
                             $fieldsGenerate[] = $tableChange;
@@ -333,5 +327,38 @@ class MigrationUpdateGenerator extends BaseGenerator
         ]);
 
         return $generator;
+    }
+
+    /**
+     * @param $field
+     * @param $table
+     * @return mixed|string
+     */
+    public function updateOption($field, $table): string
+    {
+        if ($field['options']['comment']) {
+            $table .= '->comment("' . $field['options']['comment'] . '")';
+        }
+        if ($field['options']['unique']) {
+            $table .= '->unique()';
+        }
+        if ($field['options']['index']) {
+            $table .= '->index()';
+        }
+
+        return $table;
+    }
+
+    /**
+     * @param $change
+     * @param $field
+     * @return bool
+     */
+    public function hasChange($change, $field): bool
+    {
+        return $change['db_type'] !== $field['db_type'] ||
+            $change['options']['comment'] !== $field['options']['comment'] ||
+            $change['options']['unique'] !== $field['options']['unique'] ||
+            $change['options']['index'] !== $field['options']['index'];
     }
 }

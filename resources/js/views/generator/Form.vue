@@ -330,7 +330,13 @@
         </section>
       </el-card>
     </el-col>
-    <el-dialog v-if="form.length > 1" title="Options" :visible.sync="dialogVisibleOptions" width="50%">
+    <el-dialog v-if="form.length > 1" title="Options" center :visible.sync="dialogVisibleOptions" width="50%">
+      <el-row :gutter="20">
+        <el-col :span="24">
+          <el-checkbox v-model="optionsComputed.unique">Unique</el-checkbox>
+          <el-checkbox v-model="optionsComputed.index">Index</el-checkbox>
+        </el-col>
+      </el-row>
       <el-row :gutter="20">
         <el-col :span="12">
           <label class="el-form-item__label">

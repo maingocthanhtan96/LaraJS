@@ -94,6 +94,12 @@ class MigrationGenerator extends BaseGenerator
             if ($field['options']['comment']) {
                 $table .= '->comment("' . $field['options']['comment'] . '")';
             }
+            if ($field['options']['unique']) {
+                $table .= '->unique()';
+            }
+            if ($field['options']['index']) {
+                $table .= '->index()';
+            }
             if ($index > 0) {
                 $table .= ';';
                 $fieldsGenerate[] = $table;
