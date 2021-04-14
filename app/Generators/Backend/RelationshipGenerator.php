@@ -46,10 +46,10 @@ class RelationshipGenerator extends BaseGenerator
         $this->relationship = config('generator.relationship.relationship');
 
         // check datatable
-        $tableCurrent = Generator::where('table', $this->serviceGenerator->tableName($modelCurrent))->first();
-        $this->tableCurrent = json_decode($tableCurrent->model, true);
-        $tableDiff = Generator::where('table', $this->serviceGenerator->tableName($model))->first();
-        $this->tableDiff = json_decode($tableDiff->model, true);
+//        $tableCurrent = Generator::where('table', $this->serviceGenerator->tableName($modelCurrent))->first();
+//        $this->tableCurrent = json_decode($tableCurrent->model, true);
+//        $tableDiff = Generator::where('table', $this->serviceGenerator->tableName($model))->first();
+//        $this->tableDiff = json_decode($tableDiff->model, true);
         // end check datatable
 
         $this->generate($relationship, $model, $modelCurrent, $column, $column2, $options);
