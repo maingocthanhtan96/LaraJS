@@ -38,6 +38,7 @@ Route::group(['namespace' => 'Api'], function () {
                 Route::get('check-model', 'GeneratorController@checkModel');
                 Route::get('check-column', 'GeneratorController@checkColumn');
                 Route::get('get-models', 'GeneratorController@getModels');
+                Route::get('get-all-models', 'GeneratorController@getAllModels');
                 Route::get('get-columns', 'GeneratorController@getColumns');
                 Route::post('relationship', 'GeneratorController@generateRelationship');
                 Route::get('diagram', 'GeneratorController@generateDiagram');

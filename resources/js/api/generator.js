@@ -50,6 +50,19 @@ export default class GeneratorResource extends Resource {
   }
 
   /**
+   * get all model
+   * @param model
+   * @returns {AxiosPromise}
+   * @author tanmnt
+   */
+  getAllModels() {
+    return request({
+      url: '/generators/get-all-models',
+      method: 'get',
+    });
+  }
+
+  /**
    * get columns
    * @param table
    * @returns {AxiosPromise}

@@ -352,6 +352,26 @@ class GeneratorController extends Controller
     }
 
     /**
+     * @return JsonResponse
+     */
+    public function getAllModels(): JsonResponse
+    {
+        try {
+            $whiteList = ['BaseModel', 'Generator'];
+            $allFiles = \File::allFiles(app_path('Models'));
+            $files = [];
+            foreach ($allFiles as $key => $file) {
+                $model = basename($file->getFilename(), '.php');
+                !in_array($model, $whiteList) && $files[] = $model;
+            }
+
+            return $this->jsonData($files);
+        } catch (\Exception $e) {
+            return $this->jsonError($e);
+        }
+    }
+
+    /**
      * @param Request $request
      * @return JsonResponse
      */

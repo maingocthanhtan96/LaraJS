@@ -62,7 +62,7 @@ const administrator = {
       },
     },
     {
-      path: 'generator/relationship/:id(\\d+)',
+      path: 'generator/relationship/:id(\\d+)?',
       name: 'GeneratorRelationship',
       hidden: true,
       component: () => import('@/views/generator/Relationship'),

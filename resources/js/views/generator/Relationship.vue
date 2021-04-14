@@ -12,9 +12,21 @@
         </div>
         <section class="section">
           <div class="tw-flex tw-flex-col tw-items-center">
-            <el-tag type="success" effect="dark">
-              {{ form.model_current }}
-            </el-tag>
+            <template v-if="$route.params.id">
+              <el-tag type="success" effect="dark">
+                {{ form.model_current }}
+              </el-tag>
+            </template>
+            <template v-else>
+              <el-select v-model="form.model_current" filterable placeholder="Model current" @change="changeModelCurrent()">
+                <el-option
+                  v-for="(model, index) in modelCurrents"
+                  :key="'model_current' + index"
+                  :label="model"
+                  :value="model"
+></el-option>
+              </el-select>
+            </template>
             <div class="w-04-rem tw-h-24 tw-bg-indigo-600 draw-arrow-down one" />
             <el-select
               v-model="form.relationship"
@@ -179,9 +191,10 @@ export default {
         options: ['Search', 'Sort', 'Show'],
       },
       drawDiagram: [],
+      modelCurrents: [],
     };
   },
-  mounted() {
+  async mounted() {
     const { id } = this.$route.params;
     if (id) {
       generatorResource.get(id).then(res => {
@@ -200,9 +213,24 @@ export default {
             this.loadingModel = false;
           });
       });
+    } else {
+      this.loadingModel = true;
+      const {
+        data: { data: models },
+      } = await generatorResource.getAllModels();
+      console.log(models);
+      this.modelCurrents = [...models];
+      this.modelOptions = [...models];
+      this.loadingModel = false;
     }
   },
   methods: {
+    changeModelCurrent() {
+      const index = this.modelCurrents.findIndex(model => this.form.model_current === model);
+      this.modelOptions = [...this.modelCurrents];
+      this.form.model = '';
+      this.modelOptions.splice(index, 1);
+    },
     diagram() {
       generatorResource.generateDiagram(this.form.model_current).then(res => {
         const { data } = res.data;
