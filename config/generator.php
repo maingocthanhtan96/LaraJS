@@ -50,7 +50,8 @@ return [
 
     'model' => [
         'options' => [
-            'sort_deletes' => 'Soft Deletes',
+            'soft_deletes' => 'Soft Deletes',
+            'timestamps' => 'Timestamps',
             'user_signature' => 'User Signature',
             'datatables' => 'Datatables',
             'role_admin' => 'Role Admin',
@@ -129,6 +130,7 @@ return [
             'model' => [
                 'use_class' => '//{{USE_CLASS_NOT_DELETE_THIS_LINE}}',
                 'use' => '//{{USE_NOT_DELETE_THIS_LINE}}',
+                'timestamps' => '//{{TIMESTAMPS_NOT_DELETE_THIS_LINE}}',
                 'relationship' => '//{{RELATIONS_NOT_DELETE_THIS_LINE}}',
                 'cats' => '//{{CATS_NOT_DELETE_THIS_LINE}}',
                 'fill_able' => '//{{FILL_ABLE_NOT_DELETE_THIS_LINE}}',
@@ -162,6 +164,7 @@ return [
             'swagger' => [
                 'property' => '//{{SWAGGER_PROPERTY_NOT_DELETE_THIS_LINE}}',
                 'soft_deletes' => '//{{SWAGGER_SOFT_DELETES_NOT_DELETE_THIS_LINE}}',
+                'timestamps' => '//{{SWAGGER_TIMESTAMPS_NOT_DELETE_THIS_LINE}}',
                 'json_content' => ' *                  x="{{SWAGGER_PROPERTY_JSON_CONTENT_NOT_DELETE_THIS_LINE}}"',
             ],
         ],
@@ -208,6 +211,9 @@ return [
                     'file' => 'use App\Traits\UserSignatureTrait;',
                     'name' => 'use UserSignatureTrait;',
                 ],
+            ],
+            'model' => [
+                'timestamps' => 'public $timestamps = false;',
             ],
         ],
         'vuejs' => [

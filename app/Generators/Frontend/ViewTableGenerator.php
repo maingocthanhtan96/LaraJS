@@ -48,7 +48,7 @@ class ViewTableGenerator extends BaseGenerator
         $templateData = str_replace('{{$LIMIT$}}', $model['limit'], $templateData);
         $templateData = str_replace('{{$API_VERSION$}}', env('API_VERSION_GENERATOR', 'v1'), $templateData);
         $templateData = $this->serviceGenerator->replaceNotDelete($this->notDelete['templates'], $this->generateHandler($fields, $model), 7, $templateData, 2);
-        if (!$this->serviceGenerator->getOptions(config('generator.model.options.sort_deletes'), $model['options'])) {
+        if (!$this->serviceGenerator->getOptions(config('generator.model.options.timestamps'), $model['options'])) {
             $selfTemplateEnd = '</el-table-column>';
             $selfTemplateStart = '<el-table-column data-generator="updated_at"';
             $templateCreatedAt = $this->serviceGenerator->searchTemplateX(

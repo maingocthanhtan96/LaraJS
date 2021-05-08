@@ -121,13 +121,7 @@ class {{MODEL_CLASS}}
 
     //{{SWAGGER_PROPERTY_NOT_DELETE_THIS_LINE}}
 
-    /**
-     * @OA\Property(property="created_at", type="TIMESTAMP", default="NULL", description="")
-     */
-
-    /**
-     * @OA\Property(property="updated_at", type="TIMESTAMP", default="NULL", description="")
-     */
+    //{{SWAGGER_TIMESTAMPS_NOT_DELETE_THIS_LINE}}
 
     //{{SWAGGER_SOFT_DELETES_NOT_DELETE_THIS_LINE}}
 }

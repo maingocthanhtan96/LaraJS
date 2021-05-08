@@ -45,6 +45,7 @@
                   <el-form-item :label="$t('generator.options')">
                     <el-checkbox-group v-model="formModel.options">
                       <el-checkbox label="Soft Deletes" checked :disabled="$route.params.id > 0" />
+                      <el-checkbox label="Timestamps" checked :disabled="$route.params.id > 0" />
                       <el-checkbox label="User Signature" :disabled="$route.params.id > 0" />
                       <el-checkbox label="Role Admin" :disabled="$route.params.id > 0" />
                       <el-tooltip class="item" effect="light" content="Not run artisan migrate" placement="top">
@@ -386,6 +387,8 @@ export default {
           show: true,
           options: {
             comment: '',
+            unique: false,
+            index: false,
           },
         },
       ],
@@ -800,6 +803,8 @@ export default {
         show: true,
         options: {
           comment: '',
+          unique: false,
+          index: false,
         },
       });
       this.afterColumn.push({ id: newID, val: '' });

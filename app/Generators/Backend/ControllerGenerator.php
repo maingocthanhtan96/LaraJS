@@ -9,15 +9,20 @@ use Carbon\Carbon;
 
 class ControllerGenerator extends BaseGenerator
 {
-    /** @var $service */
-    public $serviceGenerator;
+    /** @var GeneratorService $service */
+    public GeneratorService $serviceGenerator;
 
-    /** @var $service */
-    public $serviceFile;
+    /** @var FileService $service */
+    public FileService $serviceFile;
 
     /** @var string */
     public $path;
 
+    /**
+     * ControllerGenerator constructor.
+     * @param $fields
+     * @param $model
+     */
     public function __construct($fields, $model)
     {
         $this->serviceGenerator = new GeneratorService();
@@ -27,7 +32,11 @@ class ControllerGenerator extends BaseGenerator
         $this->generate($fields, $model);
     }
 
-    private function generate($fields, $model)
+    /**
+     * @param $fields
+     * @param $model
+     */
+    private function generate($fields, $model): void
     {
         $now = Carbon::now();
         $pathTemplate = 'Controllers/';
@@ -43,11 +52,13 @@ class ControllerGenerator extends BaseGenerator
 
         $fileName = $model['name'] . 'Controller.php';
         $this->serviceFile->createFile($this->path, $fileName, $templateData);
-
-        return $templateData;
     }
 
-    private function generateColumnSearch($fields)
+    /**
+     * @param $fields
+     * @return string
+     */
+    private function generateColumnSearch($fields): string
     {
         $column = [];
         foreach ($fields as $field) {
@@ -59,16 +70,17 @@ class ControllerGenerator extends BaseGenerator
         return implode($this->serviceGenerator->infy_nl_tab(0, 0) . ', ', $column);
     }
 
-    private function generateColumnSoft($fields, $model)
+    /**
+     * @param $fields
+     * @return string
+     */
+    private function generateColumnSoft($fields): string
     {
         $column = [];
-        foreach ($fields as $index => $field) {
+        foreach ($fields as $field) {
             if ($field['show'] && $field['sort']) {
                 $column[] = "'" . $field['field_name'] . "'";
             }
-        }
-        if ($this->serviceGenerator->getOptions(config('generator.model.options.sort_deletes'), $model['options'])) {
-            $fieldsGenerate[] = "'updated_at'";
         }
 
         return implode($this->serviceGenerator->infy_nl_tab(0, 0) . ', ', $column);

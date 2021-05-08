@@ -44,6 +44,7 @@ class ModelGenerator extends BaseGenerator
 
         //create sort delete
         $importLaravel = config('generator.import.laravel.use');
+        $importLaravelModel = config('generator.import.laravel.model');
         $notDelete = config('generator.not_delete.laravel.model');
         if ($this->serviceGenerator->getOptions(config('generator.model.options.user_signature'), $model['options'])) {
             $templateData = $this->serviceGenerator->replaceNotDelete(
@@ -59,12 +60,15 @@ class ModelGenerator extends BaseGenerator
                 $templateData,
             );
         }
-        if ($this->serviceGenerator->getOptions(config('generator.model.options.sort_deletes'), $model['options'])) {
+        if ($this->serviceGenerator->getOptions(config('generator.model.options.soft_deletes'), $model['options'])) {
             $templateData = str_replace($notDelete['use_class'], $importLaravel['sort_delete']['file'], $templateData);
             $templateData = str_replace($notDelete['use'], $importLaravel['sort_delete']['name'], $templateData);
         } else {
             $templateData = str_replace($notDelete['use_class'], '', $templateData);
             $templateData = str_replace($notDelete['use'], '', $templateData);
+        }
+        if ($this->serviceGenerator->getOptions(config('generator.model.options.timestamps'), $model['options'])) {
+            $templateData = str_replace($notDelete['timestamps'], $importLaravelModel['timestamps'], $templateData);
         }
         $fileName = $model['name'] . '.php';
         $this->serviceFile->createFile($this->path, $fileName, $templateData);
