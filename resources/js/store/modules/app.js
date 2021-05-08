@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie';
+import { logging } from '@/api/v1/app';
 
 const state = {
   errors: {},
@@ -54,6 +55,13 @@ const actions = {
   },
   setSize({ commit }, size) {
     commit('SET_SIZE', size);
+  },
+  logging({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      logging(payload)
+        .then(res => resolve(res))
+        .catch(err => reject(err));
+    });
   },
 };
 

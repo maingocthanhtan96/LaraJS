@@ -32,6 +32,26 @@ return [
             'request' => app_path('Http/Requests/'),
             'swagger' => app_path('LaraJS/Swagger/'),
         ],
+        'delete_files' => [
+            'laravel' => [
+                'migration' => '/database/migrations/',
+                'seeder' => '/database/seeds/',
+                'model' => '/app/Models/',
+                'repositories' => '/app/Repositories/',
+                'api_routes' => '/routes/api-v1.php',
+                'api_controller' => '/app/Http/Controllers/Api/' . $API_VERSION,
+                'lang' => '/resources/lang/',
+                'request' => '/app/Http/Requests/',
+                'swagger' => '/app/LaraJS/Swagger/',
+            ],
+            'vuejs' => [
+                'api' => '/resources/js/api/' . $API_VERSION,
+                'views' => '/resources/js/views/',
+                'router_modules' => '/resources/js/router/modules/',
+                'router' => '/resources/js/router/',
+                'resource_js' => '/resources/js/',
+            ],
+        ],
         'vuejs' => [
             'api' => base_path('resources/js/api/' . $API_VERSION),
             'views' => base_path('resources/js/views/'),

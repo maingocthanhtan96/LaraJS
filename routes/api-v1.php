@@ -15,6 +15,9 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::get('/user-info', 'UserController@userInfo');
     Route::get('/logout', 'AuthController@logout')->name('logout');
+    Route::group(['middleware' => 'verify_request'], function () {
+
+    });
     // permission manage permission
     Route::group(
         [

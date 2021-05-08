@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use Carbon\Carbon;
 use App\Generators\Backend\{
     ControllerGenerator,
     LangGenerator,
@@ -54,6 +55,7 @@ class GeneratorController extends Controller
     public function index(Request $request): JsonResponse
     {
         try {
+            $this->_exportDataGenerator();
             $limit = $request->get('limit', 25);
             $ascending = $request->get('ascending', '0');
             $orderBy = $request->get('orderBy', '');
@@ -190,16 +192,16 @@ class GeneratorController extends Controller
             //                $fileMigration = ltrim($fileMigration, '/');
             //                Artisan::call("migrate:rollback --path={$fileMigration}");
             //            }
-            foreach ($files as $key => $file) {
+            foreach ($files as $file) {
                 if (is_array($file)) {
-                    foreach ($file as $keyInside => $fileInside) {
-                        if (file_exists($file[$keyInside])) {
-                            unlink($file[$keyInside]);
+                    foreach ($file as $fileInside) {
+                        if (file_exists(app_path($fileInside))) {
+                            unlink(app_path($fileInside));
                         }
                     }
                 } else {
-                    if (file_exists($files[$key])) {
-                        unlink($files[$key]);
+                    if (file_exists(app_path($file))) {
+                        unlink(app_path($file));
                     }
                 }
             }
@@ -362,7 +364,7 @@ class GeneratorController extends Controller
             $files = [];
             foreach ($allFiles as $key => $file) {
                 $model = basename($file->getFilename(), '.php');
-                !in_array($model, $whiteList) && $files[] = $model;
+                !in_array($model, $whiteList) && ($files[] = $model);
             }
 
             return $this->jsonData($files);
@@ -433,8 +435,8 @@ class GeneratorController extends Controller
     private function _generateFile($model, $generateBackend): array
     {
         $files = [];
-        $configGeneratorLaravel = config('generator')['path']['laravel'];
-        $configGeneratorVueJS = config('generator')['path']['vuejs'];
+        $configGeneratorLaravel = config('generator')['path']['delete_files']['laravel'];
+        $configGeneratorVueJS = config('generator')['path']['delete_files']['vuejs'];
 
         $files['api_controller'] = $configGeneratorLaravel['api_controller'] . $model['name'] . 'Controller.php';
         $files['request'] = $configGeneratorLaravel['request'] . 'Store' . $model['name'] . 'Request.php';
@@ -492,13 +494,52 @@ class GeneratorController extends Controller
         } else {
             Artisan::call('migrate --force');
         }
-        $resourcePath = resource_path('js/assets/images/diagram-erd.png');
         $basePath = base_path();
         Artisan::call('vue-i18n:generate');
         // php artisan generate:erd /Applications/MAMP/htdocs/tanmnt/larajs/resources/js/assets/images/diagram-erd.png
+        //        $resourcePath = resource_path('js/assets/images/diagram-erd.png');
         //        exec("cd $basePath && php artisan generate:erd $resourcePath");
         exec("cd $basePath && ./swagger.sh");
         //        $this->_gitResetHEAD();
+    }
+
+    private function _exportDataGenerator()
+    {
+        $generators = Generator::where('table', '!=', 'users')
+            ->get()
+            ->toArray();
+        $template = 'INSERT INTO `generators` VALUES ';
+        foreach ($generators as $index => $generator) {
+            $template .=
+                "({$generator['id']},'" .
+                $generator['field'] .
+                "','" .
+                $generator['model'] .
+                "','" .
+                $generator['table'] .
+                "','" .
+                $generator['files'] .
+                "','" .
+                Carbon::parse($generator['created_at'])->toDateTimeString() .
+                "','" .
+                Carbon::parse($generator['updated_at'])->toDateTimeString() .
+                "','" .
+                Carbon::parse($generator['deleted_at'])->toDateTimeString() .
+                "')";
+            if ($index !== count($generators) - 1) {
+                $template .= ',';
+            }
+        }
+        $disk = \Storage::disk('local');
+        $fileName = env('DB_DATABASE') . '-' . date('YmdHis') . '.sql';
+        $disk->put("/backup/generators/$fileName", $template);
+        $files = $disk->files('/backup/generators');
+        $numberFileDeletes = count($files) - Generator::NUMBER_FILE_DELETES;
+        if ($numberFileDeletes > 0) {
+            for ($i = 0; $i < $numberFileDeletes; $i++) {
+                $disk->delete($files[$i]);
+            }
+        }
     }
 
     /**

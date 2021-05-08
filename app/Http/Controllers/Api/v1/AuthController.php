@@ -126,8 +126,20 @@ class AuthController extends Controller
     public function logging(Request $request): JsonResponse
     {
         try {
-            $isFrontend = $request->get('is_frontend', 0);
-            \Log::channel($isFrontend ? 'frontend' : 'application')->error($request->get('message'), $request->only('stack', 'info', 'screen'));
+            $logging = $request->get('logging', 0);
+            $platform = env('LOG_CHANNEL');
+            switch ($logging) {
+                case 0:
+                    $platform = 'application';
+                    break;
+                case 1:
+                    $platform = 'frontend';
+                    break;
+                case 3:
+                    $platform = 'backend';
+                    break;
+            }
+            \Log::channel($platform)->error($request->get('message'), $request->only('stack', 'info', 'screen'));
 
             return $this->jsonMessage('Store log success');
         } catch (\Exception $e) {

@@ -70,6 +70,7 @@ class GeneratorsTableSeeder extends Seeder
             'field' => json_encode($fields),
             'model' => json_encode($model),
             'table' => \Str::snake(\Str::plural('user')),
+            'files' => '{}',
         ]);
     }
 }

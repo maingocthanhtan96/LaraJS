@@ -15,7 +15,7 @@ const actions = {
   clearErrors({ commit }) {
     commit('setErrors', {});
   },
-  setLogging({ commit }, payload) {
+  logging({ commit }, payload) {
     return new Promise((resolve, reject) => {
       logging(payload)
         .then(res => resolve(res))

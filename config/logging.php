@@ -88,5 +88,23 @@ return [
             'driver' => 'errorlog',
             'level' => 'debug',
         ],
+
+        'application' => [
+            'driver' => 'single',
+            'level' => 'error',
+            'path' => storage_path('logs/application.log'),
+        ],
+
+        'frontend' => [
+            'driver' => 'single',
+            'level' => 'error',
+            'path' => storage_path('logs/frontend.log'),
+        ],
+
+        'backend' => [
+            'driver' => 'single',
+            'level' => 'error',
+            'path' => storage_path('logs/backend.log'),
+        ],
     ],
 ];

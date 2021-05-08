@@ -9,6 +9,8 @@ class Generator extends Model
 {
     use SoftDeletes;
 
+    const NUMBER_FILE_DELETES = 10;
+
     protected $table = 'generators';
     protected $fillable = ['field', 'model', 'table', 'files'];
 }

@@ -8,7 +8,7 @@ import i18n from '@/lang';
 import '@/icons';
 import '@/global-components';
 import '@/middleware';
-import '@/utils/error-log';
+import '@/utils/logging';
 import permission from '@/directive/permission';
 
 // start third party

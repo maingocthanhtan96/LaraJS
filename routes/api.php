@@ -17,12 +17,6 @@ Route::group(['prefix' => 'laravel-filemanager'], function () {
 
 Route::group(['namespace' => 'Api'], function () {
     Route::get('/language/{language}', 'LangController@setLanguage');
-    // Logs
-    Route::group(['prefix' => 'logs'], function () {
-        Route::post('error', 'LogController@error');
-        Route::post('warn', 'LogController@warn');
-    });
-
     Route::group(['middleware' => 'auth:api'], function () {
         // FILE
         Route::middleware('optimizeImages')->group(function () {

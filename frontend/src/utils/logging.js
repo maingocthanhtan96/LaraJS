@@ -22,12 +22,12 @@ if (checkNeed()) {
     // Don't ask me why I use Vue.nextTick, it just a hack.
     // detail see https://forum.vuejs.org/t/dispatch-in-vue-config-errorhandler-has-some-problem/23500
     Vue.nextTick(() => {
-      store.dispatch('app/setLogging', {
+      store.dispatch('app/logging', {
         message: err.message,
         stack: err.stack,
         info,
         screen: window.location.href,
-        is_frontend: 1,
+        logging: 1, // frontend
       });
       console.error(err, info, 'error');
     });
