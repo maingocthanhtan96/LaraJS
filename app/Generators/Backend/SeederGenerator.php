@@ -27,7 +27,12 @@ class SeederGenerator extends BaseGenerator
         $this->generate($fields, $model);
     }
 
-    private function generate($fields, $model)
+    /**
+     * @param $fields
+     * @param $model
+     * @return void
+     */
+    private function generate($fields, $model): void
     {
         $now = Carbon::now();
         $pathTemplate = 'Databases/Seeds/';
@@ -36,15 +41,19 @@ class SeederGenerator extends BaseGenerator
         $templateData = str_replace('{{TABLE_NAME_TITLE}}', $model['name'], $templateData);
         $templateData = str_replace('{{MODEL_CLASS}}', $model['name'], $templateData);
         $templateData = str_replace('{{FIELDS}}', $this->generateFields($fields), $templateData);
-        $templateData = $this->_generateUserSignature($model, $templateData);
+        if ($this->serviceGenerator->getOptions(config('generator.model.options.user_signature'), $model['options'])) {
+            $templateData = $this->_generateUserSignature($templateData);
+        }
         $fileName = $model['name'] . 'TableSeeder.php';
 
         $this->serviceFile->createFile($this->path, $fileName, $templateData);
-
-        return $templateData;
     }
 
-    public function generateFields($fields)
+    /**
+     * @param $fields
+     * @return string
+     */
+    public function generateFields($fields): string
     {
         $fieldsGenerate = [];
         $dbType = config('generator.db_type');
@@ -116,30 +125,32 @@ class SeederGenerator extends BaseGenerator
         return implode($this->serviceGenerator->infy_nl_tab(1, 4), $fieldsGenerate);
     }
 
-    private function _generateUserSignature($model, $templateData)
+    /**
+     * @param $templateData
+     * @return string
+     */
+    private function _generateUserSignature($templateData): string
     {
-        if ($this->serviceGenerator->getOptions(config('generator.model.options.user_signature'), $model['options'])) {
-            $userSignature = ['created_by', 'updated_by'];
-            $notDelete = config('generator.not_delete.laravel.db');
+        $userSignature = ['created_by', 'updated_by'];
+        $notDelete = config('generator.not_delete.laravel.db');
 
-            $fakerCreate = '$faker = \Faker\Factory::create();';
-            $param = '$users';
-            $fieldRelationship = $param . " = \App\Models\User::all()->pluck('id')->toArray();";
-            $templateData = str_replace(
-                $fakerCreate,
-                $fakerCreate . $this->serviceGenerator->infy_nl_tab(1, 2) . $fieldRelationship,
+        $fakerCreate = '$faker = \Faker\Factory::create();';
+        $param = '$users';
+        $fieldRelationship = $param . " = \App\Models\User::all()->pluck('id')->toArray();";
+        $templateData = str_replace(
+            $fakerCreate,
+            $fakerCreate . $this->serviceGenerator->infy_nl_tab(1, 2) . $fieldRelationship,
+            $templateData,
+        );
+        foreach ($userSignature as $signature) {
+            $templateData = $this->serviceGenerator->replaceNotDelete(
+                $notDelete['seeder'],
+                "'" . $signature . "' => " . '$faker->randomElement(' . $param . '),',
+                4,
                 $templateData,
             );
-            foreach ($userSignature as $signature) {
-                $templateData = $this->serviceGenerator->replaceNotDelete(
-                    $notDelete['seeder'],
-                    "'" . $signature . "' => " . '$faker->randomElement(' . $param . '),',
-                    4,
-                    $templateData,
-                );
-            }
-
-            return $templateData;
         }
+
+        return $templateData;
     }
 }
