@@ -21,10 +21,10 @@ class AuthController extends Controller
 
     /**
      * @param Request $request
-     * @return false|string
+     * @return JsonResponse
      * @author tanmnt
      */
-    public function login(Request $request)
+    public function login(Request $request): JsonResponse
     {
         try {
             $email = $request->get('email');
@@ -37,18 +37,50 @@ class AuthController extends Controller
                 'client_secret' => config('services.passport.client_secret'),
             ]);
 
-            $tokenRequest = $request->create(config('services.passport.login_endpoint'), 'post');
-            $response = \Route::dispatch($tokenRequest);
-            switch ($response->getStatusCode()) {
-                case Response::HTTP_OK:
-                    return $this->jsonData(json_decode($response->getContent(), true));
-                case Response::HTTP_BAD_REQUEST:
-                    return $this->jsonMessage(trans('auth.login_fail'), false, $response->getStatusCode());
-                case Response::HTTP_UNAUTHORIZED:
-                    return $this->jsonMessage(trans('auth.credentials_incorrect'), false, $response->getStatusCode());
-                default:
-                    return $this->jsonMessage('Login fail', false, $response->getStatusCode());
-            }
+            return $this->_getToken($request);
+        } catch (\Exception $e) {
+            return $this->jsonError($e);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function feLogin(Request $request): JsonResponse
+    {
+        try {
+            $email = $request->get('email');
+            $password = $request->get('password');
+            $request->request->add([
+                'username' => $email,
+                'password' => $password,
+                'grant_type' => 'password',
+                'client_id' => config('services.passport.client_fe_id'),
+                'client_secret' => config('services.passport.client_fe_secret'),
+            ]);
+
+            return $this->_getToken($request);
+        } catch (\Exception $e) {
+            return $this->jsonError($e);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function refreshToken(Request $request): JsonResponse
+    {
+        try {
+            $request->request->add([
+                'grant_type' => 'refresh_token',
+                'refresh_token' => $request->get('refresh_token'),
+                'client_id' => config('services.passport.client_fe_id'),
+                'client_secret' => config('services.passport.client_fe_secret'),
+            ]);
+
+            return $this->_getToken($request);
         } catch (\Exception $e) {
             return $this->jsonError($e);
         }
@@ -67,11 +99,62 @@ class AuthController extends Controller
                     $token->delete();
                 });
 
-            return $this->jsonMessage('Logged out successfully', 200);
+            return $this->jsonMessage('Logged out successfully');
         } catch (\Exception $e) {
             return $this->jsonError($e);
         }
     }
+
+    /**
+     * @return JsonResponse
+     */
+    public function feLogout(): JsonResponse
+    {
+        try {
+            \Auth::user()->token()->delete();
+
+            return $this->jsonMessage('Logged out successfully');
+        } catch (\Exception $e) {
+            return $this->jsonError($e);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function logging(Request $request): JsonResponse
+    {
+        try {
+            $isFrontend = $request->get('is_frontend', 0);
+            \Log::channel($isFrontend ? 'frontend' : 'application')->error($request->get('message'), $request->only('stack', 'info', 'screen'));
+
+            return $this->jsonMessage('Store log success');
+        } catch (\Exception $e) {
+            return $this->jsonError($e);
+        }
+    }
+
+    /**
+     * @param $request
+     * @return JsonResponse
+     */
+    private function _getToken($request): JsonResponse
+    {
+        $tokenRequest = $request->create(config('services.passport.login_endpoint'), 'post');
+        $response = \Route::dispatch($tokenRequest);
+        switch ($response->getStatusCode()) {
+            case Response::HTTP_OK:
+                return $this->jsonData(json_decode($response->getContent(), true));
+            case Response::HTTP_BAD_REQUEST:
+                return $this->jsonMessage(trans('auth.login_fail'), false, $response->getStatusCode());
+            case Response::HTTP_UNAUTHORIZED:
+                return $this->jsonMessage(trans('auth.credentials_incorrect'), false, $response->getStatusCode());
+            default:
+                return $this->jsonMessage('Login fail', false, $response->getStatusCode());
+        }
+    }
+
 
     /**
      * Get the response for a successful password reset link.

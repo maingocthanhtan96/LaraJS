@@ -1,11 +1,10 @@
-image: chilio/laravel-dusk-ci:php-7.4
+image: registry.gitlab.com/ot6/avatarr:latest
 
-services:
-  - mysql:5.7
+#services:
+#  - mysql:5.7
 
 # Helper function to setup private key to ssh to server
 .init_opensshclient: &init_opensshclient |
-  'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
   eval $(ssh-agent -s)
   ssh-add <(echo "$SSH_PRIVATE_KEY")
   mkdir -p ~/.ssh
@@ -26,36 +25,38 @@ unit_test:
   stage: test
   script:
     - cp .env.test.example .env
-    - configure-laravel
-    - start-nginx-ci-project
-    - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
-    - php artisan key:generate
-    - php artisan migrate
-    - vendor/bin/phpunit
-  artifacts:
-    paths:
-      - tests/Browser/screenshots
+#    - composer install --ignore-platform-reqs --no-dev --optimize-autoloader --no-ansi --no-interaction --no-progress
+#    - php artisan key:generate
+#    - php artisan migrate
+#    - vendor/bin/phpunit
 
 deploy_dev:
   stage: dev
   script:
-    - *init_opensshclient
-    - ~/.composer/vendor/bin/envoy run deploy --commit="$CI_COMMIT_SHA" --branch=dev
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" > /tmp/id_rsa && chmod 400 /tmp/id_rsa && ssh-add /tmp/id_rsa && mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - composer global require --prefer-dist laravel/envoy=~2.0 --no-interaction --prefer-dist --quiet
+    - /tmp/vendor/bin/envoy run deploy --commit="$CI_COMMIT_SHA" --branch=dev
   environment:
     name: DEV
-    url: https://larajs.site
+    url: https://dev.avatarr.io
   when: on_success
   only:
     - dev
 
 deploy_staging:
+  image: composer:latest
   stage: staging
   script:
-    - *init_opensshclient
-    - ~/.composer/vendor/bin/envoy run deploy --commit="$CI_COMMIT_SHA" --branch=staging
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" > /tmp/id_rsa && chmod 400 /tmp/id_rsa && ssh-add /tmp/id_rsa && mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - composer global require --prefer-dist laravel/envoy=~2.0 --no-interaction --prefer-dist --quiet
+    - /tmp/vendor/bin/envoy run deploy --commit="$CI_COMMIT_SHA" --branch=uat
   environment:
     name: STAGING
-    url: https://larajs.site
+    url: https://uat.avatarr.io
   when: on_success
   only:
-    - staging
+    - uat

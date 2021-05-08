@@ -122,7 +122,7 @@ class SeederGenerator extends BaseGenerator
             $userSignature = ['created_by', 'updated_by'];
             $notDelete = config('generator.not_delete.laravel.db');
 
-            $fakerCreate = '$faker = Faker\Factory::create();';
+            $fakerCreate = '$faker = \Faker\Factory::create();';
             $param = '$users';
             $fieldRelationship = $param . " = \App\Models\User::all()->pluck('id')->toArray();";
             $templateData = str_replace(

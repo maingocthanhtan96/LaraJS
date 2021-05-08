@@ -1,11 +1,12 @@
 import axios from 'axios';
-
 import store from '@fe/store';
-
 import router from '@fe/router';
+import md5 from 'md5';
 
-import { getToken, removeToken, setToken } from './auth';
-import { matchInArray } from '@/utils/index';
+// eslint-disable-next-line no-unused-vars
+import { getAccessToken } from './auth';
+
+const methods = ['post', 'put', 'patch'];
 
 // Create axios instance
 const service = axios.create({
@@ -16,9 +17,12 @@ const service = axios.create({
 // request
 service.interceptors.request.use(
   config => {
-    const token = getToken() || false;
+    const token = getAccessToken() || false;
     if (token) {
       config.headers['Authorization'] = 'Bearer ' + token; // Set JWT token
+      if (methods.includes(config.method)) {
+        config.headers['Hash-Key'] = md5(JSON.stringify(config.data) + process.env.MIX_HASH_KEY);
+      }
     }
     store.dispatch('app/clearErrors');
     return config;
@@ -32,33 +36,31 @@ service.interceptors.request.use(
 // response pre-processing
 service.interceptors.response.use(
   response => {
-    if (response.headers.authorization) {
-      setToken(response.headers.authorization);
-      response.data.token = response.headers.authorization;
-    }
     store.dispatch('app/clearErrors');
     return response;
   },
-  error => {
+  async error => {
     const res = error.response;
+    const originalRequest = error.config;
     if (res) {
-      const whiteList = store.state.settings.whiteList; // no redirect whitelist
       if (res.status === 404) {
-        router.replace({ path: '/404' });
+        await router.replace({ path: '/404' });
       }
       // if (res.status === 500) {
       //   router.replace({ path: '/500' });
       // }
-      const currentUrl = router.history.current.path;
-      if (!matchInArray(currentUrl, whiteList) && res.status === 401) {
-        removeToken();
-        router.replace({ path: '/login' });
-      }
       if (res.data.errors) {
-        store.dispatch(`app/setErrors`, res.data.errors);
+        await store.dispatch(`app/setErrors`, res.data.errors);
       }
-      console.log('Error response: ', res); // for debug
-
+      if (res.status === 401 && originalRequest.url !== '/v1/refresh-token') {
+        try {
+          const passport = await store.dispatch('auth/refreshToKen');
+          originalRequest.headers['Authorization'] = 'Bearer ' + passport.refresh_token;
+          return service(originalRequest);
+        } catch (e) {
+          await router.replace({ name: 'Login' });
+        }
+      }
       return Promise.reject(error);
     }
   }

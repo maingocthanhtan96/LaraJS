@@ -2,7 +2,8 @@ import Vue from 'vue';
 import App from '@fe/views/App';
 import router from '@fe/router';
 import store from '@fe/store';
-import '@/icons';
+import '@fe/utils/logging';
+import '@fe/router/middleware';
 
 import '@fe/styles/bootstrap.scss';
 

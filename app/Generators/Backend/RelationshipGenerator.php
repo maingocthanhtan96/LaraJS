@@ -494,7 +494,7 @@ class RelationshipGenerator extends BaseGenerator
         $notDelete = config('generator.not_delete.laravel.db');
         $fileName = $modelRelationship . 'TableSeeder.php';
         $templateDataReal = $this->serviceGenerator->getFile('seeder', 'laravel', $fileName);
-        $fakerCreate = '$faker = Faker\Factory::create();';
+        $fakerCreate = '$faker = \Faker\Factory::create();';
         $param = '$' . \Str::camel(\Str::plural($model));
         $fieldRelationship = $param . ' = \App\Models\\' . $model . "::all()->pluck('id')->toArray();";
         $templateDataReal = str_replace($fakerCreate, $fakerCreate . $this->serviceGenerator->infy_nl_tab(1, 2) . $fieldRelationship, $templateDataReal);
@@ -512,7 +512,7 @@ class RelationshipGenerator extends BaseGenerator
         $fileName = self::REF_UPPER . $modelCurrent . $model . 'TableSeeder.php';
         $pathTemplate = 'Databases/Seeds/';
         $templateData = $this->serviceGenerator->get_template('seeder', $pathTemplate);
-        $fakerCreate = '$faker = Faker\Factory::create();';
+        $fakerCreate = '$faker = \Faker\Factory::create();';
         $paramModel = '$' . \Str::camel(\Str::plural($model));
         $paramModelCurrent = '$' . \Str::camel(\Str::plural($modelCurrent));
         $fieldRelationshipModel = $paramModel . ' = \App\Models\\' . $model . "::all()->pluck('id')->toArray();";

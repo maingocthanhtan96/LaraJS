@@ -5,6 +5,7 @@
  * Email: maingocthanhan96@gmail.com
  * Date Time: {{DATE_TIME}}
  */
+namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
@@ -17,7 +18,7 @@ class {{TABLE_NAME_TITLE}}TableSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker\Factory::create();
+        $faker = \Faker\Factory::create();
 
         $limit = 100;
 

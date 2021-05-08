@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -15,10 +16,10 @@ class Controller extends BaseController
     /**
      * @param array $data
      * @param int $status
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      * @author tanmnt
      */
-    public function jsonData($data = [], $status = Response::HTTP_OK): \Illuminate\Http\JsonResponse
+    public function jsonData($data = [], $status = Response::HTTP_OK): JsonResponse
     {
         return response()->json(
             [
@@ -32,10 +33,10 @@ class Controller extends BaseController
     /**
      * @param $data
      * @param int $status
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      * @author tanmnt
      */
-    public function jsonTable($data, $status = Response::HTTP_OK): \Illuminate\Http\JsonResponse
+    public function jsonTable($data, $status = Response::HTTP_OK): JsonResponse
     {
         return response()->json(
             [
@@ -50,10 +51,10 @@ class Controller extends BaseController
     /**
      * @param $error
      * @param int $status
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      * @author tanmnt
      */
-    public function jsonError($error, $status = Response::HTTP_INTERNAL_SERVER_ERROR): \Illuminate\Http\JsonResponse
+    public function jsonError($error, $status = Response::HTTP_INTERNAL_SERVER_ERROR): JsonResponse
     {
         $message = $error;
         $file = '';
@@ -81,10 +82,10 @@ class Controller extends BaseController
      * @param bool $success
      * @param int $status
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      * @author tanmnt
      */
-    public function jsonMessage($message, bool $success = true, $status = Response::HTTP_OK): \Illuminate\Http\JsonResponse
+    public function jsonMessage($message, bool $success = true, $status = Response::HTTP_OK): JsonResponse
     {
         return response()->json(
             [
@@ -93,5 +94,19 @@ class Controller extends BaseController
             ],
             $status
         );
+    }
+
+    /**
+     * @param $errors
+     * @param bool $success
+     * @param int $status
+     * @return JsonResponse
+     */
+    public function jsonValidate($errors, bool $success = false, $status = Response::HTTP_UNPROCESSABLE_ENTITY): JsonResponse
+    {
+        return response()->json([
+            'success' => $success,
+            'errors' => $errors
+        ], $status);
     }
 }

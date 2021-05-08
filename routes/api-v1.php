@@ -4,9 +4,15 @@
 Route::post('/forgot-password', 'AuthController@forgotPassword');
 // Handle reset password form process
 Route::post('/reset-password', 'AuthController@callResetPassword');
-// Login
+// START - Auth
+Route::post('/logging', 'AuthController@logging');
+Route::post('/fe-login', 'AuthController@feLogin');
+Route::post('/refresh-token', 'AuthController@refreshToken');
 Route::post('/login', 'AuthController@login')->name('login');
+// END - Auth
 Route::group(['middleware' => 'auth:api'], function () {
+    Route::get('/fe-logout', 'AuthController@feLogout');
+
     Route::get('/user-info', 'UserController@userInfo');
     Route::get('/logout', 'AuthController@logout')->name('logout');
     // permission manage permission
@@ -27,4 +33,11 @@ Route::group(['middleware' => 'auth:api'], function () {
     //{{ROUTE_USER_NOT_DELETE_THIS_LINE}}
 });
 
-Route::fallback('LarajsController@fallbackApi');
+Route::fallback(function() {
+    return response()->json(
+        [
+            'message' => trans('error.404'),
+        ],
+        404,
+    );
+});

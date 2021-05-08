@@ -48,4 +48,11 @@ Route::group(['namespace' => 'Api'], function () {
     });
 });
 
-Route::fallback('LarajsController@fallbackApi');
+Route::fallback(function() {
+    return response()->json(
+        [
+            'message' => trans('error.404'),
+        ],
+        404,
+    );
+});
