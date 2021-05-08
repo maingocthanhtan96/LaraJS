@@ -795,8 +795,8 @@ export default {
         default_value: 'NULL',
         as_define: '',
         after_column: '',
-        search: true,
-        sort: true,
+        search: false,
+        sort: false,
         show: true,
         options: {
           comment: '',

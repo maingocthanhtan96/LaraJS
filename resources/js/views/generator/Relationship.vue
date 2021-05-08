@@ -188,7 +188,7 @@ export default {
         model: '',
         column: '',
         column2: '',
-        options: ['Search', 'Sort', 'Show'],
+        options: ['Show'],
       },
       drawDiagram: [],
       modelCurrents: [],
@@ -218,7 +218,6 @@ export default {
       const {
         data: { data: models },
       } = await generatorResource.getAllModels();
-      console.log(models);
       this.modelCurrents = [...models];
       this.modelOptions = [...models];
       this.loadingModel = false;
@@ -290,10 +289,10 @@ export default {
       }
       if (this.form.relationship === 'belongsToMany') {
         this.options = ['Show', 'Search'];
-        this.form.options = ['Show', 'Search'];
+        this.form.options = ['Show'];
       } else {
         this.options = ['Search', 'Sort', 'Show'];
-        this.form.options = ['Search', 'Sort', 'Show'];
+        this.form.options = ['Show'];
       }
       if (model) {
         this.loadingDisplay = true;
