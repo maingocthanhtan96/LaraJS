@@ -35,11 +35,7 @@ class ModelGenerator extends BaseGenerator
         $templateData = str_replace('{{DATE}}', $now->toDateTimeString(), $templateData);
         $templateData = str_replace('{{MODEL_CLASS}}', $model['name'], $templateData);
         $templateData = str_replace('{{FIELDS}}', $this->generateFields($fields), $templateData);
-        $templateData = str_replace(
-            '{{TABLE_NAME}}',
-            $this->serviceGenerator->tableName($model['name']),
-            $templateData,
-        );
+        $templateData = str_replace('{{TABLE_NAME}}', $this->serviceGenerator->tableName($model['name']), $templateData);
         $templateData = str_replace('{{CATS}}', $this->generateYear($fields), $templateData);
 
         //create sort delete
@@ -47,18 +43,8 @@ class ModelGenerator extends BaseGenerator
         $importLaravelModel = config('generator.import.laravel.model');
         $notDelete = config('generator.not_delete.laravel.model');
         if ($this->serviceGenerator->getOptions(config('generator.model.options.user_signature'), $model['options'])) {
-            $templateData = $this->serviceGenerator->replaceNotDelete(
-                $notDelete['use_class'],
-                $importLaravel['trait_user_signature']['file'],
-                0,
-                $templateData,
-            );
-            $templateData = $this->serviceGenerator->replaceNotDelete(
-                $notDelete['use'],
-                $importLaravel['trait_user_signature']['name'],
-                1,
-                $templateData,
-            );
+            $templateData = $this->serviceGenerator->replaceNotDelete($notDelete['use_class'], $importLaravel['trait_user_signature']['file'], 0, $templateData);
+            $templateData = $this->serviceGenerator->replaceNotDelete($notDelete['use'], $importLaravel['trait_user_signature']['name'], 1, $templateData);
         }
         if ($this->serviceGenerator->getOptions(config('generator.model.options.soft_deletes'), $model['options'])) {
             $templateData = str_replace($notDelete['use_class'], $importLaravel['sort_delete']['file'], $templateData);

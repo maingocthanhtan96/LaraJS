@@ -63,17 +63,14 @@ class SeederGenerator extends BaseGenerator
                 switch ($field['db_type']) {
                     case $dbType['integer']:
                     case $dbType['bigInteger']:
-                        $fieldsGenerate[] =
-                            "'" . $field['field_name'] . "'" . ' => ' . '$faker->numberBetween(1000, 9000)' . ',';
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . '$faker->numberBetween(1000, 9000)' . ',';
                         break;
                     case $dbType['float']:
                     case $dbType['double']:
-                        $fieldsGenerate[] =
-                            "'" . $field['field_name'] . "'" . ' => ' . '$faker->randomFloat(2, 1000, 9000)' . ',';
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . '$faker->randomFloat(2, 1000, 9000)' . ',';
                         break;
                     case $dbType['boolean']:
-                        $fieldsGenerate[] =
-                            "'" . $field['field_name'] . "'" . ' => ' . '$faker->numberBetween(0, 1)' . ',';
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . '$faker->numberBetween(0, 1)' . ',';
                         break;
                     case $dbType['date']:
                         $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . '$faker->date("Y-m-d")' . ',';
@@ -96,28 +93,14 @@ class SeederGenerator extends BaseGenerator
                         $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . '$faker->paragraph' . ',';
                         break;
                     case $dbType['enum']:
-                        $fieldsGenerate[] =
-                            "'" .
-                            $field['field_name'] .
-                            "'" .
-                            ' => ' .
-                            '$faker->randomElement(' .
-                            json_encode($field['enum']) .
-                            ')' .
-                            ',';
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . '$faker->randomElement(' . json_encode($field['enum']) . ')' . ',';
                         break;
                     case $dbType['json']:
                         $json = '[{}]';
                         $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'" . $json . "'" . ',';
                         break;
                     case $dbType['file']:
-                        $fieldsGenerate[] =
-                            "'" .
-                            $field['field_name'] .
-                            "'" .
-                            ' => ' .
-                            'json_encode(["https://via.placeholder.com/350"])' .
-                            ',';
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . 'json_encode(["https://via.placeholder.com/350"])' . ',';
                         break;
                 }
             }
@@ -137,18 +120,9 @@ class SeederGenerator extends BaseGenerator
         $fakerCreate = '$faker = \Faker\Factory::create();';
         $param = '$users';
         $fieldRelationship = $param . " = \App\Models\User::all()->pluck('id')->toArray();";
-        $templateData = str_replace(
-            $fakerCreate,
-            $fakerCreate . $this->serviceGenerator->infy_nl_tab(1, 2) . $fieldRelationship,
-            $templateData,
-        );
+        $templateData = str_replace($fakerCreate, $fakerCreate . $this->serviceGenerator->infy_nl_tab(1, 2) . $fieldRelationship, $templateData);
         foreach ($userSignature as $signature) {
-            $templateData = $this->serviceGenerator->replaceNotDelete(
-                $notDelete['seeder'],
-                "'" . $signature . "' => " . '$faker->randomElement(' . $param . '),',
-                4,
-                $templateData,
-            );
+            $templateData = $this->serviceGenerator->replaceNotDelete($notDelete['seeder'], "'" . $signature . "' => " . '$faker->randomElement(' . $param . '),', 4, $templateData);
         }
 
         return $templateData;

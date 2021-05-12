@@ -3,17 +3,21 @@
     "scripts": {
         "dev": "npm run dev.js & npm run dev.css",
         "watch": "npm run watch.js & npm run watch.css",
+        "watch-hot": "npm run watch-hot.js & npm run watch.css",
         "prod": "concurrently \"npm run prod.js\" \"npm run prod.css\"",
         "dev-fe": "mix --mix-config=webpack-frontend.mix.js",
         "watch-fe": "mix watch --mix-config=webpack-frontend.mix.js",
+        "watch-fe-hot": "mix watch --mix-config=webpack-frontend.mix.js --hot",
         "prod-fe": "mix --production --mix-config=webpack-frontend.mix.js",
         "watch-all": "npm run watch & npm run watch-fe",
         "prod-all": "concurrently \"npm run prod-fe\" \"npm run prod\"",
         "dev.css": "mix --mix-config=webpack-css.mix.js",
         "watch.css": "mix watch --mix-config=webpack-css.mix.js",
+        "watch-hot.css": "mix watch --mix-config=webpack-css.mix.js --hot",
         "prod.css": "mix --production --mix-config=webpack-css.mix.js",
         "dev.js": "mix --mix-config=webpack-js.mix.js",
         "watch.js": "mix watch --mix-config=webpack-js.mix.js",
+        "watch-hot.js": "mix watch --mix-config=webpack-js.mix.js --hot",
         "prod.js": "mix --production --mix-config=webpack-js.mix.js",
         "dev.js.report": "mix --mix-config=webpack-js.mix.js -- --env --report",
         "prod.js.report": "mix --production --mix-config=webpack-js.mix.js -- --env --report",
@@ -21,7 +25,7 @@
         "prod-fe.report": "mix --production --report --mix-config=webpack-frontend.mix.js",
         "eslint:fix": "eslint resources/js/**/*.{js,vue} --fix",
         "prettier:fix": "prettier --write resources/js/**/*.{js,vue}",
-        "prettier:php": "prettier --write --parser=php"
+        "prettier:php": "prettier --write {app,config,database,resources,routes}/**/*.php"
     },
     "husky": {
         "hooks": {
@@ -30,14 +34,14 @@
     },
     "lint-staged": {
         "resources/**/*.{js,vue}": [
-            "eslint --fix",
-            "prettier --write"
+            "npm run eslint:fix",
+            "npm run prettier:fix"
         ],
-        "resources/**/*.{sass,scss}": [
-            "prettier --write"
+        "resources/**/*.scss": [
+            "prettier --write resources/js/**/*.scss"
         ],
         "*.php": [
-            "prettier --write --paser=php"
+            "npm run prettier:php"
         ]
     },
     "devDependencies": {

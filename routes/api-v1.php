@@ -15,9 +15,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::get('/user-info', 'UserController@userInfo');
     Route::get('/logout', 'AuthController@logout')->name('logout');
-    Route::group(['middleware' => 'verify_request'], function () {
-
-    });
+    Route::group(['middleware' => 'verify_request'], function () {});
     // permission manage permission
     Route::group(
         [
@@ -36,11 +34,11 @@ Route::group(['middleware' => 'auth:api'], function () {
     //{{ROUTE_USER_NOT_DELETE_THIS_LINE}}
 });
 
-Route::fallback(function() {
+Route::fallback(function () {
     return response()->json(
         [
             'message' => trans('error.404'),
         ],
-        404,
+        404
     );
 });

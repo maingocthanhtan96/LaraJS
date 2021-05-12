@@ -38,25 +38,12 @@ class LangGenerator extends BaseGenerator
                 if ($nameLang === 'table') {
                     $templateData = str_replace('{{FIELDS}}', $this->generateTableFields($fields), $templateData);
                 }
-                $templateData = str_replace(
-                    '{{LANG_MODEL_CLASS}}',
-                    $this->serviceGenerator->tableNameNotPlural($model['name']),
-                    $templateData,
-                );
+                $templateData = str_replace('{{LANG_MODEL_CLASS}}', $this->serviceGenerator->tableNameNotPlural($model['name']), $templateData);
                 $templateData = str_replace('{{LANG_MODEL_TRANS_CLASS}}', $model['name_trans'], $templateData);
 
-                $templateDataReal = $this->serviceGenerator->getFile(
-                    'lang',
-                    'laravel',
-                    $key . '/' . $nameLang . '.php',
-                );
+                $templateDataReal = $this->serviceGenerator->getFile('lang', 'laravel', $key . '/' . $nameLang . '.php');
 
-                $templateDataReal = $this->serviceGenerator->replaceNotDelete(
-                    $langComment[$nameLang],
-                    $templateData,
-                    1,
-                    $templateDataReal,
-                );
+                $templateDataReal = $this->serviceGenerator->replaceNotDelete($langComment[$nameLang], $templateData, 1, $templateDataReal);
                 $this->serviceFile->createFileReal($this->path . $key . '/' . $nameLang . '.php', $templateDataReal);
             }
         }
@@ -68,8 +55,7 @@ class LangGenerator extends BaseGenerator
     {
         $fieldsGenerate = [];
         foreach ($fields as $field) {
-            $fieldsGenerate[] =
-                "'" . $field['field_name'] . "'" . ' => ' . "'" . $field['field_name_trans'] . "'" . ',';
+            $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'" . $field['field_name_trans'] . "'" . ',';
         }
         return implode($this->serviceGenerator->infy_nl_tab(1, 2), $fieldsGenerate);
     }

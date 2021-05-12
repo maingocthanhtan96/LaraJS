@@ -21,16 +21,12 @@ function set_active($path, $active = 'active')
 function str_slug_uppercase($title, $separator = '')
 {
     $title = ucwords($title);
-    $string = str_replace(array('[\', \']'), '', $title);
+    $string = str_replace(['[\', \']'], '', $title);
     $string = preg_replace('/\[.*\]/U', '', $string);
     $string = preg_replace('/&(amp;)?#?[a-z0-9]+;/i', $separator, $title);
     $string = htmlentities($string, ENT_COMPAT, 'utf-8');
-    $string = preg_replace(
-        '/&([a-z])(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig|quot|rsquo);/i',
-        '\\1',
-        $string,
-    );
-    $string = preg_replace(array('/[^a-z0-9]/i', '/[-]+/'), $separator, $string);
+    $string = preg_replace('/&([a-z])(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig|quot|rsquo);/i', '\\1', $string);
+    $string = preg_replace(['/[^a-z0-9]/i', '/[-]+/'], $separator, $string);
     return trim($string, '-');
 }
 
@@ -64,13 +60,5 @@ function get_between_content($content, $start, $end)
 
 function write_log_exception(\Exception $e = null)
 {
-    \Log::error(
-        '➤Message ex::' .
-            $e->getMessage() .
-            PHP_EOL .
-            '#0 More exception::' .
-            get_between_content($e->getTraceAsString(), '#0', '#10') .
-            PHP_EOL .
-            PHP_EOL,
-    );
+    \Log::error('➤Message ex::' . $e->getMessage() . PHP_EOL . '#0 More exception::' . get_between_content($e->getTraceAsString(), '#0', '#10') . PHP_EOL . PHP_EOL);
 }

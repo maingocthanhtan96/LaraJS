@@ -47,20 +47,8 @@ class SwaggerRelationshipGenerator extends BaseGenerator
         // Model Relationship
         if ($relationship === $this->relationship['has_one'] || $relationship === $this->relationship['has_many']) {
             // Required
-            $templateScheme = $this->serviceGenerator->searchTemplate(
-                self::OA_SCHEME,
-                ')',
-                -strlen(self::OA_SCHEME) + 4,
-                strlen(self::OA_SCHEME) + 2,
-                $templateData,
-            );
-            $templateRequired = $this->serviceGenerator->searchTemplate(
-                self::REQUIRED,
-                '}',
-                strlen(self::REQUIRED),
-                -strlen(self::REQUIRED),
-                $templateScheme,
-            );
+            $templateScheme = $this->serviceGenerator->searchTemplate(self::OA_SCHEME, ')', -strlen(self::OA_SCHEME) + 4, strlen(self::OA_SCHEME) + 2, $templateData);
+            $templateRequired = $this->serviceGenerator->searchTemplate(self::REQUIRED, '}', strlen(self::REQUIRED), -strlen(self::REQUIRED), $templateScheme);
             if (!$templateScheme || !$templateRequired) {
                 return $templateData;
             }
@@ -68,18 +56,8 @@ class SwaggerRelationshipGenerator extends BaseGenerator
             $templateRequiredNew = $templateRequired . ', ' . $fieldRequires;
             $templateData = str_replace($templateRequired, rtrim($templateRequiredNew, ', '), $templateData);
             // end required
-            $templateData = $this->serviceGenerator->replaceNotDelete(
-                $this->notDelete['property'],
-                $this->generateField($modelCurrent, $relationship),
-                1,
-                $templateData,
-            );
-            $templateData = $this->serviceGenerator->replaceNotDelete(
-                $this->notDelete['json_content'],
-                $this->generateField($modelCurrent, $relationship, true),
-                0,
-                $templateData,
-            );
+            $templateData = $this->serviceGenerator->replaceNotDelete($this->notDelete['property'], $this->generateField($modelCurrent, $relationship), 1, $templateData);
+            $templateData = $this->serviceGenerator->replaceNotDelete($this->notDelete['json_content'], $this->generateField($modelCurrent, $relationship, true), 0, $templateData);
         } else {
             $templateData = $this->serviceGenerator->get_template('swaggerMTM', 'Swagger/');
             $templateData = str_replace('{{DATE}}', Carbon::now()->toDateTimeString(), $templateData);
@@ -87,18 +65,8 @@ class SwaggerRelationshipGenerator extends BaseGenerator
             $templateData = str_replace('{{REQUIRED_FIELD_1}}', \Str::snake($model) . '_id', $templateData);
             $templateData = str_replace('{{REQUIRED_FIELD_2}}', \Str::snake($modelCurrent) . '_id', $templateData);
             $templateData = str_replace('{{RELATIONSHIP}}', $relationship, $templateData);
-            $templateData = $this->serviceGenerator->replaceNotDelete(
-                $this->notDelete['property'],
-                $this->generateField($model, $relationship),
-                1,
-                $templateData,
-            );
-            $templateData = $this->serviceGenerator->replaceNotDelete(
-                $this->notDelete['property'],
-                $this->generateField($modelCurrent, $relationship),
-                1,
-                $templateData,
-            );
+            $templateData = $this->serviceGenerator->replaceNotDelete($this->notDelete['property'], $this->generateField($model, $relationship), 1, $templateData);
+            $templateData = $this->serviceGenerator->replaceNotDelete($this->notDelete['property'], $this->generateField($modelCurrent, $relationship), 1, $templateData);
 
             $fileName = self::REF_UPPER . $modelCurrent . $model . '.php';
             $this->serviceFile->createFile($this->path, $fileName, $templateData);

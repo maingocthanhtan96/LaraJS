@@ -30,8 +30,8 @@ class GeneratorsTableSeeder extends Seeder
             'sort' => true,
             'show' => true,
             'options' => [
-                'comment' => ''
-            ]
+                'comment' => '',
+            ],
         ];
         $fields[] = [
             'id' => 2,
@@ -46,8 +46,8 @@ class GeneratorsTableSeeder extends Seeder
             'sort' => false,
             'show' => true,
             'options' => [
-                'comment' => ''
-            ]
+                'comment' => '',
+            ],
         ];
         $fields[] = [
             'id' => 3,
@@ -62,8 +62,8 @@ class GeneratorsTableSeeder extends Seeder
             'sort' => false,
             'show' => true,
             'options' => [
-                'comment' => ''
-            ]
+                'comment' => '',
+            ],
         ];
 
         \App\Models\Generator::create([

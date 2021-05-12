@@ -32,9 +32,7 @@ class BaseModel extends Model
         $rankAlias = 'rank_' . md5(time());
 
         // apply mysql variables
-        $query->addSelect(
-            DB::raw("@rank := IF(@group = {$group}, @rank+1, 1) as {$rankAlias}, @group := {$group} as {$groupAlias}"),
-        );
+        $query->addSelect(DB::raw("@rank := IF(@group = {$group}, @rank+1, 1) as {$rankAlias}, @group := {$group} as {$groupAlias}"));
 
         // make sure first order clause is the group order
         $query->getQuery()->orders = (array) $query->getQuery()->orders;

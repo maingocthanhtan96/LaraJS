@@ -24,7 +24,7 @@ class LaraJSController extends Controller
             [
                 'message' => trans('error.404'),
             ],
-            404,
+            404
         );
     }
 }

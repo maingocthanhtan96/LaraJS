@@ -66,36 +66,16 @@ class SwaggerUpdateGenerator extends BaseGenerator
             return $templateDataReal;
         }
         // required
-        $templateScheme = $this->serviceGenerator->searchTemplate(
-            self::OA_SCHEME,
-            ')',
-            -strlen(self::OA_SCHEME) + 4,
-            strlen(self::OA_SCHEME) + 2,
-            $templateDataReal,
-        );
-        $templateRequired = $this->serviceGenerator->searchTemplate(
-            self::REQUIRED,
-            '}',
-            strlen(self::REQUIRED),
-            -strlen(self::REQUIRED),
-            $templateScheme,
-        );
+        $templateScheme = $this->serviceGenerator->searchTemplate(self::OA_SCHEME, ')', -strlen(self::OA_SCHEME) + 4, strlen(self::OA_SCHEME) + 2, $templateDataReal);
+        $templateRequired = $this->serviceGenerator->searchTemplate(self::REQUIRED, '}', strlen(self::REQUIRED), -strlen(self::REQUIRED), $templateScheme);
         if (!$templateScheme || !$templateRequired) {
             return $templateDataReal;
         }
         //end required
 
         foreach ($renameFields as $rename) {
-            $templateDataReal = str_replace(
-                'property="' . $rename['field_name_old']['field_name'] . '"',
-                'property="' . $rename['field_name_new']['field_name'] . '"',
-                $templateDataReal,
-            );
-            $templateRequiredNew = str_replace(
-                $rename['field_name_old']['field_name'],
-                $rename['field_name_new']['field_name'],
-                $templateRequired,
-            );
+            $templateDataReal = str_replace('property="' . $rename['field_name_old']['field_name'] . '"', 'property="' . $rename['field_name_new']['field_name'] . '"', $templateDataReal);
+            $templateRequiredNew = str_replace($rename['field_name_old']['field_name'], $rename['field_name_new']['field_name'], $templateRequired);
             $templateDataReal = str_replace($templateRequired, $templateRequiredNew, $templateDataReal);
         }
 
@@ -109,20 +89,8 @@ class SwaggerUpdateGenerator extends BaseGenerator
         }
         $formFields = json_decode($generator->field, true);
         // Required
-        $templateScheme = $this->serviceGenerator->searchTemplate(
-            self::OA_SCHEME,
-            ')',
-            -strlen(self::OA_SCHEME) + 4,
-            strlen(self::OA_SCHEME) + 2,
-            $templateDataReal,
-        );
-        $templateRequired = $this->serviceGenerator->searchTemplate(
-            self::REQUIRED,
-            '}',
-            strlen(self::REQUIRED),
-            -strlen(self::REQUIRED),
-            $templateScheme,
-        );
+        $templateScheme = $this->serviceGenerator->searchTemplate(self::OA_SCHEME, ')', -strlen(self::OA_SCHEME) + 4, strlen(self::OA_SCHEME) + 2, $templateDataReal);
+        $templateRequired = $this->serviceGenerator->searchTemplate(self::REQUIRED, '}', strlen(self::REQUIRED), -strlen(self::REQUIRED), $templateScheme);
         if (!$templateScheme || !$templateRequired) {
             return $templateDataReal;
         }
@@ -149,31 +117,17 @@ class SwaggerUpdateGenerator extends BaseGenerator
             if ($dataOld[$change['id']]['id'] === $change['id']) {
                 // replace json content
                 $searchPropertyJson = 'property="' . $change['field_name'] . '"';
-                $templatePropertyJson = $this->serviceGenerator->searchTemplate(
-                    $searchPropertyJson,
-                    '),',
-                    -strlen($searchPropertyJson) + 1,
-                    strlen($searchPropertyJson) + 1,
-                    $templateDataReal,
-                );
+                $templatePropertyJson = $this->serviceGenerator->searchTemplate($searchPropertyJson, '),', -strlen($searchPropertyJson) + 1, strlen($searchPropertyJson) + 1, $templateDataReal);
                 if (!$templatePropertyJson) {
                     return false;
                 }
                 preg_match('/example=".*"/miU', $templatePropertyJson, $example);
                 $example = reset($example);
                 $templateJsonContentOld = $templatePropertyJson;
-                $templatePropertyJson = str_replace(
-                    $this->changeDefault($dataOld[$change['id']]),
-                    $this->changeDefault($change),
-                    $templatePropertyJson,
-                );
+                $templatePropertyJson = str_replace($this->changeDefault($dataOld[$change['id']]), $this->changeDefault($change), $templatePropertyJson);
 
                 $templatePropertyJson = str_replace($example, $this->changeExample($change), $templatePropertyJson);
-                $templatePropertyJson = str_replace(
-                    $this->changeDBType($dataOld[$change['id']]['db_type']),
-                    $this->changeDBType($change['db_type']),
-                    $templatePropertyJson,
-                );
+                $templatePropertyJson = str_replace($this->changeDBType($dataOld[$change['id']]['db_type']), $this->changeDBType($change['db_type']), $templatePropertyJson);
                 $templateDataReal = str_replace($templateJsonContentOld, $templatePropertyJson, $templateDataReal);
 
                 // replace schema
@@ -182,23 +136,15 @@ class SwaggerUpdateGenerator extends BaseGenerator
                     '*/',
                     -strlen(self::CHECK_CHAR_SCHEMA) + 6,
                     strlen(self::CHECK_CHAR_SCHEMA) - 4,
-                    $templateDataReal,
+                    $templateDataReal
                 );
                 if (!$templatePropertySchema) {
                     return false;
                 }
                 $templateSchemaOld = $templatePropertySchema;
-                $templatePropertySchema = str_replace(
-                    $this->changeDefault($dataOld[$change['id']]),
-                    $this->changeDefault($change),
-                    $templatePropertySchema,
-                );
+                $templatePropertySchema = str_replace($this->changeDefault($dataOld[$change['id']]), $this->changeDefault($change), $templatePropertySchema);
 
-                $templatePropertySchema = str_replace(
-                    $this->changeDBType($dataOld[$change['id']]['db_type']),
-                    $this->changeDBType($change['db_type']),
-                    $templatePropertySchema,
-                );
+                $templatePropertySchema = str_replace($this->changeDBType($dataOld[$change['id']]['db_type']), $this->changeDBType($change['db_type']), $templatePropertySchema);
                 $templateDataReal = str_replace($templateSchemaOld, $templatePropertySchema, $templateDataReal);
 
                 // required
@@ -230,20 +176,8 @@ class SwaggerUpdateGenerator extends BaseGenerator
         }
 
         // required
-        $templateScheme = $this->serviceGenerator->searchTemplate(
-            self::OA_SCHEME,
-            ')',
-            -strlen(self::OA_SCHEME) + 4,
-            strlen(self::OA_SCHEME) + 2,
-            $templateDataReal,
-        );
-        $templateRequired = $this->serviceGenerator->searchTemplate(
-            self::REQUIRED,
-            '}',
-            strlen(self::REQUIRED),
-            -strlen(self::REQUIRED),
-            $templateScheme,
-        );
+        $templateScheme = $this->serviceGenerator->searchTemplate(self::OA_SCHEME, ')', -strlen(self::OA_SCHEME) + 4, strlen(self::OA_SCHEME) + 2, $templateDataReal);
+        $templateRequired = $this->serviceGenerator->searchTemplate(self::REQUIRED, '}', strlen(self::REQUIRED), -strlen(self::REQUIRED), $templateScheme);
         if (!$templateScheme || !$templateRequired) {
             return $templateDataReal;
         }
@@ -262,13 +196,7 @@ class SwaggerUpdateGenerator extends BaseGenerator
         foreach ($dropFields as $drop) {
             // drop json content
             $searchPropertyJson = 'property="' . $drop['field_name'] . '"';
-            $templatePropertyJson = $this->serviceGenerator->searchTemplate(
-                $searchPropertyJson,
-                '),',
-                -strlen($searchPropertyJson) + 1,
-                strlen($searchPropertyJson) + 1,
-                $templateDataReal,
-            );
+            $templatePropertyJson = $this->serviceGenerator->searchTemplate($searchPropertyJson, '),', -strlen($searchPropertyJson) + 1, strlen($searchPropertyJson) + 1, $templateDataReal);
             if (!$templatePropertyJson) {
                 return false;
             }
@@ -280,7 +208,7 @@ class SwaggerUpdateGenerator extends BaseGenerator
                 '*/',
                 -strlen(self::CHECK_CHAR_SCHEMA) + 6,
                 strlen(self::CHECK_CHAR_SCHEMA) - 4,
-                $templateDataReal,
+                $templateDataReal
             );
             if (!$templatePropertySchema) {
                 return false;
@@ -297,20 +225,8 @@ class SwaggerUpdateGenerator extends BaseGenerator
             return $templateDataReal;
         }
         // Required
-        $templateScheme = $this->serviceGenerator->searchTemplate(
-            self::OA_SCHEME,
-            ')',
-            -strlen(self::OA_SCHEME) + 4,
-            strlen(self::OA_SCHEME) + 2,
-            $templateDataReal,
-        );
-        $templateRequired = $this->serviceGenerator->searchTemplate(
-            self::REQUIRED,
-            '}',
-            strlen(self::REQUIRED),
-            -strlen(self::REQUIRED),
-            $templateScheme,
-        );
+        $templateScheme = $this->serviceGenerator->searchTemplate(self::OA_SCHEME, ')', -strlen(self::OA_SCHEME) + 4, strlen(self::OA_SCHEME) + 2, $templateDataReal);
+        $templateRequired = $this->serviceGenerator->searchTemplate(self::REQUIRED, '}', strlen(self::REQUIRED), -strlen(self::REQUIRED), $templateScheme);
 
         if (!$templateScheme || !$templateRequired) {
             return $templateDataReal;
@@ -329,18 +245,8 @@ class SwaggerUpdateGenerator extends BaseGenerator
         $templateRequiredNew = $templateRequired . ', ' . $fieldRequires;
         $templateDataReal = str_replace($templateRequired, rtrim($templateRequiredNew, ', '), $templateDataReal);
         // end required
-        $templateDataReal = $this->serviceGenerator->replaceNotDelete(
-            $this->notDelete['property'],
-            $this->generateFields($updateFields),
-            1,
-            $templateDataReal,
-        );
-        $templateDataReal = $this->serviceGenerator->replaceNotDelete(
-            $this->notDelete['json_content'],
-            $this->generateFields($updateFields, true),
-            0,
-            $templateDataReal,
-        );
+        $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['property'], $this->generateFields($updateFields), 1, $templateDataReal);
+        $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['json_content'], $this->generateFields($updateFields, true), 0, $templateDataReal);
 
         return $templateDataReal;
     }
@@ -438,21 +344,13 @@ class SwaggerUpdateGenerator extends BaseGenerator
                 case $this->dbType['integer']:
                 case $this->dbType['bigInteger']:
                     $templateProperty = str_replace('{{DB_TYPE}}', $field['db_type'], $templateProperty);
-                    $templateProperty = str_replace(
-                        '{{EXAMPLE}}',
-                        $faker->numberBetween(1000, 9000),
-                        $templateProperty,
-                    );
+                    $templateProperty = str_replace('{{EXAMPLE}}', $faker->numberBetween(1000, 9000), $templateProperty);
                     $fieldsGenerate[] = $templateProperty;
                     break;
                 case $this->dbType['float']:
                 case $this->dbType['double']:
                     $templateProperty = str_replace('{{DB_TYPE}}', $field['db_type'], $templateProperty);
-                    $templateProperty = str_replace(
-                        '{{EXAMPLE}}',
-                        $faker->randomFloat(2, 1000, 9000),
-                        $templateProperty,
-                    );
+                    $templateProperty = str_replace('{{EXAMPLE}}', $faker->randomFloat(2, 1000, 9000), $templateProperty);
                     $fieldsGenerate[] = $templateProperty;
                     break;
                 case $this->dbType['boolean']:
@@ -468,11 +366,7 @@ class SwaggerUpdateGenerator extends BaseGenerator
                 case $this->dbType['dateTime']:
                 case $this->dbType['timestamp']:
                     $templateProperty = str_replace('{{DB_TYPE}}', $field['db_type'], $templateProperty);
-                    $templateProperty = str_replace(
-                        '{{EXAMPLE}}',
-                        Carbon::now()->toDateTimeString(),
-                        $templateProperty,
-                    );
+                    $templateProperty = str_replace('{{EXAMPLE}}', Carbon::now()->toDateTimeString(), $templateProperty);
                     $fieldsGenerate[] = $templateProperty;
                     break;
                 case $this->dbType['time']:
@@ -498,11 +392,7 @@ class SwaggerUpdateGenerator extends BaseGenerator
                     break;
                 case $this->dbType['file']:
                     $templateProperty = str_replace('{{DB_TYPE}}', $field['db_type'], $templateProperty);
-                    $templateProperty = str_replace(
-                        '{{EXAMPLE}}',
-                        "['https://lorempixel.com/150/150/?77253', 'https://lorempixel.com/150/150/?77253']",
-                        $templateProperty,
-                    );
+                    $templateProperty = str_replace('{{EXAMPLE}}', "['https://lorempixel.com/150/150/?77253', 'https://lorempixel.com/150/150/?77253']", $templateProperty);
                     $fieldsGenerate[] = $templateProperty;
                     break;
                 case $this->dbType['enum']:

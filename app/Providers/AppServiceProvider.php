@@ -51,7 +51,7 @@ class AppServiceProvider extends ServiceProvider
                         },
                         function (Builder $query) use ($attribute, $searchTerm) {
                             $query->orWhere($attribute, 'LIKE', "%{$searchTerm}%");
-                        },
+                        }
                     );
                 }
             });
@@ -75,7 +75,7 @@ class AppServiceProvider extends ServiceProvider
                     $this->count(),
                     $perPage,
                     $page,
-                    $options,
+                    $options
                 ))->withPath($actualLink);
             });
         }
@@ -96,7 +96,7 @@ class AppServiceProvider extends ServiceProvider
                 },
                 function (Builder $query) use ($relationship) {
                     $query->with($relationship);
-                },
+                }
             );
             return $this;
         });

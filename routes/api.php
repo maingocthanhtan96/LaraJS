@@ -42,11 +42,11 @@ Route::group(['namespace' => 'Api'], function () {
     });
 });
 
-Route::fallback(function() {
+Route::fallback(function () {
     return response()->json(
         [
             'message' => trans('error.404'),
         ],
-        404,
+        404
     );
 });

@@ -18,13 +18,18 @@
               </el-tag>
             </template>
             <template v-else>
-              <el-select v-model="form.model_current" filterable placeholder="Model current" @change="changeModelCurrent()">
+              <el-select
+                v-model="form.model_current"
+                filterable
+                placeholder="Model current"
+                @change="changeModelCurrent()"
+              >
                 <el-option
                   v-for="(model, index) in modelCurrents"
                   :key="'model_current' + index"
                   :label="model"
                   :value="model"
-></el-option>
+                ></el-option>
               </el-select>
             </template>
             <div class="w-04-rem tw-h-24 tw-bg-indigo-600 draw-arrow-down one" />

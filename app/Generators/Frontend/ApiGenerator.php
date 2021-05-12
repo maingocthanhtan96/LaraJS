@@ -35,11 +35,7 @@ class ApiGenerator extends BaseGenerator
         $templateData = str_replace('{{$DATE$}}', $now->toDateTimeString(), $templateData);
         $templateData = str_replace('{{$MODEL_CLASS$}}', $model['name'], $templateData);
         $templateData = str_replace('{{$API_VERSION$}}', env('API_VERSION_GENERATOR', 'v1'), $templateData);
-        $templateData = str_replace(
-            '{{$MODEL_CLASS_URI$}}',
-            $this->serviceGenerator->urlResource($model['name']),
-            $templateData,
-        );
+        $templateData = str_replace('{{$MODEL_CLASS_URI$}}', $this->serviceGenerator->urlResource($model['name']), $templateData);
 
         $fileName = $this->serviceGenerator->folderPages($model['name']) . '.js';
         $this->serviceFile->createFile($this->path, $fileName, $templateData);

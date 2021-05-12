@@ -15,10 +15,7 @@ class Kernel extends ConsoleKernel
      *
      * @var array
      */
-    protected $commands = [
-        BackupMySQLCommand::class,
-        SetupCommand::class,
-    ];
+    protected $commands = [BackupMySQLCommand::class, SetupCommand::class];
 
     /**
      * Define the application's command schedule.

@@ -111,7 +111,9 @@ class AuthController extends Controller
     public function feLogout(): JsonResponse
     {
         try {
-            \Auth::user()->token()->delete();
+            \Auth::user()
+                ->token()
+                ->delete();
 
             return $this->jsonMessage('Logged out successfully');
         } catch (\Exception $e) {
@@ -166,7 +168,6 @@ class AuthController extends Controller
                 return $this->jsonMessage('Login fail', false, $response->getStatusCode());
         }
     }
-
 
     /**
      * Get the response for a successful password reset link.

@@ -104,9 +104,12 @@ class Controller extends BaseController
      */
     public function jsonValidate($errors, bool $success = false, $status = Response::HTTP_UNPROCESSABLE_ENTITY): JsonResponse
     {
-        return response()->json([
-            'success' => $success,
-            'errors' => $errors
-        ], $status);
+        return response()->json(
+            [
+                'success' => $success,
+                'errors' => $errors,
+            ],
+            $status
+        );
     }
 }

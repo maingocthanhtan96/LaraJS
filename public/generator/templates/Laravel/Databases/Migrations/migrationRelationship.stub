@@ -38,7 +38,7 @@ class Relationship{{TABLE_NAME_TITLE}}Table extends Migration
     {
         Schema::table('{{TABLE_NAME}}', function (Blueprint $table) {
             $table->dropColumn('{{FOREIGN_KEY}}');
-            $table->dropForeign('{{FOREIGN_KEY}}');
+            // $table->dropForeign('{{FOREIGN_KEY}}');
         });
     }
 }

@@ -31,7 +31,7 @@ class VerifyRequest
                 'success' => false,
                 'message' => 'Hash key not match.',
             ],
-            \Illuminate\Http\Response::HTTP_BAD_REQUEST,
+            \Illuminate\Http\Response::HTTP_BAD_REQUEST
         );
     }
 }

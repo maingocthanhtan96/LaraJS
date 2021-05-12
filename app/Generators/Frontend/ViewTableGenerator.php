@@ -57,7 +57,7 @@ class ViewTableGenerator extends BaseGenerator
                 $selfTemplateEnd,
                 -strlen($selfTemplateStart),
                 strlen($selfTemplateStart) + strlen($selfTemplateEnd),
-                $templateData,
+                $templateData
             );
             $templateData = str_replace($templateCreatedAt, '', $templateData);
         }

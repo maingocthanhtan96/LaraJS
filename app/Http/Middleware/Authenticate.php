@@ -17,7 +17,7 @@ class Authenticate extends Middleware
                     'success' => false,
                     'message' => 'Unauthorized',
                 ],
-                \Illuminate\Http\Response::HTTP_UNAUTHORIZED,
+                \Illuminate\Http\Response::HTTP_UNAUTHORIZED
             );
         }
 

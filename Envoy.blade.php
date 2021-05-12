@@ -52,6 +52,9 @@ clone_repository
 @task('run_deploy_scripts')
     echo 'Running deployment scripts'
     cd {{ $new_release_dir }}
+    php artisan view:clear
+    php artisan cache:clear
+    php artisan config:clear
     php artisan optimize
     php artisan migrate --force
 @endtask
@@ -64,7 +67,7 @@ clone_repository
 
 @task('clean_old_releases')
     # This will list our releases by modification time and delete all but the 2 most recent.
-    purging=$(ls -dt {{ $releases_dir }}/* | tail -n +3);
+    purging=$(ls -dt {{ $releases_dir }}/* | tail -n +5);
 
     if [ "$purging" != "" ]; then
         echo Purging old releases: $purging;
