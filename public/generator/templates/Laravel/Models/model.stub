@@ -15,7 +15,7 @@ class {{MODEL_CLASS}} extends BaseModel
 
     //Declare table name
     protected $table = '{{TABLE_NAME}}';
-    //{{TIMESTAMPS_NOT_DELETE_THIS_LINE}};
+    //{{TIMESTAMPS_NOT_DELETE_THIS_LINE}}
     protected $fillable = [
     	{{FIELDS}}
     ];
