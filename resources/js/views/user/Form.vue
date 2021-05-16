@@ -122,7 +122,7 @@ export default {
         role_id: '',
         password: '',
         password_confirmation: '',
-      },
+      }, // {{$$}}
       loading: {
         button: false,
         form: false,

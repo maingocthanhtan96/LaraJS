@@ -63,7 +63,6 @@ export default {
     return {
       form: {
         // {{$FORM_FIELDS_NOT_DELETE_THIS_LINE$}}
-        // {{$FORM_NOT_DELETE_THIS_LINE$}}
       }, // {{$$}}
       loading: {
         form: false,

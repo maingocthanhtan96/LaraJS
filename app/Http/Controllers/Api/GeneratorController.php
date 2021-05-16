@@ -106,7 +106,7 @@ class GeneratorController extends Controller
             $model = $request->get('model', []);
             // git commit
             $this->_gitCommit($model['name']);
-            if ($this->serviceGenerator->getOptions(config('generator.model.options.ignore_migrate'), $model['options'])) {
+            if ($this->serviceGenerator->getOptions(config('generator.model.options.only_migrate'), $model['options'])) {
                 $migrationGenerator = new MigrationGenerator($fields, $model);
                 new ModelGenerator($fields, $model);
                 $files['migration'] = [
@@ -155,7 +155,7 @@ class GeneratorController extends Controller
             ];
             // git commit
             $this->_gitCommit($model['name']);
-            if ($this->serviceGenerator->getOptions(config('generator.model.options.ignore_migrate'), $model['options'])) {
+            if ($this->serviceGenerator->getOptions(config('generator.model.options.only_migrate'), $model['options'])) {
                 new MigrationUpdateGenerator($generator, $model, $updateFields);
                 new ModelUpdateGenerator($model, $updateFields);
             } else {
@@ -487,11 +487,10 @@ class GeneratorController extends Controller
      */
     private function _runCommand($model = [])
     {
-        if (isset($model['options'])) {
-            if (!$this->serviceGenerator->getOptions(config('generator.model.options.ignore_migrate'), $model['options'])) {
-                Artisan::call('migrate --force');
-            }
-        } else {
+        if (!isset($model['options'])) {
+            $model['options'] = [];
+        }
+        if (!$this->serviceGenerator->getOptions(config('generator.model.options.ignore_migrate'), $model['options'])) {
             Artisan::call('migrate --force');
         }
         $basePath = base_path();

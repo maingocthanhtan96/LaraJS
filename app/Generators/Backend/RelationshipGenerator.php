@@ -163,7 +163,7 @@ class RelationshipGenerator extends BaseGenerator
         }
         $columnDidGenerate = \Str::snake($model) . self::_ID . ": '',";
         $fieldsGenerateDataForm[] = $columnDidGenerate;
-        $templateDataReal = str_replace($templateDataForm, $this->replaceTemplate($fieldsGenerateDataForm, 2, 3, 2, 0), $templateDataReal);
+        $templateDataReal = str_replace($templateDataForm, ltrim($this->replaceTemplate($fieldsGenerateDataForm, 2, 3, 2, 0), PHP_EOL), $templateDataReal);
         //create form item
         $templateDataReal = $this->serviceGenerator->replaceNotDelete(
             $notDelete['item'],
