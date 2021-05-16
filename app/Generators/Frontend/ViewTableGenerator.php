@@ -39,7 +39,7 @@ class ViewTableGenerator extends BaseGenerator
     private function generate($fields, $model)
     {
         $pathTemplate = 'Views/';
-        $templateData = $this->serviceGenerator->get_template('indexTable', $pathTemplate, 'vuejs');
+        $templateData = $this->serviceGenerator->get_template('index', $pathTemplate, 'vuejs');
         $templateData = str_replace('{{$CONST_MODEL_CLASS$}}', $this->serviceGenerator->modelNameNotPluralFe($model['name']), $templateData);
         $templateData = str_replace('{{$NAME_ROUTE_API$}}', $this->serviceGenerator->nameAttribute($model['name']), $templateData);
         $templateData = str_replace('{{$NAME_ROUTE$}}', $this->serviceGenerator->modelNameNotPlural($model['name']), $templateData);

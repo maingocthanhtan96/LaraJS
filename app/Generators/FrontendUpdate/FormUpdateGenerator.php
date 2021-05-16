@@ -83,7 +83,7 @@ class FormUpdateGenerator extends BaseGenerator
         $templateRulesTemp = $templateRules;
         $dataForms = explode(',', trim($templateDataForm));
 
-        foreach ($renameFields as $index => $rename) {
+        foreach ($renameFields as $rename) {
             //replace template form item
             $selfTemplateStart = self::DATA_GENERATOR;
             $selfTemplateStart .= '"' . $rename['field_name_old']['field_name'] . '"';
@@ -624,7 +624,7 @@ class FormUpdateGenerator extends BaseGenerator
         return implode($this->serviceGenerator->infy_nl_tab(1, 3, 2), $fieldsGenerate);
     }
 
-    private function generateFields($fields)
+    private function generateFields($fields): array
     {
         $fieldsGenerate = [];
         foreach ($fields as $index => $field) {

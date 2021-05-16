@@ -63,6 +63,7 @@ export default {
     return {
       form: {
         // {{$FORM_FIELDS_NOT_DELETE_THIS_LINE$}}
+        // {{$FORM_NOT_DELETE_THIS_LINE$}}
       }, // {{$$}}
       loading: {
         form: false,
@@ -115,7 +116,7 @@ export default {
             // {{$RESET_FIELD_NOT_DELETE_THIS_LINE$}}
             // this.$refs[{{$REF_MODEL_CLASS$}}].resetFields();
             this.loading.button = false;
-            this.$router.push({ name: '{{$NAME_ROUTE$}}' });
+            await this.$router.push({ name: '{{$NAME_ROUTE$}}' });
           } catch(e) {
             this.loading.button = false;
           }
@@ -143,7 +144,7 @@ export default {
               type: 'success',
             });
             this.loading.button = false;
-            this.$router.push({ name: '{{$NAME_ROUTE$}}' });
+            await this.$router.push({ name: '{{$NAME_ROUTE$}}' });
           } catch (e) {
             this.loading.button = false;
           }

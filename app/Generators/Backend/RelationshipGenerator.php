@@ -148,7 +148,7 @@ class RelationshipGenerator extends BaseGenerator
         $notDelete = config('generator.not_delete.vuejs.form');
         $fileName = $this->serviceGenerator->folderPages($modelRelationship) . '/Form.vue';
         $templateDataReal = $this->serviceGenerator->getFile('views', 'vuejs', $fileName);
-        $dataForm = 'form: {';
+        $dataForm = 'form:';
         //create form
         $templateDataForm = $this->serviceGenerator->searchTemplateX($dataForm, 1, $notDelete['this_check'], strlen($dataForm), -strlen($dataForm) - 4, $templateDataReal);
         $dataForms = explode(',', trim($templateDataForm));
@@ -163,18 +163,13 @@ class RelationshipGenerator extends BaseGenerator
         }
         $columnDidGenerate = \Str::snake($model) . self::_ID . ": '',";
         $fieldsGenerateDataForm[] = $columnDidGenerate;
-        $templateDataReal = str_replace(
-            "$dataForm {" . $this->serviceGenerator->infy_nl_tab(1, 0) . $templateDataForm . '},',
-            "$dataForm {" . $this->replaceTemplate($fieldsGenerateDataForm, 2, 3, 2) . '},',
-            $templateDataReal
-        );
+        $templateDataReal = str_replace($templateDataForm, $this->replaceTemplate($fieldsGenerateDataForm, 2, 3, 2, 0), $templateDataReal);
         //create form item
         $templateDataReal = $this->serviceGenerator->replaceNotDelete(
             $notDelete['item'],
             $this->_generateSelect(\Str::snake($model), \Str::snake($model) . self::_ID, $columnRelationship, $relationship),
             3,
-            $templateDataReal,
-            4
+            $templateDataReal
         );
 
         //create rules
