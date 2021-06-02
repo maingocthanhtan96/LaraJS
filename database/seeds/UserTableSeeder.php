@@ -47,7 +47,7 @@ class UserTableSeeder extends Seeder
             'name' => 'Editor',
             'email' => 'editor@larajs.com',
             'avatar' => self::LOGO,
-            'password' => 'editor123',
+            'password' => self::PASSWORD,
             'remember_token' => \Illuminate\Support\Str::random(10),
         ]);
         $deleter = User::create([
