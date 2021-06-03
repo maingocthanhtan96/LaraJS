@@ -11,7 +11,7 @@
 |
 */
 
-Route::group(['prefix' => 'laravel-filemanager'], function () {
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => 'optimizeImages'], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
 

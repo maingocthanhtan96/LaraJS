@@ -20,6 +20,7 @@
 </p>
 
 # LaraJS
+[LaraJS]() is a beautiful dashboard combination of [Laravel](https://laravel.com/), [Vue.js](https://github.com/vuejs/vue) and the UI Toolkit [Element](https://github.com/ElemeFE/element). Especially with the code generator function(create, edit, delete) with 100% api and a few other functions  
 
 ## Preparation
 ** [Node](http://nodejs.org/)
@@ -41,7 +42,9 @@ This project is built on top of fresh latest version Laravel 8. You should check
 ## Built with
 * [Laravel](https://laravel.com/) - The PHP Framework For Web Artisans
 * [Laravel Passport](https://github.com/laravel/passport) - Laravel Sanctum provides a featherweight authentication system for SPAs and simple APIs.
-* [spatie/laravel-permission](https://github.com/spatie/laravel-permission) - Associate users with permissions and roles.
+* [Laravel Permission](https://github.com/spatie/laravel-permission) - Associate users with permissions and roles.
+* [Swagger](https://github.com/zircote/swagger-php) - Generate interactive OpenAPI documentation for your RESTful API
+* [Laravel File Manager](https://github.com/UniSharp/laravel-filemanager) - Integration with [TinyMCE](https://www.tiny.cloud/docs/)
 * [VueJS](https://vuejs.org/) - The Progressive JavaScript Framework
 * [Element](https://element.eleme.io/) - A  Vue 2.0 based component library for developers, designers and product managers
 * [Vue Admin Template](https://github.com/PanJiaChen/vue-admin-template) - A minimal vue admin template with Element UI

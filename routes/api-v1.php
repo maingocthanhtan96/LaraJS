@@ -12,7 +12,6 @@ Route::post('/login', 'AuthController@login')->name('login');
 // END - Auth
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/fe-logout', 'AuthController@feLogout');
-
     Route::get('/user-info', 'UserController@userInfo');
     Route::get('/logout', 'AuthController@logout')->name('logout');
     Route::group(['middleware' => 'verify_request'], function () {});

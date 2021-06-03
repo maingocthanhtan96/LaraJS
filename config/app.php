@@ -225,7 +225,6 @@ return [
         'ACL' => App\LaraJS\ACL::class,
         'Constant' => App\LaraJS\Constant::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
-        'FrontendHelper' => App\Helpers\FrontendHelper::class,
         'Image' => Intervention\Image\Facades\Image::class,
     ],
 ];
