@@ -342,8 +342,14 @@ class GeneratorService extends BaseService
      *
      * @return string
      */
-    public function tableName($name)
+    public function tableName(string $name): string
     {
+        $name = preg_replace_callback('/(?:[A-Z]+)(?![a-z])/', function ($matches) {
+            foreach ($matches as $match) {
+                return ucfirst(strtolower($match));
+            }
+        }, $name);
+
         return \Str::snake(\Str::plural($name));
     }
 
@@ -354,8 +360,14 @@ class GeneratorService extends BaseService
      *
      * @return string
      */
-    public function tableNameNotPlural($name)
+    public function tableNameNotPlural(string $name): string
     {
+        $name = preg_replace_callback('/(?:[A-Z]+)(?![a-z])/', function ($matches) {
+            foreach ($matches as $match) {
+                return ucfirst(strtolower($match));
+            }
+        }, $name);
+
         return \Str::snake($name);
     }
 
@@ -466,7 +478,7 @@ class GeneratorService extends BaseService
      * @param string $model
      * @return array
      */
-    public function getRelations($model)
+    public function getRelations(string $model): array
     {
         $fileData = file(config('generator.path.laravel.model') . $model . '.php');
         $modelData = [];
@@ -482,15 +494,13 @@ class GeneratorService extends BaseService
     /**
      * search relationship
      *
-     * @param string $data
+     * @param array $data
      * @return array
      */
-    public function extractRelations($data)
+    public function extractRelations(array $data): array
     {
         $relationshipIdentifiers = config('generator.relationship.relationship');
         $relationshipData = [];
-        //        $matchPattern = '#\((.*?)\)#';
-        $matchPattern = '#(hasOne|belongsTo|hasMany|belongsToMany)\((.*?)\)#';
         foreach ($data as $line) {
             foreach ($relationshipIdentifiers as $relationship) {
                 $nameRelationship = $relationship . '(';
@@ -505,21 +515,21 @@ class GeneratorService extends BaseService
                             'type' => $relationship,
                             'model' => $modelName,
                             'table' => $tableName,
-                            'foreign_key' => $this->stripString(isset($modelData[2]) ? $modelData[2] : \Str::snake($subModel) . '_id'),
-                            'local_key' => $this->stripString(isset($modelData[3]) ? $modelData[3] : \Str::snake($modelName) . '_id'),
+                            'foreign_key' => $this->stripString($modelData[2] ?? $this->tableNameNotPlural($subModel) . '_id'),
+                            'local_key' => $this->stripString($modelData[3] ?? $this->tableNameNotPlural($modelName) . '_id'),
                         ];
                     } else {
                         $relationshipData[] = [
                             'type' => $relationship,
                             'model' => $modelName,
-                            'foreign_key' => $this->stripString(isset($modelData[1]) ? $modelData[1] : \Str::snake($modelName) . '_id'),
-                            'local_key' => $this->stripString(isset($modelData[2]) ? $modelData[2] : 'id'),
+                            'foreign_key' => $this->stripString($modelData[1] ?? $this->tableNameNotPlural($modelName) . '_id'),
+                            'local_key' => $this->stripString($modelData[2] ?? 'id'),
                         ];
                     }
                 }
             }
         }
-        return collect($relationshipData);
+        return $relationshipData;
     }
 
     /**

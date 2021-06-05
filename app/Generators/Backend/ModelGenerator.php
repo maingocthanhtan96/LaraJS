@@ -9,11 +9,11 @@ use Carbon\Carbon;
 
 class ModelGenerator extends BaseGenerator
 {
-    /** @var $service */
-    public $serviceGenerator;
+    /** @var GeneratorService $service */
+    public GeneratorService $serviceGenerator;
 
-    /** @var $service */
-    public $serviceFile;
+    /** @var FileService $service */
+    public FileService $serviceFile;
 
     /** @var string */
     public $path;
