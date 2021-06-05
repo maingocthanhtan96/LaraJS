@@ -154,32 +154,32 @@
 class User
 {
     /**
- * @OA\Property(property="id", type="AUTO_INCREMENT", description=""),
- */
-/**
- * @OA\Property(property="name", type="VARCHAR", default="None", description="")
- */
-/**
- * @OA\Property(property="email", type="VARCHAR", default="None", description="")
- */
-/**
- * @OA\Property(property="avatar", type="VARCHAR", default="None", description="")
- */
-/**
- * @OA\Property(property="role_id", default="None", description="You cann't set id as 1(role: admin)")
- * @var Role
- */
-/**
- * @OA\Property(property="password", type="VARCHAR", default="None", description="")
- */
-//{{SWAGGER_PROPERTY_NOT_DELETE_THIS_LINE}}
-/**
- * @OA\Property(property="created_at", type="TIMESTAMP", default="NULL", description="")
- */
-/**
- * @OA\Property(property="updated_at", type="TIMESTAMP", default="NULL", description="")
- */
-/**
- * @OA\Property(property="deleted_at", type="TIMESTAMP", default="NULL", description="")
- */
+     * @OA\Property(property="id", type="AUTO_INCREMENT", description=""),
+     */
+    /**
+     * @OA\Property(property="name", type="VARCHAR", default="None", description="")
+     */
+    /**
+     * @OA\Property(property="email", type="VARCHAR", default="None", description="")
+     */
+    /**
+     * @OA\Property(property="avatar", type="VARCHAR", default="None", description="")
+     */
+    /**
+     * @OA\Property(property="role_id", default="None", description="You cann't set id as 1(role: admin)")
+     * @var Role
+     */
+    /**
+     * @OA\Property(property="password", type="VARCHAR", default="None", description="")
+     */
+    //{{SWAGGER_PROPERTY_NOT_DELETE_THIS_LINE}}
+    /**
+     * @OA\Property(property="created_at", type="TIMESTAMP", default="NULL", description="")
+     */
+    /**
+     * @OA\Property(property="updated_at", type="TIMESTAMP", default="NULL", description="")
+     */
+    /**
+     * @OA\Property(property="deleted_at", type="TIMESTAMP", default="NULL", description="")
+     */
 }

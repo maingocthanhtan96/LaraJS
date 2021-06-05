@@ -60,7 +60,7 @@ class SwaggerGenerator extends BaseGenerator
         $templateData = str_replace('{{RESOURCE}}', $this->serviceGenerator->urlResource($model['name']), $templateData);
         $templateTimestamps = '';
         if ($this->serviceGenerator->getOptions(config('generator.model.options.timestamps'), $model['options'])) {
-            $templateTimestamps = $this->serviceGenerator->get_template('Timestamps', $pathTemplate);
+            $templateTimestamps = $this->serviceGenerator->get_template('timestamps', $pathTemplate);
         }
         // SoftDeletes
         $templateData = str_replace($this->notDelete['timestamps'], $templateTimestamps, $templateData);

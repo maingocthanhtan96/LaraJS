@@ -1,0 +1,7 @@
+/**
+     * @OA\Property(property="created_at", type="TIMESTAMP", default="NULL", description="")
+     */
+
+    /**
+     * @OA\Property(property="updated_at", type="TIMESTAMP", default="NULL", description="")
+     */

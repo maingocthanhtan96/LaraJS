@@ -1,3 +1,0 @@
-/**
-     * @OA\Property(property="deleted_at", type="TIMESTAMP", default="NULL", description="")
-     */
