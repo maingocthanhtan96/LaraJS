@@ -344,11 +344,7 @@ class GeneratorService extends BaseService
      */
     public function tableName(string $name): string
     {
-        $name = preg_replace_callback('/(?:[A-Z]+)(?![a-z])/', function ($matches) {
-            foreach ($matches as $match) {
-                return ucfirst(strtolower($match));
-            }
-        }, $name);
+        $name = $this->tableNameHandle($name);
 
         return \Str::snake(\Str::plural($name));
     }
@@ -362,13 +358,22 @@ class GeneratorService extends BaseService
      */
     public function tableNameNotPlural(string $name): string
     {
-        $name = preg_replace_callback('/(?:[A-Z]+)(?![a-z])/', function ($matches) {
+        $name = $this->tableNameHandle($name);
+
+        return \Str::snake($name);
+    }
+
+    /**
+     * @param $name
+     * @return array|string|string[]|null
+     */
+    public function tableNameHandle($name)
+    {
+        return preg_replace_callback('/(?:[A-Z]+)(?![a-z])/', function ($matches) {
             foreach ($matches as $match) {
                 return ucfirst(strtolower($match));
             }
         }, $name);
-
-        return \Str::snake($name);
     }
 
     /**
