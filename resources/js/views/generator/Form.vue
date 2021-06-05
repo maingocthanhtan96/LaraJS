@@ -117,7 +117,7 @@
                     </template>
                     <template v-else>
                       <div
-                        class="divTableCell tw-text-center tw-align-middle tw-text-blue-500"
+                        class="divTableCell tw-text-center tw-align-middle tw-text-blue-500 tw-cursor-pointer"
                         @click="showDialogOptions(data.id)"
                       >
                         {{ index + 1 }}
@@ -129,6 +129,7 @@
                           v-model="data.field_name"
                           placeholder="Field Name"
                           :disabled="disabledMethod(index)"
+                          @change="changeFieldName(data)"
                         />
                       </el-form-item>
                     </div>
@@ -355,6 +356,7 @@ import GeneratorResource from '@/api/generator';
 import isEqual from 'lodash/isEqual';
 import debounce from 'lodash/debounce';
 import cloneDeep from 'lodash/cloneDeep';
+import upperFirst from 'lodash/upperFirst';
 import draggable from 'vuedraggable';
 import Mallki from '@/components/TextHoverEffect/Mallki';
 import waves from '@/directive/waves/index.js'; // v-wave directive
@@ -631,6 +633,9 @@ export default {
     showDialogOptions(id) {
       this.dialogVisibleOptions = true;
       this.idOptionsDB = id;
+    },
+    changeFieldName(data) {
+      data.field_name_trans = upperFirst(data.field_name).replace('_', ' ');
     },
     changeDBType(index, dbType) {
       // not As define

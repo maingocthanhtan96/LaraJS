@@ -64,7 +64,7 @@
               {{ errors.model[0] }}
             </p>
             <div class="w-04-rem tw-h-24 tw-bg-indigo-600 draw-arrow-down three" />
-            <div class="z-10">
+            <div class="tw-z-10">
               <pre-code-tag :content="markdown" />
             </div>
             <div class="w-04-rem tw-h-24 tw-bg-indigo-600 draw-arrow-down four" />
@@ -74,7 +74,7 @@
               :loading="loadingDisplay"
               filterable
               placeholder="Display Column"
-              class="z-10"
+              class="tw-z-10"
             >
               <el-option v-for="(col, index) in displayColumns" :key="'col_' + index" :label="col" :value="col" />
             </el-select>
@@ -107,7 +107,7 @@
             <el-tooltip effect="dark" :content="$t('route.generator_relationship')" placement="bottom">
               <el-button
                 v-loading.fullscreen.lock="loading"
-                class="z-10"
+                class="tw-z-10"
                 type="success"
                 icon="el-icon-check"
                 circle
@@ -285,10 +285,11 @@ export default {
       public function ${camelCase(this.form.model_current)}() {
         return $this->belongsToMany(${this.form.model_current}::class);
       }`;
-        templateInverse += `<br/>  # I will create a table ${snakeCase(this.form.model_current)}_${snakeCase(
+        templateInverse += `<br/>  # We will create a table ${snakeCase(this.form.model_current)}_${snakeCase(
           this.form.model
         )}`;
       }
+      templateInverse += '<br/>  # This is an example template';
       if (this.form.relationship && this.form.model) {
         this.markdown = template.concat(templateInverse);
       }

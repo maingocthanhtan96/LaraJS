@@ -35,7 +35,7 @@
  *     @OA\Parameter(
  *          name="orderBy",
  *          in="query",
- *          description="column order by"
+ *          description="column order by",
  *          @OA\Schema (type="string", default="updated_at")
  *     ),
  *     @OA\Response(response="200", ref="#/components/responses/OK"),
