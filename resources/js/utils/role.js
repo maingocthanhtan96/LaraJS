@@ -19,6 +19,7 @@ export default function checkRole(value) {
     }
     return true;
   } else {
+    // eslint-disable-next-line no-console
     console.error(`need roles! Like v-permission="['admin','editor']"`);
     return false;
   }

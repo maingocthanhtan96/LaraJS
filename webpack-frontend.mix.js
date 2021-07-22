@@ -1,10 +1,12 @@
 const mix = require('laravel-mix');
 const path = require('path');
+require('laravel-mix-eslint');
 require('laravel-mix-merge-manifest');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin;
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const isProduction = mix.inProduction();
 
 const plugins = [];
 const rawArgv = process.argv.slice(2);
@@ -87,6 +89,9 @@ mix
     'bootstrap',
     'nprogress',
   ])
+  .eslint({
+    fix: !isProduction,
+  })
   .mergeManifest()
   .vue({ version: 2 });
 

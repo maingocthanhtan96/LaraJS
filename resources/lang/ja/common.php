@@ -1,17 +1,24 @@
 <?php
 
 return [
-    'back_to_top' => 'Back to top',
+    'back_to_top' => 'トップページに戻る',
+    'input_complete' => '入力完了',
+    'input_not_complete' => '未入力あり',
+    'category' => 'カテゴリー',
+    'created_by' => '作成者',
+    'format' => 'フォーマット',
+    'file' => 'ファイル',
     'popup' => [
-        'create' => 'Are you sure you want to CREATE with the entered information?',
-        'update' => 'Are you sure you want to UPDATE with the entered information?',
+        'create' => '入力した情報で作成してもよろしいですか？',
+        'update' => '入力した情報で更新してもよろしいですか？',
+        'create_edit' => '入力された情報で作成/更新をしてもよろしいでしょうか？',
         'validate' => [
-            'error' => 'There are items not entered',
+            'error' => '未入力項目があります',
         ],
         'account' => [
-            'un_active' => 'Are you sure you want to disable the account (cannot log in)?',
-            'active' => 'Are you sure you want to activate your account?',
+            'un_active' => 'アカウントを無効(ログインできない)にしてもよろしいですか？',
+            'active' => 'アカウントを有効にしてもよろしいですか？',
         ],
-        'blacklist' => 'Are you sure you want to register as a Black member?',
+        'blacklist' => 'ブラック会員として登録してよろしいですか？',
     ],
 ];

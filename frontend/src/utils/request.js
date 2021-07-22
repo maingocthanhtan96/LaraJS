@@ -28,7 +28,6 @@ service.interceptors.request.use(
     return config;
   },
   error => {
-    console.log('Error request: ', error); // for debug
     return Promise.reject(error);
   }
 );

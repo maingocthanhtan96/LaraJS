@@ -72,13 +72,17 @@ export default {
     };
   },
   async created() {
-    const { id } = this.$route.params;
-    if (id) {
+    try {
       this.loading.form = true;
-      const {
-        data: { data: {{$CONST_MODEL_CLASS$}} },
-      } = await {{$CONST_MODEL_CLASS$}}Resource.get(id);
-      this.form = {{$CONST_MODEL_CLASS$}};
+      const { id } = this.$route.params;
+      if (id) {
+        const {
+          data: { data: {{$CONST_MODEL_CLASS$}} },
+        } = await {{$CONST_MODEL_CLASS$}}Resource.get(id);
+        this.form = {{$CONST_MODEL_CLASS$}};
+      }
+      this.loading.form = false;
+    } catch (e) {
       this.loading.form = false;
     }
   },
@@ -93,8 +97,7 @@ export default {
   methods: {
     // {{$METHODS_NOT_DELETE_THIS_LINE$}}
     store({{$REF_MODEL_CLASS$}}) {
-      // {{$FILE_JSON_STRINGIFY_NOT_DELETE_THIS_LINE$}}
-      this.$refs[{{$REF_MODEL_CLASS$}}].validate(async (valid, errors) => {
+      this.$refs[{{$REF_MODEL_CLASS$}}].validate((valid, errors) => {
         if (this.scrollToError(valid, errors)) {
           return;
         }
@@ -112,8 +115,6 @@ export default {
               message: this.$t('messages.create'),
               type: 'success',
             });
-            // {{$RESET_FIELD_NOT_DELETE_THIS_LINE$}}
-            // this.$refs[{{$REF_MODEL_CLASS$}}].resetFields();
             this.loading.button = false;
             await this.$router.push({ name: '{{$NAME_ROUTE$}}' });
           } catch(e) {
@@ -123,8 +124,7 @@ export default {
       });
     },
     update({{$REF_MODEL_CLASS$}}) {
-      // {{$FILE_JSON_STRINGIFY_NOT_DELETE_THIS_LINE$}}
-      this.$refs[{{$REF_MODEL_CLASS$}}].validate(async (valid, errors) => {
+      this.$refs[{{$REF_MODEL_CLASS$}}].validate((valid, errors) => {
         if (this.scrollToError(valid, errors)) {
           return;
         }

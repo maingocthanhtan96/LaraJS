@@ -8,25 +8,25 @@
             {{ $t('button.create') }}
           </router-link>
         </div>
-        <div class="tw-flex tw-flex-col">
-          <el-col :span="24" class="tw-mb-6">
-            <el-col :xs="24" :sm="10" :md="6">
-              <label>{{ $t('table.texts.filter') }}</label>
-              <el-input v-model="table.listQuery.search" :placeholder="$t('table.texts.filterPlaceholder')" />
-            </el-col>
-            <el-col :xs="24" :sm="14" :md="18">
-              <br />
-              <el-date-picker
-                v-model="table.listQuery.updated_at"
-                class="md:tw-float-right"
-                type="daterange"
-                :start-placeholder="$t('date.start_date')"
-                :end-placeholder="$t('date.end_date')"
-                :picker-options="pickerOptions"
-                @change="changeDateRangePicker"
-              />
-            </el-col>
+        <el-row :gutter="20" class="tw-mb-6">
+          <el-col :xs="24" :sm="10" :md="6">
+            <label>{{ $t('table.texts.filter') }}</label>
+            <el-input v-model="table.listQuery.search" :placeholder="$t('table.texts.filterPlaceholder')" />
           </el-col>
+          <el-col :xs="24" :sm="14" :md="18">
+            <br />
+            <el-date-picker
+              v-model="table.listQuery.updated_at"
+              class="md:tw-float-right"
+              type="daterange"
+              :start-placeholder="$t('date.start_date')"
+              :end-placeholder="$t('date.end_date')"
+              :picker-options="pickerOptions"
+              @change="changeDateRangePicker"
+            />
+          </el-col>
+        </el-row>
+        <el-row :gutter="20">
           <el-col :span="24" class="table-responsive">
             <el-table
               v-loading="table.loading"
@@ -102,7 +102,7 @@
               @pagination="getList"
             />
           </el-col>
-        </div>
+        </el-row>
       </el-card>
     </el-col>
   </el-row>
@@ -146,13 +146,15 @@ export default {
   },
   methods: {
     async getList() {
-      this.table.loading = true;
-      const { data } = await userResource.list(this.table.listQuery);
-      this.table.list = data.data;
-      this.table.total = data.count;
-
-      // Just to simulate the time of the request
-      this.table.loading = false;
+      try {
+        this.table.loading = true;
+        const { data } = await userResource.list(this.table.listQuery);
+        this.table.list = data.data;
+        this.table.total = data.count;
+        this.table.loading = false;
+      } catch (e) {
+        this.table.loading = false;
+      }
     },
     handleFilter() {
       this.table.listQuery.page = 1;
@@ -171,11 +173,7 @@ export default {
     sortChange(data) {
       const { prop, order } = data;
       this.table.listQuery.orderBy = prop;
-      if (order === 'ascending') {
-        this.table.listQuery.ascending = 0;
-      } else {
-        this.table.listQuery.ascending = 1;
-      }
+      this.table.listQuery.ascending = order;
       this.getList();
     },
     remove(id) {
@@ -191,16 +189,20 @@ export default {
           center: true,
         }
       ).then(async () => {
-        this.table.loading = true;
-        await userResource.destroy(id);
-        const index = this.table.list.findIndex(value => value.id === id);
-        this.table.list.splice(index, 1);
-        this.$message({
-          showClose: true,
-          message: this.$t('messages.delete'),
-          type: 'success',
-        });
-        this.table.loading = false;
+        try {
+          this.table.loading = true;
+          await userResource.destroy(id);
+          const index = this.table.list.findIndex(value => value.id === id);
+          this.table.list.splice(index, 1);
+          this.$message({
+            showClose: true,
+            message: this.$t('messages.delete'),
+            type: 'success',
+          });
+          this.table.loading = false;
+        } catch (e) {
+          this.table.loading = false;
+        }
       });
     },
     numericalOrder(index) {

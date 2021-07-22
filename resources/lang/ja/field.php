@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'password' => 'Password',
-    'password_confirm' => 'Password confirm',
-    'email' => 'Email'
+    'password' => 'パスワード',
+    'password_confirm' => '確認用のパスワード',
+    'email' => 'メール',
 ];

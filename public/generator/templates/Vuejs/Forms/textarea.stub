@@ -3,7 +3,7 @@
               name="{{$FORM_FIELD$}}"
               v-model="form.{{$FORM_FIELD$}}"
               type="textarea"
-              autosize
+              :rows="5
               :placeholder="{{$LABEL_NAME_INPUT$}}"
             />
           </el-form-item>

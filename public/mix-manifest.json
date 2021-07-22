@@ -1,11 +1,11 @@
 {
-    "/frontend/js/app.js": "/frontend/js/app.js",
-    "/frontend/css/app.css": "/frontend/css/app.css",
     "/js/app.js": "/js/app.js",
     "/js/manifest.js": "/js/manifest.js",
     "/js/vendor.js": "/js/vendor.js",
-    "/css/app.css": "/css/app.css",
-    "/frontend/js/chunks/about.js": "/frontend/js/chunks/about.js",
+    "/frontend/js/app.js": "/frontend/js/app.js",
     "/frontend/js/manifest.js": "/frontend/js/manifest.js",
-    "/frontend/js/vendor.js": "/frontend/js/vendor.js"
+    "/frontend/css/app.css": "/frontend/css/app.css",
+    "/frontend/js/vendor.js": "/frontend/js/vendor.js",
+    "/css/app.css": "/css/app.css",
+    "/frontend/js/chunks/about.js": "/frontend/js/chunks/about.js"
 }

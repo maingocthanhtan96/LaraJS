@@ -14,7 +14,7 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     /**
-     * @param array $data
+     * @param array|object $data
      * @param int $status
      * @return JsonResponse
      * @author tanmnt

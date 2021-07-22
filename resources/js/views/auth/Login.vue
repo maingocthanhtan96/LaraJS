@@ -49,7 +49,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { SET_LANG, LOGIN } from '@/store/muation-types';
+import { LOGIN } from '@/store/muation-types';
 import LangSelect from '@/components/LangSelect';
 
 export default {
@@ -64,16 +64,6 @@ export default {
         remember_me: false,
       },
       loading: false,
-      languages: [
-        {
-          value: 'vn',
-          title: 'Việt Nam',
-        },
-        {
-          value: 'en',
-          title: 'English',
-        },
-      ],
       redirect: undefined,
       otherQuery: {},
     };
@@ -117,11 +107,6 @@ export default {
     },
   },
   methods: {
-    handleCommand(command) {
-      if (command === 'vn' || command === 'en') {
-        this.$store.dispatch(`lang/${SET_LANG}`, command);
-      }
-    },
     login() {
       this.loading = true;
       this.$refs['login'].validate(valid => {

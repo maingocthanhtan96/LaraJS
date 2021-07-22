@@ -8,12 +8,12 @@ Route::post('/reset-password', 'AuthController@callResetPassword');
 Route::post('/logging', 'AuthController@logging');
 Route::post('/fe-login', 'AuthController@feLogin');
 Route::post('/refresh-token', 'AuthController@refreshToken');
-Route::post('/login', 'AuthController@login')->name('login');
+Route::post('/login', 'AuthController@login');
 // END - Auth
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/fe-logout', 'AuthController@feLogout');
     Route::get('/user-info', 'UserController@userInfo');
-    Route::get('/logout', 'AuthController@logout')->name('logout');
+    Route::get('/logout', 'AuthController@logout');
     Route::group(['middleware' => 'verify_request'], function () {});
     // permission manage permission
     Route::group(

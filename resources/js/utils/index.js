@@ -145,8 +145,8 @@ export function param2Obj(url) {
   }
   return JSON.parse(
     '{"' +
-      decodeURIComponent(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"').replace(/\+/g, ' ') +
-      '"}'
+    decodeURIComponent(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"').replace(/\+/g, ' ') +
+    '"}'
   );
 }
 
@@ -258,7 +258,6 @@ export function getTime(type) {
  */
 export function debounce(func, wait, immediate) {
   let timeout, args, context, timestamp, result;
-
   const later = function () {
     // According to the last trigger interval
     const last = new Date().getTime() - timestamp;
@@ -278,7 +277,8 @@ export function debounce(func, wait, immediate) {
     }
   };
 
-  return function (...args) {
+  return function () {
+    args = arguments; // "arguments" của func
     context = this;
     timestamp = new Date().getTime();
     const callNow = immediate && !timeout;

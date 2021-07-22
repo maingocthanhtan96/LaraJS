@@ -8,6 +8,8 @@ use Carbon\Carbon;
 
 class QueryService extends BaseService
 {
+    const ASC = 'asc';
+    const DESC = 'desc';
     /**
      * Eloquent model
      * @var Model $_model
@@ -19,12 +21,6 @@ class QueryService extends BaseService
      * @var array
      */
     public array $select = [];
-
-    /**
-     * Order column
-     * @var array
-     */
-    public array $order = [];
 
     /**
      * Column to search using whereLike
@@ -46,16 +42,12 @@ class QueryService extends BaseService
      * @var array
      */
     public array $betweenDate = [];
+
     /**
-     * Limit record
-     * @var int
-     */
-    public int $limit = 25;
-    /**
-     * ascending = '0', descending = '1'
+     * ascending, descending
      * @var string
      */
-    public string $ascending = '0';
+    public string $ascending = self::ASC;
     /**
      * Column to order
      * @var string
@@ -94,38 +86,20 @@ class QueryService extends BaseService
      */
     public function queryTable()
     {
-        $this->ascending = $this->ascending === '0' ? 'asc' : 'desc';
-
         $query = $this->_model::query();
-        $query->when($this->select, function ($q) {
-            $q->select($this->select);
-        });
-        // if (count(Arr::wrap($this->withRelationship)) > 0) {
-        //     $query = $query->with(Arr::wrap($this->withRelationship));
-        // }
+        $this->ascending = $this->ascending === 'ascending' ? self::ASC : self::DESC;
+        $query->when($this->select, fn($q) => $q->select($this->select));
+        $query->when($this->search, fn($q) => $q->whereLike($this->columnSearch, $this->search));
         foreach (Arr::wrap($this->withRelationship) as $relationship) {
             $query = $query->with($relationship);
         }
-
-        foreach (Arr::wrap($this->order) as $col) {
-            $query->when($col === $this->orderBy, function ($q) use ($col) {
-                $q->orderBy($col, $this->ascending);
-            });
-        }
-
-        $query->when($this->search, function ($q) {
-            $q->whereLike($this->columnSearch, $this->search);
-        });
-
         $query->when(isset($this->betweenDate[0]) && isset($this->betweenDate[1]), function ($q) {
             $startDate = Carbon::parse($this->betweenDate[0])->startOfDay();
             $endDate = Carbon::parse($this->betweenDate[1])->endOfDay();
             $q->whereBetween($this->defaultUpdatedAt, [$startDate, $endDate]);
         });
-
-        $query->when($this->defaultOrderBy && $this->defaultDescending, function ($q) {
-            $q->orderBy($this->defaultOrderBy, $this->defaultDescending);
-        });
+        $query->when($this->orderBy, fn($q) => $q->orderBy($this->orderBy, $this->ascending));
+        $query->when($this->defaultOrderBy, fn($q) => $q->orderBy($this->defaultOrderBy, $this->defaultDescending));
 
         return $query;
     }

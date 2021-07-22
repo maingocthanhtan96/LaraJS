@@ -20,6 +20,7 @@ export default function checkPermission(value) {
       return requiredPermissions.includes(permission);
     });
   } else {
+    // eslint-disable-next-line no-console
     console.error(`Need permissions! Like v-permission="['manage permission','edit article']"`);
     return false;
   }

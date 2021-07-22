@@ -1,8 +1,7 @@
 export default {
   methods: {
     parseTimeToTz(date, day, format = '{y}-{m}-{d}') {
-      const d = date;
-      let utc = d.getTime();
+      let utc = date.getTime();
 
       if (day) {
         utc = utc - 86400000 * day;

@@ -41,7 +41,7 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 	{
 		try {
 			$limit = $request->get('limit', {{LIMIT}});
-			$ascending = $request->get('ascending', '0');
+			$ascending = (int)$request->get('ascending', 0);
 			$orderBy = $request->get('orderBy', '');
 			$search = $request->get('search', '');
 			$betweenDate = $request->get('updated_at', []);

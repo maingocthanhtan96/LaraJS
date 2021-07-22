@@ -23,7 +23,6 @@ service.interceptors.request.use(
     return config;
   },
   error => {
-    console.log('Error request: ', error); // for debug
     return Promise.reject(error);
   }
 );
@@ -62,7 +61,6 @@ service.interceptors.response.use(
           duration: 5 * 1000,
         });
       }
-      console.log('Error response: ', res); // for debug
 
       return Promise.reject(error);
     }

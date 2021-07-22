@@ -1,13 +1,13 @@
 <?php
 
 return [
-    'create' => 'Created successfully!',
-    'update' => 'Update successfully!',
-    'delete' => 'Delete successfully!',
-    'upload' => 'Upload success!',
-    'delete_confirm' => 'This will permanently delete the :attribute. Continue?',
-    'warning' => 'Warning',
-    'success' => 'Success',
-    'error' => 'Error',
-    'info' => 'Info'
+    'create' => '登録完了しました。',
+    'update' => '更新完了しました。',
+    'delete' => '削除完了しました。',
+    'upload' => '更新完了しました。',
+    'delete_confirm' => '削除してもよろしいですか？',
+    'warning' => '警告',
+    'success' => '成功',
+    'error' => 'エラー',
+    'info' => '情報',
 ];

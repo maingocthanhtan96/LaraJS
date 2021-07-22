@@ -96,10 +96,10 @@
   }
 }
 
-//.el-message {
-//  z-index: 999999 !important;
-//}
-//
+.el-message {
+  z-index: 999999 !important;
+}
+
 .el-dialog__wrapper {
   z-index: 99999 !important;
 }
@@ -108,6 +108,6 @@
 //  z-index: 2002 !important;
 //}
 //
-//.v-modal {
-//  z-index: 2001 !important;
-//}
+.v-modal {
+  z-index: 2000 !important;
+}

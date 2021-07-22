@@ -29,6 +29,7 @@ if (checkNeed()) {
         screen: window.location.href,
         logging: 1, // frontend
       });
+      // eslint-disable-next-line no-console
       console.error(err, info, 'error');
     });
   };

@@ -50,14 +50,13 @@ class UserController extends Controller
     {
         try {
             $limit = $request->get('limit', 25);
-            $ascending = $request->get('ascending', 0);
+            $ascending = $request->get('ascending', 'ascending');
             $orderBy = $request->get('orderBy', '');
             $search = $request->get('search', '');
             $betweenDate = $request->get('updated_at', []);
 
             $queryService = new QueryService(new User());
             $queryService->select = [];
-            $queryService->order = ['id', 'updated_at'];
             $queryService->columnSearch = ['name', 'email'];
             $queryService->withRelationship = ['roles'];
             $queryService->search = $search;

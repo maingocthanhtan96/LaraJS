@@ -189,11 +189,7 @@ export default {
     sortChange(data) {
       const { prop, order } = data;
       this.table.listQuery.orderBy = prop;
-      if (order === 'ascending') {
-        this.table.listQuery.ascending = 0;
-      } else {
-        this.table.listQuery.ascending = 1;
-      }
+      this.table.listQuery.ascending = +(order === 'ascending');
       this.getList();
     },
     remove(id) {
