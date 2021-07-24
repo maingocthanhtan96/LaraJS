@@ -1,4 +1,9 @@
-<el-form-item data-generator="{{$FORM_FIELD$}}" :label="{{$LABEL_NAME_INPUT$}}" {{$PROP_NAME$}} :error="errors.{{$FORM_FIELD$}} && errors.{{$FORM_FIELD$}}[0]" >
+<el-form-item
+          data-generator="{{$FORM_FIELD$}}"
+          :label="{{$LABEL_NAME_INPUT$}}"
+          {{$PROP_NAME$}}
+          :error="errors.{{$FORM_FIELD$}} && errors.{{$FORM_FIELD$}}[0]"
+          >
             <el-checkbox-group v-model="form.{{$FORM_FIELD$}}">
               <el-checkbox v-for="{{$LIST$}} in {{$LISTS$}}List" :key="'{{$LIST$}}_' + {{$LIST$}}.id" :label="{{$LIST$}}.id">{{$CHECKBOX_NAME$}}</el-checkbox>
             </el-checkbox-group>

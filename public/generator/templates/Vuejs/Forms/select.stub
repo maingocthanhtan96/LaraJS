@@ -1,4 +1,9 @@
-<el-form-item data-generator="{{$FORM_FIELD$}}" :label="{{$LABEL_NAME_INPUT$}}" {{$PROP_NAME$}} :error="errors.{{$FORM_FIELD$}} && errors.{{$FORM_FIELD$}}[0]">
+<el-form-item
+          data-generator="{{$FORM_FIELD$}}"
+          :label="{{$LABEL_NAME_INPUT$}}"
+          {{$PROP_NAME$}}
+          :error="errors.{{$FORM_FIELD$}} && errors.{{$FORM_FIELD$}}[0]"
+          >
             <el-select
               name="{{$FORM_FIELD$}}"
               v-model="form.{{$FORM_FIELD$}}"

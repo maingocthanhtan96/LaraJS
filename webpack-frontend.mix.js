@@ -81,7 +81,7 @@ mix
     exclude: /node_modules/, // will convert to regexp and work. or you can use a regular expression like /node_modules/,
     loader: 'eslint-loader',
     options: {
-      fix: true,
+      fix: false,
       cache: false,
     },
   })
