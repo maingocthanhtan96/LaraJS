@@ -1,9 +1,8 @@
 const mix = require('laravel-mix');
 const path = require('path');
-require('laravel-mix-eslint');
+require('laravel-mix-eslint-config');
 require('laravel-mix-merge-manifest');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-  .BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const isProduction = mix.inProduction();
@@ -49,11 +48,7 @@ mix
               loader: 'sass-loader',
               options: {
                 sassOptions: {
-                  includePaths: [
-                    'frontend/node_modules',
-                    'frontend/src/assets',
-                    'frontend/src/styles',
-                  ],
+                  includePaths: ['frontend/node_modules', 'frontend/src/assets', 'frontend/src/styles'],
                 },
               },
             },
@@ -71,9 +66,7 @@ mix
       ],
     },
     output: {
-      chunkFilename: mix.inProduction()
-        ? 'frontend/js/chunks/[name].[chunkhash].js'
-        : 'frontend/js/chunks/[name].js',
+      chunkFilename: mix.inProduction() ? 'frontend/js/chunks/[name].[chunkhash].js' : 'frontend/js/chunks/[name].js',
     },
     plugins: plugins,
   })
@@ -81,21 +74,21 @@ mix
   .options({
     postCss: [require('autoprefixer')],
   })
-  .extract([
-    'vue',
-    'vuex',
-    'vue-router',
-    'axios',
-    'bootstrap',
-    'nprogress',
-  ])
+  .extract(['vue', 'vuex', 'vue-router', 'axios', 'bootstrap', 'nprogress'])
   .eslint({
-    fix: !isProduction,
+    enforce: 'pre',
+    test: /\.(js|vue)$/, // will convert to /\.(js|vue)$/ or you can use /\.(js|vue)$/ by itself.
+    exclude: /node_modules/, // will convert to regexp and work. or you can use a regular expression like /node_modules/,
+    loader: 'eslint-loader',
+    options: {
+      fix: true,
+      cache: false,
+    },
   })
   .mergeManifest()
   .vue({ version: 2 });
 
-if (mix.inProduction()) {
+if (isProduction) {
   mix.version();
 } else {
   mix.sourceMaps().webpackConfig({

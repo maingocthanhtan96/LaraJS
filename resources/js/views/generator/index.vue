@@ -5,7 +5,10 @@
         <div slot="header" class="tw-flex tw-justify-between tw-items-center">
           <div />
           <button
-            class="hover:tw-bg-green-600 hover:tw-text-white tw-font-bold tw-border tw-rounded tw-border-green-600 tw-text-green-600 tw-bg-transparent tw-py-3 tw-px-4"
+            class="
+              hover:tw-bg-green-600 hover:tw-text-white
+              tw-font-bold tw-border tw-rounded tw-border-green-600 tw-text-green-600 tw-bg-transparent tw-py-3 tw-px-4
+            "
             @click="dialogVisible = true"
           >
             <svg-icon icon-class="tree-table" />

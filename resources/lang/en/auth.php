@@ -20,5 +20,5 @@ return [
     ],
     'forgot_password' => 'Forgot password',
     'reset_password' => 'Reset password',
-    'logout' => "Logout"
+    'logout' => 'Logout',
 ];

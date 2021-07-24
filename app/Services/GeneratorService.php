@@ -369,11 +369,15 @@ class GeneratorService extends BaseService
      */
     public function tableNameHandle($name)
     {
-        return preg_replace_callback('/(?:[A-Z]+)(?![a-z])/', function ($matches) {
-            foreach ($matches as $match) {
-                return ucfirst(strtolower($match));
-            }
-        }, $name);
+        return preg_replace_callback(
+            '/(?:[A-Z]+)(?![a-z])/',
+            function ($matches) {
+                foreach ($matches as $match) {
+                    return ucfirst(strtolower($match));
+                }
+            },
+            $name
+        );
     }
 
     /**

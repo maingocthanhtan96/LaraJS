@@ -495,10 +495,11 @@ class GeneratorController extends Controller
         }
         $basePath = base_path();
         Artisan::call('vue-i18n:generate');
+        exec("cd $basePath && ./swagger.sh");
+        exec("cd $basePath && node_modules/.bin/pretty-quick");
         // php artisan generate:erd /Applications/MAMP/htdocs/tanmnt/larajs/resources/js/assets/images/diagram-erd.png
         //        $resourcePath = resource_path('js/assets/images/diagram-erd.png');
         //        exec("cd $basePath && php artisan generate:erd $resourcePath");
-        exec("cd $basePath && ./swagger.sh");
         //        $this->_gitResetHEAD();
     }
 

@@ -17,7 +17,7 @@ return [
     'search' => 'Search',
     'sort' => 'Sort',
     'show' => 'Show',
-    'delete' => "Delete",
+    'delete' => 'Delete',
     'comment' => 'Comment',
 
     //form modal

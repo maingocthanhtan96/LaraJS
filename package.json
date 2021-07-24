@@ -29,19 +29,12 @@
     },
     "husky": {
         "hooks": {
-            "pre-commit": "lint-staged"
+            "pre-commit": "lint-staged && pretty-quick --staged"
         }
     },
     "lint-staged": {
         "resources/**/*.{js,vue}": [
-            "npm run eslint:fix",
-            "npm run prettier:fix"
-        ],
-        "resources/**/*.scss": [
-            "prettier --write resources/js/**/*.scss"
-        ],
-        "*.php": [
-            "npm run prettier:php"
+            "eslint resources/js/**/*.{js,vue} --fix"
         ]
     },
     "devDependencies": {
@@ -69,7 +62,7 @@
         "eslint-webpack-plugin": "^3.0.1",
         "husky": "^7.0.1",
         "laravel-mix": "^6.0.25",
-        "laravel-mix-eslint": "^0.2.0",
+        "laravel-mix-eslint-config": "^0.1.7",
         "laravel-mix-merge-manifest": "^2.0.0",
         "laravel-mix-purgecss": "^6.0.0",
         "lint-staged": "^11.1.0",
@@ -78,6 +71,7 @@
         "path-browserify": "^1.0.1",
         "postcss": "^8.3.6",
         "prettier": "^2.3.2",
+        "pretty-quick": "^3.1.1",
         "resolve-url-loader": "^4.0.0",
         "sass-loader": "^12.1.0",
         "script-loader": "^0.7.2",

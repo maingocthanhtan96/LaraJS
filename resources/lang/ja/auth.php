@@ -25,6 +25,6 @@ return [
     'logout' => 'ログアウト',
     'role' => [
         'manager' => 'サイト運営者',
-        'viewer' => 'サイト閲覧者'
-    ]
+        'viewer' => 'サイト閲覧者',
+    ],
 ];

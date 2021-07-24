@@ -9,5 +9,5 @@ return [
     'warning' => 'Warning',
     'success' => 'Success',
     'error' => 'Error',
-    'info' => 'Info'
+    'info' => 'Info',
 ];

@@ -4,7 +4,10 @@
       <el-card>
         <div slot="header" class="tw-text-center">
           <button
-            class="tw-hover:bg-green-600 tw-hover:text-white tw-font-bold tw-border tw-rounded tw-border-green-600 tw-text-green-600 tw-bg-transparent tw-py-3 tw-px-4"
+            class="
+              tw-hover:bg-green-600 tw-hover:text-white
+              tw-font-bold tw-border tw-rounded tw-border-green-600 tw-text-green-600 tw-bg-transparent tw-py-3 tw-px-4
+            "
             @click="dialogVisible = true"
           >
             <svg-icon icon-class="tree" />
