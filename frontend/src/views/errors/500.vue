@@ -1,17 +1,15 @@
 <template>
   <div class="tw-h-screen">
-      <div id="notfound">
-        <div class="notfound">
-          <div class="notfound-404">
-            <h1>Oops!</h1>
-          </div>
-          <h2>500 - Server error</h2>
-          <p>
-            The page you are looking for might have been removed had its name changed or is temporarily unavailable.
-          </p>
-          <router-link :to="{ path: $store.state.settings.redirect }">Go To Homepage</router-link>
+    <div id="notfound">
+      <div class="notfound">
+        <div class="notfound-404">
+          <h1>Oops!</h1>
         </div>
+        <h2>500 - Server error</h2>
+        <p>The page you are looking for might have been removed had its name changed or is temporarily unavailable.</p>
+        <router-link :to="{ path: $store.state.settings.redirect }">Go To Homepage</router-link>
       </div>
+    </div>
   </div>
 </template>
 

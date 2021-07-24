@@ -12,6 +12,7 @@ module.exports = {
     es6: true,
   },
   extends: ['plugin:vue/recommended', 'eslint:recommended'],
+  plugins: ['prettier'],
   rules: {
     'arrow-parens': [2, 'as-needed'],
     'array-bracket-spacing': [2, 'never'],
@@ -209,15 +210,7 @@ module.exports = {
       2,
       'always',
       {
-        markers: [
-          'global',
-          'globals',
-          'eslint',
-          'eslint-disable',
-          '*package',
-          '!',
-          ',',
-        ],
+        markers: ['global', 'globals', 'eslint', 'eslint-disable', '*package', '!', ','],
       },
     ],
     'template-curly-spacing': [2, 'never'],

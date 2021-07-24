@@ -12,6 +12,7 @@ module.exports = {
     es6: true,
   },
   extends: ['plugin:vue/recommended', 'eslint:recommended'],
+  plugins: ['prettier'],
   rules: {
     'arrow-parens': [2, 'as-needed'],
     'array-bracket-spacing': [2, 'never'],

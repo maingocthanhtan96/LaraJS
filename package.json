@@ -23,18 +23,18 @@
         "prod.js.report": "mix --production --mix-config=webpack-js.mix.js -- --env --report",
         "dev-fe.report": "mix --report --mix-config=webpack-frontend.mix.js",
         "prod-fe.report": "mix --production --report --mix-config=webpack-frontend.mix.js",
-        "eslint:fix": "eslint resources/js/**/*.{js,vue} --fix",
-        "prettier:fix": "prettier --write resources/js/**/*.{js,vue}",
+        "lint": "lint-staged",
+        "eslint:fix": "eslint 'resources/js/**/*.{js,vue}' --fix",
+        "prettier:fix": "prettier --write 'resources/js/**/*.{js,vue}'",
+        "prettier:quick": "pretty-quick --staged",
         "prettier:php": "prettier --write {app,config,database,resources,routes}/**/*.php"
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "lint-staged && pretty-quick --staged"
-        }
     },
     "lint-staged": {
         "resources/**/*.{js,vue}": [
-            "eslint resources/js/**/*.{js,vue} --fix"
+            "eslint 'resources/js/**/*.{js,vue}' --fix"
+        ],
+        "frontend/src/**/*.{js,vue}": [
+            "eslint 'frontend/src/**/*.{js,vue}' --fix"
         ]
     },
     "devDependencies": {

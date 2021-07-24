@@ -1,0 +1,4 @@
+# Ignore public path
+public
+# Ignore node_modules path
+node_modules/**
