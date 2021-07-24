@@ -45,7 +45,6 @@ class ControllerGenerator extends BaseGenerator
         $templateData = str_replace('{{CONTROLLER_CLASS}}', $model['name'], $templateData);
         $templateData = str_replace('{{MODAL_CLASS}}', $model['name'], $templateData);
         $templateData = str_replace('{{LIMIT}}', $model['limit'], $templateData);
-        $templateData = str_replace('{{COLUMN_SORT}}', '[' . $this->generateColumnSoft($fields, $model) . ']', $templateData);
         $templateData = str_replace('{{COLUMN_SEARCH}}', '[' . $this->generateColumnSearch($fields) . ']', $templateData);
         $templateData = str_replace('{{COLUMN_RELATIONSHIP}}', '[]', $templateData);
         $templateData = str_replace('{{MODAL_CLASS_PARAM}}', \Str::camel($model['name']), $templateData);
@@ -63,22 +62,6 @@ class ControllerGenerator extends BaseGenerator
         $column = [];
         foreach ($fields as $field) {
             if ($field['show'] && $field['search']) {
-                $column[] = "'" . $field['field_name'] . "'";
-            }
-        }
-
-        return implode($this->serviceGenerator->infy_nl_tab(0, 0) . ', ', $column);
-    }
-
-    /**
-     * @param $fields
-     * @return string
-     */
-    private function generateColumnSoft($fields): string
-    {
-        $column = [];
-        foreach ($fields as $field) {
-            if ($field['show'] && $field['sort']) {
                 $column[] = "'" . $field['field_name'] . "'";
             }
         }

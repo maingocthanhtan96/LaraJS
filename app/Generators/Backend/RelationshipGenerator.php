@@ -286,21 +286,7 @@ class RelationshipGenerator extends BaseGenerator
     {
         $configOptions = config('generator.relationship.options');
         foreach ($options as $option) {
-            if ($option === $configOptions['sort']) {
-                $columns = '$queryService->order = [';
-                $templateColumns = $this->serviceGenerator->searchTemplate($columns, '];', strlen($columns), -strlen($columns), $templateDataReal);
-                if (!$templateColumns) {
-                    return false;
-                }
-                $commaColumns = ',';
-                if (\Str::endsWith($templateColumns, ',') || strlen($templateColumns) === strlen($columns)) {
-                    $commaColumns = '';
-                }
-                $columnDidGenerate = "'" . \Str::snake($modelRelationship) . self::_ID . "'";
-                $templateDataReal = str_replace("$templateColumns]", "$templateColumns" . "$commaColumns" . "$columnDidGenerate]", $templateDataReal);
-                $templateDataReal = str_replace("$templateColumns]", "$templateColumns" . "$commaColumns" . "$columnDidGenerate]", $templateDataReal);
-                //columnWith
-            } elseif ($option === $configOptions['show']) {
+            if ($option === $configOptions['show']) {
                 $columnsWith = '$queryService->withRelationship = [';
                 $templateColumnWith = $this->serviceGenerator->searchTemplate($columnsWith, '];', 0, 0, $templateDataReal);
                 if (!$templateColumnWith) {

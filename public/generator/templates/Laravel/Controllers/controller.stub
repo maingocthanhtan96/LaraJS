@@ -48,7 +48,6 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
 
 			$queryService = new QueryService(new {{MODAL_CLASS}});
             $queryService->select = [];
-			$queryService->order = {{COLUMN_SORT}};
             $queryService->columnSearch = {{COLUMN_SEARCH}};
             $queryService->withRelationship = {{COLUMN_RELATIONSHIP}};
             $queryService->search = $search;
