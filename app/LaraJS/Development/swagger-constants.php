@@ -6,4 +6,3 @@ $dotenv->load();
 $url = $_ENV['APP_URL'];
 define('API_HOST', "$url/api");
 define('API_HOST_V1', "$url/api/v1");
-define('API_HOST_V2', "$url/api/v2");

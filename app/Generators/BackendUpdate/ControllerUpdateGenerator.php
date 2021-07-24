@@ -9,16 +9,15 @@ use Carbon\Carbon;
 
 class ControllerUpdateGenerator extends BaseGenerator
 {
-    /** @var $service */
-    public $serviceGenerator;
+    /** @var GeneratorService $service */
+    public GeneratorService $serviceGenerator;
 
-    /** @var $service */
-    public $serviceFile;
+    /** @var FileService $service */
+    public FileService $serviceFile;
 
     /** @var string */
     public $path;
 
-    const QS_ORDER = '$queryService->order';
     const QS_COLUMNS_SEARCH = '$queryService->columnSearch';
 
     public function __construct($model, $updateFields)
@@ -86,7 +85,6 @@ class ControllerUpdateGenerator extends BaseGenerator
             return $templateDataReal;
         }
 
-        $templateColumns = $this->serviceGenerator->searchTemplate(self::QS_ORDER, '];', strlen(self::QS_ORDER) + 4, -strlen(self::QS_ORDER) - 4, $templateDataReal, self::QS_ORDER . ' =');
         $templateColumnsSearch = $this->serviceGenerator->searchTemplate(
             self::QS_COLUMNS_SEARCH,
             '];',
@@ -96,7 +94,7 @@ class ControllerUpdateGenerator extends BaseGenerator
             self::QS_COLUMNS_SEARCH . ' ='
         );
 
-        if (!$templateColumns || !$templateColumnsSearch) {
+        if (!$templateColumnsSearch) {
             return $templateDataReal;
         }
 
@@ -104,9 +102,6 @@ class ControllerUpdateGenerator extends BaseGenerator
         $commaSearch = ', ';
         $columns = '';
         $columnsSearch = '';
-        if (\Str::endsWith($templateColumns, ',') || \Str::endsWith($templateColumns, ', ')) {
-            $comma = '';
-        }
         foreach ($updateFields as $index => $update) {
             if ($update['sort']) {
                 $columns .= $comma . "'" . $update['field_name'] . "'";
@@ -120,12 +115,8 @@ class ControllerUpdateGenerator extends BaseGenerator
                 $columnsSearch .= $commaSearch . "'" . $update['field_name'] . "'";
             }
         }
-        $selfColumns = self::QS_ORDER;
         $selfColumnsSearch = self::QS_COLUMNS_SEARCH;
-        $templateDataReal = str_replace("$selfColumns = [" . $templateColumns . ']', "$selfColumns = [" . $templateColumns . $columns . ']', $templateDataReal);
-        $templateDataReal = str_replace("$selfColumnsSearch = [" . $templateColumnsSearch . ']', "$selfColumnsSearch = [" . $templateColumnsSearch . $columnsSearch . ']', $templateDataReal);
-
-        return $templateDataReal;
+        return str_replace("$selfColumnsSearch = [" . $templateColumnsSearch . ']', "$selfColumnsSearch = [" . $templateColumnsSearch . $columnsSearch . ']', $templateDataReal);
     }
 
     private function changeUpdateFields($changeFields, $templateDataReal)
@@ -133,9 +124,7 @@ class ControllerUpdateGenerator extends BaseGenerator
         if (empty($changeFields)) {
             return $templateDataReal;
         }
-        $fieldsGeneratorColumn = [];
         $fieldsGeneratorColumnSearch = [];
-        $templateColumns = $this->serviceGenerator->searchTemplate(self::QS_ORDER, '];', strlen(self::QS_ORDER) + 4, -strlen(self::QS_ORDER) - 4, $templateDataReal, self::QS_ORDER . ' =');
 
         $templateColumnsSearch = $this->serviceGenerator->searchTemplate(
             self::QS_COLUMNS_SEARCH,
@@ -146,29 +135,14 @@ class ControllerUpdateGenerator extends BaseGenerator
             self::QS_COLUMNS_SEARCH . ' ='
         );
 
-        if (!$templateColumns || !$templateColumnsSearch) {
+        if (!$templateColumnsSearch) {
             return $templateDataReal;
         }
 
-        $arrayColumns = explode(',', $templateColumns);
         $arrayColumnsSearch = explode(',', $templateColumnsSearch);
         $arrayChange = \Arr::pluck($changeFields, 'field_name');
 
         foreach ($changeFields as $change) {
-            foreach ($arrayColumns as $sort) {
-                $sort = trim($sort);
-                $trimSort = $this->serviceGenerator->trimQuotes($sort);
-                if ($change['field_name'] === $trimSort) {
-                    if ($change['sort']) {
-                        $fieldsGeneratorColumn[] = "'" . $change['field_name'] . "'";
-                    }
-                } else {
-                    $nameTrimSort = "'" . $trimSort . "'";
-                    if (!in_array($nameTrimSort, $fieldsGeneratorColumn) && !in_array($nameTrimSort, $arrayChange)) {
-                        $fieldsGeneratorColumn[] = $nameTrimSort;
-                    }
-                }
-            }
             foreach ($arrayColumnsSearch as $search) {
                 $search = trim($search);
                 $trimSort = $this->serviceGenerator->trimQuotes($search);
@@ -185,19 +159,11 @@ class ControllerUpdateGenerator extends BaseGenerator
             }
         }
 
-        $selfColumns = self::QS_ORDER;
         $selfColumnsSearch = self::QS_COLUMNS_SEARCH;
-        $templateDataReal = str_replace(
-            "$selfColumns = [" . $templateColumns . ']',
-            "$selfColumns = [" . implode($this->serviceGenerator->infy_nl_tab(0, 0) . ', ', $fieldsGeneratorColumn) . ']',
-            $templateDataReal
-        );
-        $templateDataReal = str_replace(
+        return str_replace(
             "$selfColumnsSearch = [" . $templateColumnsSearch . ']',
             "$selfColumnsSearch = [" . implode($this->serviceGenerator->infy_nl_tab(0, 0) . ', ', $fieldsGeneratorColumnSearch) . ']',
             $templateDataReal
         );
-
-        return $templateDataReal;
     }
 }
