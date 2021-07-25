@@ -8,7 +8,7 @@
           </div>
           <h2>401 - Page authentication</h2>
           <p>You not permission.</p>
-          <router-link :to="{ name: 'login' }">Go To Login</router-link>
+          <router-link :to="{ name: 'Login' }">Go To Login</router-link>
         </div>
       </div>
     </el-main>

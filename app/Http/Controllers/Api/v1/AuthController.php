@@ -2,23 +2,17 @@
 
 namespace App\Http\Controllers\Api\v1;
 
-use Illuminate\Contracts\Auth\CanResetPassword;
+use App\Models\PasswordReset;
+use App\Models\User;
+use App\Notifications\MailResetPasswordNotification;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
-use Illuminate\Foundation\Auth\ResetsPasswords;
-use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Response;
 
 class AuthController extends Controller
 {
-    use SendsPasswordResetEmails, ResetsPasswords {
-        SendsPasswordResetEmails::broker insteadof ResetsPasswords;
-        ResetsPasswords::credentials insteadof SendsPasswordResetEmails;
-    }
-
     /**
      * @param Request $request
      * @return JsonResponse
@@ -170,84 +164,61 @@ class AuthController extends Controller
     }
 
     /**
-     * Get the response for a successful password reset link.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param string $response
-     * @return RedirectResponse|JsonResponse
-     */
-    protected function sendResetLinkResponse(Request $request, string $response)
-    {
-        return $this->jsonMessage(trans($response));
-    }
-
-    /**
-     * Get the response for a failed password reset link.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param string $response
-     * @return RedirectResponse|JsonResponse
-     */
-    protected function sendResetLinkFailedResponse(Request $request, string $response)
-    {
-        return $this->jsonMessage(trans($response), false, Response::HTTP_INTERNAL_SERVER_ERROR);
-    }
-
-    /**
      * Send password reset link.
      * @param Request $request
-     * @return JsonResponse|RedirectResponse
+     * @return JsonResponse
      */
-    public function forgotPassword(Request $request)
+    public function forgotPassword(Request $request): JsonResponse
     {
-        return $this->sendResetLinkEmail($request);
-    }
+        try {
+            $email = $request->get('email');
+            $user = User::where('email', $email)->first();
+            if (!$user) {
+                return $this->jsonError(trans('passwords.user'));
+            }
+            $passwordReset = PasswordReset::firstOrNew(['email' => $email]);
+            $passwordReset->email = $email;
+            $passwordReset->token = \Str::random(60);
+            $passwordReset->created_at = now();
+            $passwordReset->save();
+            $user->notify(new MailResetPasswordNotification($passwordReset->token));
 
-    /**
-     * Handle reset password
-     * @param Request $request
-     * @return JsonResponse|RedirectResponse
-     */
-    public function callResetPassword(Request $request)
-    {
-        return $this->reset($request);
+            return $this->jsonMessage(trans('passwords.sent'));
+        } catch (\Exception $e) {
+            return $this->jsonError($e);
+        }
     }
 
     /**
      * Reset the given user's password.
      *
-     * @param CanResetPassword $user
-     * @param string $password
-     * @return void
+     * @param Request $request
+     * @return JsonResponse
      */
-    protected function resetPassword(CanResetPassword $user, string $password)
+    protected function resetPassword(Request $request): JsonResponse
     {
-        $user->password = $password;
-        $user->save();
-        event(new PasswordReset($user));
-    }
+        $request->validate([
+            'token' => 'required',
+            'password' => 'required|min:8|confirmed',
+        ]);
+        try {
+            $passwordReset = PasswordReset::where('token', $request->get('token'))->first();
+            if (
+                Carbon::parse($passwordReset->created_at)
+                    ->addMinutes(PasswordReset::EXPIRE_TOKEN)
+                    ->isPast() ||
+                !$passwordReset
+            ) {
+                return $this->jsonMessage(trans('passwords.token'), false);
+            }
+            $user = User::where('email', $passwordReset->email)->firstOrFail();
+            $user->password = $request->get('password');
+            $user->save();
+            PasswordReset::where('token', $request->get('token'))->delete();
 
-    /**
-     * Get the response for a successful password reset.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param string $response
-     * @return RedirectResponse|JsonResponse
-     */
-    protected function sendResetResponse(Request $request, string $response)
-    {
-        return $this->jsonMessage(trans($response));
-    }
-
-    /**
-     * Get the response for a failed password reset.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param string $response
-     * @return RedirectResponse|JsonResponse
-     */
-    protected function sendResetFailedResponse(Request $request, string $response)
-    {
-        return $this->jsonMessage(trans($response), false, 401);
+            return $this->jsonMessage(trans('passwords.reset'));
+        } catch (\Exception $e) {
+            return $this->jsonError($e);
+        }
     }
 }

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Generator extends Model
+class Generator extends BaseModel
 {
     use SoftDeletes;
 

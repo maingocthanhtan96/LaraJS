@@ -3,7 +3,7 @@
 // Send reset password mail
 Route::post('/forgot-password', 'AuthController@forgotPassword');
 // Handle reset password form process
-Route::post('/reset-password', 'AuthController@callResetPassword');
+Route::post('/reset-password', 'AuthController@resetPassword');
 // START - Auth
 Route::post('/logging', 'AuthController@logging');
 Route::post('/fe-login', 'AuthController@feLogin');

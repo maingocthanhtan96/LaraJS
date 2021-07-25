@@ -58,7 +58,7 @@ export default {
     checkPermission,
     logout() {
       this.$store.dispatch(`user/${LOGOUT}`).then(() => {
-        this.$router.push({ name: 'login' });
+        this.$router.push({ name: 'Login' });
       });
     },
     toggleSideBar() {

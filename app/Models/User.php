@@ -78,14 +78,5 @@ class User extends Authenticatable
         return false;
     }
 
-    /**
-     * Override the mail body for reset password notification mail.
-     * @param $token
-     */
-    public function sendPasswordResetNotification($token)
-    {
-        $this->notify(new \App\Notifications\MailResetPasswordNotification($token));
-    }
-
     //{{RELATIONS_NOT_DELETE_THIS_LINE}}
 }

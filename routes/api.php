@@ -18,14 +18,6 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => 'optimizeImages
 Route::group(['namespace' => 'Api'], function () {
     Route::get('/language/{language}', 'LangController@setLanguage');
     Route::group(['middleware' => 'auth:api'], function () {
-        // FILE
-        Route::middleware('optimizeImages')->group(function () {
-            // all images will be optimized automatically
-            Route::post('upload-file/store', 'FileController@store');
-            Route::post('upload-file/store-avatar', 'FileController@storeAvatar');
-            Route::get('upload-file/remove', 'FileController@remove');
-        });
-
         // role Admin (Super admin)
         Route::group(['middleware' => 'role:' . \ACL::ROLE_ADMIN], function () {
             Route::group(['prefix' => 'generators'], function () {

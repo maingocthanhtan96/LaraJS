@@ -73,6 +73,7 @@ export default {
               message: res.data.message,
               type: 'success',
             });
+            this.$router.replace({ name: 'Login' });
             this.loadingSendEmail = false;
           })
           .catch(() => {

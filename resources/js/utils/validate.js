@@ -74,7 +74,7 @@ export function isString(str) {
 }
 
 /**
- * @param {Array} arg
+ * @param {string|array} arg
  * @returns {Boolean}
  */
 export function isArray(arg) {

@@ -8,7 +8,7 @@ import settings from '@fe/settings';
 const { errorLog: needErrorLog } = settings;
 
 function checkNeed() {
-  const env = process.env.MIX_APP_ENV;
+  const env = process.env.NODE_ENV;
   if (isString(needErrorLog)) {
     return env === needErrorLog;
   }

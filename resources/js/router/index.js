@@ -34,19 +34,19 @@ export const constantRouterMap = [
   // {{$ROUTE_CONSTANT_NOT_DELETE_THIS_LINE$}},
   {
     path: '/login',
-    name: 'login',
+    name: 'Login',
     hidden: true,
     component: () => import('@/views/auth/Login'),
   },
   {
     path: '/reset-password',
-    name: 'reset-password',
+    name: 'ResetPassword',
     hidden: true,
     component: () => import('@/views/auth/ForgotPassword'),
   },
   {
     path: '/reset-password/:token',
-    name: 'reset-password-form',
+    name: 'ResetPasswordToken',
     hidden: true,
     component: () => import('@/views/auth/ResetPasswordForm'),
   },

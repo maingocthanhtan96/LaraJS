@@ -3,14 +3,11 @@
     <el-row class="reset-password">
       <el-col :xs="24" :sm="24" :lg="24" :xl="24">
         <el-card>
-          <div slot="header" class="text-center">
+          <div slot="header" class="tw-text-center">
             {{ $t('auth.reset_password') }}
           </div>
           <div>
             <el-form ref="resetForm" :model="form" :rules="rules">
-              <el-form-item :label="$t('auth.login.email')" prop="email" required>
-                <el-input v-model="form.email" type="text" autocomplete="off" />
-              </el-form-item>
               <el-form-item
                 data-generator="password"
                 required
@@ -47,7 +44,6 @@
 
 <script>
 import { callResetPassword } from '@/api/v1/auth';
-import { validEmail } from '@/utils/validate';
 
 export default {
   data() {
@@ -91,39 +87,22 @@ export default {
     return {
       form: {
         token: this.$route.params.token,
-        email: '',
         password: '',
         password_confirmation: '',
       },
       loadingResetPassword: false,
       rules: {
-        email: [
+        password: [
+          { validator: password, trigger: ['change', 'blur'] },
           {
-            validator: (rule, value, cb) => {
-              if (!value) {
-                cb(
-                  new Error(
-                    this.$t('validation.required', {
-                      attribute: this.$t('table.user.email'),
-                    })
-                  )
-                );
-              } else if (!validEmail(value)) {
-                cb(
-                  new Error(
-                    this.$t('validation.email', {
-                      attribute: this.$t('table.user.email'),
-                    })
-                  )
-                );
-              } else {
-                cb();
-              }
-            },
-            trigger: ['blur', 'change'],
+            min: 8,
+            message: this.$t('validation.min.string', {
+              attribute: this.$t('table.user.password'),
+              min: 8,
+            }),
+            trigger: ['change', 'blur'],
           },
         ],
-        password: [{ validator: password, trigger: ['change', 'blur'] }],
         password_confirmation: [{ validator: passwordConfirm, trigger: ['change', 'blur'] }],
       },
     };
@@ -137,7 +116,7 @@ export default {
         this.loadingResetPassword = true;
         callResetPassword(this.form)
           .then(res => {
-            this.$router.push({ name: 'login' });
+            this.$router.replace({ name: 'Login' });
             this.$message({
               showClose: true,
               message: res.data.message,

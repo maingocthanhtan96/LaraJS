@@ -40,7 +40,7 @@ export function logout() {
 
 export function sendPasswordResetLink(form) {
   return request({
-    url: '/forgot-password',
+    url: '/v1/forgot-password',
     method: 'post',
     data: form,
   });
