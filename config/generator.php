@@ -199,6 +199,7 @@ return [
                 'rules' => '// {{$RULES_NOT_DELETE_THIS_LINE$}}',
                 'import_component' => '// {{$IMPORT_COMPONENT_NOT_DELETE_THIS_LINE$}}',
                 'import_component_name' => '// {{$IMPORT_COMPONENT_NAME_NOT_DELETE_THIS_LINE$}}',
+                'created' => '// {{$CREATED_NOT_DELETE_THIS_LINE$}}',
                 'methods' => '// {{$METHODS_NOT_DELETE_THIS_LINE$}}',
                 'data' => '// {{$DATA_NOT_DELETE_THIS_LINE$}}',
                 'stringify' => '// {{$FILE_JSON_STRINGIFY_NOT_DELETE_THIS_LINE$}}',

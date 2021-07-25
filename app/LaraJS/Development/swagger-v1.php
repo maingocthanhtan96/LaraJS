@@ -13,11 +13,7 @@
  *   ),
  * )
  *
- * @OA\Server(url=API_HOST, description="Base Api")
- *
  * @OA\Server(url=API_HOST_V1, description="Api v1")
- *
- * @OA\Server(url=API_HOST_V2, description="Api v2")
  *
  * @OA\SecurityScheme(
  *     type="http",

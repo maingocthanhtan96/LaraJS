@@ -140,7 +140,7 @@ export default {
   mixins: [DateRangePicker],
   data() {
     return {
-      diagram: require('@/assets/images/diagram-erd.png').default,
+      diagram: '/images/diagram-erd.png',
       dialogVisible: false,
       table: {
         listQuery: {

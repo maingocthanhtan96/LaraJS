@@ -26,16 +26,15 @@ class RelationshipGenerator extends BaseGenerator
     public $relationship;
 
     /** @var array */
-    public $tableCurrent;
+    public array $tableCurrent;
 
     /** @var array */
-    public $tableDiff;
+    public array $tableDiff;
 
     const REF_UPPER = 'Ref';
     const _REF_LOWER = 'ref_';
     const SORT_COLUMN = 'sortable="custom"';
     const _ID = '_id';
-    const MOUNTED = 'created() {';
 
     public function __construct($relationship, $model, $modelCurrent, $column, $column2, $options)
     {
@@ -190,12 +189,11 @@ class RelationshipGenerator extends BaseGenerator
 
     private function _generateAddApi($model, $modelRelationship, $templateDataReal, $notDelete)
     {
-        $mountedStub = self::MOUNTED;
         $stubGetData = $this->serviceGenerator->get_template('getDataRelationship', 'Handler/', 'vuejs');
         $stubGetData = str_replace('{{$MODEL$}}', \Str::camel($model), $stubGetData);
         $stubGetData = str_replace('{{$MODEL_RELATIONSHIP$}}', \Str::camel($model), $stubGetData);
         $stubGetData = str_replace('{{$MODEL_UPPERCASE$}}', ucfirst(\Str::camel($model)), $stubGetData);
-        $templateDataReal = str_replace($mountedStub, $mountedStub . $this->serviceGenerator->infy_nl_tab(1, 2, 2) . $stubGetData, $templateDataReal);
+        $templateDataReal = $this->serviceGenerator->replaceNotDelete($notDelete['created'], $stubGetData, 0, $templateDataReal, 2);
         $templateDataReal = $this->serviceGenerator->replaceNotDelete($notDelete['data'], \Str::camel($model) . 'List: [],', 3, $templateDataReal, 2);
         $importStub =
             'import ' .

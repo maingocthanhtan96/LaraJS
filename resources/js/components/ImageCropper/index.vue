@@ -147,11 +147,6 @@ export default {
     value: {
       default: true,
     },
-    // URL to upload
-    url: {
-      type: String,
-      default: 'upload-file/store-avatar',
-    },
     // Other data to be uploaded along with file, as in object format
     params: {
       type: Object,
@@ -393,7 +388,7 @@ export default {
     // Close control
     off() {
       setTimeout(() => {
-        this.$emit('input', false);
+        this.$emit('input', '');
         this.$emit('close');
         if (this.step === 3 && this.loading === 2) {
           this.setStep(1);
@@ -729,53 +724,22 @@ export default {
       that.createImgUrl = canvas.toDataURL(mime);
     },
     prepareUpload() {
-      const { url, createImgUrl, field, ki } = this;
+      const { createImgUrl, field, ki } = this;
       this.$emit('crop-success', createImgUrl, field, ki);
-      if (typeof url === 'string' && url) {
-        this.upload();
-      } else {
-        this.off();
-      }
+      this.upload();
     },
     // Upload image
     upload() {
-      const that = this;
-      const { lang, imgFormat, mime, url, params, headers, field, ki, createImgUrl, withCredentials } = this;
-      const fmData = new FormData();
-      fmData.append(field, data2blob(createImgUrl, mime), field + '.' + imgFormat);
-      // Add other paramaters
-      if (typeof params === 'object' && params) {
-        Object.keys(params).forEach(k => {
-          fmData.append(k, params[k]);
-        });
-      }
-      // Monitor progress callback
-      const uploadProgress = function (event) {
-        if (event.lengthComputable) {
-          that.progress = (100 * Math.round(event.loaded)) / event.total;
-        }
-      };
+      const { mime, createImgUrl, field, imgFormat } = this;
       // Upload files
-      that.reset();
-      that.loading = 1;
-      that.setStep(3);
-      request({
-        url,
-        method: 'post',
-        data: fmData,
-      })
-        .then(resData => {
-          that.loading = 2;
-          that.$emit('crop-upload-success', resData.data);
-        })
-        .catch(err => {
-          if (that.value) {
-            that.loading = 3;
-            that.hasError = true;
-            that.errorMsg = lang.fail;
-            that.$emit('crop-upload-fail', err, field, ki);
-          }
-        });
+      this.reset();
+      this.loading = 1;
+      this.setStep(3);
+      this.loading = 2;
+      this.$emit('crop-upload-success', {
+        file: data2blob(createImgUrl, mime),
+        name: field + '.' + imgFormat,
+      });
     },
   },
   created() {

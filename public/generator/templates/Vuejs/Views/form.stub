@@ -75,6 +75,7 @@ export default {
     try {
       this.loading.form = true;
       const { id } = this.$route.params;
+      // {{$CREATED_NOT_DELETE_THIS_LINE$}}
       if (id) {
         const {
           data: { data: {{$CONST_MODEL_CLASS$}} },
@@ -95,7 +96,6 @@ export default {
     },
   },
   methods: {
-    // {{$METHODS_NOT_DELETE_THIS_LINE$}}
     store({{$REF_MODEL_CLASS$}}) {
       this.$refs[{{$REF_MODEL_CLASS$}}].validate((valid, errors) => {
         if (this.scrollToError(valid, errors)) {

@@ -27,9 +27,10 @@
             data-generator="avatar"
             :error="errors.avatar && errors.avatar[0]"
             :label="$t('table.user.avatar')"
+            required
             prop="avatar"
           >
-            <pan-thumb :image="form.avatar" class-img="bg-white">
+            <pan-thumb :image="form.avatar">
               <el-button type="primary" icon="el-icon-upload" @click="imageCropperShow = true" />
             </pan-thumb>
             <image-cropper
@@ -37,15 +38,10 @@
               :key="imageCropperKey"
               :width="300"
               :height="300"
-              url="upload-file/store-avatar"
-              :params="{
-                fileOld: $route.params.id ? (fileOld ? fileOld : '') : fileOld,
-              }"
-              field="file"
+              :source-img-url="form.avatar"
               lang-type="en"
               @close="close"
               @crop-upload-success="cropSuccess"
-              @crop-upload-fail="cropError"
             />
           </el-form-item>
           <el-form-item data-generator="role_id" :label="$t('table.user.role')" required prop="role_id">
@@ -118,7 +114,7 @@ export default {
       form: {
         name: '',
         email: '',
-        avatar: require('@/assets/images/avatar-default.png').default,
+        avatar: '',
         role_id: '',
         password: '',
         password_confirmation: '',
@@ -130,6 +126,7 @@ export default {
       fileOld: '',
       imageCropperShow: false,
       imageCropperKey: 0,
+      formData: new FormData(),
       // {{$DATA_NOT_DELETE_THIS_LINE$}}
     };
   },
@@ -218,18 +215,11 @@ export default {
         ],
         avatar: [
           {
-            validator: (rule, value, cb) => {
-              value
-                ? cb()
-                : cb(
-                    new Error(
-                      this.$t('validation.required', {
-                        attribute: this.$t('table.user.avatar'),
-                      })
-                    )
-                  );
-            },
-            trigger: 'blur',
+            required: true,
+            message: this.$t('validation.required', {
+              attribute: this.$t('table.user.avatar'),
+            }),
+            trigger: ['change', 'blur'],
           },
         ],
         role_id: [
@@ -277,9 +267,14 @@ export default {
     }
   },
   methods: {
-    // {{$METHODS_NOT_DELETE_THIS_LINE$}}
+    appendToFormData() {
+      this.formData.set('name', this.form.name);
+      this.formData.set('email', this.form.email);
+      this.formData.set('role_id', this.form.role_id);
+      this.formData.set('password', this.form.password);
+      this.formData.set('password_confirmation', this.form.password_confirmation);
+    },
     store(users) {
-      // {{$FILE_JSON_STRINGIFY_NOT_DELETE_THIS_LINE$}}
       this.$refs[users].validate(async (valid, errors) => {
         if (this.scrollToError(valid, errors)) {
           return;
@@ -291,14 +286,15 @@ export default {
           center: true,
         }).then(async () => {
           this.loading.button = true;
-          await userResource.store(this.form);
+          this.appendToFormData();
+          await userResource.store(this.formData);
           this.$message({
             showClose: true,
             message: this.$t('messages.create'),
             type: 'success',
           });
           this.loading.button = false;
-          this.$router.push({ name: 'User' });
+          await this.$router.push({ name: 'User' });
         });
       });
     },
@@ -308,7 +304,6 @@ export default {
       });
     },
     update(users) {
-      // {{$FILE_JSON_STRINGIFY_NOT_DELETE_THIS_LINE$}}
       this.$refs[users].validate(async (valid, errors) => {
         if (this.scrollToError(valid, errors)) {
           return;
@@ -321,30 +316,33 @@ export default {
         }).then(async () => {
           this.loading.button = true;
           delete this.form.password;
-          await userResource.update(this.$route.params.id, this.form);
+          this.appendToFormData();
+          this.formData.set('_method', 'PUT');
+          await userResource.update(this.$route.params.id, this.formData);
           this.$message({
             showClose: true,
             message: this.$t('messages.update'),
             type: 'success',
           });
           this.loading.button = false;
-          this.$router.push({ name: 'User' });
+          await this.$router.push({ name: 'User' });
         });
       });
     },
-    cropSuccess(resData) {
+    cropSuccess(file) {
+      console.log(file, 'file');
+      this.formData.set('avatar', file.file, file.name);
+      this.form.avatar = URL.createObjectURL(file.file);
       this.imageCropperShow = false;
       this.imageCropperKey = this.imageCropperKey + 1;
-      this.form.avatar = resData.data;
-      this.fileOld = resData.data;
-      this.$message({ message: this.$t('messages.upload'), type: 'success' });
-    },
-    cropError(error) {
-      const err = error.response.data.errors.file[0];
-      this.$message({ message: err, type: 'error' });
+      // this.form.avatar = resData.data;
+      // this.fileOld = resData.data;
+      // this.$message({ message: this.$t('messages.upload'), type: 'success' });
     },
     close() {
       this.imageCropperShow = false;
+      this.form.avatar = '';
+      this.formData.set('avatar', this.form.avatar);
     },
   },
 };

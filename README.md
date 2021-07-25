@@ -20,34 +20,39 @@
 </p>
 
 # LaraJS
-[LaraJS]() is a beautiful dashboard combination of [Laravel](https://laravel.com/), [Vue.js](https://github.com/vuejs/vue) and the UI Toolkit [Element](https://github.com/ElemeFE/element). Especially with the code generator function(create, edit, delete) with 100% api and a few other functions  
+
+[LaraJS]() is a beautiful dashboard combination of [Laravel](https://laravel.com/), [Vue.js](https://github.com/vuejs/vue) and the UI Toolkit [Element](https://github.com/ElemeFE/element). Especially with the code generator function(create, edit, delete) with 100% api and a few other functions
 
 ## Preparation
-** [Node](http://nodejs.org/)
 
-** [Git](https://git-scm.com/)
+\*\* [Node](http://nodejs.org/)
 
-** [Laravel](https://laravel.com/)
+\*\* [Git](https://git-scm.com/)
 
-** [Composer](https://getcomposer.org/)
+\*\* [Laravel](https://laravel.com/)
+
+\*\* [Composer](https://getcomposer.org/)
 
 The project is built on top of [Laravel](https://laravel.com), [vue](https://cn.vuejs.org/index.html), [vuex](https://vuex.vuejs.org/zh-cn/), [vue-router](https://router.vuejs.org/zh-cn/), [axios](https://github.com/axios/axios) and [element-ui](https://github.com/ElemeFE/element). Since this is positioned as an enterprise management solution, it is recommended to use it to start a project.
 
 ## API
+
 API will be served by Laravel. In this project, you need to run migration and data feeder to generate sample data for authentication/authorization, other APIs will be faked.
 
 ## Getting started
+
 This project is built on top of fresh latest version Laravel 8. You should check the installation guide of Laravel [here](https://laravel.com/docs/8.x)
 
 ## Built with
-* [Laravel](https://laravel.com/) - The PHP Framework For Web Artisans
-* [Laravel Passport](https://github.com/laravel/passport) - Laravel Sanctum provides a featherweight authentication system for SPAs and simple APIs.
-* [Laravel Permission](https://github.com/spatie/laravel-permission) - Associate users with permissions and roles.
-* [Swagger](https://github.com/zircote/swagger-php) - Generate interactive OpenAPI documentation for your RESTful API
-* [Laravel File Manager](https://github.com/UniSharp/laravel-filemanager) - Integration with [TinyMCE](https://www.tiny.cloud/docs/)
-* [VueJS](https://vuejs.org/) - The Progressive JavaScript Framework
-* [Element](https://element.eleme.io/) - A  Vue 2.0 based component library for developers, designers and product managers
-* [Vue Admin Template](https://github.com/PanJiaChen/vue-admin-template) - A minimal vue admin template with Element UI
+
+-   [Laravel](https://laravel.com/) - The PHP Framework For Web Artisans
+-   [Laravel Passport](https://github.com/laravel/passport) - Laravel Sanctum provides a featherweight authentication system for SPAs and simple APIs.
+-   [Laravel Permission](https://github.com/spatie/laravel-permission) - Associate users with permissions and roles.
+-   [Swagger](https://github.com/zircote/swagger-php) - Generate interactive OpenAPI documentation for your RESTful API
+-   [Laravel File Manager](https://github.com/UniSharp/laravel-filemanager) - Integration with [TinyMCE](https://www.tiny.cloud/docs/)
+-   [VueJS](https://vuejs.org/) - The Progressive JavaScript Framework
+-   [Element](https://element.eleme.io/) - A Vue 2.0 based component library for developers, designers and product managers
+-   [Vue Admin Template](https://github.com/PanJiaChen/vue-admin-template) - A minimal vue admin template with Element UI
 
 ```bash
 # Clone the project and run composer
@@ -55,9 +60,11 @@ git clone git remote add origin https://github.com/maingocthanhtan96/LaraJS.git
 
 # Init project
 # https://github.com/beyondcode/laravel-er-diagram-generator
-apt-get install -y graphviz #(For ubuntu Optional)
-brew install graphviz #(For macos Optional)
-# Run bash script (recommend)
+# Generate diagram erd (Optional)
+https://graphviz.org/download/ #(install graphviz)
+php artisan generate:erd public/images/diagram-erd.png
+
+# Run bash script to install project (recommend)
 chmod u+x setup.sh && ./setup.sh
 
 # OR hand install
@@ -82,7 +89,7 @@ php artisan vue-i18n:generate
 # Generate ide
 php artisan ide-helper:generate
 
-# Config Virtual host 
+# Config Virtual host
 Exemple: http://local.larajs.com
 # Generate Passport secret key
 php artisan passport:install
@@ -111,13 +118,13 @@ password: Admin@123!
 - Manager
 username: manager@larajs.com
 password: Admin@123!
-- Visitor 
+- Visitor
 username: visitor@larajs.com
 password: Admin@123!
-- Creator 
+- Creator
 username: creator@larajs.com
 password: Admin@123!
-- Editor 
+- Editor
 username: editor@larajs.com
 password: Admin@123!
 - Developer
@@ -126,6 +133,7 @@ password: Admin@123!
 ```
 
 ## Format code with prettier
-** In phpstorm install plugin prettier
 
-** On mac use shot key: shift + option + command + P
+\*\* In phpstorm install plugin prettier
+
+\*\* On mac use shot key: shift + option + command + P

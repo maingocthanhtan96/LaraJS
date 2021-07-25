@@ -14,16 +14,8 @@
     },
     "servers": [
         {
-            "url": "http://local.larajs.com/api",
-            "description": "Base Api"
-        },
-        {
             "url": "http://local.larajs.com/api/v1",
             "description": "Api v1"
-        },
-        {
-            "url": "http://local.larajs.com/api/v2",
-            "description": "Api v2"
         }
     ],
     "paths": {

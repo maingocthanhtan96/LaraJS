@@ -5,7 +5,7 @@
         <slot />
       </div>
     </div>
-    <img :src="image" class="pan-thumb" :class="classImg" />
+    <img v-show="image" :src="image" class="pan-thumb" :class="classImg" />
   </div>
 </template>
 

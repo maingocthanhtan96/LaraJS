@@ -83,7 +83,14 @@ class UserController extends Controller
     public function store(StoreUserRequest $request): JsonResponse
     {
         try {
-            $user = User::create($request->all());
+            $requestAll = $request->all();
+            if ($request->hasFile('avatar')) {
+                $disk = \Storage::disk();
+                $fileName = $disk->putFile(User::FOLDER_UPLOADS, $request->file('avatar'));
+                $url = $disk->url($fileName);
+                $requestAll['avatar'] = $url;
+            }
+            $user = User::create($requestAll);
             $user->assignRole($request->get('role_id'));
             //{{CONTROLLER_RELATIONSHIP_MTM_CREATE_NOT_DELETE_THIS_LINE}}
 
@@ -122,7 +129,18 @@ class UserController extends Controller
     public function update(StoreUserRequest $request, User $user): JsonResponse
     {
         try {
-            $user->update($request->all());
+            $requestAll = $request->all();
+            if ($request->hasFile('avatar')) {
+                $disk = \Storage::disk();
+                $fileUrl = parse_url($user->avatar, PHP_URL_PATH);
+                if ($disk->exists($fileUrl)) {
+                    $disk->delete($fileUrl);
+                }
+                $fileName = $disk->putFile(User::FOLDER_UPLOADS, $request->file('avatar'));
+                $url = $disk->url($fileName);
+                $requestAll['avatar'] = $url;
+            }
+            $user->update($requestAll);
             \DB::table('model_has_roles')
                 ->where('model_id', $user->id)
                 ->delete();
@@ -146,6 +164,11 @@ class UserController extends Controller
         try {
             if ($user->isAdmin()) {
                 return $this->jsonMessage(trans('error.is_admin'), false, 403);
+            }
+            $disk = \Storage::disk();
+            $fileUrl = parse_url($user->avatar, PHP_URL_PATH);
+            if ($disk->exists($fileUrl)) {
+                $disk->delete($fileUrl);
             }
             //{{CONTROLLER_RELATIONSHIP_MTM_DELETE_NOT_DELETE_THIS_LINE}}
             $user->delete();

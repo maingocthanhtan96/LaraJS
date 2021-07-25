@@ -657,6 +657,9 @@ export default {
       return arDbType.indexOf(dbType) !== -1;
     },
     checkModelMethod: debounce(function (cb) {
+      if (this.$route.params.id) {
+        cb();
+      }
       generatorResource.checkModel(this.formModel.name).then(res => {
         const { message } = res.data;
         if (message === 1) {
@@ -730,7 +733,7 @@ export default {
               type: 'success',
             });
             this.loading = false;
-            // window.location.href = this.redirectLocation;
+            window.location.href = this.redirectLocation;
           })
           .catch(() => {
             this.loading = false;
