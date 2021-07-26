@@ -63,7 +63,6 @@ class GeneratorController extends Controller
             $betweenDate = $request->get('created_at', []);
 
             $queryService = new QueryService(new Generator());
-            $queryService->order = ['id', 'created_at'];
             $queryService->columnSearch = ['table'];
             $queryService->withRelationship = [];
             $queryService->search = $search;

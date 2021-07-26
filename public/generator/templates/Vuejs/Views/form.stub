@@ -13,12 +13,8 @@
         <el-form ref="{{$REF_MODEL_CLASS$}}" v-loading="loading.form" :model="form" :rules="rules" label-position="top">
         <!--{{$FROM_ITEM_NOT_DELETE_THIS_LINE$}}-->
           <el-form-item class="tw-flex tw-justify-end">
-            <router-link
-              class="el-button el-button--info is-plain"
-              tag="button"
-              :to="{ name: '{{$MODEL_CLASS$}}' }"
-            >
-              {{ $t('button.cancel') }}
+            <router-link v-slot="{ href, navigate }" :to="{ name: '{{$MODEL_CLASS$}}' }" custom>
+              <a :href="href" class="el-button el-button--info is-plain" @click="navigate">{{ $t('button.cancel') }}</a>
             </router-link>
             <template v-if="$route.params.id">
               <el-button

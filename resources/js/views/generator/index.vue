@@ -13,9 +13,11 @@
           >
             <svg-icon icon-class="tree-table" />
           </button>
-          <router-link :to="{ name: 'GeneratorCreate' }" class="pan-btn blue-btn" tag="button">
-            <i class="el-icon-plus tw-mr-2" />
-            Create
+          <router-link v-slot="{ href, navigate }" :to="{ name: 'GeneratorCreate' }" custom>
+            <a class="pan-btn blue-btn" :href="href" @click="navigate">
+              <i class="el-icon-plus tw-mr-2" />
+              Create
+            </a>
           </router-link>
         </div>
         <div class="tw-flex tw-flex-col">

@@ -3,9 +3,11 @@
     <el-col :span="24">
       <el-card>
         <div slot="header" class="tw-flex tw-justify-end tw-items-center">
-          <router-link v-permission="['create']" :to="{ name: 'UserCreate' }" class="pan-btn blue-btn" tag="button">
-            <i class="el-icon-plus mr-2" />
-            {{ $t('button.create') }}
+          <router-link v-slot="{ href, navigate }" v-permission="['create']" :to="{ name: 'UserCreate' }" custom>
+            <a :href="href" class="pan-btn blue-btn" @click="navigate">
+              <i class="el-icon-plus mr-2" />
+              {{ $t('button.create') }}
+            </a>
           </router-link>
         </div>
         <el-row :gutter="20" class="tw-mb-6">

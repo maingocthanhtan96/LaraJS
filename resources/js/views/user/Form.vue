@@ -69,8 +69,8 @@
           </el-form-item>
           <!--{{$FROM_ITEM_NOT_DELETE_THIS_LINE$}}-->
           <el-form-item class="tw-flex tw-justify-end">
-            <router-link class="el-button el-button--info is-plain" tag="button" :to="{ name: 'User' }">
-              {{ $t('button.cancel') }}
+            <router-link v-slot="{ href, navigate }" :to="{ name: 'User' }" custom>
+              <a :href="href" class="el-button el-button--info is-plain" @click="navigate">{{ $t('button.cancel') }}</a>
             </router-link>
             <template v-if="$route.params.id">
               <el-button :loading="loading.button" type="primary" icon="el-icon-edit" @click="() => update('users')">
