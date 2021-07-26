@@ -552,7 +552,7 @@ class GeneratorController extends Controller
 
         $gitAdd = new Process(['git', 'add', '.'], $basePath);
         $gitAdd->run();
-        $gitCommit = new Process(['git', 'commit', "-m $commit"], $basePath);
+        $gitCommit = new Process(['git', 'commit', '-m', $commit, '--no-verify'], $basePath);
         $gitCommit->run();
     }
 
