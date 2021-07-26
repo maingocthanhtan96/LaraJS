@@ -91,15 +91,7 @@ class MigrationGenerator extends BaseGenerator
             } elseif ($field['default_value'] === $configDefaultValue['as_define']) {
                 $table .= '->nullable()->default("' . $field['as_define'] . '")';
             }
-            if ($field['options']['comment']) {
-                $table .= '->comment("' . $field['options']['comment'] . '")';
-            }
-            if ($field['options']['unique']) {
-                $table .= '->unique()';
-            }
-            if ($field['options']['index']) {
-                $table .= '->index()';
-            }
+            $table = MigrationGenerator::updateOption($field, $table);
             if ($index > 0) {
                 $table .= ';';
                 $fieldsGenerate[] = $table;
@@ -117,5 +109,25 @@ class MigrationGenerator extends BaseGenerator
         }
 
         return implode($this->serviceGenerator->infy_nl_tab(1, 3), $fieldsGenerate);
+    }
+
+    /**
+     * @param $field
+     * @param $table
+     * @return mixed|string
+     */
+    public static function updateOption($field, $table): string
+    {
+        if ($field['options']['comment']) {
+            $table .= '->comment("' . $field['options']['comment'] . '")';
+        }
+        if ($field['options']['unique']) {
+            $table .= '->unique()';
+        }
+        if ($field['options']['index']) {
+            $table .= '->index()';
+        }
+
+        return $table;
     }
 }

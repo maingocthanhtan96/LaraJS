@@ -309,7 +309,6 @@
             <div class="tw-float-right">
               <el-button
                 v-if="$route.params.id"
-                v-waves
                 v-loading.fullscreen.lock="loading"
                 type="primary"
                 round
@@ -319,7 +318,6 @@
               </el-button>
               <el-button
                 v-else
-                v-waves
                 v-loading.fullscreen.lock="loading"
                 type="primary"
                 round
@@ -335,8 +333,10 @@
     <el-dialog v-if="form.length > 1" title="Options" center :visible.sync="dialogVisibleOptions" width="50%">
       <el-row :gutter="20">
         <el-col :span="24">
-          <el-checkbox v-model="optionsComputed.unique">Unique</el-checkbox>
-          <el-checkbox v-model="optionsComputed.index">Index</el-checkbox>
+          <el-checkbox v-model="optionsComputed.unique" @click.native="optionsComputed.index = false">
+            Unique
+          </el-checkbox>
+          <el-checkbox v-model="optionsComputed.index" :disabled="optionsComputed.unique">Index</el-checkbox>
         </el-col>
       </el-row>
       <el-row :gutter="20">
@@ -613,20 +613,26 @@ export default {
     },
   },
   async mounted() {
-    const { id } = this.$route.params;
-    if (id) {
-      await generatorResource.get(id).then(res => {
-        const { data } = res.data;
-        this.form = JSON.parse(data.field);
-        this.formTemp = JSON.parse(data.field);
-        this.formModel = JSON.parse(data.model);
-      });
-      await generatorResource.getColumns(this.formModel.name).then(res => {
-        const { data } = res.data;
-        this.afterColumn = data.map(val => {
-          return { id: `temp-${val}`, val };
+    try {
+      this.loading = true;
+      const { id } = this.$route.params;
+      if (id) {
+        await generatorResource.get(id).then(res => {
+          const { data } = res.data;
+          this.form = JSON.parse(data.field);
+          this.formTemp = JSON.parse(data.field);
+          this.formModel = JSON.parse(data.model);
         });
-      });
+        await generatorResource.getColumns(this.formModel.name).then(res => {
+          const { data } = res.data;
+          this.afterColumn = data.map(val => {
+            return { id: `temp-${val}`, val };
+          });
+        });
+      }
+      this.loading = false;
+    } catch (e) {
+      this.loading = false;
     }
   },
   methods: {
@@ -707,82 +713,98 @@ export default {
       });
     },
     async generate(name, model) {
-      this.loading = true;
-      let flag = true;
-      this.form.forEach((value, index) => {
-        this.$refs[name + index][0].validate(valid => {
-          if (!valid) {
-            flag = false;
-          }
-        });
-      });
-      await this.checkValidateFormModel(model).catch(() => {
-        flag = false;
-      });
-
-      if (flag) {
-        generatorResource
-          .store({
-            model: this.formModel,
-            fields: this.form,
-          })
-          .then(() => {
-            this.$message({
-              showClose: true,
-              message: this.$t('messages.create'),
-              type: 'success',
-            });
-            this.loading = false;
-            window.location.href = this.redirectLocation;
-          })
-          .catch(() => {
-            this.loading = false;
-            // window.location.href = this.redirectLocation;
+      this.$confirm(this.$t('common.popup.create'), {
+        confirmButtonText: this.$t('button.create'),
+        cancelButtonText: this.$t('button.cancel'),
+        type: 'warning',
+        center: true,
+      }).then(async () => {
+        this.loading = true;
+        let flag = true;
+        this.form.forEach((value, index) => {
+          this.$refs[name + index][0].validate(valid => {
+            if (!valid) {
+              flag = false;
+            }
           });
-      } else {
-        this.loading = false;
-      }
+        });
+        await this.checkValidateFormModel(model).catch(() => {
+          flag = false;
+        });
+
+        if (flag) {
+          generatorResource
+            .store({
+              model: this.formModel,
+              fields: this.form,
+            })
+            .then(() => {
+              this.$message({
+                showClose: true,
+                message: this.$t('messages.create'),
+                type: 'success',
+              });
+              this.loading = false;
+              setTimeout(() => {
+                window.location.href = this.redirectLocation;
+              }, 2000);
+            })
+            .catch(() => {
+              this.loading = false;
+            });
+        } else {
+          this.loading = false;
+        }
+      });
     },
-    async generateUpdate(name) {
-      this.loading = true;
-      let flag = true;
-      this.form.forEach((value, index) => {
-        this.$refs[name + index][0].validate(valid => {
-          if (!valid) {
-            flag = false;
-          }
-        });
-      });
-
-      if (flag) {
-        // remove form => fields exist
-        const formClone = cloneDeep(this.form);
-        formClone.splice(0, this.formTemp.length);
-        generatorResource
-          .update(this.$route.params.id, {
-            model: this.formModel,
-            fields: this.form,
-            fields_update: formClone,
-            rename: this.formRename,
-            change: this.formChange,
-            drop: this.formDrop,
-          })
-          .then(() => {
-            this.loading = false;
-            this.$message({
-              showClose: true,
-              message: this.$t('messages.update'),
-              type: 'success',
-            });
-            window.location.href = this.redirectLocation;
-          })
-          .catch(() => {
-            this.loading = false;
-            // window.location.href = this.redirectLocation;
+    generateUpdate(name) {
+      this.$confirm(this.$t('common.popup.update'), {
+        confirmButtonText: this.$t('button.update'),
+        cancelButtonText: this.$t('button.cancel'),
+        type: 'warning',
+        center: true,
+      }).then(async () => {
+        this.loading = true;
+        let flag = true;
+        this.form.forEach((value, index) => {
+          this.$refs[name + index][0].validate(valid => {
+            if (!valid) {
+              flag = false;
+            }
           });
-      } else {
-        this.loading = false;
-      }
+        });
+
+        if (flag) {
+          // remove form => fields exist
+          const formClone = cloneDeep(this.form);
+          formClone.splice(0, this.formTemp.length);
+          generatorResource
+            .update(this.$route.params.id, {
+              model: this.formModel,
+              fields: this.form,
+              fields_update: formClone,
+              rename: this.formRename,
+              change: this.formChange,
+              drop: this.formDrop,
+            })
+            .then(() => {
+              this.loading = false;
+              this.$message({
+                showClose: true,
+                message: this.$t('messages.update'),
+                type: 'success',
+              });
+              setTimeout(() => {
+                window.location.href = this.redirectLocation;
+              }, 2000);
+            })
+            .catch(() => {
+              this.loading = false;
+            });
+        } else {
+          this.loading = false;
+        }
+      });
     },
     disabledMethod(index) {
       return index === 0;

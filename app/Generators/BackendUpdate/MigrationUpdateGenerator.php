@@ -2,6 +2,7 @@
 
 namespace App\Generators\BackendUpdate;
 
+use App\Generators\Backend\MigrationGenerator;
 use App\Generators\BaseGenerator;
 use App\Models\Generator;
 use App\Services\FileService;
@@ -38,7 +39,8 @@ class MigrationUpdateGenerator extends BaseGenerator
         $timeName = date('YmdHis');
         $pathTemplate = 'Databases/Migrations/';
         $templateData = $this->serviceGenerator->get_template('migrationUpdate', $pathTemplate);
-        $templateData = str_replace('{{FIELDS_UP}}', $this->generateFieldsUp($updateFields), $templateData);
+        $generateFileUp = $this->generateFieldsUp($updateFields);
+        $templateData = str_replace('{{FIELDS_UP}}', $generateFileUp, $templateData);
         $templateData = str_replace('{{FIELDS_DOWN}}', $this->generateFieldsDown($generator, $updateFields), $templateData);
         $templateData = str_replace('{{DATE_TIME}}', $now->toDateTimeString(), $templateData);
 
@@ -46,10 +48,10 @@ class MigrationUpdateGenerator extends BaseGenerator
         $templateData = str_replace('{{TABLE_NAME}}', $this->serviceGenerator->tableName($model['name']), $templateData);
 
         $fileName = date('Y_m_d_His') . '_' . 'update_' . $this->serviceGenerator->tableName($model['name']) . '_' . $timeName . '_table.php';
-
-        $this->updateFileMigrate($generator, $this->path . $fileName);
-
-        $this->serviceFile->createFile($this->path, $fileName, $templateData);
+        if ($generateFileUp) {
+            $this->updateFileMigrate($generator, $this->path . $fileName);
+            $this->serviceFile->createFile($this->path, $fileName, $templateData);
+        }
     }
 
     private function generateChange($generator, $updateFields, $model)
@@ -118,7 +120,7 @@ class MigrationUpdateGenerator extends BaseGenerator
             } elseif ($field['default_value'] === $configDefaultValue['as_define']) {
                 $table .= '->nullable()->default("' . $field['as_define'] . '")';
             }
-            $table .= $this->updateOption($field, $table);
+            $table = MigrationGenerator::updateOption($field, $table);
             if ($table) {
                 $table .= $afterColumn . '; // Update';
                 $fieldsGenerate[] = $table;
@@ -248,9 +250,17 @@ class MigrationUpdateGenerator extends BaseGenerator
                         } elseif ($change['default_value'] === $configDefaultValue['as_define']) {
                             $tableChange .= '->nullable()->default("' . $change['as_define'] . '")';
                         }
-                        $tableChange .= $this->updateOption($field, $tableChange);
+                        if ($change['options']['comment'] !== $field['options']['comment']) {
+                            $tableChange .= '->comment("' . $change['options']['comment'] . '")';
+                        }
                         $tableChange .= '->change(); // Change';
                         $fieldsGenerate[] = $tableChange;
+                    }
+                    if ($this->hasChangeExtra($change, $field)) {
+                        $tableChangeExtra = $this->updateOptionExtra($change, $field);
+                        if ($tableChangeExtra) {
+                            $fieldsGenerate[] = $tableChangeExtra;
+                        }
                     }
                 }
             }
@@ -298,10 +308,18 @@ class MigrationUpdateGenerator extends BaseGenerator
                         } elseif ($change['default_value'] === $configDefaultValue['as_define']) {
                             $tableChange .= '->nullable()->default("' . $change['as_define'] . '")';
                         }
-                        $tableChange .= $this->updateOption($change, $tableChange);
+                        if ($change['options']['comment'] !== $changeNew['options']['comment']) {
+                            $tableChange .= '->comment("' . $change['options']['comment'] . '")';
+                        }
                         if ($tableChange) {
                             $tableChange .= '->change(); // Reverse change';
                             $fieldsGenerate[] = $tableChange;
+                        }
+                    }
+                    if ($this->hasChangeExtra($change, $changeNew)) {
+                        $tableChangeExtra = $this->updateOptionExtra($change, $changeNew);
+                        if ($tableChangeExtra) {
+                            $fieldsGenerate[] = $tableChangeExtra;
                         }
                     }
                 }
@@ -330,23 +348,13 @@ class MigrationUpdateGenerator extends BaseGenerator
     }
 
     /**
+     * @param $change
      * @param $field
-     * @param $table
-     * @return mixed|string
+     * @return bool
      */
-    public function updateOption($field, $table): string
+    public function hasChange($change, $field): bool
     {
-        if ($field['options']['comment']) {
-            $table .= '->comment("' . $field['options']['comment'] . '")';
-        }
-        if ($field['options']['unique']) {
-            $table .= '->unique()';
-        }
-        if ($field['options']['index']) {
-            $table .= '->index()';
-        }
-
-        return $table;
+        return $change['db_type'] !== $field['db_type'] || $change['options']['comment'] !== $field['options']['comment'];
     }
 
     /**
@@ -354,11 +362,41 @@ class MigrationUpdateGenerator extends BaseGenerator
      * @param $field
      * @return bool
      */
-    public function hasChange($change, $field): bool
+    public function hasChangeExtra($change, $field): bool
     {
-        return $change['db_type'] !== $field['db_type'] ||
-            $change['options']['comment'] !== $field['options']['comment'] ||
-            $change['options']['unique'] !== $field['options']['unique'] ||
-            $change['options']['index'] !== $field['options']['index'];
+        return $change['options']['unique'] !== $field['options']['unique'] || $change['options']['index'] !== $field['options']['index'];
+    }
+
+    /**
+     * @param $change
+     * @param $field
+     * @param bool $isUp
+     * @return string
+     */
+    public function updateOptionExtra($change, $field, $isUp = true): string
+    {
+        $tableChangeExtra = '';
+        $type = '';
+        if ($change['options']['unique'] !== $field['options']['unique']) {
+            $type = '';
+            if ($change['options']['unique']) {
+                $type = 'unique';
+            }
+            if ($field['options']['unique']) {
+                $type = 'dropUnique';
+            }
+        }
+        if ($change['options']['index'] !== $field['options']['index']) {
+            if ($change['options']['index']) {
+                $type = 'index';
+            } else {
+                if ($field['options']['index']) {
+                    $type = 'dropIndex';
+                }
+            }
+        }
+        $type && ($tableChangeExtra = '$table->' . $type . '("[' . $change['field_name'] . ']");');
+
+        return $tableChangeExtra;
     }
 }
