@@ -552,15 +552,8 @@ class GeneratorController extends Controller
 
         $gitAdd = new Process(['git', 'add', '.'], $basePath);
         $gitAdd->run();
-        if (!$gitAdd->isSuccessful()) {
-            throw new ProcessFailedException($gitAdd);
-        }
-
         $gitCommit = new Process(['git', 'commit', "-m $commit"], $basePath);
         $gitCommit->run();
-        if (!$gitCommit->isSuccessful()) {
-            throw new ProcessFailedException($gitCommit);
-        }
     }
 
     private function _gitResetHEAD()

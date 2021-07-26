@@ -17,6 +17,7 @@
                       v-model="formModel.name"
                       :placeholder="$t('generator.form_model_name')"
                       :disabled="disabledModel()"
+                      @change="formModel.name_trans = formModel.name"
                     />
                   </el-form-item>
                 </el-col>
@@ -330,7 +331,7 @@
         </section>
       </el-card>
     </el-col>
-    <el-dialog v-if="form.length > 1" title="Options" center :visible.sync="dialogVisibleOptions" width="50%">
+    <el-dialog title="Options" center :visible.sync="dialogVisibleOptions" width="50%">
       <el-row :gutter="20">
         <el-col :span="24">
           <el-checkbox v-model="optionsComputed.unique" @click.native="optionsComputed.index = false">

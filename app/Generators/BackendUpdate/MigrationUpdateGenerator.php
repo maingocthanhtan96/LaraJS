@@ -395,7 +395,7 @@ class MigrationUpdateGenerator extends BaseGenerator
                 }
             }
         }
-        $type && ($tableChangeExtra = '$table->' . $type . '("[' . $change['field_name'] . ']");');
+        $type && ($tableChangeExtra = '$table->' . $type . '(["' . $change['field_name'] . '"]);');
 
         return $tableChangeExtra;
     }
