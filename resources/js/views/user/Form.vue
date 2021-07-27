@@ -143,6 +143,36 @@ export default {
             )
           );
         } else {
+          let messagePassword = '';
+          switch (false) {
+            case /[a-z]+/.test(value):
+              messagePassword = this.$t('validation.password.lowercase', {
+                attribute: this.$t('table.user.password'),
+                number: 1,
+              });
+              break;
+            case /[A-Z]+/.test(value):
+              messagePassword = this.$t('validation.password.uppercase', {
+                attribute: this.$t('table.user.password'),
+                number: 1,
+              });
+              break;
+            case /[0-9]+/.test(value):
+              messagePassword = this.$t('validation.password.number', {
+                attribute: this.$t('table.user.password'),
+                number: 1,
+              });
+              break;
+            case /[!@#$%^&*]+/.test(value):
+              messagePassword = this.$t('validation.password.symbols', {
+                attribute: this.$t('table.user.password'),
+                number: 1,
+              });
+              break;
+          }
+          if (messagePassword) {
+            return cb(messagePassword);
+          }
           if (this.form.password_confirmation !== '') {
             this.$refs.users.validateField('password_confirmation');
           }
@@ -285,16 +315,20 @@ export default {
           type: 'warning',
           center: true,
         }).then(async () => {
-          this.loading.button = true;
-          this.appendToFormData();
-          await userResource.store(this.formData);
-          this.$message({
-            showClose: true,
-            message: this.$t('messages.create'),
-            type: 'success',
-          });
-          this.loading.button = false;
-          await this.$router.push({ name: 'User' });
+          try {
+            this.loading.button = true;
+            this.appendToFormData();
+            await userResource.store(this.formData);
+            this.$message({
+              showClose: true,
+              message: this.$t('messages.create'),
+              type: 'success',
+            });
+            this.loading.button = false;
+            await this.$router.push({ name: 'User' });
+          } catch (e) {
+            this.loading.button = false;
+          }
         });
       });
     },
@@ -314,30 +348,30 @@ export default {
           type: 'warning',
           center: true,
         }).then(async () => {
-          this.loading.button = true;
-          delete this.form.password;
-          this.appendToFormData();
-          this.formData.set('_method', 'PUT');
-          await userResource.update(this.$route.params.id, this.formData);
-          this.$message({
-            showClose: true,
-            message: this.$t('messages.update'),
-            type: 'success',
-          });
-          this.loading.button = false;
-          await this.$router.push({ name: 'User' });
+          try {
+            this.loading.button = true;
+            delete this.form.password;
+            this.appendToFormData();
+            this.formData.set('_method', 'PUT');
+            await userResource.update(this.$route.params.id, this.formData);
+            this.$message({
+              showClose: true,
+              message: this.$t('messages.update'),
+              type: 'success',
+            });
+            this.loading.button = false;
+            await this.$router.push({ name: 'User' });
+          } catch (e) {
+            this.loading.button = false;
+          }
         });
       });
     },
     cropSuccess(file) {
-      console.log(file, 'file');
       this.formData.set('avatar', file.file, file.name);
       this.form.avatar = URL.createObjectURL(file.file);
       this.imageCropperShow = false;
       this.imageCropperKey = this.imageCropperKey + 1;
-      // this.form.avatar = resData.data;
-      // this.fileOld = resData.data;
-      // this.$message({ message: this.$t('messages.upload'), type: 'success' });
     },
     close() {
       this.imageCropperShow = false;

@@ -57,6 +57,36 @@ export default {
           )
         );
       } else {
+        let messagePassword = '';
+        switch (false) {
+          case /[a-z]+/.test(value):
+            messagePassword = this.$t('validation.password.lowercase', {
+              attribute: this.$t('table.user.password'),
+              number: 1,
+            });
+            break;
+          case /[A-Z]+/.test(value):
+            messagePassword = this.$t('validation.password.uppercase', {
+              attribute: this.$t('table.user.password'),
+              number: 1,
+            });
+            break;
+          case /[0-9]+/.test(value):
+            messagePassword = this.$t('validation.password.number', {
+              attribute: this.$t('table.user.password'),
+              number: 1,
+            });
+            break;
+          case /[!@#$%^&*]+/.test(value):
+            messagePassword = this.$t('validation.password.symbols', {
+              attribute: this.$t('table.user.password'),
+              number: 1,
+            });
+            break;
+        }
+        if (messagePassword) {
+          return cb(messagePassword);
+        }
         if (this.form.password_confirmation !== '') {
           this.$refs.resetForm.validateField('password_confirmation');
         }

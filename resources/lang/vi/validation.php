@@ -92,7 +92,6 @@ return [
     'not_in' => 'Giá trị đã chọn trong trường :attribute không hợp lệ.',
     'not_regex' => 'Trường :attribute có định dạng không hợp lệ.',
     'numeric' => 'Trường :attribute phải là một số.',
-    'password' => 'Mật khẩu không đúng.',
     'present' => 'Trường :attribute phải được cung cấp.',
     'regex' => 'Trường :attribute có định dạng không hợp lệ.',
     'required' => 'Trường :attribute không được bỏ trống.',
@@ -116,7 +115,12 @@ return [
     'uploaded' => 'Trường :attribute tải lên thất bại.',
     'url' => 'Trường :attribute không giống với định dạng một URL.',
     'uuid' => 'Trường :attribute phải là một chuỗi UUID hợp lệ.',
-
+    'password' => [
+        'lowercase' => 'Trường :attribute phải chứa ít nhất :number ký tự chữ cái viết thường number',
+        'uppercase' => 'Trường :attribute phải chứa ít nhất :number ký tự chữ cái viết hoa số',
+        'number' => 'Trường :attribute phải chứa ít nhất :number ký tự số number',
+        'Symbol' => 'Trường :attribute phải chứa ít nhất :number một ký tự đặc biệt',
+    ],
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
@@ -145,38 +149,5 @@ return [
     |
     */
 
-    'attributes' => [
-        'name' => 'tên',
-        'username' => 'tên đăng nhập',
-        'email' => 'email',
-        'first_name' => 'tên',
-        'last_name' => 'họ',
-        'password' => 'mật khẩu',
-        'password_confirmation' => 'xác nhận mật khẩu',
-        'city' => 'thành phố',
-        'country' => 'quốc gia',
-        'address' => 'địa chỉ',
-        'phone' => 'số điện thoại',
-        'mobile' => 'di động',
-        'age' => 'tuổi',
-        'sex' => 'giới tính',
-        'gender' => 'giới tính',
-        'year' => 'năm',
-        'month' => 'tháng',
-        'day' => 'ngày',
-        'hour' => 'giờ',
-        'minute' => 'phút',
-        'second' => 'giây',
-        'title' => 'tiêu đề',
-        'content' => 'nội dung',
-        'body' => 'nội dung',
-        'description' => 'mô tả',
-        'excerpt' => 'trích dẫn',
-        'date' => 'ngày',
-        'time' => 'thời gian',
-        'subject' => 'tiêu đề',
-        'message' => 'lời nhắn',
-        'available' => 'có sẵn',
-        'size' => 'kích thước',
-    ],
+    'attributes' => [],
 ];

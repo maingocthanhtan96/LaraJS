@@ -114,6 +114,12 @@ return [
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute format is invalid.',
     'uuid' => 'The :attribute must be a valid UUID.',
+    'password' => [
+        'lowercase' => 'The :attribute must contain at least :number lowercase alphabetical character',
+        'uppercase' => 'The :attribute must contain at least :number uppercase alphabetical character',
+        'number' => 'The :attribute must contain at least :number numeric character',
+        'symbols' => 'The :attribute must contain at least one special character',
+    ],
 
     /*
     |--------------------------------------------------------------------------

@@ -92,7 +92,6 @@ return [
     'not_in' => '選択された:attributeは、有効ではありません。',
     'not_regex' => ':attributeの形式が無効です。',
     'numeric' => ':attributeには、数字を指定してください。',
-    'password' => 'パスワードが正しくありません。',
     'present' => ':attributeが存在している必要があります。',
     'regex' => ':attributeには、有効な正規表現を指定してください。',
     'required' => ':attributeは、必ず指定してください。',
@@ -116,7 +115,12 @@ return [
     'uploaded' => ':attributeのアップロードに失敗しました。',
     'url' => ':attributeは、有効なURL形式で指定してください。',
     'uuid' => ':attributeは、有効なUUIDでなければなりません。',
-
+    'password' => [
+        'lowercase' => ':attributeには少なくとも:number小文字のアルファベット文字が含まれている必要があります',
+        'uppercase' => ':attributeには少なくとも:number大文字のアルファベット文字が含まれている必要があります',
+        'number' => ':attributeには少なくとも:number数字が含まれている必要があります',
+        'symbols' => ':attributeには少なくとも:numberつの特殊文字が含まれている必要があります',
+    ],
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
