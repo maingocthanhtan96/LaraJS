@@ -746,9 +746,6 @@ export default {
                 type: 'success',
               });
               this.loading = false;
-              setTimeout(() => {
-                window.location.href = this.redirectLocation;
-              }, 2000);
             })
             .catch(() => {
               this.loading = false;
@@ -795,9 +792,6 @@ export default {
                 message: this.$t('messages.update'),
                 type: 'success',
               });
-              setTimeout(() => {
-                window.location.href = this.redirectLocation;
-              }, 2000);
             })
             .catch(() => {
               this.loading = false;
