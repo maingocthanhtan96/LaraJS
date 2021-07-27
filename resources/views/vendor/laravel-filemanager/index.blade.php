@@ -92,6 +92,7 @@
       </div>
 
       <div id="content"></div>
+      <div id="pagination"></div>
 
       <a id="item-template" class="d-none">
         <div class="square"></div>
@@ -273,8 +274,7 @@
       init: function() {
         var _this = this; // For the closure
         this.on('success', function(file, response) {
-           response = JSON.parse(response);
-          if (response[0] === 'OK') {
+          if (response === 'OK') {
             loadFolders();
           } else {
             this.defaultOptions.error(file, response.join('\n'));
