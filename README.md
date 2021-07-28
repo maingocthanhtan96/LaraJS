@@ -21,7 +21,11 @@
 
 # LaraJS
 
-[LaraJS]() is a beautiful dashboard combination of [Laravel](https://laravel.com/), [Vue.js](https://github.com/vuejs/vue) and the UI Toolkit [Element](https://github.com/ElemeFE/element). Especially with the code generator function(create, edit, delete) with 100% api and a few other functions
+[LaraJS]() is a beautiful dashboard combination of [Laravel](https://laravel.com/), [Vue.js](https://github.com/vuejs/vue) and the UI Toolkit [Element](https://github.com/ElemeFE/element). Especially with the code generator function(CREATE, EDIT, DELETE, API, CMS, DATABASE,...) with 100% api and a few other functions and can save about 50% time for the whole project
+
+# Demo
+
+https://youtu.be/toI59rLyw_8
 
 ## Preparation
 
