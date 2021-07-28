@@ -52,7 +52,7 @@ This project is built on top of fresh latest version Laravel 8. You should check
 -   [Laravel File Manager](https://github.com/UniSharp/laravel-filemanager) - Integration with [TinyMCE](https://www.tiny.cloud/docs/)
 -   [VueJS](https://vuejs.org/) - The Progressive JavaScript Framework
 -   [Element](https://element.eleme.io/) - A Vue 2.0 based component library for developers, designers and product managers
--   [Vue Admin Template](https://github.com/PanJiaChen/vue-admin-template) - A minimal vue admin template with Element UI
+-   [Vue Admin Template](https://github.com/PanJiaChen/vue-element-admin) - A minimal vue admin template with Element UI
 
 ```bash
 # Clone the project and run composer

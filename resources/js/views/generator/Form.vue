@@ -12,7 +12,7 @@
             <div>
               <el-form ref="formModel" :model="formModel" :rules="modalRules" label-position="top">
                 <el-col :span="9" class="tw-mr-4">
-                  <el-form-item :label="$t('generator.form_model_name')" prop="name">
+                  <el-form-item required :label="$t('generator.form_model_name')" prop="name">
                     <el-input
                       v-model="formModel.name"
                       :placeholder="$t('generator.form_model_name')"
