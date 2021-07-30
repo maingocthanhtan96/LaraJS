@@ -59,8 +59,8 @@ This project is built on top of fresh latest version Laravel 8. You should check
 -   [Vue Admin Template](https://github.com/PanJiaChen/vue-element-admin) - A minimal vue admin template with Element UI
 
 ```bash
-# Clone the project and run composer
-git clone git remote add origin https://github.com/maingocthanhtan96/LaraJS.git
+# Clone the project
+git clone https://github.com/maingocthanhtan96/LaraJS.git
 
 # Init project
 # https://github.com/beyondcode/laravel-er-diagram-generator
@@ -135,9 +135,3 @@ password: Admin@123!
 username: developer@larajs.com
 password: Admin@123!
 ```
-
-## Format code with prettier
-
-\*\* In phpstorm install plugin prettier
-
-\*\* On mac use shot key: shift + option + command + P
