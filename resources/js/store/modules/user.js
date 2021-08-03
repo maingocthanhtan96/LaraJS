@@ -13,9 +13,9 @@ import { login, userInfo, logout } from '@/api/v1/auth';
 
 import { getToken, removeToken, setToken } from '@/utils/auth';
 import { resetRouter } from '@/router';
+import { secondToDay } from '@/utils/date';
 
 const DEFAULT_EXPIRE = 1;
-const REMEMBER_ME_EXPIRE = 30;
 
 const state = {
   token: getToken() || null,
@@ -44,9 +44,9 @@ const actions = {
     return new Promise((resolve, reject) => {
       login(payload)
         .then(res => {
-          const token = Object.freeze(res.data.data.access_token);
-          setToken(token, payload.remember_me ? REMEMBER_ME_EXPIRE : DEFAULT_EXPIRE);
-          commit(SET_TOKEN, token);
+          const token = Object.freeze(res.data.data);
+          setToken(token.access_token, payload.remember_me ? secondToDay(token.expires_in) : DEFAULT_EXPIRE);
+          commit(SET_TOKEN, token.access_token);
           resolve(res);
         })
         .catch(err => {
@@ -54,9 +54,9 @@ const actions = {
         });
     });
   },
-  [USER_INFO]({ commit, state }) {
+  [USER_INFO]({ commit }) {
     return new Promise((resolve, reject) => {
-      userInfo(state.token)
+      userInfo()
         .then(res => {
           const { data } = Object.freeze(res.data);
           if (!data) {
