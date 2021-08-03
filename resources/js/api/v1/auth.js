@@ -8,7 +8,7 @@ import request from '@/utils/request';
  */
 export function login(form) {
   return request({
-    url: '/v1/login',
+    url: '/login',
     method: 'post',
     data: form,
   });
@@ -21,7 +21,7 @@ export function login(form) {
  */
 export function userInfo() {
   return request({
-    url: '/v1/user-info',
+    url: '/user-info',
     method: 'get',
   });
 }
@@ -33,14 +33,14 @@ export function userInfo() {
  */
 export function logout() {
   return request({
-    url: '/v1/logout',
+    url: '/logout',
     method: 'get',
   });
 }
 
 export function sendPasswordResetLink(form) {
   return request({
-    url: '/v1/forgot-password',
+    url: '/forgot-password',
     method: 'post',
     data: form,
   });
@@ -48,7 +48,7 @@ export function sendPasswordResetLink(form) {
 
 export function callResetPassword(form) {
   return request({
-    url: '/v1/reset-password',
+    url: '/reset-password',
     method: 'post',
     data: form,
   });
