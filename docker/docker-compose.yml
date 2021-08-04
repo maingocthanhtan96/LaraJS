@@ -12,6 +12,7 @@ services:
   app:
     build:
       context: ./php-fpm
+    container_name: larajs
     volumes:
       - ./php-fpm/php${PHP_VERSION}.ini:/usr/local/etc/php/php.ini
       - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
@@ -27,6 +28,7 @@ services:
       args:
         - PHP_UPSTREAM_CONTAINER=${NGINX_PHP_UPSTREAM_CONTAINER}
         - PHP_UPSTREAM_PORT=${NGINX_PHP_UPSTREAM_PORT}
+    container_name: larajs_nginx
     volumes:
       - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
       - ${NGINX_HOST_LOG_PATH}:/var/log/nginx
@@ -61,6 +63,7 @@ services:
       - backend
   phpmyadmin:
     build: ./phpmyadmin
+    container_name: larajs_phpmyadmin
     environment:
       - PMA_ARBITRARY=1
       - MYSQL_USER=${PMA_USER}

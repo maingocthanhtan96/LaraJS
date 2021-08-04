@@ -196,12 +196,12 @@ class SetupCommand extends Command
         $this->dbUsernameStub = '{{DB_USERNAME}}';
         $this->dbPasswordStub = '{{DB_PASSWORD}}';
         $envExample = '.env.example';
-        $parAppUrl = 'http://local.larajs.com';
+        $parAppUrl = 'http://localhost:8000';
         $parHost = '127.0.0.1';
         $parPort = '3306';
         $parDatabase = 'larajs';
         $parUsername = 'root';
-        $parPassword = '';
+        $parPassword = 'root';
         $this->info('>>> Running: create env');
         $this->appUrl = $this->anticipate('What is your url?', [$parAppUrl], $parAppUrl);
         $this->host = $this->anticipate('What is your host?', [$parHost], $parHost);
