@@ -19,15 +19,15 @@
   </a>
 </p>
 
-# LaraJS
+# 🌏 LaraJS
 
 [LaraJS]() is a beautiful dashboard combination of [Laravel](https://laravel.com/), [Vue.js](https://github.com/vuejs/vue) and the UI Toolkit [Element](https://github.com/ElemeFE/element). Especially with the code generator function(CREATE, EDIT, DELETE, API, CMS, DATABASE,...) with 100% api and a few other functions and can save about 50% time for the whole project
 
-# Demo
+## 💌 Demo
 
 https://youtu.be/toI59rLyw_8
 
-## Preparation
+## ☘️ Preparation
 
 \*\* [Node](http://nodejs.org/)
 
@@ -39,15 +39,15 @@ https://youtu.be/toI59rLyw_8
 
 The project is built on top of [Laravel](https://laravel.com), [vue](https://cn.vuejs.org/index.html), [vuex](https://vuex.vuejs.org/zh-cn/), [vue-router](https://router.vuejs.org/zh-cn/), [axios](https://github.com/axios/axios) and [element-ui](https://github.com/ElemeFE/element). Since this is positioned as an enterprise management solution, it is recommended to use it to start a project.
 
-## API
+## 🅰 API
 
 API will be served by Laravel. In this project, you need to run migration and data feeder to generate sample data for authentication/authorization, other APIs will be faked.
 
-## Getting started
+## ✅ Getting started
 
 This project is built on top of fresh latest version Laravel 8. You should check the installation guide of Laravel [here](https://laravel.com/docs/8.x)
 
-## Built with
+## 🅱 Built with
 
 -   [Laravel](https://laravel.com/) - The PHP Framework For Web Artisans
 -   [Laravel Passport](https://github.com/laravel/passport) - Laravel Sanctum provides a featherweight authentication system for SPAs and simple APIs.
@@ -136,7 +136,7 @@ username: developer@larajs.com
 password: Admin@123!
 ```
 
-## License
+## ⚖️ License
 
 [MIT](https://github.com/maingocthanhtan96/LaraJS/blob/master/LICENSE) license.
 
