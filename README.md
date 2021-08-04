@@ -135,3 +135,9 @@ password: Admin@123!
 username: developer@larajs.com
 password: Admin@123!
 ```
+
+## License
+
+[MIT](https://github.com/maingocthanhtan96/LaraJS/blob/master/LICENSE) license.
+
+Copyright (c) 2019-present maingocthanhtan96
