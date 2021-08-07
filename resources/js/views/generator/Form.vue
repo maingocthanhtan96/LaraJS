@@ -12,7 +12,7 @@
             <div>
               <el-form ref="formModel" :model="formModel" :rules="modalRules" label-position="top">
                 <el-col :span="9" class="tw-mr-4">
-                  <el-form-item required :label="$t('generator.form_model_name')" prop="name">
+                  <el-form-item class="is-required" :label="$t('generator.form_model_name')" prop="name">
                     <el-input
                       v-model="formModel.name"
                       :placeholder="$t('generator.form_model_name')"
@@ -666,6 +666,7 @@ export default {
     checkModelMethod: debounce(function (cb) {
       if (this.$route.params.id) {
         cb();
+        return;
       }
       generatorResource.checkModel(this.formModel.name).then(res => {
         const { message } = res.data;
@@ -714,91 +715,87 @@ export default {
       });
     },
     async generate(name, model) {
+      let flag = true;
+      this.form.forEach((value, index) => {
+        this.$refs[name + index][0].validate(valid => {
+          if (!valid) {
+            flag = false;
+          }
+        });
+      });
+      await this.checkValidateFormModel(model).catch(() => {
+        flag = false;
+      });
+      if (!flag) {
+        return;
+      }
       this.$confirm(this.$t('common.popup.create'), {
         confirmButtonText: this.$t('button.create'),
         cancelButtonText: this.$t('button.cancel'),
         type: 'warning',
         center: true,
-      }).then(async () => {
+      }).then(() => {
         this.loading = true;
-        let flag = true;
-        this.form.forEach((value, index) => {
-          this.$refs[name + index][0].validate(valid => {
-            if (!valid) {
-              flag = false;
-            }
-          });
-        });
-        await this.checkValidateFormModel(model).catch(() => {
-          flag = false;
-        });
-
-        if (flag) {
-          generatorResource
-            .store({
-              model: this.formModel,
-              fields: this.form,
-            })
-            .then(() => {
-              this.$message({
-                showClose: true,
-                message: this.$t('messages.create'),
-                type: 'success',
-              });
-              this.loading = false;
-            })
-            .catch(() => {
-              this.loading = false;
+        generatorResource
+          .store({
+            model: this.formModel,
+            fields: this.form,
+          })
+          .then(() => {
+            this.$message({
+              showClose: true,
+              message: this.$t('messages.create'),
+              type: 'success',
             });
-        } else {
-          this.loading = false;
-        }
+            this.loading = false;
+          })
+          .catch(() => {
+            this.loading = false;
+          });
       });
     },
     generateUpdate(name) {
+      let flag = true;
+      this.form.forEach((value, index) => {
+        this.$refs[name + index][0].validate(valid => {
+          if (!valid) {
+            flag = false;
+          }
+        });
+      });
+      if (!flag) {
+        return;
+      }
       this.$confirm(this.$t('common.popup.update'), {
         confirmButtonText: this.$t('button.update'),
         cancelButtonText: this.$t('button.cancel'),
         type: 'warning',
         center: true,
-      }).then(async () => {
+      }).then(() => {
         this.loading = true;
-        let flag = true;
-        this.form.forEach((value, index) => {
-          this.$refs[name + index][0].validate(valid => {
-            if (!valid) {
-              flag = false;
-            }
-          });
-        });
-
-        if (flag) {
-          // remove form => fields exist
-          const formClone = cloneDeep(this.form);
-          formClone.splice(0, this.formTemp.length);
-          generatorResource
-            .update(this.$route.params.id, {
-              model: this.formModel,
-              fields: this.form,
-              fields_update: formClone,
-              rename: this.formRename,
-              change: this.formChange,
-              drop: this.formDrop,
-            })
-            .then(() => {
-              this.loading = false;
-              this.$message({
-                showClose: true,
-                message: this.$t('messages.update'),
-                type: 'success',
-              });
-            })
-            .catch(() => {
-              this.loading = false;
+        // remove form => fields exist
+        const formClone = cloneDeep(this.form);
+        formClone.splice(0, this.formTemp.length);
+        generatorResource
+          .update(this.$route.params.id, {
+            model: this.formModel,
+            fields: this.form,
+            fields_update: formClone,
+            rename: this.formRename,
+            change: this.formChange,
+            drop: this.formDrop,
+          })
+          .then(() => {
+            this.loading = false;
+            this.$message({
+              showClose: true,
+              message: this.$t('messages.update'),
+              type: 'success',
             });
-        } else {
-          this.loading = false;
-        }
+          })
+          .catch(() => {
+            this.loading = false;
+          });
       });
     },
     disabledMethod(index) {
