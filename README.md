@@ -14,7 +14,7 @@
   <a href="https://tailwindcss.com/docs/installation">
     <img src="https://img.shields.io/badge/tailwindcss-2.1.1-brightgreen.svg" alt="element-ui">
   </a>
-  <a href="https://github.com/PanJiaChen/vue-element-admin/blob/master/LICENSE">
+  <a href="https://github.com/maingocthanhtan96/LaraJS/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-brightgreen.svg" alt="license">
   </a>
 </p>

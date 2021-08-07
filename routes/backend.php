@@ -11,4 +11,4 @@
 |
 */
 
-Route::get('/{path}', 'LaraJSController')->where('path', '(.*)');
+Route::get('/{path}', 'Api\v1\LaraJSController')->where('path', '(.*)');

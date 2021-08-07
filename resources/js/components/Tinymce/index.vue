@@ -160,7 +160,7 @@ export default {
             document.documentElement.clientHeight ||
             document.getElementsByTagName('body')[0].clientHeight;
 
-          let cmsURL = '/api/laravel-filemanager?field_name=' + field_name;
+          let cmsURL = '/api/v1/laravel-filemanager?field_name=' + field_name;
           if (type === 'image') {
             cmsURL = cmsURL + '&type=Images';
           } else {

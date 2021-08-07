@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\v1;
 
 use Carbon\Carbon;
 use App\Generators\Backend\{
@@ -484,7 +484,7 @@ class GeneratorController extends Controller
     /**
      * @param array $model
      */
-    private function _runCommand($model = [])
+    private function _runCommand(array $model = [])
     {
         if (!isset($model['options'])) {
             $model['options'] = [];
@@ -495,7 +495,7 @@ class GeneratorController extends Controller
         $basePath = base_path();
         Artisan::call('vue-i18n:generate');
         exec("cd $basePath && ./swagger.sh");
-        exec("cd $basePath && node_modules/.bin/pretty-quick");
+        exec("cd $basePath && composer dump-autoload");
         // php artisan generate:erd /Applications/MAMP/htdocs/tanmnt/larajs/resources/js/assets/images/diagram-erd.png
         //        $resourcePath = resource_path('js/assets/images/diagram-erd.png');
         //        exec("cd $basePath && php artisan generate:erd $resourcePath");

@@ -175,7 +175,7 @@ class RelationshipGenerator extends BaseGenerator
         if ($relationship !== $this->relationship['belongs_to_many']) {
             $templateRules = $this->getHandlerTemplate('rules');
             $templateRules = str_replace('{{$FIELD$}}', \Str::snake($model) . self::_ID, $templateRules);
-            $templateRules = str_replace('{{$ATTRIBUTE_FIELD$}}', 'this.$t(\'route.' . \Str::snake($modelRelationship) . '\')', $templateRules);
+            $templateRules = str_replace('{{$ATTRIBUTE_FIELD$}}', 'this.$t(\'route.' . \Str::snake($model) . '\')', $templateRules);
             $templateDataReal = $this->serviceGenerator->replaceNotDelete($notDelete['rules'], $templateRules, 2, $templateDataReal);
         }
         //generate api

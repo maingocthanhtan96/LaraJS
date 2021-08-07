@@ -95,7 +95,7 @@ return [
     'thumb_folder_name' => 'thumbs',
 
     // Create thumbnails automatically only for listed types.
-    'raster_mimetypes' => ['image/jpeg', 'image/pjpeg', 'image/png'],
+    'raster_mimetypes' => ['image/jpeg', 'image/jpeg', 'image/png'],
 
     'thumb_img_width' => 200, // px
 

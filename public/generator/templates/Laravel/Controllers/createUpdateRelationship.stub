@@ -1,4 +1,2 @@
 ${{FIELD_MODEL_ID}} = $request->get('{{SNAKE_FIELD_MODEL_ID}}', []);
-            if(${{FIELD_MODEL_ID}}) {
-                ${{MODEL}}->{{MODEL_RELATIONSHIP}}()->{{ATTACH_ASYNC}}(${{FIELD_MODEL_ID}});
-            }
+            ${{MODEL}}->{{MODEL_RELATIONSHIP}}()->{{ATTACH_ASYNC}}(${{FIELD_MODEL_ID}});
