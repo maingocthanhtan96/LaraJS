@@ -1,6 +1,6 @@
 get{{$FUNCTION$}}() {
     return request({
-      url: '/{{$API_VERSION$}}/{{$MODEL$}}/get-{{$MODEL_RELATIONSHIP$}}',
+      url: '/{{$MODEL$}}/get-{{$MODEL_RELATIONSHIP$}}',
       method: 'get',
     });
   }
