@@ -34,7 +34,7 @@
               class="tw-w-full"
               v-loading="table.loading"
               :data="table.list"
-              :default-sort = "{prop: 'updated_at', order: 'descending'}"
+              :default-sort="{ prop: table.listQuery.orderBy, order: table.listQuery.ascending }"
               border
               fit
               highlight-current-row
@@ -81,7 +81,7 @@
           listQuery: {
             search: '',
             limit: {{$LIMIT$}},
-            ascending: 0,
+            ascending: 'descending',
             page: 1,
             orderBy: 'updated_at',
             updated_at: [],
@@ -129,7 +129,7 @@
       sortChange(data) {
         const { prop, order } = data;
         this.table.listQuery.orderBy = prop;
-        this.table.listQuery.ascending = +(order === 'ascending');
+        this.table.listQuery.ascending = order;
         this.getList();
       },
       remove(id) {

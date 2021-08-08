@@ -50,7 +50,7 @@ class UserController extends Controller
     {
         try {
             $limit = $request->get('limit', 25);
-            $ascending = $request->get('ascending', 'ascending');
+            $ascending = $request->get('ascending', '');
             $orderBy = $request->get('orderBy', '');
             $search = $request->get('search', '');
             $betweenDate = $request->get('updated_at', []);

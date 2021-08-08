@@ -10,6 +10,7 @@ class QueryService extends BaseService
 {
     const ASC = 'asc';
     const DESC = 'desc';
+    const ASCENDING = 'ascending';
     /**
      * Eloquent model
      * @var Model $_model
@@ -45,29 +46,19 @@ class QueryService extends BaseService
 
     /**
      * ascending, descending
-     * @var string
+     * @var ?string
      */
-    public string $ascending = self::ASC;
+    public ?string $ascending = '';
     /**
      * Column to order
      * @var string
      */
-    public string $orderBy = 'created_at';
-    /**
-     * Always order this column
-     * @var string
-     */
-    public string $defaultOrderBy = 'created_at';
+    public string $orderBy = 'updated_at';
     /**
      * Always order this column
      * @var string
      */
     public string $defaultUpdatedAt = 'updated_at';
-    /**
-     * Always order
-     * @var string
-     */
-    public string $defaultDescending = 'desc';
 
     /**
      * QueryService constructor.
@@ -87,7 +78,9 @@ class QueryService extends BaseService
     public function queryTable()
     {
         $query = $this->_model::query();
-        $this->ascending = $this->ascending === 'ascending' ? self::ASC : self::DESC;
+        if ($this->ascending) {
+            $this->ascending = $this->ascending === self::ASCENDING ? self::ASC : self::DESC;
+        }
         $query->when($this->select, fn($q) => $q->select($this->select));
         $query->when($this->search, fn($q) => $q->whereLike($this->columnSearch, $this->search));
         foreach (Arr::wrap($this->withRelationship) as $relationship) {
@@ -98,8 +91,7 @@ class QueryService extends BaseService
             $endDate = Carbon::parse($this->betweenDate[1])->endOfDay();
             $q->whereBetween($this->defaultUpdatedAt, [$startDate, $endDate]);
         });
-        $query->when($this->orderBy, fn($q) => $q->orderBy($this->orderBy, $this->ascending));
-        $query->when($this->defaultOrderBy, fn($q) => $q->orderBy($this->defaultOrderBy, $this->defaultDescending));
+        $query->when($this->orderBy && $this->ascending, fn($q) => $q->orderBy($this->orderBy, $this->ascending));
 
         return $query;
     }

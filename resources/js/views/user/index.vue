@@ -34,15 +34,15 @@
               v-loading="table.loading"
               class="w-full"
               :data="table.list"
-              :default-sort="{ prop: 'updated_at', order: 'descending' }"
+              :default-sort="{ prop: table.listQuery.orderBy, order: table.listQuery.ascending }"
               border
               fit
               highlight-current-row
               @sort-change="sortChange"
             >
               <el-table-column align="center" sortable="custom" prop="id" :label="$t('table.user.id')" width="70px">
-                <template slot-scope="{ $index }">
-                  {{ numericalOrder($index) }}
+                <template slot-scope="{ row }">
+                  {{ row.id }}
                 </template>
               </el-table-column>
               <el-table-column data-generator="name" align="left" header-align="center" :label="$t('table.user.name')">
@@ -126,7 +126,7 @@ export default {
         listQuery: {
           search: '',
           limit: 25,
-          ascending: 1,
+          ascending: 'descending',
           page: 1,
           orderBy: 'updated_at',
           updated_at: [],
@@ -206,10 +206,6 @@ export default {
           this.table.loading = false;
         }
       });
-    },
-    numericalOrder(index) {
-      const table = this.table.listQuery;
-      return (table.page - 1) * table.limit + index + 1;
     },
   },
 };
