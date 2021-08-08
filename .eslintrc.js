@@ -143,13 +143,16 @@ module.exports = {
         defaultAssignment: false,
       },
     ],
-    'no-unused-vars': [
-      2,
-      {
-        vars: 'all',
-        args: 'none',
-      },
-    ],
+    'no-unused-vars':
+      process.env.NODE_ENV === 'production'
+        ? [
+            2,
+            {
+              vars: 'all',
+              args: 'none',
+            },
+          ]
+        : 0,
     'no-useless-call': 2,
     'no-useless-escape': 0,
     'no-useless-computed-key': 2,

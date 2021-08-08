@@ -336,6 +336,7 @@
         "schemas": {
             "Role": {
                 "title": "Role",
+                "description": "Table[roles]",
                 "required": [
                     "name",
                     "guard_name"
@@ -375,6 +376,7 @@
             },
             "User": {
                 "title": "User",
+                "description": "Table[users]",
                 "required": [
                     "id",
                     "name",

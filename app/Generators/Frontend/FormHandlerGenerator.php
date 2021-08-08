@@ -72,10 +72,11 @@ class FormHandlerGenerator extends BaseGenerator
                 if ($field['db_type'] === $dbType['enum']) {
                     $enum = '';
                     foreach ($field['enum'] as $keyEnum => $value) {
+                        $value = is_numeric($value) ? $value : "'$value'";
                         if ($keyEnum === count($field['enum']) - 1) {
-                            $enum .= "'$value'";
+                            $enum .= $value;
                         } else {
-                            $enum .= "'$value'" . ',';
+                            $enum .= $value . ',';
                         }
                     }
                     $name = $field['field_name'] . 'List: [' . $enum . '],';

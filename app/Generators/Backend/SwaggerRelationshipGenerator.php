@@ -48,7 +48,7 @@ class SwaggerRelationshipGenerator extends BaseGenerator
         if ($relationship === $this->relationship['has_one'] || $relationship === $this->relationship['has_many']) {
             // Required
             $templateScheme = $this->serviceGenerator->searchTemplate(self::OA_SCHEME, ')', -strlen(self::OA_SCHEME) + 4, strlen(self::OA_SCHEME) + 2, $templateData);
-            $templateRequired = $this->serviceGenerator->searchTemplate(self::REQUIRED, '}', strlen(self::REQUIRED), -strlen(self::REQUIRED), $templateScheme);
+            $templateRequired = self::REQUIRED . $this->serviceGenerator->searchTemplate(self::REQUIRED, '}', strlen(self::REQUIRED), -strlen(self::REQUIRED), $templateScheme);
             if (!$templateScheme || !$templateRequired) {
                 return $templateData;
             }
