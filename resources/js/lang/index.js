@@ -12,7 +12,7 @@ const messages = {
     ...enLocale,
   },
   vi: {
-    ...Locale.vn,
+    ...Locale.vi,
     ...viLocale,
   },
   ja: {
