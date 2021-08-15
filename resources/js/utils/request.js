@@ -44,9 +44,9 @@ service.interceptors.response.use(
       if (res.status === 404) {
         router.replace({ path: '/404' });
       }
-      // if (res.status === 500) {
-      //   router.replace({ path: '/500' });
-      // }
+      if (res.status === 500) {
+        router.replace({ path: '/500' });
+      }
       const currentUrl = router.history.current.path;
       if (!matchInArray(currentUrl, whiteList) && res.status === 401) {
         removeToken();

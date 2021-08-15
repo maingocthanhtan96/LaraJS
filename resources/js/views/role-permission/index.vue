@@ -33,12 +33,16 @@
                     @click="handleEditRolePermissions(row.id)"
                   />
                 </div>
-                <div v-if="row.name !== superAdmin">
-                  <el-button type="primary" icon="el-icon-edit" size="small" @click="handleEditRolePermissions(row.id)">
-                    Edit permission
-                  </el-button>
+                <div v-if="row.name !== superAdmin" class="tw-flex tw-flex-wrap tw-justify-center">
+                  <el-button
+                    type="primary"
+                    icon="el-icon-edit"
+                    size="small"
+                    @click="handleEditRolePermissions(row.id)"
+                  ></el-button>
                   <el-button
                     type="danger"
+                    class="tw-ml-0 md:tw-ml-4"
                     icon="el-icon-delete"
                     size="small"
                     @click="handleDeleteRole(row.id, row.name)"
@@ -76,13 +80,16 @@
                 v-permission="['manage permission']"
                 slot-scope="{ row }"
               >
-                <el-button type="primary" icon="el-icon-edit" size="small" @click="handleEditPermissions(row.id)" />
-                <el-button
-                  type="danger"
-                  icon="el-icon-delete"
-                  size="small"
-                  @click="handleDeletePermission(row.id, row.name)"
-                />
+                <div class="tw-flex tw-flex-wrap tw-justify-center">
+                  <el-button type="primary" icon="el-icon-edit" size="small" @click="handleEditPermissions(row.id)" />
+                  <el-button
+                    type="danger"
+                    class="tw-ml-0 md:tw-ml-4"
+                    icon="el-icon-delete"
+                    size="small"
+                    @click="handleDeletePermission(row.id, row.name)"
+                  />
+                </div>
               </template>
             </el-table-column>
           </el-table>

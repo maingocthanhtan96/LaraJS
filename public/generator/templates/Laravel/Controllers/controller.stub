@@ -23,7 +23,7 @@ class {{CONTROLLER_CLASS}}Controller extends Controller
      * {{CONTROLLER_CLASS}} constructor.
      * @author tanmnt
      */
-    function __construct()
+    public function __construct()
     {
         $this->middleware('permission:' . \ACL::PERMISSION_VISIT, ['only' => ['index']]);
         $this->middleware('permission:' . \ACL::PERMISSION_CREATE, ['only' => ['store']]);

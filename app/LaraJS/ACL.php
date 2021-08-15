@@ -25,16 +25,15 @@ final class ACL
     const ROLE_CREATOR = 'creator';
     const ROLE_EDITOR = 'editor';
     const ROLE_DELETER = 'deleter';
-    const ROLE_DEVELOPER = 'developer';
 
     const PERMISSION_PERMISSION_MANAGE = 'manage permission';
     const PERMISSION_VISIT = 'visit';
     const PERMISSION_CREATE = 'create';
     const PERMISSION_EDIT = 'edit';
     const PERMISSION_DELETE = 'delete';
-    const PERMISSION_DEVELOP = 'develop';
 
     const PERMISSION_VIEW_MENU_ROLE_PERMISSION = 'view menu role_permission';
+    const PERMISSION_VIEW_MENU_USER = 'view menu user';
 
     /**
      * @param array $exclusives Exclude some permissions from the list

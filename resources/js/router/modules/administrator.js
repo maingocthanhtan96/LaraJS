@@ -8,6 +8,8 @@ const administrator = {
   meta: {
     title: 'administrators',
     icon: 'admin',
+    roles: [superAdmin],
+    permissions: ['manage permission'],
   },
   children: [
     {

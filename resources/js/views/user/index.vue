@@ -10,16 +10,20 @@
             </a>
           </router-link>
         </div>
-        <el-row :gutter="20" class="tw-mb-6">
+        <el-row :gutter="20" type="flex" justify="space-between" class="tw-mb-6 tw-flex-wrap">
           <el-col :xs="24" :sm="10" :md="6">
             <label>{{ $t('table.texts.filter') }}</label>
-            <el-input v-model="table.listQuery.search" :placeholder="$t('table.texts.filterPlaceholder')" />
+            <el-input
+              v-model="table.listQuery.search"
+              class="tw-w-full"
+              :placeholder="$t('table.texts.filterPlaceholder')"
+            />
           </el-col>
-          <el-col :xs="24" :sm="14" :md="18">
+          <el-col :xs="24" :sm="14" :md="10">
             <br />
             <el-date-picker
               v-model="table.listQuery.updated_at"
-              class="md:tw-float-right"
+              class="tw-w-full"
               type="daterange"
               :start-placeholder="$t('date.start_date')"
               :end-placeholder="$t('date.end_date')"
@@ -69,7 +73,7 @@
               </el-table-column>
               <el-table-column align="center" :label="$t('table.user.role')">
                 <template slot-scope="{ row }">
-                  {{ row.roles[0].name }}
+                  {{ row.roles[0] && row.roles[0].name }}
                 </template>
               </el-table-column>
               <!--{{$TEMPLATES_NOT_DELETE_THIS_LINE$}}-->

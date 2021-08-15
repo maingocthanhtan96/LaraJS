@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\Permission;
+use App\Models\Role;
 
 class SetupRolePermissionTableSeeder extends Seeder
 {
@@ -12,9 +13,9 @@ class SetupRolePermissionTableSeeder extends Seeder
      */
     public function run()
     {
-        //        foreach (\ACL::roles() as $role) {
-        //            Role::findOrCreate($role, 'api');
-        //        }
+        foreach (\ACL::roles() as $role) {
+            Role::findOrCreate($role, 'api');
+        }
 
         foreach (\ACL::permissions() as $permission) {
             Permission::findOrCreate($permission, 'api');

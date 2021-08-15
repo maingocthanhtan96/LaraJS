@@ -98,6 +98,7 @@ export default {
 .pagination-container {
   background: #fff;
   padding: 32px 16px;
+  overflow-x: auto;
   ::v-deep {
     .el-input {
       width: 120px;
