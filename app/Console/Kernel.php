@@ -3,7 +3,6 @@
 namespace App\Console;
 
 use App\Console\Commands\BackupMySQLCommand;
-use App\Console\Commands\CreateEnvCommand;
 use App\Console\Commands\SetupCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;

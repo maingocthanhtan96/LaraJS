@@ -15,7 +15,7 @@ class FileService extends BaseService
         if (!file_exists($path)) {
             mkdir($path, 0755, true);
         }
-        $path = $path . $fileName;
+        $path .= $fileName;
         file_put_contents($path, $contents);
     }
 

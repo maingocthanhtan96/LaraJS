@@ -3,31 +3,39 @@
 namespace App\Generators\Backend;
 
 use App\Generators\BaseGenerator;
-use App\Services\FileService;
-use App\Services\GeneratorService;
 use Carbon\Carbon;
 
 class MigrationGenerator extends BaseGenerator
 {
-    /** @var GeneratorService $service */
-    public GeneratorService $serviceGenerator;
-
-    /** @var FileService $service */
-    public FileService $serviceFile;
-
-    /** @var string */
-    public $path;
-
     /** @var string */
     public string $file;
 
     public function __construct($fields, $model)
     {
-        $this->serviceGenerator = new GeneratorService();
-        $this->serviceFile = new FileService();
+        parent::__construct();
         $this->path = config('generator.path.laravel.migration');
 
         $this->file = $this->generate($fields, $model);
+    }
+
+    /**
+     * @param $field
+     * @param $table
+     * @return mixed|string
+     */
+    public static function updateOption($field, $table): string
+    {
+        if ($field['options']['comment']) {
+            $table .= '->comment("' . $field['options']['comment'] . '")';
+        }
+        if ($field['options']['unique']) {
+            $table .= '->unique()';
+        }
+        if ($field['options']['index']) {
+            $table .= '->index()';
+        }
+
+        return $table;
     }
 
     private function generate($fields, $model): string
@@ -40,7 +48,7 @@ class MigrationGenerator extends BaseGenerator
 
         $templateData = str_replace('{{TABLE_NAME_TITLE}}', $this->serviceGenerator->modelNamePlural($model['name']), $templateData);
         $templateData = str_replace('{{TABLE_NAME}}', $this->serviceGenerator->tableName($model['name']), $templateData);
-        $fileName = date('Y_m_d_His') . '_' . 'create_' . $this->serviceGenerator->tableName($model['name']) . '_table.php';
+        $fileName = date('Y_m_d_His') . '_create_' . $this->serviceGenerator->tableName($model['name']) . '_table.php';
 
         $this->serviceFile->createFile($this->path, $fileName, $templateData);
 
@@ -68,7 +76,7 @@ class MigrationGenerator extends BaseGenerator
                         if ($keyEnum === count($field['enum']) - 1) {
                             $enum .= "'$value'";
                         } else {
-                            $enum .= "'$value'" . ',';
+                            $enum .= "'$value',";
                         }
                     }
                     $table .= '$table->enum("' . trim($field['field_name']) . '", [' . $enum . '])';
@@ -109,25 +117,5 @@ class MigrationGenerator extends BaseGenerator
         }
 
         return implode($this->serviceGenerator->infy_nl_tab(1, 3), $fieldsGenerate);
-    }
-
-    /**
-     * @param $field
-     * @param $table
-     * @return mixed|string
-     */
-    public static function updateOption($field, $table): string
-    {
-        if ($field['options']['comment']) {
-            $table .= '->comment("' . $field['options']['comment'] . '")';
-        }
-        if ($field['options']['unique']) {
-            $table .= '->unique()';
-        }
-        if ($field['options']['index']) {
-            $table .= '->index()';
-        }
-
-        return $table;
     }
 }

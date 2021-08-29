@@ -4,9 +4,9 @@ namespace App\Traits;
 
 use Auth;
 
-trait UserSignatureTrait
+trait UserSignature
 {
-    protected static function bootUserSignatureTrait()
+    protected static function bootUserSignature()
     {
         static::creating(function ($model) {
             $user = Auth::user();

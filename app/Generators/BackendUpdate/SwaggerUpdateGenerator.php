@@ -2,48 +2,125 @@
 
 namespace App\Generators\BackendUpdate;
 
-use App\Generators\Backend\SwaggerGenerator;
 use App\Generators\BaseGenerator;
-use App\Services\FileService;
-use App\Services\GeneratorService;
 use Carbon\Carbon;
 
 class SwaggerUpdateGenerator extends BaseGenerator
 {
-    /** @var $service */
-    public $serviceGenerator;
+    public const FIELD_ID = 'id';
 
-    /** @var $service */
-    public $serviceFile;
-
-    /** @var string */
-    public $path;
+    public const OA_SCHEME = '@OA\Schema(';
+    public const REQUIRED = 'required={';
+    public const CHECK_CHAR_SCHEMA = '<###> @OA\Property(';
 
     /** @var string */
-    public $notDelete;
+    protected $dbType;
 
     /** @var string */
-    public $dbType;
-
-    /** @var string */
-    public $configDefaultValue;
-
-    const FIELD_ID = 'id';
-
-    const OA_SCHEME = '@OA\Schema(';
-    const REQUIRED = 'required={';
-    const CHECK_CHAR_SCHEMA = '<###> @OA\Property(';
+    protected $configDefaultValue;
 
     public function __construct($generator, $model, $updateFields)
     {
-        $this->serviceGenerator = new GeneratorService();
-        $this->serviceFile = new FileService();
+        parent::__construct();
         $this->path = config('generator.path.laravel.swagger');
         $this->notDelete = config('generator.not_delete.laravel.swagger');
         $this->dbType = config('generator.db_type');
         $this->configDefaultValue = config('generator.default_value');
 
         $this->generate($generator, $model, $updateFields);
+    }
+
+    public function generateFieldsUpdate($updateFields, $templateDataReal)
+    {
+        if (!$updateFields) {
+            return $templateDataReal;
+        }
+        // Required
+        $templateScheme = $this->serviceGenerator->searchTemplate(self::OA_SCHEME, ')', -strlen(self::OA_SCHEME) + 4, strlen(self::OA_SCHEME) + 2, $templateDataReal);
+        $templateRequired = $this->serviceGenerator->searchTemplate(self::REQUIRED, '}', strlen(self::REQUIRED), -strlen(self::REQUIRED), $templateScheme);
+
+        if (!$templateScheme || !$templateRequired) {
+            return $templateDataReal;
+        }
+        $fieldRequired = \Arr::pluck($updateFields, 'default_value', 'field_name');
+
+        $fieldRequires = '';
+        foreach ($fieldRequired as $field => $default) {
+            if ($field === self::FIELD_ID) {
+                continue;
+            }
+            if ($default === $this->configDefaultValue['none']) {
+                $fieldRequires .= '"' . $field . '",';
+            }
+        }
+        $templateRequiredNew = $templateRequired . ', ' . $fieldRequires;
+        $templateDataReal = str_replace($templateRequired, rtrim($templateRequiredNew, ', '), $templateDataReal);
+        // end required
+        $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['property'], $this->generateFields($updateFields), 1, $templateDataReal);
+        return $this->serviceGenerator->replaceNotDelete($this->notDelete['json_content'], $this->generateFields($updateFields, true), 0, $templateDataReal);
+    }
+
+    public function changeDefault($field)
+    {
+        if ($field['default_value'] === $this->configDefaultValue['none']) {
+            $defaultValue = 'NONE';
+        } elseif ($field['default_value'] === $this->configDefaultValue['null']) {
+            $defaultValue = 'NULL';
+        } else {
+            $defaultValue = $field['as_define'];
+        }
+
+        return 'default="' . $defaultValue . '"';
+    }
+
+    public function changeExample($field)
+    {
+        $example = '';
+        $faker = \Faker\Factory::create();
+        switch ($field['db_type']) {
+            case $this->dbType['integer']:
+            case $this->dbType['bigInteger']:
+                $example = $faker->numberBetween(1000, 9000);
+                break;
+            case $this->dbType['float']:
+            case $this->dbType['double']:
+                $example = $faker->randomFloat(2, 1000, 9000);
+                break;
+            case $this->dbType['boolean']:
+                $example = $faker->numberBetween(0, 1);
+                break;
+            case $this->dbType['date']:
+                $example = Carbon::now()->toDateString();
+                break;
+            case $this->dbType['dateTime']:
+            case $this->dbType['timestamp']:
+                $example = Carbon::now()->toDateTimeString();
+                break;
+            case $this->dbType['time']:
+                $example = Carbon::now()->toTimeString();
+                break;
+            case $this->dbType['year']:
+                $example = Carbon::now()->year;
+                break;
+            case $this->dbType['string']:
+                $example = $faker->name;
+                break;
+            case $this->dbType['text']:
+            case $this->dbType['longtext']:
+                $example = $faker->paragraph;
+                break;
+            case $this->dbType['file']:
+                $example = "['https://lorempixel.com/150/150/?77253', 'https://lorempixel.com/150/150/?77253']";
+                break;
+            case $this->dbType['enum']:
+                $example = \Arr::random($field['enum']);
+                break;
+            case $this->dbType['json']:
+                $example = '[{}]';
+                break;
+        }
+
+        return 'example="' . $example . '"';
     }
 
     private function generate($generator, $model, $updateFields)
@@ -62,7 +139,7 @@ class SwaggerUpdateGenerator extends BaseGenerator
 
     private function generateFieldsRename($renameFields, $templateDataReal)
     {
-        if (empty($renameFields)) {
+        if (!$renameFields) {
             return $templateDataReal;
         }
         // required
@@ -84,7 +161,7 @@ class SwaggerUpdateGenerator extends BaseGenerator
 
     private function generateFieldsChange($generator, $changeFields, $templateDataReal)
     {
-        if (empty($changeFields)) {
+        if (!$changeFields) {
             return $templateDataReal;
         }
         $formFields = json_decode($generator->field, true);
@@ -149,7 +226,8 @@ class SwaggerUpdateGenerator extends BaseGenerator
 
                 // required
                 if ($change['default_value'] !== $this->configDefaultValue['none']) {
-                    if (($key = array_search($change['field_name'], $newFields)) !== false) {
+                    $key = array_search($change['field_name'], $newFields);
+                    if ($key !== false) {
                         unset($newFields[$key]);
                     }
                 } else {
@@ -160,7 +238,7 @@ class SwaggerUpdateGenerator extends BaseGenerator
         }
         $fieldRequires = '';
         foreach (array_values($newFields) as $field) {
-            $fieldRequires .= '"' . $field . '"' . ', ';
+            $fieldRequires .= '"' . $field . '",';
         }
         if ($fieldRequires) {
             $templateDataReal = str_replace($templateRequired, rtrim($fieldRequires, ', '), $templateDataReal);
@@ -171,7 +249,7 @@ class SwaggerUpdateGenerator extends BaseGenerator
 
     private function generateFieldsDrop($dropFields, $templateDataReal)
     {
-        if (empty($dropFields)) {
+        if (!$dropFields) {
             return $templateDataReal;
         }
 
@@ -188,7 +266,7 @@ class SwaggerUpdateGenerator extends BaseGenerator
             $field = trim($field);
             $field = $this->serviceGenerator->trimQuotes($field);
             if (!in_array($field, $fieldRequiredDrop)) {
-                $fieldRequires .= '"' . $field . '"' . ', ';
+                $fieldRequires .= '"' . $field . '",';
             }
         }
         $templateDataReal = str_replace($templateRequired, rtrim($fieldRequires, ', '), $templateDataReal);
@@ -219,104 +297,9 @@ class SwaggerUpdateGenerator extends BaseGenerator
         return $templateDataReal;
     }
 
-    public function generateFieldsUpdate($updateFields, $templateDataReal)
-    {
-        if (empty($updateFields)) {
-            return $templateDataReal;
-        }
-        // Required
-        $templateScheme = $this->serviceGenerator->searchTemplate(self::OA_SCHEME, ')', -strlen(self::OA_SCHEME) + 4, strlen(self::OA_SCHEME) + 2, $templateDataReal);
-        $templateRequired = $this->serviceGenerator->searchTemplate(self::REQUIRED, '}', strlen(self::REQUIRED), -strlen(self::REQUIRED), $templateScheme);
-
-        if (!$templateScheme || !$templateRequired) {
-            return $templateDataReal;
-        }
-        $fieldRequired = \Arr::pluck($updateFields, 'default_value', 'field_name');
-
-        $fieldRequires = '';
-        foreach ($fieldRequired as $field => $default) {
-            if ($field === self::FIELD_ID) {
-                continue;
-            }
-            if ($default === $this->configDefaultValue['none']) {
-                $fieldRequires .= '"' . $field . '"' . ', ';
-            }
-        }
-        $templateRequiredNew = $templateRequired . ', ' . $fieldRequires;
-        $templateDataReal = str_replace($templateRequired, rtrim($templateRequiredNew, ', '), $templateDataReal);
-        // end required
-        $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['property'], $this->generateFields($updateFields), 1, $templateDataReal);
-        $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['json_content'], $this->generateFields($updateFields, true), 0, $templateDataReal);
-
-        return $templateDataReal;
-    }
-
     private function changeDBType($dbType)
     {
         return 'type="' . $dbType . '"';
-    }
-
-    public function changeDefault($field)
-    {
-        if ($field['default_value'] === $this->configDefaultValue['none']) {
-            $defaultValue = 'NONE';
-        } elseif ($field['default_value'] === $this->configDefaultValue['null']) {
-            $defaultValue = 'NULL';
-        } else {
-            $defaultValue = $field['as_define'];
-        }
-
-        return 'default="' . $defaultValue . '"';
-    }
-
-    public function changeExample($field)
-    {
-        $example = '';
-        $faker = \Faker\Factory::create();
-        switch ($field['db_type']) {
-            case $this->dbType['integer']:
-            case $this->dbType['bigInteger']:
-                $example = $faker->numberBetween(1000, 9000);
-                break;
-            case $this->dbType['float']:
-            case $this->dbType['double']:
-                $example = $faker->randomFloat(2, 1000, 9000);
-                break;
-            case $this->dbType['boolean']:
-                $example = $faker->numberBetween(0, 1);
-                break;
-            case $this->dbType['date']:
-                $example = Carbon::now()->toDateString();
-                break;
-            case $this->dbType['dateTime']:
-            case $this->dbType['timestamp']:
-                $example = Carbon::now()->toDateTimeString();
-                break;
-            case $this->dbType['time']:
-                $example = Carbon::now()->toTimeString();
-                break;
-            case $this->dbType['year']:
-                $example = Carbon::now()->year;
-                break;
-            case $this->dbType['string']:
-                $example = $faker->name;
-                break;
-            case $this->dbType['text']:
-            case $this->dbType['longtext']:
-                $example = $faker->paragraph;
-                break;
-            case $this->dbType['file']:
-                $example = "['https://lorempixel.com/150/150/?77253', 'https://lorempixel.com/150/150/?77253']";
-                break;
-            case $this->dbType['enum']:
-                $example = \Arr::random($field['enum']);
-                break;
-            case $this->dbType['json']:
-                $example = '[{}]';
-                break;
-        }
-
-        return 'example="' . $example . '"';
     }
 
     private function generateFields($fields, $propertyJson = false)
@@ -401,7 +384,7 @@ class SwaggerUpdateGenerator extends BaseGenerator
                         if ($keyEnum === count($field['enum']) - 1) {
                             $enum .= '"' . $value . '"';
                         } else {
-                            $enum .= '"' . $value . '"' . ',';
+                            $enum .= '"' . $value . '",';
                         }
                     }
                     if ($propertyJson) {

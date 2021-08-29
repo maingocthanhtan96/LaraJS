@@ -10,6 +10,56 @@ use Illuminate\Support\Facades\File;
 
 class SetupCommand extends Command
 {
+    /** @var GeneratorService */
+    protected GeneratorService $serviceGenerator;
+
+    /** @var FileService */
+    protected FileService $serviceFile;
+
+    /** @var string */
+    protected string $basePath;
+
+    /** @var string */
+    protected string $env;
+
+    /** @var string */
+    protected string $appUrlStub;
+
+    /** @var string */
+    protected string $dbHostStub;
+
+    /** @var string */
+    protected string $dbPortStub;
+
+    /** @var string */
+    protected string $dbDatabaseStub;
+
+    /** @var string */
+    protected string $dbUsernameStub;
+
+    /** @var string */
+    protected string $dbPasswordStub;
+
+    /** @var string */
+    protected string $appUrl;
+
+    /** @var string */
+    protected string $host;
+
+    /** @var string */
+    protected string $port;
+
+    /** @var string */
+    protected string $database;
+
+    /** @var string */
+    protected string $username;
+
+    /** @var string */
+    protected string $password;
+
+    /** @var string */
+    protected string $cacheConfig;
     /**
      * The name and signature of the console command.
      *
@@ -23,57 +73,6 @@ class SetupCommand extends Command
      * @var string
      */
     protected $description = 'Setup LaraJS';
-
-    /** @var GeneratorService $service */
-    public GeneratorService $serviceGenerator;
-
-    /** @var FileService $service */
-    public FileService $serviceFile;
-
-    /** @var string */
-    public string $basePath;
-
-    /** @var string */
-    public string $env;
-
-    /** @var string */
-    public string $appUrlStub;
-
-    /** @var string */
-    public string $dbHostStub;
-
-    /** @var string */
-    public string $dbPortStub;
-
-    /** @var string */
-    public string $dbDatabaseStub;
-
-    /** @var string */
-    public string $dbUsernameStub;
-
-    /** @var string */
-    public string $dbPasswordStub;
-
-    /** @var string */
-    public string $appUrl;
-
-    /** @var string */
-    public string $host;
-
-    /** @var string */
-    public string $port;
-
-    /** @var string */
-    public string $database;
-
-    /** @var string */
-    public string $username;
-
-    /** @var string */
-    public string $password;
-
-    /** @var string */
-    public string $cacheConfig;
 
     /**
      * Create a new command instance.
@@ -98,7 +97,7 @@ class SetupCommand extends Command
     public function handle()
     {
         try {
-            list($fileEnvEx, $fileConfig) = $this->_createEnv();
+            [$fileEnvEx, $fileConfig] = $this->_createEnv();
             $this->_installMigrateSeed();
             $this->_installPackage();
             $this->_generateFile();
@@ -231,9 +230,8 @@ class SetupCommand extends Command
         $fileEnvEx = str_replace($this->dbPortStub, $this->port, $fileEnvEx);
         $fileEnvEx = str_replace($this->dbDatabaseStub, $this->database, $fileEnvEx);
         $fileEnvEx = str_replace($this->dbUsernameStub, $this->username, $fileEnvEx);
-        $fileEnvEx = str_replace($this->dbPasswordStub, $this->password, $fileEnvEx);
 
-        return $fileEnvEx;
+        return str_replace($this->dbPasswordStub, $this->password, $fileEnvEx);
     }
 
     private function _createEnvWithPassport($fileEnvEx, $fileConfig, $secret)

@@ -3,28 +3,13 @@
 namespace App\Generators\Backend;
 
 use App\Generators\BaseGenerator;
-use App\Services\FileService;
-use App\Services\GeneratorService;
 use Carbon\Carbon;
 
 class RequestGenerator extends BaseGenerator
 {
-    /** @var $service */
-    public $serviceGenerator;
-
-    /** @var $service */
-    public $serviceFile;
-
-    /** @var string */
-    public $path;
-
-    /** @var string */
-    public $notDelete;
-
     public function __construct($fields, $model)
     {
-        $this->serviceGenerator = new GeneratorService();
-        $this->serviceFile = new FileService();
+        parent::__construct();
         $this->path = config('generator.path.laravel.request');
         $this->notDelete = config('generator.not_delete.laravel.request');
 
@@ -65,31 +50,31 @@ class RequestGenerator extends BaseGenerator
                     case $dbType['bigInteger']:
                     case $dbType['float']:
                     case $dbType['double']:
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|numeric'" . ',';
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|numeric',";
                         break;
                     case $dbType['boolean']:
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|boolean'" . ',';
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|boolean',";
                         break;
                     case $dbType['date']:
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:Y-m-d'" . ',';
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:Y-m-d',";
                         break;
                     case $dbType['dateTime']:
                     case $dbType['timestamp']:
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:Y-m-d H:i:s'" . ',';
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:Y-m-d H:i:s',";
                         break;
                     case $dbType['time']:
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:H:i:s'" . ',';
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:H:i:s',";
                         break;
                     case $dbType['year']:
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:Y'" . ',';
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:Y',";
                         break;
                     case $dbType['string']:
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|string|max:{$field['length_varchar']}'" . ',';
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|string|max:{$field['length_varchar']}',";
                         break;
                     case $dbType['text']:
                     case $dbType['longtext']:
                     case $dbType['file']:
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|string'" . ',';
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|string',";
                         break;
                     case $dbType['enum']:
                         $enum = 'in:';
@@ -97,13 +82,13 @@ class RequestGenerator extends BaseGenerator
                             if ($keyEnum === count($field['enum']) - 1) {
                                 $enum .= "$value";
                             } else {
-                                $enum .= "$value" . ',';
+                                $enum .= "$value,";
                             }
                         }
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|$enum'" . ',';
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|$enum',";
                         break;
                     case $dbType['json']:
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|json'" . ',';
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|json',";
                         break;
                 }
             }

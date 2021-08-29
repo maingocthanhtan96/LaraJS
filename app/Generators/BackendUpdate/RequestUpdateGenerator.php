@@ -3,45 +3,38 @@
 namespace App\Generators\BackendUpdate;
 
 use App\Generators\BaseGenerator;
-use App\Services\FileService;
-use App\Services\GeneratorService;
-use Carbon\Carbon;
 
 class RequestUpdateGenerator extends BaseGenerator
 {
-    /** @var $service */
-    public $serviceGenerator;
-
-    /** @var $service */
-    public $serviceFile;
-
-    /** @var string */
-    public $path;
+    public const COLUMNS = 'return [';
+    public const CHAR = '];';
+    public const REQUIRED = 'required';
+    public const NULLABLE = 'nullable';
 
     /** @var string */
-    public $notDelete;
+    protected $dbType;
 
     /** @var string */
-    public $dbType;
-
-    /** @var string */
-    public $configDefaultValue;
-
-    const COLUMNS = 'return [';
-    const CHAR = '];';
-    const REQUIRED = 'required';
-    const NULLABLE = 'nullable';
+    protected $configDefaultValue;
 
     public function __construct($generator, $model, $updateFields)
     {
-        $this->serviceGenerator = new GeneratorService();
-        $this->serviceFile = new FileService();
+        parent::__construct();
         $this->path = config('generator.path.laravel.request');
         $this->notDelete = config('generator.not_delete.laravel.request');
         $this->dbType = config('generator.db_type');
         $this->configDefaultValue = config('generator.default_value');
 
         $this->generate($generator, $model, $updateFields);
+    }
+
+    public function generateFieldsUpdate($updateFields, $templateDataReal)
+    {
+        if (!$updateFields) {
+            return $templateDataReal;
+        }
+
+        return $this->serviceGenerator->replaceNotDelete($this->notDelete['rule'], $this->generateFields($updateFields), 3, $templateDataReal);
     }
 
     private function generate($generator, $model, $updateFields)
@@ -70,7 +63,7 @@ class RequestUpdateGenerator extends BaseGenerator
 
     private function generateFieldsChange($generator, $changeFields, $templateDataReal)
     {
-        if (empty($changeFields)) {
+        if (!$changeFields) {
             return $templateDataReal;
         }
 
@@ -95,7 +88,7 @@ class RequestUpdateGenerator extends BaseGenerator
         foreach ($changeFields as $change) {
             foreach ($arrayColumns as $key => $req) {
                 if (trim($req) && trim($req) !== $this->notDelete['rule']) {
-                    list($keyField, $valField) = explode(' => ', $req);
+                    [$keyField, $valField] = explode(' => ', $req);
                     $keyField = trim($keyField);
                     $valField = trim($valField);
                     $keyField = $this->serviceGenerator->trimQuotes($keyField);
@@ -142,14 +135,12 @@ class RequestUpdateGenerator extends BaseGenerator
             }
         }
         $fieldsGenerator[] = $this->notDelete['rule'] . $this->serviceGenerator->infy_nl_tab(1, 2);
-        $templateDataReal = str_replace($templateColumns, $this->serviceGenerator->infy_nl_tab(0, 2) . ' ' . implode($this->serviceGenerator->infy_nl_tab(1, 3), $fieldsGenerator), $templateDataReal);
-
-        return $templateDataReal;
+        return str_replace($templateColumns, $this->serviceGenerator->infy_nl_tab(0, 2) . ' ' . implode($this->serviceGenerator->infy_nl_tab(1, 3), $fieldsGenerator), $templateDataReal);
     }
 
     private function generateFieldsDrop($dropFields, $templateDataReal)
     {
-        if (empty($dropFields)) {
+        if (!$dropFields) {
             return $templateDataReal;
         }
 
@@ -164,7 +155,7 @@ class RequestUpdateGenerator extends BaseGenerator
         foreach ($dropFields as $drop) {
             foreach ($arrayColumns as $key => $req) {
                 if (trim($req) && trim($req) !== $this->notDelete['rule']) {
-                    list($keyField, $valField) = explode(' => ', $req);
+                    [$keyField, $valField] = explode(' => ', $req);
                     $keyField = trim($keyField);
                     $valField = trim($valField);
                     $keyField = $this->serviceGenerator->trimQuotes($keyField);
@@ -178,20 +169,7 @@ class RequestUpdateGenerator extends BaseGenerator
             }
         }
         $fieldsGenerator[] = $this->notDelete['rule'] . $this->serviceGenerator->infy_nl_tab(1, 2);
-        $templateDataReal = str_replace($templateColumns, $this->serviceGenerator->infy_nl_tab(0, 2) . ' ' . implode($this->serviceGenerator->infy_nl_tab(1, 3), $fieldsGenerator), $templateDataReal);
-
-        return $templateDataReal;
-    }
-
-    public function generateFieldsUpdate($updateFields, $templateDataReal)
-    {
-        if (empty($updateFields)) {
-            return $templateDataReal;
-        }
-
-        $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['rule'], $this->generateFields($updateFields), 3, $templateDataReal);
-
-        return $templateDataReal;
+        return str_replace($templateColumns, $this->serviceGenerator->infy_nl_tab(0, 2) . ' ' . implode($this->serviceGenerator->infy_nl_tab(1, 3), $fieldsGenerator), $templateDataReal);
     }
 
     private function generateFields($fields)
@@ -209,31 +187,31 @@ class RequestUpdateGenerator extends BaseGenerator
                 case $this->dbType['bigInteger']:
                 case $this->dbType['float']:
                 case $this->dbType['double']:
-                    $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|numeric'" . ',';
+                    $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|numeric',";
                     break;
                 case $this->dbType['boolean']:
-                    $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|boolean'" . ',';
+                    $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|boolean',";
                     break;
                 case $this->dbType['date']:
-                    $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:Y-m-d'" . ',';
+                    $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:Y-m-d',";
                     break;
                 case $this->dbType['dateTime']:
                 case $this->dbType['timestamp']:
-                    $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:Y-m-d H:i:s'" . ',';
+                    $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:Y-m-d H:i:s',";
                     break;
                 case $this->dbType['time']:
-                    $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:H:i:s'" . ',';
+                    $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:H:i:s',";
                     break;
                 case $this->dbType['year']:
-                    $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:Y'" . ',';
+                    $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|date_format:Y',";
                     break;
                 case $this->dbType['string']:
-                    $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|string|max:{$field['length_varchar']}'" . ',';
+                    $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|string|max:{$field['length_varchar']}',";
                     break;
                 case $this->dbType['text']:
                 case $this->dbType['longtext']:
                 case $this->dbType['file']:
-                    $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|string'" . ',';
+                    $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|string',";
                     break;
                 case $this->dbType['enum']:
                     $enum = 'in:';
@@ -241,13 +219,13 @@ class RequestUpdateGenerator extends BaseGenerator
                         if ($keyEnum === count($field['enum']) - 1) {
                             $enum .= "$value";
                         } else {
-                            $enum .= "$value" . ',';
+                            $enum .= "$value,";
                         }
                     }
-                    $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|$enum'" . ',';
+                    $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|$enum',";
                     break;
                 case $this->dbType['json']:
-                    $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|json'" . ',';
+                    $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'$required|json',";
                     break;
             }
         }
@@ -293,7 +271,7 @@ class RequestUpdateGenerator extends BaseGenerator
                     if ($keyEnum === count($enums) - 1) {
                         $enum .= "$value";
                     } else {
-                        $enum .= "$value" . ',';
+                        $enum .= "$value,";
                     }
                 }
                 $field = "$enum";

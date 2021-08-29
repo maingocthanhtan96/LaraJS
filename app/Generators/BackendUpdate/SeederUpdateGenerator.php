@@ -3,31 +3,15 @@
 namespace App\Generators\BackendUpdate;
 
 use App\Generators\BaseGenerator;
-use App\Services\FileService;
-use App\Services\GeneratorService;
-use Carbon\Carbon;
 
 class SeederUpdateGenerator extends BaseGenerator
 {
-    /** @var $service */
-    public $serviceGenerator;
-
-    /** @var $service */
-    public $serviceFile;
-
     /** @var string */
-    public $path;
-
-    /** @var string */
-    public $notDelete;
-
-    /** @var string */
-    public $dbType;
+    protected $dbType;
 
     public function __construct($generator, $model, $updateFields)
     {
-        $this->serviceGenerator = new GeneratorService();
-        $this->serviceFile = new FileService();
+        parent::__construct();
         $this->path = config('generator.path.laravel.seeder');
         $this->notDelete = config('generator.not_delete.laravel.db');
         $this->dbType = config('generator.db_type');
@@ -42,13 +26,8 @@ class SeederUpdateGenerator extends BaseGenerator
         $templateDataReal = $this->generateRenameFields($updateFields['renameFields'], $templateDataReal);
         $templateDataReal = $this->generateChangeFields($updateFields['changeFields'], $generator, $templateDataReal);
         $templateDataReal = $this->generateFieldsDrop($updateFields['dropFields'], $templateDataReal);
-        if (!empty($updateFields['updateFields'])) {
-            $templateDataReal = $this->serviceGenerator->replaceNotDelete(
-                $this->notDelete['seeder'],
-                $this->generateFieldsUpdate($updateFields['updateFields'], $templateDataReal),
-                4,
-                $templateDataReal
-            );
+        if ($updateFields['updateFields']) {
+            $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['seeder'], $this->generateFieldsUpdate($updateFields['updateFields']), 4, $templateDataReal);
         }
         $this->serviceFile->createFileReal($this->path . $fileName, $templateDataReal);
     }
@@ -91,7 +70,7 @@ class SeederUpdateGenerator extends BaseGenerator
         return $templateDataReal;
     }
 
-    private function generateFieldsUpdate($updateFields, $templateDataReal)
+    private function generateFieldsUpdate($updateFields)
     {
         $fieldsGenerate = [];
         foreach ($updateFields as $update) {
@@ -107,44 +86,43 @@ class SeederUpdateGenerator extends BaseGenerator
         switch ($change['db_type']) {
             case $this->dbType['integer']:
             case $this->dbType['bigInteger']:
-                $fieldsGenerate = "'" . $change['field_name'] . "'" . ' => ' . '$faker->numberBetween(1000, 9000)' . ',';
+                $fieldsGenerate = "'" . $change['field_name'] . "'" . ' => $faker->numberBetween(1000, 9000),';
                 break;
             case $this->dbType['float']:
             case $this->dbType['double']:
-                $fieldsGenerate = "'" . $change['field_name'] . "'" . ' => ' . '$faker->randomFloat(2, 1000, 9000)' . ',';
+                $fieldsGenerate = "'" . $change['field_name'] . "'" . ' => $faker->randomFloat(2, 1000, 9000),';
                 break;
             case $this->dbType['boolean']:
-                $fieldsGenerate = "'" . $change['field_name'] . "'" . ' => ' . '$faker->numberBetween(0, 1)' . ',';
+                $fieldsGenerate = "'" . $change['field_name'] . "'" . ' => $faker->numberBetween(0, 1),';
                 break;
             case $this->dbType['date']:
-                $fieldsGenerate = "'" . $change['field_name'] . "'" . ' => ' . '$faker->date("Y-m-d")' . ',';
+                $fieldsGenerate = "'" . $change['field_name'] . "'" . ' => $faker->date("Y-m-d"),';
                 break;
             case $this->dbType['dateTime']:
             case $this->dbType['timestamp']:
-                $fieldsGenerate = "'" . $change['field_name'] . "'" . ' => ' . '$faker->dateTime' . ',';
+                $fieldsGenerate = "'" . $change['field_name'] . "'" . ' => $faker->dateTime,';
                 break;
             case $this->dbType['time']:
-                $fieldsGenerate = "'" . $change['field_name'] . "'" . ' => ' . '$faker->date("H:i:s")' . ',';
+                $fieldsGenerate = "'" . $change['field_name'] . "'" . ' => $faker->date("H:i:s"),';
                 break;
             case $this->dbType['year']:
-                $fieldsGenerate = "'" . $change['field_name'] . "'" . ' => ' . '$faker->year' . ',';
+                $fieldsGenerate = "'" . $change['field_name'] . "'" . ' => $faker->year,';
                 break;
             case $this->dbType['string']:
-                $fieldsGenerate = "'" . $change['field_name'] . "'" . ' => ' . '$faker->name' . ',';
+                $fieldsGenerate = "'" . $change['field_name'] . "'" . ' => $faker->name,';
                 break;
             case $this->dbType['text']:
             case $this->dbType['longtext']:
-                $fieldsGenerate = "'" . $change['field_name'] . "'" . ' => ' . '$faker->paragraph' . ',';
+                $fieldsGenerate = "'" . $change['field_name'] . "'" . ' => $faker->paragraph,';
                 break;
             case $this->dbType['enum']:
-                $fieldsGenerate = "'" . $change['field_name'] . "'" . ' => ' . '$faker->randomElement(' . json_encode($change['enum']) . ')' . ',';
+                $fieldsGenerate = "'" . $change['field_name'] . "'" . ' => $faker->randomElement(' . json_encode($change['enum']) . '),';
                 break;
             case $this->dbType['json']:
-                $json = '[{}]';
-                $fieldsGenerate = "'" . $change['field_name'] . "'" . ' => ' . "'" . $json . "'" . ',';
+                $fieldsGenerate = "'" . $change['field_name'] . "'" . ' => "[{}]",';
                 break;
             case $this->dbType['file']:
-                $fieldsGenerate = "'" . $change['field_name'] . "'" . ' => ' . 'json_encode(["https://via.placeholder.com/350"])' . ',';
+                $fieldsGenerate = "'" . $change['field_name'] . "'" . ' => json_encode(["https://via.placeholder.com/350"]),';
                 break;
         }
         return $fieldsGenerate;

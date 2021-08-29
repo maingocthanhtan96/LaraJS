@@ -3,48 +3,32 @@
 namespace App\Generators\FrontendUpdate;
 
 use App\Generators\BaseGenerator;
-use App\Services\FileService;
-use App\Services\GeneratorService;
-use Carbon\Carbon;
 
 class FormUpdateGenerator extends BaseGenerator
 {
-    /** @var $service */
-    public $serviceGenerator;
-
-    /** @var $service */
-    public $serviceFile;
-
-    /** @var string */
-    public $path;
-
-    /** @var string */
-    public $labelNameForm;
+    public const TEMPLATE_START = '<el-form-item';
+    public const TEMPLATE_END = '</el-form-item>';
+    public const DATA_GENERATOR = 'data-generator=';
+    public const DATA_FORM = 'form:';
+    public const RULES = 'rules() {';
+    public const SUCCESS_FILE = 'DropzoneS';
+    public const REMOVE_FILE = 'DropzoneR';
 
     /** @var string */
-    public $propNameForm;
+    protected string $labelNameForm;
 
     /** @var string */
-    public $dbType;
+    protected string $propNameForm;
 
     /** @var string */
-    public $notDelete;
+    protected $dbType;
 
     /** @var string */
-    public $defaultValue;
-
-    const TEMPLATE_START = '<el-form-item';
-    const TEMPLATE_END = '</el-form-item>';
-    const DATA_GENERATOR = 'data-generator=';
-    const DATA_FORM = 'form:';
-    const RULES = 'rules() {';
-    const SUCCESS_FILE = 'DropzoneS';
-    const REMOVE_FILE = 'DropzoneR';
+    protected $defaultValue;
 
     public function __construct($generator, $model, $updateFields)
     {
-        $this->serviceGenerator = new GeneratorService();
-        $this->serviceFile = new FileService();
+        parent::__construct();
         $this->path = config('generator.path.vuejs.views');
         $this->dbType = config('generator.db_type');
         $this->notDelete = config('generator.not_delete.vuejs.form');
@@ -58,7 +42,7 @@ class FormUpdateGenerator extends BaseGenerator
         $fileName = $this->serviceGenerator->folderPages($model['name']) . '/Form.vue';
         $templateDataReal = $this->serviceGenerator->getFile('views', 'vuejs', $fileName);
         $templateDataReal = $this->generateFieldsRename($updateFields['renameFields'], $templateDataReal);
-        $templateDataReal = $this->generateFieldsDrop($updateFields['dropFields'], $model, $templateDataReal);
+        $templateDataReal = $this->generateFieldsDrop($updateFields['dropFields'], $templateDataReal);
         $templateDataReal = $this->generateFieldsChange($generator, $updateFields['changeFields'], $model, $templateDataReal);
         $templateDataReal = $this->generateFieldsUpdate($updateFields['updateFields'], $model, $templateDataReal);
         $templateDataReal = $this->importComponent($updateFields, $templateDataReal);
@@ -68,7 +52,7 @@ class FormUpdateGenerator extends BaseGenerator
 
     private function generateFieldsRename($renameFields, $templateDataReal)
     {
-        if (empty($renameFields)) {
+        if (!$renameFields) {
             return $templateDataReal;
         }
 
@@ -105,11 +89,11 @@ class FormUpdateGenerator extends BaseGenerator
             foreach ($dataForms as $form) {
                 if (strlen($form) > 0) {
                     $form = trim($form);
-                    list($keyForm, $valForm) = explode(':', $form, 2);
+                    [$keyForm, $valForm] = explode(':', $form, 2);
                     if ($rename['field_name_old']['field_name'] === $keyForm) {
-                        $fieldsGenerateDataForm[] = $rename['field_name_new']['field_name'] . ':' . $valForm . ',';
+                        $fieldsGenerateDataForm[] = $rename['field_name_new']['field_name'] . ":$valForm,";
                     } else {
-                        $name = $keyForm . ':' . $valForm . ',';
+                        $name = $keyForm . ":$valForm,";
                         if (!in_array($name, $fieldsGenerateDataForm) && !in_array($keyForm, $arrayChange)) {
                             $fieldsGenerateDataForm[] = $name;
                         }
@@ -181,18 +165,16 @@ class FormUpdateGenerator extends BaseGenerator
             $templateDataReal = str_replace($documentOldId, $documentNewId, $templateDataReal);
         }
         //form item
-        if (!empty($fieldsGenerateDataForm)) {
+        if ($fieldsGenerateDataForm) {
             $templateDataReal = str_replace($templateDataForm, $this->replaceTemplate($fieldsGenerateDataForm, 2, 3, 2, 2, 0), $templateDataReal);
         }
         //rules
-        $templateDataReal = str_replace($templateRules, $templateRulesTemp, $templateDataReal);
-
-        return $templateDataReal;
+        return str_replace($templateRules, $templateRulesTemp, $templateDataReal);
     }
 
     private function generateFieldsChange($generator, $changeFields, $model, $templateDataReal)
     {
-        if (empty($changeFields)) {
+        if (!$changeFields) {
             return $templateDataReal;
         }
 
@@ -282,7 +264,7 @@ class FormUpdateGenerator extends BaseGenerator
                     } else {
                         preg_match('/maxlength=(\'|")[0-9]{0,3}(\'|")/im', $templateFormItem, $matches);
                         if (isset($matches[0])) {
-                            $templateFormItemNew = str_replace($matches[0], 'maxlength=' . '"' . $change['length_varchar'] . '"', $templateFormItem);
+                            $templateFormItemNew = str_replace($matches[0], 'maxlength=' . "'{$change['length_varchar']}'", $templateFormItem);
                             $templateDataReal = str_replace($templateFormItem, $templateFormItemNew, $templateDataReal);
                         }
                     }
@@ -291,7 +273,7 @@ class FormUpdateGenerator extends BaseGenerator
                     if ($change['default_value'] !== $oldField['default_value']) {
                         //drop rules
                         if ($oldField['default_value'] === $this->defaultValue['none']) {
-                            $templateDataReal = $this->dropRules($change, $model, $templateDataReal);
+                            $templateDataReal = $this->dropRules($change, $templateDataReal);
                         }
                         //add rule
                         if ($change['default_value'] === $this->defaultValue['none']) {
@@ -303,10 +285,10 @@ class FormUpdateGenerator extends BaseGenerator
                 foreach ($dataForms as $form) {
                     if (strlen($form) > 0) {
                         $form = trim($form);
-                        list($keyForm, $valForm) = explode(':', $form, 2);
+                        [$keyForm, $valForm] = explode(':', $form, 2);
                         if ($change['field_name'] === $keyForm) {
                             if ($change['default_value'] === $this->defaultValue['as_define']) {
-                                $formDefault = $change['field_name'] . ':' . "'" . $change['as_define'] . "'" . ',';
+                                $formDefault = $change['field_name'] . ':' . "'" . $change['as_define'] . "',";
                                 if (!in_array($formDefault, $fieldsGenerateDataForm)) {
                                     $fieldsGenerateDataForm[] = $formDefault;
                                 }
@@ -321,13 +303,13 @@ class FormUpdateGenerator extends BaseGenerator
                                     }
                                 }
 
-                                $formNotDefault = $change['field_name'] . ':' . $valForm . ',';
+                                $formNotDefault = $change['field_name'] . ":$valForm,";
                                 if (!in_array($formNotDefault, $fieldsGenerateDataForm)) {
                                     $fieldsGenerateDataForm[] = $formNotDefault;
                                 }
                             }
                         } else {
-                            $name = $keyForm . ':' . $valForm . ',';
+                            $name = $keyForm . ":$valForm,";
                             if (!in_array($name, $fieldsGenerateDataForm) && !in_array($keyForm, $arrayChange)) {
                                 $fieldsGenerateDataForm[] = $name;
                             }
@@ -338,16 +320,16 @@ class FormUpdateGenerator extends BaseGenerator
         }
 
         //form item
-        if (!empty($fieldsGenerateDataForm)) {
+        if ($fieldsGenerateDataForm) {
             $templateDataReal = str_replace($templateDataForm, $this->replaceTemplate($fieldsGenerateDataForm, 2, 3, 2, 2, 0), $templateDataReal);
         }
 
         return $templateDataReal;
     }
 
-    private function generateFieldsDrop($dropFields, $model, $templateDataReal)
+    private function generateFieldsDrop($dropFields, $templateDataReal)
     {
-        if (empty($dropFields)) {
+        if (!$dropFields) {
             return $templateDataReal;
         }
 
@@ -376,9 +358,9 @@ class FormUpdateGenerator extends BaseGenerator
             foreach ($dataForms as $form) {
                 if (strlen($form) > 0) {
                     $form = trim($form);
-                    list($keyForm, $valForm) = explode(':', $form, 2);
+                    [$keyForm, $valForm] = explode(':', $form, 2);
                     if ($drop['field_name'] !== $keyForm) {
-                        $name = $keyForm . ':' . $valForm . ',';
+                        $name = $keyForm . ":$valForm,";
                         if (!in_array($name, $fieldsGenerateDataForm) && !in_array($keyForm, $arrayChange)) {
                             $fieldsGenerateDataForm[] = $name;
                         }
@@ -440,9 +422,9 @@ class FormUpdateGenerator extends BaseGenerator
                 }
             }
             //drop rules
-            $templateDataReal = $this->dropRules($drop, $model, $templateDataReal);
+            $templateDataReal = $this->dropRules($drop, $templateDataReal);
         }
-        if (!empty($fieldsGenerateDataForm)) {
+        if ($fieldsGenerateDataForm) {
             $templateDataReal = str_replace($templateDataForm, $this->replaceTemplate($fieldsGenerateDataForm, 2, 3, 2, 2, 0), $templateDataReal);
         }
 
@@ -451,7 +433,7 @@ class FormUpdateGenerator extends BaseGenerator
 
     private function generateFieldsUpdate($updateFields, $model, $templateDataReal)
     {
-        if (empty($updateFields)) {
+        if (!$updateFields) {
             return $templateDataReal;
         }
         $selfDataForm = self::DATA_FORM;
@@ -462,12 +444,12 @@ class FormUpdateGenerator extends BaseGenerator
         foreach ($dataForms as $form) {
             if (strlen($form) > 0) {
                 $form = trim($form);
-                list($keyForm, $valForm) = explode(':', $form, 2);
-                $name = $keyForm . ':' . $valForm . ',';
+                [$keyForm, $valForm] = explode(':', $form, 2);
+                $name = $keyForm . ":$valForm,";
                 $fieldsGenerateDataForm[] = $name;
             }
         }
-        if (!empty($fieldsGenerateDataForm)) {
+        if ($fieldsGenerateDataForm) {
             $fieldsGenerateDataForm = array_merge($fieldsGenerateDataForm, $this->generateFields($updateFields));
             $templateDataReal = str_replace($templateDataForm, $this->replaceTemplate($fieldsGenerateDataForm, 2, 3, 2, 0, 0), $templateDataReal);
         }
@@ -507,7 +489,7 @@ class FormUpdateGenerator extends BaseGenerator
                     if ($keyEnum === count($update['enum']) - 1) {
                         $enum .= "'$value'";
                     } else {
-                        $enum .= "'$value'" . ',';
+                        $enum .= "'$value',";
                     }
                 }
                 $name = $update['field_name'] . 'List: [' . $enum . '],';
@@ -657,8 +639,7 @@ class FormUpdateGenerator extends BaseGenerator
         $formTemplate = $this->getFormTemplate('switch');
         $formTemplate = $this->replaceLabelForm($tableName, $field, $formTemplate);
         $formTemplate = $this->checkRequired($field, $formTemplate);
-        $formTemplate = $this->replaceFormField($field, $formTemplate);
-        return $formTemplate;
+        return $this->replaceFormField($field, $formTemplate);
     }
 
     private function generateDateTime($fileName, $tableName, $field)
@@ -666,8 +647,7 @@ class FormUpdateGenerator extends BaseGenerator
         $formTemplate = $this->getFormTemplate($fileName);
         $formTemplate = $this->replaceLabelForm($tableName, $field, $formTemplate);
         $formTemplate = $this->checkRequired($field, $formTemplate);
-        $formTemplate = $this->replaceFormField($field, $formTemplate);
-        return $formTemplate;
+        return $this->replaceFormField($field, $formTemplate);
     }
 
     private function generateInput($fileName, $tableName, $field, $dbType = '')
@@ -688,9 +668,7 @@ class FormUpdateGenerator extends BaseGenerator
         $formTemplate = $this->getFormTemplate('tinymce');
         $formTemplate = $this->replaceLabelForm($tableName, $field, $formTemplate);
         $formTemplate = $this->checkRequired($field, $formTemplate);
-        $formTemplate = $this->replaceFormField($field, $formTemplate);
-
-        return $formTemplate;
+        return $this->replaceFormField($field, $formTemplate);
     }
 
     private function generateEnum($tableName, $field)
@@ -701,9 +679,7 @@ class FormUpdateGenerator extends BaseGenerator
         $formTemplate = $this->replaceFormField($field, $formTemplate);
         $formTemplate = str_replace('{{$LIST_SELECT$}}', $this->serviceGenerator->modelNameNotPluralFe($field['field_name']), $formTemplate);
         $formTemplate = str_replace('{{$LABEL_OPTION$}}', 'item', $formTemplate);
-        $formTemplate = str_replace('{{$VALUE_OPTION$}}', 'item', $formTemplate);
-
-        return $formTemplate;
+        return str_replace('{{$VALUE_OPTION$}}', 'item', $formTemplate);
     }
 
     private function generateJson($tableName, $field)
@@ -712,8 +688,7 @@ class FormUpdateGenerator extends BaseGenerator
         $formTemplate = $this->replaceLabelForm($tableName, $field, $formTemplate);
         $formTemplate = $this->checkRequired($field, $formTemplate);
         $formTemplate = $this->replaceFormField($field, $formTemplate);
-        $formTemplate = str_replace('{{$REF_JSON$}}', $this->serviceGenerator->modelNameNotPluralFe($field['field_name']), $formTemplate);
-        return $formTemplate;
+        return str_replace('{{$REF_JSON$}}', $this->serviceGenerator->modelNameNotPluralFe($field['field_name']), $formTemplate);
     }
 
     private function generateFile($tableName, $field)
@@ -722,30 +697,25 @@ class FormUpdateGenerator extends BaseGenerator
         $formTemplate = $this->replaceLabelForm($tableName, $field, $formTemplate);
         $formTemplate = $this->checkRequired($field, $formTemplate);
         $formTemplate = $this->replaceFormField($field, $formTemplate);
-        $formTemplate = str_replace('{{$NAME_FUNC$}}', $this->serviceGenerator->modelNameNotPluralFe($field['field_name']), $formTemplate);
-        return $formTemplate;
+        return str_replace('{{$NAME_FUNC$}}', $this->serviceGenerator->modelNameNotPluralFe($field['field_name']), $formTemplate);
     }
 
     private function generateRule($field, $model, $templateDataReal)
     {
         $templateRules = $this->getHandlerTemplate('rules');
         $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['rules'], $templateRules, 4, $templateDataReal, 2);
-        $templateDataReal = $this->replaceField($field, $model, $templateDataReal);
-        return $templateDataReal;
+        return $this->replaceField($field, $model, $templateDataReal);
     }
 
     private function getFormTemplate($nameForm)
     {
         $pathTemplate = 'Forms/';
-        $templateData = $this->serviceGenerator->get_template($nameForm, $pathTemplate, 'vuejs');
-
-        return $templateData;
+        return $this->serviceGenerator->get_template($nameForm, $pathTemplate, 'vuejs');
     }
 
     private function checkRequired($field, $formTemplate)
     {
-        $formTemplate = str_replace($this->propNameForm, 'prop="' . $field['field_name'] . '"', $formTemplate);
-        return $formTemplate;
+        return str_replace($this->propNameForm, 'prop="' . $field['field_name'] . '"', $formTemplate);
     }
 
     private function replaceLabelForm($tableName, $field, $formTemplate)
@@ -768,17 +738,19 @@ class FormUpdateGenerator extends BaseGenerator
     private function getHandlerTemplate($nameForm)
     {
         $pathTemplate = 'Handler/';
-        $templateData = $this->serviceGenerator->get_template($nameForm, $pathTemplate, 'vuejs');
-
-        return $templateData;
+        return $this->serviceGenerator->get_template($nameForm, $pathTemplate, 'vuejs');
     }
 
     private function replaceAutoFocus($formTemplate)
     {
-        $formTemplate = str_replace('{{$AUTO_FOCUS_INPUT$}}', '', $formTemplate);
-        return $formTemplate;
+        return str_replace('{{$AUTO_FOCUS_INPUT$}}', '', $formTemplate);
     }
 
+    /**
+     * @param $templates
+     * @param $fields
+     * @return array
+     */
     private function templateForm($templates, $fields)
     {
         $fieldsGenerate = [];
@@ -806,6 +778,12 @@ class FormUpdateGenerator extends BaseGenerator
         return $fieldsGenerate;
     }
 
+    /**
+     * @param $templates
+     * @param $fields
+     * @param $type
+     * @return array
+     */
     private function templateFile($templates, $fields, $type)
     {
         $fieldsGenerate = [];
@@ -827,12 +805,7 @@ class FormUpdateGenerator extends BaseGenerator
                     continue;
                 }
                 //replace file temp
-                //                if(!\Str::contains($template, $this->serviceGenerator->modelNameNotPluralFe(
-                //                    $fields['field_name_new']['field_name']) . 'Temp')) {
-                //                    $fieldsGenerate[] = str_replace($fields['field_name_old']['field_name'], $fields['field_name_new']['field_name'], $template);
-                //                } else {
                 $fieldsGenerate[] = $template;
-                //                }
             } else {
                 $fieldsGenerate[] = $template;
             }
@@ -840,6 +813,15 @@ class FormUpdateGenerator extends BaseGenerator
         return $fieldsGenerate;
     }
 
+    /**
+     * @param $fieldsGenerate
+     * @param $tabStart
+     * @param $tabEnd
+     * @param $tabFields
+     * @param int $space
+     * @param int $start
+     * @return string
+     */
     private function replaceTemplate($fieldsGenerate, $tabStart, $tabEnd, $tabFields, $space = 2, $start = 1)
     {
         return $this->serviceGenerator->infy_nl_tab($start, $tabStart) .
@@ -847,14 +829,19 @@ class FormUpdateGenerator extends BaseGenerator
             $this->serviceGenerator->infy_nl_tab(1, $tabEnd, $space);
     }
 
-    private function dropRules($field, $model, $templateDataReal)
+    /**
+     * @param $field
+     * @param $templateDataReal
+     * @return array|mixed|string|array<string>
+     */
+    private function dropRules($field, $templateDataReal)
     {
         $replaceStub = '';
         $searchRules = 'rules() {';
         $fieldName = $field['field_name'];
         $templateRules = $this->serviceGenerator->searchTemplateX($searchRules, 1, '};', strlen($searchRules) - 5, -strlen($searchRules) + 7, $templateDataReal);
         preg_match_all('/]/', $templateRules, $matches, PREG_OFFSET_CAPTURE);
-        if (!empty($matches[0])) {
+        if ($matches[0]) {
             $positionEnd = 0;
             if (count($matches[0]) === 1) {
                 $positionEnd = $matches[0][0][1];
@@ -892,7 +879,7 @@ class FormUpdateGenerator extends BaseGenerator
         );
         $templateStringify = $this->getHandlerTemplate('uploadStringify');
         $templateStringify = str_replace('{{$FIELD$}}', $field['field_name'], $templateStringify);
-        $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['stringify'], $templateStringify, 3, $templateDataReal, 2);
-        return $templateDataReal;
+
+        return $this->serviceGenerator->replaceNotDelete($this->notDelete['stringify'], $templateStringify, 3, $templateDataReal, 2);
     }
 }

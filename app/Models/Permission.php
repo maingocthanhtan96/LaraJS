@@ -4,7 +4,7 @@ namespace App\Models;
 
 class Permission extends \Spatie\Permission\Models\Permission
 {
-    const VIEW_MENU = 'view menu ';
+    public const VIEW_MENU = 'view menu ';
 
     /**
      * @return bool

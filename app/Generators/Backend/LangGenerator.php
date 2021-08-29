@@ -3,24 +3,12 @@
 namespace App\Generators\Backend;
 
 use App\Generators\BaseGenerator;
-use App\Services\FileService;
-use App\Services\GeneratorService;
 
 class LangGenerator extends BaseGenerator
 {
-    /** @var $service */
-    public $serviceGenerator;
-
-    /** @var $service */
-    public $serviceFile;
-
-    /** @var string */
-    public $path;
-
     public function __construct($fields, $model)
     {
-        $this->serviceGenerator = new GeneratorService();
-        $this->serviceFile = new FileService();
+        parent::__construct();
         $this->path = config('generator.path.laravel.lang');
 
         $this->generate($fields, $model);
@@ -55,7 +43,7 @@ class LangGenerator extends BaseGenerator
     {
         $fieldsGenerate = [];
         foreach ($fields as $field) {
-            $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'" . $field['field_name_trans'] . "'" . ',';
+            $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'" . $field['field_name_trans'] . "',";
         }
         return implode($this->serviceGenerator->infy_nl_tab(1, 2), $fieldsGenerate);
     }

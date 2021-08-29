@@ -3,36 +3,21 @@
 namespace App\Generators\FrontendUpdate;
 
 use App\Generators\BaseGenerator;
-use App\Services\FileService;
-use App\Services\GeneratorService;
 
 class ViewTableUpdateGenerator extends BaseGenerator
 {
-    /** @var $service */
-    public $serviceGenerator;
-
-    /** @var $service */
-    public $serviceFile;
-
-    /** @var string */
-    public $path;
+    public const SORT_COLUMN = 'sortable="custom"';
+    public const COLUMNS = 'columns';
+    public const TEMPLATE_START = '<el-table-column';
+    public const TEMPLATE_END = '</el-table-column>';
+    public const DATA_GENERATOR = 'data-generator=';
 
     /** @var string */
-    public $notDelete;
-
-    /** @var string */
-    public $dbType;
-
-    const SORT_COLUMN = 'sortable="custom"';
-    const COLUMNS = 'columns';
-    const TEMPLATE_START = '<el-table-column';
-    const TEMPLATE_END = '</el-table-column>';
-    const DATA_GENERATOR = 'data-generator=';
+    protected $dbType;
 
     public function __construct($generator, $model, $updateFields)
     {
-        $this->serviceGenerator = new GeneratorService();
-        $this->serviceFile = new FileService();
+        parent::__construct();
         $this->path = config('generator.path.vuejs.views');
         $this->notDelete = config('generator.not_delete.vuejs.views');
         $this->dbType = config('generator.db_type');
@@ -55,12 +40,12 @@ class ViewTableUpdateGenerator extends BaseGenerator
 
     private function generateFieldsRename($renameFields, $model, $templateDataReal)
     {
-        if (empty($renameFields)) {
+        if (!$renameFields) {
             return $templateDataReal;
         }
 
         $selfTemplateEnd = self::TEMPLATE_END;
-        foreach ($renameFields as $index => $rename) {
+        foreach ($renameFields as $rename) {
             //replace template index.view
             $selfTemplateStart = self::DATA_GENERATOR;
             $selfTemplateStart .= '"' . $rename['field_name_old']['field_name'] . '"';
@@ -81,7 +66,7 @@ class ViewTableUpdateGenerator extends BaseGenerator
 
     private function generateFieldsChange($generator, $changeFields, $model, $templateDataReal)
     {
-        if (empty($changeFields)) {
+        if (!$changeFields) {
             return $templateDataReal;
         }
 
@@ -145,11 +130,11 @@ class ViewTableUpdateGenerator extends BaseGenerator
 
     private function generateFieldsDrop($dropFields, $templateDataReal)
     {
-        if (empty($dropFields)) {
+        if (!$dropFields) {
             return $templateDataReal;
         }
         $selfTemplateEnd = self::TEMPLATE_END;
-        foreach ($dropFields as $index => $drop) {
+        foreach ($dropFields as $drop) {
             //replace template index.view
             $selfTemplateStart = self::DATA_GENERATOR;
             $selfTemplateStart .= '"' . $drop['field_name'] . '"';

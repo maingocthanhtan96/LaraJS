@@ -3,28 +3,13 @@
 namespace App\Generators\Frontend;
 
 use App\Generators\BaseGenerator;
-use App\Services\FileService;
-use App\Services\GeneratorService;
 use Carbon\Carbon;
 
 class RouteGenerator extends BaseGenerator
 {
-    /** @var $service */
-    public $serviceGenerator;
-
-    /** @var $service */
-    public $serviceFile;
-
-    /** @var string */
-    public $path;
-
-    /** @var string */
-    public $notDelete;
-
     public function __construct($model)
     {
-        $this->serviceGenerator = new GeneratorService();
-        $this->serviceFile = new FileService();
+        parent::__construct();
         $this->path = config('generator.path.vuejs.router_modules');
         $this->notDelete = config('generator.not_delete.vuejs.route');
 

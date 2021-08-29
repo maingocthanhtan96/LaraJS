@@ -4,26 +4,13 @@ namespace App\Generators\BackendUpdate;
 
 use App\Generators\Backend\MigrationGenerator;
 use App\Generators\BaseGenerator;
-use App\Models\Generator;
-use App\Services\FileService;
-use App\Services\GeneratorService;
 use Carbon\Carbon;
 
 class MigrationUpdateGenerator extends BaseGenerator
 {
-    /** @var $service */
-    public $serviceGenerator;
-
-    /** @var $service */
-    public $serviceFile;
-
-    /** @var string */
-    public $path;
-
     public function __construct($generator, $model, $updateFields)
     {
-        $this->serviceGenerator = new GeneratorService();
-        $this->serviceFile = new FileService();
+        parent::__construct();
         $this->path = config('generator.path.laravel.migration');
 
         $this->generate($generator, $updateFields, $model);
@@ -31,6 +18,78 @@ class MigrationUpdateGenerator extends BaseGenerator
             sleep(1); // sleep 1 second to create migrate run after
             $this->generateChange($generator, $updateFields, $model);
         }
+    }
+
+    /**
+     * @param $generator
+     * @param $fileName
+     * @return mixed
+     */
+    public function updateFileMigrate($generator, $fileName)
+    {
+        $files = json_decode($generator->files, true);
+        $fileMigrationUpdate = $files['migration_update'] ?? [];
+        array_push($fileMigrationUpdate, $fileName);
+        $files['migration_update'] = $fileMigrationUpdate;
+        $generator->update([
+            'files' => json_encode($files),
+        ]);
+
+        return $generator;
+    }
+
+    /**
+     * @param $change
+     * @param $field
+     * @return bool
+     */
+    public function hasChange($change, $field): bool
+    {
+        return $change['db_type'] !== $field['db_type'] || $change['options']['comment'] !== $field['options']['comment'];
+    }
+
+    /**
+     * @param $change
+     * @param $field
+     * @return bool
+     */
+    public function hasChangeExtra($change, $field): bool
+    {
+        return $change['options']['unique'] !== $field['options']['unique'] || $change['options']['index'] !== $field['options']['index'];
+    }
+
+    /**
+     * @param $change
+     * @param $field
+     * @return string
+     */
+    public function updateOptionExtra($change, $field): string
+    {
+        $tableChangeExtra = '';
+        $type = '';
+        if ($change['options']['unique'] !== $field['options']['unique']) {
+            $type = '';
+            if ($change['options']['unique']) {
+                $type = 'unique';
+            }
+            if ($field['options']['unique']) {
+                $type = 'dropUnique';
+            }
+        }
+        if ($change['options']['index'] !== $field['options']['index']) {
+            if ($change['options']['index']) {
+                $type = 'index';
+            } else {
+                if ($field['options']['index']) {
+                    $type = 'dropIndex';
+                }
+            }
+        }
+        if ($type) {
+            $tableChangeExtra = '$table->' . $type . '(["' . $change['field_name'] . '"]);';
+        }
+
+        return $tableChangeExtra;
     }
 
     private function generate($generator, $updateFields, $model)
@@ -47,7 +106,7 @@ class MigrationUpdateGenerator extends BaseGenerator
         $templateData = str_replace('{{TABLE_NAME_TITLE}}', $this->serviceGenerator->modelNamePlural($model['name']) . $timeName, $templateData);
         $templateData = str_replace('{{TABLE_NAME}}', $this->serviceGenerator->tableName($model['name']), $templateData);
 
-        $fileName = date('Y_m_d_His') . '_' . 'update_' . $this->serviceGenerator->tableName($model['name']) . '_' . $timeName . '_table.php';
+        $fileName = date('Y_m_d_His') . '_update_' . $this->serviceGenerator->tableName($model['name']) . '_' . $timeName . '_table.php';
         if ($generateFileUp) {
             $this->updateFileMigrate($generator, $this->path . $fileName);
             $this->serviceFile->createFile($this->path, $fileName, $templateData);
@@ -67,7 +126,7 @@ class MigrationUpdateGenerator extends BaseGenerator
 
         $templateData = str_replace('{{TABLE_NAME_TITLE}}', $this->serviceGenerator->modelNamePlural($model['name']) . $timeName, $templateData);
         $templateData = str_replace('{{TABLE_NAME}}', $this->serviceGenerator->tableName($model['name']), $templateData);
-        $fileName = date('Y_m_d_His') . '_' . 'change_' . $this->serviceGenerator->tableName($model['name']) . '_' . $timeName . '_table.php';
+        $fileName = date('Y_m_d_His') . '_change_' . $this->serviceGenerator->tableName($model['name']) . '_' . $timeName . '_table.php';
 
         if ($generateFieldChangeUp) {
             $this->updateFileMigrate($generator, $this->path . $fileName);
@@ -97,7 +156,7 @@ class MigrationUpdateGenerator extends BaseGenerator
                         if ($keyEnum === count($field['enum']) - 1) {
                             $enum .= "'$value'";
                         } else {
-                            $enum .= "'$value'" . ',';
+                            $enum .= "'$value',";
                         }
                     }
                     $table .= '$table->enum("' . trim($field['field_name']) . '", [' . $enum . '])';
@@ -138,7 +197,7 @@ class MigrationUpdateGenerator extends BaseGenerator
             if ($index === count($updateFields['dropFields']) - 1) {
                 $dropFields .= "'$name'";
             } else {
-                $dropFields .= "'$name'" . ',';
+                $dropFields .= "'$name',";
             }
         }
         if ($dropFields) {
@@ -182,7 +241,7 @@ class MigrationUpdateGenerator extends BaseGenerator
                             if ($keyEnum === count($change['enum']) - 1) {
                                 $enum .= "'$value'";
                             } else {
-                                $enum .= "'$value'" . ',';
+                                $enum .= "'$value',";
                             }
                         }
                         $tableDrop .= '$table->enum("' . trim($change['field_name']) . '", [' . $enum . '])';
@@ -327,76 +386,5 @@ class MigrationUpdateGenerator extends BaseGenerator
         }
 
         return implode($this->serviceGenerator->infy_nl_tab(1, 3), $fieldsGenerate);
-    }
-
-    /**
-     * @param $generator
-     * @param $fileName
-     * @return mixed
-     */
-    public function updateFileMigrate($generator, $fileName)
-    {
-        $files = json_decode($generator->files, true);
-        $fileMigrationUpdate = isset($files['migration_update']) ? $files['migration_update'] : [];
-        array_push($fileMigrationUpdate, $fileName);
-        $files['migration_update'] = $fileMigrationUpdate;
-        $generator->update([
-            'files' => json_encode($files),
-        ]);
-
-        return $generator;
-    }
-
-    /**
-     * @param $change
-     * @param $field
-     * @return bool
-     */
-    public function hasChange($change, $field): bool
-    {
-        return $change['db_type'] !== $field['db_type'] || $change['options']['comment'] !== $field['options']['comment'];
-    }
-
-    /**
-     * @param $change
-     * @param $field
-     * @return bool
-     */
-    public function hasChangeExtra($change, $field): bool
-    {
-        return $change['options']['unique'] !== $field['options']['unique'] || $change['options']['index'] !== $field['options']['index'];
-    }
-
-    /**
-     * @param $change
-     * @param $field
-     * @param bool $isUp
-     * @return string
-     */
-    public function updateOptionExtra($change, $field, $isUp = true): string
-    {
-        $tableChangeExtra = '';
-        $type = '';
-        if ($change['options']['unique'] !== $field['options']['unique']) {
-            $type = '';
-            if ($change['options']['unique']) {
-                $type = 'unique';
-            }
-            if ($field['options']['unique']) {
-                $type = 'dropUnique';
-            }
-        }
-        if ($change['options']['index'] !== $field['options']['index']) {
-            if ($change['options']['index']) {
-                $type = 'index';
-            } else {
-                if ($field['options']['index']) {
-                    $type = 'dropIndex';
-                }
-            }
-        }
-        $type && ($tableChangeExtra = '$table->' . $type . '(["' . $change['field_name'] . '"]);');
-
-        return $tableChangeExtra;
     }
 }

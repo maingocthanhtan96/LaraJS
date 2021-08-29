@@ -113,15 +113,12 @@ export default {
         if (valid) {
           this.$store
             .dispatch(`user/${LOGIN}`, this.form)
-            .then(() => {
+            .then(async () => {
+              await this.$router.replace({
+                path: this.redirect || this.$store.state.settings.redirect,
+                query: this.otherQuery,
+              });
               this.loading = false;
-              this.$router.replace(
-                {
-                  path: this.redirect || this.$store.state.settings.redirect,
-                  query: this.otherQuery,
-                },
-                onAbort => {}
-              );
             })
             .catch(() => {
               this.loading = false;

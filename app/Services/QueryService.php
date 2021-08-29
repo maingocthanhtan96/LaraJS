@@ -2,20 +2,15 @@
 
 namespace App\Services;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
-use Carbon\Carbon;
 
 class QueryService extends BaseService
 {
-    const ASC = 'asc';
-    const DESC = 'desc';
-    const ASCENDING = 'ascending';
-    /**
-     * Eloquent model
-     * @var Model $_model
-     */
-    protected Model $_model;
+    public const ASC = 'asc';
+    public const DESC = 'desc';
+    public const ASCENDING = 'ascending';
 
     /**
      * Select column owner
@@ -59,6 +54,11 @@ class QueryService extends BaseService
      * @var string
      */
     public string $defaultUpdatedAt = 'updated_at';
+    /**
+     * Eloquent model
+     * @var Model $model
+     */
+    public Model $model;
 
     /**
      * QueryService constructor.
@@ -67,7 +67,7 @@ class QueryService extends BaseService
      */
     public function __construct($model)
     {
-        $this->_model = $model;
+        $this->model = $model;
     }
 
     /**
@@ -77,7 +77,7 @@ class QueryService extends BaseService
      */
     public function queryTable()
     {
-        $query = $this->_model::query();
+        $query = $this->model::query();
         if ($this->ascending) {
             $this->ascending = $this->ascending === self::ASCENDING ? self::ASC : self::DESC;
         }

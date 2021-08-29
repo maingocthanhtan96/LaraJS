@@ -7,9 +7,9 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -63,10 +63,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // Enable pagination
         if (!Collection::hasMacro('paginate')) {
-            $pathInfo = $_SERVER['PATH_INFO'] ?? (isset($_SERVER['REQUEST_URI']) ? parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) : '');
-            $hostInfo = $_SERVER['HTTP_HOST'] ?? '';
-            $actualLink = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . "://$hostInfo$pathInfo";
-            Collection::macro('paginate', function ($perPage = 15, $page = null, $options = []) use ($actualLink) {
+            Collection::macro('paginate', function ($perPage = 15, $page = null, $options = []) {
                 $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
                 return (new LengthAwarePaginator(
                     $this->forPage($page, $perPage)
@@ -76,7 +73,7 @@ class AppServiceProvider extends ServiceProvider
                     $perPage,
                     $page,
                     $options
-                ))->withPath($actualLink);
+                ))->withPath(\Request::url());
             });
         }
     }
@@ -87,7 +84,7 @@ class AppServiceProvider extends ServiceProvider
             $this->when(
                 \Str::contains($relationship, ':'),
                 function (Builder $query) use ($relationship) {
-                    list($relationship, $select) = explode(':', $relationship);
+                    [$relationship, $select] = explode(':', $relationship);
                     $query->with([
                         'roles' => function ($query) use ($select) {
                             $query->select(explode(',', $select));

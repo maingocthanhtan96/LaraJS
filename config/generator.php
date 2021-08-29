@@ -229,8 +229,8 @@ return [
                     'name' => 'use SoftDeletes;',
                 ],
                 'trait_user_signature' => [
-                    'file' => 'use App\Traits\UserSignatureTrait;',
-                    'name' => 'use UserSignatureTrait;',
+                    'file' => 'use App\Traits\UserSignature;',
+                    'name' => 'use UserSignature;',
                 ],
             ],
             'model' => [

@@ -2,15 +2,13 @@
 
 namespace App\Repositories;
 
-use Illuminate\Support\Arr;
-
 abstract class EloquentRepository implements RepositoryInterface
 {
     /**
      * @var \Illuminate\Database\Eloquent\Model
      * @author tanmnt
      */
-    protected $_model;
+    protected $model;
 
     /**
      * EloquentRepository constructor.
@@ -34,17 +32,17 @@ abstract class EloquentRepository implements RepositoryInterface
      */
     public function setModel()
     {
-        $this->_model = app()->make($this->getModel());
+        $this->model = app()->make($this->getModel());
     }
 
     /**
      * Get All
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @return \Illuminate\Database\Eloquent\Collection|array<static>
      * @author tanmnt
      */
     public function getAll()
     {
-        return $this->_model->all();
+        return $this->model->all();
     }
 
     /**
@@ -55,23 +53,7 @@ abstract class EloquentRepository implements RepositoryInterface
      */
     public function find($id)
     {
-        $result = $this->_model->find($id);
-
-        return $result;
-    }
-
-    /**
-     * Find relationship
-     * @param $id
-     * @param array $with
-     * @return mixed
-     * @author tanmnt
-     */
-    public function findWith($id, $with)
-    {
-        $result = $this->_model->with(Arr::wrap($with))->find($id);
-
-        return $result;
+        return $this->model->find($id);
     }
 
     /**
@@ -82,7 +64,7 @@ abstract class EloquentRepository implements RepositoryInterface
      */
     public function create(array $attributes)
     {
-        return $this->_model->create($attributes);
+        return $this->model->create($attributes);
     }
 
     /**

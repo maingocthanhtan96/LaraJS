@@ -3,36 +3,21 @@
 namespace App\Generators\Backend;
 
 use App\Generators\BaseGenerator;
-use App\Services\FileService;
-use App\Services\GeneratorService;
 use Carbon\Carbon;
 
 class SwaggerRelationshipGenerator extends BaseGenerator
 {
-    /** @var $service */
-    public $serviceGenerator;
-
-    /** @var $service */
-    public $serviceFile;
-
-    /** @var string */
-    public $path;
+    public const DB_TYPE_INTEGER = 'BIGINT';
+    public const REF_UPPER = 'Ref';
+    public const OA_SCHEME = '@OA\Schema(';
+    public const REQUIRED = 'required={';
 
     /** @var string */
-    public $notDelete;
-
-    /** @var string */
-    public $relationship;
-
-    const DB_TYPE_INTEGER = 'BIGINT';
-    const REF_UPPER = 'Ref';
-    const OA_SCHEME = '@OA\Schema(';
-    const REQUIRED = 'required={';
+    protected $relationship;
 
     public function __construct($relationship, $model, $modelCurrent)
     {
-        $this->serviceGenerator = new GeneratorService();
-        $this->serviceFile = new FileService();
+        parent::__construct();
         $this->path = config('generator.path.laravel.swagger');
         $this->notDelete = config('generator.not_delete.laravel.swagger');
         $this->relationship = config('generator.relationship.relationship');
@@ -52,7 +37,7 @@ class SwaggerRelationshipGenerator extends BaseGenerator
             if (!$templateScheme || !$templateRequired) {
                 return $templateData;
             }
-            $fieldRequires = '"' . \Str::snake($modelCurrent) . '_id' . '"';
+            $fieldRequires = '"' . \Str::snake($modelCurrent) . '_id"';
             $templateRequiredNew = $templateRequired . ', ' . $fieldRequires;
             $templateData = str_replace($templateRequired, rtrim($templateRequiredNew, ', '), $templateData);
             // end required
@@ -91,8 +76,6 @@ class SwaggerRelationshipGenerator extends BaseGenerator
         }
         $templateProperty = str_replace('{{FIELD}}', \Str::snake($modelRelationship) . '_id', $templateProperty);
         $templateProperty = str_replace('{{DEFAULT_VALUE}}', 'NONE', $templateProperty);
-        $templateProperty = str_replace('description=""', 'description="' . $relationship . '"', $templateProperty);
-
-        return $templateProperty;
+        return str_replace('description=""', 'description="' . $relationship . '"', $templateProperty);
     }
 }

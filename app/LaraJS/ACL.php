@@ -19,21 +19,21 @@ use Illuminate\Support\Str;
  */
 final class ACL
 {
-    const ROLE_ADMIN = 'admin';
-    const ROLE_MANAGER = 'manager';
-    const ROLE_VISITOR = 'visitor';
-    const ROLE_CREATOR = 'creator';
-    const ROLE_EDITOR = 'editor';
-    const ROLE_DELETER = 'deleter';
+    public const ROLE_ADMIN = 'admin';
+    public const ROLE_MANAGER = 'manager';
+    public const ROLE_VISITOR = 'visitor';
+    public const ROLE_CREATOR = 'creator';
+    public const ROLE_EDITOR = 'editor';
+    public const ROLE_DELETER = 'deleter';
 
-    const PERMISSION_PERMISSION_MANAGE = 'manage permission';
-    const PERMISSION_VISIT = 'visit';
-    const PERMISSION_CREATE = 'create';
-    const PERMISSION_EDIT = 'edit';
-    const PERMISSION_DELETE = 'delete';
+    public const PERMISSION_PERMISSION_MANAGE = 'manage permission';
+    public const PERMISSION_VISIT = 'visit';
+    public const PERMISSION_CREATE = 'create';
+    public const PERMISSION_EDIT = 'edit';
+    public const PERMISSION_DELETE = 'delete';
 
-    const PERMISSION_VIEW_MENU_ROLE_PERMISSION = 'view menu role_permission';
-    const PERMISSION_VIEW_MENU_USER = 'view menu user';
+    public const PERMISSION_VIEW_MENU_ROLE_PERMISSION = 'view menu role_permission';
+    public const PERMISSION_VIEW_MENU_USER = 'view menu user';
 
     /**
      * @param array $exclusives Exclude some permissions from the list
@@ -42,7 +42,7 @@ final class ACL
     public static function permissions(array $exclusives = []): array
     {
         try {
-            $class = new \ReflectionClass(__CLASS__);
+            $class = new \ReflectionClass(self::class);
             $constants = $class->getConstants();
             $permissions = Arr::where($constants, function ($value, $key) use ($exclusives) {
                 return !in_array($value, $exclusives) && Str::startsWith($key, 'PERMISSION_');
@@ -57,7 +57,7 @@ final class ACL
     public static function menuPermissions(): array
     {
         try {
-            $class = new \ReflectionClass(__CLASS__);
+            $class = new \ReflectionClass(self::class);
             $constants = $class->getConstants();
             $permissions = Arr::where($constants, function ($value, $key) {
                 return Str::startsWith($key, 'PERMISSION_VIEW_MENU_');
@@ -75,7 +75,7 @@ final class ACL
     public static function roles(): array
     {
         try {
-            $class = new \ReflectionClass(__CLASS__);
+            $class = new \ReflectionClass(self::class);
             $constants = $class->getConstants();
             $roles = Arr::where($constants, function ($value, $key) {
                 return Str::startsWith($key, 'ROLE_');

@@ -39,16 +39,16 @@ function str_slug_uppercase($title, $separator = '')
  */
 function strpos_x($haystack, $needle, $number)
 {
-    if ($number == '1') {
+    if ($number === '1') {
         return strpos($haystack, $needle);
-    } elseif ($number > '1') {
-        return strpos($haystack, $needle, strpos_x($haystack, $needle, $number - 1) + strlen($needle));
-    } else {
-        return error_log('Error: Value for parameter $number is out of range');
     }
-}
+    if ($number > '1') {
+        return strpos($haystack, $needle, strpos_x($haystack, $needle, $number - 1) + strlen($needle));
+    }
 
-function get_between_content($content, $start, $end)
+    return error_log('Error: Value for parameter $number is out of range');
+}
+function getBetweenContent($content, $start, $end)
 {
     $r = explode($start, $content);
     if (isset($r[1])) {
@@ -60,5 +60,5 @@ function get_between_content($content, $start, $end)
 
 function write_log_exception(\Exception $e = null)
 {
-    \Log::error('➤Message ex::' . $e->getMessage() . PHP_EOL . '#0 More exception::' . get_between_content($e->getTraceAsString(), '#0', '#10') . PHP_EOL . PHP_EOL);
+    \Log::error('➤Message ex::' . $e->getMessage() . PHP_EOL . '#0 More exception::' . getBetweenContent($e->getTraceAsString(), '#0', '#10') . PHP_EOL . PHP_EOL);
 }

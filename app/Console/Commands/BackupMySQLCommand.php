@@ -3,11 +3,11 @@
 namespace App\Console\Commands;
 
 use File;
-use phpDocumentor\GraphViz\Exception;
-use ZipArchive;
 use Illuminate\Console\Command;
-use Symfony\Component\Process\Process;
+use phpDocumentor\GraphViz\Exception;
 use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
+use ZipArchive;
 
 class BackupMySQLCommand extends Command
 {
@@ -60,7 +60,6 @@ class BackupMySQLCommand extends Command
     /**
      * Function takes regular backup
      * for mysql database..
-     *
      */
     private function takeSnapShot()
     {
@@ -97,8 +96,9 @@ class BackupMySQLCommand extends Command
                 throw new ProcessFailedException($process);
             }
 
-            @unlink($tempLocation);
+            unlink($tempLocation);
         } catch (\Exception $e) {
+            write_log_exception($e);
             $this->error($e->getMessage());
         }
     }
@@ -138,14 +138,15 @@ class BackupMySQLCommand extends Command
             $process = new Process(['mysql', '-h', env('DB_HOST'), '-u', env('DB_USERNAME'), '-p', env('DB_PASSWORD'), env('DB_DATABASE'), '<', $tempLocation]);
             $process->run();
 
-            @unlink($tempLocation);
-            @unlink(storage_path('app/mysql/' . $snapshot . '.sql'));
+            unlink($tempLocation);
+            unlink(storage_path('app/mysql/' . $snapshot . '.sql'));
             if ($process->isSuccessful()) {
                 $this->info('Restored snapshot: ' . $snapshot);
             } else {
                 throw new ProcessFailedException($process);
             }
         } catch (\Exception $e) {
+            write_log_exception($e);
             $this->info('File Not Found: ' . $e->getMessage());
         }
     }

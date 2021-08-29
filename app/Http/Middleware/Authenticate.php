@@ -4,10 +4,11 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use Illuminate\Http\Response;
 
 class Authenticate extends Middleware
 {
-    const AUTH_ERROR = 'authentication_error';
+    public const AUTH_ERROR = 'authentication_error';
 
     public function handle($request, Closure $next, ...$guards)
     {
@@ -17,7 +18,7 @@ class Authenticate extends Middleware
                     'success' => false,
                     'message' => 'Unauthorized',
                 ],
-                \Illuminate\Http\Response::HTTP_UNAUTHORIZED
+                Response::HTTP_UNAUTHORIZED
             );
         }
 
@@ -26,7 +27,7 @@ class Authenticate extends Middleware
 
     protected function authenticate($request, array $guards)
     {
-        if (empty($guards)) {
+        if (!$guards) {
             $guards = [null];
         }
 

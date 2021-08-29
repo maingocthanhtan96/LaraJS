@@ -3,27 +3,14 @@
 namespace App\Generators\BackendUpdate;
 
 use App\Generators\BaseGenerator;
-use App\Services\FileService;
-use App\Services\GeneratorService;
-use Carbon\Carbon;
 
 class ControllerUpdateGenerator extends BaseGenerator
 {
-    /** @var GeneratorService $service */
-    public GeneratorService $serviceGenerator;
-
-    /** @var FileService $service */
-    public FileService $serviceFile;
-
-    /** @var string */
-    public $path;
-
-    const QS_COLUMNS_SEARCH = '$queryService->columnSearch';
+    public const QS_COLUMNS_SEARCH = '$queryService->columnSearch';
 
     public function __construct($model, $updateFields)
     {
-        $this->serviceGenerator = new GeneratorService();
-        $this->serviceFile = new FileService();
+        parent::__construct();
         $this->path = config('generator.path.laravel.api_controller');
 
         $this->generate($model, $updateFields);
@@ -81,7 +68,7 @@ class ControllerUpdateGenerator extends BaseGenerator
 
     private function generateFieldsUpdate($updateFields, $templateDataReal)
     {
-        if (empty($updateFields)) {
+        if (!$updateFields) {
             return $templateDataReal;
         }
 
@@ -98,19 +85,12 @@ class ControllerUpdateGenerator extends BaseGenerator
             return $templateDataReal;
         }
 
-        $comma = ', ';
         $commaSearch = ', ';
-        $columns = '';
         $columnsSearch = '';
-        foreach ($updateFields as $index => $update) {
-            if ($update['sort']) {
-                $columns .= $comma . "'" . $update['field_name'] . "'";
-            }
-        }
         if (\Str::endsWith($templateColumnsSearch, ',') || \Str::endsWith($templateColumnsSearch, ', ')) {
             $commaSearch = '';
         }
-        foreach ($updateFields as $index => $update) {
+        foreach ($updateFields as $update) {
             if ($update['search']) {
                 $columnsSearch .= $commaSearch . "'" . $update['field_name'] . "'";
             }
@@ -121,7 +101,7 @@ class ControllerUpdateGenerator extends BaseGenerator
 
     private function changeUpdateFields($changeFields, $templateDataReal)
     {
-        if (empty($changeFields)) {
+        if (!$changeFields) {
             return $templateDataReal;
         }
         $fieldsGeneratorColumnSearch = [];

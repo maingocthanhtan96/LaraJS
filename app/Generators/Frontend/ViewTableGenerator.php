@@ -3,32 +3,17 @@
 namespace App\Generators\Frontend;
 
 use App\Generators\BaseGenerator;
-use App\Services\FileService;
-use App\Services\GeneratorService;
 
 class ViewTableGenerator extends BaseGenerator
 {
-    /** @var $service */
-    public $serviceGenerator;
-
-    /** @var $service */
-    public $serviceFile;
+    public const SORT_COLUMN = 'sortable="custom"';
 
     /** @var string */
-    public $path;
-
-    /** @var string */
-    public $notDelete;
-
-    /** @var string */
-    public $dbType;
-
-    const SORT_COLUMN = 'sortable="custom"';
+    protected $dbType;
 
     public function __construct($fields, $model)
     {
-        $this->serviceGenerator = new GeneratorService();
-        $this->serviceFile = new FileService();
+        parent::__construct();
         $this->path = config('generator.path.vuejs.views');
         $this->dbType = config('generator.db_type');
         $this->notDelete = config('generator.not_delete.vuejs.views');
@@ -67,7 +52,7 @@ class ViewTableGenerator extends BaseGenerator
             mkdir($folderName, 0755, true);
         }
 
-        $fileName = $this->serviceGenerator->folderPages($model['name']) . '/index' . '.vue';
+        $fileName = $this->serviceGenerator->folderPages($model['name']) . '/index.vue';
         $this->serviceFile->createFile($this->path, $fileName, $templateData);
     }
 

@@ -3,34 +3,21 @@
 namespace App\Generators\Frontend;
 
 use App\Generators\BaseGenerator;
-use App\Services\FileService;
-use App\Services\GeneratorService;
-use Carbon\Carbon;
 
 class FormGenerator extends BaseGenerator
 {
-    /** @var $service */
-    public $serviceGenerator;
-
-    /** @var $service */
-    public $serviceFile;
+    /** @var string */
+    protected string $labelNameForm;
 
     /** @var string */
-    public $path;
+    protected string $propNameForm;
 
     /** @var string */
-    public $labelNameForm;
-
-    /** @var string */
-    public $propNameForm;
-
-    /** @var string */
-    public $dbType;
+    protected $dbType;
 
     public function __construct($fields, $model)
     {
-        $this->serviceGenerator = new GeneratorService();
-        $this->serviceFile = new FileService();
+        parent::__construct();
         $this->path = config('generator.path.vuejs.views');
         $this->dbType = config('generator.db_type');
 
@@ -57,7 +44,7 @@ class FormGenerator extends BaseGenerator
             mkdir($folderName, 0755, true);
         }
 
-        $fileName = $this->serviceGenerator->folderPages($model['name']) . '/Form' . '.vue';
+        $fileName = $this->serviceGenerator->folderPages($model['name']) . '/Form.vue';
         $this->serviceFile->createFile($this->path, $fileName, $templateData);
     }
 
@@ -151,8 +138,7 @@ class FormGenerator extends BaseGenerator
         $formTemplate = $this->getFormTemplate('switch');
         $formTemplate = $this->replaceLabelForm($tableName, $field, $formTemplate);
         $formTemplate = $this->checkRequired($field, $formTemplate);
-        $formTemplate = $this->replaceFormField($field, $formTemplate);
-        return $formTemplate;
+        return $this->replaceFormField($field, $formTemplate);
     }
 
     private function generateDateTime($fileName, $tableName, $field)
@@ -160,8 +146,7 @@ class FormGenerator extends BaseGenerator
         $formTemplate = $this->getFormTemplate($fileName);
         $formTemplate = $this->replaceLabelForm($tableName, $field, $formTemplate);
         $formTemplate = $this->checkRequired($field, $formTemplate);
-        $formTemplate = $this->replaceFormField($field, $formTemplate);
-        return $formTemplate;
+        return $this->replaceFormField($field, $formTemplate);
     }
 
     private function generateInput($fileName, $tableName, $field, $index, $dbType = '')
@@ -182,9 +167,7 @@ class FormGenerator extends BaseGenerator
         $formTemplate = $this->getFormTemplate('tinymce');
         $formTemplate = $this->replaceLabelForm($tableName, $field, $formTemplate);
         $formTemplate = $this->checkRequired($field, $formTemplate);
-        $formTemplate = $this->replaceFormField($field, $formTemplate);
-
-        return $formTemplate;
+        return $this->replaceFormField($field, $formTemplate);
     }
 
     private function generateEnum($tableName, $field)
@@ -195,9 +178,7 @@ class FormGenerator extends BaseGenerator
         $formTemplate = $this->replaceFormField($field, $formTemplate);
         $formTemplate = str_replace('{{$LIST_SELECT$}}', $this->serviceGenerator->modelNameNotPluralFe($field['field_name']), $formTemplate);
         $formTemplate = str_replace('{{$LABEL_OPTION$}}', 'item', $formTemplate);
-        $formTemplate = str_replace('{{$VALUE_OPTION$}}', 'item', $formTemplate);
-
-        return $formTemplate;
+        return str_replace('{{$VALUE_OPTION$}}', 'item', $formTemplate);
     }
 
     private function generateJson($tableName, $field)
@@ -206,8 +187,7 @@ class FormGenerator extends BaseGenerator
         $formTemplate = $this->replaceLabelForm($tableName, $field, $formTemplate);
         $formTemplate = $this->checkRequired($field, $formTemplate);
         $formTemplate = $this->replaceFormField($field, $formTemplate);
-        $formTemplate = str_replace('{{$REF_JSON$}}', $this->serviceGenerator->modelNameNotPluralFe($field['field_name']), $formTemplate);
-        return $formTemplate;
+        return str_replace('{{$REF_JSON$}}', $this->serviceGenerator->modelNameNotPluralFe($field['field_name']), $formTemplate);
     }
 
     private function generateFile($tableName, $field)
@@ -216,22 +196,18 @@ class FormGenerator extends BaseGenerator
         $formTemplate = $this->replaceLabelForm($tableName, $field, $formTemplate);
         $formTemplate = $this->checkRequired($field, $formTemplate);
         $formTemplate = $this->replaceFormField($field, $formTemplate);
-        $formTemplate = str_replace('{{$NAME_FUNC$}}', $this->serviceGenerator->modelNameNotPluralFe($field['field_name']), $formTemplate);
-        return $formTemplate;
+        return str_replace('{{$NAME_FUNC$}}', $this->serviceGenerator->modelNameNotPluralFe($field['field_name']), $formTemplate);
     }
 
     private function getFormTemplate($nameForm)
     {
         $pathTemplate = 'Forms/';
-        $templateData = $this->serviceGenerator->get_template($nameForm, $pathTemplate, 'vuejs');
-
-        return $templateData;
+        return $this->serviceGenerator->get_template($nameForm, $pathTemplate, 'vuejs');
     }
 
     private function checkRequired($field, $formTemplate)
     {
-        $formTemplate = str_replace($this->propNameForm, 'prop="' . $field['field_name'] . '"', $formTemplate);
-        return $formTemplate;
+        return str_replace($this->propNameForm, 'prop="' . $field['field_name'] . '"', $formTemplate);
     }
 
     private function replaceLabelForm($tableName, $field, $formTemplate)

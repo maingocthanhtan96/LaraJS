@@ -45,7 +45,7 @@
                 <el-col :span="24">
                   <el-form-item :label="$t('generator.options')">
                     <el-checkbox-group v-model="formModel.options">
-                      <el-checkbox label="Soft Deletes" checked :disabled="$route.params.id > 0" />
+                      <el-checkbox label="Soft Deletes" :disabled="$route.params.id > 0" />
                       <el-checkbox label="Timestamps" checked :disabled="$route.params.id > 0" />
                       <el-checkbox label="User Signature" :disabled="$route.params.id > 0" />
                       <el-checkbox label="Role Admin" :disabled="$route.params.id > 0" />

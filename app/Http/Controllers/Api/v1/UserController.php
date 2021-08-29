@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Services\QueryService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Resources\UserResource;
 use Illuminate\Http\Response;
 
 class UserController extends Controller
@@ -17,7 +17,7 @@ class UserController extends Controller
      * UserController constructor.
      * @author tanmnt
      */
-    function __construct()
+    public function __construct()
     {
         $this->middleware('permission:' . \ACL::PERMISSION_VISIT, ['only' => ['index']]);
         $this->middleware('permission:' . \ACL::PERMISSION_CREATE, ['only' => ['store']]);
@@ -26,10 +26,10 @@ class UserController extends Controller
     }
 
     /** get user information
-     * @return UserResource|JsonResponse
+     * @return JsonResponse
      * @author tanmnt
      */
-    public function userInfo()
+    public function userInfo(): JsonResponse
     {
         try {
             $user = \Auth::user();
@@ -174,6 +174,21 @@ class UserController extends Controller
             $user->delete();
 
             return $this->jsonMessage(trans('messages.delete'));
+        } catch (\Exception $e) {
+            return $this->jsonError($e);
+        }
+    }
+
+    /**
+     * get all data from User
+     * @return JsonResponse
+     */
+    public function getUser(): JsonResponse
+    {
+        try {
+            $users = User::all();
+
+            return $this->jsonData($users);
         } catch (\Exception $e) {
             return $this->jsonError($e);
         }

@@ -3,27 +3,12 @@
 namespace App\Generators\Frontend;
 
 use App\Generators\BaseGenerator;
-use App\Services\FileService;
-use App\Services\GeneratorService;
 
 class FormHandlerGenerator extends BaseGenerator
 {
-    /** @var $service */
-    public $serviceGenerator;
-
-    /** @var $service */
-    public $serviceFile;
-
-    /** @var string */
-    public $path;
-
-    /** @var string */
-    public $notDelete;
-
     public function __construct($fields, $model)
     {
-        $this->serviceGenerator = new GeneratorService();
-        $this->serviceFile = new FileService();
+        parent::__construct();
         $this->path = config('generator.path.vuejs.views');
         $this->notDelete = config('generator.not_delete.vuejs.form');
 
@@ -76,7 +61,7 @@ class FormHandlerGenerator extends BaseGenerator
                         if ($keyEnum === count($field['enum']) - 1) {
                             $enum .= $value;
                         } else {
-                            $enum .= $value . ',';
+                            $enum .= "$value,";
                         }
                     }
                     $name = $field['field_name'] . 'List: [' . $enum . '],';
@@ -108,9 +93,7 @@ class FormHandlerGenerator extends BaseGenerator
     private function getHandlerTemplate($nameForm)
     {
         $pathTemplate = 'Handler/';
-        $templateData = $this->serviceGenerator->get_template($nameForm, $pathTemplate, 'vuejs');
-
-        return $templateData;
+        return $this->serviceGenerator->get_template($nameForm, $pathTemplate, 'vuejs');
     }
 
     private function replaceField($field, $model, $formTemplate)

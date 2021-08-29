@@ -3,25 +3,13 @@
 namespace App\Generators\Backend;
 
 use App\Generators\BaseGenerator;
-use App\Services\FileService;
-use App\Services\GeneratorService;
 use Carbon\Carbon;
 
 class ModelGenerator extends BaseGenerator
 {
-    /** @var GeneratorService $service */
-    public GeneratorService $serviceGenerator;
-
-    /** @var FileService $service */
-    public FileService $serviceFile;
-
-    /** @var string */
-    public $path;
-
     public function __construct($fields, $model)
     {
-        $this->serviceGenerator = new GeneratorService();
-        $this->serviceFile = new FileService();
+        parent::__construct();
         $this->path = config('generator.path.laravel.model');
 
         $this->generate($fields, $model);
@@ -67,7 +55,7 @@ class ModelGenerator extends BaseGenerator
         $fieldsGenerate = [];
         foreach ($fields as $index => $field) {
             if ($index > 0) {
-                $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ',';
+                $fieldsGenerate[] = "'" . $field['field_name'] . "',";
             }
         }
 

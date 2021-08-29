@@ -108,7 +108,7 @@ class GeneratorService extends BaseService
             $path = config('generator.path.vuejs.' . $nameConfig);
         }
         if ($fileName) {
-            $path = $path . $fileName;
+            $path .= $fileName;
         }
         if (file_exists($path)) {
             return $path;
@@ -148,7 +148,7 @@ class GeneratorService extends BaseService
             $path = config('generator.path.vuejs.resource_js');
         }
         if ($fileName) {
-            $path = $path . $fileName;
+            $path .= $fileName;
         }
         if (file_exists($path)) {
             return $path;
@@ -365,7 +365,7 @@ class GeneratorService extends BaseService
 
     /**
      * @param $name
-     * @return array|string|string[]|null
+     * @return array|string|array<string>|null
      */
     public function tableNameHandle($name)
     {
@@ -393,7 +393,7 @@ class GeneratorService extends BaseService
         if (isset($params['filter_column']) && $singleSorting) {
             foreach ($params['filter_column'] as $k => $filter) {
                 foreach ($filter as $t => $val) {
-                    if ($t == 'sorting') {
+                    if ($t === 'sorting') {
                         unset($params['filter_column'][$k]['sorting']);
                     }
                 }
@@ -423,7 +423,7 @@ class GeneratorService extends BaseService
      * @param string $replace
      * @param number $tab
      * @param string $templateDataReal
-     * @param integer $spaces
+     * @param int $spaces
      *
      * @return string
      */
@@ -476,9 +476,8 @@ class GeneratorService extends BaseService
             $template = substr($templateDataReal, $position);
             $length = stripos($template, $char);
             return substr($templateDataReal, $position + strlen($search) + $plusStart, $length + $plusEnd - strlen($search));
-        } else {
-            return false;
         }
+        return false;
     }
 
     /**
@@ -559,8 +558,7 @@ class GeneratorService extends BaseService
         $string = str_replace($relationship, '', $string);
         $string = str_replace('(', '', $string);
         $string = str_replace(')', '', $string);
-        $string = str_replace(' ', '', $string);
-        return $string;
+        return str_replace(' ', '', $string);
     }
 
     /**
@@ -571,7 +569,6 @@ class GeneratorService extends BaseService
     public function trimQuotes($string)
     {
         $string = trim($string, "'");
-        $string = trim($string, '"');
-        return $string;
+        return trim($string, '"');
     }
 }

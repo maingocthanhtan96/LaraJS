@@ -2,37 +2,40 @@
 
 namespace App\Http\Controllers\Api\v1;
 
-use Carbon\Carbon;
-use App\Generators\Backend\{
-    ControllerGenerator,
-    LangGenerator,
-    MigrationGenerator,
-    ModelGenerator,
-    RepositoryGenerator,
-    RequestGenerator,
-    RouteGenerator,
-    SeederGenerator,
-    RelationshipGenerator,
-    SwaggerGenerator,
-    SwaggerRelationshipGenerator
-};
-use App\Generators\BackendUpdate\{
-    ControllerUpdateGenerator,
-    LangUpdateGenerator,
-    MigrationUpdateGenerator,
-    ModelUpdateGenerator,
-    SeederUpdateGenerator,
-    RequestUpdateGenerator,
-    SwaggerUpdateGenerator
-};
-use App\Generators\Frontend\{ApiGenerator, FormGenerator, FormHandlerGenerator, ViewGenerator, RouteGenerator as RouteGeneratorFe, ViewTableGenerator};
-use App\Generators\FrontendUpdate\{FormUpdateGenerator, ViewTableUpdateGenerator, ViewUpdateGenerator};
+use App\Generators\Backend\ControllerGenerator;
+use App\Generators\Backend\LangGenerator;
+use App\Generators\Backend\MigrationGenerator;
+use App\Generators\Backend\ModelGenerator;
+use App\Generators\Backend\RelationshipGenerator;
+use App\Generators\Backend\RepositoryGenerator;
+use App\Generators\Backend\RequestGenerator;
+use App\Generators\Backend\RouteGenerator;
+use App\Generators\Backend\SeederGenerator;
+use App\Generators\Backend\SwaggerGenerator;
+use App\Generators\Backend\SwaggerRelationshipGenerator;
+use App\Generators\BackendUpdate\ControllerUpdateGenerator;
+use App\Generators\BackendUpdate\LangUpdateGenerator;
+use App\Generators\BackendUpdate\MigrationUpdateGenerator;
+use App\Generators\BackendUpdate\ModelUpdateGenerator;
+use App\Generators\BackendUpdate\RequestUpdateGenerator;
+use App\Generators\BackendUpdate\SeederUpdateGenerator;
+use App\Generators\BackendUpdate\SwaggerUpdateGenerator;
+use App\Generators\Frontend\ApiGenerator;
+use App\Generators\Frontend\FormGenerator;
+use App\Generators\Frontend\FormHandlerGenerator;
+use App\Generators\Frontend\RouteGenerator as RouteGeneratorFe;
+use App\Generators\Frontend\ViewTableGenerator;
+use App\Generators\FrontendUpdate\FormUpdateGenerator;
+use App\Generators\FrontendUpdate\ViewTableUpdateGenerator;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreGeneratorRelationshipRequest;
-use App\Services\{FileService, GeneratorService, QueryService};
 use App\Models\Generator;
+use App\Services\FileService;
+use App\Services\GeneratorService;
+use App\Services\QueryService;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schema;
 use Symfony\Component\Process\Exception\ProcessFailedException;
@@ -108,9 +111,7 @@ class GeneratorController extends Controller
             if ($this->serviceGenerator->getOptions(config('generator.model.options.only_migrate'), $model['options'])) {
                 $migrationGenerator = new MigrationGenerator($fields, $model);
                 new ModelGenerator($fields, $model);
-                $files['migration'] = [
-                    'file' => $migrationGenerator->file,
-                ];
+                $files['migration']['file'] = $migrationGenerator->file;
             } else {
                 $generateBackend = $this->_generateBackend($fields, $model);
                 $this->_generateFrontend($fields, $model);
@@ -392,7 +393,7 @@ class GeneratorController extends Controller
     /**
      * @param $fields
      * @param $model
-     * @return array[]
+     * @return array
      */
     private function _generateBackend($fields, $model): array
     {
@@ -400,7 +401,7 @@ class GeneratorController extends Controller
         new ControllerGenerator($fields, $model);
         new SeederGenerator($fields, $model);
         new ModelGenerator($fields, $model);
-        new RepositoryGenerator($fields, $model);
+        new RepositoryGenerator($model);
         new LangGenerator($fields, $model);
         new RouteGenerator($model);
         new RequestGenerator($fields, $model);
@@ -448,8 +449,8 @@ class GeneratorController extends Controller
 
         $files['api'] = $configGeneratorVueJS['api'] . $this->serviceGenerator->folderPages($model['name']) . '.js';
         $files['router_modules'] = $configGeneratorVueJS['router_modules'] . $this->serviceGenerator->folderPages($model['name']) . '.js';
-        $files['views']['form'] = $configGeneratorVueJS['views'] . lcfirst(\Str::kebab($model['name'])) . '/' . 'Form.vue';
-        $files['views']['index'] = $configGeneratorVueJS['views'] . lcfirst(\Str::kebab($model['name'])) . '/' . 'index.vue';
+        $files['views']['form'] = $configGeneratorVueJS['views'] . lcfirst(\Str::kebab($model['name'])) . '/Form.vue';
+        $files['views']['index'] = $configGeneratorVueJS['views'] . lcfirst(\Str::kebab($model['name'])) . '/index.vue';
 
         return $files;
     }
@@ -523,8 +524,9 @@ class GeneratorController extends Controller
                 "','" .
                 Carbon::parse($generator['updated_at'])->toDateTimeString() .
                 "','" .
-                Carbon::parse($generator['deleted_at'])->toDateTimeString() .
-                "')";
+                $generator['deleted_at']
+                    ? Carbon::parse($generator['deleted_at'])->toDateTimeString()
+                    : null . "')";
             if ($index !== count($generators) - 1) {
                 $template .= ',';
             }

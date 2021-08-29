@@ -3,42 +3,20 @@
 namespace App\Generators\Backend;
 
 use App\Generators\BaseGenerator;
-use App\Services\FileService;
-use App\Services\GeneratorService;
 use Carbon\Carbon;
 
 class SwaggerGenerator extends BaseGenerator
 {
-    /** @var $service */
-    public $serviceGenerator;
-
-    /** @var $service */
-    public $serviceFile;
+    public const FIELD_ID = 'id';
+    /** @var string */
+    protected $dbType;
 
     /** @var string */
-    public $path;
-
-    /** @var string */
-    public $notDelete;
-
-    /** @var string */
-    public $dbType;
-
-    /** @var string */
-    public $configDefaultValue;
-
-    const DB_TYPE_INTEGER = 'integer';
-    const DB_TYPE_FLOAT = 'float';
-    const DB_TYPE_DOUBLE = 'double';
-    const DB_TYPE_BOOLEAN = 'boolean';
-    const DB_TYPE_STRING = 'string';
-
-    const FIELD_ID = 'id';
+    protected $configDefaultValue;
 
     public function __construct($fields, $model)
     {
-        $this->serviceGenerator = new GeneratorService();
-        $this->serviceFile = new FileService();
+        parent::__construct();
         $this->path = config('generator.path.laravel.swagger');
         $this->notDelete = config('generator.not_delete.laravel.swagger');
         $this->dbType = config('generator.db_type');
@@ -79,13 +57,13 @@ class SwaggerGenerator extends BaseGenerator
                 continue;
             }
             if ($default === $this->configDefaultValue['none']) {
-                $fieldRequires .= '"' . $field . '"' . ', ';
+                $fieldRequires .= '"' . $field . '",';
             }
         }
         if ($fieldRequires) {
-            $templateData = str_replace('{{REQUIRED_FIELDS}}', '{' . '"' . self::FIELD_ID . '", ' . rtrim($fieldRequires, ', ') . '}', $templateData);
+            $templateData = str_replace('{{REQUIRED_FIELDS}}', '{"' . self::FIELD_ID . '", ' . rtrim($fieldRequires, ', ') . '}', $templateData);
         } else {
-            $templateData = str_replace('{{REQUIRED_FIELDS}}', '{' . '"' . self::FIELD_ID . '"' . '}', $templateData);
+            $templateData = str_replace('{{REQUIRED_FIELDS}}', '{"' . self::FIELD_ID . '"}', $templateData);
         }
         // end required
 
@@ -179,7 +157,7 @@ class SwaggerGenerator extends BaseGenerator
                             if ($keyEnum === count($field['enum']) - 1) {
                                 $enum .= '"' . $value . '"';
                             } else {
-                                $enum .= '"' . $value . '"' . ',';
+                                $enum .= '"' . $value . '",';
                             }
                         }
                         if ($propertyJson) {

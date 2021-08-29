@@ -3,31 +3,19 @@
 namespace App\Generators\Backend;
 
 use App\Generators\BaseGenerator;
-use App\Services\FileService;
-use App\Services\GeneratorService;
 use Carbon\Carbon;
 
 class RepositoryGenerator extends BaseGenerator
 {
-    /** @var $service */
-    public $serviceGenerator;
-
-    /** @var $service */
-    public $serviceFile;
-
-    /** @var string */
-    public $path;
-
-    public function __construct($fields, $model)
+    public function __construct($model)
     {
-        $this->serviceGenerator = new GeneratorService();
-        $this->serviceFile = new FileService();
+        parent::__construct();
         $this->path = config('generator.path.laravel.repositories');
 
-        $this->generate($fields, $model);
+        $this->generate($model);
     }
 
-    private function generate($fields, $model)
+    private function generate($model)
     {
         $now = Carbon::now();
         $createFolderModel = '/' . $model['name'] . '/';

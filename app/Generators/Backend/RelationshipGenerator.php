@@ -3,43 +3,27 @@
 namespace App\Generators\Backend;
 
 use App\Generators\BaseGenerator;
-use App\Models\Generator;
-use App\Services\FileService;
-use App\Services\GeneratorService;
 use Carbon\Carbon;
 
 class RelationshipGenerator extends BaseGenerator
 {
-    /** @var GeneratorService $service */
-    public GeneratorService $serviceGenerator;
-
-    /** @var FileService $service */
-    public FileService $serviceFile;
-
-    /** @var string */
-    public $path;
+    public const REF_UPPER = 'Ref';
+    public const _REF_LOWER = 'ref_';
+    public const SORT_COLUMN = 'sortable="custom"';
+    public const _ID = '_id';
 
     /** @var string */
-    public $notDelete;
-
-    /** @var string */
-    public $relationship;
+    protected $relationship;
 
     /** @var array */
-    public array $tableCurrent;
+    protected array $tableCurrent;
 
     /** @var array */
-    public array $tableDiff;
-
-    const REF_UPPER = 'Ref';
-    const _REF_LOWER = 'ref_';
-    const SORT_COLUMN = 'sortable="custom"';
-    const _ID = '_id';
+    protected array $tableDiff;
 
     public function __construct($relationship, $model, $modelCurrent, $column, $column2, $options)
     {
-        $this->serviceGenerator = new GeneratorService();
-        $this->serviceFile = new FileService();
+        parent::__construct();
         $this->path = config('generator.path.laravel.migration');
         $this->notDelete = config('generator.not_delete.laravel.model');
         $this->relationship = config('generator.relationship.relationship');
@@ -78,13 +62,13 @@ class RelationshipGenerator extends BaseGenerator
             $templateInverse = str_replace('{{RELATION}}', 'belongsToMany', $templateInverse);
             $templateModel = str_replace(
                 '{{FIELD_RELATIONSHIP}}',
-                "'" . self::_REF_LOWER . \Str::snake($modelCurrent) . '_' . \Str::snake($model) . "', " . "'" . \Str::snake($modelCurrent) . "_id', " . "'" . \Str::snake($model) . "_id'",
+                "'" . self::_REF_LOWER . \Str::snake($modelCurrent) . '_' . \Str::snake($model) . "', '" . \Str::snake($modelCurrent) . "_id', '" . \Str::snake($model) . "_id'",
                 $templateModel
             );
             $templateModel = str_replace(", 'id'", '', $templateModel);
             $templateInverse = str_replace(
                 '{{FIELD_RELATIONSHIP}}',
-                "'" . self::_REF_LOWER . \Str::snake($modelCurrent) . '_' . \Str::snake($model) . "', " . "'" . \Str::snake($model) . "_id', " . "'" . \Str::snake($modelCurrent) . "_id'",
+                "'" . self::_REF_LOWER . \Str::snake($modelCurrent) . '_' . \Str::snake($model) . "', '" . \Str::snake($model) . "_id', '" . \Str::snake($modelCurrent) . "_id'",
                 $templateInverse
             );
             $templateInverse = str_replace(", 'id'", '', $templateInverse);
@@ -113,7 +97,7 @@ class RelationshipGenerator extends BaseGenerator
             $templateData = $this->serviceGenerator->get_template('migrationRelationshipMTM', $pathTemplate);
             //if belongsToMany replace table to create
             $templateData = $this->_replaceTemplateRelationshipMTM($model, $modelCurrent, $templateData);
-            $fileName = date('Y_m_d_His') . '_' . 'relationship_' . self::_REF_LOWER . \Str::snake($modelCurrent) . '_' . \Str::snake($model) . '_table.php';
+            $fileName = date('Y_m_d_His') . '_relationship_' . self::_REF_LOWER . \Str::snake($modelCurrent) . '_' . \Str::snake($model) . '_table.php';
             $this->_generateModelMTM($model, $modelCurrent);
             $this->_generateSeederMTM($model, $modelCurrent);
             $this->_generateRoute($modelCurrent);
@@ -129,7 +113,7 @@ class RelationshipGenerator extends BaseGenerator
         } else {
             //hasOne or hasMany
             $templateData = $this->_replaceTemplateRelationship($model, $modelCurrent, $templateData);
-            $fileName = date('Y_m_d_His') . '_' . 'relationship_' . $this->serviceGenerator->tableName($modelCurrent) . '_' . $this->serviceGenerator->tableName($model) . '_table.php';
+            $fileName = date('Y_m_d_His') . '_relationship_' . $this->serviceGenerator->tableName($modelCurrent) . '_' . $this->serviceGenerator->tableName($model) . '_table.php';
             $this->_generateModel($modelCurrent, $model);
             $this->_generateSeeder($modelCurrent, $model);
             $this->_generateRoute($modelCurrent);
@@ -149,14 +133,14 @@ class RelationshipGenerator extends BaseGenerator
         $templateDataReal = $this->serviceGenerator->getFile('views', 'vuejs', $fileName);
         $dataForm = 'form:';
         //create form
-        $templateDataForm = $this->serviceGenerator->searchTemplateX($dataForm, 1, $notDelete['this_check'], strlen($dataForm), -strlen($dataForm) - 4, $templateDataReal);
+        $templateDataForm = $this->serviceGenerator->searchTemplateX($dataForm, 2, $notDelete['this_check'], strlen($dataForm), -strlen($dataForm) - 4, $templateDataReal);
         $dataForms = explode(',', trim($templateDataForm));
         $fieldsGenerateDataForm = [];
         foreach ($dataForms as $form) {
             if (strlen($form) > 0) {
                 $form = trim($form);
-                list($keyForm, $valForm) = explode(':', $form, 2);
-                $name = $keyForm . ':' . $valForm . ',';
+                [$keyForm, $valForm] = explode(':', $form, 2);
+                $name = $keyForm . ":$valForm,";
                 $fieldsGenerateDataForm[] = $name;
             }
         }
@@ -207,9 +191,9 @@ class RelationshipGenerator extends BaseGenerator
         if (!stripos($templateDataReal, $importStub)) {
             $templateDataReal = $this->serviceGenerator->replaceNotDelete($notDelete['import_component'], $importStub, 0, $templateDataReal, 2);
             //relationship
-            $stubRelationship = 'const ' . \Str::camel($model) . 'Resource' . ' = new ' . $this->serviceGenerator->modelNameNotPlural($model) . 'Resource();';
+            $stubRelationship = 'const ' . \Str::camel($model) . 'Resource = new ' . $this->serviceGenerator->modelNameNotPlural($model) . 'Resource();';
             // current
-            $stubRCurrent = 'const ' . \Str::camel($modelRelationship) . 'Resource' . ' = new ' . $this->serviceGenerator->modelNameNotPlural($modelRelationship) . 'Resource();';
+            $stubRCurrent = 'const ' . \Str::camel($modelRelationship) . 'Resource = new ' . $this->serviceGenerator->modelNameNotPlural($modelRelationship) . 'Resource();';
             $templateDataReal = str_replace($stubRCurrent, $stubRCurrent . $this->serviceGenerator->infy_nl_tab(1, 0) . $stubRelationship, $templateDataReal);
         }
         return $templateDataReal;
@@ -300,7 +284,7 @@ class RelationshipGenerator extends BaseGenerator
                     $withRelationship = "'" . $this->serviceGenerator->modelNamePluralFe($modelRelationship) . "'";
                 }
 
-                $templateDataReal = str_replace("$templateColumnWith]", "$templateColumnWith" . "$commaColumnWith" . "$withRelationship]", $templateDataReal);
+                $templateDataReal = str_replace("$templateColumnWith]", "{$templateColumnWith}{$commaColumnWith}{$withRelationship}]", $templateDataReal);
             } elseif ($option === $configOptions['search']) {
                 $columnSearch = '$queryService->columnSearch = [';
                 $templateColumnSearch = $this->serviceGenerator->searchTemplate($columnSearch, '];', 0, 0, $templateDataReal);
@@ -316,7 +300,7 @@ class RelationshipGenerator extends BaseGenerator
                 } else {
                     $columnDidGenerate = "'" . \Str::snake($modelRelationship) . self::_ID . "'";
                 }
-                $templateDataReal = str_replace("$templateColumnSearch]", "$templateColumnSearch" . "$commaSearch" . "$columnDidGenerate]", $templateDataReal);
+                $templateDataReal = str_replace("$templateColumnSearch]", "{$templateColumnSearch}{$commaSearch}{$columnDidGenerate}]", $templateDataReal);
             }
         }
         return $templateDataReal;
@@ -404,9 +388,7 @@ class RelationshipGenerator extends BaseGenerator
         $templateData = str_replace('{{TABLE_NAME_TITLE}}', \Str::plural($modelDif) . \Str::plural($model), $templateData);
         $templateData = str_replace('{{TABLE_NAME}}', $this->serviceGenerator->tableName($model), $templateData);
         $templateData = str_replace('{{FOREIGN_KEY}}', \Str::snake($modelDif) . self::_ID, $templateData);
-        $templateData = str_replace('{{TABLE_FOREIGN_KEY}}', $this->serviceGenerator->tableName($modelDif), $templateData);
-
-        return $templateData;
+        return str_replace('{{TABLE_FOREIGN_KEY}}', $this->serviceGenerator->tableName($modelDif), $templateData);
     }
 
     private function _replaceTemplateRelationshipMTM($model, $modelCurrent, $templateData)
@@ -418,9 +400,7 @@ class RelationshipGenerator extends BaseGenerator
         $templateData = str_replace('{{FOREIGN_KEY_1}}', \Str::snake($model) . self::_ID, $templateData);
         $templateData = str_replace('{{FOREIGN_KEY_2}}', \Str::snake($modelCurrent) . self::_ID, $templateData);
         $templateData = str_replace('{{TABLE_FOREIGN_KEY_1}}', $this->serviceGenerator->tableName($model), $templateData);
-        $templateData = str_replace('{{TABLE_FOREIGN_KEY_2}}', $this->serviceGenerator->tableName($modelCurrent), $templateData);
-
-        return $templateData;
+        return str_replace('{{TABLE_FOREIGN_KEY_2}}', $this->serviceGenerator->tableName($modelCurrent), $templateData);
     }
 
     private function _generateModel($model, $modelRelationship)
@@ -439,7 +419,7 @@ class RelationshipGenerator extends BaseGenerator
                 $fieldsGenerate[] = trim($tpl) . ',';
             }
         }
-        $fieldsGenerate[] = "'" . $field . "'" . ',';
+        $fieldsGenerate[] = "'" . $field . "',";
         $implodeString = implode($this->serviceGenerator->infy_nl_tab(1, 2), $fieldsGenerate);
         $templateDataReal = str_replace($template, $this->serviceGenerator->infy_nl_tab(1, 2) . $implodeString . $this->serviceGenerator->infy_nl_tab(1, 1), $templateDataReal);
         $this->_createFileAll('model', $modelRelationship, $templateDataReal);
@@ -560,16 +540,12 @@ class RelationshipGenerator extends BaseGenerator
         $formTemplate = str_replace('{{$PROP_NAME$}}', 'prop="' . $field . '"', $formTemplate);
         $formTemplate = str_replace('{{$LIST_SELECT$}}', \Str::camel($funcName), $formTemplate);
         $formTemplate = str_replace('{{$LABEL_OPTION$}}', 'item.' . $column, $formTemplate);
-        $formTemplate = str_replace('{{$VALUE_OPTION$}}', 'item.id', $formTemplate);
-
-        return $formTemplate;
+        return str_replace('{{$VALUE_OPTION$}}', 'item.id', $formTemplate);
     }
 
     private function getHandlerTemplate($nameForm)
     {
         $pathTemplate = 'Handler/';
-        $templateData = $this->serviceGenerator->get_template($nameForm, $pathTemplate, 'vuejs');
-
-        return $templateData;
+        return $this->serviceGenerator->get_template($nameForm, $pathTemplate, 'vuejs');
     }
 }

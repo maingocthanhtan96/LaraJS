@@ -3,28 +3,74 @@
 namespace App\Generators\Backend;
 
 use App\Generators\BaseGenerator;
-use App\Services\FileService;
-use App\Services\GeneratorService;
 use Carbon\Carbon;
 
 class SeederGenerator extends BaseGenerator
 {
-    /** @var $service */
-    public $serviceGenerator;
-
-    /** @var $service */
-    public $serviceFile;
-
-    /** @var string */
-    public $path;
-
     public function __construct($fields, $model)
     {
-        $this->serviceGenerator = new GeneratorService();
-        $this->serviceFile = new FileService();
+        parent::__construct();
         $this->path = config('generator.path.laravel.seeder');
 
         $this->generate($fields, $model);
+    }
+
+    /**
+     * @param $fields
+     * @return string
+     */
+    public function generateFields($fields): string
+    {
+        $fieldsGenerate = [];
+        $dbType = config('generator.db_type');
+
+        foreach ($fields as $index => $field) {
+            if ($index > 0) {
+                switch ($field['db_type']) {
+                    case $dbType['integer']:
+                    case $dbType['bigInteger']:
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => $faker->numberBetween(1000, 9000),';
+                        break;
+                    case $dbType['float']:
+                    case $dbType['double']:
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => $faker->randomFloat(2, 1000, 9000),';
+                        break;
+                    case $dbType['boolean']:
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => $faker->numberBetween(0, 1),';
+                        break;
+                    case $dbType['date']:
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => $faker->date("Y-m-d"),';
+                        break;
+                    case $dbType['dateTime']:
+                    case $dbType['timestamp']:
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => $faker->dateTime,';
+                        break;
+                    case $dbType['time']:
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => $faker->date("H:i:s"),';
+                        break;
+                    case $dbType['year']:
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => $faker->year,';
+                        break;
+                    case $dbType['string']:
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => $faker->name,';
+                        break;
+                    case $dbType['text']:
+                    case $dbType['longtext']:
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => $faker->paragraph,';
+                        break;
+                    case $dbType['enum']:
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => $faker->randomElement(' . json_encode($field['enum']) . '),';
+                        break;
+                    case $dbType['json']:
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => "[{}],"';
+                        break;
+                    case $dbType['file']:
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => json_encode(["https://via.placeholder.com/350"]),';
+                        break;
+                }
+            }
+        }
+        return implode($this->serviceGenerator->infy_nl_tab(1, 4), $fieldsGenerate);
     }
 
     /**
@@ -47,65 +93,6 @@ class SeederGenerator extends BaseGenerator
         $fileName = $model['name'] . 'TableSeeder.php';
 
         $this->serviceFile->createFile($this->path, $fileName, $templateData);
-    }
-
-    /**
-     * @param $fields
-     * @return string
-     */
-    public function generateFields($fields): string
-    {
-        $fieldsGenerate = [];
-        $dbType = config('generator.db_type');
-
-        foreach ($fields as $index => $field) {
-            if ($index > 0) {
-                switch ($field['db_type']) {
-                    case $dbType['integer']:
-                    case $dbType['bigInteger']:
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . '$faker->numberBetween(1000, 9000)' . ',';
-                        break;
-                    case $dbType['float']:
-                    case $dbType['double']:
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . '$faker->randomFloat(2, 1000, 9000)' . ',';
-                        break;
-                    case $dbType['boolean']:
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . '$faker->numberBetween(0, 1)' . ',';
-                        break;
-                    case $dbType['date']:
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . '$faker->date("Y-m-d")' . ',';
-                        break;
-                    case $dbType['dateTime']:
-                    case $dbType['timestamp']:
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . '$faker->dateTime' . ',';
-                        break;
-                    case $dbType['time']:
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . '$faker->date("H:i:s")' . ',';
-                        break;
-                    case $dbType['year']:
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . '$faker->year' . ',';
-                        break;
-                    case $dbType['string']:
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . '$faker->name' . ',';
-                        break;
-                    case $dbType['text']:
-                    case $dbType['longtext']:
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . '$faker->paragraph' . ',';
-                        break;
-                    case $dbType['enum']:
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . '$faker->randomElement(' . json_encode($field['enum']) . ')' . ',';
-                        break;
-                    case $dbType['json']:
-                        $json = '[{}]';
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . "'" . $json . "'" . ',';
-                        break;
-                    case $dbType['file']:
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => ' . 'json_encode(["https://via.placeholder.com/350"])' . ',';
-                        break;
-                }
-            }
-        }
-        return implode($this->serviceGenerator->infy_nl_tab(1, 4), $fieldsGenerate);
     }
 
     /**

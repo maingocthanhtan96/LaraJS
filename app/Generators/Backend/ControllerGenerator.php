@@ -3,21 +3,10 @@
 namespace App\Generators\Backend;
 
 use App\Generators\BaseGenerator;
-use App\Services\FileService;
-use App\Services\GeneratorService;
 use Carbon\Carbon;
 
 class ControllerGenerator extends BaseGenerator
 {
-    /** @var GeneratorService $service */
-    public GeneratorService $serviceGenerator;
-
-    /** @var FileService $service */
-    public FileService $serviceFile;
-
-    /** @var string */
-    public $path;
-
     /**
      * ControllerGenerator constructor.
      * @param $fields
@@ -25,8 +14,7 @@ class ControllerGenerator extends BaseGenerator
      */
     public function __construct($fields, $model)
     {
-        $this->serviceGenerator = new GeneratorService();
-        $this->serviceFile = new FileService();
+        parent::__construct();
         $this->path = config('generator.path.laravel.api_controller');
 
         $this->generate($fields, $model);

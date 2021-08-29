@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Http\Controllers\Controller;
 use App\Models\PasswordReset;
 use App\Models\User;
 use App\Notifications\MailResetPasswordNotification;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 
 class AuthController extends Controller
@@ -87,13 +87,11 @@ class AuthController extends Controller
     public function logout(): JsonResponse
     {
         try {
-            auth()
-                ->user()
-                ->tokens->each(function ($token) {
-                    $token->delete();
-                });
+            \Auth::user()
+                ->token()
+                ->delete();
 
-            return $this->jsonMessage('Logged out successfully');
+            return $this->jsonMessage(trans('auth.logout'));
         } catch (\Exception $e) {
             return $this->jsonError($e);
         }
@@ -109,29 +107,9 @@ class AuthController extends Controller
                 ->token()
                 ->delete();
 
-            return $this->jsonMessage('Logged out successfully');
+            return $this->jsonMessage(trans('auth.logout'));
         } catch (\Exception $e) {
             return $this->jsonError($e);
-        }
-    }
-
-    /**
-     * @param $request
-     * @return JsonResponse
-     */
-    private function _getToken($request): JsonResponse
-    {
-        $tokenRequest = $request->create(config('services.passport.login_endpoint'), 'post');
-        $response = \Route::dispatch($tokenRequest);
-        switch ($response->getStatusCode()) {
-            case Response::HTTP_OK:
-                return $this->jsonData(json_decode($response->getContent(), true));
-            case Response::HTTP_BAD_REQUEST:
-                return $this->jsonMessage(trans('auth.login_fail'), false, $response->getStatusCode());
-            case Response::HTTP_UNAUTHORIZED:
-                return $this->jsonMessage(trans('auth.credentials_incorrect'), false, $response->getStatusCode());
-            default:
-                return $this->jsonMessage('Login fail', false, $response->getStatusCode());
         }
     }
 
@@ -191,6 +169,26 @@ class AuthController extends Controller
             return $this->jsonMessage(trans('passwords.reset'));
         } catch (\Exception $e) {
             return $this->jsonError($e);
+        }
+    }
+
+    /**
+     * @param $request
+     * @return JsonResponse
+     */
+    private function _getToken($request): JsonResponse
+    {
+        $tokenRequest = $request->create(config('services.passport.login_endpoint'), 'post');
+        $response = \Route::dispatch($tokenRequest);
+        switch ($response->getStatusCode()) {
+            case Response::HTTP_OK:
+                return $this->jsonData(json_decode($response->getContent(), true));
+            case Response::HTTP_BAD_REQUEST:
+                return $this->jsonMessage(trans('auth.login_fail'), false, $response->getStatusCode());
+            case Response::HTTP_UNAUTHORIZED:
+                return $this->jsonMessage(trans('auth.credentials_incorrect'), false, $response->getStatusCode());
+            default:
+                return $this->jsonMessage($response->getContent(), false, $response->getStatusCode());
         }
     }
 }

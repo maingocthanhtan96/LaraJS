@@ -3,27 +3,12 @@
 namespace App\Generators\BackendUpdate;
 
 use App\Generators\BaseGenerator;
-use App\Services\FileService;
-use App\Services\GeneratorService;
 
 class ModelUpdateGenerator extends BaseGenerator
 {
-    /** @var $service */
-    public $serviceGenerator;
-
-    /** @var $service */
-    public $serviceFile;
-
-    /** @var string */
-    public $path;
-
-    /** @var string */
-    public $notDelete;
-
     public function __construct($model, $updateFields)
     {
-        $this->serviceGenerator = new GeneratorService();
-        $this->serviceFile = new FileService();
+        parent::__construct();
         $this->path = config('generator.path.laravel.model');
         $this->notDelete = config('generator.not_delete.laravel.model');
 
@@ -47,7 +32,7 @@ class ModelUpdateGenerator extends BaseGenerator
 
     private function generateUpdateFields($updateFields, $templateDataReal)
     {
-        if (empty($updateFields)) {
+        if (!$updateFields) {
             return $templateDataReal;
         }
         $fieldsGenerate = [];
@@ -63,13 +48,11 @@ class ModelUpdateGenerator extends BaseGenerator
                 $fieldsGenerate[] = trim($tpl) . ',';
             }
         }
-        foreach ($updateFields as $index => $field) {
-            $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ',';
+        foreach ($updateFields as $field) {
+            $fieldsGenerate[] = "'" . $field['field_name'] . "',";
         }
         $implodeString = implode($this->serviceGenerator->infy_nl_tab(1, 2), $fieldsGenerate);
-        $templateDataReal = str_replace($template, $this->serviceGenerator->infy_nl_tab(1, 2) . $implodeString . $this->serviceGenerator->infy_nl_tab(1, 1), $templateDataReal);
-
-        return $templateDataReal;
+        return str_replace($template, $this->serviceGenerator->infy_nl_tab(1, 2) . $implodeString . $this->serviceGenerator->infy_nl_tab(1, 1), $templateDataReal);
     }
 
     private function generateFieldsRename($renameFields, $templateDataReal)

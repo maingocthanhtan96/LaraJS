@@ -8,7 +8,7 @@ class PasswordReset extends BaseModel
 {
     use HasFactory;
 
-    const EXPIRE_TOKEN = 60;
+    public const EXPIRE_TOKEN = 60;
 
     public $timestamps = false;
     protected $primaryKey = null;

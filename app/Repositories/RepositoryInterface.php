@@ -20,15 +20,6 @@ interface RepositoryInterface
     public function find($id);
 
     /**
-     * Find relationship
-     * @param $id
-     * @param array $with
-     * @return mixed
-     * @author tanmnt
-     */
-    public function findWith($id, $with);
-
-    /**
      * Create
      * @param array $attributes
      * @return mixed
