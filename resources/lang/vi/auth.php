@@ -32,4 +32,5 @@ return [
     'forgot_password' => 'Quên mật khẩu',
     'reset_password' => 'Đặt lại mật khẩu',
     'logout' => 'Đăng xuất',
+    'hash_key' => 'Hash key not match.',
 ];

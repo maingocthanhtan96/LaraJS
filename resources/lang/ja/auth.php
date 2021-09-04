@@ -27,4 +27,5 @@ return [
         'manager' => 'サイト運営者',
         'viewer' => 'サイト閲覧者',
     ],
+    'hash_key' => 'Hash key not match.',
 ];

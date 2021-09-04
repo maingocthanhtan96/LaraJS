@@ -21,4 +21,5 @@ return [
     'forgot_password' => 'Forgot password',
     'reset_password' => 'Reset password',
     'logout' => 'Logout',
+    'hash_key' => 'Hash key not match.',
 ];
