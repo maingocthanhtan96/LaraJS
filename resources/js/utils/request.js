@@ -44,7 +44,7 @@ service.interceptors.response.use(
       if (res.status === 404) {
         router.replace({ path: '/404' });
       }
-      if (res.status === 500) {
+      if (process.env.NODE_ENV === 'production' && res.status === 500) {
         router.replace({ path: '/500' });
       }
       const currentUrl = router.history.current.path;

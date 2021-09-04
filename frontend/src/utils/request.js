@@ -20,7 +20,7 @@ service.interceptors.request.use(
     const token = getAccessToken() || false;
     if (token) {
       config.headers['Authorization'] = 'Bearer ' + token; // Set JWT token
-      if (methods.includes(config.method)) {
+      if (process.env.MIX_HASH_KEY && methods.includes(config.method)) {
         config.headers['Hash-Key'] = md5(JSON.stringify(config.data) + process.env.MIX_HASH_KEY);
       }
     }

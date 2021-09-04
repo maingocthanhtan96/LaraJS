@@ -77,25 +77,4 @@ class AppServiceProvider extends ServiceProvider
             });
         }
     }
-
-    private function _selectRelationship()
-    {
-        Builder::macro('selectRelationship', function ($relationship) {
-            $this->when(
-                \Str::contains($relationship, ':'),
-                function (Builder $query) use ($relationship) {
-                    [$relationship, $select] = explode(':', $relationship);
-                    $query->with([
-                        'roles' => function ($query) use ($select) {
-                            $query->select(explode(',', $select));
-                        },
-                    ]);
-                },
-                function (Builder $query) use ($relationship) {
-                    $query->with($relationship);
-                }
-            );
-            return $this;
-        });
-    }
 }
