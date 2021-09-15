@@ -68,6 +68,11 @@ git clone https://github.com/maingocthanhtan96/LaraJS.git
 https://graphviz.org/download/ #(install graphviz)
 php artisan generate:erd public/images/diagram-erd.png
 
+# Run docker
+cd docker
+cp .env.example .env
+docker-compose up -d
+
 # Run bash script to install project (recommend)
 chmod u+x setup.sh && ./setup.sh
 

@@ -35,7 +35,7 @@ class ControllerGenerator extends BaseGenerator
         $templateData = str_replace('{{LIMIT}}', $model['limit'], $templateData);
         $templateData = str_replace('{{COLUMN_SEARCH}}', '[' . $this->generateColumnSearch($fields) . ']', $templateData);
         $templateData = str_replace('{{COLUMN_RELATIONSHIP}}', '[]', $templateData);
-        $templateData = str_replace('{{MODAL_CLASS_PARAM}}', \Str::camel($model['name']), $templateData);
+        $templateData = str_replace('{{MODAL_CLASS_PARAM}}', \Str::camel(\Str::singular($model['name'])), $templateData);
 
         $fileName = $model['name'] . 'Controller.php';
         $this->serviceFile->createFile($this->path, $fileName, $templateData);

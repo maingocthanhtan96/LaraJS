@@ -16,3 +16,4 @@ yarn-error.log
 .vscode
 .DS_Store
 /docker/.env
+/docker/logs

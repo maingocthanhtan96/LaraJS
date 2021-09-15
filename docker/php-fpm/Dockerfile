@@ -1,4 +1,4 @@
-FROM php:7.4-fpm-alpine
+FROM php:7.4-fpm
 
 LABEL maintainer="maingocthanhtan96@gmail.com"
 
@@ -37,9 +37,9 @@ COPY ../../ /var/www
 
 # Add crontab
 USER root
-COPY ./php-fpm/app-entrypoint.sh /
+COPY ./app-entrypoint.sh /
 # Add crontab file in the cron directory
-COPY ./php-fpm/crontab /etc/cron.d
+COPY ./crontab /etc/cron.d
 # Give execution rights on the cron job
 RUN chmod -R 644 /etc/cron.d
 

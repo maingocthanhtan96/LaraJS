@@ -24,7 +24,7 @@ stages:
 unit_test:
   stage: test
   script:
-    - cp .env.test.example .env
+    - cp .env.example .env
 #    - composer install --ignore-platform-reqs --no-dev --optimize-autoloader --no-ansi --no-interaction --no-progress
 #    - php artisan key:generate
 #    - php artisan migrate

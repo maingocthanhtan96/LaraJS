@@ -1,8 +1,7 @@
 const path = require('path');
 const ChunkRenamePlugin = require('webpack-chunk-rename-plugin');
 const mix = require('laravel-mix');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-  .BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
@@ -88,9 +87,7 @@ module.exports = {
     ],
   },
   output: {
-    chunkFilename: mix.inProduction()
-      ? 'js/chunks/[name].[chunkhash].js'
-      : 'js/chunks/[name].js',
+    chunkFilename: mix.inProduction() ? 'js/chunks/[name].[chunkhash].js' : 'js/chunks/[name].js',
   },
   plugins: plugins,
   optimization: {

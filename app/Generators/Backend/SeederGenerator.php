@@ -62,7 +62,7 @@ class SeederGenerator extends BaseGenerator
                         $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => $faker->randomElement(' . json_encode($field['enum']) . '),';
                         break;
                     case $dbType['json']:
-                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => "[{}],"';
+                        $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => "[{}]",';
                         break;
                     case $dbType['file']:
                         $fieldsGenerate[] = "'" . $field['field_name'] . "'" . ' => json_encode(["https://via.placeholder.com/350"]),';
