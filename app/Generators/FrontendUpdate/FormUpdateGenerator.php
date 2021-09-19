@@ -89,7 +89,7 @@ class FormUpdateGenerator extends BaseGenerator
             foreach ($dataForms as $form) {
                 if (strlen($form) > 0) {
                     $form = trim($form);
-                    [$keyForm, $valForm] = explode(':', $form, 2);
+                    [$keyForm, $valForm] = array_pad(explode(':', $form, 2), 2, '');
                     if ($rename['field_name_old']['field_name'] === $keyForm) {
                         $fieldsGenerateDataForm[] = $rename['field_name_new']['field_name'] . ":$valForm,";
                     } else {
@@ -285,7 +285,7 @@ class FormUpdateGenerator extends BaseGenerator
                 foreach ($dataForms as $form) {
                     if (strlen($form) > 0) {
                         $form = trim($form);
-                        [$keyForm, $valForm] = explode(':', $form, 2);
+                        [$keyForm, $valForm] = array_pad(explode(':', $form, 2), 2, '');
                         if ($change['field_name'] === $keyForm) {
                             if ($change['default_value'] === $this->defaultValue['as_define']) {
                                 $formDefault = $change['field_name'] . ':' . "'" . $change['as_define'] . "',";
@@ -358,7 +358,7 @@ class FormUpdateGenerator extends BaseGenerator
             foreach ($dataForms as $form) {
                 if (strlen($form) > 0) {
                     $form = trim($form);
-                    [$keyForm, $valForm] = explode(':', $form, 2);
+                    [$keyForm, $valForm] = array_pad(explode(':', $form, 2), 2, '');
                     if ($drop['field_name'] !== $keyForm) {
                         $name = $keyForm . ":$valForm,";
                         if (!in_array($name, $fieldsGenerateDataForm) && !in_array($keyForm, $arrayChange)) {
@@ -444,7 +444,7 @@ class FormUpdateGenerator extends BaseGenerator
         foreach ($dataForms as $form) {
             if (strlen($form) > 0) {
                 $form = trim($form);
-                [$keyForm, $valForm] = explode(':', $form, 2);
+                [$keyForm, $valForm] = array_pad(explode(':', $form, 2), 2, '');
                 $name = $keyForm . ":$valForm,";
                 $fieldsGenerateDataForm[] = $name;
             }

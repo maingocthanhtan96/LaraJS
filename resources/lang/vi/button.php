@@ -6,4 +6,5 @@ return [
     'create' => 'Tạo',
     'edit' => 'Sửa',
     'update' => 'Cập nhật',
+    'delete' => 'Xoá',
 ];

@@ -139,7 +139,7 @@ class RelationshipGenerator extends BaseGenerator
         foreach ($dataForms as $form) {
             if (strlen($form) > 0) {
                 $form = trim($form);
-                [$keyForm, $valForm] = explode(':', $form, 2);
+                [$keyForm, $valForm] = array_pad(explode(':', $form, 2), 2, '');
                 $name = $keyForm . ":$valForm,";
                 $fieldsGenerateDataForm[] = $name;
             }

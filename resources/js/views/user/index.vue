@@ -91,10 +91,19 @@
               </el-table-column>
               <el-table-column :label="$t('table.actions')" align="center">
                 <template slot-scope="{ row }">
-                  <router-link v-permission="['edit']" :to="{ name: 'UserEdit', params: { id: row.id } }">
+                  <router-link
+                    v-permission="['edit']"
+                    :title="$t('button.edit')"
+                    :to="{ name: 'UserEdit', params: { id: row.id } }"
+                  >
                     <i class="el-icon-edit el-link el-link--primary mr-2" />
                   </router-link>
-                  <a v-permission="['delete']" class="cursor-pointer" @click.stop="() => remove(row.id)">
+                  <a
+                    v-permission="['delete']"
+                    :title="$t('button.delete')"
+                    class="cursor-pointer"
+                    @click.stop="() => remove(row.id)"
+                  >
                     <i class="el-icon-delete el-link el-link--danger" />
                   </a>
                 </template>

@@ -19,6 +19,11 @@ RUN apt-get install -y \
     git \
     curl
 
+# Install Node
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - \
+  && apt-get install -y nodejs \
+  && curl -L https://www.npmjs.com/install.sh | sh
+
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
