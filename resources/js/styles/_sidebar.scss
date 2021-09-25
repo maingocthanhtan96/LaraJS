@@ -167,6 +167,11 @@
     .svg-icon {
       margin-right: 0;
     }
+    .menu-wrapper {
+      .el-submenu__title {
+        background-color: $activeSidebar !important;
+      }
+    }
 
     .submenu-title-noDropdown {
       padding: 0 !important;

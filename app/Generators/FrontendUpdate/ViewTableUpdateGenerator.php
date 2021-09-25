@@ -196,7 +196,7 @@ class ViewTableUpdateGenerator extends BaseGenerator
         $templateTableColumnUploadParse = $this->serviceGenerator->get_template('tableColumnUploadParse', $pathTemplate, 'vuejs');
         $templateTableColumnBoolean = $this->serviceGenerator->get_template('tableColumnBoolean', $pathTemplate, 'vuejs');
         $templateTableColumn = $this->serviceGenerator->get_template('tableColumn', $pathTemplate, 'vuejs');
-
+        $template = '';
         if ($field['show']) {
             if ($field['db_type'] === $this->dbType['longtext']) {
                 $template = str_replace('{{$FIELD_NAME$}}', $field['field_name'], $templateTableColumnLongText);
