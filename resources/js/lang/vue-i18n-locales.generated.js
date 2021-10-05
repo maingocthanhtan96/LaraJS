@@ -28,6 +28,7 @@ export default {
       forgot_password: 'Forgot password',
       reset_password: 'Reset password',
       logout: 'Logout',
+      hash_key: 'Hash key not match.',
     },
     pagination: {
       previous: '&laquo; Previous',
@@ -282,6 +283,7 @@ export default {
       create: 'Create',
       edit: 'Edit',
       update: 'Update',
+      delete: 'Delete',
     },
   },
   ja: {
@@ -319,6 +321,7 @@ export default {
         manager: 'サイト運営者',
         viewer: 'サイト閲覧者',
       },
+      hash_key: 'Hash key not match.',
     },
     pagination: {
       previous: '&laquo; Previous',
@@ -624,6 +627,7 @@ export default {
       forgot_password: 'Quên mật khẩu',
       reset_password: 'Đặt lại mật khẩu',
       logout: 'Đăng xuất',
+      hash_key: 'Hash key not match.',
     },
     tagsView: {
       refresh: 'Refresh',
@@ -873,6 +877,7 @@ export default {
       create: 'Tạo',
       edit: 'Sửa',
       update: 'Cập nhật',
+      delete: 'Xoá',
     },
   },
 };

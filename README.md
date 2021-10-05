@@ -72,6 +72,7 @@ php artisan generate:erd public/images/diagram-erd.png
 cd docker
 cp .env.example .env
 docker-compose up -d
+docker compose exec app sh setup.sh
 
 # Run bash script to install project (recommend)
 chmod u+x setup.sh && ./setup.sh
