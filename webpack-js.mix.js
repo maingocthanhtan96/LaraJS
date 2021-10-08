@@ -9,6 +9,7 @@ function resolve(dir) {
   return path.join(__dirname, '/resources/js', dir);
 }
 
+// eslint-disable-next-line no-undef
 Mix.listen('configReady', webpackConfig => {
   // Add "svg" to image loader test
   const imageLoaderConfig = webpackConfig.module.rules.find(
