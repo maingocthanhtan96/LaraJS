@@ -94,9 +94,6 @@ class FormGenerator extends BaseGenerator
                 case $this->dbType['json']:
                     $fieldsGenerate[] = $this->generateJson($tableName, $field);
                     break;
-                case $this->dbType['file']:
-                    $fieldsGenerate[] = $this->generateFile($tableName, $field);
-                    break;
             }
         }
         return implode($this->serviceGenerator->infy_nl_tab(1, 5, 2), $fieldsGenerate);
@@ -111,9 +108,7 @@ class FormGenerator extends BaseGenerator
             $fieldName = $field['field_name'];
             $fieldForm = '';
             if ($field['default_value'] === $defaultValue['none'] || $field['default_value'] === $defaultValue['null']) {
-                if ($field['db_type'] === $dbType['file']) {
-                    $fieldForm = "$fieldName: []";
-                } elseif ($field['db_type'] === $dbType['json']) {
+                if ($field['db_type'] === $dbType['json']) {
                     $fieldForm = "$fieldName: '[]'";
                 } else {
                     $fieldForm = "$fieldName: ''";
@@ -188,15 +183,6 @@ class FormGenerator extends BaseGenerator
         $formTemplate = $this->checkRequired($field, $formTemplate);
         $formTemplate = $this->replaceFormField($field, $formTemplate);
         return str_replace('{{$REF_JSON$}}', $this->serviceGenerator->modelNameNotPluralFe($field['field_name']), $formTemplate);
-    }
-
-    private function generateFile($tableName, $field)
-    {
-        $formTemplate = $this->getFormTemplate('upload');
-        $formTemplate = $this->replaceLabelForm($tableName, $field, $formTemplate);
-        $formTemplate = $this->checkRequired($field, $formTemplate);
-        $formTemplate = $this->replaceFormField($field, $formTemplate);
-        return str_replace('{{$NAME_FUNC$}}', $this->serviceGenerator->modelNameNotPluralFe($field['field_name']), $formTemplate);
     }
 
     private function getFormTemplate($nameForm)

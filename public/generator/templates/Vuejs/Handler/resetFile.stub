@@ -1,4 +1,0 @@
-this.{{$FIELD_NAME$}}Temp.forEach(value => {
-            value.previewElement.remove();
-          });
-          document.getElementById('{{$FIELD_NAME$}}VueDropzone').classList.remove('dz-started');

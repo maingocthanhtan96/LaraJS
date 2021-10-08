@@ -6,13 +6,10 @@ use App\Generators\BaseGenerator;
 
 class FormUpdateGenerator extends BaseGenerator
 {
-    public const TEMPLATE_START = '<el-form-item';
     public const TEMPLATE_END = '</el-form-item>';
     public const DATA_GENERATOR = 'data-generator=';
     public const DATA_FORM = 'form:';
     public const RULES = 'rules() {';
-    public const SUCCESS_FILE = 'DropzoneS';
-    public const REMOVE_FILE = 'DropzoneR';
 
     /** @var string */
     protected string $labelNameForm;
@@ -100,14 +97,6 @@ class FormUpdateGenerator extends BaseGenerator
                     }
                 }
             }
-            //replace file temp
-            if ($rename['field_name_old']['db_type'] === $this->dbType['file']) {
-                $templateDataReal = str_replace(
-                    $this->serviceGenerator->modelNameNotPluralFe($rename['field_name_old']['field_name']) . 'Temp',
-                    $this->serviceGenerator->modelNameNotPluralFe($rename['field_name_new']['field_name']) . 'Temp',
-                    $templateDataReal
-                );
-            }
             //replace rules
             if (\Str::contains($templateRules, $rename['field_name_old']['field_name'])) {
                 $templateRulesTemp = str_replace(
@@ -116,53 +105,7 @@ class FormUpdateGenerator extends BaseGenerator
                     $templateRulesTemp
                 );
             }
-            //replace function upload file and remove file
-            //success
-            $successFile = $this->serviceGenerator->modelNameNotPluralFe($rename['field_name_old']['field_name']) . self::SUCCESS_FILE;
-            $commentUploadFile = '// Upload file => Dropzone';
-            $templateSuccessFile = $this->serviceGenerator->searchTemplateX(
-                $successFile,
-                2,
-                $commentUploadFile,
-                -strlen($successFile),
-                strlen($successFile) + strlen($commentUploadFile),
-                $templateDataReal
-            );
-            if ($templateSuccessFile) {
-                $arraySuccess = explode(' ', $templateSuccessFile);
-                $generateSuccess = $this->templateFile($arraySuccess, $rename, 'success');
-                $templateDataReal = str_replace($templateSuccessFile, implode(' ', $generateSuccess), $templateDataReal);
-            }
-            //remove
-            $removeFile = $this->serviceGenerator->modelNameNotPluralFe($rename['field_name_old']['field_name']) . self::REMOVE_FILE;
-            $commentRemoveFile = '// Remove file => Dropzone';
-            $templateRemoveFile = $this->serviceGenerator->searchTemplateX(
-                $removeFile,
-                2,
-                $commentRemoveFile,
-                -strlen($removeFile),
-                strlen($removeFile) + strlen($commentRemoveFile),
-                $templateDataReal
-            );
-            if ($templateRemoveFile) {
-                $arrayRemove = explode(' ', $templateRemoveFile);
-                $generateRemove = $this->templateFile($arrayRemove, $rename, 'remove');
-                $templateDataReal = str_replace($templateRemoveFile, implode(' ', $generateRemove), $templateDataReal);
-            }
-
-            // replace json stringify {file}
-            if ($rename['field_name_old']['db_type'] === $this->dbType['file']) {
-                $templateStringify = $this->getHandlerTemplate('uploadStringify');
-                $templateStringifyOld = str_replace('{{$FIELD$}}', $rename['field_name_old']['field_name'], $templateStringify);
-                $templateStringifyNew = str_replace('{{$FIELD$}}', $rename['field_name_new']['field_name'], $templateStringify);
-                $templateDataReal = str_replace($templateStringifyOld, $templateStringifyNew, $templateDataReal);
-            }
-            // replace this.form.{file}
             $templateDataReal = str_replace('this.form.' . $rename['field_name_old']['field_name'], 'this.form.' . $rename['field_name_new']['field_name'], $templateDataReal);
-            // replace id="{file}fileVueDropzone";
-            $documentOldId = "document.getElementById('{$this->serviceGenerator->modelNameNotPluralFe($rename['field_name_old']['field_name'])}VueDropzone')";
-            $documentNewId = "document.getElementById('{$this->serviceGenerator->modelNameNotPluralFe($rename['field_name_new']['field_name'])}VueDropzone')";
-            $templateDataReal = str_replace($documentOldId, $documentNewId, $templateDataReal);
         }
         //form item
         if ($fieldsGenerateDataForm) {
@@ -204,63 +147,6 @@ class FormUpdateGenerator extends BaseGenerator
                     if ($change['db_type'] !== $oldField['db_type']) {
                         //replace template form item
                         $templateDataReal = str_replace($templateFormItem, $this->generateItems($change, $model), $templateDataReal);
-                        //check if file
-                        //drop file
-                        if ($oldField['db_type'] === $this->dbType['file']) {
-                            // drop file temp
-                            $templateDataReal = str_replace($this->serviceGenerator->modelNameNotPluralFe($oldField['field_name']) . 'Temp: [],', '', $templateDataReal);
-                            //drop file success
-                            $successFile = $this->serviceGenerator->modelNameNotPluralFe($oldField['field_name']) . self::SUCCESS_FILE;
-                            $commentUploadFile = '// Upload file => Dropzone';
-                            $templateSuccessFile = $this->serviceGenerator->searchTemplateX(
-                                $successFile,
-                                1,
-                                $commentUploadFile,
-                                -strlen($successFile),
-                                strlen($successFile) + strlen($commentUploadFile),
-                                $templateDataReal
-                            );
-                            if ($templateSuccessFile) {
-                                $templateDataReal = str_replace($templateSuccessFile, '', $templateDataReal);
-                            }
-                            //drop file remove
-                            $removeFile = $this->serviceGenerator->modelNameNotPluralFe($oldField['field_name']) . self::REMOVE_FILE;
-                            $commentRemoveFile = '// Remove file => Dropzone';
-                            $templateRemoveFile = $this->serviceGenerator->searchTemplateX(
-                                $removeFile,
-                                1,
-                                $commentRemoveFile,
-                                -strlen($removeFile),
-                                strlen($removeFile) + strlen($commentRemoveFile),
-                                $templateDataReal
-                            );
-                            if ($templateRemoveFile) {
-                                $templateDataReal = str_replace($templateRemoveFile, '', $templateDataReal);
-                            }
-                            //drop json stringify
-                            $isArrayName = "if (Array.isArray(this.form.{$oldField['field_name']}))";
-                            $commentJsonStringify = '// Array => stringify';
-                            $templateStringify = $this->serviceGenerator->searchTemplateX(
-                                $isArrayName,
-                                1,
-                                $commentJsonStringify,
-                                -strlen($isArrayName),
-                                strlen($isArrayName) + strlen($commentJsonStringify),
-                                $templateDataReal
-                            );
-                            $templateDataReal = str_replace($templateStringify, '', $templateDataReal);
-                            // drop reset file
-                            $forEachName = "this.{$this->serviceGenerator->modelNameNotPluralFe($oldField['field_name'])}Temp.forEach";
-                            $removeClassDz = ".remove('dz-started');";
-                            $searchResetField = $this->serviceGenerator->searchTemplateX($forEachName, 1, $removeClassDz, -strlen($forEachName), strlen($removeClassDz) * 2, $templateDataReal);
-                            if ($searchResetField) {
-                                $templateDataReal = str_replace($searchResetField, '', $templateDataReal);
-                            }
-                        }
-                        // add file
-                        if ($change['db_type'] === $this->dbType['file']) {
-                            $templateDataReal = $this->generateFileAndHanler($change, $templateDataReal);
-                        }
                     } else {
                         preg_match('/maxlength=(\'|")[0-9]{0,3}(\'|")/im', $templateFormItem, $matches);
                         if (isset($matches[0])) {
@@ -293,10 +179,8 @@ class FormUpdateGenerator extends BaseGenerator
                                     $fieldsGenerateDataForm[] = $formDefault;
                                 }
                             } else {
-                                if ($valForm === ' []' || $valForm === " '[]'" || $valForm === " ''") {
-                                    if ($change['db_type'] === $this->dbType['file']) {
-                                        $valForm = ' []';
-                                    } elseif ($change['db_type'] === $this->dbType['json']) {
+                                if ($valForm === " '[]'" || $valForm === " ''") {
+                                    if ($change['db_type'] === $this->dbType['json']) {
                                         $valForm = " '[]'";
                                     } else {
                                         $valForm = " ''";
@@ -367,60 +251,6 @@ class FormUpdateGenerator extends BaseGenerator
                     }
                 }
             }
-            //drop file
-            if ($drop['db_type'] === $this->dbType['file']) {
-                // drop file temp
-                $templateDataReal = str_replace($this->serviceGenerator->modelNameNotPluralFe($drop['field_name']) . 'Temp: [],', '', $templateDataReal);
-                //drop file success
-                $successFile = $this->serviceGenerator->modelNameNotPluralFe($drop['field_name']) . self::SUCCESS_FILE;
-                $commentUploadFile = '// Upload file => Dropzone';
-                $templateSuccessFile = $this->serviceGenerator->searchTemplateX(
-                    $successFile,
-                    1,
-                    $commentUploadFile,
-                    -strlen($successFile),
-                    strlen($successFile) + strlen($commentUploadFile),
-                    $templateDataReal
-                );
-                if ($templateSuccessFile) {
-                    $templateDataReal = str_replace($templateSuccessFile, '', $templateDataReal);
-                }
-                //drop file remove
-                $removeFile = $this->serviceGenerator->modelNameNotPluralFe($drop['field_name']) . self::REMOVE_FILE;
-                $commentRemoveFile = '// Remove file => Dropzone';
-                $templateRemoveFile = $this->serviceGenerator->searchTemplateX(
-                    $removeFile,
-                    1,
-                    $commentRemoveFile,
-                    -strlen($removeFile),
-                    strlen($removeFile) + strlen($commentRemoveFile),
-                    $templateDataReal
-                );
-                if ($templateRemoveFile) {
-                    $templateDataReal = str_replace($templateRemoveFile, '', $templateDataReal);
-                }
-                //drop json stringify
-                $isArrayName = "if (Array.isArray(this.form.{$drop['field_name']}))";
-                $commentJsonStringify = '// Array => stringify';
-                $templateStringify = $this->serviceGenerator->searchTemplateX(
-                    $isArrayName,
-                    1,
-                    $commentJsonStringify,
-                    -strlen($isArrayName),
-                    strlen($isArrayName) + strlen($commentJsonStringify),
-                    $templateDataReal
-                );
-                if ($templateStringify) {
-                    $templateDataReal = str_replace($templateStringify, '', $templateDataReal);
-                }
-                // drop reset file
-                $forEachName = "this.{$this->serviceGenerator->modelNameNotPluralFe($drop['field_name'])}Temp.forEach";
-                $removeClassDz = ".remove('dz-started');";
-                $searchResetField = $this->serviceGenerator->searchTemplateX($forEachName, 1, $removeClassDz, -strlen($forEachName), strlen($removeClassDz) * 2, $templateDataReal);
-                if ($searchResetField) {
-                    $templateDataReal = str_replace($searchResetField, '', $templateDataReal);
-                }
-            }
             //drop rules
             $templateDataReal = $this->dropRules($drop, $templateDataReal);
         }
@@ -463,26 +293,6 @@ class FormUpdateGenerator extends BaseGenerator
                 $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['rules'], $templateRules, 4, $templateDataReal, 2);
                 $templateDataReal = $this->replaceField($update, $model, $templateDataReal);
             }
-            if ($update['db_type'] === $this->dbType['file']) {
-                $templateUpload = $this->getHandlerTemplate('upload');
-                $templateUpload = str_replace('{{$FIELD$}}', $update['field_name'], $templateUpload);
-                $templateUpload = str_replace('{{$NAME$}}', $this->serviceGenerator->modelNameNotPluralFe($update['field_name']), $templateUpload);
-                $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['methods'], $templateUpload, 2, $templateDataReal, 2);
-                $templateDataReal = $this->serviceGenerator->replaceNotDelete(
-                    $this->notDelete['data'],
-                    $this->serviceGenerator->modelNameNotPluralFe($update['field_name']) . 'Temp: [],',
-                    3,
-                    $templateDataReal,
-                    2
-                );
-                $templateStringify = $this->getHandlerTemplate('uploadStringify');
-                $templateStringify = str_replace('{{$FIELD$}}', $update['field_name'], $templateStringify);
-                $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['stringify'], $templateStringify, 3, $templateDataReal, 2);
-                // create reset field
-                $templateResetFields = $this->getHandlerTemplate('resetFile');
-                $templateResetFields = str_replace('{{$FIELD_NAME$}}', $this->serviceGenerator->modelNameNotPluralFe($update['field_name']), $templateResetFields);
-                $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['reset_field'], $templateResetFields, 5, $templateDataReal, 2);
-            }
             if ($update['db_type'] === $this->dbType['enum']) {
                 $enum = '';
                 foreach ($update['enum'] as $keyEnum => $value) {
@@ -507,13 +317,10 @@ class FormUpdateGenerator extends BaseGenerator
             'import' => [
                 'long_text' => true,
                 'json' => true,
-                'upload' => true,
             ],
             'component' => [
                 'long_text' => true,
                 'json' => true,
-                'upload' => true,
-                'removeFile' => true,
             ],
         ];
         $importVuejs = config('generator.import.vuejs');
@@ -535,19 +342,6 @@ class FormUpdateGenerator extends BaseGenerator
                 if (!strpos($templateDataReal, $importVuejs['json_editor']['name']) && $flags['component']['json']) {
                     $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['import_component_name'], $importVuejs['json_editor']['name'], 2, $templateDataReal, 2);
                     $flags['component']['json'] = false;
-                }
-            } elseif ($field['db_type'] === $this->dbType['file']) {
-                if (!strpos($templateDataReal, $importVuejs['vue_dropzone']['file']) && $flags['import']['upload']) {
-                    $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['import_component'], $importVuejs['vue_dropzone']['file'], 0, $templateDataReal, 2);
-                    $flags['import']['upload'] = false;
-                }
-                if (!strpos($templateDataReal, $importVuejs['vue_dropzone']['name']) && $flags['component']['upload']) {
-                    $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['import_component_name'], $importVuejs['vue_dropzone']['name'], 2, $templateDataReal, 2);
-                    $flags['component']['upload'] = false;
-                }
-                if (!strpos($templateDataReal, $importVuejs['vue_dropzone']['request']) && $flags['component']['removeFile']) {
-                    $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['import_component'], $importVuejs['vue_dropzone']['request'], 0, $templateDataReal, 2);
-                    $flags['component']['removeFile'] = false;
                 }
             }
         }
@@ -599,9 +393,6 @@ class FormUpdateGenerator extends BaseGenerator
             case $this->dbType['json']:
                 $fieldsGenerate[] = $this->generateJson($tableName, $field);
                 break;
-            case $this->dbType['file']:
-                $fieldsGenerate[] = $this->generateFile($tableName, $field);
-                break;
         }
         return implode($this->serviceGenerator->infy_nl_tab(1, 3, 2), $fieldsGenerate);
     }
@@ -613,9 +404,7 @@ class FormUpdateGenerator extends BaseGenerator
             $fieldName = $field['field_name'];
             $fieldForm = '';
             if ($field['default_value'] === $this->defaultValue['none'] || $field['default_value'] === $this->defaultValue['null']) {
-                if ($field['db_type'] === $this->dbType['file']) {
-                    $fieldForm = "$fieldName: []";
-                } elseif ($field['db_type'] === $this->dbType['json']) {
+                if ($field['db_type'] === $this->dbType['json']) {
                     $fieldForm = "$fieldName: '[]'";
                 } else {
                     $fieldForm = "$fieldName: ''";
@@ -691,15 +480,6 @@ class FormUpdateGenerator extends BaseGenerator
         return str_replace('{{$REF_JSON$}}', $this->serviceGenerator->modelNameNotPluralFe($field['field_name']), $formTemplate);
     }
 
-    private function generateFile($tableName, $field)
-    {
-        $formTemplate = $this->getFormTemplate('upload');
-        $formTemplate = $this->replaceLabelForm($tableName, $field, $formTemplate);
-        $formTemplate = $this->checkRequired($field, $formTemplate);
-        $formTemplate = $this->replaceFormField($field, $formTemplate);
-        return str_replace('{{$NAME_FUNC$}}', $this->serviceGenerator->modelNameNotPluralFe($field['field_name']), $formTemplate);
-    }
-
     private function generateRule($field, $model, $templateDataReal)
     {
         $templateRules = $this->getHandlerTemplate('rules');
@@ -751,20 +531,11 @@ class FormUpdateGenerator extends BaseGenerator
      * @param $fields
      * @return array
      */
-    private function templateForm($templates, $fields)
+    private function templateForm($templates, $fields): array
     {
         $fieldsGenerate = [];
-        $fieldOld = $this->serviceGenerator->modelNameNotPluralFe($fields['field_name_old']['field_name']);
-        $fieldNew = $this->serviceGenerator->modelNameNotPluralFe($fields['field_name_new']['field_name']);
         foreach ($templates as $template) {
             if (\Str::contains($template, $fields['field_name_old']['field_name'])) {
-                $id = 'id="' . $fieldOld . 'VueDropzone"';
-                $success = '@success="' . $fieldOld . 'DropzoneS"';
-                $removedFile = '@removedFile="' . $fieldOld . 'DropzoneR"';
-                if ($template === $id || $template === $success || $template === $removedFile) {
-                    $fieldsGenerate[] = str_replace($fieldOld, $fieldNew, $template);
-                    continue;
-                }
                 if (!\Str::contains($template, '<json-editor')) {
                     $fieldsGenerate[] = str_replace($fields['field_name_old']['field_name'], $fields['field_name_new']['field_name'], $template);
                 } else {
@@ -775,41 +546,6 @@ class FormUpdateGenerator extends BaseGenerator
             }
         }
 
-        return $fieldsGenerate;
-    }
-
-    /**
-     * @param $templates
-     * @param $fields
-     * @param $type
-     * @return array
-     */
-    private function templateFile($templates, $fields, $type)
-    {
-        $fieldsGenerate = [];
-        $dropzoneS = 'DropzoneS';
-        $dropzoneR = 'DropzoneR';
-        $fieldOld = $this->serviceGenerator->modelNameNotPluralFe($fields['field_name_old']['field_name']);
-        $fieldNew = $this->serviceGenerator->modelNameNotPluralFe($fields['field_name_new']['field_name']);
-        foreach ($templates as $template) {
-            if (\Str::contains($template, $fieldOld)) {
-                $success = $fieldOld . $dropzoneS;
-                $removedFile = $fieldOld . $dropzoneR;
-                //replace function name
-                if (\Str::contains($template, $success) || \Str::contains($template, $removedFile)) {
-                    if ($type === 'success') {
-                        $fieldsGenerate[] = str_replace($success, $fieldNew . $dropzoneS, $template);
-                    } elseif ($type === 'remove') {
-                        $fieldsGenerate[] = str_replace($removedFile, $fieldNew . $dropzoneR, $template);
-                    }
-                    continue;
-                }
-                //replace file temp
-                $fieldsGenerate[] = $template;
-            } else {
-                $fieldsGenerate[] = $template;
-            }
-        }
         return $fieldsGenerate;
     }
 
@@ -862,24 +598,5 @@ class FormUpdateGenerator extends BaseGenerator
         }
 
         return $templateDataReal;
-    }
-
-    private function generateFileAndHanler($field, $templateDataReal)
-    {
-        $templateUpload = $this->getHandlerTemplate('upload');
-        $templateUpload = str_replace('{{$FIELD$}}', $field['field_name'], $templateUpload);
-        $templateUpload = str_replace('{{$NAME$}}', $this->serviceGenerator->modelNameNotPluralFe($field['field_name']), $templateUpload);
-        $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['methods'], $templateUpload, 2, $templateDataReal, 2);
-        $templateDataReal = $this->serviceGenerator->replaceNotDelete(
-            $this->notDelete['data'],
-            $this->serviceGenerator->modelNameNotPluralFe($field['field_name']) . 'Temp: [],',
-            3,
-            $templateDataReal,
-            2
-        );
-        $templateStringify = $this->getHandlerTemplate('uploadStringify');
-        $templateStringify = str_replace('{{$FIELD$}}', $field['field_name'], $templateStringify);
-
-        return $this->serviceGenerator->replaceNotDelete($this->notDelete['stringify'], $templateStringify, 3, $templateDataReal, 2);
     }
 }

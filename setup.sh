@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Create .env from .env.example
-cp .env.test.example .env
+cp .env.example .env
 
 # Instwll composer
 echo "INSTALL COMPOSER"

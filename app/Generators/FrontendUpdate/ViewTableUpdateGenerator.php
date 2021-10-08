@@ -180,29 +180,19 @@ class ViewTableUpdateGenerator extends BaseGenerator
             $templates
         );
         // row
-        $templates = str_replace($row . $field['field_name_old']['field_name'], $row . $field['field_name_new']['field_name'], $templates);
-
-        if ($field['field_name_old']['db_type'] === $this->dbType['file']) {
-            $templates = str_replace("'" . $field['field_name_old']['field_name'] . "_'", "'" . $field['field_name_new']['field_name'] . "_'", $templates);
-        }
-
-        return $templates;
+        return str_replace($row . $field['field_name_old']['field_name'], $row . $field['field_name_new']['field_name'], $templates);
     }
 
     private function generateHandler($field, $model)
     {
         $pathTemplate = 'Handler/';
         $templateTableColumnLongText = $this->serviceGenerator->get_template('tableColumnLongText', $pathTemplate, 'vuejs');
-        $templateTableColumnUploadParse = $this->serviceGenerator->get_template('tableColumnUploadParse', $pathTemplate, 'vuejs');
         $templateTableColumnBoolean = $this->serviceGenerator->get_template('tableColumnBoolean', $pathTemplate, 'vuejs');
         $templateTableColumn = $this->serviceGenerator->get_template('tableColumn', $pathTemplate, 'vuejs');
         $template = '';
         if ($field['show']) {
             if ($field['db_type'] === $this->dbType['longtext']) {
                 $template = str_replace('{{$FIELD_NAME$}}', $field['field_name'], $templateTableColumnLongText);
-                $template = str_replace('{{$TABLE_MODEL_CLASS$}}', $this->serviceGenerator->tableNameNotPlural($model['name']), $template);
-            } elseif ($field['db_type'] === $this->dbType['file']) {
-                $template = str_replace('{{$FIELD_NAME$}}', $field['field_name'], $templateTableColumnUploadParse);
                 $template = str_replace('{{$TABLE_MODEL_CLASS$}}', $this->serviceGenerator->tableNameNotPlural($model['name']), $template);
             } elseif ($field['db_type'] === $this->dbType['boolean']) {
                 $template = str_replace('{{$FIELD_NAME$}}', $field['field_name'], $templateTableColumnBoolean);
@@ -238,7 +228,6 @@ class ViewTableUpdateGenerator extends BaseGenerator
             case $this->dbType['time']:
             case $this->dbType['year']:
             case $this->dbType['enum']:
-            case $this->dbType['file']:
                 $align = 'center';
                 break;
             default:

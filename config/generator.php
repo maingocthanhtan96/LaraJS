@@ -246,11 +246,6 @@ return [
                 'file' => "import JsonEditor from '@/components/JsonEditor';",
                 'name' => 'JsonEditor,',
             ],
-            'vue_dropzone' => [
-                'file' => "import VueDropzone from '@/components/VueDropzone';",
-                'name' => 'VueDropzone,',
-                'request' => "import { removeFile } from '@/api/file';",
-            ],
         ],
     ],
 

@@ -71,7 +71,6 @@ class ViewTableGenerator extends BaseGenerator
             case $this->dbType['time']:
             case $this->dbType['year']:
             case $this->dbType['enum']:
-            case $this->dbType['file']:
                 $align = 'center';
                 break;
             default:
@@ -86,7 +85,6 @@ class ViewTableGenerator extends BaseGenerator
         $fieldsGenerate = [];
         $pathTemplate = 'Handler/';
         $templateTableColumnLongText = $this->serviceGenerator->get_template('tableColumnLongText', $pathTemplate, 'vuejs');
-        $templateTableColumnUploadParse = $this->serviceGenerator->get_template('tableColumnUploadParse', $pathTemplate, 'vuejs');
         $templateTableColumnBoolean = $this->serviceGenerator->get_template('tableColumnBoolean', $pathTemplate, 'vuejs');
         $templateTableColumn = $this->serviceGenerator->get_template('tableColumn', $pathTemplate, 'vuejs');
 
@@ -94,9 +92,6 @@ class ViewTableGenerator extends BaseGenerator
             if ($field['show'] && $index > 0) {
                 if ($field['db_type'] === $this->dbType['longtext']) {
                     $template = str_replace('{{$FIELD_NAME$}}', $field['field_name'], $templateTableColumnLongText);
-                    $template = str_replace('{{$TABLE_MODEL_CLASS$}}', $this->serviceGenerator->tableNameNotPlural($model['name']), $template);
-                } elseif ($field['db_type'] === $this->dbType['file']) {
-                    $template = str_replace('{{$FIELD_NAME$}}', $field['field_name'], $templateTableColumnUploadParse);
                     $template = str_replace('{{$TABLE_MODEL_CLASS$}}', $this->serviceGenerator->tableNameNotPlural($model['name']), $template);
                 } elseif ($field['db_type'] === $this->dbType['boolean']) {
                     $template = str_replace('{{$FIELD_NAME$}}', $field['field_name'], $templateTableColumnBoolean);

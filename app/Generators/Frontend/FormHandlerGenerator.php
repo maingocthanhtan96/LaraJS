@@ -25,7 +25,6 @@ class FormHandlerGenerator extends BaseGenerator
         $flags = [
             'long_text' => true,
             'json' => true,
-            'upload' => true,
         ];
         foreach ($fields as $index => $field) {
             if ($index > 0) {
@@ -33,26 +32,6 @@ class FormHandlerGenerator extends BaseGenerator
                     $templateRules = $this->getHandlerTemplate('rules');
                     $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['rules'], $templateRules, 4, $templateDataReal, 2);
                     $templateDataReal = $this->replaceField($field, $model, $templateDataReal);
-                }
-                if ($field['db_type'] === $dbType['file']) {
-                    $templateUpload = $this->getHandlerTemplate('upload');
-                    $templateUpload = str_replace('{{$FIELD$}}', $field['field_name'], $templateUpload);
-                    $templateUpload = str_replace('{{$NAME$}}', $this->serviceGenerator->modelNameNotPluralFe($field['field_name']), $templateUpload);
-                    $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['methods'], $templateUpload, 2, $templateDataReal, 2);
-                    $templateDataReal = $this->serviceGenerator->replaceNotDelete(
-                        $this->notDelete['data'],
-                        $this->serviceGenerator->modelNameNotPluralFe($field['field_name']) . 'Temp: [],',
-                        3,
-                        $templateDataReal,
-                        2
-                    );
-                    $templateStringify = $this->getHandlerTemplate('uploadStringify');
-                    $templateStringify = str_replace('{{$FIELD$}}', $field['field_name'], $templateStringify);
-                    $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['stringify'], $templateStringify, 3, $templateDataReal, 2);
-                    // create reset field
-                    $templateResetFields = $this->getHandlerTemplate('resetFile');
-                    $templateResetFields = str_replace('{{$FIELD_NAME$}}', $this->serviceGenerator->modelNameNotPluralFe($field['field_name']), $templateResetFields);
-                    $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['reset_field'], $templateResetFields, 5, $templateDataReal, 2);
                 }
                 if ($field['db_type'] === $dbType['enum']) {
                     $enum = '';
@@ -77,11 +56,6 @@ class FormHandlerGenerator extends BaseGenerator
                     $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['import_component'], $importVuejs['json_editor']['file'], 0, $templateDataReal, 2);
                     $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['import_component_name'], $importVuejs['json_editor']['name'], 2, $templateDataReal, 2);
                     $flags['json'] = false;
-                } elseif ($field['db_type'] === $dbType['file'] && $flags['upload']) {
-                    $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['import_component'], $importVuejs['vue_dropzone']['file'], 0, $templateDataReal, 2);
-                    $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['import_component_name'], $importVuejs['vue_dropzone']['name'], 2, $templateDataReal, 2);
-                    $templateDataReal = $this->serviceGenerator->replaceNotDelete($this->notDelete['import_component'], $importVuejs['vue_dropzone']['request'], 0, $templateDataReal, 2);
-                    $flags['upload'] = false;
                 }
                 // END - IMPORT FILE
             }
