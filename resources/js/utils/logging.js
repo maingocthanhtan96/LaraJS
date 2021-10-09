@@ -30,7 +30,7 @@ if (checkNeed()) {
         logging: 2, // backend
       });
       // eslint-disable-next-line no-console
-      console.error(err, info, 'error');
+      console.error(err, info);
     });
   };
 }

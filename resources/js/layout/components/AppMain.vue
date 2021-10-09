@@ -25,12 +25,12 @@ export default {
     },
   },
   mounted() {
-    const settings = this.$store.state.settings;
-    if (settings.routerTransitionFrom) {
+    const { routerTransitionTo, routerTransitionFrom } = this.$store.state.settings;
+    if (routerTransitionFrom) {
       this.$watch('$route', (to, from) => {
         const toDepth = to.path.split('/').length;
         const fromDepth = from.path.split('/').length;
-        this.transitionName = toDepth < fromDepth ? settings.routerTransitionTo : settings.routerTransitionFrom;
+        this.transitionName = toDepth < fromDepth ? routerTransitionTo : routerTransitionFrom;
       });
     }
   },
