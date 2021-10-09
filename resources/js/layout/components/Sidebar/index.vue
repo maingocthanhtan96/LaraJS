@@ -5,10 +5,10 @@
       <el-menu
         :default-active="activeMenu"
         :collapse="isCollapse"
-        :background-color="variables.bgSidebar"
-        :text-color="variables.menuText"
+        background-color="#242635"
+        text-color="#bfcbd9"
+        active-text-color="#fff"
         :unique-opened="false"
-        :active-text-color="variables.menuActiveText"
         :collapse-transition="false"
         mode="vertical"
       >
@@ -22,7 +22,6 @@
 import { mapGetters } from 'vuex';
 import Logo from './Logo';
 import SidebarItem from './SidebarItem';
-import variables from '@/styles/_variables.scss';
 
 export default {
   components: { SidebarItem, Logo },
@@ -42,9 +41,6 @@ export default {
     },
     showLogo() {
       return this.$store.state.settings.sidebarLogo;
-    },
-    variables() {
-      return variables;
     },
     isCollapse() {
       return !this.sidebar.opened;

@@ -65,22 +65,15 @@ module.exports = {
       },
       // {
       //   test: /\.scss$/,
-      //   include: resolve('styles'),
       //   use: [
       //     {
-      //       loader: 'style-loader',
+      //       loader: 'style-loader', // creates style nodes from JS strings
       //     },
       //     {
-      //       loader: 'css-loader',
-      //       options: {
-      //         importLoaders: 1,
-      //         modules: {
-      //           compileType: 'icss',
-      //         },
-      //       },
+      //       loader: 'css-loader', // translates CSS into CommonJS
       //     },
       //     {
-      //       loader: 'sass-loader',
+      //       loader: 'sass-loader', // compiles Sass to CSS
       //     },
       //   ],
       // },
