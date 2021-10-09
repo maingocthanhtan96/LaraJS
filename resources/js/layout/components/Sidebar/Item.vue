@@ -22,7 +22,7 @@ export default {
 
     if (title) {
       nodes.push(
-        <span class='truncate inline-block' slot='title'>
+        <span class='tw-truncate tw-inline-block' slot='title'>
           {title}
         </span>
       );

@@ -42,7 +42,7 @@
                   ></el-button>
                   <el-button
                     type="danger"
-                    class="tw-ml-0 md:tw-ml-4"
+                    class="tw-ml-0 tw-ml-4 md:tw-ml-0"
                     icon="el-icon-delete"
                     size="small"
                     @click="handleDeleteRole(row.id, row.name)"
@@ -84,7 +84,7 @@
                   <el-button type="primary" icon="el-icon-edit" size="small" @click="handleEditPermissions(row.id)" />
                   <el-button
                     type="danger"
-                    class="tw-ml-0 md:tw-ml-4"
+                    class="tw-ml-0 tw-ml-4 md:tw-ml-0"
                     icon="el-icon-delete"
                     size="small"
                     @click="handleDeletePermission(row.id, row.name)"

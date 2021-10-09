@@ -1,5 +1,5 @@
 <el-table-column data-generator="{{$FIELD_NAME_RELATIONSHIP$}}" prop="{{$FIELD_NAME_RELATIONSHIP$}}" {{$SORT$}} :label="$t('route.{{$TABLE_MODEL_CLASS$}}')" align="{{$ALIGN$}}" header-align="center">
-                <template v-if="row.{{$MODEL_RELATIONSHIP$}}" slot-scope="{ row }">
-                  {{ row.{{$MODEL_RELATIONSHIP$}}.{{$FIELD_NAME$}} }}
+                <template slot-scope="{ row }">
+                  {{ row.{{$MODEL_RELATIONSHIP$}} && row.{{$MODEL_RELATIONSHIP$}}.{{$FIELD_NAME$}} }}
                 </template>
               </el-table-column>

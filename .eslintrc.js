@@ -23,6 +23,7 @@ module.exports = {
         after: true,
       },
     ],
+    'vue/no-unused-components': process.env.NODE_ENV === 'production' ? 2 : 0,
     'vue/html-indent': [
       'off',
       2,

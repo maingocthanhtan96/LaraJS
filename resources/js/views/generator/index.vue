@@ -21,16 +21,20 @@
           </router-link>
         </div>
         <div class="tw-flex tw-flex-col">
-          <el-col :span="24" class="tw-mb-6">
+          <el-row :gutter="20" type="flex" justify="space-between" class="tw-mb-6 tw-flex-wrap">
             <el-col :xs="24" :sm="10" :md="6">
               <label>{{ $t('table.texts.filter') }}</label>
-              <el-input v-model="table.listQuery.search" :placeholder="$t('table.texts.filterPlaceholder')" />
+              <el-input
+                v-model="table.listQuery.search"
+                class="tw-w-full"
+                :placeholder="$t('table.texts.filterPlaceholder')"
+              />
             </el-col>
-            <el-col :xs="24" :sm="14" :md="18">
+            <el-col :xs="24" :sm="14" :md="10">
               <br />
               <el-date-picker
                 v-model="table.listQuery.updated_at"
-                class="md:tw-float-right"
+                class="tw-w-full"
                 type="daterange"
                 :start-placeholder="$t('date.start_date')"
                 :end-placeholder="$t('date.end_date')"
@@ -38,79 +42,81 @@
                 @change="changeDateRangePicker"
               />
             </el-col>
-          </el-col>
-          <el-col :span="24" class="table-responsive">
-            <el-table
-              v-loading="table.loading"
-              class="w-full"
-              :data="table.list"
-              :default-sort="{ prop: table.listQuery.orderBy, order: table.listQuery.ascending }"
-              border
-              fit
-              highlight-current-row
-              @sort-change="sortChange"
-            >
-              <el-table-column align="center" sortable="custom" prop="id" label="No." width="70px">
-                <template slot-scope="{ row }">
-                  {{ row.id }}
-                </template>
-              </el-table-column>
-              <el-table-column align="center" label="Table">
-                <template slot-scope="{ row }">
-                  {{ row.table }}
-                </template>
-              </el-table-column>
-              <!--{{$TEMPLATES_NOT_DELETE_THIS_LINE$}}-->
-              <el-table-column
-                data-generator="updated_at"
-                prop="updated_at"
-                :label="$t('date.updated_at')"
-                sortable="custom"
-                align="center"
-                header-align="center"
+          </el-row>
+          <el-row :gutter="20">
+            <el-col :span="24" class="table-responsive">
+              <el-table
+                v-loading="table.loading"
+                class="w-full"
+                :data="table.list"
+                :default-sort="{ prop: table.listQuery.orderBy, order: table.listQuery.ascending }"
+                border
+                fit
+                highlight-current-row
+                @sort-change="sortChange"
               >
-                <template slot-scope="{ row }">
-                  {{ row.updated_at | parseTime('{y}-{m}-{d}') }}
-                </template>
-              </el-table-column>
-              <el-table-column :label="$t('table.actions')" align="center" class-name="small-padding fixed-width">
-                <template slot-scope="{ row }">
-                  <router-link :to="{ name: 'GeneratorEdit', params: { id: row.id } }">
-                    <el-tooltip effect="dark" content="Update" placement="left">
-                      <i class="el-icon-edit el-link el-link--primary tw-mr-4" />
-                    </el-tooltip>
-                  </router-link>
-                  <router-link
-                    :to="{
-                      name: 'GeneratorRelationship',
-                      params: { id: row.id },
-                    }"
-                  >
-                    <el-tooltip effect="dark" content="Relationship" placement="top">
-                      <svg-icon class="el-link el-link--success tw-mr-4" icon-class="tree" />
-                    </el-tooltip>
-                  </router-link>
-                  <a
-                    v-if="row.id !== 1"
-                    v-permission="['delete']"
-                    class="cursor-pointer"
-                    @click.stop="() => remove(row.id)"
-                  >
-                    <el-tooltip effect="dark" content="Remove" placement="right">
-                      <i class="el-icon-delete el-link el-link--danger" />
-                    </el-tooltip>
-                  </a>
-                </template>
-              </el-table-column>
-            </el-table>
-            <pagination
-              v-if="table.total > 0"
-              :total="table.total"
-              :page.sync="table.listQuery.page"
-              :limit.sync="table.listQuery.limit"
-              @pagination="getList"
-            />
-          </el-col>
+                <el-table-column align="center" sortable="custom" prop="id" label="No." width="70px">
+                  <template slot-scope="{ row }">
+                    {{ row.id }}
+                  </template>
+                </el-table-column>
+                <el-table-column align="center" label="Table">
+                  <template slot-scope="{ row }">
+                    {{ row.table }}
+                  </template>
+                </el-table-column>
+                <!--{{$TEMPLATES_NOT_DELETE_THIS_LINE$}}-->
+                <el-table-column
+                  data-generator="updated_at"
+                  prop="updated_at"
+                  :label="$t('date.updated_at')"
+                  sortable="custom"
+                  align="center"
+                  header-align="center"
+                >
+                  <template slot-scope="{ row }">
+                    {{ row.updated_at | parseTime('{y}-{m}-{d}') }}
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('table.actions')" align="center" class-name="small-padding fixed-width">
+                  <template slot-scope="{ row }">
+                    <router-link :to="{ name: 'GeneratorEdit', params: { id: row.id } }">
+                      <el-tooltip effect="dark" content="Update" placement="left">
+                        <i class="el-icon-edit el-link el-link--primary tw-mr-4" />
+                      </el-tooltip>
+                    </router-link>
+                    <router-link
+                      :to="{
+                        name: 'GeneratorRelationship',
+                        params: { id: row.id },
+                      }"
+                    >
+                      <el-tooltip effect="dark" content="Relationship" placement="top">
+                        <svg-icon class="el-link el-link--success tw-mr-4" icon-class="tree" />
+                      </el-tooltip>
+                    </router-link>
+                    <a
+                      v-if="row.id !== 1"
+                      v-permission="['delete']"
+                      class="cursor-pointer"
+                      @click.stop="() => remove(row.id)"
+                    >
+                      <el-tooltip effect="dark" content="Remove" placement="right">
+                        <i class="el-icon-delete el-link el-link--danger" />
+                      </el-tooltip>
+                    </a>
+                  </template>
+                </el-table-column>
+              </el-table>
+              <pagination
+                v-if="table.total > 0"
+                :total="table.total"
+                :page.sync="table.listQuery.page"
+                :limit.sync="table.listQuery.limit"
+                @pagination="getList"
+              />
+            </el-col>
+          </el-row>
         </div>
       </el-card>
     </el-col>
