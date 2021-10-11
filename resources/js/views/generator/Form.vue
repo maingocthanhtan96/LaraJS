@@ -8,7 +8,7 @@
           </h1>
         </div>
         <section class="content-wrapper">
-          <div class="container tw-is-fullhd">
+          <div class="tw-container">
             <div>
               <el-form ref="formModel" :model="formModel" :rules="modalRules" label-position="top">
                 <el-col :span="9" class="tw-mr-4">

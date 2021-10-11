@@ -72,7 +72,7 @@ class FormUpdateGenerator extends BaseGenerator
                 $selfTemplateStart,
                 1,
                 $selfTemplateEnd,
-                -strlen($selfTemplateStart) - strlen($selfTemplateStart),
+                -strlen($selfTemplateStart) * 3 + strlen(self::DATA_GENERATOR),
                 strlen($selfTemplateStart) * 3,
                 $templateDataReal
             );
@@ -231,7 +231,7 @@ class FormUpdateGenerator extends BaseGenerator
                 $selfTemplateStart,
                 1,
                 $selfTemplateEnd,
-                -strlen($selfTemplateStart) - strlen($selfTemplateStart),
+                -strlen($selfTemplateStart) * 3 + strlen(self::DATA_GENERATOR),
                 strlen($selfTemplateStart) * 3,
                 $templateDataReal
             );

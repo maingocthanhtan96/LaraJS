@@ -119,7 +119,7 @@
             </el-tooltip>
           </div>
           <!--dialog-->
-          <div class="container is-fullhd">
+          <div class="tw-container">
             <el-dialog :visible.sync="dialogVisible" :fullscreen="true" @open="diagram">
               <div slot="title" class="tw-text-center">
                 <h3 class="title">Diagram {{ $t('route.generator_relationship') }}</h3>

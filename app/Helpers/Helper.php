@@ -39,15 +39,16 @@ function str_slug_uppercase($title, $separator = '')
  */
 function strpos_x($haystack, $needle, $number)
 {
-    if ($number === '1') {
+    if ($number === 1) {
         return strpos($haystack, $needle);
     }
-    if ($number > '1') {
+    if ($number > 1) {
         return strpos($haystack, $needle, strpos_x($haystack, $needle, $number - 1) + strlen($needle));
     }
 
     return error_log('Error: Value for parameter $number is out of range');
 }
+
 function getBetweenContent($content, $start, $end)
 {
     $r = explode($start, $content);

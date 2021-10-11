@@ -120,9 +120,9 @@
         </div>
       </el-card>
     </el-col>
-    <div class="container tw-is-fullhd">
+    <div class="tw-container tw-is-fullhd">
       <el-dialog :visible.sync="dialogVisible" :fullscreen="true">
-        <div slot="title" class="text-center">
+        <div slot="title" class="tw-text-center">
           <h3 class="title">Diagram {{ $t('route.generator_relationship') }}</h3>
         </div>
         <div>

@@ -133,7 +133,7 @@ class RelationshipGenerator extends BaseGenerator
         $templateDataReal = $this->serviceGenerator->getFile('views', 'vuejs', $fileName);
         $dataForm = 'form:';
         //create form
-        $templateDataForm = $this->serviceGenerator->searchTemplateX($dataForm, 2, $notDelete['this_check'], strlen($dataForm), -strlen($dataForm) - 4, $templateDataReal);
+        $templateDataForm = $this->serviceGenerator->searchTemplateX($dataForm, 1, $notDelete['this_check'], strlen($dataForm), -strlen($dataForm) - 4, $templateDataReal);
         $dataForms = explode(',', trim($templateDataForm));
         $fieldsGenerateDataForm = [];
         foreach ($dataForms as $form) {
