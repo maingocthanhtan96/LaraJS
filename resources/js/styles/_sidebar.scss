@@ -59,8 +59,13 @@
 
           .is-active {
             margin-top: 0;
-            border-radius: 1.313rem 0rem 0rem 1.313rem;
-            background: $menuHover !important;
+            border-radius: 1.313rem 0 0 1.313rem;
+            background: $activeSidebar !important;
+            &:not(.is-opened) {
+              .el-sub-menu__title {
+                background-color: $activeSidebar !important;
+              }
+            }
           }
 
           .active {

@@ -57,8 +57,10 @@ export default {
   methods: {
     checkPermission,
     logout() {
+      const loading = this.$loading({ fullscreen: true });
       this.$store.dispatch(`user/${LOGOUT}`).then(() => {
-        this.$router.push({ name: 'Login' });
+        this.$router.replace({ name: 'Login' });
+        loading.close();
       });
     },
     toggleSideBar() {

@@ -25,7 +25,7 @@ import administrator from './modules/administrator';
     affix: true                  if set true, the tag will affix in the tags-view
     breadcrumb: false            if set false, the item will hidden in breadcrumb(default is true)
     activeMenu: '/example/list'  if set path, the sidebar will highlight the path you set
-    tagViews: true not show tag view
+    tagsView: true not show tag view
   }
  */
 

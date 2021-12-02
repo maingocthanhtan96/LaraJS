@@ -28,7 +28,7 @@ class StorePermissionRequest extends FormRequest
             $permission = $permission->id;
         }
         return [
-            'name' => "required|string|unique:permissions,name,{$permission},id",
+            'name' => "required|string|unique:permissions,name,$permission,id",
         ];
     }
 }

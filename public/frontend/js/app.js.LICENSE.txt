@@ -6,9 +6,9 @@
  */
 
 /*!
- * JavaScript Cookie v2.2.1
- * https://github.com/js-cookie/js-cookie
- *
- * Copyright 2006, 2015 Klaus Hartl & Fagner Brack
- * Released under the MIT license
+ * vue-i18n v8.26.5 
+ * (c) 2021 kazuya kawaguchi
+ * Released under the MIT License.
  */
+
+/*! js-cookie v3.0.1 | MIT */

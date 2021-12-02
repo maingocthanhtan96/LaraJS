@@ -7,6 +7,7 @@ export default {
         imageElement.addEventListener('load', () => {
           setTimeout(() => el.classList.add('loaded'), 100);
         });
+        // eslint-disable-next-line no-console
         imageElement.addEventListener('error', () => console.log('error'));
         imageElement.src = imageElement.dataset.url;
       }
@@ -14,9 +15,7 @@ export default {
 
     function handleIntersect(entries, observer) {
       entries.forEach(entry => {
-        if (!entry.isIntersecting) {
-          return;
-        } else {
+        if (entry.isIntersecting) {
           loadImage();
           observer.unobserve(el);
         }

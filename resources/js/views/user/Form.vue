@@ -133,102 +133,27 @@ export default {
   computed: {
     // not rename rules
     rules() {
-      const password = (rule, value, cb) => {
-        if (value === '') {
-          cb(
-            new Error(
-              this.$t('validation.required', {
-                attribute: this.$t('table.user.password'),
-              })
-            )
-          );
-        } else {
-          let messagePassword = '';
-          switch (false) {
-            case /[a-z]+/.test(value):
-              messagePassword = this.$t('validation.password.lowercase', {
-                attribute: this.$t('table.user.password'),
-                number: 1,
-              });
-              break;
-            case /[A-Z]+/.test(value):
-              messagePassword = this.$t('validation.password.uppercase', {
-                attribute: this.$t('table.user.password'),
-                number: 1,
-              });
-              break;
-            case /[0-9]+/.test(value):
-              messagePassword = this.$t('validation.password.number', {
-                attribute: this.$t('table.user.password'),
-                number: 1,
-              });
-              break;
-            case /[!@#$%^&*]+/.test(value):
-              messagePassword = this.$t('validation.password.symbols', {
-                attribute: this.$t('table.user.password'),
-                number: 1,
-              });
-              break;
-          }
-          if (messagePassword) {
-            return cb(messagePassword);
-          }
-          if (this.form.password_confirmation !== '') {
-            this.$refs.users.validateField('password_confirmation');
-          }
-          cb();
-        }
-      };
-      const passwordConfirm = (rule, value, cb) => {
-        if (value === '') {
-          cb(
-            new Error(
-              this.$t('validation.required', {
-                attribute: this.$t('table.user.password_confirmation'),
-              })
-            )
-          );
-        } else if (value !== this.form.password) {
-          cb(
-            new Error(
-              this.$t('validation.confirmed', {
-                attribute: this.$t('table.user.password_confirmation'),
-              })
-            )
-          );
-        } else {
-          cb();
-        }
-      };
       return {
         name: [
           {
-            validator: (rule, value, cb) => {
-              value
-                ? cb()
-                : cb(
-                    new Error(
-                      this.$t('validation.required', {
-                        attribute: this.$t('table.user.name'),
-                      })
-                    )
-                  );
-            },
-            trigger: 'blur',
+            required: true,
+            message: this.$t('validation.required', {
+              attribute: this.$t('table.user.name'),
+            }),
+            trigger: 'change',
           },
         ],
         email: [
           {
+            required: true,
+            message: this.$t('validation.required', {
+              attribute: this.$t('table.user.email'),
+            }),
+            trigger: 'change',
+          },
+          {
             validator: (rule, value, cb) => {
-              if (!value) {
-                cb(
-                  new Error(
-                    this.$t('validation.required', {
-                      attribute: this.$t('table.user.email'),
-                    })
-                  )
-                );
-              } else if (!validEmail(value)) {
+              if (!validEmail(value)) {
                 cb(
                   new Error(
                     this.$t('validation.email', {
@@ -240,7 +165,7 @@ export default {
                 cb();
               }
             },
-            trigger: ['blur', 'change'],
+            trigger: 'change',
           },
         ],
         avatar: [
@@ -249,51 +174,121 @@ export default {
             message: this.$t('validation.required', {
               attribute: this.$t('table.user.avatar'),
             }),
-            trigger: ['change', 'blur'],
+            trigger: 'change',
           },
         ],
         role_id: [
           {
-            validator: (rule, value, cb) => {
-              value
-                ? cb()
-                : cb(
-                    new Error(
-                      this.$t('validation.required', {
-                        attribute: this.$t('table.user.role'),
-                      })
-                    )
-                  );
-            },
+            required: true,
+            message: this.$t('validation.required', {
+              attribute: this.$t('table.user.role'),
+            }),
             trigger: 'change',
           },
         ],
         password: [
-          { validator: password, trigger: ['change', 'blur'] },
+          {
+            required: true,
+            message: this.$t('validation.required', {
+              attribute: this.$t('table.user.password'),
+            }),
+            trigger: 'change',
+          },
+          {
+            validator: (rule, value, cb) => {
+              let messagePassword = '';
+              switch (false) {
+                case /[a-z]+/.test(value):
+                  messagePassword = this.$t('validation.password.lowercase', {
+                    attribute: this.$t('table.user.password'),
+                    number: 1,
+                  });
+                  break;
+                case /[A-Z]+/.test(value):
+                  messagePassword = this.$t('validation.password.uppercase', {
+                    attribute: this.$t('table.user.password'),
+                    number: 1,
+                  });
+                  break;
+                case /[0-9]+/.test(value):
+                  messagePassword = this.$t('validation.password.number', {
+                    attribute: this.$t('table.user.password'),
+                    number: 1,
+                  });
+                  break;
+                case /[!@#$%^&*]+/.test(value):
+                  messagePassword = this.$t('validation.password.symbols', {
+                    attribute: this.$t('table.user.password'),
+                    number: 1,
+                  });
+                  break;
+              }
+              if (messagePassword) {
+                return cb(messagePassword);
+              }
+              if (this.form.password_confirmation !== '') {
+                this.$refs.users.validateField('password_confirmation');
+              }
+              cb();
+            },
+            trigger: 'change',
+          },
           {
             min: 8,
             message: this.$t('validation.min.string', {
               attribute: this.$t('table.user.password'),
               min: 8,
             }),
-            trigger: ['change', 'blur'],
+            trigger: 'change',
           },
         ],
-        password_confirmation: [{ validator: passwordConfirm, trigger: ['change', 'blur'] }],
+        password_confirmation: [
+          {
+            required: true,
+            message: this.$t('validation.required', {
+              attribute: this.$t('table.user.password_confirmation'),
+            }),
+            trigger: 'change',
+          },
+          {
+            validator: (rule, value, cb) => {
+              if (value !== this.form.password) {
+                cb(
+                  new Error(
+                    this.$t('validation.confirmed', {
+                      attribute: this.$t('table.user.password_confirmation'),
+                    })
+                  )
+                );
+              } else {
+                cb();
+              }
+            },
+            trigger: ['change'],
+          },
+        ],
         // {{$RULES_NOT_DELETE_THIS_LINE$}}
       };
     },
   },
-  watch: {},
-  mounted() {
-    this.roles();
-    const { id } = this.$route.params;
-    if (id) {
+  async created() {
+    try {
+      this.loading.form = true;
+      const { id } = this.$route.params;
+      // {{$CREATED_NOT_DELETE_THIS_LINE$}}
+      const {
+        data: { data: roles },
+      } = await roleResource.list();
+      this.rolesList = roles;
+      if (id) {
+        const {
+          data: { data: user },
+        } = await userResource.get(id);
+        this.form = user;
+      }
       this.loading.form = false;
-      userResource.get(id).then(res => {
-        const { data } = res.data;
-        this.form = data;
-      });
+    } catch (e) {
+      this.loading.form = false;
     }
   },
   methods: {
@@ -330,11 +325,6 @@ export default {
             this.loading.button = false;
           }
         });
-      });
-    },
-    roles() {
-      roleResource.list().then(res => {
-        this.rolesList = res.data.data;
       });
     },
     update(users) {

@@ -25,12 +25,12 @@ class StoreUserRequest extends FormRequest
     {
         $user = $this->route('user', null);
         $id = $user ? $user->id : null;
-        return [
+        $validate = [
             'name' => 'required',
             'email' => "required|string|email|max:255|unique:users,email,$id,id,deleted_at,NULL",
-            'avatar' => 'required',
+            'avatar' => ['required'],
             'password' => [
-                $id ? '' : 'required',
+                'required',
                 'confirmed',
                 'min:8',
                 function ($attribute, $value, $fail) {
@@ -48,8 +48,15 @@ class StoreUserRequest extends FormRequest
                     }
                 },
             ],
-
             //{{REQUEST_RULES_NOT_DELETE_THIS_LINE}}
         ];
+        if ($this->hasFile('avatar')) {
+            $validate['avatar'] = [...$validate['avatar'], 'mimes:jpeg,png,jpg'];
+        }
+        if ($id) {
+            unset($validate['password']);
+        }
+
+        return $validate;
     }
 }

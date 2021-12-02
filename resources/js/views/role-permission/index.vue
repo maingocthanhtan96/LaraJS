@@ -59,10 +59,10 @@
           <el-input
             v-model="query.keyword"
             :placeholder="$t('table.rolePermission.name')"
-            class="tw-w-64 tw-mb-4"
-            @keyup.enter.native="getPermissions"
+            class="tw-w-80 tw-mb-4"
+            @input="getPermissions"
           />
-          <el-table v-loading="loading" highlight-current-row fit border :data="permissions">
+          <el-table v-loading="loadingPermission" highlight-current-row fit border :data="permissions">
             <el-table-column type="index" align="center" :label="$t('table.rolePermission.id')" width="50px" />
             <el-table-column align="center" :label="$t('table.rolePermission.name')">
               <template slot-scope="{ row }">
@@ -228,6 +228,7 @@ import checkPermission from '@/utils/permission'; // Permission checking
 import checkRole from '@/utils/role'; // Permission checking
 import Pagination from '@/components/Pagination'; // Secondary package based on el-pagination
 import { asyncRouterMap } from '@/router';
+import { debounce } from '@/utils';
 
 const permissionResource = new PermissionResource();
 const roleResource = new RoleResource();
@@ -377,7 +378,7 @@ export default {
         this.loading = false;
       });
     },
-    getPermissions() {
+    getPermissions: debounce(function () {
       this.loadingPermission = true;
       permissionResource.list(this.query).then(res => {
         const { data } = res.data;
@@ -388,7 +389,7 @@ export default {
         this.otherPermissions = other;
         this.loadingPermission = false;
       });
-    },
+    }, 500),
     classifyPermissions(permissions) {
       const all = [];
       const menu = [];

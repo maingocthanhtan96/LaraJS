@@ -58,7 +58,6 @@ class GeneratorController extends Controller
     public function index(Request $request): JsonResponse
     {
         try {
-            $this->_exportDataGenerator();
             $limit = $request->get('limit', 25);
             $ascending = $request->get('ascending', '');
             $orderBy = $request->get('orderBy', '');

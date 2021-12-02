@@ -47,12 +47,7 @@ export default {
   },
   computed: {
     visitedViews() {
-      const data = this.$store.state.tagsView.visitedViews.filter(value => {
-        if (!value.meta.tagsView) {
-          return value;
-        }
-      });
-      return data;
+      return this.$store.state.tagsView.visitedViews.filter(value => !value.meta.tagsView);
     },
     routes() {
       return this.$store.state.permission.routers;
@@ -74,6 +69,9 @@ export default {
   mounted() {
     this.initTags();
     this.addTags();
+  },
+  beforeDestroy() {
+    this.$store.dispatch('tagsView/delAllViews');
   },
   methods: {
     generateTitleHaveId,

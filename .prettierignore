@@ -1,4 +1,6 @@
 # Ignore public path
 public
 # Ignore node_modules path
-node_modules/**
+node_modules
+vendor
+storage

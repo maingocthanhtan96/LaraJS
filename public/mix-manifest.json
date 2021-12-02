@@ -1,9 +1,9 @@
 {
     "/css/app.css": "/css/app.css",
-    "/frontend/js/app.js": "/frontend/js/app.js",
-    "/frontend/js/manifest.js": "/frontend/js/manifest.js",
-    "/frontend/css/app.css": "/frontend/css/app.css",
-    "/frontend/js/vendor.js": "/frontend/js/vendor.js",
+    "/frontend/js/app.js": "/frontend/js/app.js?id=6f96191563446cfb8997",
+    "/frontend/js/manifest.js": "/frontend/js/manifest.js?id=e72403fa672d99923c69",
+    "/frontend/css/app.css": "/frontend/css/app.css?id=8a325bd00c4475b3212c",
+    "/frontend/js/vendor.js": "/frontend/js/vendor.js?id=39f43165ba42754885af",
     "/js/app.js": "/js/app.js",
     "/js/manifest.js": "/js/manifest.js",
     "/js/vendor.js": "/js/vendor.js"

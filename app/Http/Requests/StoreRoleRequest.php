@@ -28,7 +28,7 @@ class StoreRoleRequest extends FormRequest
             $role = $role->id;
         }
         return [
-            'name' => "required|string|unique:roles,name,{$role},id",
+            'name' => "required|string|unique:roles,name,$role,id",
         ];
     }
 }

@@ -189,8 +189,8 @@ export default {
     },
     changeDateRangePicker(date) {
       if (date) {
-        const startDate = this.parseTime(date[0]);
-        const endDate = this.parseTime(date[1]);
+        const startDate = this.parseTimeToTz(date[0]);
+        const endDate = this.parseTimeToTz(date[1]);
         this.table.listQuery.updated_at = [startDate, endDate];
       } else {
         this.table.listQuery.updated_at = [];
@@ -227,9 +227,6 @@ export default {
         });
         this.table.loading = false;
       });
-    },
-    parseTime(date, format = '{y}-{m}-{d}') {
-      return this.$options.filters.parseTime(date, format);
     },
     numericalOrder(index) {
       const table = this.table.listQuery;

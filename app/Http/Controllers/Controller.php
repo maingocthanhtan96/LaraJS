@@ -62,8 +62,8 @@ class Controller extends BaseController
         if (is_object($error)) {
             write_log_exception($error);
             $message = $error->getMessage();
-            $file = env('APP_ENV') === 'production' ? '' : $error->getFile();
-            $line = env('APP_ENV') === 'production' ? '' : $error->getLine();
+            $file = config('app.env') === 'production' ? '' : $error->getFile();
+            $line = config('app.env') === 'production' ? '' : $error->getLine();
         }
 
         return response()->json(

@@ -5,7 +5,7 @@
     <div :class="{ hasTagsView: needTagsView }" class="main-container">
       <div :class="{ 'fixed-header': fixedHeader }">
         <navbar />
-        <tag-views v-if="needTagsView" />
+        <tags-view v-if="needTagsView" />
       </div>
       <app-main />
       <footer-main />
@@ -25,7 +25,7 @@
 <script>
 import BackToTop from '@/components/BackToTop';
 import { AppMain, Navbar, Sidebar } from './components';
-const TagViews = () => import('./components/TagsView');
+const TagsView = () => import('./components/TagsView');
 import FooterMain from './components/FooterMain';
 import ResizeMixin from './mixin/ResizeHandler';
 import { mapState } from 'vuex';
@@ -36,7 +36,7 @@ export default {
     AppMain,
     Navbar,
     Sidebar,
-    TagViews,
+    TagsView,
     FooterMain,
     BackToTop,
   },
@@ -104,7 +104,7 @@ export default {
   top: 0;
   height: 100%;
   position: absolute;
-  z-index: 999;
+  z-index: 2002;
 }
 
 .fixed-header {

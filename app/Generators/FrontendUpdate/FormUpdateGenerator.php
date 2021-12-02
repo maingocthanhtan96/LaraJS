@@ -573,30 +573,18 @@ class FormUpdateGenerator extends BaseGenerator
     private function dropRules($field, $templateDataReal)
     {
         $replaceStub = '';
-        $searchRules = 'rules() {';
         $fieldName = $field['field_name'];
-        $templateRules = $this->serviceGenerator->searchTemplateX($searchRules, 1, '};', strlen($searchRules) - 5, -strlen($searchRules) + 7, $templateDataReal);
+        $templateRules = $this->serviceGenerator->searchTemplateX(self::RULES, 1, $this->notDelete['rules'], 20, -strlen(self::RULES), $templateDataReal);
         preg_match_all('/]/', $templateRules, $matches, PREG_OFFSET_CAPTURE);
-        if ($matches[0]) {
-            $positionEnd = 0;
-            if (count($matches[0]) === 1) {
-                $positionEnd = $matches[0][0][1];
+        foreach ($matches[0] as $match) {
+            $lengthStart = strpos($templateRules, "$fieldName:");
+            if ($lengthStart) {
+                $replaceStub = substr($templateRules, $lengthStart, $match[1]);
             }
-            if (count($matches[0]) === 2) {
-                $positionEnd = $matches[0][1][1];
-            }
-            if ($positionEnd) {
-                $lengStart = strpos($templateRules, "$fieldName:");
-                if ($lengStart) {
-                    $replaceStub = substr($templateRules, $lengStart, $positionEnd - strlen("$fieldName:") - 4);
-                }
+            if (!preg_match("/'],$/mi", preg_replace("/[\s\r\n]*/", '', $replaceStub)) && strpos($replaceStub, "$fieldName:") !== false) {
+                return str_replace($replaceStub, '', $templateDataReal);
             }
         }
-
-        if ($replaceStub) {
-            $templateDataReal = str_replace($replaceStub, '', $templateDataReal);
-        }
-
         return $templateDataReal;
     }
 }

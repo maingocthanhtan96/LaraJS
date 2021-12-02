@@ -4,13 +4,13 @@
         "dev": "npm run dev.js & npm run dev.css",
         "watch": "npm run watch.js & npm run watch.css",
         "watch-hot": "npm run watch-hot.js & npm run watch.css",
-        "prod": "concurrently \"npm run prod.js\" \"npm run prod.css\"",
+        "prod": "npm run prod.js & npm run prod.css",
         "dev-fe": "mix --mix-config=webpack-frontend.mix.js",
         "watch-fe": "mix watch --mix-config=webpack-frontend.mix.js",
         "watch-fe-hot": "mix watch --mix-config=webpack-frontend.mix.js --hot",
         "prod-fe": "mix --production --mix-config=webpack-frontend.mix.js",
         "watch-all": "npm run watch & npm run watch-fe",
-        "prod-all": "concurrently \"npm run prod-fe\" \"npm run prod\"",
+        "prod-all": "npm run prod-fe & npm run prod",
         "dev.css": "mix --mix-config=webpack-css.mix.js",
         "watch.css": "mix watch --mix-config=webpack-css.mix.js",
         "watch-hot.css": "mix watch --mix-config=webpack-css.mix.js --hot",
@@ -23,18 +23,16 @@
         "prod.js.report": "mix --production --mix-config=webpack-js.mix.js -- --env --report",
         "dev-fe.report": "mix --report --mix-config=webpack-frontend.mix.js",
         "prod-fe.report": "mix --production --report --mix-config=webpack-frontend.mix.js",
+        "prepare": "husky install",
         "lint": "lint-staged",
-        "eslint:fix": "eslint 'resources/js/**/*.{js,vue}' --fix",
-        "prettier:fix": "prettier --write 'resources/js/**/*.{js,vue}'",
-        "prettier:quick": "pretty-quick --staged",
-        "prettier:php": "prettier --write {app,config,database,resources,routes}/**/*.php"
+        "eslint:fix": "eslint '**/*.{js,vue}' --fix",
+        "prettier:fix": "prettier --write '**/*.{js,vue}'",
+        "prettier:php": "prettier --write **/*.php",
+        "prettier:quick": "pretty-quick --staged"
     },
     "lint-staged": {
-        "resources/**/*.{js,vue}": [
-            "eslint 'resources/js/**/*.{js,vue}' --fix"
-        ],
-        "frontend/src/**/*.{js,vue}": [
-            "eslint 'frontend/src/**/*.{js,vue}' --fix"
+        "*.{js,vue}": [
+            "eslint '**/*.{js,vue}' --fix"
         ]
     },
     "devDependencies": {
@@ -45,7 +43,6 @@
         "babel-plugin-transform-vue-jsx": "^3.7.0",
         "clean-webpack-plugin": "^4.0.0",
         "compression-webpack-plugin": "^9.0.0",
-        "concurrently": "^6.3.0",
         "core-js": "^3.18.3",
         "cross-env": "^7.0.3",
         "css-loader": "^6.4.0",
